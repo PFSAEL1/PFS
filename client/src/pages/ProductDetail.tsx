@@ -1,0 +1,257 @@
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'wouter';
+import { SEO } from '@/components/SEO';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { fetchProductByHandle, fetchRelatedProducts, ShopifyProduct } from '@/lib/shopify';
+import { useCartStore } from '@/stores/cartStore';
+import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredData';
+import { ShoppingCart, Loader2, Package, Truck, Shield, ArrowLeft, Plus, Minus } from 'lucide-react';
+import { toast } from 'sonner';
+
+const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
+
+export default function ProductDetail() {
+  const { handle } = useParams<{ handle: string }>();
+  const [product, setProduct] = useState<ReturnType<typeof Object.create> | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<ShopifyProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState(1);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const addItem = useCartStore((s) => s.addItem);
+  const setCartOpen = useCartStore((s) => s.setCartOpen);
+
+  useEffect(() => {
+    if (!handle) return;
+    setLoading(true);
+    fetchProductByHandle(handle).then((data) => {
+      setProduct(data);
+      if (data?.variants?.edges?.[0]) {
+        setSelectedVariantId(data.variants.edges[0].node.id);
+      }
+      fetchRelatedProducts(data?.id || '', 4).then(setRelatedProducts);
+      setLoading(false);
+    }).catch(() => setLoading(false));
+  }, [handle]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen">
+        <Navigation />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <Loader2 className="h-10 w-10 animate-spin text-primary" />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen">
+        <Navigation />
+        <div className="container mx-auto px-4 pt-32 pb-16 text-center">
+          <Package className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-30" />
+          <h1 className="text-3xl font-bold mb-4">Product Not Found</h1>
+          <Link href="/shop"><Button>Browse All Products</Button></Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const selectedVariant = product.variants?.edges?.find((e: { node: { id: string } }) => e.node.id === selectedVariantId)?.node
+    || product.variants?.edges?.[0]?.node;
+  const images = product.images?.edges || [];
+  const price = selectedVariant?.price?.amount ? parseFloat(selectedVariant.price.amount).toFixed(2) : '—';
+  const currency = selectedVariant?.price?.currencyCode || 'USD';
+  const inStock = selectedVariant?.availableForSale ?? true;
+  const mainImage = images[selectedImage]?.node?.url || FALLBACK_IMAGE;
+
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', url: 'https://abcfilters.net' },
+    { name: 'Shop', url: 'https://abcfilters.net/shop' },
+    { name: product.title, url: `https://abcfilters.net/product/${handle}` },
+  ]);
+
+  const productSchema = createProductSchema({
+    name: product.title,
+    description: product.description,
+    image: mainImage,
+    price,
+    currency,
+    url: `https://abcfilters.net/product/${handle}`,
+    availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+  });
+
+  const handleAddToCart = () => {
+    if (!selectedVariant) return;
+    addItem({
+      variantId: selectedVariant.id,
+      productId: product.id,
+      title: product.title,
+      variantTitle: selectedVariant.title,
+      price: selectedVariant.price,
+      quantity,
+      image: mainImage,
+      handle: handle || '',
+    });
+    toast.success(`${product.title} added to cart`);
+    setCartOpen(true);
+  };
+
+  return (
+    <div className="min-h-screen">
+      <SEO
+        title={`${product.title} - ABC Filters by PFS`}
+        description={product.description || `Buy ${product.title} from ABC Filters. Premium paint booth filtration products with fast nationwide shipping.`}
+        canonical={`https://abcfilters.net/product/${handle}`}
+        ogImage={mainImage}
+        structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
+      />
+      <Navigation />
+      <div className="container mx-auto px-4 pt-24 pb-16">
+        <Breadcrumb items={[{ label: 'Shop', href: '/shop' }, { label: product.title }]} />
+        <Link href="/shop">
+          <Button variant="ghost" size="sm" className="gap-2 mb-6 -ml-2">
+            <ArrowLeft className="h-4 w-4" /> Back to Shop
+          </Button>
+        </Link>
+
+        <div className="grid lg:grid-cols-2 gap-12 mb-16">
+          {/* Images */}
+          <div>
+            <div className="aspect-square overflow-hidden rounded-2xl bg-muted/30 mb-4">
+              <img src={mainImage} alt={product.title} className="w-full h-full object-cover" />
+            </div>
+            {images.length > 1 && (
+              <div className="flex gap-2 overflow-x-auto">
+                {images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
+                  <button
+                    key={i}
+                    onClick={() => setSelectedImage(i)}
+                    className={`w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-colors ${selectedImage === i ? 'border-primary' : 'border-border'}`}
+                  >
+                    <img src={img.node.url} alt={img.node.altText || product.title} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Details */}
+          <div>
+            <h1 className="text-3xl md:text-4xl font-extrabold mb-3">{product.title}</h1>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-3xl font-bold text-primary">${price}</span>
+              <span className="text-muted-foreground">{currency}</span>
+              {inStock ? (
+                <Badge className="bg-green-100 text-green-800">In Stock</Badge>
+              ) : (
+                <Badge variant="secondary">Out of Stock</Badge>
+              )}
+            </div>
+
+            {product.description && (
+              <p className="text-muted-foreground leading-relaxed mb-6">{product.description}</p>
+            )}
+
+            {/* Variant selector */}
+            {product.variants?.edges?.length > 1 && (
+              <div className="mb-6">
+                <p className="font-semibold mb-2">Options</p>
+                <div className="flex flex-wrap gap-2">
+                  {product.variants.edges.map((edge: { node: { id: string; title: string; availableForSale: boolean } }) => (
+                    <button
+                      key={edge.node.id}
+                      onClick={() => setSelectedVariantId(edge.node.id)}
+                      className={`px-3 py-1.5 text-sm rounded-lg border-2 transition-colors ${
+                        selectedVariantId === edge.node.id
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50'
+                      } ${!edge.node.availableForSale ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      disabled={!edge.node.availableForSale}
+                    >
+                      {edge.node.title}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Quantity + Add to Cart */}
+            <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center border border-border rounded-lg">
+                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-2 hover:bg-accent transition-colors">
+                  <Minus className="h-4 w-4" />
+                </button>
+                <span className="px-4 py-2 font-medium min-w-[3rem] text-center">{quantity}</span>
+                <button onClick={() => setQuantity(quantity + 1)} className="px-3 py-2 hover:bg-accent transition-colors">
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
+              <Button
+                className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
+                size="lg"
+                onClick={handleAddToCart}
+                disabled={!inStock}
+              >
+                <ShoppingCart className="h-5 w-5" />
+                {inStock ? 'Add to Cart' : 'Out of Stock'}
+              </Button>
+            </div>
+
+            {/* Trust badges */}
+            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-border">
+              {[
+                { icon: Truck, label: 'Fast Shipping', sub: '1-2 day processing' },
+                { icon: Shield, label: 'Quality Guaranteed', sub: 'Or we make it right' },
+                { icon: Package, label: 'Custom Sizes', sub: 'Cut to spec' },
+              ].map((item) => (
+                <div key={item.label} className="text-center p-3 bg-muted/30 rounded-lg">
+                  <item.icon className="h-5 w-5 text-primary mx-auto mb-1" />
+                  <p className="text-xs font-semibold">{item.label}</p>
+                  <p className="text-xs text-muted-foreground">{item.sub}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Related products */}
+        {relatedProducts.length > 0 && (
+          <div>
+            <h2 className="text-2xl font-bold mb-6">Related Products</h2>
+            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+              {relatedProducts.map((rp) => (
+                <Link key={rp.node.id} href={`/product/${rp.node.handle}`}>
+                  <Card className="hover:shadow-md transition-shadow cursor-pointer">
+                    <div className="aspect-square overflow-hidden bg-muted/30">
+                      <img
+                        src={rp.node.images.edges[0]?.node.url || FALLBACK_IMAGE}
+                        alt={rp.node.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <CardContent className="p-3">
+                      <p className="font-medium text-sm line-clamp-2">{rp.node.title}</p>
+                      <p className="text-primary font-bold text-sm mt-1">
+                        ${parseFloat(rp.node.priceRange.minVariantPrice.amount).toFixed(2)}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+      <Footer />
+    </div>
+  );
+}
