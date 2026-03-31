@@ -47,7 +47,7 @@ export const Navigation = () => {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-background/95 backdrop-blur-md shadow-md border-b border-border' : 'bg-background/90 backdrop-blur-sm'
+          isScrolled ? 'bg-white/98 backdrop-blur-md shadow-md border-b border-border' : 'bg-white/95 backdrop-blur-sm border-b border-border'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -60,14 +60,15 @@ export const Navigation = () => {
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-1">
-              {/* Shop dropdown */}
+              <Link href="/" className="px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">Home</Link>
+              {/* Products dropdown */}
               <div
                 className="relative"
                 onMouseEnter={() => setShopOpen(true)}
                 onMouseLeave={() => setShopOpen(false)}
               >
-                <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md hover:bg-accent transition-colors">
-                  Shop <ChevronDown className="w-3 h-3" />
+                <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">
+                  Products <ChevronDown className="w-3 h-3" />
                 </button>
                 {shopOpen && (
                   <div className="absolute top-full left-0 mt-1 w-52 bg-background border border-border rounded-lg shadow-lg py-1 z-50">
@@ -79,13 +80,13 @@ export const Navigation = () => {
                   </div>
                 )}
               </div>
-              <Link href="/why-choose-us" className="px-3 py-2 text-sm font-medium rounded-md hover:bg-accent transition-colors">Why Us</Link>
+
               <Link href="/memberships" className="px-3 py-2 text-sm font-medium rounded-md hover:bg-accent transition-colors">Memberships</Link>
-              <Link href="/blog" className="px-3 py-2 text-sm font-medium rounded-md hover:bg-accent transition-colors">Blog</Link>
-              <Link href="/filter-scanner" className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md hover:bg-accent transition-colors">
+              <Link href="/blog" className="px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">Blog</Link>
+              <Link href="/filter-scanner" className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">
                 <Sparkles className="w-3 h-3 text-primary" /> AI Scanner
               </Link>
-              <Link href="/contact" className="px-3 py-2 text-sm font-medium rounded-md hover:bg-accent transition-colors">Contact</Link>
+              <Link href="/contact" className="px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">Contact</Link>
               {isAdmin && (
                 <Link href="/analytics" className="px-3 py-2 text-sm font-medium rounded-md hover:bg-accent transition-colors text-primary">Analytics</Link>
               )}
@@ -93,6 +94,21 @@ export const Navigation = () => {
 
             {/* Right actions */}
             <div className="flex items-center gap-2">
+              {/* Get a Quote + Shop Now buttons */}
+              <div className="hidden md:flex items-center gap-2">
+                <Link href="/contact">
+                  <Button variant="outline" size="sm" className="font-semibold border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+                    Get a Quote
+                  </Button>
+                </Link>
+                <Link href="/shop">
+                  <Button size="sm" className="font-semibold bg-primary hover:bg-primary/90 text-white">
+                    <ShoppingBag className="w-4 h-4 mr-1.5" />
+                    Shop Now
+                  </Button>
+                </Link>
+              </div>
+
               {/* Cart */}
               <button
                 onClick={() => setCartOpen(true)}
