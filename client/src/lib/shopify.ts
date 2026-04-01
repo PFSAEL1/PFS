@@ -56,8 +56,8 @@ export interface CartItem {
   handle: string;
 }
 
-const SHOPIFY_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN || 'pfs-spray-booths.myshopify.com';
-const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || '';
+const SHOPIFY_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN || 'abc-filter-splash-rwyxj.myshopify.com';
+const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || '5e357a0ae8e9906edb44ef570a4ed219';
 
 async function storefrontApiRequest(query: string, variables?: Record<string, unknown>) {
   const response = await fetch(`https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`, {

@@ -1,61 +1,354 @@
+/**
+ * Shop — Tesla-inspired product catalog
+ * Dark background, search bar, category pills, product grid
+ * Real Shopify products with add-to-cart
+ */
+import { useEffect, useState, useMemo } from 'react';
+import { Link, useSearch } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { ShopifyProducts } from '@/components/ShopifyProducts';
-import { Breadcrumb } from '@/components/Breadcrumb';
-import { createBreadcrumbSchema } from '@/lib/structuredData';
-import { Package } from 'lucide-react';
+import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
+import { useCartStore } from '@/stores/cartStore';
+import { toast } from 'sonner';
+import { Search, X } from 'lucide-react';
 
-const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://abcfilters.net' },
-  { name: 'Shop', url: 'https://abcfilters.net/shop' },
-]);
+const CATEGORIES = [
+  { label: 'All', value: '' },
+  { label: 'Fiberglass', value: 'fiberglass' },
+  { label: 'Tacky Panels', value: 'tacky' },
+  { label: 'Intake / MERV', value: 'intake' },
+  { label: 'Rolls', value: 'roll' },
+  { label: 'Accessories', value: 'grid' },
+];
+
+function matchCategory(title: string, cat: string): boolean {
+  if (!cat) return true;
+  const t = title.toLowerCase();
+  if (cat === 'fiberglass') return t.includes('fiberglass') && !t.includes('roll');
+  if (cat === 'tacky') return t.includes('tacky');
+  if (cat === 'intake') return t.includes('merv') || t.includes('pleated') || t.includes('intake');
+  if (cat === 'roll') return t.includes('roll');
+  if (cat === 'grid') return t.includes('grid') || t.includes('pocket') || t.includes('accessor');
+  return true;
+}
 
 export default function Shop() {
+  const [products, setProducts] = useState<ShopifyProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('');
+  const addItem = useCartStore((s) => s.addItem);
+  const setCartOpen = useCartStore((s) => s.setCartOpen);
+
+  // Parse URL params
+  const searchString = useSearch();
+  useEffect(() => {
+    const params = new URLSearchParams(searchString);
+    const cat = params.get('category') || '';
+    const q = params.get('q') || '';
+    setActiveCategory(cat);
+    setSearchQuery(q);
+  }, [searchString]);
+
+  useEffect(() => {
+    fetchProducts(50).then((data) => {
+      setProducts(data.filter((p) => !p.node.title.toLowerCase().includes('membership')));
+      setLoading(false);
+    }).catch(() => setLoading(false));
+  }, []);
+
+  const filtered = useMemo(() => {
+    return products.filter((p) => {
+      const matchesCat = matchCategory(p.node.title, activeCategory);
+      const matchesSearch = !searchQuery || p.node.title.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCat && matchesSearch;
+    });
+  }, [products, activeCategory, searchQuery]);
+
+  const handleAddToCart = (product: ShopifyProduct, e: React.MouseEvent) => {
+    e.preventDefault();
+    const variant = product.node.variants.edges[0]?.node;
+    if (!variant) return;
+    addItem({
+      variantId: variant.id,
+      productId: product.node.id,
+      title: product.node.title,
+      variantTitle: variant.title,
+      price: variant.price,
+      quantity: 1,
+      image: product.node.images.edges[0]?.node.url,
+      handle: product.node.handle,
+    });
+    toast.success('Added to cart');
+    setCartOpen(true);
+  };
+
   return (
-    <div className="min-h-screen">
+    <div style={{ background: 'oklch(0.05 0 0)', minHeight: '100vh', color: 'white' }}>
       <SEO
-        title="Shop All Paint Booth Filters - In Stock & Ready to Ship"
-        description="Browse 50+ spray booth filters in stock. Fiberglass arrestors (20x20, 20x25), tacky panels, MERV-rated intake filters & exhaust filters. Same-day shipping on most orders. Custom sizes cut to spec."
+        title="Shop Paint Booth Filters — ABC Filters"
+        description="Browse 50+ spray booth filters. Fiberglass arrestors, tacky panels, MERV intake filters. Same-day shipping. Custom sizes available."
         canonical="https://abcfilters.net/shop"
-        structuredData={breadcrumbSchema}
       />
       <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16">
-        <Breadcrumb items={[{ label: 'Shop' }]} />
-        <div className="text-center mb-10">
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4">
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Shop Paint Booth Filters
-            </span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Premium <strong>spray booth filters</strong> and <strong>paint arrestors</strong> engineered for superior overspray capture. All products tested, quality assured, and shipped fast nationwide.
-          </p>
-        </div>
-        <ShopifyProducts />
 
-        {/* SEO content block */}
-        <div className="max-w-4xl mx-auto bg-card border border-border rounded-xl p-8 mt-12">
-          <div className="flex items-start gap-4 mb-6">
-            <div className="p-3 bg-primary/10 rounded-lg">
-              <Package className="h-8 w-8 text-primary" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold mb-2">Complete Paint Booth Filtration Solutions</h2>
-              <div className="h-1 w-20 bg-gradient-to-r from-primary to-accent rounded-full" />
-            </div>
+      {/* Page header */}
+      <div style={{ paddingTop: '56px' }}>
+        <div style={{ padding: '24px 20px 0' }}>
+          <h1 style={{ fontSize: '2rem', fontWeight: 700, letterSpacing: '-0.03em', margin: '0 0 16px' }}>
+            Shop
+          </h1>
+
+          {/* Search bar */}
+          <div style={{ position: 'relative', marginBottom: '16px' }}>
+            <Search
+              size={16}
+              style={{
+                position: 'absolute',
+                left: '12px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: 'rgba(255,255,255,0.40)',
+              }}
+            />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search filters, sizes, types..."
+              style={{
+                width: '100%',
+                background: 'oklch(0.12 0 0)',
+                border: '1px solid oklch(0.20 0 0)',
+                borderRadius: '10px',
+                color: 'white',
+                padding: '11px 36px 11px 36px',
+                fontSize: '15px',
+                outline: 'none',
+                boxSizing: 'border-box',
+              }}
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  color: 'rgba(255,255,255,0.40)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  padding: '4px',
+                }}
+              >
+                <X size={14} />
+              </button>
+            )}
           </div>
-          <div className="space-y-4 text-muted-foreground leading-relaxed">
-            <p>
-              Browse our comprehensive selection of <strong className="text-foreground">paint booth filters</strong>, including <strong className="text-foreground">fiberglass paint arrestors</strong>, <strong className="text-foreground">tacky panel filters</strong>, <strong className="text-foreground">ceiling blankets</strong>, <strong className="text-foreground">roll media</strong>, and <strong className="text-foreground">filter accessories</strong>. Whether you operate an automotive body shop, industrial coating facility, or woodworking spray booth, we have the right filtration products for your application.
-            </p>
-            <p>
-              All our <strong className="text-foreground">spray booth filters</strong> are manufactured to meet or exceed industry standards for overspray capture efficiency, air flow resistance, and service life. Available in standard sizes like <strong className="text-foreground">20x20 paint booth filters</strong>, <strong className="text-foreground">20x25 filters</strong>, and custom dimensions to fit any booth configuration.
-            </p>
+
+          {/* Category pills */}
+          <div style={{
+            display: 'flex',
+            gap: '8px',
+            overflowX: 'auto',
+            scrollbarWidth: 'none',
+            paddingBottom: '4px',
+            marginBottom: '4px',
+          }}>
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.value}
+                onClick={() => setActiveCategory(cat.value)}
+                style={{
+                  flexShrink: 0,
+                  padding: '7px 14px',
+                  borderRadius: '20px',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s',
+                  background: activeCategory === cat.value ? 'white' : 'oklch(0.12 0 0)',
+                  color: activeCategory === cat.value ? 'black' : 'rgba(255,255,255,0.70)',
+                  border: activeCategory === cat.value ? 'none' : '1px solid oklch(0.20 0 0)',
+                }}
+              >
+                {cat.label}
+              </button>
+            ))}
           </div>
         </div>
+
+        {/* Results count */}
+        {!loading && (
+          <div style={{ padding: '12px 20px 8px', fontSize: '13px', color: 'rgba(255,255,255,0.40)' }}>
+            {filtered.length} {filtered.length === 1 ? 'product' : 'products'}
+            {searchQuery && ` for "${searchQuery}"`}
+          </div>
+        )}
+
+        {/* Loading state */}
+        {loading && (
+          <div style={{ padding: '60px 20px', textAlign: 'center', color: 'rgba(255,255,255,0.30)' }}>
+            <div style={{ fontSize: '14px' }}>Loading products...</div>
+          </div>
+        )}
+
+        {/* Empty state */}
+        {!loading && filtered.length === 0 && (
+          <div style={{ padding: '60px 20px', textAlign: 'center' }}>
+            <div style={{ fontSize: '40px', marginBottom: '12px' }}>🔍</div>
+            <div style={{ fontSize: '17px', fontWeight: 600, marginBottom: '8px' }}>No products found</div>
+            <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', marginBottom: '20px' }}>
+              Try a different search or category
+            </div>
+            <button
+              onClick={() => { setSearchQuery(''); setActiveCategory(''); }}
+              style={{
+                background: 'white',
+                color: 'black',
+                border: 'none',
+                borderRadius: '6px',
+                padding: '10px 20px',
+                fontSize: '14px',
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              Clear Filters
+            </button>
+          </div>
+        )}
+
+        {/* Product grid — 2 columns like Tesla */}
+        {!loading && filtered.length > 0 && (
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '2px',
+            marginTop: '8px',
+          }}>
+            {filtered.map((product) => {
+              const variant = product.node.variants.edges[0]?.node;
+              const image = product.node.images.edges[0]?.node.url;
+              const price = variant?.price?.amount ? parseFloat(variant.price.amount).toFixed(2) : '—';
+              const inStock = variant?.availableForSale ?? true;
+
+              return (
+                <div key={product.node.id} style={{ background: 'oklch(0.06 0 0)', position: 'relative' }}>
+                  <Link href={`/product/${product.node.handle}`} style={{ textDecoration: 'none', display: 'block' }}>
+                    {/* Product image — light bg like Tesla */}
+                    <div style={{
+                      width: '100%',
+                      aspectRatio: '1/1',
+                      background: '#f0f0f0',
+                      overflow: 'hidden',
+                      position: 'relative',
+                    }}>
+                      {image ? (
+                        <img
+                          src={image}
+                          alt={product.node.title}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain',
+                            padding: '16px',
+                            display: 'block',
+                          }}
+                        />
+                      ) : (
+                        <div style={{
+                          width: '100%',
+                          height: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: 'rgba(255,255,255,0.20)',
+                          fontSize: '12px',
+                        }}>
+                          No Image
+                        </div>
+                      )}
+
+                      {/* Out of stock badge */}
+                      {!inStock && (
+                        <div style={{
+                          position: 'absolute',
+                          top: '8px',
+                          left: '8px',
+                          background: 'rgba(0,0,0,0.7)',
+                          color: 'rgba(255,255,255,0.60)',
+                          fontSize: '10px',
+                          padding: '3px 7px',
+                          borderRadius: '4px',
+                          fontWeight: 500,
+                        }}>
+                          Out of Stock
+                        </div>
+                      )}
+
+                      {/* Add to cart button */}
+                      {inStock && (
+                        <button
+                          onClick={(e) => handleAddToCart(product, e)}
+                          style={{
+                            position: 'absolute',
+                            bottom: '10px',
+                            right: '10px',
+                            width: '34px',
+                            height: '34px',
+                            borderRadius: '50%',
+                            background: 'rgba(0,0,0,0.55)',
+                            backdropFilter: 'blur(8px)',
+                            border: '1px solid rgba(0,0,0,0.20)',
+                            color: 'white',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            fontSize: '20px',
+                            lineHeight: 1,
+                          }}
+                        >
+                          +
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Product info */}
+                    <div style={{ padding: '12px 14px 16px' }}>
+                      <div style={{
+                        fontSize: '13px',
+                        color: 'rgba(255,255,255,0.85)',
+                        fontWeight: 500,
+                        lineHeight: 1.35,
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        marginBottom: '6px',
+                      }}>
+                        {product.node.title}
+                      </div>
+                      <div style={{ fontSize: '14px', fontWeight: 700, color: 'white' }}>
+                        ${price}
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Bottom padding */}
+        <div style={{ height: '40px' }} />
       </div>
+
       <Footer />
     </div>
   );
