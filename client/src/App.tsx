@@ -72,7 +72,7 @@ export default function App() {
   return (
     <ErrorBoundary>
       <HelmetProvider>
-        <ThemeProvider defaultTheme="dark">
+        <ThemeProvider defaultTheme="light">
           <TooltipProvider>
             <Toaster />
             <Router />

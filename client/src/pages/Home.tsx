@@ -1,609 +1,427 @@
-/**
- * Home — Tesla-inspired premium dark design
- * Full-bleed hero, category sections with large images, horizontal scroll products
- * Pure black background, white text, minimal chrome
- */
-import { useEffect, useState } from 'react';
-import { Link } from 'wouter';
+// ABC Filters — Home Page
+// Design: Light background, primary blue, matching abcfilters.net exactly
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
+import { SocialProofBanner } from '@/components/SocialProofBanner';
+import { Hero } from '@/components/Hero';
+import { PopularProducts } from '@/components/PopularProducts';
+import { CategoryNavigation } from '@/components/CategoryNavigation';
+import { Reviews } from '@/components/Reviews';
+import { FAQ } from '@/components/FAQ';
 import { Footer } from '@/components/Footer';
-import { CartDrawer } from '@/components/CartDrawer';
-import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
-import { useCartStore } from '@/stores/cartStore';
-import { toast } from 'sonner';
+import { StickyMobileCTA } from '@/components/StickyMobileCTA';
 import { organizationSchema, websiteSchema } from '@/lib/structuredData';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Link } from 'wouter';
+import {
+  CheckCircle, Package, TrendingUp, Wrench, Car, Factory, Shield,
+  ShoppingBag, Phone
+} from 'lucide-react';
+
+// Cinematic photorealistic images — real booth photography style
+const FIBERGLASS_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/hero-fiberglass2-JzUXxvg7dJrhnVvXg5sB9f.webp';
+const TACKY_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/hero-tacky2-TBwLC9qdvn42jmUwpyCJRG.webp';
+const CEILING_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/hero-ceiling2-hETWeKdkQ9gxgTot5wBu7H.webp';
 
 const combinedSchema = {
   '@context': 'https://schema.org',
   '@graph': [organizationSchema, websiteSchema],
 };
 
-// Real product images from Shopify
-const HERO_BG = 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/rd-filter.png?v=1761696515';
-const FIBERGLASS_IMG = 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/rd-filter.png?v=1761696515';
-const TACKY_IMG = 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/tacky-panel-green.png?v=1762177124';
-const CEILING_IMG = 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/fiberglass-roll-blue.png?v=1762177124';
-const MERV_IMG = 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/merv-10-filter.png?v=1762177124';
-const GRIDS_IMG = 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/filter-grids.jpg?v=1761696515';
-
-const CATEGORIES = [
-  {
-    label: 'Fiberglass Exhaust Filters',
-    sub: 'Superior overspray capture',
-    href: '/shop?category=fiberglass',
-    img: FIBERGLASS_IMG,
-    bg: '#0a0a0a',
-  },
-  {
-    label: 'Tacky Panel Filters',
-    sub: 'Enhanced adhesion technology',
-    href: '/shop?category=tacky',
-    img: TACKY_IMG,
-    bg: '#0d0d0d',
-  },
-  {
-    label: 'Ceiling Blankets & Rolls',
-    sub: 'Downdraft booth systems',
-    href: '/shop?category=ceiling',
-    img: CEILING_IMG,
-    bg: '#0a0a0a',
-  },
-  {
-    label: 'MERV-Rated Intake Filters',
-    sub: 'Clean air, clean results',
-    href: '/shop?category=intake',
-    img: MERV_IMG,
-    bg: '#0d0d0d',
-  },
-];
-
-const TRUST_STATS = [
-  { value: '1,200+', label: 'Shops Served' },
-  { value: '30+', label: 'Years Experience' },
-  { value: '50+', label: 'Filter Types' },
-  { value: '1–2 Day', label: 'Shipping' },
-];
-
 export default function Home() {
-  const [products, setProducts] = useState<ShopifyProduct[]>([]);
-  const [loading, setLoading] = useState(true);
-  const addItem = useCartStore((s) => s.addItem);
-  const setCartOpen = useCartStore((s) => s.setCartOpen);
-
-  useEffect(() => {
-    fetchProducts(50).then((data) => {
-      setProducts(data.filter((p) => !p.node.title.toLowerCase().includes('membership')));
-      setLoading(false);
-    }).catch(() => setLoading(false));
-  }, []);
-
-  const handleAddToCart = (product: ShopifyProduct) => {
-    const variant = product.node.variants.edges[0]?.node;
-    if (!variant) return;
-    addItem({
-      variantId: variant.id,
-      productId: product.node.id,
-      title: product.node.title,
-      variantTitle: variant.title,
-      price: variant.price,
-      quantity: 1,
-      image: product.node.images.edges[0]?.node.url,
-      handle: product.node.handle,
-    });
-    toast.success('Added to cart');
-    setCartOpen(true);
-  };
-
   return (
-    <div style={{ background: 'oklch(0.05 0 0)', minHeight: '100vh', color: 'white' }}>
+    <div className="min-h-screen bg-background">
       <SEO
-        title="ABC Filters — Premium Paint Booth Filtration"
-        description="Premium spray booth filters. Fiberglass arrestors, tacky panels, intake/exhaust filters. Fast shipping, custom sizes. Trusted by 1,200+ shops nationwide."
+        title="Buy Paint Booth Filters - Premium Spray Booth Filtration Systems"
+        description="Shop premium paint booth filters from ABC Filters by PFS. Fiberglass arrestors, tacky panels, intake/exhaust filters for automotive & industrial spray booths. Fast shipping, custom sizes available."
         canonical="https://abcfilters.net/"
         structuredData={combinedSchema}
       />
+      <SocialProofBanner />
       <Navigation />
+      <Hero />
+      <PopularProducts />
+      <CategoryNavigation />
+      <Reviews />
 
-      {/* HERO — Full bleed, dark, product-forward */}
-      <section style={{
-        paddingTop: '56px',
-        width: '100%',
-        position: 'relative',
-        overflow: 'hidden',
-        background: 'oklch(0.05 0 0)',
-      }}>
-        <div style={{
-          width: '100%',
-          aspectRatio: '9/11',
-          position: 'relative',
-          maxHeight: '85vh',
-          overflow: 'hidden',
-        }}>
-          <img
-            src="https://cdn.shopify.com/s/files/1/0972/9815/3604/files/rd-filter.png?v=1761696515"
-            alt="ABC Filters — Premium Paint Booth Filtration"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-              objectPosition: 'center',
-              background: 'oklch(0.08 0 0)',
-              display: 'block',
-            }}
-          />
-          {/* Gradient overlay */}
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.95) 100%)',
-          }} />
-          {/* Hero text */}
-          <div style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            padding: '0 20px 32px',
-          }}>
-            <h1 style={{
-              fontSize: '2rem',
-              fontWeight: 700,
-              letterSpacing: '-0.03em',
-              lineHeight: 1.1,
-              margin: '0 0 8px',
-              color: 'white',
-            }}>
-              Filter Your Booth.<br />Protect Your Work.
-            </h1>
-            <p style={{
-              fontSize: '15px',
-              color: 'rgba(255,255,255,0.65)',
-              margin: '0 0 20px',
-              lineHeight: 1.4,
-            }}>
-              Premium spray booth filtration trusted by 1,200+ shops nationwide.
+      {/* Filters for Any Paint Booth Brand */}
+      <section className="py-20 px-4 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">Filters for Any Paint Booth Brand</h2>
+            <p className="text-muted-foreground text-lg">Quality filtration solutions compatible with all major spray booth manufacturers</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-3 mb-12">
+            {[
+              { img: FIBERGLASS_IMAGE, label: '20"x20" Fiberglass Exhaust', sub: 'Premium Quality', href: '/shop?category=fiberglass' },
+              { img: TACKY_IMAGE, label: 'Tacky Type 20"x20"', sub: 'Enhanced Capture', href: '/shop?category=tacky' },
+              { img: CEILING_IMAGE, label: 'Ceiling Blankets', sub: 'Downdraft Systems', href: '/shop?category=ceiling' },
+            ].map((item) => (
+              <Link key={item.label} href={item.href}>
+                <div className="group relative overflow-hidden rounded-xl cursor-pointer" style={{ aspectRatio: '3/4' }}>
+                  {/* Full-bleed cinematic image */}
+                  <img
+                    src={item.img}
+                    alt={item.label}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {/* Dark gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  {/* Text overlay — bottom left like Tesla */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <p className="font-bold text-white text-base leading-tight">{item.label}</p>
+                    <p className="text-white/70 text-sm mt-1">{item.sub}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Featured CTA */}
+          <div className="bg-muted/30 rounded-2xl p-8 text-center border border-border">
+            <h3 className="text-2xl font-bold mb-2">Featured: Fiberglass Paint Arrestors</h3>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Premium fiberglass exhaust filters engineered for superior overspray capture and extended service life. Available in multiple densities to match your specific booth requirements.
             </p>
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <div className="font-semibold text-lg mb-4 sm:mb-0 sm:hidden">Ready to Order?</div>
+              <p className="hidden sm:block text-muted-foreground mr-4 self-center">Ready to Order?</p>
               <Link href="/shop">
-                <button style={{
-                  background: 'white',
-                  color: 'black',
-                  border: 'none',
-                  borderRadius: '6px',
-                  padding: '13px 24px',
-                  fontSize: '15px',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  letterSpacing: '-0.01em',
-                }}>
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-white font-bold">
+                  <ShoppingBag className="mr-2 h-4 w-4" />
                   Shop Now
-                </button>
+                </Button>
               </Link>
-              <Link href="/contact">
-                <button style={{
-                  background: 'rgba(255,255,255,0.12)',
-                  color: 'white',
-                  border: '1px solid rgba(255,255,255,0.25)',
-                  borderRadius: '6px',
-                  padding: '13px 24px',
-                  fontSize: '15px',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  letterSpacing: '-0.01em',
-                }}>
-                  Get a Quote
-                </button>
-              </Link>
+              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
+                <Phone className="mr-2 h-4 w-4" />
+                Call for Quote
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* TRUST STATS */}
-      <section style={{
-        background: 'oklch(0.08 0 0)',
-        borderTop: '1px solid oklch(0.14 0 0)',
-        borderBottom: '1px solid oklch(0.14 0 0)',
-        padding: '20px 0',
-      }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          textAlign: 'center',
-        }}>
-          {TRUST_STATS.map((stat, i) => (
-            <div key={i} style={{
-              padding: '12px 8px',
-              borderRight: i < 3 ? '1px solid oklch(0.14 0 0)' : 'none',
-            }}>
-              <div style={{ fontSize: '1.4rem', fontWeight: 700, letterSpacing: '-0.03em', color: 'white' }}>
-                {stat.value}
+      <FAQ />
+
+      {/* About / SEO-rich section */}
+      <section className="py-20 px-4 bg-muted/20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
+              <CheckCircle className="h-4 w-4 text-primary" />
+              <span className="text-sm font-semibold text-primary">Complete Filtration Solutions</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              Premium Paint Booth Filters for Every Application
+            </h2>
+          </div>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  ABC Filters is your trusted source for high-quality <strong className="text-foreground">paint booth filters</strong>, <strong className="text-foreground">spray booth filtration systems</strong>, and <strong className="text-foreground">industrial air filtration solutions</strong>. As a division of PFS Spray Booths, we bring decades of expertise in automotive refinishing, industrial coating, and woodworking filtration.
+                </p>
+                <p>
+                  Our comprehensive product line includes <strong className="text-foreground">fiberglass paint arrestors</strong>, <strong className="text-foreground">tacky panel filters</strong>, <strong className="text-foreground">intake filters</strong>, <strong className="text-foreground">exhaust filters</strong>, <strong className="text-foreground">ceiling filters</strong>, and <strong className="text-foreground">roll media</strong> designed to capture overspray and maintain optimal air quality.
+                </p>
               </div>
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.50)', marginTop: '2px', lineHeight: 1.3 }}>
-                {stat.label}
+              <div className="grid grid-cols-2 gap-4 mt-8">
+                {[
+                  { icon: TrendingUp, title: '99% Overspray Capture', desc: 'Industry-leading efficiency' },
+                  { icon: CheckCircle, title: 'Extended Filter Life', desc: 'Reduces replacement costs' },
+                  { icon: Wrench, title: 'Custom Sizes Available', desc: 'Perfect fit guaranteed' },
+                  { icon: Package, title: 'Fast Nationwide Shipping', desc: 'Quick delivery to your shop' },
+                ].map((item) => (
+                  <div key={item.title} className="flex items-start gap-3 p-4 bg-background rounded-lg border border-border">
+                    <div className="p-2 bg-primary/10 rounded-lg flex-shrink-0">
+                      <item.icon className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">{item.title}</p>
+                      <p className="text-xs text-muted-foreground">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8">
+                <h3 className="font-bold text-lg mb-4">Paint Booth Filter Types</h3>
+                <ul className="space-y-2 text-muted-foreground">
+                  {[
+                    { emoji: '💨', text: 'Paint Arrestor Pads - Disposable fiberglass media for exhaust filtration' },
+                    { emoji: '🔲', text: 'Tacky Panel Filters - Adhesive coated filters for intake air cleaning' },
+                    { emoji: '☁️', text: 'Ceiling Blankets - Overhead filtration for downdraft booths' },
+                    { emoji: '📦', text: 'Roll Media Filters - Continuous fiberglass rolls for pit filters' },
+                    { emoji: '⚙️', text: 'Holding Grids - Support frames for filter media installation' },
+                  ].map((item) => (
+                    <li key={item.text} className="flex items-start gap-2">
+                      <span>{item.emoji}</span>
+                      <span className="text-sm">{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* SHOP BY CATEGORY — Tesla-style full-width sections */}
-      <section style={{ padding: '0' }}>
-        <div style={{ padding: '32px 20px 16px' }}>
-          <h2 style={{ fontSize: '1.6rem', fontWeight: 700, letterSpacing: '-0.03em', margin: 0 }}>
-            Shop by Category
-          </h2>
-        </div>
-
-        {CATEGORIES.map((cat, i) => (
-          <Link key={i} href={cat.href} style={{ display: 'block', textDecoration: 'none' }}>
-            <div style={{
-              position: 'relative',
-              width: '100%',
-              aspectRatio: '4/3',
-              overflow: 'hidden',
-              background: cat.bg,
-              marginBottom: '2px',
-            }}>
+            <div className="relative">
               <img
-                src={cat.img}
-                alt={cat.label}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain',
-                  objectPosition: 'center',
-                  padding: '20px',
-                  display: 'block',
-                }}
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/hero-fiberglass2-JzUXxvg7dJrhnVvXg5sB9f.webp"
+                alt="ABC Filters paint booth filter products"
+                className="rounded-2xl shadow-xl w-full object-cover"
+                style={{ aspectRatio: '4/5', objectPosition: 'center' }}
               />
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.9) 100%)',
-              }} />
-              <div style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                padding: '20px',
-              }}>
-                <div style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em', color: 'white' }}>
-                  {cat.label}
-                </div>
-                <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.60)', marginTop: '3px' }}>
-                  {cat.sub}
-                </div>
+              <div className="absolute -bottom-4 -left-4 bg-primary text-primary-foreground rounded-xl p-4 shadow-lg">
+                <p className="text-2xl font-bold">1,000+</p>
+                <p className="text-sm text-primary-foreground/80">Shops Served</p>
               </div>
             </div>
-          </Link>
-        ))}
-      </section>
-
-      {/* FEATURED PRODUCTS — Horizontal scroll like Tesla */}
-      <section style={{ padding: '32px 0 0' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px 16px' }}>
-          <h2 style={{ fontSize: '1.6rem', fontWeight: 700, letterSpacing: '-0.03em', margin: 0 }}>
-            Featured Products
-          </h2>
-          <Link href="/shop" style={{ color: 'rgba(255,255,255,0.55)', fontSize: '14px', textDecoration: 'none' }}>
-            See All
-          </Link>
+          </div>
         </div>
-
-        {loading ? (
-          <div style={{ padding: '40px 20px', textAlign: 'center', color: 'rgba(255,255,255,0.40)' }}>
-            Loading products...
-          </div>
-        ) : (
-          <div style={{
-            display: 'flex',
-            overflowX: 'auto',
-            scrollSnapType: 'x mandatory',
-            WebkitOverflowScrolling: 'touch',
-            scrollbarWidth: 'none',
-            gap: '2px',
-            paddingLeft: '20px',
-            paddingRight: '20px',
-          }}>
-            {products.slice(0, 8).map((product) => {
-              const variant = product.node.variants.edges[0]?.node;
-              const image = product.node.images.edges[0]?.node.url;
-              const price = variant?.price?.amount ? parseFloat(variant.price.amount).toFixed(2) : '—';
-              const inStock = variant?.availableForSale ?? true;
-
-              return (
-                <div
-                  key={product.node.id}
-                  style={{
-                    scrollSnapAlign: 'start',
-                    flexShrink: 0,
-                    width: 'calc(50vw - 24px)',
-                    minWidth: '160px',
-                    maxWidth: '220px',
-                    marginRight: '12px',
-                  }}
-                >
-                  <Link href={`/product/${product.node.handle}`} style={{ textDecoration: 'none' }}>
-                    <div style={{
-                      background: 'oklch(0.06 0 0)',
-                      borderRadius: '8px',
-                      overflow: 'hidden',
-                      position: 'relative',
-                    }}>
-                      {/* Product image — light bg like Tesla */}
-                      <div style={{
-                        width: '100%',
-                        aspectRatio: '1/1',
-                        background: '#f0f0f0',
-                        overflow: 'hidden',
-                        position: 'relative',
-                      }}>
-                        {image ? (
-                          <img
-                            src={image}
-                            alt={product.node.title}
-                            style={{
-                              width: '100%',
-                              height: '100%',
-                              objectFit: 'contain',
-                              padding: '12px',
-                              display: 'block',
-                            }}
-                          />
-                        ) : (
-                          <div style={{
-                            width: '100%',
-                            height: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'rgba(255,255,255,0.20)',
-                            fontSize: '12px',
-                          }}>
-                            No Image
-                          </div>
-                        )}
-                        {/* Add button */}
-                        {inStock && (
-                          <button
-                            onClick={(e) => { e.preventDefault(); handleAddToCart(product); }}
-                            style={{
-                              position: 'absolute',
-                              bottom: '8px',
-                              right: '8px',
-                              width: '32px',
-                              height: '32px',
-                              borderRadius: '50%',
-                              background: 'rgba(0,0,0,0.55)',
-                              backdropFilter: 'blur(8px)',
-                              border: '1px solid rgba(0,0,0,0.20)',
-                              color: 'white',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              cursor: 'pointer',
-                              fontSize: '18px',
-                              lineHeight: 1,
-                            }}
-                          >
-                            +
-                          </button>
-                        )}
-                      </div>
-                      {/* Product info */}
-                      <div style={{ padding: '10px 10px 12px' }}>
-                        <div style={{
-                          fontSize: '12px',
-                          color: 'rgba(255,255,255,0.85)',
-                          fontWeight: 500,
-                          lineHeight: 1.3,
-                          overflow: 'hidden',
-                          display: '-webkit-box',
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: 'vertical',
-                          marginBottom: '4px',
-                        }}>
-                          {product.node.title}
-                        </div>
-                        <div style={{ fontSize: '13px', fontWeight: 600, color: 'white' }}>
-                          ${price}
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-        )}
       </section>
 
-      {/* MEMBERSHIPS BANNER */}
-      <section style={{ padding: '32px 20px' }}>
-        <Link href="/memberships" style={{ textDecoration: 'none' }}>
-          <div style={{
-            background: 'linear-gradient(135deg, oklch(0.15 0 0) 0%, oklch(0.12 0 0) 100%)',
-            border: '1px solid oklch(0.22 0 0)',
-            borderRadius: '12px',
-            padding: '28px 24px',
-            position: 'relative',
-            overflow: 'hidden',
-          }}>
-            <div style={{
-              position: 'absolute',
-              top: '-20px',
-              right: '-20px',
-              width: '120px',
-              height: '120px',
-              background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)',
-              borderRadius: '50%',
-            }} />
-            <div style={{ fontSize: '11px', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.50)', textTransform: 'uppercase', marginBottom: '8px' }}>
-              Auto-Reorder Program
+      {/* Industries We Serve */}
+      <section className="py-20 px-4 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
+              <Factory className="h-4 w-4 text-primary" />
+              <span className="text-sm font-semibold text-primary">Industry Solutions</span>
             </div>
-            <h3 style={{ fontSize: '1.4rem', fontWeight: 700, letterSpacing: '-0.02em', margin: '0 0 8px', color: 'white' }}>
-              Never Run Out of Filters
-            </h3>
-            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', margin: '0 0 20px', lineHeight: 1.5 }}>
-              Join 1,200+ shops on our membership program. Auto-reorder on your schedule, save up to 20%.
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Industries We Serve</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Trusted by professionals across multiple industries for superior spray booth filtration
             </p>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              background: 'white',
-              color: 'black',
-              borderRadius: '6px',
-              padding: '10px 18px',
-              fontSize: '14px',
-              fontWeight: 600,
-            }}>
-              View Memberships
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M3 7H11M11 7L7 3M11 7L7 11" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
           </div>
-        </Link>
-      </section>
-
-      {/* ALL PRODUCTS GRID */}
-      <section style={{ padding: '0 0 32px' }}>
-        <div style={{ padding: '0 20px 16px' }}>
-          <h2 style={{ fontSize: '1.6rem', fontWeight: 700, letterSpacing: '-0.03em', margin: 0 }}>
-            All Products
-          </h2>
-        </div>
-        {!loading && (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '2px',
-          }}>
-            {products.map((product) => {
-              const variant = product.node.variants.edges[0]?.node;
-              const image = product.node.images.edges[0]?.node.url;
-              const price = variant?.price?.amount ? parseFloat(variant.price.amount).toFixed(2) : '—';
-              const inStock = variant?.availableForSale ?? true;
-
-              return (
-                <div key={product.node.id} style={{ background: 'oklch(0.08 0 0)', position: 'relative' }}>
-                  <Link href={`/product/${product.node.handle}`} style={{ textDecoration: 'none', display: 'block' }}>
-                    <div style={{
-                      width: '100%',
-                      aspectRatio: '1/1',
-                      background: 'oklch(0.10 0 0)',
-                      overflow: 'hidden',
-                      position: 'relative',
-                    }}>
-                      {image ? (
-                        <img
-                          src={image}
-                          alt={product.node.title}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'contain',
-                            padding: '16px',
-                            display: 'block',
-                          }}
-                        />
-                      ) : (
-                        <div style={{
-                          width: '100%',
-                          height: '100%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: 'rgba(255,255,255,0.20)',
-                          fontSize: '12px',
-                        }}>
-                          No Image
-                        </div>
-                      )}
-                      {/* Add button */}
-                      {inStock && (
-                        <button
-                          onClick={(e) => { e.preventDefault(); handleAddToCart(product); }}
-                          style={{
-                            position: 'absolute',
-                            bottom: '10px',
-                            right: '10px',
-                            width: '34px',
-                            height: '34px',
-                            borderRadius: '50%',
-                            background: 'rgba(255,255,255,0.15)',
-                            backdropFilter: 'blur(8px)',
-                            border: '1px solid rgba(255,255,255,0.20)',
-                            color: 'white',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            fontSize: '20px',
-                            lineHeight: 1,
-                          }}
-                        >
-                          +
-                        </button>
-                      )}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Car,
+                title: 'Automotive',
+                content: 'Auto body shops and collision repair centers trust our paint booth filters for superior overspray capture. Perfect for automotive refinishing, clear coat applications, and vehicle restoration work. Compatible with all major spray booth brands including PFS, Garmat, and Global Finishing Solutions.',
+              },
+              {
+                icon: Factory,
+                title: 'Industrial',
+                content: 'Industrial coating facilities and manufacturing plants rely on our high-capacity filtration systems. Ideal for powder coating operations, liquid paint applications, metal finishing, and heavy-duty industrial spray operations requiring consistent air quality.',
+              },
+              {
+                icon: Wrench,
+                title: 'Woodworking',
+                content: 'Cabinet shops and furniture manufacturers choose our filters for stain and lacquer applications. Specialized filtration for wood finishing, staining operations, and furniture coating with excellent performance in both water-based and solvent-based systems.',
+              },
+              {
+                icon: Package,
+                title: 'Aerospace',
+                content: 'Aircraft painting and aerospace coating operations demand precision filtration. Our filters meet stringent aerospace standards for component painting, aircraft refinishing, and specialty coatings requiring exceptional air purity and particle capture.',
+              },
+              {
+                icon: TrendingUp,
+                title: 'Custom Fabrication',
+                content: 'Metal fabricators and custom shops need reliable filtration for diverse projects. From motorcycle painting to equipment refinishing, our versatile filter selection handles everything from small batch custom work to high-volume production painting.',
+              },
+              {
+                icon: Factory,
+                title: 'Marine',
+                content: 'Boat builders and marine coating specialists require robust filtration systems. Our filters excel in gel coat applications, marine painting, yacht refinishing, and watercraft coating operations where salt air and harsh conditions demand superior filter performance.',
+              },
+            ].map((industry, idx) => (
+              <Card
+                key={idx}
+                className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group"
+              >
+                <CardContent className="pt-8 pb-8">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                      <industry.icon className="h-8 w-8 text-primary group-hover:text-primary-foreground transition-colors" />
                     </div>
-                    <div style={{ padding: '12px 14px 14px' }}>
-                      <div style={{
-                        fontSize: '13px',
-                        color: 'rgba(255,255,255,0.85)',
-                        fontWeight: 500,
-                        lineHeight: 1.3,
-                        overflow: 'hidden',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                        marginBottom: '6px',
-                      }}>
-                        {product.node.title}
-                      </div>
-                      <div style={{ fontSize: '14px', fontWeight: 700, color: 'white' }}>
-                        ${price}
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
+                    <h3 className="text-2xl font-bold">{industry.title}</h3>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">{industry.content}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        )}
-      </section>
-
-      {/* WHY ABC FILTERS */}
-      <section style={{
-        background: 'oklch(0.08 0 0)',
-        borderTop: '1px solid oklch(0.14 0 0)',
-        padding: '40px 20px',
-      }}>
-        <h2 style={{ fontSize: '1.6rem', fontWeight: 700, letterSpacing: '-0.03em', margin: '0 0 24px' }}>
-          Why ABC Filters
-        </h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          {[
-            { icon: '🏭', title: '30+ Years of Expertise', desc: 'A division of PFS Spray Booths — the industry leader in paint booth filtration.' },
-            { icon: '🚚', title: 'Ships in 1–2 Business Days', desc: 'Fast nationwide shipping. Most orders leave our warehouse same day.' },
-            { icon: '📐', title: 'Custom Sizes Available', desc: 'Need a non-standard size? We cut filters to your exact booth specifications.' },
-            { icon: '🔄', title: 'Auto-Reorder Program', desc: 'Set it and forget it. Never run out of filters with our membership program.' },
-          ].map((item, i) => (
-            <div key={i} style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-              <div style={{ fontSize: '24px', flexShrink: 0, marginTop: '2px' }}>{item.icon}</div>
-              <div>
-                <div style={{ fontSize: '15px', fontWeight: 600, color: 'white', marginBottom: '4px' }}>{item.title}</div>
-                <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>{item.desc}</div>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
+      {/* Why Proper Filtration Matters */}
+      <section className="py-20 px-4 bg-muted/20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,oklch(0.54_0.15_222_/_0.06),transparent_50%)]" />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
+              <CheckCircle className="h-4 w-4 text-primary" />
+              <span className="text-sm font-semibold text-primary">Expert Knowledge</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              Why Proper Spray Booth Filtration Matters
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Understanding the critical role of quality filters in your paint booth operation
+            </p>
+          </div>
+          <div className="grid lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: '✨',
+                title: 'Finish Quality',
+                content: 'Quality paint booth intake filters remove dust, pollen, and contaminants from incoming air, preventing defects in your finish. Clean air means fewer orange peel issues, dirt nibs, and costly rework. Our tacky panel filters capture particles as small as 10 microns. Proper exhaust filtration maintains consistent airflow and prevents booth pressure imbalances.',
+              },
+              {
+                icon: '🛡️',
+                title: 'Air Quality & Safety',
+                content: 'Effective paint arrestor filters capture hazardous overspray particles before they exhaust into the environment. This protects worker health, ensures OSHA compliance, and prevents EPA violations from unfiltered paint emissions. Our fiberglass filter media maintains 99%+ capture efficiency throughout its service life.',
+              },
+              {
+                icon: '💰',
+                title: 'Cost Efficiency',
+                content: 'Premium filters last longer and capture more overspray, reducing replacement frequency and disposal costs. Our paint booth filters feature progressive density construction that loads from the surface inward, maximizing capacity. Extended filter life means less downtime and lower labor costs. Bulk pricing available.',
+              },
+            ].map((item, idx) => (
+              <Card
+                key={idx}
+                className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl group"
+              >
+                <CardContent className="pt-8">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="text-4xl">{item.icon}</span>
+                    <h3 className="text-2xl font-bold">{item.title}</h3>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">{item.content}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose ABC Filters */}
+      <section className="py-20 px-4 bg-background">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Why Choose ABC Filters?</h2>
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+              Industry-leading filtration solutions designed for excellence
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-12">
+            {[
+              {
+                icon: Shield,
+                title: 'Managed Filter Program',
+                description: 'We track every filter position in your booth, monitor change schedules, and auto-create your reorder so you never run out mid-job.',
+              },
+              {
+                icon: CheckCircle,
+                title: 'PFS Booth Expertise',
+                description: 'As a division of PFS Spray Booths, we know exactly which filters fit which booth — crossflow, downdraft, semi-downdraft. No guessing.',
+              },
+              {
+                icon: Package,
+                title: 'Set It & Forget It Reorders',
+                description: 'Members get scheduled auto-reorders tied to their actual change intervals. Your filters show up before you need them, every time.',
+              },
+            ].map((feature, index) => (
+              <Card
+                key={index}
+                className="border-2 hover:border-primary transition-all duration-300 hover:shadow-medium group"
+              >
+                <CardContent className="pt-12 pb-12 px-8 text-center space-y-6">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                    <feature.icon className="h-8 w-8 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+                  </div>
+                  <h3 className="text-xl font-semibold">{feature.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-4 bg-gradient-to-b from-background to-muted/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Get in Touch</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Ready to upgrade your spray booth filtration? Contact us for a custom quote
+            </p>
+          </div>
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <Card>
+                <CardContent className="pt-6">
+                  <h3 className="text-xl font-bold mb-1">Send us a message</h3>
+                  <p className="text-muted-foreground text-sm mb-6">Fill out the form below and our team will respond within 24 hours</p>
+                  <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium mb-1">Name *</label>
+                        <input id="name" type="text" className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="Your name" required />
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium mb-1">Email *</label>
+                        <input id="email" type="email" className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="your@email.com" required />
+                      </div>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="phone" className="block text-sm font-medium mb-1">Phone *</label>
+                        <input id="phone" type="tel" className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="(555) 000-0000" required />
+                      </div>
+                      <div>
+                        <label htmlFor="company" className="block text-sm font-medium mb-1">Company</label>
+                        <input id="company" type="text" className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="Your company" />
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium mb-1">Message *</label>
+                      <textarea id="message" rows={5} className="w-full border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" placeholder="Tell us about your spray booth filtration needs..." required />
+                    </div>
+                    <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90 text-white font-bold">
+                      Send Message
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
+            <div className="space-y-4">
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Phone className="h-5 w-5 text-primary" />
+                    <h4 className="font-bold">Phone</h4>
+                  </div>
+                  <p className="text-muted-foreground text-sm mb-1">Call us for immediate assistance</p>
+                  <a href="tel:1-888-545-7715" className="text-primary font-semibold hover:underline">1-888-545-7715</a>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Package className="h-5 w-5 text-primary" />
+                    <h4 className="font-bold">Email</h4>
+                  </div>
+                  <p className="text-muted-foreground text-sm mb-1">Send us an email anytime</p>
+                  <a href="mailto:orders@abcfilters.net" className="text-primary font-semibold hover:underline">orders@abcfilters.net</a>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <CheckCircle className="h-5 w-5 text-primary" />
+                    <h4 className="font-bold">Location</h4>
+                  </div>
+                  <p className="text-muted-foreground text-sm mb-1">Visit us or send mail to</p>
+                  <p className="font-semibold text-sm">1400 Airport Blvd, Santa Rosa, CA 95403</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <StickyMobileCTA />
       <Footer />
     </div>
   );

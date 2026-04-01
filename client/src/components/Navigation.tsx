@@ -1,252 +1,190 @@
-/**
- * Navigation — Tesla-inspired minimal dark nav
- * Pure black, white text, back arrow + title + search + menu
- * Sticky at top, no clutter
- */
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
-import { Search, Menu, X, ShoppingBag, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { ShoppingBag, Menu, X, User, ChevronDown, Sparkles, Filter } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
+import { supabase } from '@/lib/supabase';
 import { CartDrawer } from './CartDrawer';
 
 const LOGO_URL = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/abc-filters-logo_a66e6869.png';
 
-const NAV_LINKS = [
-  { href: '/shop', label: 'Shop All' },
-  { href: '/shop?category=fiberglass', label: 'Fiberglass' },
-  { href: '/shop?category=tacky', label: 'Tacky Panels' },
-  { href: '/shop?category=intake', label: 'Intake Filters' },
-  { href: '/shop?category=ceiling', label: 'Ceiling Blankets' },
-  { href: '/memberships', label: 'Memberships' },
-  { href: '/why-choose-us', label: 'Why ABC Filters' },
-  { href: '/contact', label: 'Contact' },
-];
-
 export const Navigation = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [location, navigate] = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [user, setUser] = useState<{ email?: string } | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
+  const [location] = useLocation();
   const items = useCartStore((s) => s.items);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
-  useEffect(() => { setMenuOpen(false); setSearchOpen(false); }, [location]);
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/shop?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchOpen(false);
-      setSearchQuery('');
-    }
-  };
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user);
+      if (data.user) {
+        supabase
+          .from('user_roles')
+          .select('role')
+          .eq('user_id', data.user.id)
+          .eq('role', 'admin')
+          .maybeSingle()
+          .then(({ data: roleData }) => setIsAdmin(!!roleData));
+      }
+    });
+  }, []);
 
-  const isHome = location === '/';
+  useEffect(() => { setIsOpen(false); }, [location]);
 
   return (
     <>
       <nav
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 100,
-          background: 'oklch(0.05 0 0)',
-          borderBottom: '1px solid oklch(0.15 0 0)',
-          height: '56px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 16px',
-        }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled ? 'bg-white/98 backdrop-blur-md shadow-md border-b border-border' : 'bg-white/95 backdrop-blur-sm border-b border-border'
+        }`}
       >
-        {/* Left: Logo or Back */}
-        {isHome ? (
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-            <img src={LOGO_URL} alt="ABC Filters" style={{ height: '28px', width: 'auto' }} />
-          </Link>
-        ) : (
-          <button
-            onClick={() => window.history.back()}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'white',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-              fontSize: '16px',
-              padding: '8px 0',
-              cursor: 'pointer',
-            }}
-          >
-            <svg width="10" height="16" viewBox="0 0 10 16" fill="none">
-              <path d="M8 2L2 8L8 14" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-        )}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+              <img src={LOGO_URL} alt="ABC Filters by PFS" className="h-8 w-auto" />
+              <span className="font-bold text-lg text-primary hidden sm:block">ABC Filters</span>
+            </Link>
 
-        {/* Center: Title */}
-        <span style={{
-          position: 'absolute',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          color: 'white',
-          fontWeight: 600,
-          fontSize: '17px',
-          letterSpacing: '-0.01em',
-          pointerEvents: 'none',
-        }}>
-          {isHome ? 'ABC Filters' : location === '/shop' ? 'Shop' : location.startsWith('/product/') ? 'Product' : 'ABC Filters'}
-        </span>
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center gap-1">
+              <Link href="/" className="px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">Home</Link>
+              {/* Products dropdown */}
+              <div
+                className="relative"
+                onMouseEnter={() => setShopOpen(true)}
+                onMouseLeave={() => setShopOpen(false)}
+              >
+                <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">
+                  Products <ChevronDown className="w-3 h-3" />
+                </button>
+                {shopOpen && (
+                  <div className="absolute top-full left-0 mt-1 w-52 bg-background border border-border rounded-lg shadow-lg py-1 z-50">
+                    <Link href="/shop" className="block px-4 py-2 text-sm hover:bg-accent transition-colors">All Products</Link>
+                    <Link href="/shop-by-type" className="block px-4 py-2 text-sm hover:bg-accent transition-colors">Shop by Type</Link>
+                    <Link href="/shop-by-size" className="block px-4 py-2 text-sm hover:bg-accent transition-colors">Shop by Size</Link>
+                    <Link href="/brands" className="block px-4 py-2 text-sm hover:bg-accent transition-colors">Brands</Link>
+                    <Link href="/filter-compatibility" className="block px-4 py-2 text-sm hover:bg-accent transition-colors">Filter Compatibility</Link>
+                  </div>
+                )}
+              </div>
 
-        {/* Right: Search + Cart + Menu */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <button
-            onClick={() => setSearchOpen(!searchOpen)}
-            style={{ background: 'none', border: 'none', color: 'white', padding: '4px', cursor: 'pointer', display: 'flex' }}
-          >
-            <Search size={20} />
-          </button>
-          <button
-            onClick={() => setCartOpen(true)}
-            style={{ background: 'none', border: 'none', color: 'white', padding: '4px', cursor: 'pointer', display: 'flex', position: 'relative' }}
-          >
-            <ShoppingBag size={20} />
-            {totalItems > 0 && (
-              <span style={{
-                position: 'absolute',
-                top: '-4px',
-                right: '-4px',
-                background: 'white',
-                color: 'black',
-                borderRadius: '50%',
-                width: '16px',
-                height: '16px',
-                fontSize: '10px',
-                fontWeight: 700,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                {totalItems}
-              </span>
-            )}
-          </button>
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{ background: 'none', border: 'none', color: 'white', padding: '4px', cursor: 'pointer', display: 'flex' }}
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+              <Link href="/memberships" className="px-3 py-2 text-sm font-medium rounded-md hover:bg-accent transition-colors">Memberships</Link>
+              <Link href="/blog" className="px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">Blog</Link>
+              <Link href="/filter-scanner" className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">
+                <Sparkles className="w-3 h-3 text-primary" /> AI Scanner
+              </Link>
+              <Link href="/contact" className="px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">Contact</Link>
+              {isAdmin && (
+                <Link href="/analytics" className="px-3 py-2 text-sm font-medium rounded-md hover:bg-accent transition-colors text-primary">Analytics</Link>
+              )}
+            </div>
+
+            {/* Right actions */}
+            <div className="flex items-center gap-2">
+              {/* Get a Quote + Shop Now buttons */}
+              <div className="hidden md:flex items-center gap-2">
+                <Link href="/contact">
+                  <Button variant="outline" size="sm" className="font-semibold border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+                    Get a Quote
+                  </Button>
+                </Link>
+                <Link href="/shop">
+                  <Button size="sm" className="font-semibold bg-primary hover:bg-primary/90 text-white">
+                    <ShoppingBag className="w-4 h-4 mr-1.5" />
+                    Shop Now
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Cart */}
+              <button
+                onClick={() => setCartOpen(true)}
+                className="relative p-2 rounded-md hover:bg-accent transition-colors"
+                aria-label="Open cart"
+              >
+                <ShoppingBag className="w-5 h-5" />
+                {totalItems > 0 && (
+                  <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-primary text-primary-foreground">
+                    {totalItems}
+                  </Badge>
+                )}
+              </button>
+
+              {/* Auth */}
+              <div className="hidden md:block">
+                {user ? (
+                  <Link href="/dashboard">
+                    <Button variant="outline" size="sm" className="gap-1">
+                      <User className="h-4 w-4" /> Dashboard
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link href="/auth">
+                    <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">Sign In</Button>
+                  </Link>
+                )}
+              </div>
+
+              {/* Mobile menu toggle */}
+              <button
+                className="md:hidden p-2 rounded-md hover:bg-accent transition-colors"
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile menu */}
+          {isOpen && (
+            <div className="md:hidden border-t border-border py-3 space-y-1 bg-background">
+              <Link href="/shop" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">All Products</Link>
+              <Link href="/shop-by-type" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Shop by Type</Link>
+              <Link href="/shop-by-size" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Shop by Size</Link>
+              <Link href="/brands" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Brands</Link>
+              <Link href="/filter-compatibility" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Filter Compatibility</Link>
+              <Link href="/why-choose-us" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Why Choose Us</Link>
+              <Link href="/memberships" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Memberships</Link>
+              <Link href="/blog" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Blog</Link>
+              <Link href="/filter-scanner" className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-accent rounded transition-colors">
+                <Sparkles className="w-4 h-4" /> AI Scanner
+              </Link>
+              <Link href="/contact" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Contact</Link>
+              {isAdmin && (
+                <Link href="/analytics" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors text-primary">Analytics</Link>
+              )}
+              <div className="px-4 pt-2 flex gap-2">
+                <Link href="/contact" className="flex-1">
+                  <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90" size="sm">Get a Quote</Button>
+                </Link>
+                {user ? (
+                  <Link href="/dashboard" className="flex-1">
+                    <Button variant="outline" className="w-full" size="sm">Dashboard</Button>
+                  </Link>
+                ) : (
+                  <Link href="/auth" className="flex-1">
+                    <Button variant="outline" className="w-full" size="sm">Sign In</Button>
+                  </Link>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </nav>
-
-      {/* Search overlay */}
-      {searchOpen && (
-        <div style={{
-          position: 'fixed',
-          top: '56px',
-          left: 0,
-          right: 0,
-          zIndex: 99,
-          background: 'oklch(0.08 0 0)',
-          borderBottom: '1px solid oklch(0.15 0 0)',
-          padding: '12px 16px',
-        }}>
-          <form onSubmit={handleSearch} style={{ display: 'flex', gap: '8px' }}>
-            <input
-              autoFocus
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search filters, sizes, types..."
-              style={{
-                flex: 1,
-                background: 'oklch(0.13 0 0)',
-                border: '1px solid oklch(0.22 0 0)',
-                borderRadius: '8px',
-                color: 'white',
-                padding: '10px 14px',
-                fontSize: '16px',
-                outline: 'none',
-              }}
-            />
-            <button
-              type="submit"
-              style={{
-                background: 'white',
-                color: 'black',
-                border: 'none',
-                borderRadius: '8px',
-                padding: '10px 16px',
-                fontWeight: 600,
-                fontSize: '14px',
-                cursor: 'pointer',
-              }}
-            >
-              Search
-            </button>
-          </form>
-        </div>
-      )}
-
-      {/* Full-screen menu */}
-      {menuOpen && (
-        <div style={{
-          position: 'fixed',
-          top: '56px',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 99,
-          background: 'oklch(0.05 0 0)',
-          overflowY: 'auto',
-        }}>
-          <div style={{ padding: '8px 0' }}>
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '16px 20px',
-                  color: 'white',
-                  textDecoration: 'none',
-                  fontSize: '17px',
-                  fontWeight: 500,
-                  borderBottom: '1px solid oklch(0.12 0 0)',
-                }}
-              >
-                {link.label}
-                <ChevronRight size={16} style={{ color: 'oklch(0.50 0 0)' }} />
-              </Link>
-            ))}
-            <Link
-              href="/auth"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '16px 20px',
-                color: 'oklch(0.70 0 0)',
-                textDecoration: 'none',
-                fontSize: '17px',
-                fontWeight: 500,
-                borderBottom: '1px solid oklch(0.12 0 0)',
-              }}
-            >
-              Sign In / Account
-              <ChevronRight size={16} style={{ color: 'oklch(0.40 0 0)' }} />
-            </Link>
-          </div>
-        </div>
-      )}
-
       <CartDrawer />
     </>
   );

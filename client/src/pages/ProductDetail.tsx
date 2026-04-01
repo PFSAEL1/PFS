@@ -1,20 +1,19 @@
-/**
- * ProductDetail — Tesla-inspired product page
- * Dark background, full-width product image, clean typography
- * Variant selector, quantity, add to cart
- */
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import { fetchProductByHandle, fetchRelatedProducts, ShopifyProduct } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
 import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredData';
+import { ShoppingCart, Loader2, Package, Truck, Shield, ArrowLeft, Plus, Minus } from 'lucide-react';
 import { toast } from 'sonner';
-import { Minus, Plus, ShoppingCart, Truck, Shield, RotateCcw } from 'lucide-react';
 
-const FALLBACK_IMAGE = 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/rd-filter.png?v=1761696515';
+const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
 export default function ProductDetail() {
   const { handle } = useParams<{ handle: string }>();
@@ -30,8 +29,6 @@ export default function ProductDetail() {
   useEffect(() => {
     if (!handle) return;
     setLoading(true);
-    setSelectedImage(0);
-    setQuantity(1);
     fetchProductByHandle(handle).then((data) => {
       setProduct(data);
       if (data?.variants?.edges?.[0]) {
@@ -44,48 +41,32 @@ export default function ProductDetail() {
 
   if (loading) {
     return (
-      <div style={{ background: 'oklch(0.05 0 0)', minHeight: '100vh', color: 'white' }}>
+      <div className="min-h-screen">
         <Navigation />
-        <div style={{ paddingTop: '56px', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
-          <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.30)' }}>
-            <div style={{ fontSize: '14px' }}>Loading product...</div>
-          </div>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <Loader2 className="h-10 w-10 animate-spin text-primary" />
         </div>
+        <Footer />
       </div>
     );
   }
 
   if (!product) {
     return (
-      <div style={{ background: 'oklch(0.05 0 0)', minHeight: '100vh', color: 'white' }}>
+      <div className="min-h-screen">
         <Navigation />
-        <div style={{ paddingTop: '56px', padding: '80px 20px', textAlign: 'center' }}>
-          <div style={{ fontSize: '40px', marginBottom: '12px' }}>📦</div>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '8px' }}>Product Not Found</h1>
-          <Link href="/shop">
-            <button style={{
-              background: 'white',
-              color: 'black',
-              border: 'none',
-              borderRadius: '6px',
-              padding: '12px 24px',
-              fontSize: '15px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              marginTop: '16px',
-            }}>
-              Browse All Products
-            </button>
-          </Link>
+        <div className="container mx-auto px-4 pt-32 pb-16 text-center">
+          <Package className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-30" />
+          <h1 className="text-3xl font-bold mb-4">Product Not Found</h1>
+          <Link href="/shop"><Button>Browse All Products</Button></Link>
         </div>
+        <Footer />
       </div>
     );
   }
 
-  const selectedVariant = product.variants?.edges?.find(
-    (e: { node: { id: string } }) => e.node.id === selectedVariantId
-  )?.node || product.variants?.edges?.[0]?.node;
-
+  const selectedVariant = product.variants?.edges?.find((e: { node: { id: string } }) => e.node.id === selectedVariantId)?.node
+    || product.variants?.edges?.[0]?.node;
   const images = product.images?.edges || [];
   const price = selectedVariant?.price?.amount ? parseFloat(selectedVariant.price.amount).toFixed(2) : '—';
   const currency = selectedVariant?.price?.currencyCode || 'USD';
@@ -120,367 +101,156 @@ export default function ProductDetail() {
       image: mainImage,
       handle: handle || '',
     });
-    toast.success('Added to cart');
+    toast.success(`${product.title} added to cart`);
     setCartOpen(true);
   };
 
   return (
-    <div style={{ background: 'oklch(0.05 0 0)', minHeight: '100vh', color: 'white' }}>
+    <div className="min-h-screen">
       <SEO
-        title={`${product.title} — ABC Filters`}
-        description={product.description || `Buy ${product.title} from ABC Filters. Premium paint booth filtration with fast nationwide shipping.`}
+        title={`${product.title} - ABC Filters by PFS`}
+        description={product.description || `Buy ${product.title} from ABC Filters. Premium paint booth filtration products with fast nationwide shipping.`}
         canonical={`https://abcfilters.net/product/${handle}`}
         ogImage={mainImage}
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
       />
       <Navigation />
+      <div className="container mx-auto px-4 pt-24 pb-16">
+        <Breadcrumb items={[{ label: 'Shop', href: '/shop' }, { label: product.title }]} />
+        <Link href="/shop">
+          <Button variant="ghost" size="sm" className="gap-2 mb-6 -ml-2">
+            <ArrowLeft className="h-4 w-4" /> Back to Shop
+          </Button>
+        </Link>
 
-      <div style={{ paddingTop: '56px' }}>
-        {/* Main product image — full width, light bg like Tesla */}
-        <div style={{
-          width: '100%',
-          aspectRatio: '1/1',
-          background: '#f0f0f0',
-          overflow: 'hidden',
-          position: 'relative',
-        }}>
-          <img
-            src={mainImage}
-            alt={product.title}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-              padding: '24px',
-              display: 'block',
-            }}
-          />
-        </div>
-
-        {/* Thumbnail strip */}
-        {images.length > 1 && (
-          <div style={{
-            display: 'flex',
-            gap: '2px',
-            overflowX: 'auto',
-            scrollbarWidth: 'none',
-            background: '#e8e8e8',
-          }}>
-            {images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
-              <button
-                key={i}
-                onClick={() => setSelectedImage(i)}
-                style={{
-                  flexShrink: 0,
-                  width: '72px',
-                  height: '72px',
-                  background: selectedImage === i ? '#d0d0d0' : '#e8e8e8',
-                  border: selectedImage === i ? '2px solid #333' : '2px solid transparent',
-                  cursor: 'pointer',
-                  overflow: 'hidden',
-                  padding: '4px',
-                }}
-              >
-                <img
-                  src={img.node.url}
-                  alt={img.node.altText || product.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                />
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Product info */}
-        <div style={{ padding: '24px 20px' }}>
-          <h1 style={{
-            fontSize: '1.5rem',
-            fontWeight: 700,
-            letterSpacing: '-0.02em',
-            lineHeight: 1.2,
-            margin: '0 0 12px',
-            color: 'white',
-          }}>
-            {product.title}
-          </h1>
-
-          {/* Price + stock */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-            <span style={{ fontSize: '1.75rem', fontWeight: 700, color: 'white' }}>
-              ${price}
-            </span>
-            <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)' }}>{currency}</span>
-            {inStock ? (
-              <span style={{
-                background: 'rgba(52,199,89,0.15)',
-                color: '#34c759',
-                fontSize: '12px',
-                fontWeight: 600,
-                padding: '3px 8px',
-                borderRadius: '4px',
-              }}>
-                In Stock
-              </span>
-            ) : (
-              <span style={{
-                background: 'rgba(255,255,255,0.08)',
-                color: 'rgba(255,255,255,0.45)',
-                fontSize: '12px',
-                fontWeight: 600,
-                padding: '3px 8px',
-                borderRadius: '4px',
-              }}>
-                Out of Stock
-              </span>
-            )}
-          </div>
-
-          {/* Description */}
-          {product.description && (
-            <p style={{
-              fontSize: '14px',
-              color: 'rgba(255,255,255,0.60)',
-              lineHeight: 1.6,
-              margin: '0 0 24px',
-            }}>
-              {product.description}
-            </p>
-          )}
-
-          {/* Variant selector */}
-          {product.variants?.edges?.length > 1 && (
-            <div style={{ marginBottom: '24px' }}>
-              <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.50)', marginBottom: '10px', fontWeight: 500 }}>
-                Options
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {product.variants.edges.map((edge: { node: { id: string; title: string; availableForSale: boolean } }) => (
+        <div className="grid lg:grid-cols-2 gap-12 mb-16">
+          {/* Images */}
+          <div>
+            <div className="aspect-square overflow-hidden rounded-2xl bg-muted/30 mb-4">
+              <img src={mainImage} alt={product.title} className="w-full h-full object-cover" />
+            </div>
+            {images.length > 1 && (
+              <div className="flex gap-2 overflow-x-auto">
+                {images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
                   <button
-                    key={edge.node.id}
-                    onClick={() => setSelectedVariantId(edge.node.id)}
-                    disabled={!edge.node.availableForSale}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '6px',
-                      fontSize: '13px',
-                      fontWeight: 500,
-                      cursor: edge.node.availableForSale ? 'pointer' : 'not-allowed',
-                      opacity: edge.node.availableForSale ? 1 : 0.4,
-                      background: selectedVariantId === edge.node.id ? 'white' : 'oklch(0.14 0 0)',
-                      color: selectedVariantId === edge.node.id ? 'black' : 'rgba(255,255,255,0.80)',
-                      border: selectedVariantId === edge.node.id ? 'none' : '1px solid oklch(0.22 0 0)',
-                    }}
+                    key={i}
+                    onClick={() => setSelectedImage(i)}
+                    className={`w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-colors ${selectedImage === i ? 'border-primary' : 'border-border'}`}
                   >
-                    {edge.node.title}
+                    <img src={img.node.url} alt={img.node.altText || product.title} className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
-            </div>
-          )}
-
-          {/* Quantity */}
-          <div style={{ marginBottom: '20px' }}>
-            <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.50)', marginBottom: '10px', fontWeight: 500 }}>
-              Quantity
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
-              <button
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                style={{
-                  width: '44px',
-                  height: '44px',
-                  background: 'oklch(0.14 0 0)',
-                  border: '1px solid oklch(0.22 0 0)',
-                  borderRight: 'none',
-                  borderRadius: '6px 0 0 6px',
-                  color: 'white',
-                  fontSize: '18px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Minus size={14} />
-              </button>
-              <div style={{
-                width: '60px',
-                height: '44px',
-                background: 'oklch(0.12 0 0)',
-                border: '1px solid oklch(0.22 0 0)',
-                color: 'white',
-                fontSize: '16px',
-                fontWeight: 600,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                {quantity}
-              </div>
-              <button
-                onClick={() => setQuantity(quantity + 1)}
-                style={{
-                  width: '44px',
-                  height: '44px',
-                  background: 'oklch(0.14 0 0)',
-                  border: '1px solid oklch(0.22 0 0)',
-                  borderLeft: 'none',
-                  borderRadius: '0 6px 6px 0',
-                  color: 'white',
-                  fontSize: '18px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Plus size={14} />
-              </button>
-            </div>
+            )}
           </div>
 
-          {/* Add to Cart button */}
-          <button
-            onClick={handleAddToCart}
-            disabled={!inStock}
-            style={{
-              width: '100%',
-              padding: '16px',
-              background: inStock ? 'white' : 'oklch(0.20 0 0)',
-              color: inStock ? 'black' : 'rgba(255,255,255,0.30)',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: '16px',
-              fontWeight: 600,
-              cursor: inStock ? 'pointer' : 'not-allowed',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              letterSpacing: '-0.01em',
-              marginBottom: '12px',
-            }}
-          >
-            <ShoppingCart size={18} />
-            {inStock ? 'Add to Cart' : 'Out of Stock'}
-          </button>
+          {/* Details */}
+          <div>
+            <h1 className="text-3xl md:text-4xl font-extrabold mb-3">{product.title}</h1>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-3xl font-bold text-primary">${price}</span>
+              <span className="text-muted-foreground">{currency}</span>
+              {inStock ? (
+                <Badge className="bg-green-100 text-green-800">In Stock</Badge>
+              ) : (
+                <Badge variant="secondary">Out of Stock</Badge>
+              )}
+            </div>
 
-          {/* Trust badges */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '8px',
-            marginTop: '20px',
-          }}>
-            {[
-              { icon: <Truck size={16} />, label: '1–2 Day Ship' },
-              { icon: <Shield size={16} />, label: 'Quality Assured' },
-              { icon: <RotateCcw size={16} />, label: 'Easy Returns' },
-            ].map((badge, i) => (
-              <div key={i} style={{
-                background: 'oklch(0.10 0 0)',
-                border: '1px solid oklch(0.16 0 0)',
-                borderRadius: '8px',
-                padding: '10px 8px',
-                textAlign: 'center',
-              }}>
-                <div style={{ color: 'rgba(255,255,255,0.60)', marginBottom: '4px', display: 'flex', justifyContent: 'center' }}>
-                  {badge.icon}
-                </div>
-                <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.50)', lineHeight: 1.3 }}>
-                  {badge.label}
+            {product.description && (
+              <p className="text-muted-foreground leading-relaxed mb-6">{product.description}</p>
+            )}
+
+            {/* Variant selector */}
+            {product.variants?.edges?.length > 1 && (
+              <div className="mb-6">
+                <p className="font-semibold mb-2">Options</p>
+                <div className="flex flex-wrap gap-2">
+                  {product.variants.edges.map((edge: { node: { id: string; title: string; availableForSale: boolean } }) => (
+                    <button
+                      key={edge.node.id}
+                      onClick={() => setSelectedVariantId(edge.node.id)}
+                      className={`px-3 py-1.5 text-sm rounded-lg border-2 transition-colors ${
+                        selectedVariantId === edge.node.id
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50'
+                      } ${!edge.node.availableForSale ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      disabled={!edge.node.availableForSale}
+                    >
+                      {edge.node.title}
+                    </button>
+                  ))}
                 </div>
               </div>
-            ))}
+            )}
+
+            {/* Quantity + Add to Cart */}
+            <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center border border-border rounded-lg">
+                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-2 hover:bg-accent transition-colors">
+                  <Minus className="h-4 w-4" />
+                </button>
+                <span className="px-4 py-2 font-medium min-w-[3rem] text-center">{quantity}</span>
+                <button onClick={() => setQuantity(quantity + 1)} className="px-3 py-2 hover:bg-accent transition-colors">
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
+              <Button
+                className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
+                size="lg"
+                onClick={handleAddToCart}
+                disabled={!inStock}
+              >
+                <ShoppingCart className="h-5 w-5" />
+                {inStock ? 'Add to Cart' : 'Out of Stock'}
+              </Button>
+            </div>
+
+            {/* Trust badges */}
+            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-border">
+              {[
+                { icon: Truck, label: 'Fast Shipping', sub: '1-2 day processing' },
+                { icon: Shield, label: 'Quality Guaranteed', sub: 'Or we make it right' },
+                { icon: Package, label: 'Custom Sizes', sub: 'Cut to spec' },
+              ].map((item) => (
+                <div key={item.label} className="text-center p-3 bg-muted/30 rounded-lg">
+                  <item.icon className="h-5 w-5 text-primary mx-auto mb-1" />
+                  <p className="text-xs font-semibold">{item.label}</p>
+                  <p className="text-xs text-muted-foreground">{item.sub}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Divider */}
-        <div style={{ height: '1px', background: 'oklch(0.14 0 0)', margin: '0 20px' }} />
-
-        {/* Related Products */}
+        {/* Related products */}
         {relatedProducts.length > 0 && (
-          <section style={{ padding: '24px 0 32px' }}>
-            <div style={{ padding: '0 20px 16px' }}>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em', margin: 0 }}>
-                Related Products
-              </h2>
-            </div>
-            <div style={{
-              display: 'flex',
-              overflowX: 'auto',
-              scrollSnapType: 'x mandatory',
-              WebkitOverflowScrolling: 'touch',
-              scrollbarWidth: 'none',
-              gap: '12px',
-              paddingLeft: '20px',
-              paddingRight: '20px',
-            }}>
-              {relatedProducts.map((rp) => {
-                const rpVariant = rp.node.variants.edges[0]?.node;
-                const rpImage = rp.node.images.edges[0]?.node.url;
-                const rpPrice = rpVariant?.price?.amount ? parseFloat(rpVariant.price.amount).toFixed(2) : '—';
-
-                return (
-                  <Link
-                    key={rp.node.id}
-                    href={`/product/${rp.node.handle}`}
-                    style={{
-                      scrollSnapAlign: 'start',
-                      flexShrink: 0,
-                      width: 'calc(50vw - 28px)',
-                      minWidth: '140px',
-                      maxWidth: '200px',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    <div style={{
-                      background: 'oklch(0.06 0 0)',
-                      borderRadius: '8px',
-                      overflow: 'hidden',
-                    }}>
-                      <div style={{
-                        width: '100%',
-                        aspectRatio: '1/1',
-                        background: '#f0f0f0',
-                        overflow: 'hidden',
-                      }}>
-                        {rpImage ? (
-                          <img
-                            src={rpImage}
-                            alt={rp.node.title}
-                            style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '12px' }}
-                          />
-                        ) : (
-                          <div style={{ width: '100%', height: '100%', background: '#f0f0f0' }} />
-                        )}
-                      </div>
-                      <div style={{ padding: '10px' }}>
-                        <div style={{
-                          fontSize: '12px',
-                          color: 'rgba(255,255,255,0.80)',
-                          lineHeight: 1.3,
-                          overflow: 'hidden',
-                          display: '-webkit-box',
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: 'vertical',
-                          marginBottom: '4px',
-                        }}>
-                          {rp.node.title}
-                        </div>
-                        <div style={{ fontSize: '13px', fontWeight: 700, color: 'white' }}>
-                          ${rpPrice}
-                        </div>
-                      </div>
+          <div>
+            <h2 className="text-2xl font-bold mb-6">Related Products</h2>
+            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+              {relatedProducts.map((rp) => (
+                <Link key={rp.node.id} href={`/product/${rp.node.handle}`}>
+                  <Card className="hover:shadow-md transition-shadow cursor-pointer">
+                    <div className="aspect-square overflow-hidden bg-muted/30">
+                      <img
+                        src={rp.node.images.edges[0]?.node.url || FALLBACK_IMAGE}
+                        alt={rp.node.title}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                  </Link>
-                );
-              })}
+                    <CardContent className="p-3">
+                      <p className="font-medium text-sm line-clamp-2">{rp.node.title}</p>
+                      <p className="text-primary font-bold text-sm mt-1">
+                        ${parseFloat(rp.node.priceRange.minVariantPrice.amount).toFixed(2)}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
             </div>
-          </section>
+          </div>
         )}
       </div>
-
       <Footer />
     </div>
   );
