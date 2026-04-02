@@ -1,12 +1,11 @@
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
-import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Ruler, ArrowRight } from 'lucide-react';
+import { MobileHeader } from '@/components/MobileHeader';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://abcfilters.net' },
@@ -29,28 +28,28 @@ const sizes = [
 
 export default function ShopBySize() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen safe-bottom">
+      <MobileHeader title="Shop by Size" showBack={false} />
       <SEO
         title="Shop Paint Booth Filters by Size - 20x20, 20x25, Custom Cuts"
         description="Find the right paint booth filter by size. We stock 20x20, 20x25, 24x24, 25x25 and many more standard sizes. Custom-cut filters available for any booth configuration."
         canonical="https://abcfilters.net/shop-by-size"
         structuredData={breadcrumbSchema}
       />
-      <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16">
+      <div className="px-4 pt-4 pb-16">
         <Breadcrumb items={[{ label: 'Shop by Size' }]} />
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
             <Ruler className="h-4 w-4 text-primary" />
             <span className="text-sm font-semibold text-primary">Shop by Size</span>
           </div>
-          <h1 className="text-5xl font-extrabold mb-4">Find Your Filter Size</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <h1 className="text-[26px] font-bold tracking-tight mb-4">Find Your Filter Size</h1>
+          <p className="text-[14px] text-muted-foreground">
             Select your filter dimensions to find the right product. Can't find your size? We cut custom filters to spec.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
+        <div className="grid grid-cols-2 gap-3 mb-12">
           {sizes.map((item) => (
             <Link key={item.size} href={item.custom ? '/contact' : `/shop?size=${item.size}`}>
               <Card className={`group hover:shadow-md transition-all cursor-pointer h-full ${item.popular ? 'border-primary/30 bg-primary/5' : ''} ${item.custom ? 'border-dashed border-primary/40' : ''}`}>
@@ -81,7 +80,6 @@ export default function ShopBySize() {
           </Link>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

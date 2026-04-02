@@ -1,14 +1,11 @@
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
-import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
-import {
-  Shield, Truck, Star, Wrench, Award, TrendingUp, CheckCircle, ArrowRight,
-} from 'lucide-react';
+import { Shield, Truck, Star, Wrench, Award, TrendingUp, CheckCircle, ArrowRight } from 'lucide-react';
+import { MobileHeader } from '@/components/MobileHeader';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://abcfilters.net' },
@@ -35,27 +32,27 @@ const benefits = [
 
 export default function WhyChooseUs() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen safe-bottom">
+      <MobileHeader title="Why Choose Us" showBack={false} />
       <SEO
         title="Why Choose ABC Filters | Premium Spray Booth Filtration Expert"
         description="Choose ABC Filters for premium paint booth filters backed by PFS expertise. Industry-leading quality, custom filtration solutions, expert technical support, and competitive pricing on all spray booth filters."
         canonical="https://abcfilters.net/why-choose-us"
         structuredData={breadcrumbSchema}
       />
-      <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-6">
+      <div className="px-4 pt-4 pb-6">
         <Breadcrumb items={[{ label: 'Why Choose Us' }]} />
       </div>
 
       {/* Hero */}
       <section className="pb-20 px-4 bg-gradient-to-b from-background to-muted/30">
         <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">
+          <h1 className="text-[26px] font-bold tracking-tight tracking-tight mb-4">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Why Choose ABC Filters?
             </span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-[14px] text-muted-foreground">
             Premium <strong>spray booth filtration solutions</strong> backed by decades of PFS expertise, delivering superior air quality and finish protection.
           </p>
         </div>
@@ -104,12 +101,12 @@ export default function WhyChooseUs() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/shop">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 gap-2">
+              <Button size="lg" className="bg-primary text-white hover:bg-primary/90 gap-2">
                 Shop Now <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
             <Link href="/contact">
-              <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10">
+              <Button size="lg" variant="outline" className="border-primary/40 text-primary hover:bg-primary/10">
                 Get a Custom Quote
               </Button>
             </Link>
@@ -117,7 +114,6 @@ export default function WhyChooseUs() {
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 }

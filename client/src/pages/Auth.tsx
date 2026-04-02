@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 import { SEO } from '@/components/SEO';
-import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, Filter } from 'lucide-react';
+import { MobileHeader } from '@/components/MobileHeader';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 
@@ -66,8 +65,8 @@ export default function Auth() {
         canonical="https://abcfilters.net/auth"
         noIndex
       />
-      <Navigation />
-      <div className="container mx-auto px-4 pt-32 pb-16 flex justify-center">
+      <MobileHeader title="Account" />
+      <div className="px-4 pb-16 flex justify-center">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 mb-4">
@@ -128,7 +127,6 @@ export default function Auth() {
           </Card>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

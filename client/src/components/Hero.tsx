@@ -9,8 +9,7 @@ import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Mail, ShoppingBag, Truck, Shield, Star } from 'lucide-react';
 
-// Cinematic booth ceiling image — real photorealistic style
-const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/hero-ceiling2-hETWeKdkQ9gxgTot5wBu7H.webp';
+const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/hero-spray-booth_91689808.jpg';
 
 export const Hero = () => {
   const scrollToContact = () => {
@@ -24,7 +23,7 @@ export const Hero = () => {
         id="home"
         className="relative min-h-screen flex items-center justify-center px-4 pt-40 pb-20 overflow-hidden"
       >
-        {/* Background Image — cinematic dark overlay */}
+        {/* Background Image — light overlay to match original pale/white look */}
         <div className="absolute inset-0 z-0">
           <img
             src={HERO_IMAGE}
@@ -32,25 +31,25 @@ export const Hero = () => {
             className="w-full h-full object-cover"
             style={{ transform: 'scale(1.05)' }}
           />
-          {/* Dark cinematic overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
+          {/* Heavy light overlay — matches original site's pale hero */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/88 to-white/70" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/20" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center space-y-4">
           {/* Badge */}
           <div className="flex justify-center mb-4 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-full backdrop-blur-sm">
-              <Shield className="h-4 w-4 text-white" />
-              <span className="text-sm font-semibold text-white">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
+              <Shield className="h-4 w-4 text-primary" />
+              <span className="text-sm font-semibold text-primary">
                 A Division of PFS Spray Booths — 30+ Years of Expertise
               </span>
             </div>
           </div>
 
-          {/* Heading — white text on dark cinematic background */}
+          {/* Heading — dark text on light background */}
           <h1
-            className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95] text-white animate-slide-up"
+            className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95] text-foreground animate-slide-up"
             style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}
           >
             The Only Filter Program That Manages Your Entire Booth
@@ -58,7 +57,7 @@ export const Hero = () => {
 
           {/* Subtitle */}
           <p
-            className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-tight font-medium animate-slide-up"
+            className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-tight font-medium animate-slide-up"
             style={{ animationDelay: '0.4s', animationFillMode: 'backwards' }}
           >
             Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of
@@ -100,7 +99,7 @@ export const Hero = () => {
               { icon: Shield, label: 'Booth-Specific Filter Tracking' },
               { icon: Star, label: '1,200+ Shops Nationwide' },
             ].map((badge, idx) => (
-              <div key={idx} className="flex items-center gap-2 text-sm text-white/80">
+              <div key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
                 <badge.icon className="h-4 w-4 text-primary" />
                 <span className="font-medium">{badge.label}</span>
               </div>

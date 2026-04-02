@@ -25,46 +25,49 @@ import FilterCompatibility from './pages/FilterCompatibility';
 import Brands from './pages/Brands';
 import SubmitReview from './pages/SubmitReview';
 import NotFound from './pages/NotFound';
+import { AppLayout } from './components/AppLayout';
 
 function Router() {
   return (
-    <Switch>
-      {/* Main pages */}
-      <Route path="/" component={Home} />
-      <Route path="/shop" component={Shop} />
-      <Route path="/product/:handle" component={ProductDetail} />
+    <AppLayout>
+      <Switch>
+        {/* Main pages */}
+        <Route path="/" component={Home} />
+        <Route path="/shop" component={Shop} />
+        <Route path="/product/:handle" component={ProductDetail} />
 
-      {/* Blog */}
-      <Route path="/blog" component={Blog} />
-      <Route path="/blog/:slug" component={BlogPost} />
+        {/* Blog */}
+        <Route path="/blog" component={Blog} />
+        <Route path="/blog/:slug" component={BlogPost} />
 
-      {/* Info pages */}
-      <Route path="/contact" component={Contact} />
-      <Route path="/why-choose-us" component={WhyChooseUs} />
-      <Route path="/memberships" component={Memberships} />
-      <Route path="/returns" component={Returns} />
-      <Route path="/privacy-policy" component={PrivacyPolicy} />
+        {/* Info pages */}
+        <Route path="/contact" component={Contact} />
+        <Route path="/why-choose-us" component={WhyChooseUs} />
+        <Route path="/memberships" component={Memberships} />
+        <Route path="/returns" component={Returns} />
+        <Route path="/privacy-policy" component={PrivacyPolicy} />
 
-      {/* Shop navigation */}
-      <Route path="/shop-by-size" component={ShopBySize} />
-      <Route path="/shop-by-type" component={ShopByType} />
-      <Route path="/filter-compatibility" component={FilterCompatibility} />
-      <Route path="/brands" component={Brands} />
+        {/* Shop navigation */}
+        <Route path="/shop-by-size" component={ShopBySize} />
+        <Route path="/shop-by-type" component={ShopByType} />
+        <Route path="/filter-compatibility" component={FilterCompatibility} />
+        <Route path="/brands" component={Brands} />
 
-      {/* Category pages — redirect to shop with filter */}
-      <Route path="/category/:slug" component={Shop} />
+        {/* Category pages — redirect to shop with filter */}
+        <Route path="/category/:slug" component={Shop} />
 
-      {/* Features */}
-      <Route path="/filter-scanner" component={FilterScanner} />
-      <Route path="/submit-review" component={SubmitReview} />
+        {/* Features */}
+        <Route path="/filter-scanner" component={FilterScanner} />
+        <Route path="/submit-review" component={SubmitReview} />
 
-      {/* Auth & account */}
-      <Route path="/auth" component={Auth} />
-      <Route path="/dashboard" component={Dashboard} />
+        {/* Auth & account */}
+        <Route path="/auth" component={Auth} />
+        <Route path="/dashboard" component={Dashboard} />
 
-      {/* 404 */}
-      <Route component={NotFound} />
-    </Switch>
+        {/* 404 */}
+        <Route component={NotFound} />
+      </Switch>
+    </AppLayout>
   );
 }
 
@@ -72,7 +75,7 @@ export default function App() {
   return (
     <ErrorBoundary>
       <HelmetProvider>
-        <ThemeProvider defaultTheme="light">
+        <ThemeProvider defaultTheme="dark">
           <TooltipProvider>
             <Toaster />
             <Router />

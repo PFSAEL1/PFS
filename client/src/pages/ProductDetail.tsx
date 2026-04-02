@@ -1,257 +1,228 @@
-import { useEffect, useState } from 'react';
-import { useParams, Link } from 'wouter';
-import { SEO } from '@/components/SEO';
-import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
-import { Breadcrumb } from '@/components/Breadcrumb';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
-import { fetchProductByHandle, fetchRelatedProducts, ShopifyProduct } from '@/lib/shopify';
+// ABC Filters iOS — Product Detail v4
+// Tesla-grade: full-bleed image, sticky add-to-cart, premium typography
+import { useState, useEffect } from 'react';
+import { useParams, useLocation } from 'wouter';
+import { fetchProductByHandle, ShopifyProduct } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
-import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredData';
-import { ShoppingCart, Loader2, Package, Truck, Shield, ArrowLeft, Plus, Minus } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, Package, Check, ChevronRight, Star } from 'lucide-react';
 import { toast } from 'sonner';
-
-const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
 export default function ProductDetail() {
   const { handle } = useParams<{ handle: string }>();
-  const [product, setProduct] = useState<ReturnType<typeof Object.create> | null>(null);
-  const [relatedProducts, setRelatedProducts] = useState<ShopifyProduct[]>([]);
+  const [, navigate] = useLocation();
+  const [product, setProduct] = useState<ShopifyProduct['node'] | null>(null);
   const [loading, setLoading] = useState(true);
-  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState(1);
+  const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [adding, setAdding] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
 
   useEffect(() => {
     if (!handle) return;
     setLoading(true);
-    fetchProductByHandle(handle).then((data) => {
-      setProduct(data);
-      if (data?.variants?.edges?.[0]) {
-        setSelectedVariantId(data.variants.edges[0].node.id);
-      }
-      fetchRelatedProducts(data?.id || '', 4).then(setRelatedProducts);
-      setLoading(false);
-    }).catch(() => setLoading(false));
+    fetchProductByHandle(handle)
+      .then((data: ShopifyProduct['node']) => { setProduct(data); setLoading(false); })
+      .catch(() => setLoading(false));
   }, [handle]);
+
+  const handleAddToCart = async () => {
+    if (!product) return;
+    const variant = product.variants.edges[selectedVariantIdx]?.node;
+    if (!variant) return;
+    setAdding(true);
+    addItem({
+      variantId: variant.id,
+      productId: product.id,
+      title: product.title,
+      variantTitle: variant.title,
+      price: variant.price,
+      quantity: 1,
+      image: product.images.edges[selectedImage]?.node.url,
+      handle: product.handle,
+    });
+    toast.success('Added to cart!', { description: product.title });
+    // Open cart immediately — no delay
+    setCartOpen(true);
+    setTimeout(() => setAdding(false), 300);
+  };
 
   if (loading) {
     return (
-      <div className="min-h-screen">
-        <Navigation />
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <Loader2 className="h-10 w-10 animate-spin text-primary" />
+      <div className="min-h-screen bg-background">
+        <div className="h-72 shimmer" />
+        <div className="px-4 pt-5 space-y-3">
+          <div className="h-6 w-3/4 rounded-xl shimmer" />
+          <div className="h-4 w-1/3 rounded-xl shimmer" />
+          <div className="h-4 rounded-xl shimmer mt-4" />
+          <div className="h-4 w-5/6 rounded-xl shimmer" />
         </div>
-        <Footer />
       </div>
     );
   }
 
   if (!product) {
     return (
-      <div className="min-h-screen">
-        <Navigation />
-        <div className="container mx-auto px-4 pt-32 pb-16 text-center">
-          <Package className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-30" />
-          <h1 className="text-3xl font-bold mb-4">Product Not Found</h1>
-          <Link href="/shop"><Button>Browse All Products</Button></Link>
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
+        <div className="w-16 h-16 rounded-3xl flex items-center justify-center mb-4"
+          style={{ background: 'oklch(0.16 0.006 240)', border: '0.5px solid oklch(0.28 0.010 240)' }}>
+          <Package className="w-8 h-8 text-muted-foreground/40" />
         </div>
-        <Footer />
+        <p className="text-[15px] font-semibold mb-1">Product not found</p>
+        <button onClick={() => navigate('/shop')}
+          className="mt-4 px-5 py-2.5 rounded-2xl text-[13px] font-semibold btn-press"
+          style={{ background: 'oklch(0.60 0.22 232)', color: 'white' }}>
+          Back to Shop
+        </button>
       </div>
     );
   }
 
-  const selectedVariant = product.variants?.edges?.find((e: { node: { id: string } }) => e.node.id === selectedVariantId)?.node
-    || product.variants?.edges?.[0]?.node;
-  const images = product.images?.edges || [];
+  const images = product.images.edges;
+  const variants = product.variants.edges;
+  const selectedVariant = variants[selectedVariantIdx]?.node;
   const price = selectedVariant?.price?.amount ? parseFloat(selectedVariant.price.amount).toFixed(2) : '—';
-  const currency = selectedVariant?.price?.currencyCode || 'USD';
   const inStock = selectedVariant?.availableForSale ?? true;
-  const mainImage = images[selectedImage]?.node?.url || FALLBACK_IMAGE;
-
-  const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: 'https://abcfilters.net' },
-    { name: 'Shop', url: 'https://abcfilters.net/shop' },
-    { name: product.title, url: `https://abcfilters.net/product/${handle}` },
-  ]);
-
-  const productSchema = createProductSchema({
-    name: product.title,
-    description: product.description,
-    image: mainImage,
-    price,
-    currency,
-    url: `https://abcfilters.net/product/${handle}`,
-    availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-  });
-
-  const handleAddToCart = () => {
-    if (!selectedVariant) return;
-    addItem({
-      variantId: selectedVariant.id,
-      productId: product.id,
-      title: product.title,
-      variantTitle: selectedVariant.title,
-      price: selectedVariant.price,
-      quantity,
-      image: mainImage,
-      handle: handle || '',
-    });
-    toast.success(`${product.title} added to cart`);
-    setCartOpen(true);
-  };
+  const mainImage = images[selectedImage]?.node.url;
 
   return (
-    <div className="min-h-screen">
-      <SEO
-        title={`${product.title} - ABC Filters by PFS`}
-        description={product.description || `Buy ${product.title} from ABC Filters. Premium paint booth filtration products with fast nationwide shipping.`}
-        canonical={`https://abcfilters.net/product/${handle}`}
-        ogImage={mainImage}
-        structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
-      />
-      <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16">
-        <Breadcrumb items={[{ label: 'Shop', href: '/shop' }, { label: product.title }]} />
-        <Link href="/shop">
-          <Button variant="ghost" size="sm" className="gap-2 mb-6 -ml-2">
-            <ArrowLeft className="h-4 w-4" /> Back to Shop
-          </Button>
-        </Link>
+    <div className="min-h-screen bg-background" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 34px) + 100px)' }}>
+      {/* ── Back button (floating over image) ── */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4"
+        style={{ paddingTop: 'env(safe-area-inset-top, 44px)', paddingBottom: 12 }}>
+        <button
+          onClick={() => navigate('/shop')}
+          className="w-10 h-10 rounded-2xl flex items-center justify-center btn-press"
+          style={{ background: 'oklch(0.09 0.006 240 / 0.75)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '0.5px solid oklch(1 0 0 / 0.12)' }}>
+          <ArrowLeft className="w-5 h-5 text-white" />
+        </button>
+        <button
+          onClick={() => setCartOpen(true)}
+          className="w-10 h-10 rounded-2xl flex items-center justify-center btn-press"
+          style={{ background: 'oklch(0.09 0.006 240 / 0.75)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '0.5px solid oklch(1 0 0 / 0.12)' }}>
+          <ShoppingCart className="w-5 h-5 text-white" />
+        </button>
+      </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
-          {/* Images */}
-          <div>
-            <div className="aspect-square overflow-hidden rounded-2xl bg-muted/30 mb-4">
-              <img src={mainImage} alt={product.title} className="w-full h-full object-cover" />
-            </div>
-            {images.length > 1 && (
-              <div className="flex gap-2 overflow-x-auto">
-                {images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
-                  <button
-                    key={i}
-                    onClick={() => setSelectedImage(i)}
-                    className={`w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-colors ${selectedImage === i ? 'border-primary' : 'border-border'}`}
-                  >
-                    <img src={img.node.url} alt={img.node.altText || product.title} className="w-full h-full object-cover" />
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+      {/* ── Full-bleed product image ── */}
+      <div className="relative product-img-bg" style={{ height: 320 }}>
+        {mainImage
+          ? <img src={mainImage} alt={product.title} className="w-full h-full object-contain p-8" />
+          : <div className="w-full h-full flex items-center justify-center"><Package className="w-16 h-16 text-muted-foreground/30" /></div>
+        }
+      </div>
 
-          {/* Details */}
-          <div>
-            <h1 className="text-3xl md:text-4xl font-extrabold mb-3">{product.title}</h1>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl font-bold text-primary">${price}</span>
-              <span className="text-muted-foreground">{currency}</span>
-              {inStock ? (
-                <Badge className="bg-green-100 text-green-800">In Stock</Badge>
-              ) : (
-                <Badge variant="secondary">Out of Stock</Badge>
-              )}
-            </div>
+      {/* ── Thumbnail strip ── */}
+      {images.length > 1 && (
+        <div className="flex gap-2 px-4 mt-3 overflow-x-auto scrollbar-none">
+          {images.map((img: { node: { url: string; altText: string | null } }, i: number) => (
+            <button
+              key={i}
+              onClick={() => setSelectedImage(i)}
+              className="flex-shrink-0 w-14 h-14 rounded-xl overflow-hidden btn-press"
+              style={{
+                border: `1.5px solid ${selectedImage === i ? 'oklch(0.60 0.22 232)' : 'oklch(0.25 0.010 240)'}`,
+                background: 'oklch(0.13 0.008 240)',
+              }}>
+              <img src={img.node.url} alt="" className="w-full h-full object-contain p-1.5" />
+            </button>
+          ))}
+        </div>
+      )}
 
-            {product.description && (
-              <p className="text-muted-foreground leading-relaxed mb-6">{product.description}</p>
-            )}
-
-            {/* Variant selector */}
-            {product.variants?.edges?.length > 1 && (
-              <div className="mb-6">
-                <p className="font-semibold mb-2">Options</p>
-                <div className="flex flex-wrap gap-2">
-                  {product.variants.edges.map((edge: { node: { id: string; title: string; availableForSale: boolean } }) => (
-                    <button
-                      key={edge.node.id}
-                      onClick={() => setSelectedVariantId(edge.node.id)}
-                      className={`px-3 py-1.5 text-sm rounded-lg border-2 transition-colors ${
-                        selectedVariantId === edge.node.id
-                          ? 'border-primary bg-primary/10 text-primary'
-                          : 'border-border hover:border-primary/50'
-                      } ${!edge.node.availableForSale ? 'opacity-50 cursor-not-allowed' : ''}`}
-                      disabled={!edge.node.availableForSale}
-                    >
-                      {edge.node.title}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Quantity + Add to Cart */}
-            <div className="flex items-center gap-4 mb-6">
-              <div className="flex items-center border border-border rounded-lg">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-2 hover:bg-accent transition-colors">
-                  <Minus className="h-4 w-4" />
-                </button>
-                <span className="px-4 py-2 font-medium min-w-[3rem] text-center">{quantity}</span>
-                <button onClick={() => setQuantity(quantity + 1)} className="px-3 py-2 hover:bg-accent transition-colors">
-                  <Plus className="h-4 w-4" />
-                </button>
-              </div>
-              <Button
-                className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
-                size="lg"
-                onClick={handleAddToCart}
-                disabled={!inStock}
-              >
-                <ShoppingCart className="h-5 w-5" />
-                {inStock ? 'Add to Cart' : 'Out of Stock'}
-              </Button>
-            </div>
-
-            {/* Trust badges */}
-            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-border">
-              {[
-                { icon: Truck, label: 'Fast Shipping', sub: '1-2 day processing' },
-                { icon: Shield, label: 'Quality Guaranteed', sub: 'Or we make it right' },
-                { icon: Package, label: 'Custom Sizes', sub: 'Cut to spec' },
-              ].map((item) => (
-                <div key={item.label} className="text-center p-3 bg-muted/30 rounded-lg">
-                  <item.icon className="h-5 w-5 text-primary mx-auto mb-1" />
-                  <p className="text-xs font-semibold">{item.label}</p>
-                  <p className="text-xs text-muted-foreground">{item.sub}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+      {/* ── Product info ── */}
+      <div className="px-4 mt-4">
+        {/* Title & price */}
+        <div className="flex items-start justify-between gap-3 mb-1">
+          <h1 className="text-[20px] font-bold tracking-tight leading-tight flex-1">{product.title}</h1>
+          <span className="text-[22px] font-black text-primary flex-shrink-0">${price}</span>
         </div>
 
-        {/* Related products */}
-        {relatedProducts.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-bold mb-6">Related Products</h2>
-            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-              {relatedProducts.map((rp) => (
-                <Link key={rp.node.id} href={`/product/${rp.node.handle}`}>
-                  <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                    <div className="aspect-square overflow-hidden bg-muted/30">
-                      <img
-                        src={rp.node.images.edges[0]?.node.url || FALLBACK_IMAGE}
-                        alt={rp.node.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <CardContent className="p-3">
-                      <p className="font-medium text-sm line-clamp-2">{rp.node.title}</p>
-                      <p className="text-primary font-bold text-sm mt-1">
-                        ${parseFloat(rp.node.priceRange.minVariantPrice.amount).toFixed(2)}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </Link>
+        {/* Stars placeholder */}
+        <div className="flex items-center gap-1 mb-4">
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} className="w-3.5 h-3.5 fill-current" style={{ color: 'oklch(0.75 0.18 80)' }} />
+          ))}
+          <span className="text-[11px] text-muted-foreground ml-1">5.0 (Premium Quality)</span>
+        </div>
+
+        {/* Stock status */}
+        <div className="flex items-center gap-2 mb-5">
+          <div className="w-2 h-2 rounded-full" style={{ background: inStock ? 'oklch(0.65 0.18 160)' : 'oklch(0.577 0.245 27.325)' }} />
+          <span className="text-[12px] font-medium" style={{ color: inStock ? 'oklch(0.65 0.18 160)' : 'oklch(0.577 0.245 27.325)' }}>
+            {inStock ? 'In Stock — Ships 1-2 Days' : 'Out of Stock'}
+          </span>
+        </div>
+
+        {/* Variants */}
+        {variants.length > 1 && (
+          <div className="mb-5">
+            <p className="text-[12px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">Select Size</p>
+            <div className="flex flex-wrap gap-2">
+              {variants.map((v: { node: { id: string; title: string } }, i: number) => (
+                <button
+                  key={v.node.id}
+                  onClick={() => setSelectedVariantIdx(i)}
+                  className="px-3.5 py-2 rounded-xl text-[12px] font-semibold btn-press"
+                  style={{
+                    background: selectedVariantIdx === i ? 'oklch(0.60 0.22 232)' : 'oklch(0.16 0.006 240)',
+                    color: selectedVariantIdx === i ? 'white' : 'oklch(0.70 0.008 240)',
+                    border: `0.5px solid ${selectedVariantIdx === i ? 'transparent' : 'oklch(0.28 0.010 240)'}`,
+                  }}>
+                  {v.node.title}
+                </button>
               ))}
             </div>
           </div>
         )}
+
+        {/* Description */}
+        {product.description && (
+          <div className="mb-5">
+            <p className="text-[12px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">Description</p>
+            <p className="text-[14px] leading-relaxed" style={{ color: 'oklch(0.68 0.008 240)' }}>
+              {product.description.slice(0, 280)}{product.description.length > 280 ? '...' : ''}
+            </p>
+          </div>
+        )}
+
+        {/* Features */}
+        <div className="rounded-2xl p-4 mb-5"
+          style={{ background: 'oklch(0.13 0.008 240)', border: '0.5px solid oklch(0.25 0.010 240)' }}>
+          {['Premium filtration media', 'Fast 1-2 day shipping', 'Quality guaranteed', 'Expert support available'].map((feat) => (
+            <div key={feat} className="flex items-center gap-3 py-2">
+              <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                style={{ background: 'oklch(0.60 0.22 232 / 0.15)' }}>
+                <Check className="w-3 h-3 text-primary" />
+              </div>
+              <span className="text-[13px]" style={{ color: 'oklch(0.75 0.006 240)' }}>{feat}</span>
+            </div>
+          ))}
+        </div>
       </div>
-      <Footer />
+
+      {/* ── Sticky Add to Cart ── */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 px-4"
+        style={{
+          paddingBottom: 'calc(env(safe-area-inset-bottom, 34px) + 12px)',
+          background: 'oklch(0.09 0.006 240 / 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderTop: '0.5px solid oklch(0.22 0.008 240 / 0.8)',
+          paddingTop: 12,
+        }}>
+        <button
+          onClick={handleAddToCart}
+          disabled={!inStock || adding}
+          className="w-full py-4 rounded-2xl font-bold text-[16px] flex items-center justify-center gap-2 btn-press disabled:opacity-40"
+          style={{ background: adding ? 'oklch(0.65 0.18 160)' : 'oklch(0.60 0.22 232)', color: 'white' }}>
+          {adding ? (
+            <><Check className="w-5 h-5" /> Added to Cart</>
+          ) : (
+            <><ShoppingCart className="w-5 h-5" /> Add to Cart — ${price}</>
+          )}
+        </button>
+      </div>
     </div>
   );
 }

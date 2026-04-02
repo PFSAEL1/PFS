@@ -1,13 +1,12 @@
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
-import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { blogPosts } from '@/lib/blogData';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Clock, User, ArrowRight } from 'lucide-react';
+import { MobileHeader } from '@/components/MobileHeader';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://abcfilters.net' },
@@ -33,19 +32,19 @@ const blogListSchema = {
 
 export default function Blog() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen safe-bottom">
+      <MobileHeader title="Blog" showBack={true} />
       <SEO
         title="Spray Booth Maintenance & Filter Guide - Expert Tips & How-To"
         description="Expert advice on paint booth filters, maintenance schedules, filter selection, and troubleshooting. Learn from industry professionals with 20+ years experience."
         canonical="https://abcfilters.net/blog"
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, blogListSchema] }}
       />
-      <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16">
+      <div className="px-4 pt-4 pb-16">
         <Breadcrumb items={[{ label: 'Blog' }]} />
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Spray Booth Knowledge Center</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-[14px] text-muted-foreground">
             Expert guides, maintenance tips, and industry insights from the PFS Spray Booths team
           </p>
         </div>
@@ -91,7 +90,6 @@ export default function Blog() {
           ))}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

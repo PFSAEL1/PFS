@@ -1,10 +1,9 @@
 import { SEO } from '@/components/SEO';
-import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertCircle, Package, XCircle, Mail, Phone } from 'lucide-react';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
+import { MobileHeader } from '@/components/MobileHeader';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://abcfilters.net' },
@@ -13,15 +12,15 @@ const breadcrumbSchema = createBreadcrumbSchema([
 
 export default function Returns() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen safe-bottom">
+      <MobileHeader title="Returns & Refunds" showBack={false} />
       <SEO
         title="Returns & Refunds Policy"
         description="Review our returns and refunds policy. Returns accepted within 10 days with 30% restocking fee. Learn about eligibility, non-refundable items, and refund processing."
         canonical="https://abcfilters.net/returns"
         structuredData={breadcrumbSchema}
       />
-      <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
+      <div className="px-4 pt-4 pb-16 max-w-4xl">
         <Breadcrumb items={[{ label: 'Returns & Refunds' }]} />
         <div className="mb-12 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Returns & Refunds Policy</h1>
@@ -98,7 +97,6 @@ export default function Returns() {
           </Card>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

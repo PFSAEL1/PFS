@@ -1,10 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string || 'https://placeholder.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string || 'placeholder-key';
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string || 'https://reiuenraycfonsrdrjgg.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string || 'sb_publishable_A16fipTKq8BjVAeaEiR2ow_ugqOUNS6';
 
-// Supabase client — requires VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY env vars
-// In production (Vercel), set these in the Vercel dashboard under Environment Variables
+// Supabase client — credentials embedded for iOS app build
 export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
     storage: typeof window !== 'undefined' ? localStorage : undefined,
@@ -13,4 +12,4 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   },
 });
 
-export const isSupabaseConfigured = !!import.meta.env.VITE_SUPABASE_URL;
+export const isSupabaseConfigured = true;
