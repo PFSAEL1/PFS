@@ -25,6 +25,7 @@ import FilterCompatibility from './pages/FilterCompatibility';
 import Brands from './pages/Brands';
 import SubmitReview from './pages/SubmitReview';
 import NotFound from './pages/NotFound';
+import FilterDatabase from './pages/FilterDatabase';
 import { AppLayout } from './components/AppLayout';
 
 function Router() {
@@ -63,6 +64,8 @@ function Router() {
         {/* Auth & account */}
         <Route path="/auth" component={Auth} />
         <Route path="/dashboard" component={Dashboard} />
+        {/* Admin only - hidden from public nav */}
+        <Route path="/filter-database" component={FilterDatabase} />
 
         {/* 404 */}
         <Route component={NotFound} />
