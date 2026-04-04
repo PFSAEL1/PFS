@@ -7,11 +7,10 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
-import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2 } from 'lucide-react';
+import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2, Crown } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
 import { useLocation } from 'wouter';
-import { Capacitor } from '@capacitor/core';
 
 export const CartDrawer = () => {
   const {
@@ -38,14 +37,7 @@ export const CartDrawer = () => {
       const checkoutUrl = await createCheckout();
       if (checkoutUrl) {
         toast.success('Redirecting to checkout...');
-        // On iOS native, use Capacitor Browser for in-app checkout experience
-        if (Capacitor.isNativePlatform()) {
-          import('@capacitor/browser').then(({ Browser }) => {
-            Browser.open({ url: checkoutUrl, presentationStyle: 'popover' });
-          }).catch(() => { window.open(checkoutUrl, '_blank'); });
-        } else {
-          window.location.href = checkoutUrl;
-        }
+        window.location.href = checkoutUrl;
       }
     } catch {
       toast.error('Failed to create checkout. Please try again.');

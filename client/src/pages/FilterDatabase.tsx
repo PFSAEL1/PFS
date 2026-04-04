@@ -11,7 +11,8 @@ import { toast } from 'sonner';
 import {
   Database, Plus, Search, Download, Upload, Eye, Users, Crown,
   Trash2, Send, RefreshCw, ChevronRight, Filter, Calendar,
-  MapPin, Phone, Mail, Building2, AlertCircle, CheckCircle2, Clock
+  MapPin, Phone, Mail, Building2, AlertCircle, CheckCircle2, Clock,
+  BellRing, Zap, BellOff
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,6 +29,9 @@ interface BoothSetup {
   booth_model: string | null;
   is_member: boolean;
   auto_reorder: boolean;
+  order_mode: 'off' | 'reminder' | 'auto_reorder' | null;
+  shopify_customer_id: string | null;
+  last_draft_order_id: string | null;
   city: string | null;
   state: string | null;
   contact_email: string | null;
@@ -59,6 +63,7 @@ export default function FilterDatabase() {
   const [editingBooth, setEditingBooth] = useState<any>(null);
   const [selectedBooths, setSelectedBooths] = useState<Set<string>>(new Set());
   const [sendingReminder, setSendingReminder] = useState<string | null>(null);
+  const [updatingMode, setUpdatingMode] = useState<string | null>(null);
 
   // Check admin access
   useEffect(() => {
@@ -123,34 +128,72 @@ export default function FilterDatabase() {
   };
 
   const handleSendReminder = async (booth: BoothSetup) => {
+    const mode = booth.order_mode && booth.order_mode !== 'off' ? booth.order_mode : null;
+    if (!mode) {
+      toast.error('Set an order mode (Reminder or Auto-Reorder) before sending');
+      return;
+    }
     setSendingReminder(booth.id);
     try {
-      // Trigger Shopify draft order via email (stored in Supabase for now)
-      // In production this would call a Supabase edge function or n8n webhook
-      await new Promise(r => setTimeout(r, 1200));
-      // Update next reminder date
-      const nextDate = new Date();
-      nextDate.setDate(nextDate.getDate() + (booth.change_interval_days || 90));
-      await supabase
-        .from('booth_setups')
-        .update({ next_reminder_date: nextDate.toISOString().split('T')[0] })
-        .eq('id', booth.id);
-      toast.success(`Reminder sent to ${booth.contact_email || booth.customer_email || booth.customer_name}`);
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) throw new Error('Not authenticated');
+
+      const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+      const resp = await fetch(
+        `${SUPABASE_URL}/functions/v1/shopify-draft-order`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ booth_id: booth.id, mode })
+        }
+      );
+
+      const result = await resp.json();
+      if (!resp.ok || !result.success) {
+        throw new Error(result.error || 'Failed to create draft order');
+      }
+
+      if (mode === 'reminder') {
+        toast.success(`Invoice sent to ${booth.contact_email || booth.customer_email || booth.customer_name}`);
+      } else {
+        toast.success(`Auto-reorder completed — Shopify order created`);
+      }
       fetchBooths();
-    } catch {
-      toast.error('Failed to send reminder');
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to send order');
     } finally {
       setSendingReminder(null);
     }
   };
 
+  const handleSetOrderMode = async (booth: BoothSetup, newMode: 'off' | 'reminder' | 'auto_reorder') => {
+    setUpdatingMode(booth.id);
+    try {
+      const { error } = await supabase
+        .from('booth_setups')
+        .update({ order_mode: newMode })
+        .eq('id', booth.id);
+      if (error) throw error;
+      const label = newMode === 'off' ? 'Off' : newMode === 'reminder' ? 'Reminder' : 'Auto-Reorder';
+      toast.success(`Order mode set to ${label}`);
+      fetchBooths();
+    } catch {
+      toast.error('Failed to update order mode');
+    } finally {
+      setUpdatingMode(null);
+    }
+  };
+
   const handleExportCSV = () => {
-    const headers = ['Customer Name', 'Email', 'Phone', 'Manufacturer', 'Model', 'Member', 'City', 'State', 'Next Reminder', 'Auto Reorder'];
+    const headers = ['Customer Name', 'Email', 'Phone', 'Manufacturer', 'Model', 'Member', 'City', 'State', 'Next Reminder', 'Order Mode'];
     const rows = filteredBooths.map(b => [
       b.customer_name, b.customer_email || '', b.customer_phone || '',
       b.booth_manufacturer, b.booth_model || '',
       b.is_member ? 'Yes' : 'No', b.city || '', b.state || '',
-      b.next_reminder_date || '', b.auto_reorder ? 'Yes' : 'No'
+      b.next_reminder_date || '', b.order_mode || 'off'
     ]);
     const csv = [headers, ...rows].map(r => r.map(c => `"${c}"`).join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -284,6 +327,8 @@ export default function FilterDatabase() {
             {filteredBooths.map(booth => {
               const reminder = getReminderStatus(booth);
               const ReminderIcon = reminder.icon;
+              const currentMode = booth.order_mode || 'off';
+              const canSend = currentMode !== 'off';
               return (
                 <div key={booth.id}
                   className="group bg-[#111] border border-white/8 rounded-xl p-4 hover:border-white/15 transition-all">
@@ -303,9 +348,14 @@ export default function FilterDatabase() {
                               <Crown className="w-2.5 h-2.5" /> Member
                             </Badge>
                           )}
-                          {booth.auto_reorder && (
+                          {currentMode === 'reminder' && (
+                            <Badge className="bg-blue-500/15 text-blue-300 border-blue-500/20 text-[10px] px-1.5 py-0 gap-1">
+                              <BellRing className="w-2.5 h-2.5" /> Reminder
+                            </Badge>
+                          )}
+                          {currentMode === 'auto_reorder' && (
                             <Badge className="bg-emerald-500/15 text-emerald-300 border-emerald-500/20 text-[10px] px-1.5 py-0 gap-1">
-                              <RefreshCw className="w-2.5 h-2.5" /> Auto-Reorder
+                              <Zap className="w-2.5 h-2.5" /> Auto-Reorder
                             </Badge>
                           )}
                         </div>
@@ -335,7 +385,7 @@ export default function FilterDatabase() {
                         </div>
                         {booth.filter_positions && booth.filter_positions.length > 0 && (
                           <div className="flex items-center gap-1.5 mt-2 flex-wrap">
-                            {booth.filter_positions.map((pos, i) => (
+                            {booth.filter_positions.map((pos) => (
                               <span key={pos.id} className="text-[10px] bg-white/5 border border-white/8 rounded-md px-2 py-0.5 text-white/50">
                                 {pos.position_type}{pos.dimensions ? ` ${pos.dimensions}` : ''} ×{pos.quantity}
                               </span>
@@ -345,21 +395,60 @@ export default function FilterDatabase() {
                       </div>
                     </div>
 
-                    {/* Right side: reminder + actions */}
+                    {/* Right side: reminder status + order mode toggle + actions */}
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <div className={`flex items-center gap-1 text-xs ${reminder.color}`}>
                         <ReminderIcon className="w-3.5 h-3.5" />
                         <span>{reminder.label}</span>
                       </div>
+
+                      {/* Order mode toggle — always visible */}
+                      <div className="flex items-center rounded-md border border-white/10 overflow-hidden text-[10px]">
+                        <button
+                          onClick={() => handleSetOrderMode(booth, 'off')}
+                          disabled={updatingMode === booth.id}
+                          title="Off — no automated orders"
+                          className={`px-2 py-1 flex items-center gap-1 transition-colors ${
+                            currentMode === 'off'
+                              ? 'bg-white/15 text-white/80'
+                              : 'bg-transparent text-white/30 hover:text-white/60'
+                          }`}>
+                          <BellOff className="w-2.5 h-2.5" /> Off
+                        </button>
+                        <button
+                          onClick={() => handleSetOrderMode(booth, 'reminder')}
+                          disabled={updatingMode === booth.id}
+                          title="Send invoice reminder email via Shopify draft order"
+                          className={`px-2 py-1 flex items-center gap-1 transition-colors border-l border-white/10 ${
+                            currentMode === 'reminder'
+                              ? 'bg-blue-500/25 text-blue-300'
+                              : 'bg-transparent text-white/30 hover:text-white/60'
+                          }`}>
+                          <BellRing className="w-2.5 h-2.5" /> Remind
+                        </button>
+                        <button
+                          onClick={() => handleSetOrderMode(booth, 'auto_reorder')}
+                          disabled={updatingMode === booth.id}
+                          title="Auto-complete order and charge customer"
+                          className={`px-2 py-1 flex items-center gap-1 transition-colors border-l border-white/10 ${
+                            currentMode === 'auto_reorder'
+                              ? 'bg-emerald-500/25 text-emerald-300'
+                              : 'bg-transparent text-white/30 hover:text-white/60'
+                          }`}>
+                          <Zap className="w-2.5 h-2.5" /> Auto
+                        </button>
+                      </div>
+
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                         <Button size="sm" variant="outline"
                           onClick={() => handleSendReminder(booth)}
-                          disabled={sendingReminder === booth.id}
-                          className="h-7 px-2 border-white/10 bg-white/5 hover:bg-blue-500/20 hover:border-blue-500/30 text-white/60 hover:text-blue-300 text-xs gap-1">
+                          disabled={sendingReminder === booth.id || !canSend}
+                          title={canSend ? `Send ${currentMode === 'reminder' ? 'invoice reminder' : 'auto-reorder'} now` : 'Select Remind or Auto mode first'}
+                          className="h-7 px-2 border-white/10 bg-white/5 hover:bg-blue-500/20 hover:border-blue-500/30 text-white/60 hover:text-blue-300 text-xs gap-1 disabled:opacity-30 disabled:cursor-not-allowed">
                           {sendingReminder === booth.id
                             ? <RefreshCw className="w-3 h-3 animate-spin" />
                             : <Send className="w-3 h-3" />}
-                          {booth.is_member ? 'Reorder' : 'Reminder'}
+                          Send
                         </Button>
                         <Button size="sm" variant="outline"
                           onClick={() => { setEditingBooth(booth); setShowNewBoothModal(true); }}

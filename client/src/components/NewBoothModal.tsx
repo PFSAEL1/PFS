@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 import { X, Plus, Trash2, Layers, ChevronRight, ChevronLeft, RefreshCw } from 'lucide-react';
+import ShopifyProductPicker from './ShopifyProductPicker';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -18,6 +19,7 @@ interface FilterPosition {
   dimensions: string;
   quantity: number;
   shopify_product_id: string;
+  shopify_variant_id: string;
   shopify_product_title: string;
   notes: string;
 }
@@ -84,7 +86,7 @@ const defaultBooth: BoothSetup = {
 const defaultPosition = (num: number): FilterPosition => ({
   position_number: num, position_type: 'Exhaust/Paint Arrestor',
   dimensions: '20x20', quantity: 1, shopify_product_id: '',
-  shopify_product_title: '', notes: ''
+  shopify_variant_id: '', shopify_product_title: '', notes: ''
 });
 
 export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
@@ -106,6 +108,7 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
             ...p,
             dimensions: p.dimensions || '20x20',
             shopify_product_id: p.shopify_product_id || '',
+            shopify_variant_id: (p as any).shopify_variant_id || '',
             shopify_product_title: p.shopify_product_title || '',
             notes: p.notes || ''
           })));
@@ -167,6 +170,7 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
           dimensions: p.dimensions || null,
           quantity: Number(p.quantity),
           shopify_product_id: p.shopify_product_id || null,
+          shopify_variant_id: p.shopify_variant_id || null,
           shopify_product_title: p.shopify_product_title || null,
           notes: p.notes || null,
         }));
@@ -329,10 +333,14 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
                   </div>
                   <div>
                     <Label className="text-white/60 text-xs mb-1.5 block">Shopify Product</Label>
-                    <Input value={pos.shopify_product_title}
-                      onChange={e => updatePosition(i, 'shopify_product_title', e.target.value)}
-                      placeholder="— None —"
-                      className="bg-[#111] border-white/10 text-white placeholder:text-white/25" />
+                    <ShopifyProductPicker
+                      value={pos.shopify_product_title ? { product_id: pos.shopify_product_id, variant_id: pos.shopify_variant_id, title: pos.shopify_product_title } : null}
+                      onChange={val => {
+                        updatePosition(i, 'shopify_product_id', val?.product_id || '');
+                        updatePosition(i, 'shopify_variant_id', val?.variant_id || '');
+                        updatePosition(i, 'shopify_product_title', val?.title || '');
+                      }}
+                    />
                   </div>
                   <div>
                     <Label className="text-white/60 text-xs mb-1.5 block">Notes</Label>

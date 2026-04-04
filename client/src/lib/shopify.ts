@@ -1,5 +1,6 @@
 // Shopify Storefront API integration
 // Uses environment variables for store domain and access token
+// Safari-compatible: includes retry logic and proper error handling
 
 export interface ShopifyProduct {
   node: {
@@ -42,8 +43,6 @@ export interface ShopifyProduct {
       name: string;
       values: string[];
     }>;
-    productType?: string;
-    tags?: string[];
   };
 }
 
@@ -58,19 +57,56 @@ export interface CartItem {
   handle: string;
 }
 
-const SHOPIFY_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN || 'abc-filter-splash-rwyxj.myshopify.com';
-const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || '5e357a0ae8e9906edb44ef570a4ed219';
+const SHOPIFY_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN || 'pfs-spray-booths.myshopify.com';
+const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || '';
 
 async function storefrontApiRequest(query: string, variables?: Record<string, unknown>) {
-  const response = await fetch(`https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': SHOPIFY_STOREFRONT_TOKEN,
-    },
-    body: JSON.stringify({ query, variables }),
-  });
-  return response.json();
+  const url = `https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`;
+  const maxRetries = 3;
+  let lastError: Error | null = null;
+
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Storefront-Access-Token': SHOPIFY_STOREFRONT_TOKEN,
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({ query, variables }),
+        signal: controller.signal,
+        // Safari compatibility: ensure credentials are not sent cross-origin
+        credentials: 'omit',
+        // Safari compatibility: explicit mode
+        mode: 'cors',
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const text = await response.text();
+      try {
+        return JSON.parse(text);
+      } catch {
+        throw new Error('Invalid JSON response from Shopify');
+      }
+    } catch (err) {
+      lastError = err instanceof Error ? err : new Error(String(err));
+      // Wait before retry (exponential backoff)
+      if (attempt < maxRetries - 1) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+      }
+    }
+  }
+
+  throw lastError || new Error('Failed to fetch from Shopify after retries');
 }
 
 const GET_PRODUCTS_QUERY = `

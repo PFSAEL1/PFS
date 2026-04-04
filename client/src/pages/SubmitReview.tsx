@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { SEO } from '@/components/SEO';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,7 +11,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Star, Loader2, CheckCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
-import { MobileHeader } from '@/components/MobileHeader';
 
 export default function SubmitReview() {
   const [loading, setLoading] = useState(false);
@@ -45,15 +46,15 @@ export default function SubmitReview() {
   };
 
   return (
-    <div className="min-h-screen safe-bottom">
-      <MobileHeader title="Submit Review" showBack={false} />
+    <div className="min-h-screen">
       <SEO
         title="Submit a Review - ABC Filters by PFS"
         description="Share your experience with ABC Filters. Leave a review to help other shops find the right paint booth filters."
         canonical="https://abcfilters.net/submit-review"
         noIndex
       />
-      <div className="px-4 pt-4 pb-16 max-w-2xl">
+      <Navigation />
+      <div className="container mx-auto px-4 pt-24 pb-16 max-w-2xl">
         <Breadcrumb items={[{ label: 'Submit Review' }]} />
 
         {submitted ? (
@@ -128,6 +129,7 @@ export default function SubmitReview() {
           </Card>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

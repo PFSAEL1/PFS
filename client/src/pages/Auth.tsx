@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 import { SEO } from '@/components/SEO';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, Filter } from 'lucide-react';
-import { MobileHeader } from '@/components/MobileHeader';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 
@@ -21,12 +22,25 @@ export default function Auth() {
     e.preventDefault();
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data: authData, error } = await supabase.auth.signInWithPassword({
         email: signInData.email,
         password: signInData.password,
       });
       if (error) throw error;
       toast.success('Signed in successfully!');
+      // Check admin role and redirect accordingly
+      if (authData.user) {
+        const { data: roleData } = await supabase
+          .from('user_roles')
+          .select('role')
+          .eq('user_id', authData.user.id)
+          .eq('role', 'admin')
+          .single();
+        if (roleData) {
+          navigate('/filter-database');
+          return;
+        }
+      }
       navigate('/dashboard');
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Sign in failed');
@@ -65,8 +79,8 @@ export default function Auth() {
         canonical="https://abcfilters.net/auth"
         noIndex
       />
-      <MobileHeader title="Account" />
-      <div className="px-4 pb-16 flex justify-center">
+      <Navigation />
+      <div className="container mx-auto px-4 pt-32 pb-16 flex justify-center">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 mb-4">
@@ -127,6 +141,7 @@ export default function Auth() {
           </Card>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

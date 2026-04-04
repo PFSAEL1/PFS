@@ -1,5 +1,6 @@
 import { SEO } from '@/components/SEO';
-import { MobileHeader } from '@/components/MobileHeader';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { ContactForm } from '@/components/ContactForm';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
@@ -18,12 +19,14 @@ export default function Contact() {
         canonical="https://abcfilters.net/contact"
         structuredData={breadcrumbSchema}
       />
-      <div className="pt-4">
+      <Navigation />
+      <div className="pt-20">
         <div className="container mx-auto px-4 pt-6">
           <Breadcrumb items={[{ label: 'Contact' }]} />
         </div>
         <ContactForm />
       </div>
+      <Footer />
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Wind, Filter, Layers, Grid3X3, ArrowRight } from 'lucide-react';
-import { MobileHeader } from '@/components/MobileHeader';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://abcfilters.net' },
@@ -58,24 +59,24 @@ const filterTypes = [
 
 export default function ShopByType() {
   return (
-    <div className="min-h-screen safe-bottom">
-      <MobileHeader title="Shop by Type" showBack={false} />
+    <div className="min-h-screen">
       <SEO
         title="Shop Paint Booth Filters by Type - Fiberglass, Tacky, MERV & More"
         description="Browse paint booth filters by type: fiberglass paint arrestors, tacky panel filters, ceiling blankets, roll media, and MERV-rated filters. Find the right filter for your application."
         canonical="https://abcfilters.net/shop-by-type"
         structuredData={breadcrumbSchema}
       />
-      <div className="px-4 pt-4 pb-16">
+      <Navigation />
+      <div className="container mx-auto px-4 pt-24 pb-16">
         <Breadcrumb items={[{ label: 'Shop by Type' }]} />
         <div className="text-center mb-12">
-          <h1 className="text-[26px] font-bold tracking-tight mb-4">Shop by Filter Type</h1>
-          <p className="text-[14px] text-muted-foreground">
+          <h1 className="text-5xl font-extrabold mb-4">Shop by Filter Type</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Different positions in your spray booth require different filter types. Browse by category to find the right solution.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {filterTypes.map((type) => (
             <Link key={type.title} href={type.href}>
               <Card className="group hover:shadow-lg transition-all duration-300 h-full cursor-pointer">
@@ -99,6 +100,7 @@ export default function ShopByType() {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

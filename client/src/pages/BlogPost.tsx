@@ -1,12 +1,13 @@
 import { useParams, Link } from 'wouter';
 import { SEO } from '@/components/SEO';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { blogPosts } from '@/lib/blogData';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Clock, User, ArrowLeft, Calendar } from 'lucide-react';
-import { MobileHeader } from '@/components/MobileHeader';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -14,16 +15,17 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div className="min-h-screen safe-bottom">
-      <MobileHeader title="Blog" showBack={true} />
-          <div className="px-4 pt-4 pb-16 text-center">
+      <div className="min-h-screen">
+        <Navigation />
+        <div className="container mx-auto px-4 pt-32 pb-16 text-center">
           <h1 className="text-4xl font-bold mb-4">Post Not Found</h1>
           <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist.</p>
           <Link href="/blog">
             <Button>Back to Blog</Button>
           </Link>
         </div>
-        </div>
+        <Footer />
+      </div>
     );
   }
 
@@ -70,8 +72,7 @@ export default function BlogPost() {
   };
 
   return (
-    <div className="min-h-screen safe-bottom">
-      <MobileHeader title="Blog" showBack={true} />
+    <div className="min-h-screen">
       <SEO
         title={post.title}
         description={post.excerpt}
@@ -80,7 +81,8 @@ export default function BlogPost() {
         ogImage={post.image}
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, articleSchema] }}
       />
-      <div className="px-4 pt-4 pb-16 max-w-4xl">
+      <Navigation />
+      <div className="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
         <Breadcrumb items={[{ label: 'Blog', href: '/blog' }, { label: post.title }]} />
 
         <Link href="/blog">
@@ -100,7 +102,7 @@ export default function BlogPost() {
                 <Calendar className="h-3.5 w-3.5" /> {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
               </span>
             </div>
-            <h1 className="text-4xl md:text-[26px] font-bold tracking-tight leading-tight mb-4">{post.title}</h1>
+            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">{post.title}</h1>
             <p className="text-xl text-muted-foreground leading-relaxed mb-6">{post.excerpt}</p>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <User className="h-4 w-4" />
@@ -132,6 +134,7 @@ export default function BlogPost() {
           </div>
         </article>
       </div>
+      <Footer />
     </div>
   );
 }

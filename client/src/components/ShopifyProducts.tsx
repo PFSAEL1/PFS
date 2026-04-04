@@ -1,8 +1,9 @@
-// ABC Filters iOS App — Product Grid
-// Design: Tesla-grade dark cards, precision layout, smooth interactions
 import { useEffect, useState } from 'react';
 import { Link } from 'wouter';
-import { ShoppingCart, Package, Plus, ChevronRight } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { ShoppingCart, Loader2, Package } from 'lucide-react';
 import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
@@ -41,95 +42,72 @@ export const ShopifyProducts = () => {
       image: product.node.images.edges[0]?.node.url,
       handle: product.node.handle,
     });
-    toast.success(`Added to cart`, { description: product.node.title });
+    toast.success(`${product.node.title} added to cart`);
     setCartOpen(true);
   };
 
   if (loading) {
     return (
-      <div className="grid grid-cols-2 gap-3 pt-2">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="rounded-2xl overflow-hidden border border-border/60 animate-fade-in" style={{animationDelay: `${i * 80}ms`}}>
-            <div className="h-40 shimmer" />
-            <div className="p-3 space-y-2">
-              <div className="h-3 rounded shimmer" />
-              <div className="h-3 w-3/4 rounded shimmer" />
-              <div className="h-8 rounded-xl shimmer mt-3" />
-            </div>
-          </div>
-        ))}
+      <div className="flex items-center justify-center py-20">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-center px-4">
-        <div className="w-16 h-16 rounded-2xl bg-muted/50 flex items-center justify-center mb-4">
-          <Package className="h-8 w-8 text-muted-foreground/40" />
-        </div>
-        <p className="text-sm text-muted-foreground">{error}</p>
+      <div className="text-center py-12 text-muted-foreground">
+        <Package className="h-12 w-12 mx-auto mb-3 opacity-30" />
+        <p>{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-2 gap-3 pt-2">
-      {products.map((product, i) => {
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {products.map((product) => {
         const variant = product.node.variants.edges[0]?.node;
         const image = product.node.images.edges[0]?.node.url || FALLBACK_IMAGE;
         const price = variant?.price.amount ? parseFloat(variant.price.amount).toFixed(2) : '—';
+        const currency = variant?.price.currencyCode || 'USD';
         const inStock = variant?.availableForSale ?? true;
 
         return (
-          <div
-            key={product.node.id}
-            className="bg-card border border-border/60 rounded-2xl overflow-hidden animate-slide-up"
-            style={{animationDelay: `${i * 50}ms`, animationFillMode: 'both'}}
-          >
-            {/* Product Image */}
+          <Card key={product.node.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
             <Link href={`/product/${product.node.handle}`}>
-              <div className="relative bg-muted/20 h-40 flex items-center justify-center p-3 btn-press">
+              <div className="aspect-square overflow-hidden bg-muted/30">
                 <img
                   src={image}
                   alt={product.node.title}
-                  className="w-full h-full object-contain"
-                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                {!inStock && (
-                  <div className="absolute inset-0 bg-background/60 flex items-center justify-center">
-                    <span className="text-[10px] font-semibold text-muted-foreground bg-background/80 px-2 py-1 rounded-full border border-border">
-                      Out of Stock
-                    </span>
-                  </div>
-                )}
-                {/* View detail arrow */}
-                <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-background/60 border border-border/50 flex items-center justify-center">
-                  <ChevronRight className="w-3 h-3 text-muted-foreground" />
-                </div>
               </div>
             </Link>
-
-            {/* Product Info */}
-            <div className="p-3">
+            <CardContent className="p-4">
               <Link href={`/product/${product.node.handle}`}>
-                <p className="text-[11px] font-medium text-foreground line-clamp-2 leading-tight mb-2">
+                <h3 className="font-semibold text-sm leading-tight mb-1 hover:text-primary transition-colors line-clamp-2">
                   {product.node.title}
-                </p>
+                </h3>
               </Link>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-bold text-primary">${price}</span>
-                <button
-                  onClick={() => handleAddToCart(product)}
-                  disabled={!inStock}
-                  className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center btn-press disabled:opacity-40 disabled:cursor-not-allowed"
-                  aria-label="Add to cart"
-                >
-                  <Plus className="w-4 h-4 text-primary-foreground" />
-                </button>
+              <div className="flex items-center justify-between mt-2 mb-3">
+                <span className="font-bold text-primary">
+                  ${price} <span className="text-xs font-normal text-muted-foreground">{currency}</span>
+                </span>
+                {!inStock && (
+                  <Badge variant="secondary" className="text-xs">Out of Stock</Badge>
+                )}
               </div>
-            </div>
-          </div>
+              <Button
+                size="sm"
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
+                onClick={() => handleAddToCart(product)}
+                disabled={!inStock}
+              >
+                <ShoppingCart className="h-3.5 w-3.5" />
+                {inStock ? 'Add to Cart' : 'Out of Stock'}
+              </Button>
+            </CardContent>
+          </Card>
         );
       })}
     </div>

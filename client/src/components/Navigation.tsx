@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,7 +15,19 @@ export const Navigation = () => {
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
+  const shopDropdownRef = useRef<HTMLDivElement>(null);
   const [location] = useLocation();
+
+  // Close Products dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (shopDropdownRef.current && !shopDropdownRef.current.contains(e.target as Node)) {
+        setShopOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
   const items = useCartStore((s) => s.items);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -54,8 +66,7 @@ export const Navigation = () => {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-              <img src={LOGO_URL} alt="ABC Filters by PFS" className="h-8 w-auto" />
-              <span className="font-bold text-lg text-primary hidden sm:block">ABC Filters</span>
+              <img src={LOGO_URL} alt="ABC Filters by PFS" className="h-12 w-auto" />
             </Link>
 
             {/* Desktop Nav */}
@@ -64,11 +75,12 @@ export const Navigation = () => {
               {/* Products dropdown */}
               <div
                 className="relative"
-                onMouseEnter={() => setShopOpen(true)}
-                onMouseLeave={() => setShopOpen(false)}
+                ref={shopDropdownRef}
               >
-                <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">
-                  Products <ChevronDown className="w-3 h-3" />
+                <button
+                  onClick={() => setShopOpen(prev => !prev)}
+                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">
+                  Products <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${shopOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {shopOpen && (
                   <div className="absolute top-full left-0 mt-1 w-52 bg-background border border-border rounded-lg shadow-lg py-1 z-50">

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,7 +10,6 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Search, CheckCircle, ArrowRight } from 'lucide-react';
-import { MobileHeader } from '@/components/MobileHeader';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://abcfilters.net' },
@@ -39,19 +40,19 @@ export default function FilterCompatibility() {
   };
 
   return (
-    <div className="min-h-screen safe-bottom">
-      <MobileHeader title="Filter Compatibility" showBack={false} />
+    <div className="min-h-screen">
       <SEO
         title="Paint Booth Filter Compatibility Guide - Find Filters for Your Booth"
         description="Find compatible paint booth filters for your specific spray booth make and model. We match filters for GFS, Accudraft, Garmat, Binks, Col-Met, PFS, and all major brands."
         canonical="https://abcfilters.net/filter-compatibility"
         structuredData={breadcrumbSchema}
       />
-      <div className="px-4 pt-4 pb-16 max-w-4xl">
+      <Navigation />
+      <div className="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
         <Breadcrumb items={[{ label: 'Filter Compatibility' }]} />
         <div className="text-center mb-12">
-          <h1 className="text-[26px] font-bold tracking-tight mb-4">Filter Compatibility Finder</h1>
-          <p className="text-[14px] text-muted-foreground">
+          <h1 className="text-5xl font-extrabold mb-4">Filter Compatibility Finder</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Tell us your booth make and model and we'll find the exact filters that fit — or cut custom ones to spec.
           </p>
         </div>
@@ -86,7 +87,7 @@ export default function FilterCompatibility() {
             </CardContent>
           </Card>
         ) : (
-          <Card className="max-w-2xl mx-auto mb-12 border-green-800/50 bg-green-900/20">
+          <Card className="max-w-2xl mx-auto mb-12 border-green-200 bg-green-50">
             <CardContent className="pt-8 text-center">
               <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
               <h2 className="text-2xl font-bold mb-2">We'll Find Your Filters!</h2>
@@ -121,6 +122,7 @@ export default function FilterCompatibility() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

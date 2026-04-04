@@ -1,11 +1,14 @@
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { Filter, Home, ShoppingBag } from 'lucide-react';
 
 export default function NotFound() {
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto px-4 pt-4 pb-16 text-center max-w-2xl">
+      <Navigation />
+      <div className="container mx-auto px-4 pt-32 pb-16 text-center max-w-2xl">
         <div className="inline-flex items-center justify-center w-24 h-24 bg-primary/10 rounded-full mb-8">
           <Filter className="h-12 w-12 text-primary" />
         </div>
@@ -27,6 +30,7 @@ export default function NotFound() {
           </Link>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import { SEO } from '@/components/SEO';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
-import { MobileHeader } from '@/components/MobileHeader';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://abcfilters.net' },
@@ -10,15 +11,15 @@ const breadcrumbSchema = createBreadcrumbSchema([
 
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen safe-bottom">
-      <MobileHeader title="Privacy Policy" showBack={false} />
+    <div className="min-h-screen">
       <SEO
         title="Privacy Policy - ABC Filters by PFS"
         description="Read the ABC Filters privacy policy to understand how we collect, use, and protect your personal information."
         canonical="https://abcfilters.net/privacy-policy"
         structuredData={breadcrumbSchema}
       />
-      <div className="px-4 pt-4 pb-16 max-w-4xl">
+      <Navigation />
+      <div className="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
         <Breadcrumb items={[{ label: 'Privacy Policy' }]} />
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
         <div className="prose prose-lg max-w-none space-y-6 text-muted-foreground">
@@ -60,6 +61,7 @@ export default function PrivacyPolicy() {
           </section>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -1,11 +1,12 @@
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { ArrowRight, Award } from 'lucide-react';
-import { MobileHeader } from '@/components/MobileHeader';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://abcfilters.net' },
@@ -41,23 +42,23 @@ const brands = [
 
 export default function Brands() {
   return (
-    <div className="min-h-screen safe-bottom">
-      <MobileHeader title="Brands" showBack={false} />
+    <div className="min-h-screen">
       <SEO
         title="Paint Booth Filter Brands - ABC Filters, Koch, Permatron & More"
         description="Shop paint booth filters from trusted brands including ABC Filters by PFS, Koch Filter, Permatron, and Andover Healthcare. All products quality-tested for spray booth applications."
         canonical="https://abcfilters.net/brands"
         structuredData={breadcrumbSchema}
       />
-      <div className="px-4 pt-4 pb-16">
+      <Navigation />
+      <div className="container mx-auto px-4 pt-24 pb-16">
         <Breadcrumb items={[{ label: 'Brands' }]} />
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
             <Award className="h-4 w-4 text-primary" />
             <span className="text-sm font-semibold text-primary">Trusted Brands</span>
           </div>
-          <h1 className="text-[26px] font-bold tracking-tight mb-4">Filter Brands We Carry</h1>
-          <p className="text-[14px] text-muted-foreground">
+          <h1 className="text-5xl font-extrabold mb-4">Filter Brands We Carry</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             We partner with industry-leading manufacturers to bring you the best paint booth filtration products available.
           </p>
         </div>
@@ -81,6 +82,7 @@ export default function Brands() {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
