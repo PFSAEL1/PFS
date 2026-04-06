@@ -1,10 +1,9 @@
 // Hero — PFS Filters Dark Theme
-// Full-bleed dark hero, left-aligned text, electric blue CTAs
+// Full-bleed dark hero with live canvas overspray animation background
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Mail, ShoppingBag, Truck, Shield, Star } from 'lucide-react';
-
-const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/hero-fiberglass-arrestor_ab115b55.png';
+import FilterHeroCanvas from '@/components/FilterHeroCanvas';
 
 export const Hero = () => {
   const scrollToContact = () => {
@@ -16,23 +15,14 @@ export const Hero = () => {
     <header>
       <section
         id="home"
-        className="relative min-h-[65vh] md:min-h-[75vh] flex items-center overflow-hidden bg-black"
+        className="relative min-h-[65vh] md:min-h-[80vh] flex items-center overflow-hidden bg-black"
       >
-        {/* Full-bleed background image */}
+        {/* Full-screen canvas animation background */}
         <div className="absolute inset-0 z-0">
-          {/* Filter render — positioned right side, large and visible */}
-          <div className="absolute inset-0 flex items-center justify-end pr-0 md:pr-8">
-            <img
-              src={HERO_IMAGE}
-              alt="PFS Filters premium spray booth filtration"
-              className="h-[80%] w-auto object-contain opacity-80"
-              style={{ filter: 'drop-shadow(0 0 60px rgba(59,130,246,0.3))' }}
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <FilterHeroCanvas />
         </div>
 
+        {/* Text content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-32 w-full">
           <div className="max-w-2xl">
             {/* Eyebrow badge */}
