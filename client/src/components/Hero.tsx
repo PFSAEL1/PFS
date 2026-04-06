@@ -4,7 +4,7 @@ import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Mail, ShoppingBag, Truck, Shield, Star } from 'lucide-react';
 
-const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-paint-arrestor_c242c226.png';
+const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/hero-fiberglass-arrestor_ab115b55.png';
 
 export const Hero = () => {
   const scrollToContact = () => {
@@ -20,14 +20,17 @@ export const Hero = () => {
       >
         {/* Full-bleed background image */}
         <div className="absolute inset-0 z-0">
-          <img
-            src={HERO_IMAGE}
-            alt="PFS Filters premium spray booth filtration"
-            className="w-full h-full object-cover opacity-20"
-            style={{ objectPosition: 'center 40%' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+          {/* Filter render — positioned right side, large and visible */}
+          <div className="absolute inset-0 flex items-center justify-end pr-0 md:pr-8">
+            <img
+              src={HERO_IMAGE}
+              alt="PFS Filters premium spray booth filtration"
+              className="h-[80%] w-auto object-contain opacity-80"
+              style={{ filter: 'drop-shadow(0 0 60px rgba(59,130,246,0.3))' }}
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-32 w-full">

@@ -38,7 +38,7 @@ export default function Home() {
         structuredData={combinedSchema}
       />
       <Navigation />
-      <div className="pt-16">
+      <div className="pt-24">
         <SocialProofBanner />
       </div>
       <Hero />

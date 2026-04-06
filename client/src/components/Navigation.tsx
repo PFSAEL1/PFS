@@ -69,14 +69,14 @@ export const Navigation = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-24">
 
             {/* Logo — large and prominent */}
             <Link href="/" className="flex items-center flex-shrink-0">
               <img
                 src={LOGO_URL}
                 alt="PFS Filters"
-                className="h-16 w-auto"
+                className="h-20 w-auto"
               />
             </Link>
 
