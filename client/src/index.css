@@ -169,6 +169,44 @@
     }
   }
 }
+/* Light version hero — responsive split layout */
+.light-hero-text-panel {
+  /* Mobile: full width, transparent (image is full-bleed bg) */
+  max-width: 100% !important;
+  background: transparent !important;
+}
+@media (min-width: 768px) {
+  .light-hero-text-panel {
+    /* Desktop: left half with white background */
+    max-width: 50% !important;
+    background: #ffffff !important;
+  }
+  /* On desktop, text panel has white bg so text should be dark */
+  .light-hero-text-panel h1 {
+    color: #111111 !important;
+  }
+  .light-hero-text-panel p {
+    color: #555555 !important;
+  }
+  .light-hero-text-panel .light-hero-badge span {
+    color: #888888 !important;
+  }
+  /* On desktop, primary button should be dark (on white bg) */
+  .light-hero-btn-primary {
+    background: #111111 !important;
+    color: #ffffff !important;
+  }
+  /* On desktop, secondary button should be dark border */
+  .light-hero-btn-secondary {
+    border-color: #111111 !important;
+    color: #111111 !important;
+  }
+  /* Reduce overlay on desktop since left panel is white */
+  .light-hero-overlay {
+    background: rgba(0,0,0,0.2) !important;
+  }
+}
+
 /* Safari backdrop-filter fix */
 @layer utilities {
   .backdrop-blur-sm,

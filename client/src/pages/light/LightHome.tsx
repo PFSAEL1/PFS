@@ -80,21 +80,53 @@ export default function LightHome() {
       {/* ── HERO ── */}
       <section style={{
         minHeight: "100vh",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        overflow: "hidden",
         position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "stretch",
       }}>
-        {/* Left: Text */}
+        {/* Background image — full bleed on mobile, right half on desktop */}
+        <div style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          background: "#0a0a0a",
+        }}>
+          <img
+            src={HERO_IMG}
+            alt="PFS Filters — Premium Spray Booth Filtration"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              transform: `translateY(${heroParallax}px)`,
+              transition: "transform 0.1s linear",
+              scale: "1.15",
+            }}
+          />
+          {/* Dark overlay for mobile readability */}
+          <div className="light-hero-overlay" style={{
+            position: "absolute",
+            inset: 0,
+            background: "rgba(0,0,0,0.55)",
+          }} />
+        </div>
+
+        {/* Left: Text panel — white bg on desktop (md+), transparent on mobile */}
         <div style={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "10rem 4rem 6rem 6rem",
-          background: "#fff",
+          padding: "clamp(6rem, 12vw, 10rem) clamp(1.5rem, 6vw, 6rem) clamp(4rem, 8vw, 6rem)",
+          background: "transparent",
           position: "relative",
           zIndex: 2,
-        }}>
+          width: "100%",
+          maxWidth: "min(50%, 640px)",
+        }}
+        className="light-hero-text-panel"
+        >
           <p style={{
             fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
             fontSize: "0.65rem",
@@ -111,7 +143,7 @@ export default function LightHome() {
             fontSize: "clamp(3rem, 5vw, 5.5rem)",
             fontWeight: 700,
             lineHeight: 1.05,
-            color: "#111111",
+            color: "#ffffff",
             marginBottom: "2rem",
             letterSpacing: "-0.02em",
           }}>
@@ -125,7 +157,7 @@ export default function LightHome() {
             fontWeight: 300,
             fontSize: "1.05rem",
             lineHeight: 1.75,
-            color: "#555",
+            color: "rgba(255,255,255,0.85)",
             maxWidth: "400px",
             marginBottom: "3rem",
           }}>
@@ -135,27 +167,28 @@ export default function LightHome() {
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
             <Link href="/light/shop">
               <a style={{
-                background: "#111111",
-                color: "#fff",
+                background: "#fff",
+                color: "#111",
                 padding: "1rem 2.5rem",
                 fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                 fontSize: "0.7rem",
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
                 textDecoration: "none",
-                transition: "background 0.25s",
+                transition: "background 0.25s, color 0.25s",
                 display: "inline-block",
               }}
-                onMouseEnter={e => (e.currentTarget.style.background = "#1B4FD8")}
-                onMouseLeave={e => (e.currentTarget.style.background = "#111111")}
+                onMouseEnter={e => { e.currentTarget.style.background = "#1B4FD8"; e.currentTarget.style.color = "#fff"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#111"; }}
+                className="light-hero-btn-primary"
               >
                 Shop Filters
               </a>
             </Link>
             <Link href="/light/filter-database">
               <a style={{
-                border: "1px solid #111111",
-                color: "#111111",
+                border: "1px solid rgba(255,255,255,0.6)",
+                color: "#fff",
                 padding: "1rem 2.5rem",
                 fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                 fontSize: "0.7rem",
@@ -165,8 +198,9 @@ export default function LightHome() {
                 transition: "all 0.25s",
                 display: "inline-block",
               }}
-                onMouseEnter={e => { e.currentTarget.style.background = "#111"; e.currentTarget.style.color = "#fff"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#111"; }}
+                onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.15)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}
+                className="light-hero-btn-secondary"
               >
                 Filter Database
               </a>
@@ -176,39 +210,12 @@ export default function LightHome() {
           {/* Trust badges */}
           <div style={{ display: "flex", gap: "2rem", marginTop: "3rem", flexWrap: "wrap" }}>
             {["Ships 1–2 Days", "1,200+ Shops", "Booth Tracking"].map(badge => (
-              <div key={badge} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <div key={badge} className="light-hero-badge" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                 <div style={{ width: "4px", height: "4px", background: "#1B4FD8", borderRadius: "50%" }} />
-                <span style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#888" }}>{badge}</span>
+                <span style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>{badge}</span>
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Right: AI-generated filter render hero image */}
-        <div style={{
-          position: "relative",
-          overflow: "hidden",
-          background: "#0a0a0a",
-        }}>
-          <img
-            src={HERO_IMG}
-            alt="PFS Filters — Premium Spray Booth Filtration"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center",
-              transform: `translateY(${heroParallax}px)`,
-              transition: "transform 0.1s linear",
-              scale: "1.15",
-            }}
-          />
-          {/* Subtle light overlay to blend with editorial style */}
-          <div style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to right, rgba(255,255,255,0.08) 0%, transparent 60%)",
-          }} />
         </div>
 
         {/* Scroll indicator */}
