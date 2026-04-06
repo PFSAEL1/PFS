@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+// PopularProducts — PFS Filters Tesla-Style Horizontal Slider
+// Swipeable on mobile, arrow-navigable on desktop
+// Fetches real Shopify products with Add to Cart
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'wouter';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ShoppingCart, ArrowRight, Loader2 } from 'lucide-react';
+import { ShoppingCart, ArrowRight, ArrowLeft, Loader2, ChevronRight } from 'lucide-react';
 import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
@@ -12,21 +13,24 @@ const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150
 export const PopularProducts = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
+  const [addingId, setAddingId] = useState<string | null>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
 
   useEffect(() => {
-    fetchProducts(8)
+    fetchProducts(12)
       .then((data) => {
-        setProducts(data.filter((p) => !p.node.title.toLowerCase().includes('membership')).slice(0, 4));
+        setProducts(data.filter((p) => !p.node.title.toLowerCase().includes('membership')).slice(0, 8));
         setLoading(false);
       })
       .catch(() => setLoading(false));
   }, []);
 
-  const handleAddToCart = (product: ShopifyProduct) => {
+  const handleAddToCart = async (product: ShopifyProduct) => {
     const variant = product.node.variants.edges[0]?.node;
     if (!variant) return;
+    setAddingId(product.node.id);
     addItem({
       variantId: variant.id,
       productId: product.node.id,
@@ -38,79 +42,153 @@ export const PopularProducts = () => {
       handle: product.node.handle,
     });
     toast.success(`${product.node.title} added to cart`);
-    setCartOpen(true);
+    setTimeout(() => {
+      setAddingId(null);
+      setCartOpen(true);
+    }, 600);
   };
 
-  if (loading) {
-    return (
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto flex justify-center">
-          <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
-        </div>
-      </section>
-    );
-  }
-
-  if (products.length === 0) return null;
+  const scroll = (dir: 'left' | 'right') => {
+    if (!sliderRef.current) return;
+    const amount = sliderRef.current.clientWidth * 0.75;
+    sliderRef.current.scrollBy({ left: dir === 'right' ? amount : -amount, behavior: 'smooth' });
+  };
 
   return (
-    <section className="py-16 px-4 bg-[#0d0d0d]/5/20">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-3xl font-bold mb-1">Popular Products</h2>
-            <p className="text-white/50">Best-selling filters trusted by body shops nationwide</p>
+    <section className="py-14 bg-black">
+      {/* Header */}
+      <div className="px-4 max-w-7xl mx-auto flex items-end justify-between mb-8">
+        <div>
+          <p className="text-[#4d9fff] text-xs font-semibold uppercase tracking-[0.2em] mb-2">Best Sellers</p>
+          <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">
+            Popular Products
+          </h2>
+          <p className="text-white/30 text-sm mt-1">Trusted by 1,200+ body shops nationwide</p>
+        </div>
+        <div className="flex items-center gap-3">
+          {/* Desktop arrow controls */}
+          <div className="hidden md:flex gap-2">
+            <button
+              onClick={() => scroll('left')}
+              className="w-9 h-9 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/25 transition-all flex items-center justify-center text-white/60 hover:text-white"
+              aria-label="Scroll left"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() => scroll('right')}
+              className="w-9 h-9 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/25 transition-all flex items-center justify-center text-white/60 hover:text-white"
+              aria-label="Scroll right"
+            >
+              <ArrowRight className="h-4 w-4" />
+            </button>
           </div>
           <Link href="/shop">
-            <Button variant="outline" className="gap-2 hidden md:flex">
-              View All <ArrowRight className="h-4 w-4" />
-            </Button>
-          </Link>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product) => {
-            const variant = product.node.variants.edges[0]?.node;
-            const image = product.node.images.edges[0]?.node.url || FALLBACK_IMAGE;
-            const price = variant?.price.amount ? parseFloat(variant.price.amount).toFixed(2) : '—';
-            return (
-              <Card key={product.node.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
-                <Link href={`/product/${product.node.handle}`}>
-                  <div className="aspect-square overflow-hidden bg-[#0d0d0d]/5/30">
-                    <img
-                      src={image}
-                      alt={product.node.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                </Link>
-                <CardContent className="p-4">
-                  <Link href={`/product/${product.node.handle}`}>
-                    <h3 className="font-semibold text-sm leading-tight mb-2 hover:text-blue-400 transition-colors line-clamp-2">
-                      {product.node.title}
-                    </h3>
-                  </Link>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-bold text-blue-400">${price}</span>
-                  </div>
-                  <Button
-                    size="sm"
-                    className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2"
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    <ShoppingCart className="h-3.5 w-3.5" />
-                    Add to Cart
-                  </Button>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-        <div className="text-center mt-8 md:hidden">
-          <Link href="/shop">
-            <Button variant="outline" className="gap-2">View All Products <ArrowRight className="h-4 w-4" /></Button>
+            <span className="hidden md:flex items-center gap-1 text-sm text-white/40 hover:text-white/70 transition-colors cursor-pointer">
+              View all <ChevronRight className="h-3.5 w-3.5" />
+            </span>
           </Link>
         </div>
       </div>
+
+      {/* Slider */}
+      {loading ? (
+        <div className="flex justify-center py-16">
+          <Loader2 className="h-7 w-7 animate-spin text-white/30" />
+        </div>
+      ) : products.length === 0 ? null : (
+        <>
+          <div
+            ref={sliderRef}
+            className="flex gap-4 overflow-x-auto scrollbar-hide px-4 md:px-[calc((100vw-80rem)/2+1rem)] pb-2 snap-x snap-mandatory"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {products.map((product) => {
+              const variant = product.node.variants.edges[0]?.node;
+              const image = product.node.images.edges[0]?.node.url || FALLBACK_IMAGE;
+              const price = variant?.price.amount ? parseFloat(variant.price.amount).toFixed(2) : null;
+              const isAdding = addingId === product.node.id;
+
+              return (
+                <div
+                  key={product.node.id}
+                  className="flex-none w-[220px] md:w-[240px] snap-start"
+                >
+                  <div className="group border border-white/8 bg-[#0d0d0d] rounded-2xl overflow-hidden hover:border-white/20 hover:bg-[#111] transition-all duration-300 hover:shadow-[0_8px_32px_rgba(255,255,255,0.04)] flex flex-col h-full">
+                    {/* Product image */}
+                    <Link href={`/product/${product.node.handle}`}>
+                      <div className="aspect-square bg-gradient-to-br from-white/5 to-white/[0.02] overflow-hidden relative cursor-pointer">
+                        <img
+                          src={image}
+                          alt={product.node.title}
+                          className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                          style={{ filter: 'brightness(0.95) contrast(1.05)' }}
+                        />
+                      </div>
+                    </Link>
+
+                    {/* Info */}
+                    <div className="p-4 flex flex-col gap-3 flex-1 border-t border-white/5">
+                      <Link href={`/product/${product.node.handle}`}>
+                        <h3 className="text-sm font-semibold text-white/85 leading-snug line-clamp-2 hover:text-white transition-colors cursor-pointer">
+                          {product.node.title}
+                        </h3>
+                      </Link>
+
+                      <div className="flex items-center justify-between mt-auto">
+                        {price ? (
+                          <span className="text-base font-bold text-white">${price}</span>
+                        ) : (
+                          <span className="text-sm text-white/30">—</span>
+                        )}
+                      </div>
+
+                      {/* Add to Cart button */}
+                      <button
+                        onClick={() => handleAddToCart(product)}
+                        disabled={isAdding}
+                        className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                          isAdding
+                            ? 'bg-white/10 text-white/40 cursor-not-allowed'
+                            : 'bg-white text-black hover:bg-white/90 active:scale-95'
+                        }`}
+                      >
+                        {isAdding ? (
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        ) : (
+                          <ShoppingCart className="h-3.5 w-3.5" />
+                        )}
+                        {isAdding ? 'Adding…' : 'Add to Cart'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* "View All" end card */}
+            <div className="flex-none w-[160px] snap-start flex items-center justify-center">
+              <Link href="/shop">
+                <div className="flex flex-col items-center gap-3 text-white/30 hover:text-white/60 transition-colors cursor-pointer group">
+                  <div className="w-12 h-12 rounded-full border border-white/10 group-hover:border-white/25 flex items-center justify-center transition-all">
+                    <ArrowRight className="h-5 w-5" />
+                  </div>
+                  <span className="text-xs font-medium text-center">View All<br />Products</span>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          {/* Mobile "View All" link */}
+          <div className="px-4 mt-4 md:hidden">
+            <Link href="/shop">
+              <span className="flex items-center gap-1 text-sm text-white/40 hover:text-white/70 transition-colors cursor-pointer">
+                View all products <ChevronRight className="h-3.5 w-3.5" />
+              </span>
+            </Link>
+          </div>
+        </>
+      )}
     </section>
   );
 };
