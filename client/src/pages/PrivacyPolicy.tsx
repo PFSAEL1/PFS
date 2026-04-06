@@ -21,7 +21,7 @@ export default function PrivacyPolicy() {
       <Navigation />
       <div className="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
         <Breadcrumb items={[{ label: 'Privacy Policy' }]} />
-        <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
+        <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Privacy Policy</h1>
         <div className="prose prose-lg max-w-none space-y-6 text-white/50">
           <p className="text-sm">Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
 

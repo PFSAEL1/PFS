@@ -74,8 +74,8 @@ export default function WhyChooseUs() {
             {features.map((f) => (
               <Card key={f.title} className="hover:shadow-md transition-shadow">
                 <CardContent className="pt-6">
-                  <div className="p-3 bg-blue-500/10 rounded-xl w-fit mb-4">
-                    <f.icon className="h-6 w-6 text-blue-400" />
+                  <div className="p-3 bg-white/5 rounded-xl w-fit mb-4">
+                    <f.icon className="h-6 w-6 text-white/60" />
                   </div>
                   <h3 className="font-bold text-lg mb-2">{f.title}</h3>
                   <p className="text-white/50 text-sm leading-relaxed">{f.description}</p>
@@ -102,9 +102,9 @@ export default function WhyChooseUs() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 px-4 bg-blue-500/10 border-y border-blue-500/20 text-center">
+      <section className="py-16 px-4 bg-white/3 border-y border-white/8 text-center">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4">Ready to Upgrade Your Filtration?</h2>
+          <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Ready to Upgrade Your Filtration?</h2>
           <p className="text-white/60 mb-8">
             Join 1,000+ shops that trust PFS Filters for their spray booth filtration needs.
           </p>

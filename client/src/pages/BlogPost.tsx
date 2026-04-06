@@ -18,7 +18,7 @@ export default function BlogPost() {
       <div className="min-h-screen bg-[#080808] text-white">
         <Navigation />
         <div className="container mx-auto px-4 pt-32 pb-16 text-center">
-          <h1 className="text-4xl font-bold mb-4">Post Not Found</h1>
+          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Post Not Found</h1>
           <p className="text-white/50 mb-8">The blog post you're looking for doesn't exist.</p>
           <Link href="/blog">
             <Button>Back to Blog</Button>

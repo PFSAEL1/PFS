@@ -13,7 +13,7 @@ export default function NotFound() {
           <Filter className="h-12 w-12 text-blue-400" />
         </div>
         <h1 className="text-6xl font-extrabold text-blue-400 mb-4">404</h1>
-        <h2 className="text-3xl font-bold mb-4">Page Not Found</h2>
+        <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Page Not Found</h2>
         <p className="text-white/50 text-lg mb-8">
           The page you're looking for doesn't exist or has been moved. Let's get you back on track.
         </p>

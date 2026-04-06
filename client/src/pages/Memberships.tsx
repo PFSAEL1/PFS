@@ -19,8 +19,8 @@ const tiers = [
     name: 'Bronze',
     price: '$29/mo',
     discount: '3%',
-    color: 'bg-amber-500/5 border-amber-500/20',
-    badge: 'bg-amber-500/15 text-amber-400',
+    color: 'bg-white/3 border-white/10',
+    badge: 'bg-white/8 text-white/60',
     accentColor: 'amber',
     features: [
       '3% discount on all orders',
@@ -33,8 +33,8 @@ const tiers = [
     name: 'Silver',
     price: '$49/mo',
     discount: '5%',
-    color: 'bg-blue-500/5 border-blue-500/30',
-    badge: 'bg-blue-500/15 text-blue-400',
+    color: 'bg-[#4d9fff]/5 border-[#4d9fff]/25',
+    badge: 'bg-[#4d9fff]/10 text-[#4d9fff]',
     accentColor: 'blue',
     features: [
       '5% discount on all orders',
@@ -49,8 +49,8 @@ const tiers = [
     name: 'Gold',
     price: '$79/mo',
     discount: '5%',
-    color: 'bg-yellow-500/5 border-yellow-500/20',
-    badge: 'bg-yellow-500/15 text-yellow-400',
+    color: 'bg-white/3 border-white/12',
+    badge: 'bg-white/8 text-white/70',
     accentColor: 'yellow',
     features: [
       '5% discount on all orders',
@@ -65,8 +65,8 @@ const tiers = [
     name: 'Platinum',
     price: '$149/mo',
     discount: '5% + Free Shipping',
-    color: 'bg-purple-500/5 border-purple-500/20',
-    badge: 'bg-purple-500/15 text-purple-400',
+    color: 'bg-white/5 border-white/15',
+    badge: 'bg-white/10 text-white/80',
     accentColor: 'purple',
     features: [
       '5% discount on all orders',
@@ -102,7 +102,7 @@ export default function Memberships() {
             <Crown className="h-3.5 w-3.5 text-blue-400" />
             <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Membership Plans</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-4">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">
             Save More, Order Smarter
           </h1>
           <p className="text-xl text-white/50">
@@ -115,10 +115,10 @@ export default function Memberships() {
       <section className="py-12 px-4">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {tiers.map((tier) => (
-            <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] ${tier.popular ? 'ring-2 ring-blue-500' : ''}`}>
+            <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] ${tier.popular ? 'ring-2 ring-[#4d9fff]/50' : ''}`}>
               {tier.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <Badge className="bg-blue-500 text-white gap-1">
+                  <Badge className="bg-[#4d9fff] text-black gap-1">
                     <Sparkles className="h-3 w-3" /> Most Popular
                   </Badge>
                 </div>
@@ -137,7 +137,7 @@ export default function Memberships() {
                 ))}
                 <Link href="/auth">
                   <Button
-                    className={`w-full mt-4 gap-2 ${tier.popular ? 'bg-blue-500 text-white hover:bg-blue-400' : 'border-white/20 text-white/70 hover:bg-white/10 bg-transparent'}`}
+                    className={`w-full mt-4 gap-2 ${tier.popular ? 'bg-[#4d9fff] text-black hover:bg-[#6aadff]' : 'border-white/20 text-white/70 hover:bg-white/10 bg-transparent'}`}
                     variant={tier.popular ? 'default' : 'outline'}
                   >
                     Get Started <ArrowRight className="h-4 w-4" />

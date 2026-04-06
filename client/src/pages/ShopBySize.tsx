@@ -41,10 +41,10 @@ export default function ShopBySize() {
         <Breadcrumb items={[{ label: 'Shop by Size' }]} />
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
-            <Ruler className="h-3.5 w-3.5 text-blue-400" />
-            <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Filter Sizes</span>
+            <Ruler className="h-3.5 w-3.5 text-white/80" />
+            <span className="text-xs font-semibold text-white/80 uppercase tracking-wider">Filter Sizes</span>
           </div>
-          <h1 className="text-5xl font-extrabold mb-4">Find Your Filter Size</h1>
+          <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Find Your Filter Size</h1>
           <p className="text-xl text-white/50 max-w-2xl">
             Select your filter dimensions to find the right product. Can't find your size? We cut custom filters to spec.
           </p>
@@ -55,17 +55,17 @@ export default function ShopBySize() {
             <Link key={item.size} href={item.custom ? '/contact' : `/shop?size=${item.size}`}>
               <div className={`group cursor-pointer rounded-2xl p-5 text-center transition-all duration-300 border ${
                 item.popular
-                  ? 'border-blue-500/30 bg-blue-500/5 hover:border-blue-500/60 hover:bg-blue-500/10'
+                  ? 'border-white/20 bg-white/4 hover:border-white/35 hover:bg-white/6'
                   : item.custom
                   ? 'border-dashed border-white/20 bg-white/3 hover:border-white/40 hover:bg-white/5'
                   : 'border-white/8 bg-[#0d0d0d] hover:border-white/20 hover:bg-white/5'
               }`}>
-                <p className={`text-2xl font-bold mb-1 ${item.popular ? 'text-blue-400' : item.custom ? 'text-white/60' : 'text-white'}`}>
+                <p className={`text-2xl font-bold mb-1 ${item.popular ? 'text-white/80' : item.custom ? 'text-white/60' : 'text-white'}`}>
                   {item.size}
                 </p>
                 <p className="text-xs text-white/40 mb-3">{item.desc}</p>
                 {item.popular && (
-                  <span className="inline-flex items-center gap-1 text-xs bg-blue-500/15 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full">
+                  <span className="inline-flex items-center gap-1 text-xs bg-blue-500/15 text-white/80 border border-blue-500/20 px-2 py-0.5 rounded-full">
                     <Star className="h-2.5 w-2.5" /> Popular
                   </span>
                 )}
@@ -80,14 +80,14 @@ export default function ShopBySize() {
         {/* Custom size CTA */}
         <div className="max-w-2xl mx-auto text-center bg-[#0d0d0d] border border-white/10 rounded-2xl p-10">
           <div className="w-14 h-14 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-5">
-            <Ruler className="h-7 w-7 text-blue-400" />
+            <Ruler className="h-7 w-7 text-white/80" />
           </div>
           <h2 className="text-2xl font-bold mb-2">Need a Custom Size?</h2>
           <p className="text-white/40 mb-6 leading-relaxed">
             We cut filters to any dimension. Tell us your booth make/model or exact measurements and we'll get you a perfect fit — usually ships same day.
           </p>
           <Link href="/contact">
-            <Button className="bg-blue-500 hover:bg-blue-400 text-white font-bold gap-2">
+            <Button className="bg-white text-black hover:bg-white/90 text-white font-bold gap-2">
               Request Custom Size <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>

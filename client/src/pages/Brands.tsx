@@ -53,11 +53,11 @@ export default function Brands() {
       <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
         <Breadcrumb items={[{ label: 'Brands' }]} />
         <div className="mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
-            <Award className="h-3.5 w-3.5 text-blue-400" />
-            <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Trusted Brands</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/15 mb-4">
+            <Award className="h-3.5 w-3.5 text-white/50" />
+            <span className="text-xs font-semibold text-white/60 uppercase tracking-wider">Trusted Brands</span>
           </div>
-          <h1 className="text-5xl font-extrabold mb-4">Filter Brands We Carry</h1>
+          <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Filter Brands We Carry</h1>
           <p className="text-xl text-white/50 max-w-2xl">
             We partner with industry-leading manufacturers to bring you the best paint booth filtration products available.
           </p>
@@ -65,10 +65,10 @@ export default function Brands() {
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
           {brands.map((brand) => (
-            <div key={brand.name} className="border border-white/8 bg-[#0d0d0d] hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-300 rounded-2xl p-6">
+            <div key={brand.name} className="border border-white/8 bg-[#0d0d0d] hover:border-white/20 hover:bg-white/3 transition-all duration-300 rounded-2xl p-6">
               <div className="flex items-start justify-between mb-3">
                 <h2 className="font-bold text-xl text-white">{brand.name}</h2>
-                <span className="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-1 rounded-full">{brand.specialty}</span>
+                <span className="text-xs bg-white/5 text-white/50 border border-white/10 px-2 py-1 rounded-full">{brand.specialty}</span>
               </div>
               <p className="text-white/40 text-sm leading-relaxed mb-4">{brand.description}</p>
               <Link href={brand.href}>

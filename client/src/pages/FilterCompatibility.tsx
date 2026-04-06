@@ -51,7 +51,7 @@ export default function FilterCompatibility() {
       <div className="max-w-4xl mx-auto px-4 pt-28 pb-20">
         <Breadcrumb items={[{ label: 'Filter Compatibility' }]} />
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-extrabold mb-4">Filter Compatibility Finder</h1>
+          <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Filter Compatibility Finder</h1>
           <p className="text-xl text-white/50 max-w-2xl">
             Tell us your booth make and model and we'll find the exact filters that fit — or cut custom ones to spec.
           </p>

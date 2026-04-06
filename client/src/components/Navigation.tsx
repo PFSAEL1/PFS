@@ -128,13 +128,13 @@ export const Navigation = () => {
                 Memberships
               </Link>
               <Link href="/filter-scanner" className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5">
-                <Sparkles className="w-4 h-4 text-blue-400" /> AI Scanner
+                <Sparkles className="w-4 h-4 text-[#4d9fff]" /> AI Scanner
               </Link>
               <Link href="/contact" className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5">
                 Contact
               </Link>
               {isAdmin && (
-                <Link href="/filter-database" className="px-3 py-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors rounded-md hover:bg-white/5">
+                <Link href="/filter-database" className="px-3 py-2 text-sm font-medium text-[#4d9fff] hover:text-blue-300 transition-colors rounded-md hover:bg-white/5">
                   Filter DB
                 </Link>
               )}
@@ -155,7 +155,7 @@ export const Navigation = () => {
                 <Link href="/shop">
                   <Button
                     size="sm"
-                    className="font-semibold bg-blue-500 hover:bg-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transition-all"
+                    className="font-semibold bg-[#4d9fff] hover:bg-[#6aadff] text-white shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transition-all"
                   >
                     <ShoppingBag className="w-4 h-4 mr-1.5" />
                     Shop Now
@@ -171,7 +171,7 @@ export const Navigation = () => {
               >
                 <ShoppingBag className="w-5 h-5" />
                 {totalItems > 0 && (
-                  <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-blue-500 text-white border-0">
+                  <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-[#4d9fff] text-white border-0">
                     {totalItems}
                   </Badge>
                 )}
@@ -217,15 +217,15 @@ export const Navigation = () => {
               <Link href="/memberships" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Memberships</Link>
               <Link href="/blog" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Blog</Link>
               <Link href="/filter-scanner" className="flex items-center gap-2 px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                <Sparkles className="w-4 h-4 text-blue-400" /> AI Scanner
+                <Sparkles className="w-4 h-4 text-[#4d9fff]" /> AI Scanner
               </Link>
               <Link href="/contact" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Contact</Link>
               {isAdmin && (
-                <Link href="/filter-database" className="block px-4 py-2.5 text-sm text-blue-400 hover:text-blue-300 hover:bg-white/5 rounded-lg transition-colors">Filter Database (Admin)</Link>
+                <Link href="/filter-database" className="block px-4 py-2.5 text-sm text-[#4d9fff] hover:text-blue-300 hover:bg-white/5 rounded-lg transition-colors">Filter Database (Admin)</Link>
               )}
               <div className="px-4 pt-3 pb-1 flex gap-2">
                 <Link href="/contact" className="flex-1">
-                  <Button className="w-full bg-blue-500 hover:bg-blue-400 text-white" size="sm">Get a Quote</Button>
+                  <Button className="w-full bg-[#4d9fff] hover:bg-[#6aadff] text-white" size="sm">Get a Quote</Button>
                 </Link>
                 {user ? (
                   <Link href="/dashboard" className="flex-1">

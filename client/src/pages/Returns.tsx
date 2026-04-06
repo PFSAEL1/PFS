@@ -24,7 +24,7 @@ export default function Returns() {
       <div className="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
         <Breadcrumb items={[{ label: 'Returns & Refunds' }]} />
         <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Returns & Refunds Policy</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Returns & Refunds Policy</h1>
           <p className="text-xl text-white/50">Please review our policy before making a purchase</p>
         </div>
         <div className="space-y-6">
