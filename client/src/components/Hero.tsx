@@ -1,10 +1,20 @@
 // Hero — PFS Filters Dark Theme
-// Full-bleed dark hero, left-aligned text, electric blue CTAs
+// Full-bleed looping video hero, left-aligned text, electric blue CTAs
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Mail, ShoppingBag, Truck, Shield, Star } from 'lucide-react';
 
-const HERO_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/hero-fiberglass-arrestor_ab115b55.png';
+const HERO_VIDEO = [
+  'https://d2xsxph8kpxj0f.cloudfront.net',
+  '/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5',
+  '/pfs-filter-hero-video_85f7d4d7.mp4',
+].join('');
+
+const HERO_POSTER = [
+  'https://d2xsxph8kpxj0f.cloudfront.net',
+  '/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5',
+  '/hero-fiberglass-arrestor_ab115b55.png',
+].join('');
 
 export const Hero = () => {
   const scrollToContact = () => {
@@ -16,21 +26,23 @@ export const Hero = () => {
     <header>
       <section
         id="home"
-        className="relative min-h-[65vh] md:min-h-[75vh] flex items-center overflow-hidden bg-black"
+        className="relative min-h-[65vh] md:min-h-[80vh] flex items-center overflow-hidden bg-black"
       >
-        {/* Full-bleed background image */}
+        {/* Full-bleed looping video background */}
         <div className="absolute inset-0 z-0">
-          {/* Filter render — positioned right side, large and visible */}
-          <div className="absolute inset-0 flex items-center justify-end pr-0 md:pr-8">
-            <img
-              src={HERO_IMAGE}
-              alt="PFS Filters premium spray booth filtration"
-              className="h-[80%] w-auto object-contain opacity-80"
-              style={{ filter: 'drop-shadow(0 0 60px rgba(59,130,246,0.3))' }}
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            src={HERO_VIDEO}
+            poster={HERO_POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
+          {/* Gradient overlay: strong on left for text readability, fades right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-32 w-full">
@@ -89,7 +101,7 @@ export const Hero = () => {
               style={{ animationDelay: '0.55s', animationFillMode: 'backwards' }}
             >
               {[
-                { icon: Truck, label: 'Ships in 1–2 Business Days' },
+                { icon: Truck, label: 'Ships in 1-2 Business Days' },
                 { icon: Shield, label: 'Booth-Specific Filter Tracking' },
                 { icon: Star, label: '1,200+ Shops Nationwide' },
               ].map((badge, idx) => (
@@ -101,7 +113,6 @@ export const Hero = () => {
             </div>
           </div>
         </div>
-
       </section>
     </header>
   );
