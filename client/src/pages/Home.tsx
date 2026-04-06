@@ -47,9 +47,11 @@ export default function Home() {
       <Reviews />
 
       {/* Filters for Any Paint Booth Brand */}
-      <section className="py-20 px-4 bg-black">
+      <section className="py-20 px-4 section-raised">
+        <div className="section-divider mb-16" />
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
+            <div className="section-label"><span>Compatible Products</span></div>
             <h2 className="text-3xl md:text-4xl font-bold mb-3">Filters for Any Paint Booth Brand</h2>
             <p className="text-muted-foreground text-lg">Quality filtration solutions compatible with all major spray booth manufacturers</p>
           </div>
@@ -60,13 +62,15 @@ export default function Home() {
               { img: CEILING_IMAGE, label: 'Ceiling Blankets', sub: 'Downdraft Systems', href: '/shop?category=ceiling' },
             ].map((item) => (
               <Link key={item.label} href={item.href}>
-                <div className="group relative overflow-hidden rounded-xl border border-white/10 hover:border-blue-500/50 transition-all duration-300 cursor-pointer">
-                  <img
-                    src={item.img}
-                    alt={item.label}
-                    className="w-full h-52 object-contain bg-white/5 p-4 group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="bg-[#111] border-t border-white/10 p-4">
+                <div className="glow-card cursor-pointer">
+                  <div className="product-img-wrap">
+                    <img
+                      src={item.img}
+                      alt={item.label}
+                      className="w-full h-52 object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-4">
                     <p className="font-bold text-white">{item.label}</p>
                     <p className="text-white/50 text-sm">{item.sub}</p>
                   </div>
@@ -76,7 +80,7 @@ export default function Home() {
           </div>
 
           {/* Featured CTA */}
-          <div className="bg-[#0d0d0d] rounded-2xl p-8 text-center border border-white/10">
+          <div className="glow-card glow-pulse rounded-2xl p-8 text-center">
             <h3 className="text-2xl font-bold text-white mb-2">Featured: Fiberglass Paint Arrestors</h3>
             <p className="text-white/50 mb-6 max-w-2xl mx-auto">
               Premium fiberglass exhaust filters engineered for superior overspray capture and extended service life. Available in multiple densities to match your specific booth requirements.
@@ -99,10 +103,11 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="section-divider" />
       <FAQ />
 
       {/* About / SEO-rich section */}
-      <section className="py-20 px-4 bg-[#080808]">
+      <section className="py-20 px-4 section-glow-bg">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
@@ -130,9 +135,9 @@ export default function Home() {
                   { icon: Wrench, title: 'Custom Sizes Available', desc: 'Perfect fit guaranteed' },
                   { icon: Package, title: 'Fast Nationwide Shipping', desc: 'Quick delivery to your shop' },
                 ].map((item) => (
-                  <div key={item.title} className="flex items-start gap-3 p-4 bg-[#111] rounded-lg border border-white/8">
-                    <div className="p-2 bg-primary/10 rounded-lg flex-shrink-0">
-                      <item.icon className="h-4 w-4 text-primary" />
+                  <div key={item.title} className="glow-card flex items-start gap-3 p-4">
+                    <div className="glow-icon flex-shrink-0">
+                      <item.icon className="h-4 w-4 text-blue-400" />
                     </div>
                     <div>
                       <p className="font-semibold text-sm">{item.title}</p>
@@ -175,12 +180,13 @@ export default function Home() {
       </section>
 
       {/* Industries We Serve */}
-      <section className="py-20 px-4 bg-black">
+      <section className="py-20 px-4 section-darker">
+        <div className="section-divider mb-16" />
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-              <Factory className="h-4 w-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">Industry Solutions</span>
+            <div className="section-label">
+              <Factory className="h-3 w-3" />
+              <span>Industry Solutions</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Industries We Serve</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -191,62 +197,63 @@ export default function Home() {
             {[
               {
                 icon: Car,
+                num: '01',
                 title: 'Automotive',
-                content: 'Auto body shops and collision repair centers trust our paint booth filters for superior overspray capture. Perfect for automotive refinishing, clear coat applications, and vehicle restoration work. Compatible with all major spray booth brands including PFS, Garmat, and Global Finishing Solutions.',
+                content: 'Auto body shops and collision repair centers trust our paint booth filters for superior overspray capture. Perfect for automotive refinishing, clear coat applications, and vehicle restoration work.',
               },
               {
                 icon: Factory,
+                num: '02',
                 title: 'Industrial',
-                content: 'Industrial coating facilities and manufacturing plants rely on our high-capacity filtration systems. Ideal for powder coating operations, liquid paint applications, metal finishing, and heavy-duty industrial spray operations requiring consistent air quality.',
+                content: 'Industrial coating facilities and manufacturing plants rely on our high-capacity filtration systems. Ideal for powder coating operations, liquid paint applications, and metal finishing.',
               },
               {
                 icon: Wrench,
+                num: '03',
                 title: 'Woodworking',
-                content: 'Cabinet shops and furniture manufacturers choose our filters for stain and lacquer applications. Specialized filtration for wood finishing, staining operations, and furniture coating with excellent performance in both water-based and solvent-based systems.',
+                content: 'Cabinet shops and furniture manufacturers choose our filters for stain and lacquer applications. Excellent performance in both water-based and solvent-based systems.',
               },
               {
                 icon: Package,
+                num: '04',
                 title: 'Aerospace',
-                content: 'Aircraft painting and aerospace coating operations demand precision filtration. Our filters meet stringent aerospace standards for component painting, aircraft refinishing, and specialty coatings requiring exceptional air purity and particle capture.',
+                content: 'Aircraft painting and aerospace coating operations demand precision filtration. Our filters meet stringent aerospace standards for component painting and specialty coatings.',
               },
               {
                 icon: TrendingUp,
+                num: '05',
                 title: 'Custom Fabrication',
-                content: 'Metal fabricators and custom shops need reliable filtration for diverse projects. From motorcycle painting to equipment refinishing, our versatile filter selection handles everything from small batch custom work to high-volume production painting.',
+                content: 'Metal fabricators and custom shops need reliable filtration for diverse projects. From motorcycle painting to equipment refinishing, our versatile filter selection handles it all.',
               },
               {
                 icon: Factory,
+                num: '06',
                 title: 'Marine',
-                content: 'Boat builders and marine coating specialists require robust filtration systems. Our filters excel in gel coat applications, marine painting, yacht refinishing, and watercraft coating operations where salt air and harsh conditions demand superior filter performance.',
+                content: 'Boat builders and marine coating specialists require robust filtration. Our filters excel in gel coat applications, marine painting, and yacht refinishing operations.',
               },
             ].map((industry, idx) => (
-              <Card
-                key={idx}
-                className="border border-white/10 hover:border-blue-500/40 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group bg-[#0d0d0d]"
-              >
-                <CardContent className="pt-8 pb-8">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="p-3 bg-blue-500/10 rounded-lg group-hover:bg-blue-500 group-hover:scale-110 transition-all duration-300">
-                      <industry.icon className="h-8 w-8 text-blue-400 group-hover:text-white transition-colors" />
-                    </div>
-                    <h3 className="text-2xl font-bold">{industry.title}</h3>
+              <div key={idx} className="glow-card glow-card-accent p-8 relative">
+                <span className="industry-card-num">{industry.num}</span>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="glow-icon">
+                    <industry.icon className="h-5 w-5 text-blue-400" />
                   </div>
-                  <p className="text-muted-foreground leading-relaxed">{industry.content}</p>
-                </CardContent>
-              </Card>
+                  <h3 className="text-2xl font-bold">{industry.title}</h3>
+                </div>
+                <p className="text-muted-foreground leading-relaxed text-sm">{industry.content}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Why Proper Filtration Matters */}
-      <section className="py-20 px-4 bg-[#080808] relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,oklch(0.54_0.15_222_/_0.06),transparent_50%)]" />
+      <section className="py-20 px-4 section-glow-bg relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-              <CheckCircle className="h-4 w-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">Expert Knowledge</span>
+            <div className="section-label">
+              <CheckCircle className="h-3 w-3" />
+              <span>Expert Knowledge</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Why Proper Spray Booth Filtration Matters
@@ -260,40 +267,35 @@ export default function Home() {
               {
                 icon: '✨',
                 title: 'Finish Quality',
-                content: 'Quality paint booth intake filters remove dust, pollen, and contaminants from incoming air, preventing defects in your finish. Clean air means fewer orange peel issues, dirt nibs, and costly rework. Our tacky panel filters capture particles as small as 10 microns. Proper exhaust filtration maintains consistent airflow and prevents booth pressure imbalances.',
+                content: 'Quality paint booth intake filters remove dust, pollen, and contaminants from incoming air, preventing defects in your finish. Clean air means fewer orange peel issues, dirt nibs, and costly rework.',
               },
               {
                 icon: '🛡️',
                 title: 'Air Quality & Safety',
-                content: 'Effective paint arrestor filters capture hazardous overspray particles before they exhaust into the environment. This protects worker health, ensures OSHA compliance, and prevents EPA violations from unfiltered paint emissions. Our fiberglass filter media maintains 99%+ capture efficiency throughout its service life.',
+                content: 'Effective paint arrestor filters capture hazardous overspray particles before they exhaust into the environment. Protects worker health, ensures OSHA compliance, and prevents EPA violations.',
               },
               {
                 icon: '💰',
                 title: 'Cost Efficiency',
-                content: 'Premium filters last longer and capture more overspray, reducing replacement frequency and disposal costs. Our paint booth filters feature progressive density construction that loads from the surface inward, maximizing capacity. Extended filter life means less downtime and lower labor costs. Bulk pricing available.',
+                content: 'Premium filters last longer and capture more overspray, reducing replacement frequency and disposal costs. Progressive density construction maximizes capacity and extends filter life.',
               },
             ].map((item, idx) => (
-              <Card
-                key={idx}
-                className="border border-white/10 hover:border-blue-500/40 transition-all duration-300 hover:shadow-xl group bg-[#0d0d0d]"
-              >
-                <CardContent className="pt-8">
-                  <div className="flex items-center gap-3 mb-6">
-                    <span className="text-4xl">{item.icon}</span>
-                    <h3 className="text-2xl font-bold">{item.title}</h3>
-                  </div>
-                  <p className="text-muted-foreground leading-relaxed">{item.content}</p>
-                </CardContent>
-              </Card>
+              <div key={idx} className="glow-card p-8">
+                <div className="text-4xl mb-5">{item.icon}</div>
+                <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">{item.content}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Why Choose PFS Filters */}
-      <section className="py-20 px-4 bg-black">
+      <section className="py-20 px-4 section-darker">
+        <div className="section-divider mb-16" />
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
+            <div className="section-label"><span>Why PFS</span></div>
             <h2 className="text-4xl font-bold mb-4">Why Choose PFS Filters?</h2>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto">
               Industry-leading filtration solutions designed for excellence
@@ -317,25 +319,20 @@ export default function Home() {
                 description: 'Members get scheduled auto-reorders tied to their actual change intervals. Your filters show up before you need them, every time.',
               },
             ].map((feature, index) => (
-              <Card
-                key={index}
-                className="border border-white/10 hover:border-blue-500/40 transition-all duration-300 hover:shadow-medium group bg-[#0d0d0d]"
-              >
-                <CardContent className="pt-12 pb-12 px-8 text-center space-y-6">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-500/10 group-hover:bg-blue-500 transition-all duration-300">
-                    <feature.icon className="h-8 w-8 text-blue-400 group-hover:text-white transition-colors duration-300" />
-                  </div>
-                  <h3 className="text-xl font-semibold">{feature.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-                </CardContent>
-              </Card>
+              <div key={index} className="feature-card">
+                <div className="glow-icon mx-auto mb-6">
+                  <feature.icon className="h-6 w-6 text-blue-400" />
+                </div>
+                <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">{feature.description}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 bg-[#080808]">
+      <section id="contact" className="py-20 px-4 section-glow-bg">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Get in Touch</h2>

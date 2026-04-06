@@ -288,3 +288,243 @@
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
+
+/* ============================================================
+   GLOW CARD SYSTEM — PFS Filters Dark Industrial Design
+   ============================================================ */
+
+/* Base glow card */
+.glow-card {
+  position: relative;
+  background: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 7%) 100%);
+  border: 1px solid hsl(0 0% 18%);
+  border-radius: 12px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0,153,255,0.06), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.35s;
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-card:hover::before {
+  opacity: 1;
+}
+.glow-card:hover {
+  border-color: rgba(0, 153, 255, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(0, 153, 255, 0.15),
+    0 8px 32px -4px rgba(0, 153, 255, 0.25),
+    0 0 60px -20px rgba(0, 153, 255, 0.15);
+  transform: translateY(-3px);
+}
+
+/* Glow card content sits above the pseudo-element */
+.glow-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Blue accent top-line variant */
+.glow-card-accent {
+  border-top: 2px solid rgba(0, 153, 255, 0.5);
+}
+.glow-card-accent:hover {
+  border-top-color: rgba(0, 153, 255, 0.9);
+}
+
+/* Icon glow container */
+.glow-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(0, 153, 255, 0.08);
+  border: 1px solid rgba(0, 153, 255, 0.2);
+  transition: all 0.3s ease;
+}
+.glow-card:hover .glow-icon {
+  background: rgba(0, 153, 255, 0.18);
+  border-color: rgba(0, 153, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 153, 255, 0.3);
+}
+
+/* Section dividers — gradient lines */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 153, 255, 0.3), transparent);
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+/* Section label pill */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 100px;
+  background: rgba(0, 153, 255, 0.08);
+  border: 1px solid rgba(0, 153, 255, 0.2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: hsl(207 100% 65%);
+  margin-bottom: 1rem;
+}
+
+/* Section background variants */
+.section-dark {
+  background: hsl(0 0% 4%);
+}
+.section-darker {
+  background: hsl(0 0% 2%);
+}
+.section-raised {
+  background: linear-gradient(180deg, hsl(0 0% 7%) 0%, hsl(0 0% 5%) 100%);
+}
+.section-glow-bg {
+  background: hsl(0 0% 4%);
+  position: relative;
+  overflow: hidden;
+}
+.section-glow-bg::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(0, 153, 255, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Stat number glow */
+.stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(0,153,255,0.9) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+/* Horizontal rule with glow */
+.hr-glow {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0,153,255,0.4) 50%, transparent 100%);
+  margin: 3rem auto;
+  max-width: 600px;
+}
+
+/* Product card image container */
+.product-img-wrap {
+  background: linear-gradient(135deg, hsl(0 0% 12%) 0%, hsl(0 0% 8%) 100%);
+  border-bottom: 1px solid hsl(0 0% 16%);
+  overflow: hidden;
+}
+.glow-card:hover .product-img-wrap {
+  background: linear-gradient(135deg, hsl(0 0% 14%) 0%, hsl(0 0% 10%) 100%);
+}
+
+/* Glowing number badge */
+.glow-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: rgba(0, 153, 255, 0.12);
+  border: 1px solid rgba(0, 153, 255, 0.3);
+  color: hsl(207 100% 65%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Animated glow pulse for CTA cards */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(0,153,255,0.2), 0 0 60px rgba(0,153,255,0.05); }
+  50% { box-shadow: 0 0 30px rgba(0,153,255,0.35), 0 0 80px rgba(0,153,255,0.1); }
+}
+.glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Why Choose PFS — large feature cards */
+.feature-card {
+  position: relative;
+  padding: 2.5rem 2rem;
+  background: linear-gradient(160deg, hsl(0 0% 10%) 0%, hsl(0 0% 6%) 100%);
+  border: 1px solid hsl(0 0% 16%);
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.35s ease;
+  overflow: hidden;
+}
+.feature-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,153,255,0.6), transparent);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.feature-card:hover::after {
+  opacity: 1;
+}
+.feature-card:hover {
+  border-color: rgba(0, 153, 255, 0.35);
+  box-shadow: 0 12px 40px -8px rgba(0, 153, 255, 0.2), 0 0 0 1px rgba(0,153,255,0.1);
+  transform: translateY(-4px);
+}
+
+/* Industry card number accent */
+.industry-card-num {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  font-size: 3rem;
+  font-weight: 900;
+  color: rgba(0, 153, 255, 0.06);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.05em;
+}
+
+/* Add to Cart button glow states */
+.glow-add-btn {
+  transition: all 0.2s ease;
+}
+.glow-add-btn.btn-active {
+  background: hsl(207 100% 50%);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(0, 153, 255, 0.3);
+}
+.glow-add-btn.btn-active:hover {
+  background: hsl(207 100% 60%);
+  box-shadow: 0 0 24px rgba(0, 153, 255, 0.45);
+}
+.glow-add-btn.btn-adding {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.4);
+  cursor: not-allowed;
+}

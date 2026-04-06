@@ -55,7 +55,7 @@ export const PopularProducts = () => {
   };
 
   return (
-    <section className="py-14 bg-black">
+    <section className="py-14 section-raised">
       {/* Header */}
       <div className="px-4 max-w-7xl mx-auto flex items-end justify-between mb-8">
         <div>
@@ -114,10 +114,10 @@ export const PopularProducts = () => {
                   key={product.node.id}
                   className="flex-none w-[220px] md:w-[240px] snap-start"
                 >
-                  <div className="group border border-white/8 bg-[#0d0d0d] rounded-2xl overflow-hidden hover:border-white/20 hover:bg-[#111] transition-all duration-300 hover:shadow-[0_8px_32px_rgba(255,255,255,0.04)] flex flex-col h-full">
+                  <div className="glow-card flex flex-col h-full">
                     {/* Product image */}
                     <Link href={`/product/${product.node.handle}`}>
-                      <div className="aspect-square bg-gradient-to-br from-white/5 to-white/[0.02] overflow-hidden relative cursor-pointer">
+                      <div className="product-img-wrap aspect-square overflow-hidden relative cursor-pointer">
                         <img
                           src={image}
                           alt={product.node.title}
@@ -128,7 +128,7 @@ export const PopularProducts = () => {
                     </Link>
 
                     {/* Info */}
-                    <div className="p-4 flex flex-col gap-3 flex-1 border-t border-white/5">
+                    <div className="p-4 flex flex-col gap-3 flex-1">
                       <Link href={`/product/${product.node.handle}`}>
                         <h3 className="text-sm font-semibold text-white/85 leading-snug line-clamp-2 hover:text-white transition-colors cursor-pointer">
                           {product.node.title}
@@ -147,11 +147,7 @@ export const PopularProducts = () => {
                       <button
                         onClick={() => handleAddToCart(product)}
                         disabled={isAdding}
-                        className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                          isAdding
-                            ? 'bg-white/10 text-white/40 cursor-not-allowed'
-                            : 'bg-white text-black hover:bg-white/90 active:scale-95'
-                        }`}
+                        className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 glow-add-btn ${isAdding ? 'btn-adding' : 'btn-active'}`}
                       >
                         {isAdding ? (
                           <Loader2 className="h-3.5 w-3.5 animate-spin" />

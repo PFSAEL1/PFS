@@ -73,17 +73,18 @@ export const ShopifyProducts = () => {
         const inStock = variant?.availableForSale ?? true;
 
         return (
-          <Card key={product.node.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
+          <div key={product.node.id} className="glow-card group">
             <Link href={`/product/${product.node.handle}`}>
-              <div className="aspect-square overflow-hidden bg-white/5/30">
+              <div className="product-img-wrap aspect-square overflow-hidden cursor-pointer">
                 <img
                   src={image}
                   alt={product.node.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
+                  style={{ filter: 'brightness(0.95) contrast(1.05)' }}
                 />
               </div>
             </Link>
-            <CardContent className="p-4">
+            <div className="p-4">
               <Link href={`/product/${product.node.handle}`}>
                 <h3 className="font-semibold text-sm leading-tight mb-1 hover:text-blue-400 transition-colors line-clamp-2">
                   {product.node.title}
@@ -106,8 +107,8 @@ export const ShopifyProducts = () => {
                 <ShoppingCart className="h-3.5 w-3.5" />
                 {inStock ? 'Add to Cart' : 'Out of Stock'}
               </Button>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         );
       })}
     </div>

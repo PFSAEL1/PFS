@@ -42,10 +42,10 @@ export default function Shop() {
         <ShopifyProducts />
 
         {/* SEO content block */}
-        <div className="max-w-4xl mx-auto bg-[#0d0d0d] border border-white/10 rounded-xl p-8 mt-12">
+        <div className="max-w-4xl mx-auto glow-card p-8 mt-12">
           <div className="flex items-start gap-4 mb-6">
-            <div className="p-3 bg-blue-500/10 rounded-lg">
-              <Package className="h-8 w-8 text-blue-400" />
+            <div className="glow-icon">
+              <Package className="h-6 w-6 text-blue-400" />
             </div>
             <div>
               <h2 className="text-2xl font-bold mb-2">Complete Paint Booth Filtration Solutions</h2>
