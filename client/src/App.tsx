@@ -27,14 +27,7 @@ import SubmitReview from './pages/SubmitReview';
 import FilterDatabase from './pages/FilterDatabase';
 import NotFound from './pages/NotFound';
 
-// Light version pages
-import LightHome from './pages/light/LightHome';
-import LightShop from './pages/light/LightShop';
-import LightShopByType from './pages/light/LightShopByType';
-import LightMemberships from './pages/light/LightMemberships';
-import LightContact from './pages/light/LightContact';
-import LightFilterDatabase from './pages/light/LightFilterDatabase';
-import LightAuth from './pages/light/LightAuth';
+// Light version pages (kept in codebase but not routed in production)
 
 function Router() {
   return (
@@ -72,15 +65,6 @@ function Router() {
       <Route path="/auth" component={Auth} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/filter-database" component={FilterDatabase} />
-      {/* Light version routes */}
-      <Route path="/light" component={LightHome} />
-      <Route path="/light/shop" component={LightShop} />
-      <Route path="/light/shop-by-type" component={LightShopByType} />
-      <Route path="/light/memberships" component={LightMemberships} />
-      <Route path="/light/contact" component={LightContact} />
-      <Route path="/light/filter-database" component={LightFilterDatabase} />
-      <Route path="/light/auth" component={LightAuth} />
-
       {/* 404 */}
       <Route component={NotFound} />
     </Switch>
