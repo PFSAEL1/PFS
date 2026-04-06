@@ -75,13 +75,13 @@ export default function LightShopByType() {
       {/* Header */}
       <section style={{ background: "#F4F2EE", padding: "10rem 2rem 5rem" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
-          <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
+          <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
             Browse
           </p>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(3rem, 6vw, 6rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "1.5rem" }}>
+          <h1 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(3rem, 6vw, 6rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "1.5rem" }}>
             Shop by Type
           </h1>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1.1rem", color: "#666", maxWidth: "500px" }}>
+          <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "1.1rem", color: "#666", maxWidth: "500px" }}>
             Every filter position covered — intake, exhaust, ceiling, and specialty applications.
           </p>
         </div>
@@ -107,20 +107,20 @@ export default function LightShopByType() {
 
               {/* Content */}
               <div style={{ order: i % 2 === 0 ? 2 : 1, padding: "4rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <span style={{ display: "inline-block", background: type.positionColor, color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.3rem 0.75rem", marginBottom: "1.5rem", alignSelf: "flex-start" }}>
+                <span style={{ display: "inline-block", background: type.positionColor, color: "#fff", fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.3rem 0.75rem", marginBottom: "1.5rem", alignSelf: "flex-start" }}>
                   {type.position}
                 </span>
-                <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.75rem, 3vw, 2.75rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", marginBottom: "1rem", lineHeight: 1.15 }}>
+                <h2 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(1.75rem, 3vw, 2.75rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", marginBottom: "1rem", lineHeight: 1.15 }}>
                   {type.title}
                 </h2>
-                <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.95rem", lineHeight: 1.75, color: "#555", marginBottom: "1.5rem" }}>
+                <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "0.95rem", lineHeight: 1.75, color: "#555", marginBottom: "1.5rem" }}>
                   {type.desc}
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginBottom: "2rem" }}>
                   {type.specs.map(spec => (
                     <div key={spec} style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                       <div style={{ width: "4px", height: "4px", background: "#1B4FD8", borderRadius: "50%", flexShrink: 0 }} />
-                      <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.06em", color: "#666" }}>{spec}</span>
+                      <span style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.06em", color: "#666" }}>{spec}</span>
                     </div>
                   ))}
                 </div>
@@ -129,7 +129,7 @@ export default function LightShopByType() {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "0.75rem",
-                    fontFamily: "'Space Mono', monospace",
+                    fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                     fontSize: "0.65rem",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",

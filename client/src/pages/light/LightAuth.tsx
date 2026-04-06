@@ -16,7 +16,7 @@ export default function LightAuth() {
     background: "transparent",
     border: "none",
     borderBottom: "1px solid #E5E2DC",
-    fontFamily: "'Inter', sans-serif",
+    fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
     fontWeight: 300,
     fontSize: "1rem",
     color: "#111",
@@ -38,11 +38,11 @@ export default function LightAuth() {
             </Link>
           </div>
           <div style={{ position: "relative", zIndex: 1 }}>
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "3rem", color: "rgba(255,255,255,0.15)", lineHeight: 1, marginBottom: "1rem" }}>"</div>
-            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontStyle: "italic", color: "rgba(255,255,255,0.8)", lineHeight: 1.7, marginBottom: "1.5rem" }}>
+            <div style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "3rem", color: "rgba(255,255,255,0.15)", lineHeight: 1, marginBottom: "1rem" }}>"</div>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "1.1rem", fontStyle: "italic", color: "rgba(255,255,255,0.8)", lineHeight: 1.7, marginBottom: "1.5rem" }}>
               The filter database changed how we run our shop. Everything is automated now.
             </p>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>
               — Carlos R., Auto Body Manager
             </p>
           </div>
@@ -51,10 +51,10 @@ export default function LightAuth() {
         {/* Right — form */}
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "4rem", paddingTop: "8rem" }}>
           <div style={{ maxWidth: "400px", width: "100%" }}>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
               PFS Filters Account
             </p>
-            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "2.5rem", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", marginBottom: "2.5rem" }}>
+            <h1 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "2.5rem", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", marginBottom: "2.5rem" }}>
               {mode === "signin" ? "Welcome Back." : "Create Account."}
             </h1>
 
@@ -70,7 +70,7 @@ export default function LightAuth() {
                     border: "none",
                     borderBottom: mode === m ? "2px solid #111" : "2px solid transparent",
                     marginBottom: "-1px",
-                    fontFamily: "'Space Mono', monospace",
+                    fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                     fontSize: "0.6rem",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
@@ -88,26 +88,26 @@ export default function LightAuth() {
               {mode === "signup" && (
                 <>
                   <div>
-                    <label style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "0.5rem" }}>Full Name</label>
+                    <label style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "0.5rem" }}>Full Name</label>
                     <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} style={inputStyle} placeholder="John Smith" />
                   </div>
                   <div>
-                    <label style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "0.5rem" }}>Shop / Company</label>
+                    <label style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "0.5rem" }}>Shop / Company</label>
                     <input value={form.company} onChange={e => setForm({ ...form, company: e.target.value })} style={inputStyle} placeholder="ABC Body Shop" />
                   </div>
                 </>
               )}
               <div>
-                <label style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "0.5rem" }}>Email</label>
+                <label style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "0.5rem" }}>Email</label>
                 <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} style={inputStyle} placeholder="john@shop.com" />
               </div>
               <div>
-                <label style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "0.5rem" }}>Password</label>
+                <label style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "0.5rem" }}>Password</label>
                 <input type="password" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} style={inputStyle} placeholder="••••••••" />
               </div>
               <button
                 type="submit"
-                style={{ padding: "1rem", background: "#111", color: "#fff", border: "none", cursor: "pointer", fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase", transition: "background 0.2s", marginTop: "0.5rem" }}
+                style={{ padding: "1rem", background: "#111", color: "#fff", border: "none", cursor: "pointer", fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase", transition: "background 0.2s", marginTop: "0.5rem" }}
                 onMouseEnter={e => (e.currentTarget.style.background = "#1B4FD8")}
                 onMouseLeave={e => (e.currentTarget.style.background = "#111")}
               >
@@ -115,9 +115,9 @@ export default function LightAuth() {
               </button>
             </form>
 
-            <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.8rem", color: "#888", marginTop: "2rem", textAlign: "center" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "0.8rem", color: "#888", marginTop: "2rem", textAlign: "center" }}>
               {mode === "signin" ? "Don't have an account? " : "Already have an account? "}
-              <button onClick={() => setMode(mode === "signin" ? "signup" : "signin")} style={{ background: "none", border: "none", color: "#1B4FD8", cursor: "pointer", fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", textDecoration: "underline" }}>
+              <button onClick={() => setMode(mode === "signin" ? "signup" : "signin")} style={{ background: "none", border: "none", color: "#1B4FD8", cursor: "pointer", fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.8rem", textDecoration: "underline" }}>
                 {mode === "signin" ? "Sign up free" : "Sign in"}
               </button>
             </p>

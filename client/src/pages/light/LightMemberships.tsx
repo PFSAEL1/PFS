@@ -53,13 +53,13 @@ export default function LightMemberships() {
       {/* Header */}
       <section style={{ background: "#F4F2EE", padding: "10rem 2rem 5rem" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto", textAlign: "center" }}>
-          <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
+          <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
             Membership Plans
           </p>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(3rem, 6vw, 6rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "1.5rem" }}>
+          <h1 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(3rem, 6vw, 6rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "1.5rem" }}>
             Never Run Out<br /><em style={{ fontStyle: "italic", color: "#1B4FD8" }}>Again.</em>
           </h1>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1.1rem", color: "#666", maxWidth: "500px", margin: "0 auto 2.5rem" }}>
+          <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "1.1rem", color: "#666", maxWidth: "500px", margin: "0 auto 2.5rem" }}>
             Automated filter delivery, booth-specific tracking, and exclusive discounts for PFS Filters members.
           </p>
 
@@ -75,7 +75,7 @@ export default function LightMemberships() {
                   color: billing === b ? "#fff" : "#888",
                   border: "none",
                   cursor: "pointer",
-                  fontFamily: "'Space Mono', monospace",
+                  fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                   fontSize: "0.6rem",
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
@@ -106,23 +106,23 @@ export default function LightMemberships() {
               onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
             >
               {plan.featured && (
-                <div style={{ position: "absolute", top: "-1px", left: "50%", transform: "translateX(-50%)", background: "#1B4FD8", color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.3rem 1rem" }}>
+                <div style={{ position: "absolute", top: "-1px", left: "50%", transform: "translateX(-50%)", background: "#1B4FD8", color: "#fff", fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.3rem 1rem" }}>
                   Most Popular
                 </div>
               )}
 
-              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase", color: plan.featured ? "rgba(255,255,255,0.5)" : "#888", marginBottom: "0.5rem" }}>
+              <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase", color: plan.featured ? "rgba(255,255,255,0.5)" : "#888", marginBottom: "0.5rem" }}>
                 {plan.name}
               </p>
               <div style={{ display: "flex", alignItems: "baseline", gap: "0.25rem", marginBottom: "0.5rem" }}>
-                <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "3rem", fontWeight: 700, color: plan.featured ? "#fff" : "#111" }}>
+                <span style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "3rem", fontWeight: 700, color: plan.featured ? "#fff" : "#111" }}>
                   {billing === "annual" && plan.price !== "Custom"
                     ? `$${Math.round(parseInt(plan.price.replace("$", "")) * 0.8)}`
                     : plan.price}
                 </span>
-                {plan.period && <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.7rem", color: plan.featured ? "rgba(255,255,255,0.5)" : "#888" }}>{plan.period}</span>}
+                {plan.period && <span style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.7rem", color: plan.featured ? "rgba(255,255,255,0.5)" : "#888" }}>{plan.period}</span>}
               </div>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.85rem", color: plan.featured ? "rgba(255,255,255,0.6)" : "#777", marginBottom: "2rem" }}>
+              <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "0.85rem", color: plan.featured ? "rgba(255,255,255,0.6)" : "#777", marginBottom: "2rem" }}>
                 {plan.tagline}
               </p>
 
@@ -130,7 +130,7 @@ export default function LightMemberships() {
                 {plan.features.map(f => (
                   <div key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
                     <span style={{ color: "#1B4FD8", fontSize: "0.75rem", flexShrink: 0, marginTop: "0.1rem" }}>✓</span>
-                    <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.85rem", color: plan.featured ? "rgba(255,255,255,0.75)" : "#555", lineHeight: 1.4 }}>{f}</span>
+                    <span style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "0.85rem", color: plan.featured ? "rgba(255,255,255,0.75)" : "#555", lineHeight: 1.4 }}>{f}</span>
                   </div>
                 ))}
               </div>
@@ -142,7 +142,7 @@ export default function LightMemberships() {
                   padding: "0.875rem",
                   background: plan.featured ? "#1B4FD8" : "#111",
                   color: "#fff",
-                  fontFamily: "'Space Mono', monospace",
+                  fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                   fontSize: "0.65rem",
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
@@ -163,7 +163,7 @@ export default function LightMemberships() {
       {/* FAQ */}
       <section style={{ background: "#F4F2EE", padding: "7rem 2rem" }}>
         <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", marginBottom: "3rem" }}>
+          <h2 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", marginBottom: "3rem" }}>
             Frequently Asked Questions
           </h2>
           {[
@@ -173,8 +173,8 @@ export default function LightMemberships() {
             ["Do you offer custom filter sizes?", "Yes — Business and Enterprise plans include custom filter sizing at no extra charge. Contact our team for details."],
           ].map(([q, a]) => (
             <div key={q} style={{ borderBottom: "1px solid #E5E2DC", padding: "2rem 0" }}>
-              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontWeight: 700, color: "#111", marginBottom: "0.75rem" }}>{q}</h3>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.95rem", lineHeight: 1.7, color: "#666" }}>{a}</p>
+              <h3 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "1.1rem", fontWeight: 700, color: "#111", marginBottom: "0.75rem" }}>{q}</h3>
+              <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "0.95rem", lineHeight: 1.7, color: "#666" }}>{a}</p>
             </div>
           ))}
         </div>

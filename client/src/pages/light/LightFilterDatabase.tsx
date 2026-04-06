@@ -11,13 +11,13 @@ export default function LightFilterDatabase() {
       {/* Header */}
       <section style={{ background: "#F4F2EE", padding: "10rem 2rem 5rem" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
-          <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
+          <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
             Booth Management
           </p>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(3rem, 6vw, 6rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "1.5rem" }}>
+          <h1 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(3rem, 6vw, 6rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "1.5rem" }}>
             Filter Database
           </h1>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1.1rem", color: "#666", maxWidth: "500px" }}>
+          <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "1.1rem", color: "#666", maxWidth: "500px" }}>
             Track every booth, automate reorders, and never miss a filter change. Built for professional body shops.
           </p>
         </div>
@@ -46,9 +46,9 @@ export default function LightFilterDatabase() {
                 onMouseEnter={e => (e.currentTarget.style.background = "#F4F2EE")}
                 onMouseLeave={e => (e.currentTarget.style.background = "#fff")}
               >
-                <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.12em", color: "#1B4FD8", marginBottom: "1rem" }}>{feature.num}</p>
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.25rem", fontWeight: 700, color: "#111", marginBottom: "0.75rem" }}>{feature.title}</h3>
-                <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.9rem", lineHeight: 1.7, color: "#666" }}>{feature.desc}</p>
+                <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.12em", color: "#1B4FD8", marginBottom: "1rem" }}>{feature.num}</p>
+                <h3 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "1.25rem", fontWeight: 700, color: "#111", marginBottom: "0.75rem" }}>{feature.title}</h3>
+                <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "0.9rem", lineHeight: 1.7, color: "#666" }}>{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -59,16 +59,16 @@ export default function LightFilterDatabase() {
       <section style={{ background: "#111", padding: "7rem 2rem" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr auto", gap: "4rem", alignItems: "center" }}>
           <div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700, color: "#fff", letterSpacing: "-0.02em", marginBottom: "1rem" }}>
+            <h2 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700, color: "#fff", letterSpacing: "-0.02em", marginBottom: "1rem" }}>
               Ready to automate your<br /><em style={{ fontStyle: "italic", color: "#4d9fff" }}>filter program?</em>
             </h2>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1rem", color: "rgba(255,255,255,0.6)", maxWidth: "400px" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "1rem", color: "rgba(255,255,255,0.6)", maxWidth: "400px" }}>
               Join 1,200+ shops nationwide using PFS Filters to manage their booth maintenance.
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             <Link href="/light/auth">
-              <a style={{ display: "block", padding: "1rem 2.5rem", background: "#1B4FD8", color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase", textDecoration: "none", textAlign: "center", whiteSpace: "nowrap", transition: "background 0.2s" }}
+              <a style={{ display: "block", padding: "1rem 2.5rem", background: "#1B4FD8", color: "#fff", fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase", textDecoration: "none", textAlign: "center", whiteSpace: "nowrap", transition: "background 0.2s" }}
                 onMouseEnter={e => (e.currentTarget.style.background = "#1440b8")}
                 onMouseLeave={e => (e.currentTarget.style.background = "#1B4FD8")}
               >
@@ -76,7 +76,7 @@ export default function LightFilterDatabase() {
               </a>
             </Link>
             <Link href="/filter-database">
-              <a style={{ display: "block", padding: "1rem 2.5rem", background: "transparent", color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase", textDecoration: "none", textAlign: "center", border: "1px solid rgba(255,255,255,0.2)", transition: "border-color 0.2s" }}
+              <a style={{ display: "block", padding: "1rem 2.5rem", background: "transparent", color: "#fff", fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase", textDecoration: "none", textAlign: "center", border: "1px solid rgba(255,255,255,0.2)", transition: "border-color 0.2s" }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.6)")}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)")}
               >

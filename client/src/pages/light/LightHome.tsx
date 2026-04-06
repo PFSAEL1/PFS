@@ -96,7 +96,7 @@ export default function LightHome() {
           zIndex: 2,
         }}>
           <p style={{
-            fontFamily: "'Space Mono', monospace",
+            fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
             fontSize: "0.65rem",
             letterSpacing: "0.2em",
             textTransform: "uppercase",
@@ -107,7 +107,7 @@ export default function LightHome() {
           </p>
 
           <h1 style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
             fontSize: "clamp(3rem, 5vw, 5.5rem)",
             fontWeight: 700,
             lineHeight: 1.05,
@@ -121,7 +121,7 @@ export default function LightHome() {
           </h1>
 
           <p style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
             fontWeight: 300,
             fontSize: "1.05rem",
             lineHeight: 1.75,
@@ -138,7 +138,7 @@ export default function LightHome() {
                 background: "#111111",
                 color: "#fff",
                 padding: "1rem 2.5rem",
-                fontFamily: "'Space Mono', monospace",
+                fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                 fontSize: "0.7rem",
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
@@ -157,7 +157,7 @@ export default function LightHome() {
                 border: "1px solid #111111",
                 color: "#111111",
                 padding: "1rem 2.5rem",
-                fontFamily: "'Space Mono', monospace",
+                fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                 fontSize: "0.7rem",
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
@@ -178,7 +178,7 @@ export default function LightHome() {
             {["Ships 1–2 Days", "1,200+ Shops", "Booth Tracking"].map(badge => (
               <div key={badge} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                 <div style={{ width: "4px", height: "4px", background: "#1B4FD8", borderRadius: "50%" }} />
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#888" }}>{badge}</span>
+                <span style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#888" }}>{badge}</span>
               </div>
             ))}
           </div>
@@ -222,7 +222,7 @@ export default function LightHome() {
           zIndex: 3,
         }}>
           <div style={{ width: "40px", height: "1px", background: "#111" }} />
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#888" }}>Scroll</span>
+          <span style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#888" }}>Scroll</span>
         </div>
       </section>
 
@@ -231,8 +231,8 @@ export default function LightHome() {
         <div style={{ maxWidth: "1400px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "2rem" }}>
           {stats.map(({ num, label }) => (
             <div key={label} style={{ textAlign: "center" }}>
-              <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "2.5rem", fontWeight: 700, color: "#fff", marginBottom: "0.25rem" }}>{num}</p>
-              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>{label}</p>
+              <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "2.5rem", fontWeight: 700, color: "#fff", marginBottom: "0.25rem" }}>{num}</p>
+              <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>{label}</p>
             </div>
           ))}
         </div>
@@ -242,13 +242,13 @@ export default function LightHome() {
       <section style={{ background: "#fff", padding: "7rem 0" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 2rem" }}>
           <RevealBlock>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "0.75rem" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "0.75rem" }}>
               Best Sellers
             </p>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", marginBottom: "0.5rem", letterSpacing: "-0.02em" }}>
+            <h2 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", marginBottom: "0.5rem", letterSpacing: "-0.02em" }}>
               Popular Products
             </h2>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1rem", color: "#777", marginBottom: "3rem" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "1rem", color: "#777", marginBottom: "3rem" }}>
               Trusted by 1,200+ body shops nationwide
             </p>
           </RevealBlock>
@@ -260,10 +260,10 @@ export default function LightHome() {
       <section style={{ background: "#F4F2EE", padding: "7rem 2rem" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
           <RevealBlock>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "0.75rem" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "0.75rem" }}>
               Browse
             </p>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", marginBottom: "3.5rem", letterSpacing: "-0.02em" }}>
+            <h2 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", marginBottom: "3.5rem", letterSpacing: "-0.02em" }}>
               Shop by Category
             </h2>
           </RevealBlock>
@@ -279,11 +279,11 @@ export default function LightHome() {
                     <img src={cat.img} alt={cat.label} style={{ width: "100%", height: "100%", objectFit: cat.img.includes('pfs-') ? 'contain' : 'cover', objectPosition: "center", background: "#E8E5DF", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)" }} />
                     <div style={{ position: "absolute", bottom: "1.75rem", left: "1.75rem" }}>
-                      <span style={{ display: "inline-block", background: "#1B4FD8", color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.25rem 0.6rem", marginBottom: "0.6rem" }}>
+                      <span style={{ display: "inline-block", background: "#1B4FD8", color: "#fff", fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.25rem 0.6rem", marginBottom: "0.6rem" }}>
                         {cat.tag}
                       </span>
-                      <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", fontWeight: 700, color: "#fff", lineHeight: 1.2 }}>{cat.label}</p>
-                      <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.08em", color: "rgba(255,255,255,0.7)", textTransform: "uppercase", marginTop: "0.25rem" }}>{cat.sub}</p>
+                      <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "1.4rem", fontWeight: 700, color: "#fff", lineHeight: 1.2 }}>{cat.label}</p>
+                      <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.08em", color: "rgba(255,255,255,0.7)", textTransform: "uppercase", marginTop: "0.25rem" }}>{cat.sub}</p>
                     </div>
                   </a>
                 </Link>
@@ -313,13 +313,13 @@ export default function LightHome() {
         <div style={{ position: "absolute", inset: 0, background: "rgba(255,255,255,0.75)" }} />
         <div style={{ position: "relative", zIndex: 2, maxWidth: "1400px", margin: "0 auto", padding: "6rem 2rem", width: "100%" }}>
           <RevealBlock>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
               Why PFS Filters
             </p>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.5rem, 5vw, 5rem)", fontWeight: 700, color: "#111", lineHeight: 1.1, maxWidth: "700px", letterSpacing: "-0.02em", marginBottom: "2rem" }}>
+            <h2 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(2.5rem, 5vw, 5rem)", fontWeight: 700, color: "#111", lineHeight: 1.1, maxWidth: "700px", letterSpacing: "-0.02em", marginBottom: "2rem" }}>
               The Standard in<br /><em style={{ fontStyle: "italic", color: "#1B4FD8" }}>Spray Booth</em><br />Filtration.
             </h2>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1.1rem", lineHeight: 1.75, color: "#444", maxWidth: "500px", marginBottom: "2.5rem" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "1.1rem", lineHeight: 1.75, color: "#444", maxWidth: "500px", marginBottom: "2.5rem" }}>
               From fiberglass arrestors to tacky intake panels, every PFS filter is engineered for maximum capture efficiency and minimum downtime. Booth-specific tracking included.
             </p>
             <Link href="/light/why-choose-us">
@@ -327,7 +327,7 @@ export default function LightHome() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.75rem",
-                fontFamily: "'Space Mono', monospace",
+                fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                 fontSize: "0.7rem",
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
@@ -351,10 +351,10 @@ export default function LightHome() {
       <section style={{ background: "#fff", padding: "7rem 2rem" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
           <RevealBlock>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "0.75rem" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "0.75rem" }}>
               Product Range
             </p>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", marginBottom: "4rem", letterSpacing: "-0.02em" }}>
+            <h2 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", marginBottom: "4rem", letterSpacing: "-0.02em" }}>
               Every Position. Every Size.
             </h2>
           </RevealBlock>
@@ -374,11 +374,11 @@ export default function LightHome() {
                     >
                       <img src={item.img} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", background: "#F4F2EE", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
                     </div>
-                    <span style={{ display: "inline-block", background: "#F4F2EE", color: "#1B4FD8", fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.25rem 0.6rem", marginBottom: "0.75rem" }}>
+                    <span style={{ display: "inline-block", background: "#F4F2EE", color: "#1B4FD8", fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.25rem 0.6rem", marginBottom: "0.75rem" }}>
                       {item.tag}
                     </span>
-                    <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.25rem", fontWeight: 700, color: "#111", marginBottom: "0.5rem" }}>{item.title}</h3>
-                    <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.9rem", lineHeight: 1.65, color: "#666" }}>{item.desc}</p>
+                    <h3 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "1.25rem", fontWeight: 700, color: "#111", marginBottom: "0.5rem" }}>{item.title}</h3>
+                    <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "0.9rem", lineHeight: 1.65, color: "#666" }}>{item.desc}</p>
                   </a>
                 </Link>
               </RevealBlock>
@@ -391,13 +391,13 @@ export default function LightHome() {
       <section style={{ background: "#111111", padding: "7rem 2rem" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}>
           <RevealBlock>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
               Membership Program
             </p>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700, color: "#fff", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: "1.5rem" }}>
+            <h2 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700, color: "#fff", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: "1.5rem" }}>
               Never Run Out<br />of Filters Again.
             </h2>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1rem", lineHeight: 1.75, color: "rgba(255,255,255,0.55)", marginBottom: "2.5rem" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "1rem", lineHeight: 1.75, color: "rgba(255,255,255,0.55)", marginBottom: "2.5rem" }}>
               Automated filter delivery on your schedule. Booth-specific tracking, priority shipping, and up to 20% off all orders.
             </p>
             <Link href="/light/memberships">
@@ -406,7 +406,7 @@ export default function LightHome() {
                 background: "#1B4FD8",
                 color: "#fff",
                 padding: "1rem 2.5rem",
-                fontFamily: "'Space Mono', monospace",
+                fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                 fontSize: "0.7rem",
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
@@ -429,10 +429,10 @@ export default function LightHome() {
               { title: "Enterprise", price: "Custom", features: ["Unlimited", "Max Discount", "White Glove"] },
             ].map(plan => (
               <div key={plan.title} style={{ background: "#1a1a1a", padding: "2rem 1.5rem" }}>
-                <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "0.5rem" }}>{plan.title}</p>
-                <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.75rem", fontWeight: 700, color: "#fff", marginBottom: "1rem" }}>{plan.price}</p>
+                <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "0.5rem" }}>{plan.title}</p>
+                <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "1.75rem", fontWeight: 700, color: "#fff", marginBottom: "1rem" }}>{plan.price}</p>
                 {plan.features.map(f => (
-                  <p key={f} style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.8rem", color: "rgba(255,255,255,0.5)", marginBottom: "0.3rem" }}>— {f}</p>
+                  <p key={f} style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "0.8rem", color: "rgba(255,255,255,0.5)", marginBottom: "0.3rem" }}>— {f}</p>
                 ))}
               </div>
             ))}
@@ -443,13 +443,13 @@ export default function LightHome() {
       {/* ── CONTACT CTA ── */}
       <section style={{ background: "#F4F2EE", padding: "7rem 2rem", textAlign: "center" }}>
         <RevealBlock>
-          <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
+          <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
             Get in Touch
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 5vw, 4rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", marginBottom: "1.5rem" }}>
+          <h2 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(2rem, 5vw, 4rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", marginBottom: "1.5rem" }}>
             Need a Custom Quote?
           </h2>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1rem", color: "#666", maxWidth: "500px", margin: "0 auto 2.5rem" }}>
+          <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "1rem", color: "#666", maxWidth: "500px", margin: "0 auto 2.5rem" }}>
             Large orders, custom sizes, or special requirements — our team is ready to help.
           </p>
           <Link href="/light/contact">
@@ -458,7 +458,7 @@ export default function LightHome() {
               border: "1px solid #111",
               color: "#111",
               padding: "1rem 2.5rem",
-              fontFamily: "'Space Mono', monospace",
+              fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
               fontSize: "0.7rem",
               letterSpacing: "0.1em",
               textTransform: "uppercase",

@@ -8,6 +8,9 @@
  * Safari-compatible: HSL fallbacks for oklch, webkit prefixes
  */
 @theme inline {
+  /* Barlow Condensed as primary font — matches PFS Filters logo style */
+  --font-sans: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -110,7 +113,23 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /* Barlow Condensed — matches PFS Filters logo: condensed, geometric, industrial */
+    font-family: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  button, input, select, textarea {
+    font-family: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, sans-serif;
+  }
+  nav, a {
+    font-family: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.06em;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),

@@ -51,10 +51,10 @@ export default function LightShop() {
       {/* Header */}
       <section style={{ background: "#F4F2EE", padding: "10rem 2rem 4rem" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
-          <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
+          <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
             All Products
           </p>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(3rem, 6vw, 6rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", lineHeight: 1 }}>
+          <h1 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "clamp(3rem, 6vw, 6rem)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em", lineHeight: 1 }}>
             Shop Filters
           </h1>
         </div>
@@ -72,7 +72,7 @@ export default function LightShop() {
                 background: "transparent",
                 border: "none",
                 borderBottom: filter === f ? "2px solid #111" : "2px solid transparent",
-                fontFamily: "'Space Mono', monospace",
+                fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                 fontSize: "0.65rem",
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
@@ -100,7 +100,7 @@ export default function LightShop() {
             </div>
           ) : (
             <>
-              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", marginBottom: "2rem" }}>
+              <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", marginBottom: "2rem" }}>
                 {filtered.length} Products
               </p>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1.5rem" }}>
@@ -124,7 +124,7 @@ export default function LightShop() {
                             />
                           ) : (
                             <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: "#ccc" }}>NO IMAGE</span>
+                              <span style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", color: "#ccc" }}>NO IMAGE</span>
                             </div>
                           )}
                         </a>
@@ -132,16 +132,16 @@ export default function LightShop() {
                       <div style={{ padding: "1.25rem" }}>
                         <Link href={`/product/${p.handle}`}>
                           <a style={{ textDecoration: "none" }}>
-                            <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontWeight: 700, color: "#111", marginBottom: "0.4rem", lineHeight: 1.3, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                            <h3 style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "1rem", fontWeight: 700, color: "#111", marginBottom: "0.4rem", lineHeight: 1.3, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                               {p.title}
                             </h3>
                           </a>
                         </Link>
-                        <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.75rem", color: "#1B4FD8", marginBottom: "1rem" }}>${price.toFixed(2)}</p>
+                        <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.75rem", color: "#1B4FD8", marginBottom: "1rem" }}>${price.toFixed(2)}</p>
                         <button
                           onClick={() => handleAddToCart(product)}
                           disabled={isAdding}
-                          style={{ width: "100%", padding: "0.7rem", background: isAdding ? "#E5E2DC" : "#111", color: isAdding ? "#888" : "#fff", border: "none", cursor: isAdding ? "not-allowed" : "pointer", fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", transition: "background 0.2s" }}
+                          style={{ width: "100%", padding: "0.7rem", background: isAdding ? "#E5E2DC" : "#111", color: isAdding ? "#888" : "#fff", border: "none", cursor: isAdding ? "not-allowed" : "pointer", fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", transition: "background 0.2s" }}
                           onMouseEnter={e => { if (!isAdding) e.currentTarget.style.background = "#1B4FD8"; }}
                           onMouseLeave={e => { if (!isAdding) e.currentTarget.style.background = "#111"; }}
                         >

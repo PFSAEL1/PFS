@@ -77,7 +77,7 @@ export default function LightProductSlider() {
               border: "1px solid #E5E2DC",
               background: "transparent",
               cursor: "pointer",
-              fontFamily: "'Space Mono', monospace",
+              fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
               fontSize: "1rem",
               color: "#111",
               transition: "all 0.2s",
@@ -141,7 +141,7 @@ export default function LightProductSlider() {
                     />
                   ) : (
                     <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", color: "#ccc" }}>NO IMAGE</span>
+                      <span style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.1em", color: "#ccc" }}>NO IMAGE</span>
                     </div>
                   )}
                 </a>
@@ -152,7 +152,7 @@ export default function LightProductSlider() {
                 <Link href={`/product/${p.handle}`}>
                   <a style={{ textDecoration: "none" }}>
                     <h3 style={{
-                      fontFamily: "'Playfair Display', serif",
+                      fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                       fontSize: "0.95rem",
                       fontWeight: 700,
                       color: "#111",
@@ -167,7 +167,7 @@ export default function LightProductSlider() {
                     </h3>
                   </a>
                 </Link>
-                <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.75rem", color: "#1B4FD8", marginBottom: "1rem" }}>
+                <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.75rem", color: "#1B4FD8", marginBottom: "1rem" }}>
                   ${price.toFixed(2)}
                 </p>
                 <button
@@ -180,7 +180,7 @@ export default function LightProductSlider() {
                     color: isAdding ? "#888" : "#fff",
                     border: "none",
                     cursor: isAdding ? "not-allowed" : "pointer",
-                    fontFamily: "'Space Mono', monospace",
+                    fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
                     fontSize: "0.6rem",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
@@ -216,7 +216,7 @@ export default function LightProductSlider() {
             onMouseLeave={e => (e.currentTarget.style.borderColor = "#E5E2DC")}
           >
             <div style={{ width: "48px", height: "48px", border: "1px solid #111", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.25rem" }}>→</div>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#111", textAlign: "center" }}>View All Products</p>
+            <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#111", textAlign: "center" }}>View All Products</p>
           </a>
         </Link>
       </div>
