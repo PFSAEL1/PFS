@@ -11,13 +11,15 @@ import LightLayout from "../../components/light/LightLayout";
 import LightProductSlider from "../../components/light/LightProductSlider";
 
 // CDN assets
-const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/light-hero-main-TxZDstWPNFmGFPTDSkQ3Bx.webp";
+// Hero: AI-generated filter render (colorful fiberglass panels on black) — same as dark version
+const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/hero-fiberglass-arrestor-dark_93744cb6.png";
 const FIBER_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/light-section-bg-VTxWUA4VtWMjNC6nzGnGZi.webp";
 const INTAKE_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/light-hero-intake-94LkqhxUxvR3HFm89bFfTv.webp";
 const EXHAUST_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/light-category-exhaust-gDMxxE2KsfEFXMAmwc89Mn.webp";
-const RENSA_AIR = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/air-intake_85d5b21f.png";
-const RENSA_PARTICULATE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/particulate-filter_e78e2e2c.png";
-const RENSA_WASHABLE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/washable-filter_5f68ab88.png";
+// PFS-branded product images (Rensa text replaced with PFS FILTERS)
+const PFS_PARTICULATE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-particulate-filter-v2_b6a86e6c.png";
+const PFS_WASHABLE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-washable-filter-v2_9f09a7ec.png";
+const PFS_ODOR_GAS = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-odor-gas-filter-v2_bd631ebc.png";
 
 // Scroll reveal hook
 function useReveal() {
@@ -53,8 +55,8 @@ function RevealBlock({ children, delay = 0, style = {} }: { children: React.Reac
 const categories = [
   { label: "Fiberglass Arrestors", sub: "Exhaust Filtration", href: "/light/shop-by-type", img: EXHAUST_IMG, tag: "EXHAUST" },
   { label: "Tacky Panels", sub: "Intake Filtration", href: "/light/shop-by-type", img: INTAKE_IMG, tag: "INTAKE" },
-  { label: "Ceiling Blankets", sub: "Intake Filtration", href: "/light/shop-by-type", img: RENSA_AIR, tag: "INTAKE" },
-  { label: "Roll Media", sub: "Exhaust & Intake", href: "/light/shop-by-type", img: RENSA_PARTICULATE, tag: "BOTH" },
+  { label: "HEPA Particulate", sub: "Intake Filtration", href: "/light/shop-by-type", img: PFS_PARTICULATE, tag: "INTAKE" },
+  { label: "Washable Panels", sub: "Reusable Filtration", href: "/light/shop-by-type", img: PFS_WASHABLE, tag: "REUSABLE" },
 ];
 
 const stats = [
@@ -182,11 +184,11 @@ export default function LightHome() {
           </div>
         </div>
 
-        {/* Right: Product Image with parallax */}
+        {/* Right: AI-generated filter render hero image */}
         <div style={{
           position: "relative",
           overflow: "hidden",
-          background: "#F4F2EE",
+          background: "#0a0a0a",
         }}>
           <img
             src={HERO_IMG}
@@ -201,13 +203,11 @@ export default function LightHome() {
               scale: "1.15",
             }}
           />
-          {/* Subtle grain overlay */}
+          {/* Subtle light overlay to blend with editorial style */}
           <div style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E\")",
-            opacity: 0.4,
-            mixBlendMode: "multiply",
+            background: "linear-gradient(to right, rgba(255,255,255,0.08) 0%, transparent 60%)",
           }} />
         </div>
 
@@ -272,11 +272,11 @@ export default function LightHome() {
             {categories.map((cat, i) => (
               <RevealBlock key={cat.label} delay={i * 80}>
                 <Link href={cat.href}>
-                  <a style={{ display: "block", textDecoration: "none", position: "relative", overflow: "hidden", aspectRatio: "4/3", background: "#E8E5DF" }}
+                  <a style={{ display: "block", textDecoration: "none", position: "relative", overflow: "hidden", aspectRatio: "16/10", background: "#E8E5DF" }}
                     onMouseEnter={e => { const img = e.currentTarget.querySelector("img") as HTMLImageElement; if (img) img.style.transform = "scale(1.06)"; }}
                     onMouseLeave={e => { const img = e.currentTarget.querySelector("img") as HTMLImageElement; if (img) img.style.transform = "scale(1)"; }}
                   >
-                    <img src={cat.img} alt={cat.label} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
+                    <img src={cat.img} alt={cat.label} style={{ width: "100%", height: "100%", objectFit: cat.img.includes('pfs-') ? 'contain' : 'cover', objectPosition: "center", background: "#E8E5DF", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)" }} />
                     <div style={{ position: "absolute", bottom: "1.75rem", left: "1.75rem" }}>
                       <span style={{ display: "inline-block", background: "#1B4FD8", color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.25rem 0.6rem", marginBottom: "0.6rem" }}>
@@ -361,18 +361,18 @@ export default function LightHome() {
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "3rem" }}>
             {[
-              { img: RENSA_PARTICULATE, title: "Fiberglass Arrestors", desc: "High-efficiency exhaust filtration. Captures overspray before it reaches the environment.", tag: "EXHAUST" },
-              { img: INTAKE_IMG, title: "Tacky Panels", desc: "Premium intake filtration. Prevents dust and debris from entering the spray booth.", tag: "INTAKE" },
-              { img: RENSA_WASHABLE, title: "Ceiling Blankets", desc: "Full-coverage intake filtration for the ceiling plenum. Uniform airflow distribution.", tag: "INTAKE" },
+              { img: PFS_PARTICULATE, title: "HEPA Particulate Filters", desc: "High-efficiency particulate filtration. Captures fine overspray particles before they reach the environment.", tag: "EXHAUST" },
+              { img: INTAKE_IMG, title: "Tacky Intake Panels", desc: "Premium intake filtration. Prevents dust and debris from entering the spray booth.", tag: "INTAKE" },
+              { img: PFS_ODOR_GAS, title: "Odor & Gas Filters", desc: "Activated carbon filtration for VOC and odor control. Essential for compliant spray booth operation.", tag: "ODOR" },
             ].map((item, i) => (
               <RevealBlock key={item.title} delay={i * 100}>
                 <Link href="/light/shop-by-type">
                   <a style={{ display: "block", textDecoration: "none" }}>
-                    <div style={{ overflow: "hidden", marginBottom: "1.5rem", aspectRatio: "4/3", background: "#F4F2EE" }}
+                    <div style={{ overflow: "hidden", marginBottom: "1.5rem", aspectRatio: "16/10", background: "#F4F2EE" }}
                       onMouseEnter={e => { const img = e.currentTarget.querySelector("img") as HTMLImageElement; if (img) img.style.transform = "scale(1.05)"; }}
                       onMouseLeave={e => { const img = e.currentTarget.querySelector("img") as HTMLImageElement; if (img) img.style.transform = "scale(1)"; }}
                     >
-                      <img src={item.img} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
+                      <img src={item.img} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", background: "#F4F2EE", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
                     </div>
                     <span style={{ display: "inline-block", background: "#F4F2EE", color: "#1B4FD8", fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.25rem 0.6rem", marginBottom: "0.75rem" }}>
                       {item.tag}
