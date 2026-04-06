@@ -36,28 +36,28 @@ export const Reviews = () => {
     Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`h-4 w-4 ${i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground'}`}
+        className={`h-4 w-4 ${i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-white/50'}`}
       />
     ));
 
   if (loading) {
     return (
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-[#0d0d0d]/5/30">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-12">Customer Reviews</h2>
-          <div className="text-muted-foreground">Loading reviews...</div>
+          <div className="text-white/50">Loading reviews...</div>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-20 bg-[#0d0d0d]/5/30">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <Star className="h-4 w-4 text-primary fill-primary" />
-            <span className="text-sm font-semibold text-primary">Customer Reviews</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-primary/20 mb-4">
+            <Star className="h-4 w-4 text-blue-400 fill-primary" />
+            <span className="text-sm font-semibold text-blue-400">Customer Reviews</span>
           </div>
           <h2 className="text-4xl font-bold text-center mb-4">What Our Customers Say</h2>
           <Link href="/submit-review">
@@ -69,7 +69,7 @@ export const Reviews = () => {
         </div>
 
         {reviews.length === 0 ? (
-          <p className="text-center text-muted-foreground">
+          <p className="text-center text-white/50">
             No reviews yet. Be the first to share your experience!
           </p>
         ) : (
@@ -80,13 +80,13 @@ export const Reviews = () => {
                   <div className="flex items-center gap-1 mb-3">
                     {renderStars(review.rating)}
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 italic">
+                  <p className="text-sm text-white/50 leading-relaxed mb-4 italic">
                     "{review.review_text}"
                   </p>
                   <div>
                     <p className="font-semibold text-sm">{review.name}</p>
                     {review.company && (
-                      <p className="text-xs text-muted-foreground">{review.company}</p>
+                      <p className="text-xs text-white/50">{review.company}</p>
                     )}
                   </div>
                 </CardContent>

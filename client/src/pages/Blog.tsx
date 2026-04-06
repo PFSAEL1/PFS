@@ -33,7 +33,7 @@ const blogListSchema = {
 
 export default function Blog() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO
         title="Spray Booth Maintenance & Filter Guide - Expert Tips & How-To"
         description="Expert advice on paint booth filters, maintenance schedules, filter selection, and troubleshooting. Learn from industry professionals with 20+ years experience."
@@ -41,11 +41,11 @@ export default function Blog() {
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, blogListSchema] }}
       />
       <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16">
+      <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
         <Breadcrumb items={[{ label: 'Blog' }]} />
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Spray Booth Knowledge Center</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-white/50 max-w-3xl mx-auto">
             Expert guides, maintenance tips, and industry insights from the PFS Spray Booths team
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function Blog() {
           {blogPosts.map((post) => (
             <Card key={post.slug} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
               <Link href={`/blog/${post.slug}`}>
-                <div className="aspect-video overflow-hidden bg-muted">
+                <div className="aspect-video overflow-hidden bg-white/5">
                   <img
                     src={post.image}
                     alt={post.title}
@@ -65,24 +65,24 @@ export default function Blog() {
               <CardContent className="p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <Badge variant="secondary" className="text-xs">{post.category}</Badge>
-                  <span className="text-xs text-muted-foreground flex items-center gap-1">
+                  <span className="text-xs text-white/50 flex items-center gap-1">
                     <Clock className="h-3 w-3" /> {post.readTime}
                   </span>
                 </div>
                 <Link href={`/blog/${post.slug}`}>
-                  <h2 className="font-bold text-lg leading-tight mb-2 hover:text-primary transition-colors group-hover:text-primary">
+                  <h2 className="font-bold text-lg leading-tight mb-2 hover:text-blue-400 transition-colors group-hover:text-blue-400">
                     {post.title}
                   </h2>
                 </Link>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3">
+                <p className="text-sm text-white/50 leading-relaxed mb-4 line-clamp-3">
                   {post.excerpt}
                 </p>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-1.5 text-xs text-white/50">
                     <User className="h-3 w-3" />
                     <span>{post.author}</span>
                   </div>
-                  <Link href={`/blog/${post.slug}`} className="flex items-center gap-1 text-xs text-primary font-medium hover:gap-2 transition-all">
+                  <Link href={`/blog/${post.slug}`} className="flex items-center gap-1 text-xs text-blue-400 font-medium hover:gap-2 transition-all">
                     Read more <ArrowRight className="h-3 w-3" />
                   </Link>
                 </div>

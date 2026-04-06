@@ -33,13 +33,13 @@ function DashboardContent() {
 
   const tierColors: Record<string, string> = {
     bronze: 'bg-amber-100 text-amber-800',
-    silver: 'bg-slate-100 text-slate-800',
+    silver: 'bg-[#111] text-slate-800',
     gold: 'bg-yellow-100 text-yellow-800',
     platinum: 'bg-purple-100 text-purple-800',
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO title="Dashboard - PFS Filters Account" description="Manage your PFS Filters account, memberships, and orders." noIndex />
       <Navigation />
       <div className="container mx-auto px-4 pt-24 pb-16 max-w-5xl">
@@ -48,7 +48,7 @@ function DashboardContent() {
             <h1 className="text-3xl font-bold">
               Welcome back{userName ? `, ${userName.split(' ')[0]}` : ''}!
             </h1>
-            <p className="text-muted-foreground">{userEmail}</p>
+            <p className="text-white/50">{userEmail}</p>
           </div>
           <Button variant="outline" onClick={handleSignOut} className="gap-2">
             <LogOut className="h-4 w-4" /> Sign Out
@@ -60,12 +60,12 @@ function DashboardContent() {
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-base">
-                <User className="h-4 w-4 text-primary" /> Account
+                <User className="h-4 w-4 text-blue-400" /> Account
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="font-semibold">{userName || 'No name set'}</p>
-              <p className="text-sm text-muted-foreground">{userEmail}</p>
+              <p className="text-sm text-white/50">{userEmail}</p>
               <Button variant="outline" size="sm" className="mt-3 gap-2 w-full">
                 <Settings className="h-3.5 w-3.5" /> Edit Profile
               </Button>
@@ -76,26 +76,26 @@ function DashboardContent() {
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Crown className="h-4 w-4 text-primary" /> Membership
+                <Crown className="h-4 w-4 text-blue-400" /> Membership
               </CardTitle>
             </CardHeader>
             <CardContent>
               {membershipLoading ? (
-                <p className="text-sm text-muted-foreground">Loading...</p>
+                <p className="text-sm text-white/50">Loading...</p>
               ) : membership ? (
                 <>
-                  <Badge className={tierColors[membership.tier] || 'bg-muted'}>
+                  <Badge className={tierColors[membership.tier] || 'bg-[#0d0d0d]/5'}>
                     {membership.tier.charAt(0).toUpperCase() + membership.tier.slice(1)} Member
                   </Badge>
-                  <p className="text-sm text-muted-foreground mt-2">
+                  <p className="text-sm text-white/50 mt-2">
                     Status: <span className={membership.status === 'active' ? 'text-green-600 font-medium' : 'text-destructive'}>{membership.status}</span>
                   </p>
                 </>
               ) : (
                 <>
-                  <p className="text-sm text-muted-foreground mb-3">No active membership</p>
+                  <p className="text-sm text-white/50 mb-3">No active membership</p>
                   <Link href="/memberships">
-                    <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 gap-2">
+                    <Button size="sm" className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2">
                       Upgrade <ArrowRight className="h-3.5 w-3.5" />
                     </Button>
                   </Link>
@@ -108,13 +108,13 @@ function DashboardContent() {
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-base">
-                <ShoppingBag className="h-4 w-4 text-primary" /> Quick Shop
+                <ShoppingBag className="h-4 w-4 text-blue-400" /> Quick Shop
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground mb-3">Browse our full catalog</p>
+              <p className="text-sm text-white/50 mb-3">Browse our full catalog</p>
               <Link href="/shop">
-                <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 gap-2">
+                <Button size="sm" className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2">
                   Shop Now <ArrowRight className="h-3.5 w-3.5" />
                 </Button>
               </Link>
@@ -124,7 +124,7 @@ function DashboardContent() {
 
         {/* Membership benefits */}
         {membership?.status === 'active' && (
-          <Card className="bg-primary/5 border-primary/20">
+          <Card className="bg-blue-500/5 border-primary/20">
             <CardContent className="pt-6">
               <h2 className="font-bold text-lg mb-3">Your Membership Benefits</h2>
               <div className="grid sm:grid-cols-2 gap-3 text-sm">

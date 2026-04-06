@@ -35,7 +35,7 @@ const benefits = [
 
 export default function WhyChooseUs() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO
         title="Why Choose PFS Filters | Premium Spray Booth Filtration Expert"
         description="Choose PFS Filters for premium paint booth filters backed by PFS expertise. Industry-leading quality, custom filtration solutions, expert technical support, and competitive pricing on all spray booth filters."
@@ -61,7 +61,7 @@ export default function WhyChooseUs() {
               Why Choose PFS Filters?
             </span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-white/50 max-w-3xl mx-auto">
             Premium <strong>spray booth filtration solutions</strong> backed by decades of PFS expertise, delivering superior air quality and finish protection.
           </p>
         </div>
@@ -74,11 +74,11 @@ export default function WhyChooseUs() {
             {features.map((f) => (
               <Card key={f.title} className="hover:shadow-md transition-shadow">
                 <CardContent className="pt-6">
-                  <div className="p-3 bg-primary/10 rounded-xl w-fit mb-4">
-                    <f.icon className="h-6 w-6 text-primary" />
+                  <div className="p-3 bg-blue-500/10 rounded-xl w-fit mb-4">
+                    <f.icon className="h-6 w-6 text-blue-400" />
                   </div>
                   <h3 className="font-bold text-lg mb-2">{f.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{f.description}</p>
+                  <p className="text-white/50 text-sm leading-relaxed">{f.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -87,12 +87,12 @@ export default function WhyChooseUs() {
       </section>
 
       {/* Benefits list */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="py-16 px-4 bg-[#060606]">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-10">Everything You Need to Run a Cleaner Booth</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {benefits.map((b) => (
-              <div key={b} className="flex items-start gap-3 p-4 bg-card border border-border rounded-lg">
+              <div key={b} className="flex items-start gap-3 p-4 bg-[#0d0d0d] border border-white/8 rounded-lg">
                 <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
                 <p className="text-sm">{b}</p>
               </div>
@@ -102,15 +102,15 @@ export default function WhyChooseUs() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 px-4 bg-primary text-primary-foreground text-center">
+      <section className="py-16 px-4 bg-blue-500/10 border-y border-blue-500/20 text-center">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold mb-4">Ready to Upgrade Your Filtration?</h2>
-          <p className="text-primary-foreground/80 mb-8">
+          <p className="text-white/60 mb-8">
             Join 1,000+ shops that trust PFS Filters for their spray booth filtration needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/shop">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 gap-2">
+              <Button size="lg" className="bg-white text-black hover:bg-white/90 gap-2">
                 Shop Now <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>

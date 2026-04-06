@@ -46,7 +46,7 @@ export default function SubmitReview() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO
         title="Submit a Review - PFS Filters"
         description="Share your experience with PFS Filters. Leave a review to help other shops find the right paint booth filters."
@@ -62,7 +62,7 @@ export default function SubmitReview() {
             <CardContent className="pt-12 pb-10">
               <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
               <h2 className="text-2xl font-bold mb-2">Thank You for Your Review!</h2>
-              <p className="text-muted-foreground">Your review has been submitted and will appear after approval. We appreciate your feedback!</p>
+              <p className="text-white/50">Your review has been submitted and will appear after approval. We appreciate your feedback!</p>
             </CardContent>
           </Card>
         ) : (
@@ -89,7 +89,7 @@ export default function SubmitReview() {
                           className={`h-7 w-7 transition-colors ${
                             star <= (hoverRating || rating)
                               ? 'text-yellow-400 fill-yellow-400'
-                              : 'text-muted-foreground'
+                              : 'text-white/50'
                           }`}
                         />
                       </button>
@@ -121,7 +121,7 @@ export default function SubmitReview() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={loading}>
+                <Button type="submit" className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90" disabled={loading}>
                   {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Submit Review'}
                 </Button>
               </form>

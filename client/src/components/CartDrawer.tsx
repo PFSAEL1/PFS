@@ -52,7 +52,7 @@ export const CartDrawer = () => {
             <ShoppingCart className="h-5 w-5" />
             Your Cart
             {totalItems > 0 && (
-              <Badge className="ml-1 bg-primary text-primary-foreground">{totalItems}</Badge>
+              <Badge className="ml-1 bg-blue-500 text-blue-400-foreground">{totalItems}</Badge>
             )}
           </SheetTitle>
           <SheetDescription>
@@ -64,7 +64,7 @@ export const CartDrawer = () => {
 
         <div className="flex-1 overflow-y-auto py-4 space-y-4">
           {items.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-48 text-muted-foreground gap-3">
+            <div className="flex flex-col items-center justify-center h-48 text-white/50 gap-3">
               <ShoppingCart className="h-12 w-12 opacity-30" />
               <p className="text-sm">No items yet</p>
               <Button
@@ -80,7 +80,7 @@ export const CartDrawer = () => {
             </div>
           ) : (
             items.map((item) => (
-              <div key={item.variantId} className="flex gap-3 p-3 bg-muted/30 rounded-lg">
+              <div key={item.variantId} className="flex gap-3 p-3 bg-white/5/30 rounded-lg">
                 {item.image && (
                   <img
                     src={item.image}
@@ -91,22 +91,22 @@ export const CartDrawer = () => {
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-sm truncate">{item.title}</p>
                   {item.variantTitle && item.variantTitle !== 'Default Title' && (
-                    <p className="text-xs text-muted-foreground">{item.variantTitle}</p>
+                    <p className="text-xs text-white/50">{item.variantTitle}</p>
                   )}
-                  <p className="text-sm font-semibold text-primary mt-1">
+                  <p className="text-sm font-semibold text-blue-400 mt-1">
                     ${(parseFloat(item.price.amount) * item.quantity).toFixed(2)}
                   </p>
                   <div className="flex items-center gap-2 mt-2">
                     <button
                       onClick={() => updateQuantity(item.variantId, item.quantity - 1)}
-                      className="w-6 h-6 rounded border border-border flex items-center justify-center hover:bg-accent transition-colors"
+                      className="w-6 h-6 rounded border border-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
                     <span className="text-sm font-medium w-6 text-center">{item.quantity}</span>
                     <button
                       onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
-                      className="w-6 h-6 rounded border border-border flex items-center justify-center hover:bg-accent transition-colors"
+                      className="w-6 h-6 rounded border border-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                     >
                       <Plus className="w-3 h-3" />
                     </button>
@@ -124,14 +124,14 @@ export const CartDrawer = () => {
         </div>
 
         {items.length > 0 && (
-          <div className="border-t border-border pt-4 space-y-3">
+          <div className="border-t border-white/10 pt-4 space-y-3">
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Subtotal</span>
+              <span className="text-white/50">Subtotal</span>
               <span className="font-semibold">${subtotal.toFixed(2)}</span>
             </div>
-            <p className="text-xs text-muted-foreground">Shipping calculated at checkout</p>
+            <p className="text-xs text-white/50">Shipping calculated at checkout</p>
             <Button
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
+              className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2"
               onClick={handleCheckout}
               disabled={isLoading}
             >
@@ -145,7 +145,7 @@ export const CartDrawer = () => {
             <Button
               variant="ghost"
               size="sm"
-              className="w-full text-muted-foreground hover:text-destructive"
+              className="w-full text-white/50 hover:text-destructive"
               onClick={() => { clearCart(); toast.success('Cart cleared'); }}
             >
               Clear Cart

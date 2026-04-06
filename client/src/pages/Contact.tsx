@@ -12,7 +12,7 @@ const breadcrumbSchema = createBreadcrumbSchema([
 
 export default function Contact() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO
         title="Contact PFS Filters - Get a Custom Quote or Filter Help"
         description="Contact PFS Filters for custom filter quotes, bulk pricing, or technical support. Call 1-888-545-7715 or email orders@pfsfilters.com. We match any booth make/model."

@@ -40,7 +40,7 @@ export default function FilterCompatibility() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO
         title="Paint Booth Filter Compatibility Guide - Find Filters for Your Booth"
         description="Find compatible paint booth filters for your specific spray booth make and model. We match filters for GFS, Accudraft, Garmat, Binks, Col-Met, PFS, and all major brands."
@@ -48,11 +48,11 @@ export default function FilterCompatibility() {
         structuredData={breadcrumbSchema}
       />
       <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
+      <div className="max-w-4xl mx-auto px-4 pt-28 pb-20">
         <Breadcrumb items={[{ label: 'Filter Compatibility' }]} />
         <div className="text-center mb-12">
           <h1 className="text-5xl font-extrabold mb-4">Filter Compatibility Finder</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-white/50 max-w-2xl">
             Tell us your booth make and model and we'll find the exact filters that fit — or cut custom ones to spec.
           </p>
         </div>
@@ -80,7 +80,7 @@ export default function FilterCompatibility() {
                     placeholder="e.g. Performer, Ultra, XL..."
                   />
                 </div>
-                <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 gap-2">
+                <Button type="submit" className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2">
                   <Search className="h-4 w-4" /> Find Compatible Filters
                 </Button>
               </form>
@@ -91,12 +91,12 @@ export default function FilterCompatibility() {
             <CardContent className="pt-8 text-center">
               <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
               <h2 className="text-2xl font-bold mb-2">We'll Find Your Filters!</h2>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-white/50 mb-6">
                 We've received your booth information for <strong>{boothMake}</strong>{boothModel ? ` ${boothModel}` : ''}. Our team will identify the exact filters for your booth and follow up within 1 business day.
               </p>
               <div className="flex gap-3 justify-center">
                 <Link href="/shop">
-                  <Button className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2">
+                  <Button className="bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2">
                     Browse All Filters <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
@@ -114,7 +114,7 @@ export default function FilterCompatibility() {
               <button
                 key={brand}
                 onClick={() => { setBoothMake(brand); setSubmitted(false); }}
-                className="p-3 text-sm text-center bg-card border border-border rounded-lg hover:border-primary hover:bg-primary/5 transition-all"
+                className="p-3 text-sm text-center bg-[#0d0d0d] border border-white/10 rounded-lg hover:border-primary hover:bg-blue-500/5 transition-all"
               >
                 {brand}
               </button>

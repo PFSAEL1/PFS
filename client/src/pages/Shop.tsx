@@ -13,7 +13,7 @@ const breadcrumbSchema = createBreadcrumbSchema([
 
 export default function Shop() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO
         title="Shop All Paint Booth Filters - In Stock & Ready to Ship"
         description="Browse 50+ spray booth filters in stock. Fiberglass arrestors (20x20, 20x25), tacky panels, MERV-rated intake filters & exhaust filters. Same-day shipping on most orders. Custom sizes cut to spec."
@@ -21,7 +21,7 @@ export default function Shop() {
         structuredData={breadcrumbSchema}
       />
       <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16">
+      <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
         <Breadcrumb items={[{ label: 'Shop' }]} />
         <div className="text-center mb-10">
           <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4">
@@ -35,24 +35,24 @@ export default function Shop() {
               Shop Paint Booth Filters
             </span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg text-white/50 max-w-3xl mx-auto">
             Premium <strong>spray booth filters</strong> and <strong>paint arrestors</strong> engineered for superior overspray capture. All products tested, quality assured, and shipped fast nationwide.
           </p>
         </div>
         <ShopifyProducts />
 
         {/* SEO content block */}
-        <div className="max-w-4xl mx-auto bg-card border border-border rounded-xl p-8 mt-12">
+        <div className="max-w-4xl mx-auto bg-[#0d0d0d] border border-white/10 rounded-xl p-8 mt-12">
           <div className="flex items-start gap-4 mb-6">
-            <div className="p-3 bg-primary/10 rounded-lg">
-              <Package className="h-8 w-8 text-primary" />
+            <div className="p-3 bg-blue-500/10 rounded-lg">
+              <Package className="h-8 w-8 text-blue-400" />
             </div>
             <div>
               <h2 className="text-2xl font-bold mb-2">Complete Paint Booth Filtration Solutions</h2>
               <div className="h-1 w-20 bg-gradient-to-r from-primary to-accent rounded-full" />
             </div>
           </div>
-          <div className="space-y-4 text-muted-foreground leading-relaxed">
+          <div className="space-y-4 text-white/50 leading-relaxed">
             <p>
               Browse our comprehensive selection of <strong className="text-foreground">paint booth filters</strong>, including <strong className="text-foreground">fiberglass paint arrestors</strong>, <strong className="text-foreground">tacky panel filters</strong>, <strong className="text-foreground">ceiling blankets</strong>, <strong className="text-foreground">roll media</strong>, and <strong className="text-foreground">filter accessories</strong>. Whether you operate an automotive body shop, industrial coating facility, or woodworking spray booth, we have the right filtration products for your application.
             </p>

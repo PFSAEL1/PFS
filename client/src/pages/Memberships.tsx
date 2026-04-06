@@ -19,8 +19,9 @@ const tiers = [
     name: 'Bronze',
     price: '$29/mo',
     discount: '3%',
-    color: 'bg-amber-50 border-amber-200',
-    badge: 'bg-amber-100 text-amber-800',
+    color: 'bg-amber-500/5 border-amber-500/20',
+    badge: 'bg-amber-500/15 text-amber-400',
+    accentColor: 'amber',
     features: [
       '3% discount on all orders',
       'Priority email support',
@@ -32,8 +33,9 @@ const tiers = [
     name: 'Silver',
     price: '$49/mo',
     discount: '5%',
-    color: 'bg-slate-50 border-slate-200',
-    badge: 'bg-slate-100 text-slate-800',
+    color: 'bg-blue-500/5 border-blue-500/30',
+    badge: 'bg-blue-500/15 text-blue-400',
+    accentColor: 'blue',
     features: [
       '5% discount on all orders',
       'Priority phone & email support',
@@ -47,8 +49,9 @@ const tiers = [
     name: 'Gold',
     price: '$79/mo',
     discount: '5%',
-    color: 'bg-yellow-50 border-yellow-200',
-    badge: 'bg-yellow-100 text-yellow-800',
+    color: 'bg-yellow-500/5 border-yellow-500/20',
+    badge: 'bg-yellow-500/15 text-yellow-400',
+    accentColor: 'yellow',
     features: [
       '5% discount on all orders',
       'Dedicated account manager',
@@ -62,8 +65,9 @@ const tiers = [
     name: 'Platinum',
     price: '$149/mo',
     discount: '5% + Free Shipping',
-    color: 'bg-purple-50 border-purple-200',
-    badge: 'bg-purple-100 text-purple-800',
+    color: 'bg-purple-500/5 border-purple-500/20',
+    badge: 'bg-purple-500/15 text-purple-400',
+    accentColor: 'purple',
     features: [
       '5% discount on all orders',
       'Free shipping on all orders',
@@ -79,7 +83,7 @@ const tiers = [
 
 export default function Memberships() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO
         title="Paint Booth Filter Memberships - Save on Every Order"
         description="Join PFS Filters membership for exclusive discounts, auto-reorder scheduling, AI filter scanner, and dedicated support. Plans from $29/month. Save 3-5% on every order."
@@ -87,21 +91,21 @@ export default function Memberships() {
         structuredData={breadcrumbSchema}
       />
       <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-6">
+      <div className="max-w-7xl mx-auto px-4 pt-28 pb-6">
         <Breadcrumb items={[{ label: 'Memberships' }]} />
       </div>
 
       {/* Hero */}
       <section className="pb-16 px-4 text-center">
         <div className="max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <Crown className="h-4 w-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Membership Plans</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
+            <Crown className="h-3.5 w-3.5 text-blue-400" />
+            <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Membership Plans</span>
           </div>
           <h1 className="text-5xl md:text-6xl font-extrabold mb-4">
             Save More, Order Smarter
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-white/50">
             Join hundreds of shops that use PFS Filters memberships to automate their filter program, save on every order, and never run out of filters again.
           </p>
         </div>
@@ -111,10 +115,10 @@ export default function Memberships() {
       <section className="py-12 px-4">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {tiers.map((tier) => (
-            <Card key={tier.name} className={`relative border-2 ${tier.color} ${tier.popular ? 'ring-2 ring-primary' : ''}`}>
+            <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] ${tier.popular ? 'ring-2 ring-blue-500' : ''}`}>
               {tier.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <Badge className="bg-primary text-primary-foreground gap-1">
+                  <Badge className="bg-blue-500 text-white gap-1">
                     <Sparkles className="h-3 w-3" /> Most Popular
                   </Badge>
                 </div>
@@ -122,7 +126,7 @@ export default function Memberships() {
               <CardHeader className="pb-4">
                 <Badge className={`w-fit mb-2 ${tier.badge}`}>{tier.name}</Badge>
                 <CardTitle className="text-2xl">{tier.price}</CardTitle>
-                <p className="text-sm text-muted-foreground">Save <strong>{tier.discount}</strong> on every order</p>
+                <p className="text-sm text-white/50">Save <strong>{tier.discount}</strong> on every order</p>
               </CardHeader>
               <CardContent className="space-y-3">
                 {tier.features.map((f) => (
@@ -133,7 +137,7 @@ export default function Memberships() {
                 ))}
                 <Link href="/auth">
                   <Button
-                    className={`w-full mt-4 gap-2 ${tier.popular ? 'bg-primary text-primary-foreground hover:bg-primary/90' : ''}`}
+                    className={`w-full mt-4 gap-2 ${tier.popular ? 'bg-blue-500 text-white hover:bg-blue-400' : 'border-white/20 text-white/70 hover:bg-white/10 bg-transparent'}`}
                     variant={tier.popular ? 'default' : 'outline'}
                   >
                     Get Started <ArrowRight className="h-4 w-4" />
@@ -146,7 +150,7 @@ export default function Memberships() {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="py-16 px-4 bg-[#060606]">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-10">Membership FAQ</h2>
           <div className="space-y-4">
@@ -156,9 +160,9 @@ export default function Memberships() {
               { q: 'What is the AI Filter Scanner?', a: 'Our AI scanner lets you photograph your existing filters to instantly identify them and add replacements to your cart. Available on Gold and Platinum plans.' },
               { q: 'Can I upgrade or downgrade my plan?', a: 'Yes, you can change your plan at any time. Changes take effect at the start of your next billing cycle.' },
             ].map((item) => (
-              <div key={item.q} className="bg-card border border-border rounded-lg p-5">
+              <div key={item.q} className="bg-[#0d0d0d] border border-white/8 rounded-xl p-5">
                 <h3 className="font-semibold mb-2">{item.q}</h3>
-                <p className="text-sm text-muted-foreground">{item.a}</p>
+                <p className="text-sm text-white/50">{item.a}</p>
               </div>
             ))}
           </div>

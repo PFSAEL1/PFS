@@ -45,7 +45,7 @@ export const PopularProducts = () => {
     return (
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto flex justify-center">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
         </div>
       </section>
     );
@@ -54,12 +54,12 @@ export const PopularProducts = () => {
   if (products.length === 0) return null;
 
   return (
-    <section className="py-16 px-4 bg-muted/20">
+    <section className="py-16 px-4 bg-[#0d0d0d]/5/20">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-3xl font-bold mb-1">Popular Products</h2>
-            <p className="text-muted-foreground">Best-selling filters trusted by body shops nationwide</p>
+            <p className="text-white/50">Best-selling filters trusted by body shops nationwide</p>
           </div>
           <Link href="/shop">
             <Button variant="outline" className="gap-2 hidden md:flex">
@@ -75,7 +75,7 @@ export const PopularProducts = () => {
             return (
               <Card key={product.node.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
                 <Link href={`/product/${product.node.handle}`}>
-                  <div className="aspect-square overflow-hidden bg-muted/30">
+                  <div className="aspect-square overflow-hidden bg-[#0d0d0d]/5/30">
                     <img
                       src={image}
                       alt={product.node.title}
@@ -85,16 +85,16 @@ export const PopularProducts = () => {
                 </Link>
                 <CardContent className="p-4">
                   <Link href={`/product/${product.node.handle}`}>
-                    <h3 className="font-semibold text-sm leading-tight mb-2 hover:text-primary transition-colors line-clamp-2">
+                    <h3 className="font-semibold text-sm leading-tight mb-2 hover:text-blue-400 transition-colors line-clamp-2">
                       {product.node.title}
                     </h3>
                   </Link>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="font-bold text-primary">${price}</span>
+                    <span className="font-bold text-blue-400">${price}</span>
                   </div>
                   <Button
                     size="sm"
-                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
+                    className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2"
                     onClick={() => handleAddToCart(product)}
                   >
                     <ShoppingCart className="h-3.5 w-3.5" />

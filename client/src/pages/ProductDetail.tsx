@@ -41,10 +41,10 @@ export default function ProductDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-[#080808] text-white">
         <Navigation />
         <div className="flex items-center justify-center min-h-[60vh]">
-          <Loader2 className="h-10 w-10 animate-spin text-primary" />
+          <Loader2 className="h-10 w-10 animate-spin text-blue-400" />
         </div>
         <Footer />
       </div>
@@ -53,10 +53,10 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-[#080808] text-white">
         <Navigation />
         <div className="container mx-auto px-4 pt-32 pb-16 text-center">
-          <Package className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-30" />
+          <Package className="h-16 w-16 mx-auto mb-4 text-white/50 opacity-30" />
           <h1 className="text-3xl font-bold mb-4">Product Not Found</h1>
           <Link href="/shop"><Button>Browse All Products</Button></Link>
         </div>
@@ -106,7 +106,7 @@ export default function ProductDetail() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO
         title={`${product.title} - PFS Filters`}
         description={product.description || `Buy ${product.title} from PFS Filters. Premium paint booth filtration products with fast nationwide shipping.`}
@@ -115,7 +115,7 @@ export default function ProductDetail() {
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
       />
       <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16">
+      <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
         <Breadcrumb items={[{ label: 'Shop', href: '/shop' }, { label: product.title }]} />
         <Link href="/shop">
           <Button variant="ghost" size="sm" className="gap-2 mb-6 -ml-2">
@@ -126,7 +126,7 @@ export default function ProductDetail() {
         <div className="grid lg:grid-cols-2 gap-12 mb-16">
           {/* Images */}
           <div>
-            <div className="aspect-square overflow-hidden rounded-2xl bg-muted/30 mb-4">
+            <div className="aspect-square overflow-hidden rounded-2xl bg-[#0d0d0d]/5/30 mb-4">
               <img src={mainImage} alt={product.title} className="w-full h-full object-cover" />
             </div>
             {images.length > 1 && (
@@ -135,7 +135,7 @@ export default function ProductDetail() {
                   <button
                     key={i}
                     onClick={() => setSelectedImage(i)}
-                    className={`w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-colors ${selectedImage === i ? 'border-primary' : 'border-border'}`}
+                    className={`w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-colors ${selectedImage === i ? 'border-primary' : 'border-white/10'}`}
                   >
                     <img src={img.node.url} alt={img.node.altText || product.title} className="w-full h-full object-cover" />
                   </button>
@@ -148,8 +148,8 @@ export default function ProductDetail() {
           <div>
             <h1 className="text-3xl md:text-4xl font-extrabold mb-3">{product.title}</h1>
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl font-bold text-primary">${price}</span>
-              <span className="text-muted-foreground">{currency}</span>
+              <span className="text-3xl font-bold text-blue-400">${price}</span>
+              <span className="text-white/50">{currency}</span>
               {inStock ? (
                 <Badge className="bg-green-100 text-green-800">In Stock</Badge>
               ) : (
@@ -158,7 +158,7 @@ export default function ProductDetail() {
             </div>
 
             {product.description && (
-              <p className="text-muted-foreground leading-relaxed mb-6">{product.description}</p>
+              <p className="text-white/50 leading-relaxed mb-6">{product.description}</p>
             )}
 
             {/* Variant selector */}
@@ -172,8 +172,8 @@ export default function ProductDetail() {
                       onClick={() => setSelectedVariantId(edge.node.id)}
                       className={`px-3 py-1.5 text-sm rounded-lg border-2 transition-colors ${
                         selectedVariantId === edge.node.id
-                          ? 'border-primary bg-primary/10 text-primary'
-                          : 'border-border hover:border-primary/50'
+                          ? 'border-primary bg-blue-500/10 text-blue-400'
+                          : 'border-white/10 hover:border-primary/50'
                       } ${!edge.node.availableForSale ? 'opacity-50 cursor-not-allowed' : ''}`}
                       disabled={!edge.node.availableForSale}
                     >
@@ -186,7 +186,7 @@ export default function ProductDetail() {
 
             {/* Quantity + Add to Cart */}
             <div className="flex items-center gap-4 mb-6">
-              <div className="flex items-center border border-border rounded-lg">
+              <div className="flex items-center border border-white/10 rounded-lg">
                 <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-2 hover:bg-accent transition-colors">
                   <Minus className="h-4 w-4" />
                 </button>
@@ -196,7 +196,7 @@ export default function ProductDetail() {
                 </button>
               </div>
               <Button
-                className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
+                className="flex-1 bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2"
                 size="lg"
                 onClick={handleAddToCart}
                 disabled={!inStock}
@@ -207,16 +207,16 @@ export default function ProductDetail() {
             </div>
 
             {/* Trust badges */}
-            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-border">
+            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10">
               {[
                 { icon: Truck, label: 'Fast Shipping', sub: '1-2 day processing' },
                 { icon: Shield, label: 'Quality Guaranteed', sub: 'Or we make it right' },
                 { icon: Package, label: 'Custom Sizes', sub: 'Cut to spec' },
               ].map((item) => (
-                <div key={item.label} className="text-center p-3 bg-muted/30 rounded-lg">
-                  <item.icon className="h-5 w-5 text-primary mx-auto mb-1" />
+                <div key={item.label} className="text-center p-3 bg-[#0d0d0d]/5/30 rounded-lg">
+                  <item.icon className="h-5 w-5 text-blue-400 mx-auto mb-1" />
                   <p className="text-xs font-semibold">{item.label}</p>
-                  <p className="text-xs text-muted-foreground">{item.sub}</p>
+                  <p className="text-xs text-white/50">{item.sub}</p>
                 </div>
               ))}
             </div>
@@ -231,7 +231,7 @@ export default function ProductDetail() {
               {relatedProducts.map((rp) => (
                 <Link key={rp.node.id} href={`/product/${rp.node.handle}`}>
                   <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                    <div className="aspect-square overflow-hidden bg-muted/30">
+                    <div className="aspect-square overflow-hidden bg-[#0d0d0d]/5/30">
                       <img
                         src={rp.node.images.edges[0]?.node.url || FALLBACK_IMAGE}
                         alt={rp.node.title}
@@ -240,7 +240,7 @@ export default function ProductDetail() {
                     </div>
                     <CardContent className="p-3">
                       <p className="font-medium text-sm line-clamp-2">{rp.node.title}</p>
-                      <p className="text-primary font-bold text-sm mt-1">
+                      <p className="text-blue-400 font-bold text-sm mt-1">
                         ${parseFloat(rp.node.priceRange.minVariantPrice.amount).toFixed(2)}
                       </p>
                     </CardContent>

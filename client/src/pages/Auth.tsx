@@ -72,7 +72,7 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO
         title="Sign In - PFS Filters Account"
         description="Sign in to your PFS Filters account to manage orders, track memberships, and access exclusive discounts."
@@ -84,10 +84,10 @@ export default function Auth() {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 mb-4">
-              <Filter className="h-8 w-8 text-primary" />
+              <Filter className="h-8 w-8 text-blue-400" />
               <span className="text-2xl font-bold">PFS Filters</span>
             </div>
-            <p className="text-muted-foreground">Sign in to your account or create a new one</p>
+            <p className="text-white/50">Sign in to your account or create a new one</p>
           </div>
           <Card>
             <CardContent className="pt-6">
@@ -107,7 +107,7 @@ export default function Auth() {
                       <Label htmlFor="signin-password">Password</Label>
                       <Input id="signin-password" type="password" value={signInData.password} onChange={(e) => setSignInData((p) => ({ ...p, password: e.target.value }))} placeholder="••••••••" required />
                     </div>
-                    <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={loading}>
+                    <Button type="submit" className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90" disabled={loading}>
                       {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Sign In'}
                     </Button>
                   </form>
@@ -131,7 +131,7 @@ export default function Auth() {
                       <Label htmlFor="signup-confirm">Confirm Password</Label>
                       <Input id="signup-confirm" type="password" value={signUpData.confirmPassword} onChange={(e) => setSignUpData((p) => ({ ...p, confirmPassword: e.target.value }))} placeholder="••••••••" required />
                     </div>
-                    <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={loading}>
+                    <Button type="submit" className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90" disabled={loading}>
                       {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Create Account'}
                     </Button>
                   </form>

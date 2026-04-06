@@ -42,7 +42,7 @@ const brands = [
 
 export default function Brands() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO
         title="Paint Booth Filter Brands - PFS Filters, Koch, Permatron & More"
         description="Shop paint booth filters from trusted brands including PFS Filters, Koch Filter, Permatron, and Andover Healthcare. All products quality-tested for spray booth applications."
@@ -50,35 +50,33 @@ export default function Brands() {
         structuredData={breadcrumbSchema}
       />
       <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16">
+      <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
         <Breadcrumb items={[{ label: 'Brands' }]} />
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <Award className="h-4 w-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Trusted Brands</span>
+        <div className="mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
+            <Award className="h-3.5 w-3.5 text-blue-400" />
+            <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Trusted Brands</span>
           </div>
           <h1 className="text-5xl font-extrabold mb-4">Filter Brands We Carry</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-white/50 max-w-2xl">
             We partner with industry-leading manufacturers to bring you the best paint booth filtration products available.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
           {brands.map((brand) => (
-            <Card key={brand.name} className="hover:shadow-md transition-shadow">
-              <CardContent className="pt-6">
-                <div className="flex items-start justify-between mb-3">
-                  <h2 className="font-bold text-xl">{brand.name}</h2>
-                  <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">{brand.specialty}</span>
-                </div>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">{brand.description}</p>
-                <Link href={brand.href}>
-                  <Button variant="outline" size="sm" className="gap-2">
-                    Shop Products <ArrowRight className="h-3.5 w-3.5" />
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+            <div key={brand.name} className="border border-white/8 bg-[#0d0d0d] hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-300 rounded-2xl p-6">
+              <div className="flex items-start justify-between mb-3">
+                <h2 className="font-bold text-xl text-white">{brand.name}</h2>
+                <span className="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-1 rounded-full">{brand.specialty}</span>
+              </div>
+              <p className="text-white/40 text-sm leading-relaxed mb-4">{brand.description}</p>
+              <Link href={brand.href}>
+                <Button variant="outline" size="sm" className="gap-2 border-white/20 text-white/70 hover:bg-white/10 hover:text-white bg-transparent">
+                  Shop Products <ArrowRight className="h-3.5 w-3.5" />
+                </Button>
+              </Link>
+            </div>
           ))}
         </div>
       </div>

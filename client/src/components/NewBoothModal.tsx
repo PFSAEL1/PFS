@@ -199,7 +199,7 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
           <h2 className="text-base font-semibold text-white">
             {booth?.id ? 'Edit Booth Setup' : 'New Customer Booth Setup'}
           </h2>
-          <button onClick={onClose} className="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors">
+          <button onClick={onClose} className="w-7 h-7 rounded-lg bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 flex items-center justify-center transition-colors">
             <X className="w-4 h-4 text-white/60" />
           </button>
         </div>
@@ -293,7 +293,7 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
                   <span className="text-sm font-medium text-white">Filter Positions</span>
                 </div>
                 <Button size="sm" variant="outline" onClick={addPosition}
-                  className="border-white/10 bg-white/5 hover:bg-white/10 text-white/70 text-xs gap-1.5 h-7">
+                  className="border-white/10 bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 text-white/70 text-xs gap-1.5 h-7">
                   <Plus className="w-3 h-3" /> Add Another Position
                 </Button>
               </div>
@@ -475,7 +475,7 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
         {/* Footer */}
         <div className="flex items-center justify-between px-6 py-4 border-t border-white/8">
           <Button variant="outline" onClick={activeTab > 0 ? () => setActiveTab(activeTab - 1) : onClose}
-            className="border-white/10 bg-white/5 hover:bg-white/10 text-white/70 gap-1.5 text-sm">
+            className="border-white/10 bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 text-white/70 gap-1.5 text-sm">
             {activeTab > 0 ? <><ChevronLeft className="w-4 h-4" /> Back</> : 'Cancel'}
           </Button>
           <div className="flex items-center gap-2">
@@ -484,7 +484,7 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
               {TABS.map((_, i) => (
                 <div key={i} onClick={() => setActiveTab(i)}
                   className={`w-1.5 h-1.5 rounded-full cursor-pointer transition-all ${
-                    i === activeTab ? 'bg-blue-500 w-3' : i < activeTab ? 'bg-blue-500/50' : 'bg-white/15'
+                    i === activeTab ? 'bg-blue-500 w-3' : i < activeTab ? 'bg-blue-500/50' : 'bg-[#0d0d0d]/15'
                   }`} />
               ))}
             </div>

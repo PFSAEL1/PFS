@@ -11,7 +11,7 @@ const breadcrumbSchema = createBreadcrumbSchema([
 
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO
         title="Privacy Policy - PFS Filters"
         description="Read the PFS Filters privacy policy to understand how we collect, use, and protect your personal information."
@@ -22,7 +22,7 @@ export default function PrivacyPolicy() {
       <div className="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
         <Breadcrumb items={[{ label: 'Privacy Policy' }]} />
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
-        <div className="prose prose-lg max-w-none space-y-6 text-muted-foreground">
+        <div className="prose prose-lg max-w-none space-y-6 text-white/50">
           <p className="text-sm">Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
 
           <section>
@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
 
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-3">Your Rights</h2>
-            <p>You have the right to access, correct, or delete your personal information. You may also opt out of marketing communications at any time. To exercise these rights, contact us at <a href="mailto:orders@pfsfilters.com" className="text-primary hover:underline">orders@pfsfilters.com</a>.</p>
+            <p>You have the right to access, correct, or delete your personal information. You may also opt out of marketing communications at any time. To exercise these rights, contact us at <a href="mailto:orders@pfsfilters.com" className="text-blue-400 hover:underline">orders@pfsfilters.com</a>.</p>
           </section>
 
           <section>
@@ -57,7 +57,7 @@ export default function PrivacyPolicy() {
 
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-3">Contact Us</h2>
-            <p>If you have questions about this privacy policy, contact us at <a href="mailto:orders@pfsfilters.com" className="text-primary hover:underline">orders@pfsfilters.com</a> or call <a href="tel:1-888-545-7715" className="text-primary hover:underline">1-888-545-7715</a>.</p>
+            <p>If you have questions about this privacy policy, contact us at <a href="mailto:orders@pfsfilters.com" className="text-blue-400 hover:underline">orders@pfsfilters.com</a> or call <a href="tel:1-888-545-7715" className="text-blue-400 hover:underline">1-888-545-7715</a>.</p>
           </section>
         </div>
       </div>

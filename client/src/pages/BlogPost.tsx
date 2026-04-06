@@ -15,11 +15,11 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-[#080808] text-white">
         <Navigation />
         <div className="container mx-auto px-4 pt-32 pb-16 text-center">
           <h1 className="text-4xl font-bold mb-4">Post Not Found</h1>
-          <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist.</p>
+          <p className="text-white/50 mb-8">The blog post you're looking for doesn't exist.</p>
           <Link href="/blog">
             <Button>Back to Blog</Button>
           </Link>
@@ -61,18 +61,18 @@ export default function BlogPost() {
           return <p key={i} className="font-semibold mt-4 mb-2">{line.slice(2, -2)}</p>;
         }
         if (line.startsWith('- ')) {
-          return <li key={i} className="ml-6 list-disc text-muted-foreground">{line.slice(2)}</li>;
+          return <li key={i} className="ml-6 list-disc text-white/50">{line.slice(2)}</li>;
         }
         if (line.match(/^\d+\. /)) {
-          return <li key={i} className="ml-6 list-decimal text-muted-foreground">{line.replace(/^\d+\. /, '')}</li>;
+          return <li key={i} className="ml-6 list-decimal text-white/50">{line.replace(/^\d+\. /, '')}</li>;
         }
         if (line.trim() === '') return <br key={i} />;
-        return <p key={i} className="text-muted-foreground leading-relaxed">{line}</p>;
+        return <p key={i} className="text-white/50 leading-relaxed">{line}</p>;
       });
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <SEO
         title={post.title}
         description={post.excerpt}
@@ -95,16 +95,16 @@ export default function BlogPost() {
           <div className="mb-8">
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <Badge variant="secondary">{post.category}</Badge>
-              <span className="flex items-center gap-1 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1 text-sm text-white/50">
                 <Clock className="h-3.5 w-3.5" /> {post.readTime}
               </span>
-              <span className="flex items-center gap-1 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1 text-sm text-white/50">
                 <Calendar className="h-3.5 w-3.5" /> {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">{post.title}</h1>
-            <p className="text-xl text-muted-foreground leading-relaxed mb-6">{post.excerpt}</p>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <p className="text-xl text-white/50 leading-relaxed mb-6">{post.excerpt}</p>
+            <div className="flex items-center gap-2 text-sm text-white/50">
               <User className="h-4 w-4" />
               <span>By <strong className="text-foreground">{post.author}</strong></span>
             </div>
@@ -118,14 +118,14 @@ export default function BlogPost() {
             {renderContent(post.content)}
           </div>
 
-          <div className="mt-12 p-6 bg-primary/5 border border-primary/20 rounded-xl">
+          <div className="mt-12 p-6 bg-blue-500/5 border border-primary/20 rounded-xl">
             <h3 className="font-bold text-lg mb-2">Need Help Choosing the Right Filters?</h3>
-            <p className="text-muted-foreground mb-4">
+            <p className="text-white/50 mb-4">
               Our team of filtration experts can help you find the perfect filters for your specific spray booth and application.
             </p>
             <div className="flex gap-3">
               <Link href="/shop">
-                <Button className="bg-primary text-primary-foreground hover:bg-primary/90">Shop Filters</Button>
+                <Button className="bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90">Shop Filters</Button>
               </Link>
               <Link href="/contact">
                 <Button variant="outline">Contact Us</Button>

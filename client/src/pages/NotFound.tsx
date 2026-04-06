@@ -6,20 +6,20 @@ import { Filter, Home, ShoppingBag } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#080808] text-white">
       <Navigation />
       <div className="container mx-auto px-4 pt-32 pb-16 text-center max-w-2xl">
-        <div className="inline-flex items-center justify-center w-24 h-24 bg-primary/10 rounded-full mb-8">
-          <Filter className="h-12 w-12 text-primary" />
+        <div className="inline-flex items-center justify-center w-24 h-24 bg-blue-500/10 rounded-full mb-8">
+          <Filter className="h-12 w-12 text-blue-400" />
         </div>
-        <h1 className="text-6xl font-extrabold text-primary mb-4">404</h1>
+        <h1 className="text-6xl font-extrabold text-blue-400 mb-4">404</h1>
         <h2 className="text-3xl font-bold mb-4">Page Not Found</h2>
-        <p className="text-muted-foreground text-lg mb-8">
+        <p className="text-white/50 text-lg mb-8">
           The page you're looking for doesn't exist or has been moved. Let's get you back on track.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/">
-            <Button className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2">
+            <Button className="bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2">
               <Home className="h-4 w-4" /> Go Home
             </Button>
           </Link>

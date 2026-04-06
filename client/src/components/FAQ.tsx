@@ -40,19 +40,19 @@ const faqSchema = {
 
 export const FAQ = () => {
   return (
-    <section className="py-20 px-4 bg-muted/30 relative">
+    <section className="py-20 px-4 bg-[#0d0d0d]/5/30 relative">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <HelpCircle className="h-4 w-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Common Questions</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-primary/20 mb-4">
+            <HelpCircle className="h-4 w-4 text-blue-400" />
+            <span className="text-sm font-semibold text-blue-400">Common Questions</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-3">Frequently Asked Questions</h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-white/50 text-lg">
             Everything you need to know about our spray booth filters
           </p>
         </div>
@@ -61,12 +61,12 @@ export const FAQ = () => {
             <AccordionItem
               key={i}
               value={`item-${i}`}
-              className="bg-card border border-border rounded-lg px-4"
+              className="bg-[#0d0d0d] border border-white/10 rounded-lg px-4"
             >
               <AccordionTrigger className="text-left font-medium hover:no-underline">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed">
+              <AccordionContent className="text-white/50 leading-relaxed">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

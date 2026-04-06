@@ -237,15 +237,15 @@ export default function FilterDatabase() {
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               <Button variant="outline" size="sm" onClick={handleExportCSV}
-                className="border-white/10 bg-white/5 hover:bg-white/10 text-white/70 text-xs gap-1.5">
+                className="border-white/10 bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 text-white/70 text-xs gap-1.5">
                 <Download className="w-3.5 h-3.5" /> CSV Template
               </Button>
               <Button variant="outline" size="sm"
-                className="border-white/10 bg-white/5 hover:bg-white/10 text-white/70 text-xs gap-1.5">
+                className="border-white/10 bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 text-white/70 text-xs gap-1.5">
                 <Upload className="w-3.5 h-3.5" /> Import Customers (CSV)
               </Button>
               <Button variant="outline" size="sm"
-                className="border-white/10 bg-white/5 hover:bg-white/10 text-white/70 text-xs gap-1.5">
+                className="border-white/10 bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 text-white/70 text-xs gap-1.5">
                 <Eye className="w-3.5 h-3.5" /> View Product IDs
               </Button>
               <Button size="sm" onClick={() => { setEditingBooth(null); setShowNewBoothModal(true); }}
@@ -312,7 +312,7 @@ export default function FilterDatabase() {
           </div>
         ) : filteredBooths.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4">
+            <div className="w-16 h-16 rounded-2xl bg-[#0d0d0d]/5 flex items-center justify-center mb-4">
               <Database className="w-7 h-7 text-white/20" />
             </div>
             <p className="text-white/40 text-sm mb-1">No booth setups yet</p>
@@ -386,7 +386,7 @@ export default function FilterDatabase() {
                         {booth.filter_positions && booth.filter_positions.length > 0 && (
                           <div className="flex items-center gap-1.5 mt-2 flex-wrap">
                             {booth.filter_positions.map((pos) => (
-                              <span key={pos.id} className="text-[10px] bg-white/5 border border-white/8 rounded-md px-2 py-0.5 text-white/50">
+                              <span key={pos.id} className="text-[10px] bg-[#0d0d0d]/5 border border-white/8 rounded-md px-2 py-0.5 text-white/50">
                                 {pos.position_type}{pos.dimensions ? ` ${pos.dimensions}` : ''} ×{pos.quantity}
                               </span>
                             ))}
@@ -410,7 +410,7 @@ export default function FilterDatabase() {
                           title="Off — no automated orders"
                           className={`px-2 py-1 flex items-center gap-1 transition-colors ${
                             currentMode === 'off'
-                              ? 'bg-white/15 text-white/80'
+                              ? 'bg-[#0d0d0d]/15 text-white/80'
                               : 'bg-transparent text-white/30 hover:text-white/60'
                           }`}>
                           <BellOff className="w-2.5 h-2.5" /> Off
@@ -444,7 +444,7 @@ export default function FilterDatabase() {
                           onClick={() => handleSendReminder(booth)}
                           disabled={sendingReminder === booth.id || !canSend}
                           title={canSend ? `Send ${currentMode === 'reminder' ? 'invoice reminder' : 'auto-reorder'} now` : 'Select Remind or Auto mode first'}
-                          className="h-7 px-2 border-white/10 bg-white/5 hover:bg-blue-500/20 hover:border-blue-500/30 text-white/60 hover:text-blue-300 text-xs gap-1 disabled:opacity-30 disabled:cursor-not-allowed">
+                          className="h-7 px-2 border-white/10 bg-[#0d0d0d]/5 hover:bg-blue-500/20 hover:border-blue-500/30 text-white/60 hover:text-blue-300 text-xs gap-1 disabled:opacity-30 disabled:cursor-not-allowed">
                           {sendingReminder === booth.id
                             ? <RefreshCw className="w-3 h-3 animate-spin" />
                             : <Send className="w-3 h-3" />}
@@ -452,12 +452,12 @@ export default function FilterDatabase() {
                         </Button>
                         <Button size="sm" variant="outline"
                           onClick={() => { setEditingBooth(booth); setShowNewBoothModal(true); }}
-                          className="h-7 px-2 border-white/10 bg-white/5 hover:bg-white/10 text-white/60 text-xs gap-1">
+                          className="h-7 px-2 border-white/10 bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 text-white/60 text-xs gap-1">
                           <ChevronRight className="w-3 h-3" /> Edit
                         </Button>
                         <Button size="sm" variant="outline"
                           onClick={() => handleDelete(booth.id)}
-                          className="h-7 px-2 border-white/10 bg-white/5 hover:bg-red-500/20 hover:border-red-500/30 text-white/40 hover:text-red-400 text-xs">
+                          className="h-7 px-2 border-white/10 bg-[#0d0d0d]/5 hover:bg-red-500/20 hover:border-red-500/30 text-white/40 hover:text-red-400 text-xs">
                           <Trash2 className="w-3 h-3" />
                         </Button>
                       </div>

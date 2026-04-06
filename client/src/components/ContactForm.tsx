@@ -48,7 +48,7 @@ export const ContactForm = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-3">Get In Touch</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-white/50 text-lg max-w-2xl mx-auto">
             Have questions about our filters? Need a custom size or bulk pricing? Our team is ready to help.
           </p>
         </div>
@@ -63,14 +63,14 @@ export const ContactForm = () => {
                   { icon: Mail, label: 'Email', value: 'orders@pfsfilters.com', href: 'mailto:orders@pfsfilters.com' },
                   { icon: MapPin, label: 'Location', value: 'Santa Rosa, CA', href: null },
                 ].map(({ icon: Icon, label, value, href }) => (
-                  <div key={label} className="flex items-center gap-4 p-4 bg-card border border-border rounded-lg">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <Icon className="h-5 w-5 text-primary" />
+                  <div key={label} className="flex items-center gap-4 p-4 bg-[#0d0d0d] border border-white/10 rounded-lg">
+                    <div className="p-2 bg-blue-500/10 rounded-lg">
+                      <Icon className="h-5 w-5 text-blue-400" />
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">{label}</p>
+                      <p className="text-sm text-white/50">{label}</p>
                       {href ? (
-                        <a href={href} className="font-semibold hover:text-primary transition-colors">{value}</a>
+                        <a href={href} className="font-semibold hover:text-blue-400 transition-colors">{value}</a>
                       ) : (
                         <p className="font-semibold">{value}</p>
                       )}
@@ -79,9 +79,9 @@ export const ContactForm = () => {
                 ))}
               </div>
             </div>
-            <div className="p-6 bg-primary/5 border border-primary/20 rounded-xl">
+            <div className="p-6 bg-blue-500/5 border border-primary/20 rounded-xl">
               <h4 className="font-bold mb-2">Need a Custom Quote?</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-white/50 leading-relaxed">
                 Tell us your booth make/model and filter dimensions. We'll match your current filters or recommend better alternatives — often at a lower price.
               </p>
             </div>
@@ -128,7 +128,7 @@ export const ContactForm = () => {
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
+                  className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}

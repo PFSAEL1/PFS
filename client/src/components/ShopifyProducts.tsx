@@ -49,14 +49,14 @@ export const ShopifyProducts = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="text-center py-12 text-muted-foreground">
+      <div className="text-center py-12 text-white/50">
         <Package className="h-12 w-12 mx-auto mb-3 opacity-30" />
         <p>{error}</p>
       </div>
@@ -75,7 +75,7 @@ export const ShopifyProducts = () => {
         return (
           <Card key={product.node.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
             <Link href={`/product/${product.node.handle}`}>
-              <div className="aspect-square overflow-hidden bg-muted/30">
+              <div className="aspect-square overflow-hidden bg-white/5/30">
                 <img
                   src={image}
                   alt={product.node.title}
@@ -85,13 +85,13 @@ export const ShopifyProducts = () => {
             </Link>
             <CardContent className="p-4">
               <Link href={`/product/${product.node.handle}`}>
-                <h3 className="font-semibold text-sm leading-tight mb-1 hover:text-primary transition-colors line-clamp-2">
+                <h3 className="font-semibold text-sm leading-tight mb-1 hover:text-blue-400 transition-colors line-clamp-2">
                   {product.node.title}
                 </h3>
               </Link>
               <div className="flex items-center justify-between mt-2 mb-3">
-                <span className="font-bold text-primary">
-                  ${price} <span className="text-xs font-normal text-muted-foreground">{currency}</span>
+                <span className="font-bold text-blue-400">
+                  ${price} <span className="text-xs font-normal text-white/50">{currency}</span>
                 </span>
                 {!inStock && (
                   <Badge variant="secondary" className="text-xs">Out of Stock</Badge>
@@ -99,7 +99,7 @@ export const ShopifyProducts = () => {
               </div>
               <Button
                 size="sm"
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
+                className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2"
                 onClick={() => handleAddToCart(product)}
                 disabled={!inStock}
               >
