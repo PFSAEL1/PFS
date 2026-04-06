@@ -235,7 +235,7 @@ export default function LightHome() {
 
       {/* ── STATS BAR ── */}
       <section style={{ background: "#111111", padding: "3rem 2rem" }}>
-        <div style={{ maxWidth: "1400px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "2rem" }}>
+        <div className="light-stats-grid" style={{ maxWidth: "1400px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "2rem" }}>
           {stats.map(({ num, label }) => (
             <div key={label} style={{ textAlign: "center" }}>
               <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "2.5rem", fontWeight: 700, color: "#fff", marginBottom: "0.25rem" }}>{num}</p>
@@ -275,7 +275,7 @@ export default function LightHome() {
             </h2>
           </RevealBlock>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.5rem" }}>
+          <div className="light-categories-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.5rem" }}>
             {categories.map((cat, i) => (
               <RevealBlock key={cat.label} delay={i * 80}>
                 <Link href={cat.href}>
@@ -366,7 +366,7 @@ export default function LightHome() {
             </h2>
           </RevealBlock>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "3rem" }}>
+          <div className="light-products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "3rem" }}>
             {[
               { img: PFS_PARTICULATE, title: "HEPA Particulate Filters", desc: "High-efficiency particulate filtration. Captures fine overspray particles before they reach the environment.", tag: "EXHAUST" },
               { img: INTAKE_IMG, title: "Tacky Intake Panels", desc: "Premium intake filtration. Prevents dust and debris from entering the spray booth.", tag: "INTAKE" },
@@ -396,7 +396,7 @@ export default function LightHome() {
 
       {/* ── MEMBERSHIP CTA ── */}
       <section style={{ background: "#111111", padding: "7rem 2rem" }}>
-        <div style={{ maxWidth: "1400px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}>
+        <div className="light-membership-grid" style={{ maxWidth: "1400px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}>
           <RevealBlock>
             <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#1B4FD8", marginBottom: "1rem" }}>
               Membership Program
@@ -481,21 +481,29 @@ export default function LightHome() {
         </RevealBlock>
       </section>
 
-      {/* Mobile responsive */}
+      {/* Mobile responsive — class-based, reliable across all breakpoints */}
       <style>{`
-        @media (max-width: 768px) {
-          section:first-child { grid-template-columns: 1fr !important; }
-          section:first-child > div:last-child { display: none !important; }
-          section:first-child > div:first-child { padding: 8rem 1.5rem 4rem !important; }
-        }
-        @media (max-width: 900px) {
-          section:nth-child(8) > div { grid-template-columns: 1fr !important; }
-          section:nth-child(7) > div > div:last-child { grid-template-columns: 1fr 1fr !important; }
-          section:nth-child(6) > div > div:last-child { grid-template-columns: 1fr !important; }
-        }
-        @media (max-width: 600px) {
-          section:nth-child(2) > div { grid-template-columns: 1fr 1fr !important; }
-          section:nth-child(4) > div > div:last-child { grid-template-columns: 1fr !important; }
+        @media (max-width: 767px) {
+          /* Stats bar: 4 cols → 2x2 grid */
+          .light-stats-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.5rem !important;
+          }
+          /* Categories: 2 cols → 1 col */
+          .light-categories-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
+          }
+          /* Product range: 3 cols → 1 col */
+          .light-products-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+          }
+          /* Membership CTA: 2 cols → 1 col */
+          .light-membership-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2.5rem !important;
+          }
         }
       `}</style>
     </LightLayout>

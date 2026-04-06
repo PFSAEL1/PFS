@@ -169,6 +169,20 @@
     }
   }
 }
+/* Light version nav — mobile responsive */
+@media (max-width: 767px) {
+  .light-nav-desktop {
+    display: none !important;
+  }
+  .light-menu-btn {
+    display: block !important;
+  }
+  /* Hide Shop Now CTA on mobile (hamburger menu handles nav) */
+  .light-nav-cta > a:first-child {
+    display: none !important;
+  }
+}
+
 /* Light version hero — responsive split layout */
 .light-hero-text-panel {
   /* Mobile: full width, transparent (image is full-bleed bg) */

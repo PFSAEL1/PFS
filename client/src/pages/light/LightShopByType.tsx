@@ -91,14 +91,14 @@ export default function LightShopByType() {
       <section style={{ background: "#fff", padding: "5rem 2rem 7rem" }}>
         <div style={{ maxWidth: "1400px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "0" }}>
           {types.map((type, i) => (
-            <div key={type.title} style={{
+            <div key={type.title} className="light-type-row" style={{
               display: "grid",
-              gridTemplateColumns: i % 2 === 0 ? "1fr 1fr" : "1fr 1fr",
+              gridTemplateColumns: "1fr 1fr",
               borderBottom: "1px solid #E5E2DC",
               overflow: "hidden",
             }}>
               {/* Image — alternates left/right */}
-              <div style={{ order: i % 2 === 0 ? 1 : 2, overflow: "hidden", aspectRatio: "4/3", background: "#F4F2EE" }}
+              <div className={i % 2 === 0 ? "light-type-img-left" : "light-type-img-right"} style={{ overflow: "hidden", aspectRatio: "4/3", background: "#F4F2EE" }}
                 onMouseEnter={e => { const img = e.currentTarget.querySelector("img") as HTMLImageElement; if (img) img.style.transform = "scale(1.05)"; }}
                 onMouseLeave={e => { const img = e.currentTarget.querySelector("img") as HTMLImageElement; if (img) img.style.transform = "scale(1)"; }}
               >
@@ -106,7 +106,7 @@ export default function LightShopByType() {
               </div>
 
               {/* Content */}
-              <div style={{ order: i % 2 === 0 ? 2 : 1, padding: "4rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              <div className={i % 2 === 0 ? "light-type-content-right" : "light-type-content-left"} style={{ padding: "4rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
                 <span style={{ display: "inline-block", background: type.positionColor, color: "#fff", fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.3rem 0.75rem", marginBottom: "1.5rem", alignSelf: "flex-start" }}>
                   {type.position}
                 </span>
@@ -153,10 +153,20 @@ export default function LightShopByType() {
       </section>
 
       <style>{`
-        @media (max-width: 768px) {
-          section:last-child > div > div { grid-template-columns: 1fr !important; }
-          section:last-child > div > div > div { order: unset !important; }
-          section:last-child > div > div > div:last-child { padding: 2rem 1.5rem !important; }
+        @media (max-width: 767px) {
+          .light-type-row {
+            grid-template-columns: 1fr !important;
+          }
+          .light-type-img-left,
+          .light-type-img-right {
+            order: 1 !important;
+            aspect-ratio: 16/9 !important;
+          }
+          .light-type-content-left,
+          .light-type-content-right {
+            order: 2 !important;
+            padding: 2rem 1.5rem !important;
+          }
         }
       `}</style>
     </LightLayout>

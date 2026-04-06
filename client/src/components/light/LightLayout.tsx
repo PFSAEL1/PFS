@@ -51,13 +51,18 @@ export default function LightLayout({ children }: { children: React.ReactNode })
         }}
       >
         <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", height: "72px" }}>
-          {/* Logo */}
+          {/* Logo — white when transparent nav (over dark hero), dark when scrolled */}
           <Link href="/light">
             <a style={{ display: "flex", alignItems: "center", gap: "0.5rem", textDecoration: "none" }}>
               <img
                 src={PFS_LOGO}
                 alt="PFS Filters"
-                style={{ height: "38px", width: "auto", filter: "invert(1) brightness(0)" }}
+                style={{
+                  height: "38px",
+                  width: "auto",
+                  filter: scrolled ? "brightness(0)" : "brightness(0) invert(1)",
+                  transition: "filter 0.4s ease",
+                }}
               />
             </a>
           </Link>
@@ -71,10 +76,10 @@ export default function LightLayout({ children }: { children: React.ReactNode })
                   fontSize: "0.7rem",
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "#111111",
+                  color: scrolled ? "#111111" : "#ffffff",
                   textDecoration: "none",
-                  opacity: 0.7,
-                  transition: "opacity 0.2s",
+                  opacity: 0.85,
+                  transition: "opacity 0.2s, color 0.4s",
                 }}
                   onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
                   onMouseLeave={e => (e.currentTarget.style.opacity = "0.7")}
@@ -89,7 +94,8 @@ export default function LightLayout({ children }: { children: React.ReactNode })
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }} className="light-nav-cta">
             <Link href="/light/shop">
               <a style={{
-                background: "#111111",
+                background: scrolled ? "#111111" : "rgba(255,255,255,0.15)",
+                border: scrolled ? "none" : "1px solid rgba(255,255,255,0.7)",
                 color: "#fff",
                 padding: "0.6rem 1.4rem",
                 fontFamily: "'Barlow Condensed', 'Barlow', sans-serif",
@@ -97,10 +103,10 @@ export default function LightLayout({ children }: { children: React.ReactNode })
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
                 textDecoration: "none",
-                transition: "background 0.2s",
+                transition: "background 0.4s, border 0.4s",
               }}
                 onMouseEnter={e => (e.currentTarget.style.background = "#1B4FD8")}
-                onMouseLeave={e => (e.currentTarget.style.background = "#111111")}
+                onMouseLeave={e => (e.currentTarget.style.background = scrolled ? "#111111" : "rgba(255,255,255,0.15)")}
               >
                 Shop Now
               </a>
@@ -114,9 +120,9 @@ export default function LightLayout({ children }: { children: React.ReactNode })
               aria-label="Menu"
             >
               <div style={{ width: "22px", display: "flex", flexDirection: "column", gap: "5px" }}>
-                <span style={{ display: "block", height: "1.5px", background: "#111", transition: "transform 0.3s", transform: menuOpen ? "rotate(45deg) translate(4.5px, 4.5px)" : "none" }} />
-                <span style={{ display: "block", height: "1.5px", background: "#111", opacity: menuOpen ? 0 : 1, transition: "opacity 0.3s" }} />
-                <span style={{ display: "block", height: "1.5px", background: "#111", transition: "transform 0.3s", transform: menuOpen ? "rotate(-45deg) translate(4.5px, -4.5px)" : "none" }} />
+                <span style={{ display: "block", height: "1.5px", background: scrolled ? "#111" : "#fff", transition: "transform 0.3s, background 0.4s", transform: menuOpen ? "rotate(45deg) translate(4.5px, 4.5px)" : "none" }} />
+                <span style={{ display: "block", height: "1.5px", background: scrolled ? "#111" : "#fff", opacity: menuOpen ? 0 : 1, transition: "opacity 0.3s, background 0.4s" }} />
+                <span style={{ display: "block", height: "1.5px", background: scrolled ? "#111" : "#fff", transition: "transform 0.3s, background 0.4s", transform: menuOpen ? "rotate(-45deg) translate(4.5px, -4.5px)" : "none" }} />
               </div>
             </button>
           </div>
