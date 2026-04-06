@@ -7,8 +7,8 @@ import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Package } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://abcfilters.net' },
-  { name: 'Shop', url: 'https://abcfilters.net/shop' },
+  { name: 'Home', url: 'https://pfsfilters.com' },
+  { name: 'Shop', url: 'https://pfsfilters.com/shop' },
 ]);
 
 export default function Shop() {
@@ -17,7 +17,7 @@ export default function Shop() {
       <SEO
         title="Shop All Paint Booth Filters - In Stock & Ready to Ship"
         description="Browse 50+ spray booth filters in stock. Fiberglass arrestors (20x20, 20x25), tacky panels, MERV-rated intake filters & exhaust filters. Same-day shipping on most orders. Custom sizes cut to spec."
-        canonical="https://abcfilters.net/shop"
+        canonical="https://pfsfilters.com/shop"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

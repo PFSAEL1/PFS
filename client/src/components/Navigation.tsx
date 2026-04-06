@@ -1,13 +1,17 @@
+// Navigation — PFS Filters Dark Theme
+// Pure black header, large prominent PFS logo, electric blue accents
+// All functionality preserved: cart, auth, admin, products dropdown, mobile menu
+
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingBag, Menu, X, User, ChevronDown, Sparkles, Filter } from 'lucide-react';
+import { ShoppingBag, Menu, X, User, ChevronDown, Sparkles } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 import { supabase } from '@/lib/supabase';
 import { CartDrawer } from './CartDrawer';
 
-const LOGO_URL = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/abc-filters-logo_a66e6869.png';
+const LOGO_URL = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo_4f24cc3e.png';
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +22,6 @@ export const Navigation = () => {
   const shopDropdownRef = useRef<HTMLDivElement>(null);
   const [location] = useLocation();
 
-  // Close Products dropdown on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (shopDropdownRef.current && !shopDropdownRef.current.contains(e.target as Node)) {
@@ -28,6 +31,7 @@ export const Navigation = () => {
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
   }, []);
+
   const items = useCartStore((s) => s.items);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -53,68 +57,107 @@ export const Navigation = () => {
     });
   }, []);
 
-  useEffect(() => { setIsOpen(false); }, [location]);
+  useEffect(() => { setIsOpen(false); setShopOpen(false); }, [location]);
 
   return (
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-white/98 backdrop-blur-md shadow-md border-b border-border' : 'bg-white/95 backdrop-blur-sm border-b border-border'
+          isScrolled
+            ? 'bg-black/98 backdrop-blur-md border-b border-white/10 shadow-[0_1px_0_rgba(255,255,255,0.06)]'
+            : 'bg-black/95 backdrop-blur-sm border-b border-white/5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-              <img src={LOGO_URL} alt="ABC Filters by PFS" className="h-12 w-auto" />
+          <div className="flex items-center justify-between h-20">
+
+            {/* Logo — large and prominent */}
+            <Link href="/" className="flex items-center flex-shrink-0">
+              <img
+                src={LOGO_URL}
+                alt="PFS Filters"
+                className="h-16 w-auto"
+                style={{ filter: 'brightness(0) invert(1)' }}
+              />
             </Link>
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-1">
-              <Link href="/" className="px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">Home</Link>
+              <Link href="/" className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5">
+                Home
+              </Link>
+
               {/* Products dropdown */}
-              <div
-                className="relative"
-                ref={shopDropdownRef}
-              >
+              <div className="relative" ref={shopDropdownRef}>
                 <button
-                  onClick={() => setShopOpen(prev => !prev)}
-                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">
-                  Products <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${shopOpen ? 'rotate-180' : ''}`} />
+                  onClick={() => setShopOpen(!shopOpen)}
+                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5"
+                >
+                  Products <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${shopOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {shopOpen && (
-                  <div className="absolute top-full left-0 mt-1 w-52 bg-background border border-border rounded-lg shadow-lg py-1 z-50">
-                    <Link href="/shop" className="block px-4 py-2 text-sm hover:bg-accent transition-colors">All Products</Link>
-                    <Link href="/shop-by-type" className="block px-4 py-2 text-sm hover:bg-accent transition-colors">Shop by Type</Link>
-                    <Link href="/shop-by-size" className="block px-4 py-2 text-sm hover:bg-accent transition-colors">Shop by Size</Link>
-                    <Link href="/brands" className="block px-4 py-2 text-sm hover:bg-accent transition-colors">Brands</Link>
-                    <Link href="/filter-compatibility" className="block px-4 py-2 text-sm hover:bg-accent transition-colors">Filter Compatibility</Link>
+                  <div className="absolute top-full left-0 mt-1 w-64 bg-[#111] border border-white/10 rounded-xl shadow-2xl py-2 z-50">
+                    <div className="px-3 py-1.5 text-xs font-semibold text-white/30 uppercase tracking-wider">Shop</div>
+                    <Link href="/shop" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+                      <span className="w-2 h-2 rounded-full bg-blue-400 flex-shrink-0"></span>All Products
+                    </Link>
+                    <Link href="/shop-by-type" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+                      <span className="w-2 h-2 rounded-full bg-green-400 flex-shrink-0"></span>Shop by Type
+                    </Link>
+                    <Link href="/shop-by-size" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+                      <span className="w-2 h-2 rounded-full bg-orange-400 flex-shrink-0"></span>Shop by Size
+                    </Link>
+                    <Link href="/brands" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+                      <span className="w-2 h-2 rounded-full bg-purple-400 flex-shrink-0"></span>Brands
+                    </Link>
+                    <Link href="/filter-compatibility" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+                      <span className="w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0"></span>Filter Compatibility
+                    </Link>
+                    <div className="border-t border-white/10 my-1.5 mx-3"></div>
+                    <div className="px-3 py-1.5 text-xs font-semibold text-white/30 uppercase tracking-wider">Info</div>
+                    <Link href="/why-choose-us" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+                      <span className="w-2 h-2 rounded-full bg-yellow-400 flex-shrink-0"></span>Why Choose Us
+                    </Link>
+                    <Link href="/blog" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+                      <span className="w-2 h-2 rounded-full bg-pink-400 flex-shrink-0"></span>Blog
+                    </Link>
                   </div>
                 )}
               </div>
 
-              <Link href="/memberships" className="px-3 py-2 text-sm font-medium rounded-md hover:bg-accent transition-colors">Memberships</Link>
-              <Link href="/blog" className="px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">Blog</Link>
-              <Link href="/filter-scanner" className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">
-                <Sparkles className="w-3 h-3 text-primary" /> AI Scanner
+              <Link href="/memberships" className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5">
+                Memberships
               </Link>
-              <Link href="/contact" className="px-3 py-2 text-sm font-medium rounded-md hover:text-primary transition-colors">Contact</Link>
+              <Link href="/filter-scanner" className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5">
+                <Sparkles className="w-4 h-4 text-blue-400" /> AI Scanner
+              </Link>
+              <Link href="/contact" className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5">
+                Contact
+              </Link>
               {isAdmin && (
-                <Link href="/analytics" className="px-3 py-2 text-sm font-medium rounded-md hover:bg-accent transition-colors text-primary">Analytics</Link>
+                <Link href="/filter-database" className="px-3 py-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors rounded-md hover:bg-white/5">
+                  Filter DB
+                </Link>
               )}
             </div>
 
             {/* Right actions */}
             <div className="flex items-center gap-2">
-              {/* Get a Quote + Shop Now buttons */}
               <div className="hidden md:flex items-center gap-2">
                 <Link href="/contact">
-                  <Button variant="outline" size="sm" className="font-semibold border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="font-semibold border-white/20 text-white/80 hover:bg-white/10 hover:text-white hover:border-white/30 bg-transparent transition-all"
+                  >
                     Get a Quote
                   </Button>
                 </Link>
                 <Link href="/shop">
-                  <Button size="sm" className="font-semibold bg-primary hover:bg-primary/90 text-white">
+                  <Button
+                    size="sm"
+                    className="font-semibold bg-blue-500 hover:bg-blue-400 text-white shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transition-all"
+                  >
                     <ShoppingBag className="w-4 h-4 mr-1.5" />
                     Shop Now
                   </Button>
@@ -124,12 +167,12 @@ export const Navigation = () => {
               {/* Cart */}
               <button
                 onClick={() => setCartOpen(true)}
-                className="relative p-2 rounded-md hover:bg-accent transition-colors"
+                className="relative p-2.5 rounded-lg hover:bg-white/10 transition-colors text-white/70 hover:text-white"
                 aria-label="Open cart"
               >
                 <ShoppingBag className="w-5 h-5" />
                 {totalItems > 0 && (
-                  <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-primary text-primary-foreground">
+                  <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-blue-500 text-white border-0">
                     {totalItems}
                   </Badge>
                 )}
@@ -139,20 +182,22 @@ export const Navigation = () => {
               <div className="hidden md:block">
                 {user ? (
                   <Link href="/dashboard">
-                    <Button variant="outline" size="sm" className="gap-1">
+                    <Button variant="outline" size="sm" className="gap-1 border-white/20 text-white/80 hover:bg-white/10 hover:text-white bg-transparent">
                       <User className="h-4 w-4" /> Dashboard
                     </Button>
                   </Link>
                 ) : (
                   <Link href="/auth">
-                    <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">Sign In</Button>
+                    <Button size="sm" className="bg-white text-black hover:bg-white/90 font-semibold">
+                      Sign In
+                    </Button>
                   </Link>
                 )}
               </div>
 
               {/* Mobile menu toggle */}
               <button
-                className="md:hidden p-2 rounded-md hover:bg-accent transition-colors"
+                className="md:hidden p-2.5 rounded-lg hover:bg-white/10 transition-colors text-white/70 hover:text-white"
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label="Toggle menu"
               >
@@ -163,33 +208,33 @@ export const Navigation = () => {
 
           {/* Mobile menu */}
           {isOpen && (
-            <div className="md:hidden border-t border-border py-3 space-y-1 bg-background">
-              <Link href="/shop" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">All Products</Link>
-              <Link href="/shop-by-type" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Shop by Type</Link>
-              <Link href="/shop-by-size" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Shop by Size</Link>
-              <Link href="/brands" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Brands</Link>
-              <Link href="/filter-compatibility" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Filter Compatibility</Link>
-              <Link href="/why-choose-us" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Why Choose Us</Link>
-              <Link href="/memberships" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Memberships</Link>
-              <Link href="/blog" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Blog</Link>
-              <Link href="/filter-scanner" className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-accent rounded transition-colors">
-                <Sparkles className="w-4 h-4" /> AI Scanner
+            <div className="md:hidden border-t border-white/10 py-3 space-y-0.5 bg-black">
+              <Link href="/shop" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">All Products</Link>
+              <Link href="/shop-by-type" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Type</Link>
+              <Link href="/shop-by-size" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Size</Link>
+              <Link href="/brands" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Brands</Link>
+              <Link href="/filter-compatibility" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Filter Compatibility</Link>
+              <Link href="/why-choose-us" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Why Choose Us</Link>
+              <Link href="/memberships" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Memberships</Link>
+              <Link href="/blog" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Blog</Link>
+              <Link href="/filter-scanner" className="flex items-center gap-2 px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+                <Sparkles className="w-4 h-4 text-blue-400" /> AI Scanner
               </Link>
-              <Link href="/contact" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors">Contact</Link>
+              <Link href="/contact" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Contact</Link>
               {isAdmin && (
-                <Link href="/analytics" className="block px-4 py-2 text-sm hover:bg-accent rounded transition-colors text-primary">Analytics</Link>
+                <Link href="/filter-database" className="block px-4 py-2.5 text-sm text-blue-400 hover:text-blue-300 hover:bg-white/5 rounded-lg transition-colors">Filter Database (Admin)</Link>
               )}
-              <div className="px-4 pt-2 flex gap-2">
+              <div className="px-4 pt-3 pb-1 flex gap-2">
                 <Link href="/contact" className="flex-1">
-                  <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90" size="sm">Get a Quote</Button>
+                  <Button className="w-full bg-blue-500 hover:bg-blue-400 text-white" size="sm">Get a Quote</Button>
                 </Link>
                 {user ? (
                   <Link href="/dashboard" className="flex-1">
-                    <Button variant="outline" className="w-full" size="sm">Dashboard</Button>
+                    <Button variant="outline" className="w-full border-white/20 text-white/80 bg-transparent" size="sm">Dashboard</Button>
                   </Link>
                 ) : (
                   <Link href="/auth" className="flex-1">
-                    <Button variant="outline" className="w-full" size="sm">Sign In</Button>
+                    <Button className="w-full bg-white text-black hover:bg-white/90" size="sm">Sign In</Button>
                   </Link>
                 )}
               </div>

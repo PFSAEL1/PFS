@@ -5,17 +5,17 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://abcfilters.net' },
-  { name: 'Privacy Policy', url: 'https://abcfilters.net/privacy-policy' },
+  { name: 'Home', url: 'https://pfsfilters.com' },
+  { name: 'Privacy Policy', url: 'https://pfsfilters.com/privacy-policy' },
 ]);
 
 export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Privacy Policy - ABC Filters by PFS"
-        description="Read the ABC Filters privacy policy to understand how we collect, use, and protect your personal information."
-        canonical="https://abcfilters.net/privacy-policy"
+        title="Privacy Policy - PFS Filters"
+        description="Read the PFS Filters privacy policy to understand how we collect, use, and protect your personal information."
+        canonical="https://pfsfilters.com/privacy-policy"
         structuredData={breadcrumbSchema}
       />
       <Navigation />
@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
 
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-3">Your Rights</h2>
-            <p>You have the right to access, correct, or delete your personal information. You may also opt out of marketing communications at any time. To exercise these rights, contact us at <a href="mailto:orders@abcfilters.net" className="text-primary hover:underline">orders@abcfilters.net</a>.</p>
+            <p>You have the right to access, correct, or delete your personal information. You may also opt out of marketing communications at any time. To exercise these rights, contact us at <a href="mailto:orders@pfsfilters.com" className="text-primary hover:underline">orders@pfsfilters.com</a>.</p>
           </section>
 
           <section>
@@ -57,7 +57,7 @@ export default function PrivacyPolicy() {
 
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-3">Contact Us</h2>
-            <p>If you have questions about this privacy policy, contact us at <a href="mailto:orders@abcfilters.net" className="text-primary hover:underline">orders@abcfilters.net</a> or call <a href="tel:1-888-545-7715" className="text-primary hover:underline">1-888-545-7715</a>.</p>
+            <p>If you have questions about this privacy policy, contact us at <a href="mailto:orders@pfsfilters.com" className="text-primary hover:underline">orders@pfsfilters.com</a> or call <a href="tel:1-888-545-7715" className="text-primary hover:underline">1-888-545-7715</a>.</p>
           </section>
         </div>
       </div>

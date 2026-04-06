@@ -30,9 +30,9 @@ export default function BlogPost() {
   }
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: 'https://abcfilters.net' },
-    { name: 'Blog', url: 'https://abcfilters.net/blog' },
-    { name: post.title, url: `https://abcfilters.net/blog/${post.slug}` },
+    { name: 'Home', url: 'https://pfsfilters.com' },
+    { name: 'Blog', url: 'https://pfsfilters.com/blog' },
+    { name: post.title, url: `https://pfsfilters.com/blog/${post.slug}` },
   ]);
 
   const articleSchema = {
@@ -41,10 +41,10 @@ export default function BlogPost() {
     headline: post.title,
     description: post.excerpt,
     image: post.image,
-    url: `https://abcfilters.net/blog/${post.slug}`,
+    url: `https://pfsfilters.com/blog/${post.slug}`,
     datePublished: post.date,
     author: { '@type': 'Person', name: post.author },
-    publisher: { '@type': 'Organization', name: 'ABC Filters by PFS', logo: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/icon_a34990c0.png' },
+    publisher: { '@type': 'Organization', name: 'PFS Filters', logo: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/icon_a34990c0.png' },
     keywords: post.keywords.join(', '),
   };
 
@@ -76,7 +76,7 @@ export default function BlogPost() {
       <SEO
         title={post.title}
         description={post.excerpt}
-        canonical={`https://abcfilters.net/blog/${post.slug}`}
+        canonical={`https://pfsfilters.com/blog/${post.slug}`}
         ogType="article"
         ogImage={post.image}
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, articleSchema] }}

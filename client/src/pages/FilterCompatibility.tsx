@@ -12,8 +12,8 @@ import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Search, CheckCircle, ArrowRight } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://abcfilters.net' },
-  { name: 'Filter Compatibility', url: 'https://abcfilters.net/filter-compatibility' },
+  { name: 'Home', url: 'https://pfsfilters.com' },
+  { name: 'Filter Compatibility', url: 'https://pfsfilters.com/filter-compatibility' },
 ]);
 
 const popularBooths = [
@@ -44,7 +44,7 @@ export default function FilterCompatibility() {
       <SEO
         title="Paint Booth Filter Compatibility Guide - Find Filters for Your Booth"
         description="Find compatible paint booth filters for your specific spray booth make and model. We match filters for GFS, Accudraft, Garmat, Binks, Col-Met, PFS, and all major brands."
-        canonical="https://abcfilters.net/filter-compatibility"
+        canonical="https://pfsfilters.com/filter-compatibility"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

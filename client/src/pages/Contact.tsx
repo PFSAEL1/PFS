@@ -6,17 +6,17 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://abcfilters.net' },
-  { name: 'Contact', url: 'https://abcfilters.net/contact' },
+  { name: 'Home', url: 'https://pfsfilters.com' },
+  { name: 'Contact', url: 'https://pfsfilters.com/contact' },
 ]);
 
 export default function Contact() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Contact ABC Filters - Get a Custom Quote or Filter Help"
-        description="Contact ABC Filters for custom filter quotes, bulk pricing, or technical support. Call 1-888-545-7715 or email orders@abcfilters.net. We match any booth make/model."
-        canonical="https://abcfilters.net/contact"
+        title="Contact PFS Filters - Get a Custom Quote or Filter Help"
+        description="Contact PFS Filters for custom filter quotes, bulk pricing, or technical support. Call 1-888-545-7715 or email orders@pfsfilters.com. We match any booth make/model."
+        canonical="https://pfsfilters.com/contact"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

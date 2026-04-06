@@ -40,7 +40,7 @@ function DashboardContent() {
 
   return (
     <div className="min-h-screen">
-      <SEO title="Dashboard - ABC Filters Account" description="Manage your ABC Filters account, memberships, and orders." noIndex />
+      <SEO title="Dashboard - PFS Filters Account" description="Manage your PFS Filters account, memberships, and orders." noIndex />
       <Navigation />
       <div className="container mx-auto px-4 pt-24 pb-16 max-w-5xl">
         <div className="flex items-center justify-between mb-8">

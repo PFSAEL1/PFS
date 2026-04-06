@@ -48,9 +48,9 @@ export default function SubmitReview() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Submit a Review - ABC Filters by PFS"
-        description="Share your experience with ABC Filters. Leave a review to help other shops find the right paint booth filters."
-        canonical="https://abcfilters.net/submit-review"
+        title="Submit a Review - PFS Filters"
+        description="Share your experience with PFS Filters. Leave a review to help other shops find the right paint booth filters."
+        canonical="https://pfsfilters.com/submit-review"
         noIndex
       />
       <Navigation />

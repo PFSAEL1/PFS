@@ -1,19 +1,19 @@
 // Structured data (JSON-LD) schemas for SEO
-// Used across all pages of abcfilters.net
+// Used across all pages of pfsfilters.com
 
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "ABC Filters by PFS",
-  "alternateName": "ABC Filters",
+  "name": "PFS Filters",
+  "alternateName": "PFS Filters",
   "description": "Premium paint booth filters and spray booth filtration solutions for automotive, industrial, and woodworking applications",
-  "url": "https://abcfilters.net",
+  "url": "https://pfsfilters.com",
   "logo": "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/icon_a34990c0.png",
   "image": "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/og-image_9075de08.jpg",
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "Customer Service",
-    "email": "orders@abcfilters.net",
+    "email": "orders@pfsfilters.com",
     "telephone": "1-888-545-7715",
     "availableLanguage": ["English"],
   },
@@ -28,7 +28,7 @@ export const organizationSchema = {
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "https://abcfilters.net/shop?q={search_term_string}",
+      "urlTemplate": "https://pfsfilters.com/shop?q={search_term_string}",
     },
     "query-input": "required name=search_term_string",
   },
@@ -37,14 +37,14 @@ export const organizationSchema = {
 export const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "ABC Filters by PFS",
-  "url": "https://abcfilters.net",
+  "name": "PFS Filters",
+  "url": "https://pfsfilters.com",
   "description": "Premium paint booth filters, spray booth filtration systems, and industrial air filtration solutions",
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "https://abcfilters.net/shop?q={search_term_string}",
+      "urlTemplate": "https://pfsfilters.com/shop?q={search_term_string}",
     },
     "query-input": "required name=search_term_string",
   },
@@ -69,7 +69,7 @@ export const createProductSchema = (product: {
     "description": product.description,
     "image": product.image,
     "url": product.url,
-    "brand": { "@type": "Brand", "name": product.brand || "ABC Filters by PFS" },
+    "brand": { "@type": "Brand", "name": product.brand || "PFS Filters" },
     "offers": {
       "@type": "Offer",
       "price": product.price,
@@ -77,7 +77,7 @@ export const createProductSchema = (product: {
       "availability": product.availability || "https://schema.org/InStock",
       "url": product.url,
       "priceValidUntil": new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      "seller": { "@type": "Organization", "name": "ABC Filters by PFS" },
+      "seller": { "@type": "Organization", "name": "PFS Filters" },
     },
   };
   if (product.sku) schema.sku = product.sku;

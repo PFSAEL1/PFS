@@ -1,5 +1,5 @@
-// FilterDatabase.tsx — ABC Filters Admin Panel
-// Design: Dark professional dashboard matching the ABC Filters brand.
+// FilterDatabase.tsx — PFS Filters Admin Panel
+// Design: Dark professional dashboard matching the PFS Filters brand.
 // Admin-only. Accessible at /filter-database. Hidden from public nav.
 // Features: Members / Non-Members tabs, customer booth list, add/edit/delete,
 //           CSV import/export, send reminder draft orders, auto-reorder members.

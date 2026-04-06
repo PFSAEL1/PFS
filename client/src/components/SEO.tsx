@@ -21,8 +21,8 @@ export const SEO = ({
   structuredData,
   noIndex = false,
 }: SEOProps) => {
-  const fullTitle = title.includes('ABC Filters') ? title : `${title} | ABC Filters by PFS`;
-  const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : 'https://abcfilters.net');
+  const fullTitle = title.includes('PFS Filters') ? title : `${title} | PFS Filters`;
+  const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : 'https://pfsfilters.com');
 
   return (
     <Helmet>
@@ -37,7 +37,7 @@ export const SEO = ({
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:image" content={ogImage} />
-      <meta property="og:site_name" content="ABC Filters by PFS" />
+      <meta property="og:site_name" content="PFS Filters" />
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />

@@ -74,9 +74,9 @@ export default function ProductDetail() {
   const mainImage = images[selectedImage]?.node?.url || FALLBACK_IMAGE;
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: 'https://abcfilters.net' },
-    { name: 'Shop', url: 'https://abcfilters.net/shop' },
-    { name: product.title, url: `https://abcfilters.net/product/${handle}` },
+    { name: 'Home', url: 'https://pfsfilters.com' },
+    { name: 'Shop', url: 'https://pfsfilters.com/shop' },
+    { name: product.title, url: `https://pfsfilters.com/product/${handle}` },
   ]);
 
   const productSchema = createProductSchema({
@@ -85,7 +85,7 @@ export default function ProductDetail() {
     image: mainImage,
     price,
     currency,
-    url: `https://abcfilters.net/product/${handle}`,
+    url: `https://pfsfilters.com/product/${handle}`,
     availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
   });
 
@@ -108,9 +108,9 @@ export default function ProductDetail() {
   return (
     <div className="min-h-screen">
       <SEO
-        title={`${product.title} - ABC Filters by PFS`}
-        description={product.description || `Buy ${product.title} from ABC Filters. Premium paint booth filtration products with fast nationwide shipping.`}
-        canonical={`https://abcfilters.net/product/${handle}`}
+        title={`${product.title} - PFS Filters`}
+        description={product.description || `Buy ${product.title} from PFS Filters. Premium paint booth filtration products with fast nationwide shipping.`}
+        canonical={`https://pfsfilters.com/product/${handle}`}
         ogImage={mainImage}
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
       />

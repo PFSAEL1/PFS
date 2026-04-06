@@ -60,7 +60,7 @@ export const ContactForm = () => {
               <div className="space-y-4">
                 {[
                   { icon: Phone, label: 'Phone', value: '1-888-545-7715', href: 'tel:1-888-545-7715' },
-                  { icon: Mail, label: 'Email', value: 'orders@abcfilters.net', href: 'mailto:orders@abcfilters.net' },
+                  { icon: Mail, label: 'Email', value: 'orders@pfsfilters.com', href: 'mailto:orders@pfsfilters.com' },
                   { icon: MapPin, label: 'Location', value: 'Santa Rosa, CA', href: null },
                 ].map(({ icon: Icon, label, value, href }) => (
                   <div key={label} className="flex items-center gap-4 p-4 bg-card border border-border rounded-lg">

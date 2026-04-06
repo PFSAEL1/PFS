@@ -1,15 +1,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
 @custom-variant dark (&:is(.dark *));
-
 /* 
- * ABC Filters Design System
- * Light background, primary blue #0066cc (hsl 200 100% 33%)
- * Clean professional look matching abcfilters.net
+ * PFS Filters Design System — Dark Industrial Theme
+ * Pure black background, white text, electric blue accent
+ * Bold geometric aesthetic matching the PFS Filters brand identity
  * Safari-compatible: HSL fallbacks for oklch, webkit prefixes
  */
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -35,81 +32,78 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 }
-
 :root {
-  /* HSL fallbacks first, then oklch override for modern browsers */
-  --background: hsl(0 0% 97%);
-  --foreground: hsl(210 30% 15%);
-  --card: hsl(0 0% 100%);
-  --card-foreground: hsl(210 30% 15%);
-  --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(210 30% 15%);
+  /* Dark theme as default — pure black background */
+  --background: hsl(0 0% 4%);
+  --foreground: hsl(0 0% 96%);
+  --card: hsl(0 0% 8%);
+  --card-foreground: hsl(0 0% 96%);
+  --popover: hsl(0 0% 8%);
+  --popover-foreground: hsl(0 0% 96%);
   
-  /* Primary blue: hsl(200 100% 33%) - exact match to original */
-  --primary: hsl(207 80% 38%);
+  /* Electric blue primary */
+  --primary: hsl(207 100% 50%);
   --primary-foreground: hsl(0 0% 100%);
   
-  /* Secondary */
-  --secondary: hsl(220 10% 93%);
-  --secondary-foreground: hsl(0 0% 100%);
+  /* Secondary — dark gray */
+  --secondary: hsl(0 0% 12%);
+  --secondary-foreground: hsl(0 0% 96%);
   
   /* Muted */
-  --muted: hsl(220 10% 95%);
-  --muted-foreground: hsl(215 15% 45%);
+  --muted: hsl(0 0% 12%);
+  --muted-foreground: hsl(0 0% 55%);
   
   /* Accent */
-  --accent: hsl(220 10% 93%);
-  --accent-foreground: hsl(210 30% 15%);
+  --accent: hsl(0 0% 14%);
+  --accent-foreground: hsl(0 0% 96%);
   
   --destructive: hsl(0 84% 60%);
   --destructive-foreground: hsl(0 0% 98%);
-  --border: hsl(220 10% 90%);
-  --input: hsl(220 10% 90%);
-  --ring: hsl(207 80% 38%);
+  --border: hsl(0 0% 16%);
+  --input: hsl(0 0% 14%);
+  --ring: hsl(207 100% 50%);
   --radius: 0.5rem;
 
   /* Gradients */
-  --gradient-hero: linear-gradient(135deg, hsl(207 80% 38%) 0%, hsl(207 70% 42%) 100%);
-  --gradient-subtle: linear-gradient(180deg, hsl(0 0% 97%) 0%, hsl(0 0% 100%) 100%);
+  --gradient-hero: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(0 0% 6%) 100%);
+  --gradient-subtle: linear-gradient(180deg, hsl(0 0% 4%) 0%, hsl(0 0% 8%) 100%);
   
   /* Shadows */
-  --shadow-soft: 0 4px 20px -2px hsla(207, 80%, 38%, 0.1);
-  --shadow-medium: 0 8px 30px -4px hsla(207, 80%, 38%, 0.15);
-  --shadow-bold: 0 20px 50px -12px hsla(0, 0%, 0%, 0.25);
+  --shadow-soft: 0 4px 20px -2px rgba(0, 153, 255, 0.15);
+  --shadow-medium: 0 8px 30px -4px rgba(0, 153, 255, 0.2);
+  --shadow-bold: 0 20px 50px -12px rgba(0, 0, 0, 0.8);
   
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-/* oklch override for browsers that support it (Chrome, modern Safari 15.4+) */
+/* oklch override for browsers that support it */
 @supports (color: oklch(0.5 0.1 200)) {
   :root {
-    --background: oklch(0.984 0 0);
-    --foreground: oklch(0.16 0.02 222);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.16 0.02 222);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.16 0.02 222);
-    --primary: oklch(0.46 0.13 220);
+    --background: oklch(0.09 0 0);
+    --foreground: oklch(0.96 0 0);
+    --card: oklch(0.13 0 0);
+    --card-foreground: oklch(0.96 0 0);
+    --popover: oklch(0.13 0 0);
+    --popover-foreground: oklch(0.96 0 0);
+    --primary: oklch(0.62 0.22 230);
     --primary-foreground: oklch(1 0 0);
-    --secondary: oklch(0.94 0.004 240);
-    --secondary-foreground: oklch(1 0 0);
-    --muted: oklch(0.96 0.003 240);
-    --muted-foreground: oklch(0.50 0.018 222);
-    --accent: oklch(0.94 0.004 240);
-    --accent-foreground: oklch(0.16 0.02 222);
+    --secondary: oklch(0.17 0 0);
+    --secondary-foreground: oklch(0.96 0 0);
+    --muted: oklch(0.17 0 0);
+    --muted-foreground: oklch(0.55 0 0);
+    --accent: oklch(0.19 0 0);
+    --accent-foreground: oklch(0.96 0 0);
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(0.985 0 0);
-    --border: oklch(0.91 0.004 240);
-    --input: oklch(0.91 0.004 240);
-    --ring: oklch(0.46 0.13 220);
-    --gradient-hero: linear-gradient(135deg, oklch(0.48 0.14 222) 0%, oklch(0.54 0.15 222) 100%);
-    --gradient-subtle: linear-gradient(180deg, oklch(0.984 0 0) 0%, oklch(1 0 0) 100%);
-    --shadow-soft: 0 4px 20px -2px oklch(0.48 0.14 222 / 0.1);
-    --shadow-medium: 0 8px 30px -4px oklch(0.48 0.14 222 / 0.15);
-    --shadow-bold: 0 20px 50px -12px oklch(0 0 0 / 0.25);
+    --border: oklch(0.22 0 0);
+    --input: oklch(0.20 0 0);
+    --ring: oklch(0.62 0.22 230);
+    --gradient-hero: linear-gradient(180deg, oklch(0.05 0 0) 0%, oklch(0.10 0 0) 100%);
+    --gradient-subtle: linear-gradient(180deg, oklch(0.09 0 0) 0%, oklch(0.13 0 0) 100%);
+    --shadow-soft: 0 4px 20px -2px oklch(0.62 0.22 230 / 0.15);
+    --shadow-medium: 0 8px 30px -4px oklch(0.62 0.22 230 / 0.20);
+    --shadow-bold: 0 20px 50px -12px oklch(0 0 0 / 0.8);
   }
 }
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -130,7 +124,6 @@
     @apply cursor-pointer;
   }
 }
-
 @layer components {
   .container {
     width: 100%;
@@ -139,19 +132,16 @@
     padding-left: 1rem;
     padding-right: 1rem;
   }
-
   .flex {
     min-height: 0;
     min-width: 0;
   }
-
   @media (min-width: 640px) {
     .container {
       padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
   }
-
   @media (min-width: 1024px) {
     .container {
       padding-left: 2rem;
@@ -160,7 +150,6 @@
     }
   }
 }
-
 /* Safari backdrop-filter fix */
 @layer utilities {
   .backdrop-blur-sm,
@@ -170,7 +159,6 @@
   .backdrop-blur-2xl {
     -webkit-backdrop-filter: var(--tw-backdrop-blur);
   }
-
   .animate-fade-in {
     animation: fadeIn 1s ease-out;
     -webkit-animation: fadeIn 1s ease-out;
@@ -196,17 +184,22 @@
   .shadow-bold {
     box-shadow: var(--shadow-bold);
   }
-
   /* Safari bg-clip-text fix */
   .bg-clip-text {
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  /* Glow effect for primary elements */
+  .glow-primary {
+    box-shadow: 0 0 20px rgba(0, 153, 255, 0.3), 0 0 60px rgba(0, 153, 255, 0.1);
+  }
+  .text-glow {
+    text-shadow: 0 0 20px rgba(0, 153, 255, 0.5);
   }
 }
-
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(30px); }
@@ -217,28 +210,10 @@
   to { opacity: 1; transform: scale(1); }
 }
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
-@keyframes scale-in {
-  from { transform: scale(1.1); }
-  to { transform: scale(1); }
-}
-
-/* Safari webkit keyframes */
-@-webkit-keyframes fadeIn {
-  from { opacity: 0; -webkit-transform: translateY(20px); transform: translateY(20px); }
-  to { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
-}
-@-webkit-keyframes slideUp {
-  from { opacity: 0; -webkit-transform: translateY(30px); transform: translateY(30px); }
-  to { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
-}
-@-webkit-keyframes scaleIn {
-  from { opacity: 0; -webkit-transform: scale(0.95); transform: scale(0.95); }
-  to { opacity: 1; -webkit-transform: scale(1); transform: scale(1); }
-}
-@-webkit-keyframes float {
-  0%, 100% { -webkit-transform: translateY(0); transform: translateY(0); }
-  50% { -webkit-transform: translateY(-10px); transform: translateY(-10px); }
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }

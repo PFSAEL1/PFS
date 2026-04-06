@@ -11,8 +11,8 @@ import {
 } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://abcfilters.net' },
-  { name: 'Why Choose Us', url: 'https://abcfilters.net/why-choose-us' },
+  { name: 'Home', url: 'https://pfsfilters.com' },
+  { name: 'Why Choose Us', url: 'https://pfsfilters.com/why-choose-us' },
 ]);
 
 const features = [
@@ -37,9 +37,9 @@ export default function WhyChooseUs() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Why Choose ABC Filters | Premium Spray Booth Filtration Expert"
-        description="Choose ABC Filters for premium paint booth filters backed by PFS expertise. Industry-leading quality, custom filtration solutions, expert technical support, and competitive pricing on all spray booth filters."
-        canonical="https://abcfilters.net/why-choose-us"
+        title="Why Choose PFS Filters | Premium Spray Booth Filtration Expert"
+        description="Choose PFS Filters for premium paint booth filters backed by PFS expertise. Industry-leading quality, custom filtration solutions, expert technical support, and competitive pricing on all spray booth filters."
+        canonical="https://pfsfilters.com/why-choose-us"
         structuredData={breadcrumbSchema}
       />
       <Navigation />
@@ -58,7 +58,7 @@ export default function WhyChooseUs() {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              Why Choose ABC Filters?
+              Why Choose PFS Filters?
             </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -106,7 +106,7 @@ export default function WhyChooseUs() {
         <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold mb-4">Ready to Upgrade Your Filtration?</h2>
           <p className="text-primary-foreground/80 mb-8">
-            Join 1,000+ shops that trust ABC Filters for their spray booth filtration needs.
+            Join 1,000+ shops that trust PFS Filters for their spray booth filtration needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/shop">

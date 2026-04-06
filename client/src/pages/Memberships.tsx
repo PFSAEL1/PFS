@@ -10,8 +10,8 @@ import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Crown, Check, ArrowRight, Sparkles } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://abcfilters.net' },
-  { name: 'Memberships', url: 'https://abcfilters.net/memberships' },
+  { name: 'Home', url: 'https://pfsfilters.com' },
+  { name: 'Memberships', url: 'https://pfsfilters.com/memberships' },
 ]);
 
 const tiers = [
@@ -82,8 +82,8 @@ export default function Memberships() {
     <div className="min-h-screen">
       <SEO
         title="Paint Booth Filter Memberships - Save on Every Order"
-        description="Join ABC Filters membership for exclusive discounts, auto-reorder scheduling, AI filter scanner, and dedicated support. Plans from $29/month. Save 3-5% on every order."
-        canonical="https://abcfilters.net/memberships"
+        description="Join PFS Filters membership for exclusive discounts, auto-reorder scheduling, AI filter scanner, and dedicated support. Plans from $29/month. Save 3-5% on every order."
+        canonical="https://pfsfilters.com/memberships"
         structuredData={breadcrumbSchema}
       />
       <Navigation />
@@ -102,7 +102,7 @@ export default function Memberships() {
             Save More, Order Smarter
           </h1>
           <p className="text-xl text-muted-foreground">
-            Join hundreds of shops that use ABC Filters memberships to automate their filter program, save on every order, and never run out of filters again.
+            Join hundreds of shops that use PFS Filters memberships to automate their filter program, save on every order, and never run out of filters again.
           </p>
         </div>
       </section>

@@ -9,13 +9,13 @@ import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { ArrowRight, Award } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://abcfilters.net' },
-  { name: 'Brands', url: 'https://abcfilters.net/brands' },
+  { name: 'Home', url: 'https://pfsfilters.com' },
+  { name: 'Brands', url: 'https://pfsfilters.com/brands' },
 ]);
 
 const brands = [
   {
-    name: 'ABC Filters by PFS',
+    name: 'PFS Filters',
     description: 'Our house brand — engineered specifically for spray booth applications with decades of PFS expertise. Offers the best value for professional body shops.',
     specialty: 'Spray Booth Specialists',
     href: '/shop',
@@ -44,9 +44,9 @@ export default function Brands() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Paint Booth Filter Brands - ABC Filters, Koch, Permatron & More"
-        description="Shop paint booth filters from trusted brands including ABC Filters by PFS, Koch Filter, Permatron, and Andover Healthcare. All products quality-tested for spray booth applications."
-        canonical="https://abcfilters.net/brands"
+        title="Paint Booth Filter Brands - PFS Filters, Koch, Permatron & More"
+        description="Shop paint booth filters from trusted brands including PFS Filters, Koch Filter, Permatron, and Andover Healthcare. All products quality-tested for spray booth applications."
+        canonical="https://pfsfilters.com/brands"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

@@ -74,9 +74,9 @@ export default function Auth() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Sign In - ABC Filters Account"
-        description="Sign in to your ABC Filters account to manage orders, track memberships, and access exclusive discounts."
-        canonical="https://abcfilters.net/auth"
+        title="Sign In - PFS Filters Account"
+        description="Sign in to your PFS Filters account to manage orders, track memberships, and access exclusive discounts."
+        canonical="https://pfsfilters.com/auth"
         noIndex
       />
       <Navigation />
@@ -85,7 +85,7 @@ export default function Auth() {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 mb-4">
               <Filter className="h-8 w-8 text-primary" />
-              <span className="text-2xl font-bold">ABC Filters</span>
+              <span className="text-2xl font-bold">PFS Filters</span>
             </div>
             <p className="text-muted-foreground">Sign in to your account or create a new one</p>
           </div>

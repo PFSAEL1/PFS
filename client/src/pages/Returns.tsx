@@ -7,8 +7,8 @@ import { AlertCircle, Package, XCircle, Mail, Phone } from 'lucide-react';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://abcfilters.net' },
-  { name: 'Returns & Refunds', url: 'https://abcfilters.net/returns' },
+  { name: 'Home', url: 'https://pfsfilters.com' },
+  { name: 'Returns & Refunds', url: 'https://pfsfilters.com/returns' },
 ]);
 
 export default function Returns() {
@@ -17,7 +17,7 @@ export default function Returns() {
       <SEO
         title="Returns & Refunds Policy"
         description="Review our returns and refunds policy. Returns accepted within 10 days with 30% restocking fee. Learn about eligibility, non-refundable items, and refund processing."
-        canonical="https://abcfilters.net/returns"
+        canonical="https://pfsfilters.com/returns"
         structuredData={breadcrumbSchema}
       />
       <Navigation />
@@ -86,8 +86,8 @@ export default function Returns() {
             <CardContent className="space-y-4">
               <p>To start a return, contact us within 10 days of your purchase:</p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="mailto:orders@abcfilters.net" className="flex items-center gap-2 text-primary hover:underline">
-                  <Mail className="h-4 w-4" /> orders@abcfilters.net
+                <a href="mailto:orders@pfsfilters.com" className="flex items-center gap-2 text-primary hover:underline">
+                  <Mail className="h-4 w-4" /> orders@pfsfilters.com
                 </a>
                 <a href="tel:1-888-545-7715" className="flex items-center gap-2 text-primary hover:underline">
                   <Phone className="h-4 w-4" /> 1-888-545-7715

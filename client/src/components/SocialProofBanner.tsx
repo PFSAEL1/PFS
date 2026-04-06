@@ -2,8 +2,8 @@ import { Users, Package, Clock } from 'lucide-react';
 
 export const SocialProofBanner = () => {
   return (
-    <div className="bg-primary text-primary-foreground py-3 px-4">
-      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-6 text-sm font-medium">
+    <div className="bg-[#0a0a0a] border-b border-white/8 py-3 px-4">
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-white/60">
         <div className="flex items-center gap-2">
           <Users className="h-4 w-4" />
           <span>1,200+ shops served nationwide</span>

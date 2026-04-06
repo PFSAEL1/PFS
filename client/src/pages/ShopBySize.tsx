@@ -9,8 +9,8 @@ import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Ruler, ArrowRight } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://abcfilters.net' },
-  { name: 'Shop by Size', url: 'https://abcfilters.net/shop-by-size' },
+  { name: 'Home', url: 'https://pfsfilters.com' },
+  { name: 'Shop by Size', url: 'https://pfsfilters.com/shop-by-size' },
 ]);
 
 const sizes = [
@@ -33,7 +33,7 @@ export default function ShopBySize() {
       <SEO
         title="Shop Paint Booth Filters by Size - 20x20, 20x25, Custom Cuts"
         description="Find the right paint booth filter by size. We stock 20x20, 20x25, 24x24, 25x25 and many more standard sizes. Custom-cut filters available for any booth configuration."
-        canonical="https://abcfilters.net/shop-by-size"
+        canonical="https://pfsfilters.com/shop-by-size"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

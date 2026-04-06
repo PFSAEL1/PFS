@@ -9,8 +9,8 @@ import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Sparkles, Camera, Search, ShoppingCart, Crown, ArrowRight } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://abcfilters.net' },
-  { name: 'AI Filter Scanner', url: 'https://abcfilters.net/filter-scanner' },
+  { name: 'Home', url: 'https://pfsfilters.com' },
+  { name: 'AI Filter Scanner', url: 'https://pfsfilters.com/filter-scanner' },
 ]);
 
 export default function FilterScanner() {
@@ -19,7 +19,7 @@ export default function FilterScanner() {
       <SEO
         title="AI Filter Scanner - Identify & Reorder Paint Booth Filters Instantly"
         description="Use our AI-powered filter scanner to photograph your existing paint booth filters and instantly identify them for reordering. Available with Gold and Platinum memberships."
-        canonical="https://abcfilters.net/filter-scanner"
+        canonical="https://pfsfilters.com/filter-scanner"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

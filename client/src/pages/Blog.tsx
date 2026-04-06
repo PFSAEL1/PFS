@@ -10,24 +10,24 @@ import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Clock, User, ArrowRight } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://abcfilters.net' },
-  { name: 'Blog', url: 'https://abcfilters.net/blog' },
+  { name: 'Home', url: 'https://pfsfilters.com' },
+  { name: 'Blog', url: 'https://pfsfilters.com/blog' },
 ]);
 
 const blogListSchema = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
-  name: 'ABC Filters Spray Booth Blog',
+  name: 'PFS Filters Spray Booth Blog',
   description: 'Expert insights on spray booth maintenance, filter selection, and industry best practices',
-  url: 'https://abcfilters.net/blog',
+  url: 'https://pfsfilters.com/blog',
   blogPost: blogPosts.map((post) => ({
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt,
-    url: `https://abcfilters.net/blog/${post.slug}`,
+    url: `https://pfsfilters.com/blog/${post.slug}`,
     datePublished: post.date,
     author: { '@type': 'Person', name: post.author },
-    publisher: { '@type': 'Organization', name: 'ABC Filters by PFS' },
+    publisher: { '@type': 'Organization', name: 'PFS Filters' },
   })),
 };
 
@@ -37,7 +37,7 @@ export default function Blog() {
       <SEO
         title="Spray Booth Maintenance & Filter Guide - Expert Tips & How-To"
         description="Expert advice on paint booth filters, maintenance schedules, filter selection, and troubleshooting. Learn from industry professionals with 20+ years experience."
-        canonical="https://abcfilters.net/blog"
+        canonical="https://pfsfilters.com/blog"
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, blogListSchema] }}
       />
       <Navigation />
