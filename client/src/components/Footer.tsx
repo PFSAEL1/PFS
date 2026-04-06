@@ -2,7 +2,7 @@
 import { Link } from 'wouter';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
-const LOGO_URL = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo_4f24cc3e.png';
+const LOGO_URL = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo-transparent_e33888bf.png';
 
 export const Footer = () => {
   return (
@@ -14,7 +14,6 @@ export const Footer = () => {
               src={LOGO_URL}
               alt="PFS Filters"
               className="h-10 w-auto mb-4"
-              style={{ filter: 'brightness(0) invert(1)' }}
             />
             <p className="text-white/40 text-sm leading-relaxed">
               A proud division of PFS Spray Booths, providing premium paint booth filtration solutions for automotive, industrial, and woodworking applications.

@@ -11,7 +11,7 @@ import { useCartStore } from '@/stores/cartStore';
 import { supabase } from '@/lib/supabase';
 import { CartDrawer } from './CartDrawer';
 
-const LOGO_URL = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo_4f24cc3e.png';
+const LOGO_URL = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo-transparent_e33888bf.png';
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,7 +77,6 @@ export const Navigation = () => {
                 src={LOGO_URL}
                 alt="PFS Filters"
                 className="h-16 w-auto"
-                style={{ filter: 'brightness(0) invert(1)' }}
               />
             </Link>
 
