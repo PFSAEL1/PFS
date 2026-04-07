@@ -98,9 +98,10 @@ export const PopularProducts = () => {
         </div>
       ) : products.length === 0 ? null : (
         <>
+          <div className="max-w-7xl mx-auto px-4">
           <div
             ref={sliderRef}
-            className="flex gap-4 overflow-x-auto scrollbar-hide px-4 md:px-[calc((100vw-80rem)/2+1rem)] pb-2 snap-x snap-mandatory"
+            className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 snap-x snap-mandatory"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {products.map((product) => {
@@ -174,6 +175,8 @@ export const PopularProducts = () => {
               </Link>
             </div>
           </div>
+
+          </div>{/* close max-w-7xl wrapper */}
 
           {/* Mobile "View All" link */}
           <div className="px-4 mt-4 md:hidden">
