@@ -31,3 +31,9 @@
 ## Bug Fixes (Apr 11, 2026)
 - [x] Fix WhyChooseUs page blue heading on live Vercel build (was old GitHub commit; pushed all heading fixes to GitHub)
 - [x] Update all page titles/OG tags from "ABC Filters by PFS" to "PFS Filters" (iOS share sheet fix — pushed to GitHub/Vercel)
+
+## Favicon & Social Preview (Apr 11, 2026)
+- [x] Create favicon.ico and favicon.png from PFS logo
+- [x] Create Apple touch icon (180x180) for iPhone home screen
+- [x] Generate Open Graph preview image (1200x630) with PFS branding for rich link previews
+- [x] Upload all assets to CDN and wire up meta tags in index.html
