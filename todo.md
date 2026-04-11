@@ -29,6 +29,5 @@
 - [x] pfsfilters.com domain added to Vercel, DNS configured
 
 ## Bug Fixes (Apr 11, 2026)
-- [ ] Fix WhyChooseUs page — still showing blue gradient text on headings
-- [ ] Fix WhyChooseUs page blue heading on live Vercel build
-- [ ] Update all page titles/OG tags from "ABC Filters by PFS" to "PFS Filters" (iOS share sheet fix)
+- [x] Fix WhyChooseUs page blue heading on live Vercel build (was old GitHub commit; pushed all heading fixes to GitHub)
+- [x] Update all page titles/OG tags from "ABC Filters by PFS" to "PFS Filters" (iOS share sheet fix — pushed to GitHub/Vercel)
