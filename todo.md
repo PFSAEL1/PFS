@@ -12,7 +12,7 @@
 - [x] Add global `pfs-heading-animate`, `pfs-sub-animate`, `pfs-grid-animate` CSS animation classes
 
 ## Domain (In Progress)
-- [ ] Verify pfsfilters.com and www.pfsfilters.com both show Valid Configuration in Vercel
+- [x] Verify pfsfilters.com and www.pfsfilters.com both show Valid Configuration in Vercel (site is live; Vercel recommends updating A record to 216.198.79.1 but old IP still works)
 
 ## Welcome Email Automation (Not Started)
 - [ ] Set up Resend email service
@@ -27,3 +27,8 @@
 - [x] Welcome email template built with real PFS logo
 - [x] New Shopify Admin API token created and saved to Supabase
 - [x] pfsfilters.com domain added to Vercel, DNS configured
+
+## Bug Fixes (Apr 11, 2026)
+- [ ] Fix WhyChooseUs page — still showing blue gradient text on headings
+- [ ] Fix WhyChooseUs page blue heading on live Vercel build
+- [ ] Update all page titles/OG tags from "ABC Filters by PFS" to "PFS Filters" (iOS share sheet fix)
