@@ -8,6 +8,8 @@ export interface ShopifyProduct {
     title: string;
     handle: string;
     description: string;
+    productType: string;
+    tags: string[];
     priceRange: {
       minVariantPrice: {
         amount: string;
@@ -57,6 +59,57 @@ export interface CartItem {
   handle: string;
 }
 
+// Category slug → Shopify collection handle mapping
+export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string; title: string; description: string; position: string }> = {
+  'fiberglass-arrestors': {
+    collectionHandle: 'fiberglass-paint-arrestors',
+    title: 'Fiberglass Paint Arrestors',
+    description: 'Progressive-density glass fiber media captures overspray before it exits the booth. The industry standard for exhaust filtration.',
+    position: 'EXHAUST',
+  },
+  'tacky-panels': {
+    collectionHandle: 'tacky-panel-filters',
+    title: 'Tacky Panel Filters',
+    description: 'Adhesive-coated panels trap dust, debris, and airborne particles at the intake. Keeps contaminants out of your booth.',
+    position: 'INTAKE',
+  },
+  'ceiling-blankets': {
+    collectionHandle: 'ceiling-blankets',
+    title: 'Ceiling Blankets',
+    description: 'Overhead intake filtration for downdraft and semi-downdraft booths. Ensures clean, even airflow from ceiling to floor.',
+    position: 'INTAKE',
+  },
+  'roll-media': {
+    collectionHandle: 'roll-media',
+    title: 'Roll Media',
+    description: 'Continuous roll filtration cut to any length for any booth configuration. Available in multiple densities for both intake and exhaust.',
+    position: 'INTAKE / EXHAUST',
+  },
+  'merv-filters': {
+    collectionHandle: 'merv-rated-filters',
+    title: 'MERV-Rated Filters',
+    description: 'High-efficiency filters rated by MERV standard for precise particle capture. MERV-10 and MERV-13 options for industrial operations.',
+    position: 'INTAKE',
+  },
+  'polyester-media': {
+    collectionHandle: 'polyester-media',
+    title: 'Polyester Media',
+    description: 'Durable synthetic filtration media with excellent moisture resistance. Ideal for high-humidity environments and water-based coatings.',
+    position: 'EXHAUST',
+  },
+};
+
+// Tag-based fallback mapping when collections don't exist
+// Maps category slug → keywords to match against product tags, type, and title
+export const CATEGORY_TAG_MAP: Record<string, string[]> = {
+  'fiberglass-arrestors': ['fiberglass', 'paint arrestor', 'arrestor', 'exhaust filter'],
+  'tacky-panels': ['tacky', 'tacky panel', 'panel filter'],
+  'ceiling-blankets': ['ceiling', 'ceiling blanket', 'blanket'],
+  'roll-media': ['roll', 'roll media', 'media roll'],
+  'merv-filters': ['merv', 'merv-10', 'merv-13', 'merv10', 'merv13'],
+  'polyester-media': ['polyester', 'synthetic media'],
+};
+
 const SHOPIFY_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN || 'abc-filter-splash-rwyxj.myshopify.com';
 const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || '5e357a0ae8e9906edb44ef570a4ed219';
 
@@ -68,7 +121,7 @@ async function storefrontApiRequest(query: string, variables?: Record<string, un
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
 
       const response = await fetch(url, {
         method: 'POST',
@@ -79,9 +132,7 @@ async function storefrontApiRequest(query: string, variables?: Record<string, un
         },
         body: JSON.stringify({ query, variables }),
         signal: controller.signal,
-        // Safari compatibility: ensure credentials are not sent cross-origin
         credentials: 'omit',
-        // Safari compatibility: explicit mode
         mode: 'cors',
       });
 
@@ -99,7 +150,6 @@ async function storefrontApiRequest(query: string, variables?: Record<string, un
       }
     } catch (err) {
       lastError = err instanceof Error ? err : new Error(String(err));
-      // Wait before retry (exponential backoff)
       if (attempt < maxRetries - 1) {
         await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
       }
@@ -109,49 +159,72 @@ async function storefrontApiRequest(query: string, variables?: Record<string, un
   throw lastError || new Error('Failed to fetch from Shopify after retries');
 }
 
+const PRODUCT_FIELDS = `
+  id
+  title
+  handle
+  description
+  productType
+  tags
+  priceRange {
+    minVariantPrice {
+      amount
+      currencyCode
+    }
+  }
+  images(first: 3) {
+    edges {
+      node {
+        url
+        altText
+      }
+    }
+  }
+  variants(first: 10) {
+    edges {
+      node {
+        id
+        title
+        price {
+          amount
+          currencyCode
+        }
+        availableForSale
+        selectedOptions {
+          name
+          value
+        }
+      }
+    }
+  }
+  options {
+    name
+    values
+  }
+`;
+
 const GET_PRODUCTS_QUERY = `
   query GetProducts($first: Int!) {
     products(first: $first) {
       edges {
         node {
-          id
-          title
-          handle
-          description
-          priceRange {
-            minVariantPrice {
-              amount
-              currencyCode
-            }
-          }
-          images(first: 3) {
-            edges {
-              node {
-                url
-                altText
-              }
-            }
-          }
-          variants(first: 10) {
-            edges {
-              node {
-                id
-                title
-                price {
-                  amount
-                  currencyCode
-                }
-                availableForSale
-                selectedOptions {
-                  name
-                  value
-                }
-              }
-            }
-          }
-          options {
-            name
-            values
+          ${PRODUCT_FIELDS}
+        }
+      }
+    }
+  }
+`;
+
+const GET_COLLECTION_PRODUCTS_QUERY = `
+  query GetCollectionProducts($handle: String!, $first: Int!) {
+    collectionByHandle(handle: $handle) {
+      id
+      title
+      description
+      products(first: $first) {
+        edges {
+          node {
+            ${PRODUCT_FIELDS}
           }
         }
       }
@@ -166,6 +239,8 @@ const GET_PRODUCT_BY_HANDLE_QUERY = `
       title
       description
       handle
+      productType
+      tags
       priceRange {
         minVariantPrice {
           amount
@@ -242,6 +317,53 @@ const CART_CREATE_MUTATION = `
 export async function fetchProducts(limit = 50): Promise<ShopifyProduct[]> {
   const data = await storefrontApiRequest(GET_PRODUCTS_QUERY, { first: limit });
   return data?.data?.products?.edges || [];
+}
+
+/**
+ * Fetch products by category slug.
+ * First tries to fetch from a Shopify collection (by collection handle).
+ * If the collection doesn't exist or returns no products, falls back to
+ * tag/title/productType-based filtering on all products.
+ */
+export async function fetchProductsByCategory(categorySlug: string, limit = 50): Promise<ShopifyProduct[]> {
+  const categoryInfo = CATEGORY_COLLECTION_MAP[categorySlug];
+
+  if (categoryInfo) {
+    // Try collection-based fetch first
+    try {
+      const data = await storefrontApiRequest(GET_COLLECTION_PRODUCTS_QUERY, {
+        handle: categoryInfo.collectionHandle,
+        first: limit,
+      });
+      const products = data?.data?.collectionByHandle?.products?.edges;
+      if (products && products.length > 0) {
+        return products;
+      }
+    } catch {
+      // Fall through to tag-based filtering
+    }
+  }
+
+  // Fallback: fetch all products and filter by tags/productType/title
+  const allProducts = await fetchProducts(250);
+  const tags = CATEGORY_TAG_MAP[categorySlug] || [];
+
+  if (tags.length === 0) {
+    return allProducts;
+  }
+
+  return allProducts.filter((product) => {
+    const productTags = (product.node.tags || []).map((t: string) => t.toLowerCase());
+    const productType = (product.node.productType || '').toLowerCase();
+    const productTitle = product.node.title.toLowerCase();
+
+    return tags.some((tag) => {
+      const t = tag.toLowerCase();
+      return productTags.some(pt => pt.includes(t)) ||
+        productType.includes(t) ||
+        productTitle.includes(t);
+    });
+  });
 }
 
 export async function fetchProductByHandle(handle: string) {

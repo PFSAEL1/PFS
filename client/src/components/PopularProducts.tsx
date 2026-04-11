@@ -60,7 +60,7 @@ export const PopularProducts = () => {
       <div className="px-4 max-w-7xl mx-auto flex items-end justify-between mb-8">
         <div>
           <p className="text-[#4d9fff] text-xs font-semibold uppercase tracking-[0.2em] mb-2">Best Sellers</p>
-          <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-white pfs-heading-animate">
             Popular Products
           </h2>
           <p className="text-white/30 text-sm mt-1">Trusted by 1,200+ body shops nationwide</p>

@@ -57,7 +57,7 @@ export default function Brands() {
             <Award className="h-3.5 w-3.5 text-white/50" />
             <span className="text-xs font-semibold text-white/60 uppercase tracking-wider">Trusted Brands</span>
           </div>
-          <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Filter Brands We Carry</h1>
+          <h1 className="text-5xl font-extrabold mb-4 text-white pfs-heading-animate">Filter Brands We Carry</h1>
           <p className="text-xl text-white/50 max-w-2xl">
             We partner with industry-leading manufacturers to bring you the best paint booth filtration products available.
           </p>

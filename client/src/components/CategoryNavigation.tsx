@@ -47,7 +47,7 @@ export const CategoryNavigation = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <div className="section-label" style={{display:'inline-flex',marginBottom:'1rem'}}><span>Browse</span></div>
-          <h2 className="text-3xl md:text-4xl font-black bg-gradient-to-r from-white via-white/90 to-white/60 bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-black text-white pfs-heading-animate">
             Shop by Category
           </h2>
           <p className="text-white/40 mt-2 text-sm">Find the right filter for your specific application</p>

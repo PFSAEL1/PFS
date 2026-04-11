@@ -31,7 +31,7 @@ export default function FilterScanner() {
             <Sparkles className="h-4 w-4 text-blue-400" />
             <span className="text-sm font-semibold text-blue-400">AI-Powered</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-white pfs-heading-animate">
             Filter Scanner
           </h1>
           <p className="text-xl text-white/50 max-w-2xl mx-auto">

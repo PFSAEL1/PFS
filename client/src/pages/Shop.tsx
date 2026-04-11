@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { useLocation } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
@@ -12,6 +14,16 @@ const breadcrumbSchema = createBreadcrumbSchema([
 ]);
 
 export default function Shop() {
+  const [location] = useLocation();
+  const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
+  const [sizeFilter, setSizeFilter] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setCategoryFilter(params.get('category'));
+    setSizeFilter(params.get('size'));
+  }, [location]);
+
   return (
     <div className="min-h-screen bg-[#080808] text-white">
       <SEO
@@ -24,22 +36,14 @@ export default function Shop() {
       <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
         <Breadcrumb items={[{ label: 'Shop' }]} />
         <div className="text-center mb-10">
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4">
-            <span
-              className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
-              style={{
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Shop Paint Booth Filters
-            </span>
+          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-white">
+            Shop Paint Booth Filters
           </h1>
           <p className="text-lg text-white/50 max-w-3xl mx-auto">
             Premium <strong>spray booth filters</strong> and <strong>paint arrestors</strong> engineered for superior overspray capture. All products tested, quality assured, and shipped fast nationwide.
           </p>
         </div>
-        <ShopifyProducts />
+        <ShopifyProducts categoryFilter={categoryFilter} sizeFilter={sizeFilter} />
 
         {/* SEO content block */}
         <div className="max-w-4xl mx-auto glow-card p-8 mt-12">

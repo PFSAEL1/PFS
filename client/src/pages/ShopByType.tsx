@@ -81,7 +81,7 @@ export default function ShopByType() {
         {/* Header */}
         <div className="mb-14">
           <p className="text-[#4d9fff] text-xs font-semibold uppercase tracking-[0.2em] mb-3">Filter Types</p>
-          <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-white via-white/95 to-white/50 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-extrabold mb-4 text-white pfs-heading-animate">
             Shop by Filter Type
           </h1>
           <p className="text-lg text-white/40 max-w-2xl">

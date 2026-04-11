@@ -50,16 +50,8 @@ export default function WhyChooseUs() {
       {/* Hero */}
       <section className="pb-20 px-4 bg-gradient-to-b from-background to-muted/30">
         <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">
-            <span
-              className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
-              style={{
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Why Choose PFS Filters?
-            </span>
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 text-white pfs-heading-animate">
+            Why Choose PFS Filters?
           </h1>
           <p className="text-xl text-white/50 max-w-3xl mx-auto">
             Premium <strong>spray booth filtration solutions</strong> backed by decades of PFS expertise, delivering superior air quality and finish protection.
@@ -104,7 +96,7 @@ export default function WhyChooseUs() {
       {/* CTA */}
       <section className="py-16 px-4 bg-white/3 border-y border-white/8 text-center">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Ready to Upgrade Your Filtration?</h2>
+          <h2 className="text-3xl font-bold mb-4 text-white pfs-heading-animate">Ready to Upgrade Your Filtration?</h2>
           <p className="text-white/60 mb-8">
             Join 1,000+ shops that trust PFS Filters for their spray booth filtration needs.
           </p>

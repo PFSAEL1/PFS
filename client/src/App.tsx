@@ -25,11 +25,12 @@ import FilterCompatibility from './pages/FilterCompatibility';
 import Brands from './pages/Brands';
 import SubmitReview from './pages/SubmitReview';
 import FilterDatabase from './pages/FilterDatabase';
+import CategoryPage from './pages/CategoryPage';
 import NotFound from './pages/NotFound';
 
 // Light version pages (kept in codebase but not routed in production)
-
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       {/* Main pages */}
@@ -54,8 +55,8 @@ function Router() {
       <Route path="/filter-compatibility" component={FilterCompatibility} />
       <Route path="/brands" component={Brands} />
 
-      {/* Category pages — redirect to shop with filter */}
-      <Route path="/category/:slug" component={Shop} />
+      {/* Category pages — filtered by slug */}
+      <Route path="/category/:slug" component={CategoryPage} />
 
       {/* Features */}
       <Route path="/filter-scanner" component={FilterScanner} />

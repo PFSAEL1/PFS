@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'wouter';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ShoppingCart, Loader2, Package } from 'lucide-react';
@@ -10,7 +9,12 @@ import { toast } from 'sonner';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
-export const ShopifyProducts = () => {
+interface ShopifyProductsProps {
+  categoryFilter?: string | null;
+  sizeFilter?: string | null;
+}
+
+export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsProps = {}) => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,16 +22,40 @@ export const ShopifyProducts = () => {
   const setCartOpen = useCartStore((s) => s.setCartOpen);
 
   useEffect(() => {
+    setLoading(true);
     fetchProducts(50)
       .then((data) => {
-        setProducts(data.filter((p) => !p.node.title.toLowerCase().includes('membership')));
+        let filtered = data.filter((p) => !p.node.title.toLowerCase().includes('membership'));
+
+        if (categoryFilter) {
+          const cat = categoryFilter.toLowerCase();
+          filtered = filtered.filter((p) => {
+            const tags = (p.node.tags || []).map((t: string) => t.toLowerCase());
+            const type = (p.node.productType || '').toLowerCase();
+            const title = p.node.title.toLowerCase();
+            return tags.some(t => t.includes(cat)) || type.includes(cat) || title.includes(cat);
+          });
+        }
+
+        if (sizeFilter) {
+          const size = sizeFilter.toLowerCase().replace(/\s+/g, '');
+          filtered = filtered.filter((p) => {
+            const title = p.node.title.toLowerCase().replace(/\s+/g, '');
+            const variants = p.node.variants.edges.map(v =>
+              v.node.title.toLowerCase().replace(/\s+/g, '')
+            );
+            return title.includes(size) || variants.some(v => v.includes(size));
+          });
+        }
+
+        setProducts(filtered);
         setLoading(false);
       })
       .catch(() => {
         setError('Failed to load products. Please try again.');
         setLoading(false);
       });
-  }, []);
+  }, [categoryFilter, sizeFilter]);
 
   const handleAddToCart = (product: ShopifyProduct) => {
     const variant = product.node.variants.edges[0]?.node;
@@ -59,6 +87,15 @@ export const ShopifyProducts = () => {
       <div className="text-center py-12 text-white/50">
         <Package className="h-12 w-12 mx-auto mb-3 opacity-30" />
         <p>{error}</p>
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className="text-center py-12 text-white/50">
+        <Package className="h-12 w-12 mx-auto mb-3 opacity-30" />
+        <p>No products found{categoryFilter ? ` for "${categoryFilter}"` : ''}{sizeFilter ? ` in size "${sizeFilter}"` : ''}.</p>
       </div>
     );
   }

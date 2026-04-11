@@ -57,7 +57,7 @@ export default function ProductDetail() {
         <Navigation />
         <div className="container mx-auto px-4 pt-32 pb-16 text-center">
           <Package className="h-16 w-16 mx-auto mb-4 text-white/50 opacity-30" />
-          <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Product Not Found</h1>
+          <h1 className="text-3xl font-bold mb-4 text-white pfs-heading-animate">Product Not Found</h1>
           <Link href="/shop"><Button>Browse All Products</Button></Link>
         </div>
         <Footer />

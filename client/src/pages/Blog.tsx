@@ -44,7 +44,7 @@ export default function Blog() {
       <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
         <Breadcrumb items={[{ label: 'Blog' }]} />
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Spray Booth Knowledge Center</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white pfs-heading-animate">Spray Booth Knowledge Center</h1>
           <p className="text-xl text-white/50 max-w-3xl mx-auto">
             Expert guides, maintenance tips, and industry insights from the PFS Spray Booths team
           </p>

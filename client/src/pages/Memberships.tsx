@@ -102,7 +102,7 @@ export default function Memberships() {
             <Crown className="h-3.5 w-3.5 text-blue-400" />
             <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Membership Plans</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-white pfs-heading-animate">
             Save More, Order Smarter
           </h1>
           <p className="text-xl text-white/50">

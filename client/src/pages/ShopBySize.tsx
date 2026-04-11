@@ -44,7 +44,7 @@ export default function ShopBySize() {
             <Ruler className="h-3.5 w-3.5 text-white/80" />
             <span className="text-xs font-semibold text-white/80 uppercase tracking-wider">Filter Sizes</span>
           </div>
-          <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-white via-white/90 to-white/50 bg-clip-text text-transparent">Find Your Filter Size</h1>
+          <h1 className="text-5xl font-extrabold mb-4 text-white pfs-heading-animate">Find Your Filter Size</h1>
           <p className="text-xl text-white/50 max-w-2xl">
             Select your filter dimensions to find the right product. Can't find your size? We cut custom filters to spec.
           </p>

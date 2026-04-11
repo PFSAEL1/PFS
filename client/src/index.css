@@ -528,3 +528,44 @@
   color: rgba(255,255,255,0.4);
   cursor: not-allowed;
 }
+
+/* ============================================================
+   PFS Filters — Tesla-Style Heading Animations
+   Clean white headings with smooth fade-up entrance
+   ============================================================ */
+
+@keyframes pfs-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pfs-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Main page heading — fade up on mount */
+.pfs-heading-animate {
+  animation: pfs-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Sub-heading or description — slightly delayed fade up */
+.pfs-sub-animate {
+  animation: pfs-fade-up 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Grid or content block — fade in after heading */
+.pfs-grid-animate {
+  animation: pfs-fade-in 0.5s 0.2s ease both;
+}
+
+/* Eyebrow label above heading */
+.pfs-eyebrow-animate {
+  animation: pfs-fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
