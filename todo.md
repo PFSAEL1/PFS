@@ -37,3 +37,6 @@
 - [x] Create Apple touch icon (180x180) for iPhone home screen
 - [x] Generate Open Graph preview image (1200x630) with PFS branding for rich link previews
 - [x] Upload all assets to CDN and wire up meta tags in index.html
+
+## Video Fix (Apr 11, 2026)
+- [x] Remove play button / controls from hero video — should autoplay, loop, muted, no controls
