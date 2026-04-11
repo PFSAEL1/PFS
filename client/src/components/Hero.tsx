@@ -1,5 +1,6 @@
 // Hero — PFS Filters Dark Theme
 // Full-bleed looping video hero, left-aligned text, electric blue CTAs
+import { useEffect, useRef } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Mail, ShoppingBag, Truck, Shield, Star } from 'lucide-react';
@@ -17,6 +18,18 @@ const HERO_POSTER = [
 ].join('');
 
 export const Hero = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    // Force play on mount — handles iOS Safari which may block autoplay
+    video.muted = true;
+    video.play().catch(() => {
+      // Silently ignore if browser blocks autoplay (rare with muted + playsInline)
+    });
+  }, []);
+
   const scrollToContact = () => {
     const element = document.getElementById('contact');
     element?.scrollIntoView({ behavior: 'smooth' });
@@ -31,6 +44,7 @@ export const Hero = () => {
         {/* Full-bleed looping video background */}
         <div className="absolute inset-0 z-0">
           <video
+            ref={videoRef}
             className="absolute inset-0 w-full h-full object-cover"
             src={HERO_VIDEO}
             poster={HERO_POSTER}
@@ -38,7 +52,10 @@ export const Hero = () => {
             muted
             loop
             playsInline
+            controls={false}
             preload="auto"
+            disablePictureInPicture
+            style={{ pointerEvents: 'none' }}
           />
           {/* Gradient overlay: strong on left for text readability, fades right */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />

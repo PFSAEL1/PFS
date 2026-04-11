@@ -569,3 +569,18 @@
 .pfs-eyebrow-animate {
   animation: pfs-fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+/* ── Hero video: suppress browser/iOS play button overlay ─────────────────── */
+video::-webkit-media-controls,
+video::-webkit-media-controls-enclosure,
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-start-playback-button,
+video::-internal-media-controls-button-panel,
+video::-internal-media-controls-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
