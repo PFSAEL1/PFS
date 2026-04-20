@@ -40,3 +40,11 @@
 
 ## Video Fix (Apr 11, 2026)
 - [x] Remove play button / controls from hero video — should autoplay, loop, muted, no controls
+
+## SEO Fixes (Apr 20, 2026)
+- [x] Fix sitemap.xml — change all URLs from abcfilters.net to pfsfilters.com
+- [x] Add category pages to sitemap (fiberglass-arrestors, tacky-panels, intake-filters, exhaust-filters, ceiling-blankets, roll-media)
+- [x] Add lastmod dates to all sitemap entries
+- [x] Fix robots.txt — change sitemap URL from abcfilters.net to pfsfilters.com
+- [x] Add sameAs social links to Organization schema in structuredData.ts
+- [x] Handle blog pages in sitemap (blog pages are fully built with real content — kept in sitemap)
