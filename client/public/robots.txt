@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://abcfilters.net/sitemap.xml
+# Disallow internal/auth pages from being indexed
+Disallow: /auth
+Disallow: /filter-database
+Disallow: /admin
+
+Sitemap: https://pfsfilters.com/sitemap.xml

@@ -1,82 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core pages -->
   <url>
-    <loc>https://abcfilters.net/</loc>
+    <loc>https://pfsfilters.com/</loc>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://abcfilters.net/shop</loc>
+    <loc>https://pfsfilters.com/shop</loc>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
+  <!-- Shop by Type -->
   <url>
-    <loc>https://abcfilters.net/shop-by-size</loc>
+    <loc>https://pfsfilters.com/shop-by-type</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Category pages — high-value keyword landing pages -->
+  <url>
+    <loc>https://pfsfilters.com/category/fiberglass-arrestors</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pfsfilters.com/category/tacky-panels</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pfsfilters.com/category/intake-filters</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pfsfilters.com/category/exhaust-filters</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pfsfilters.com/category/ceiling-blankets</loc>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://abcfilters.net/shop-by-type</loc>
+    <loc>https://pfsfilters.com/category/roll-media</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Shop by Size -->
+  <url>
+    <loc>https://pfsfilters.com/shop-by-size</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Filter Compatibility and Brands -->
+  <url>
+    <loc>https://pfsfilters.com/filter-compatibility</loc>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://abcfilters.net/filter-compatibility</loc>
+    <loc>https://pfsfilters.com/brands</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Trust and conversion pages -->
+  <url>
+    <loc>https://pfsfilters.com/why-choose-us</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pfsfilters.com/memberships</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pfsfilters.com/filter-scanner</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Blog -->
+  <url>
+    <loc>https://pfsfilters.com/blog</loc>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://abcfilters.net/brands</loc>
+    <loc>https://pfsfilters.com/blog/how-often-change-paint-booth-filters</loc>
+    <lastmod>2024-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://abcfilters.net/why-choose-us</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://abcfilters.net/memberships</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://abcfilters.net/blog</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://abcfilters.net/blog/how-often-change-paint-booth-filters</loc>
+    <loc>https://pfsfilters.com/blog/fiberglass-vs-tacky-panel-filters</loc>
+    <lastmod>2024-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://abcfilters.net/blog/fiberglass-vs-tacky-panel-filters</loc>
+    <loc>https://pfsfilters.com/blog/paint-booth-maintenance-checklist</loc>
+    <lastmod>2024-08-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Contact and support -->
+  <url>
+    <loc>https://pfsfilters.com/contact</loc>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://abcfilters.net/blog/paint-booth-maintenance-checklist</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://abcfilters.net/filter-scanner</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://abcfilters.net/contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://abcfilters.net/returns</loc>
+    <loc>https://pfsfilters.com/returns</loc>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://abcfilters.net/privacy-policy</loc>
+    <loc>https://pfsfilters.com/privacy-policy</loc>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

@@ -23,7 +23,12 @@ export const organizationSchema = {
     "addressRegion": "CA",
     "addressCountry": "US",
   },
-  "sameAs": [],
+  "sameAs": [
+    "https://www.pfsspraybooths.com",
+    "https://www.facebook.com/PFSSprayBooths",
+    "https://www.instagram.com/pfsspraybooths",
+    "https://www.youtube.com/@pfsspraybooths"
+  ],
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
