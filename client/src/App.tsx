@@ -1,4 +1,5 @@
 import { Toaster } from '@/components/ui/sonner';
+import { ScrollToTop } from '@/components/ScrollToTop';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, Switch } from 'wouter';
@@ -32,7 +33,9 @@ import NotFound from './pages/NotFound';
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
-    <Switch>
+    <>
+      <ScrollToTop />
+      <Switch>
       {/* Main pages */}
       <Route path="/" component={Home} />
       <Route path="/shop" component={Shop} />
@@ -68,7 +71,8 @@ function Router() {
       <Route path="/filter-database" component={FilterDatabase} />
       {/* 404 */}
       <Route component={NotFound} />
-    </Switch>
+      </Switch>
+    </>
   );
 }
 
