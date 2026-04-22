@@ -48,3 +48,6 @@
 - [x] Fix robots.txt — change sitemap URL from abcfilters.net to pfsfilters.com
 - [x] Add sameAs social links to Organization schema in structuredData.ts
 - [x] Handle blog pages in sitemap (blog pages are fully built with real content — kept in sitemap)
+
+## Content Updates (Apr 22, 2026)
+- [x] Update phone number to 855-496-7969 across all files
