@@ -14,7 +14,7 @@ export const organizationSchema = {
     "@type": "ContactPoint",
     "contactType": "Customer Service",
     "email": "orders@pfsfilters.com",
-    "telephone": "1-888-545-7715",
+    "telephone": "855-496-7969",
     "availableLanguage": ["English"],
   },
   "address": {

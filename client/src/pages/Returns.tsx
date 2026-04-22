@@ -89,8 +89,8 @@ export default function Returns() {
                 <a href="mailto:orders@pfsfilters.com" className="flex items-center gap-2 text-blue-400 hover:underline">
                   <Mail className="h-4 w-4" /> orders@pfsfilters.com
                 </a>
-                <a href="tel:1-888-545-7715" className="flex items-center gap-2 text-blue-400 hover:underline">
-                  <Phone className="h-4 w-4" /> 1-888-545-7715
+                <a href="tel:855-496-7969" className="flex items-center gap-2 text-blue-400 hover:underline">
+                  <Phone className="h-4 w-4" /> 855-496-7969
                 </a>
               </div>
               <p className="text-sm text-white/50">Please include your order number and reason for return in your message.</p>

@@ -386,7 +386,7 @@ export default function Home() {
                     <h4 className="font-bold">Phone</h4>
                   </div>
                   <p className="text-muted-foreground text-sm mb-1">Call us for immediate assistance</p>
-                  <a href="tel:1-888-545-7715" className="text-primary font-semibold hover:underline">1-888-545-7715</a>
+                  <a href="tel:855-496-7969" className="text-primary font-semibold hover:underline">855-496-7969</a>
                 </CardContent>
               </Card>
               <Card>

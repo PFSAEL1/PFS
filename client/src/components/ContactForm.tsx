@@ -59,7 +59,7 @@ export const ContactForm = () => {
               <h3 className="text-2xl font-bold mb-4">Contact Information</h3>
               <div className="space-y-4">
                 {[
-                  { icon: Phone, label: 'Phone', value: '1-888-545-7715', href: 'tel:1-888-545-7715' },
+                  { icon: Phone, label: 'Phone', value: '855-496-7969', href: 'tel:855-496-7969' },
                   { icon: Mail, label: 'Email', value: 'orders@pfsfilters.com', href: 'mailto:orders@pfsfilters.com' },
                   { icon: MapPin, label: 'Location', value: 'Santa Rosa, CA', href: null },
                 ].map(({ icon: Icon, label, value, href }) => (
