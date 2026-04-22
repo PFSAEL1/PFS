@@ -51,3 +51,5 @@
 
 ## Content Updates (Apr 22, 2026)
 - [x] Update phone number to 855-496-7969 across all files
+- [x] Verify orders@pfsfilters.com email is correct across all files (was orders@abcfilters.net on main branch — fixed)
+- [x] Fix WhyChooseUs blue gradient heading to clean white Tesla-style (fixed on main branch — was deploying old code)
