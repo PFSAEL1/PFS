@@ -27,6 +27,7 @@ import Brands from './pages/Brands';
 import SubmitReview from './pages/SubmitReview';
 import FilterDatabase from './pages/FilterDatabase';
 import CategoryPage from './pages/CategoryPage';
+import PaintBoothFilters from './pages/PaintBoothFilters';
 import NotFound from './pages/NotFound';
 
 // Light version pages (kept in codebase but not routed in production)
@@ -44,6 +45,9 @@ function Router() {
       {/* Blog */}
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogPost} />
+
+      {/* Landing pages */}
+      <Route path="/paint-booth-filters" component={PaintBoothFilters} />
 
       {/* Info pages */}
       <Route path="/contact" component={Contact} />

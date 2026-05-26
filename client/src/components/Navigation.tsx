@@ -124,6 +124,7 @@ export const Navigation = () => {
                 )}
               </div>
 
+              <Link href="/paint-booth-filters" className="px-3 py-2 text-sm font-semibold text-orange-500 hover:text-orange-300 transition-colors rounded-md hover:bg-white/5">Filters</Link>
               <Link href="/memberships" className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5">
                 Memberships
               </Link>
@@ -208,6 +209,7 @@ export const Navigation = () => {
           {/* Mobile menu */}
           {isOpen && (
             <div className="md:hidden border-t border-white/10 py-3 space-y-0.5 bg-black">
+              <Link href="/paint-booth-filters" className="block px-4 py-2.5 text-sm font-semibold text-orange-500 hover:text-orange-300 hover:bg-white/5 rounded-lg transition-colors">Shop Filters</Link>
               <Link href="/shop" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">All Products</Link>
               <Link href="/shop-by-type" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Type</Link>
               <Link href="/shop-by-size" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Size</Link>
