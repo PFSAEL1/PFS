@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
-import { MobileHeader } from '@/components/MobileHeader';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
+import { StickyMobileCTA } from '@/components/StickyMobileCTA';
 import { Button } from '@/components/ui/button';
 import { Phone, Truck, Package, ShieldCheck, RefreshCw, ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -89,7 +90,7 @@ export default function PaintBoothFilters() {
 
   return (
     <div className="min-h-screen">
-      <MobileHeader title="Paint Booth Filters" showBack={false} />
+      <Navigation />
       <SEO
         title="Paint Booth Filters — Every Brand, Every Size | Ships Fast | PFS Filters"
         description="Premium paint booth filters for every major brand — exhaust, intake, ceiling, and prefilters. 449 SKUs in stock. Ships fast nationwide from multiple US locations. Most standard filters ship same day. Subscribe and save 10%."
@@ -409,6 +410,9 @@ export default function PaintBoothFilters() {
           </div>
         </div>
       </section>
+
+      <StickyMobileCTA />
+      <Footer />
     </div>
   );
 }
