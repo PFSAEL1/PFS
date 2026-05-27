@@ -133,7 +133,7 @@ export default function PaintBoothFilters() {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://www.pfsfilters.com/paint-booth-filters" className="inline-block">
+            <a href="https://www.pfsfilters.com/shop" className="inline-block">
               <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold text-lg px-8 py-6 rounded-lg shadow-[0_0_30px_rgba(59,130,246,0.4)]">
                 Shop All Filters
               </Button>
@@ -225,7 +225,7 @@ export default function PaintBoothFilters() {
               <span className="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full mb-4 border border-blue-500/20">In stock</span>
               <h3 className="text-lg font-bold text-white mb-2">Exhaust Filters</h3>
               <p className="text-sm text-white/50 mb-4 leading-relaxed">Paint arrestors, fiberglass pads, polyester rolls, and paint pockets. Most critical maintenance item — replace every 50-100 spray hours.</p>
-              <a href="https://www.pfsfilters.com/paint-booth-filters" className="text-blue-400 font-semibold text-sm hover:text-blue-300 transition-colors">
+              <a href="https://www.pfsfilters.com/category/fiberglass-arrestors" className="text-blue-400 font-semibold text-sm hover:text-blue-300 transition-colors">
                 Shop Exhaust Filters →
               </a>
             </div>
@@ -233,27 +233,27 @@ export default function PaintBoothFilters() {
               <span className="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full mb-4 border border-blue-500/20">In stock</span>
               <h3 className="text-lg font-bold text-white mb-2">Intake Filters</h3>
               <p className="text-sm text-white/50 mb-4 leading-relaxed">Tackified panels, fiberglass blankets, and framed glass filters. Clean incoming air means a contamination-free finish on every job.</p>
-              <a href="https://www.pfsfilters.com/paint-booth-filters" className="text-blue-400 font-semibold text-sm hover:text-blue-300 transition-colors">
+              <a href="https://www.pfsfilters.com/category/tacky-panels" className="text-blue-400 font-semibold text-sm hover:text-blue-300 transition-colors">
                 Shop Intake Filters →
               </a>
             </div>
             <div className="glow-card p-6">
               <h3 className="text-lg font-bold text-white mb-2 mt-7">Ceiling Filters</h3>
               <p className="text-sm text-white/50 mb-4 leading-relaxed">Downdraft ceiling diffusion media for even laminar airflow from ceiling to floor. Essential for full downdraft booth performance.</p>
-              <a href="https://www.pfsfilters.com/paint-booth-filters" className="text-blue-400 font-semibold text-sm hover:text-blue-300 transition-colors">
+              <a href="https://www.pfsfilters.com/category/ceiling-blankets" className="text-blue-400 font-semibold text-sm hover:text-blue-300 transition-colors">
                 Shop Ceiling Filters →
               </a>
             </div>
             <div className="glow-card p-6">
               <h3 className="text-lg font-bold text-white mb-2 mt-7">Prefilters</h3>
               <p className="text-sm text-white/50 mb-4 leading-relaxed">Extend primary exhaust filter life by up to 50%. Highest return-on-investment maintenance upgrade available.</p>
-              <a href="https://www.pfsfilters.com/paint-booth-filters" className="text-blue-400 font-semibold text-sm hover:text-blue-300 transition-colors">
+              <a href="https://www.pfsfilters.com/shop-by-type" className="text-blue-400 font-semibold text-sm hover:text-blue-300 transition-colors">
                 Shop Prefilters →
               </a>
             </div>
           </div>
           <div className="text-center">
-            <a href="https://www.pfsfilters.com/paint-booth-filters">
+            <a href="https://www.pfsfilters.com/shop">
               <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-6 rounded-lg shadow-[0_0_30px_rgba(59,130,246,0.3)]">
                 Shop All Filters
               </Button>
@@ -297,7 +297,7 @@ export default function PaintBoothFilters() {
               </span>
             ))}
           </div>
-          <a href="https://www.pfsfilters.com/paint-booth-filters">
+          <a href="https://www.pfsfilters.com/memberships">
             <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold text-lg px-8 py-6 rounded-lg shadow-[0_0_30px_rgba(59,130,246,0.4)]">
               Set Up Subscribe & Save →
             </Button>
@@ -372,7 +372,7 @@ export default function PaintBoothFilters() {
             </ul>
           </div>
           <div className="text-center">
-            <a href="https://www.pfsfilters.com/paint-booth-filters">
+            <a href="https://www.pfsfilters.com/shop">
               <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-6 rounded-lg shadow-[0_0_30px_rgba(59,130,246,0.3)]">
                 Shop Replacement Filters
               </Button>
@@ -391,7 +391,7 @@ export default function PaintBoothFilters() {
           <p className="text-lg text-white/60 mb-8">
             In stock for every major booth brand. Ships fast nationwide. Subscribe and save 10%.
           </p>
-          <a href="https://www.pfsfilters.com/paint-booth-filters" className="inline-block mb-4">
+          <a href="https://www.pfsfilters.com/shop" className="inline-block mb-4">
             <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold text-lg px-8 py-6 rounded-lg shadow-[0_0_30px_rgba(59,130,246,0.5)]">
               Shop All Filters at pfsfilters.com
             </Button>
