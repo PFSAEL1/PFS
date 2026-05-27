@@ -52,7 +52,7 @@ export const FAQ = () => {
             <span className="text-sm font-semibold text-blue-400">Common Questions</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-3">Frequently Asked Questions</h2>
-          <p className="text-white/50 text-lg">
+          <p className="text-white/70 text-lg">
             Everything you need to know about our spray booth filters
           </p>
         </div>
@@ -66,7 +66,7 @@ export const FAQ = () => {
               <AccordionTrigger className="text-left font-medium hover:no-underline">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-white/50 leading-relaxed">
+              <AccordionContent className="text-white/70 leading-relaxed">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

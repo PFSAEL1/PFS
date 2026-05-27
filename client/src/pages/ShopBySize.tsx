@@ -63,7 +63,7 @@ export default function ShopBySize() {
                 <p className={`text-2xl font-bold mb-1 ${item.popular ? 'text-white/80' : item.custom ? 'text-white/60' : 'text-white'}`}>
                   {item.size}
                 </p>
-                <p className="text-xs text-white/40 mb-3">{item.desc}</p>
+                <p className="text-xs text-white/70 mb-3">{item.desc}</p>
                 {item.popular && (
                   <span className="inline-flex items-center gap-1 text-xs bg-blue-500/15 text-white/80 border border-blue-500/20 px-2 py-0.5 rounded-full">
                     <Star className="h-2.5 w-2.5" /> Popular
@@ -83,7 +83,7 @@ export default function ShopBySize() {
             <Ruler className="h-7 w-7 text-white/80" />
           </div>
           <h2 className="text-2xl font-bold mb-2">Need a Custom Size?</h2>
-          <p className="text-white/40 mb-6 leading-relaxed">
+          <p className="text-white/70 mb-6 leading-relaxed">
             We cut filters to any dimension. Tell us your booth make/model or exact measurements and we'll get you a perfect fit — usually ships same day.
           </p>
           <Link href="/contact">

@@ -19,7 +19,7 @@ export default function BlogPost() {
         <Navigation />
         <div className="container mx-auto px-4 pt-32 pb-16 text-center">
           <h1 className="text-4xl font-bold mb-4 text-white pfs-heading-animate">Post Not Found</h1>
-          <p className="text-white/50 mb-8">The blog post you're looking for doesn't exist.</p>
+          <p className="text-white/70 mb-8">The blog post you're looking for doesn't exist.</p>
           <Link href="/blog">
             <Button>Back to Blog</Button>
           </Link>
@@ -61,13 +61,13 @@ export default function BlogPost() {
           return <p key={i} className="font-semibold mt-4 mb-2">{line.slice(2, -2)}</p>;
         }
         if (line.startsWith('- ')) {
-          return <li key={i} className="ml-6 list-disc text-white/50">{line.slice(2)}</li>;
+          return <li key={i} className="ml-6 list-disc text-white/70">{line.slice(2)}</li>;
         }
         if (line.match(/^\d+\. /)) {
-          return <li key={i} className="ml-6 list-decimal text-white/50">{line.replace(/^\d+\. /, '')}</li>;
+          return <li key={i} className="ml-6 list-decimal text-white/70">{line.replace(/^\d+\. /, '')}</li>;
         }
         if (line.trim() === '') return <br key={i} />;
-        return <p key={i} className="text-white/50 leading-relaxed">{line}</p>;
+        return <p key={i} className="text-white/70 leading-relaxed">{line}</p>;
       });
   };
 
@@ -95,16 +95,16 @@ export default function BlogPost() {
           <div className="mb-8">
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <Badge variant="secondary">{post.category}</Badge>
-              <span className="flex items-center gap-1 text-sm text-white/50">
+              <span className="flex items-center gap-1 text-sm text-white/70">
                 <Clock className="h-3.5 w-3.5" /> {post.readTime}
               </span>
-              <span className="flex items-center gap-1 text-sm text-white/50">
+              <span className="flex items-center gap-1 text-sm text-white/70">
                 <Calendar className="h-3.5 w-3.5" /> {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">{post.title}</h1>
-            <p className="text-xl text-white/50 leading-relaxed mb-6">{post.excerpt}</p>
-            <div className="flex items-center gap-2 text-sm text-white/50">
+            <p className="text-xl text-white/70 leading-relaxed mb-6">{post.excerpt}</p>
+            <div className="flex items-center gap-2 text-sm text-white/70">
               <User className="h-4 w-4" />
               <span>By <strong className="text-foreground">{post.author}</strong></span>
             </div>
@@ -120,7 +120,7 @@ export default function BlogPost() {
 
           <div className="mt-12 p-6 bg-blue-500/5 border border-primary/20 rounded-xl">
             <h3 className="font-bold text-lg mb-2">Need Help Choosing the Right Filters?</h3>
-            <p className="text-white/50 mb-4">
+            <p className="text-white/70 mb-4">
               Our team of filtration experts can help you find the perfect filters for your specific spray booth and application.
             </p>
             <div className="flex gap-3">

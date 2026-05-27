@@ -87,7 +87,7 @@ export default function Auth() {
               <Filter className="h-8 w-8 text-blue-400" />
               <span className="text-2xl font-bold">PFS Filters</span>
             </div>
-            <p className="text-white/50">Sign in to your account or create a new one</p>
+            <p className="text-white/70">Sign in to your account or create a new one</p>
           </div>
           <Card>
             <CardContent className="pt-6">

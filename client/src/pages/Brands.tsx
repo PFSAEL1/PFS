@@ -70,7 +70,7 @@ export default function Brands() {
                 <h2 className="font-bold text-xl text-white">{brand.name}</h2>
                 <span className="text-xs bg-white/5 text-white/50 border border-white/10 px-2 py-1 rounded-full">{brand.specialty}</span>
               </div>
-              <p className="text-white/40 text-sm leading-relaxed mb-4">{brand.description}</p>
+              <p className="text-white/70 text-sm leading-relaxed mb-4">{brand.description}</p>
               <Link href={brand.href}>
                 <Button variant="outline" size="sm" className="gap-2 border-white/20 text-white/70 hover:bg-white/10 hover:text-white bg-transparent">
                   Shop Products <ArrowRight className="h-3.5 w-3.5" />

@@ -84,7 +84,7 @@ export default function ShopByType() {
           <h1 className="text-5xl font-extrabold mb-4 text-white pfs-heading-animate">
             Shop by Filter Type
           </h1>
-          <p className="text-lg text-white/40 max-w-2xl">
+          <p className="text-lg text-white/70 max-w-2xl">
             Each position in your spray booth requires a specific filter type. Cards show whether a filter is for <span className="text-white/70 font-medium">Intake</span> or <span className="text-white/70 font-medium">Exhaust</span>.
           </p>
         </div>
@@ -116,10 +116,10 @@ export default function ShopByType() {
                 {/* Content */}
                 <div className="p-5 border-t border-white/5">
                   <h2 className="font-bold text-base text-white mb-2 group-hover:text-white/90">{type.title}</h2>
-                  <p className="text-sm text-white/35 leading-relaxed mb-4">{type.desc}</p>
+                  <p className="text-sm text-white/70 leading-relaxed mb-4">{type.desc}</p>
                   <div className="flex flex-wrap gap-1.5 mb-4">
                     {type.tags.map((tag) => (
-                      <span key={tag} className="text-xs bg-white/5 text-white/40 border border-white/8 px-2 py-0.5 rounded-full">{tag}</span>
+                      <span key={tag} className="text-xs bg-white/5 text-white/70 border border-white/8 px-2 py-0.5 rounded-full">{tag}</span>
                     ))}
                   </div>
                   <div className="flex items-center gap-1.5 text-sm font-semibold text-white/50 group-hover:text-white transition-all group-hover:gap-2.5">
@@ -141,7 +141,7 @@ export default function ShopByType() {
               <h3 className="font-bold text-white">Intake Filters</h3>
               <span className="ml-auto text-xs text-[#4d9fff] border border-[#4d9fff]/20 bg-[#4d9fff]/8 px-2 py-0.5 rounded-full">INTAKE</span>
             </div>
-            <p className="text-sm text-white/40 leading-relaxed">Positioned where air enters the booth — ceiling, side walls, or front panels. They keep dust, insects, and airborne debris out so your paint job stays clean.</p>
+            <p className="text-sm text-white/70 leading-relaxed">Positioned where air enters the booth — ceiling, side walls, or front panels. They keep dust, insects, and airborne debris out so your paint job stays clean.</p>
           </div>
           <div className="bg-[#0d0d0d] border border-white/8 rounded-2xl p-6">
             <div className="flex items-center gap-3 mb-3">
@@ -151,7 +151,7 @@ export default function ShopByType() {
               <h3 className="font-bold text-white">Exhaust Filters</h3>
               <span className="ml-auto text-xs text-white/50 border border-white/15 bg-white/5 px-2 py-0.5 rounded-full">EXHAUST</span>
             </div>
-            <p className="text-sm text-white/40 leading-relaxed">Capture paint overspray before it exits through the exhaust plenum or pit. Protect your exhaust fan and keep your facility compliant with air quality regulations.</p>
+            <p className="text-sm text-white/70 leading-relaxed">Capture paint overspray before it exits through the exhaust plenum or pit. Protect your exhaust fan and keep your facility compliant with air quality regulations.</p>
           </div>
         </div>
       </div>

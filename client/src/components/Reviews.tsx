@@ -36,7 +36,7 @@ export const Reviews = () => {
     Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`h-4 w-4 ${i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-white/50'}`}
+        className={`h-4 w-4 ${i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-white/70'}`}
       />
     ));
 
@@ -45,7 +45,7 @@ export const Reviews = () => {
       <section className="py-20 bg-[#0d0d0d]/5/30">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-12">Customer Reviews</h2>
-          <div className="text-white/50">Loading reviews...</div>
+          <div className="text-white/70">Loading reviews...</div>
         </div>
       </section>
     );
@@ -69,7 +69,7 @@ export const Reviews = () => {
         </div>
 
         {reviews.length === 0 ? (
-          <p className="text-center text-white/50">
+          <p className="text-center text-white/70">
             No reviews yet. Be the first to share your experience!
           </p>
         ) : (
@@ -80,13 +80,13 @@ export const Reviews = () => {
                   <div className="flex items-center gap-1 mb-3">
                     {renderStars(review.rating)}
                   </div>
-                  <p className="text-sm text-white/50 leading-relaxed mb-4 italic">
+                  <p className="text-sm text-white/70 leading-relaxed mb-4 italic">
                     "{review.review_text}"
                   </p>
                   <div>
                     <p className="font-semibold text-sm">{review.name}</p>
                     {review.company && (
-                      <p className="text-xs text-white/50">{review.company}</p>
+                      <p className="text-xs text-white/70">{review.company}</p>
                     )}
                   </div>
                 </CardContent>

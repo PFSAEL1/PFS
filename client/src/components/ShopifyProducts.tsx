@@ -84,7 +84,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
 
   if (error) {
     return (
-      <div className="text-center py-12 text-white/50">
+      <div className="text-center py-12 text-white/70">
         <Package className="h-12 w-12 mx-auto mb-3 opacity-30" />
         <p>{error}</p>
       </div>
@@ -93,7 +93,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
 
   if (products.length === 0) {
     return (
-      <div className="text-center py-12 text-white/50">
+      <div className="text-center py-12 text-white/70">
         <Package className="h-12 w-12 mx-auto mb-3 opacity-30" />
         <p>No products found{categoryFilter ? ` for "${categoryFilter}"` : ''}{sizeFilter ? ` in size "${sizeFilter}"` : ''}.</p>
       </div>
@@ -129,7 +129,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
               </Link>
               <div className="flex items-center justify-between mt-2 mb-3">
                 <span className="font-bold text-blue-400">
-                  ${price} <span className="text-xs font-normal text-white/50">{currency}</span>
+                  ${price} <span className="text-xs font-normal text-white/70">{currency}</span>
                 </span>
                 {!inStock && (
                   <Badge variant="secondary" className="text-xs">Out of Stock</Badge>

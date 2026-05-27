@@ -3,7 +3,6 @@ import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
@@ -19,6 +18,7 @@ const tiers = [
     name: 'Bronze',
     price: '$29/mo',
     discount: '3%',
+    spendTarget: 'Best for shops spending $300–600/mo',
     color: 'bg-white/3 border-white/10',
     badge: 'bg-white/8 text-white/60',
     accentColor: 'amber',
@@ -33,6 +33,7 @@ const tiers = [
     name: 'Silver',
     price: '$49/mo',
     discount: '5%',
+    spendTarget: 'Best for shops spending $600–1,200/mo',
     color: 'bg-[#4d9fff]/5 border-[#4d9fff]/25',
     badge: 'bg-[#4d9fff]/10 text-[#4d9fff]',
     accentColor: 'blue',
@@ -49,6 +50,7 @@ const tiers = [
     name: 'Gold',
     price: '$79/mo',
     discount: '5%',
+    spendTarget: 'Best for shops spending $1,200–2,500/mo',
     color: 'bg-white/3 border-white/12',
     badge: 'bg-white/8 text-white/70',
     accentColor: 'yellow',
@@ -65,10 +67,12 @@ const tiers = [
     name: 'Platinum',
     price: '$149/mo',
     discount: '5% + Free Shipping',
+    spendTarget: 'High-volume shops + custom sourcing',
     color: 'bg-white/5 border-white/15',
     badge: 'bg-white/10 text-white/80',
     accentColor: 'purple',
     features: [
+      'Custom filter sourcing',
       '5% discount on all orders',
       'Free shipping on all orders',
       'Dedicated account manager',
@@ -76,7 +80,6 @@ const tiers = [
       'Full booth filter database',
       'Auto-reorder scheduling',
       'Monthly filter set included',
-      'Custom filter sourcing',
     ],
   },
 ];
@@ -98,21 +101,30 @@ export default function Memberships() {
       {/* Hero */}
       <section className="pb-16 px-4 text-center">
         <div className="max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
-            <Crown className="h-3.5 w-3.5 text-blue-400" />
-            <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Membership Plans</span>
+          <div className="flex justify-center mb-4">
+            <span className="bg-white/5 border border-white/10 rounded-full text-blue-400 text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
+              <Crown className="h-3.5 w-3.5" />
+              Membership Plans
+            </span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-white pfs-heading-animate">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-white">
             Save More, Order Smarter
           </h1>
-          <p className="text-xl text-white/50">
+          <p className="text-xl text-white/70">
             Join hundreds of shops that use PFS Filters memberships to automate their filter program, save on every order, and never run out of filters again.
           </p>
         </div>
       </section>
 
+      {/* Savings banner */}
+      <section className="px-4 mb-8">
+        <div className="max-w-4xl mx-auto bg-blue-950 border border-blue-800/50 text-blue-300 text-sm text-center py-2.5 rounded-lg">
+          Average member saves $340/year vs. buying ad-hoc — calculated across active memberships.
+        </div>
+      </section>
+
       {/* Pricing cards */}
-      <section className="py-12 px-4">
+      <section className="py-12 px-4" style={{ backgroundColor: '#0e0e0e' }}>
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {tiers.map((tier) => (
             <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] ${tier.popular ? 'ring-2 ring-[#4d9fff]/50' : ''}`}>
@@ -126,22 +138,25 @@ export default function Memberships() {
               <CardHeader className="pb-4">
                 <Badge className={`w-fit mb-2 ${tier.badge}`}>{tier.name}</Badge>
                 <CardTitle className="text-2xl">{tier.price}</CardTitle>
-                <p className="text-sm text-white/50">Save <strong>{tier.discount}</strong> on every order</p>
+                <p className="text-white/45 text-xs">{tier.spendTarget}</p>
               </CardHeader>
               <CardContent className="space-y-3">
                 {tier.features.map((f) => (
                   <div key={f} className="flex items-start gap-2 text-sm">
                     <Check className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
-                    <span>{f}</span>
+                    <span className="text-white/70">{f}</span>
                   </div>
                 ))}
                 <Link href="/auth">
-                  <Button
-                    className={`w-full mt-4 gap-2 ${tier.popular ? 'bg-[#4d9fff] text-black hover:bg-[#6aadff]' : 'border-white/20 text-white/70 hover:bg-white/10 bg-transparent'}`}
-                    variant={tier.popular ? 'default' : 'outline'}
-                  >
-                    Get Started <ArrowRight className="h-4 w-4" />
-                  </Button>
+                  {tier.popular ? (
+                    <button className="w-full mt-4 flex items-center justify-center gap-2 bg-[#4d9fff] text-black hover:bg-[#6aadff] py-3 rounded-lg text-sm font-medium transition-colors duration-150">
+                      Get Started <ArrowRight className="h-4 w-4" />
+                    </button>
+                  ) : (
+                    <button className="w-full mt-4 flex items-center justify-center gap-2 border border-white/15 text-white/65 hover:border-white/30 hover:text-white/90 px-6 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150">
+                      Get Started <ArrowRight className="h-4 w-4" />
+                    </button>
+                  )}
                 </Link>
               </CardContent>
             </Card>
@@ -149,8 +164,11 @@ export default function Memberships() {
         </div>
       </section>
 
+      {/* Divider */}
+      <div className="w-full h-px bg-white/[0.04]" />
+
       {/* FAQ */}
-      <section className="py-16 px-4 bg-[#060606]">
+      <section className="py-16 px-4" style={{ backgroundColor: '#080808' }}>
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-10">Membership FAQ</h2>
           <div className="space-y-4">
@@ -160,9 +178,9 @@ export default function Memberships() {
               { q: 'What is the AI Filter Scanner?', a: 'Our AI scanner lets you photograph your existing filters to instantly identify them and add replacements to your cart. Available on Gold and Platinum plans.' },
               { q: 'Can I upgrade or downgrade my plan?', a: 'Yes, you can change your plan at any time. Changes take effect at the start of your next billing cycle.' },
             ].map((item) => (
-              <div key={item.q} className="bg-[#0d0d0d] border border-white/8 rounded-xl p-5">
+              <div key={item.q} className="bg-[#0d0d0d] border border-white/[0.08] rounded-xl p-5">
                 <h3 className="font-semibold mb-2">{item.q}</h3>
-                <p className="text-sm text-white/50">{item.a}</p>
+                <p className="text-sm text-white/70">{item.a}</p>
               </div>
             ))}
           </div>

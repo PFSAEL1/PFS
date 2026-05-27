@@ -45,7 +45,7 @@ export default function Blog() {
         <Breadcrumb items={[{ label: 'Blog' }]} />
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white pfs-heading-animate">Spray Booth Knowledge Center</h1>
-          <p className="text-xl text-white/50 max-w-3xl mx-auto">
+          <p className="text-xl text-white/70 max-w-3xl mx-auto">
             Expert guides, maintenance tips, and industry insights from the PFS Spray Booths team
           </p>
         </div>
@@ -65,7 +65,7 @@ export default function Blog() {
               <CardContent className="p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <Badge variant="secondary" className="text-xs">{post.category}</Badge>
-                  <span className="text-xs text-white/50 flex items-center gap-1">
+                  <span className="text-xs text-white/70 flex items-center gap-1">
                     <Clock className="h-3 w-3" /> {post.readTime}
                   </span>
                 </div>
@@ -74,11 +74,11 @@ export default function Blog() {
                     {post.title}
                   </h2>
                 </Link>
-                <p className="text-sm text-white/50 leading-relaxed mb-4 line-clamp-3">
+                <p className="text-sm text-white/70 leading-relaxed mb-4 line-clamp-3">
                   {post.excerpt}
                 </p>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs text-white/50">
+                  <div className="flex items-center gap-1.5 text-xs text-white/70">
                     <User className="h-3 w-3" />
                     <span>{post.author}</span>
                   </div>

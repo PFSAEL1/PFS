@@ -144,14 +144,14 @@ export default function CategoryPage() {
           <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-4 pfs-heading-animate">
             {title}
           </h1>
-          <p className="text-lg text-white/45 max-w-2xl pfs-sub-animate">
+          <p className="text-lg text-white/70 max-w-2xl pfs-sub-animate">
             {description}
           </p>
         </div>
 
         {/* Product count */}
         {!loading && !error && (
-          <p className="text-sm text-white/30 mb-6">
+          <p className="text-sm text-white/70 mb-6">
             {products.length === 0
               ? 'No products found in this category'
               : `${products.length} product${products.length !== 1 ? 's' : ''}`}
@@ -185,7 +185,7 @@ export default function CategoryPage() {
           <div className="text-center py-16">
             <Package className="h-16 w-16 mx-auto mb-4 text-white/20" />
             <h2 className="text-xl font-semibold text-white/60 mb-2">No products found</h2>
-            <p className="text-white/35 mb-6 max-w-md mx-auto">
+            <p className="text-white/70 mb-6 max-w-md mx-auto">
               We couldn't find any products in this category right now. Browse all products or check back soon.
             </p>
             <div className="flex gap-3 justify-center">

@@ -232,7 +232,7 @@ export default function FilterDatabase() {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-white">Filter Database</h1>
-                <p className="text-xs text-white/40">Manage customer booth setups, filter positions &amp; change schedules</p>
+                <p className="text-xs text-white/70">Manage customer booth setups, filter positions &amp; change schedules</p>
               </div>
             </div>
             <div className="flex items-center gap-2 flex-wrap">
@@ -272,7 +272,7 @@ export default function FilterDatabase() {
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-white">{stat.value}</p>
-                  <p className="text-xs text-white/40">{stat.label}</p>
+                  <p className="text-xs text-white/70">{stat.label}</p>
                 </div>
               </CardContent>
             </Card>
@@ -295,7 +295,7 @@ export default function FilterDatabase() {
             ))}
           </div>
           <div className="relative flex-1 max-w-sm">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/30" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/60" />
             <Input
               placeholder="Search by customer, manufacturer, model..."
               value={searchQuery}
@@ -315,7 +315,7 @@ export default function FilterDatabase() {
             <div className="w-16 h-16 rounded-2xl bg-[#0d0d0d]/5 flex items-center justify-center mb-4">
               <Database className="w-7 h-7 text-white/20" />
             </div>
-            <p className="text-white/40 text-sm mb-1">No booth setups yet</p>
+            <p className="text-white/70 text-sm mb-1">No booth setups yet</p>
             <p className="text-white/25 text-xs mb-6">Get started by adding your first customer booth setup.</p>
             <Button size="sm" onClick={() => setShowNewBoothModal(true)}
               className="bg-blue-600 hover:bg-blue-500 text-white gap-1.5 text-xs">
@@ -359,7 +359,7 @@ export default function FilterDatabase() {
                             </Badge>
                           )}
                         </div>
-                        <div className="flex items-center gap-3 flex-wrap text-xs text-white/40">
+                        <div className="flex items-center gap-3 flex-wrap text-xs text-white/70">
                           <span className="flex items-center gap-1">
                             <Building2 className="w-3 h-3" />
                             {booth.booth_manufacturer}{booth.booth_model ? ` · ${booth.booth_model}` : ''}
@@ -411,7 +411,7 @@ export default function FilterDatabase() {
                           className={`px-2 py-1 flex items-center gap-1 transition-colors ${
                             currentMode === 'off'
                               ? 'bg-[#0d0d0d]/15 text-white/80'
-                              : 'bg-transparent text-white/30 hover:text-white/60'
+                              : 'bg-transparent text-white/60 hover:text-white/60'
                           }`}>
                           <BellOff className="w-2.5 h-2.5" /> Off
                         </button>
@@ -422,7 +422,7 @@ export default function FilterDatabase() {
                           className={`px-2 py-1 flex items-center gap-1 transition-colors border-l border-white/10 ${
                             currentMode === 'reminder'
                               ? 'bg-blue-500/25 text-blue-300'
-                              : 'bg-transparent text-white/30 hover:text-white/60'
+                              : 'bg-transparent text-white/60 hover:text-white/60'
                           }`}>
                           <BellRing className="w-2.5 h-2.5" /> Remind
                         </button>
@@ -433,7 +433,7 @@ export default function FilterDatabase() {
                           className={`px-2 py-1 flex items-center gap-1 transition-colors border-l border-white/10 ${
                             currentMode === 'auto_reorder'
                               ? 'bg-emerald-500/25 text-emerald-300'
-                              : 'bg-transparent text-white/30 hover:text-white/60'
+                              : 'bg-transparent text-white/60 hover:text-white/60'
                           }`}>
                           <Zap className="w-2.5 h-2.5" /> Auto
                         </button>
@@ -457,7 +457,7 @@ export default function FilterDatabase() {
                         </Button>
                         <Button size="sm" variant="outline"
                           onClick={() => handleDelete(booth.id)}
-                          className="h-7 px-2 border-white/10 bg-[#0d0d0d]/5 hover:bg-red-500/20 hover:border-red-500/30 text-white/40 hover:text-red-400 text-xs">
+                          className="h-7 px-2 border-white/10 bg-[#0d0d0d]/5 hover:bg-red-500/20 hover:border-red-500/30 text-white/70 hover:text-red-400 text-xs">
                           <Trash2 className="w-3 h-3" />
                         </Button>
                       </div>

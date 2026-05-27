@@ -1,75 +1,94 @@
-// CategoryNavigation — PFS Filters Tesla-Style Dark Theme
-// Monochrome silver/white/steel-blue palette — no random colors
+// CategoryNavigation — PFS Filters
+// Full-bleed booth photo backgrounds with dark gradient overlays
 import { Link } from 'wouter';
 
 const categories = [
   {
+    title: 'Ceiling Blankets',
+    subtitle: 'Overhead intake filtration',
+    href: '/category/ceiling-blankets',
+    image: '/images/Semi_downdraft_2.jpg',
+  },
+  {
     title: 'Fiberglass Arrestors',
-    description: 'High-capacity exhaust filtration',
+    subtitle: 'High-capacity exhaust filtration',
     href: '/category/fiberglass-arrestors',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-paint-arrestor_c242c226.png',
+    image: '/images/PFS_1.webp',
   },
   {
     title: 'Tacky Panel Filters',
-    description: 'Superior particle capture',
+    subtitle: 'Superior particle capture',
     href: '/category/tacky-panels',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/tacky-panel-green_6cd3f086.png',
-  },
-  {
-    title: 'Ceiling Blankets',
-    description: 'Overhead intake filtration',
-    href: '/category/ceiling-blankets',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/ceiling-blanket_476417ff.webp',
+    image: '/images/Spray-booth_2.webp',
   },
   {
     title: 'Roll Media',
-    description: 'Continuous roll filtration',
+    subtitle: 'Continuous roll filtration',
     href: '/category/roll-media',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-roll-blue_a1ff9192.png',
+    image: '/images/Side_DD_6.jpg',
   },
   {
     title: 'Shop by Size',
-    description: '20x20, 20x25, custom cuts',
+    subtitle: '20x20, 20x25, custom cuts',
     href: '/shop-by-size',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-grids_294ef927.jpg',
+    image: '/images/Interior_crossflow.jpg',
   },
   {
     title: 'Shop by Type',
-    description: 'Intake, exhaust, MERV-rated',
+    subtitle: 'Intake, exhaust, MERV-rated',
     href: '/shop-by-type',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/merv-10-filter_b09cab34.png',
+    image: '/images/PFS_7.jpg',
   },
 ];
 
 export const CategoryNavigation = () => {
   return (
-    <section className="py-20 px-4 section-darker">
+    <section className="py-20 px-4" style={{ backgroundColor: '#0e0e0e' }}>
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
-          <div className="section-label" style={{display:'inline-flex',marginBottom:'1rem'}}><span>Browse</span></div>
-          <h2 className="text-3xl md:text-4xl font-black text-white pfs-heading-animate">
+          <div className="flex justify-start mb-3">
+            <span className="bg-white/5 border border-white/10 rounded-full text-blue-400 text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
+              Browse
+            </span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white">
             Shop by Category
           </h2>
-          <p className="text-white/40 mt-2 text-sm">Find the right filter for your specific application</p>
+          <p className="text-white/60 mt-2 text-sm">Find the right filter for your specific application</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {categories.map((cat) => (
             <Link key={cat.href} href={cat.href}>
-              <div className="glow-card cursor-pointer h-full flex flex-col">
-                {/* Image area */}
-                <div className="product-img-wrap flex items-center justify-center p-4 aspect-square">
-                  <img
-                    src={cat.image}
-                    alt={cat.title}
-                    className="w-full h-full object-contain transition-transform duration-400 drop-shadow-lg"
-                    style={{ filter: 'brightness(0.95) contrast(1.05)' }}
-                  />
+              <div className="relative rounded-xl overflow-hidden border border-white/[0.08] cursor-pointer group hover:border-blue-500/40 hover:scale-[1.02] transition-all duration-200 h-[220px] md:h-[260px]">
+                {/* Background image */}
+                <img
+                  src={cat.image}
+                  alt={cat.title}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                {/* Dark gradient overlay */}
+                <div
+                  className="absolute inset-0 transition-opacity duration-200"
+                  style={{
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 55%, transparent 100%)',
+                  }}
+                />
+                {/* Hover darkened overlay */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  style={{
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 55%, transparent 100%)',
+                  }}
+                />
+                {/* Title */}
+                <div className="absolute bottom-3 left-3 right-12 z-10">
+                  <p className="text-white font-semibold text-base leading-tight">{cat.title}</p>
+                  <p className="text-white/80 text-xs mt-1">{cat.subtitle}</p>
                 </div>
-                {/* Label */}
-                <div className="p-3 flex flex-col gap-0.5 flex-1">
-                  <p className="font-semibold text-sm text-white/90 leading-tight">{cat.title}</p>
-                  <p className="text-xs text-white/40">{cat.description}</p>
-                </div>
+                {/* Browse link */}
+                <span className="absolute bottom-3 right-3 z-10 text-blue-400 text-xs font-medium">
+                  Browse →
+                </span>
               </div>
             </Link>
           ))}

@@ -48,7 +48,7 @@ export const ContactForm = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-3">Get In Touch</h2>
-          <p className="text-white/50 text-lg max-w-2xl mx-auto">
+          <p className="text-white/70 text-lg max-w-2xl mx-auto">
             Have questions about our filters? Need a custom size or bulk pricing? Our team is ready to help.
           </p>
         </div>
@@ -68,7 +68,7 @@ export const ContactForm = () => {
                       <Icon className="h-5 w-5 text-blue-400" />
                     </div>
                     <div>
-                      <p className="text-sm text-white/50">{label}</p>
+                      <p className="text-sm text-white/70">{label}</p>
                       {href ? (
                         <a href={href} className="font-semibold hover:text-blue-400 transition-colors">{value}</a>
                       ) : (
@@ -81,7 +81,7 @@ export const ContactForm = () => {
             </div>
             <div className="p-6 bg-blue-500/5 border border-primary/20 rounded-xl">
               <h4 className="font-bold mb-2">Need a Custom Quote?</h4>
-              <p className="text-sm text-white/50 leading-relaxed">
+              <p className="text-sm text-white/70 leading-relaxed">
                 Tell us your booth make/model and filter dimensions. We'll match your current filters or recommend better alternatives — often at a lower price.
               </p>
             </div>
