@@ -1,0 +1,360 @@
+{
+  "Garmat": {
+    "brand": "Garmat",
+    "categories": [
+      {
+        "category": "Ceiling / Intake Filter",
+        "common_sizes": [
+          "38\"\u00d762\"",
+          "38\"\u00d7107\"",
+          "38\"\u00d767\""
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "16\"\u00d720\"\u00d766\" case/4",
+          "41\"\u00d7300'",
+          "36\"\u00d7300'",
+          "20\"\u00d725\" case/30",
+          "20\"\u00d720\" case/100"
+        ]
+      },
+      {
+        "category": "Pre-Filter",
+        "common_sizes": [
+          "24\"\u00d724\"",
+          "24\"\u00d724\"\u00d726\"",
+          "24\"\u00d724\"\u00d726\" case/3"
+        ]
+      }
+    ]
+  },
+  "Viking": {
+    "brand": "Viking",
+    "categories": [
+      {
+        "category": "Ceiling / Intake Filter",
+        "common_sizes": [
+          "30\"\u00d7102\""
+        ]
+      },
+      {
+        "category": "Intake Filter",
+        "common_sizes": [
+          "20\"\u00d720\" case/20"
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "20\"\u00d720\" case/100",
+          "20\"\u00d720\" case/30",
+          "25\"\u00d772\"",
+          "20\"\u00d725\" case/30"
+        ]
+      }
+    ]
+  },
+  "Duster": {
+    "brand": "Duster",
+    "categories": [
+      {
+        "category": "Intake Filter",
+        "common_sizes": [
+          "20\"\u00d720\" case/20"
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "20\"\u00d720\" case/100"
+        ]
+      }
+    ]
+  },
+  "Zhongda": {
+    "brand": "Zhongda",
+    "categories": [
+      {
+        "category": "Ceiling / Intake Filter",
+        "common_sizes": [
+          "61\"\u00d791\""
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "30\"\u00d7300'"
+        ]
+      },
+      {
+        "category": "Pre-Filter",
+        "common_sizes": [
+          "25\"\u00d790'"
+        ]
+      }
+    ]
+  },
+  "Autek": {
+    "brand": "Autek",
+    "categories": [
+      {
+        "category": "Ceiling / Intake Filter",
+        "common_sizes": [
+          "61\"\u00d795\""
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "30\"\u00d7300'"
+        ]
+      },
+      {
+        "category": "Pre-Filter",
+        "common_sizes": [
+          "23.25\"\u00d747\"\u00d78\" case/4"
+        ]
+      }
+    ]
+  },
+  "Global Finishing Solutions (GFS)": {
+    "brand": "Global Finishing Solutions (GFS)",
+    "categories": [
+      {
+        "category": "Ceiling / Intake Filter",
+        "common_sizes": [
+          "20\"\u00d7144\"",
+          "75\"\u00d7144\"",
+          "51\"\u00d7121\"",
+          "75\"\u00d770\"",
+          "20\"\u00d770\"",
+          "20\"\u00d774\""
+        ]
+      },
+      {
+        "category": "Intake Filter",
+        "common_sizes": [
+          "20\"\u00d748\""
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "30\"\u00d750'",
+          "20\"\u00d725\" case/30",
+          "30\"\u00d7300'"
+        ]
+      },
+      {
+        "category": "Pre-Filter",
+        "common_sizes": [
+          "23.25\"\u00d747\"\u00d78\" case/4",
+          "23.5\"\u00d735.5\"\u00d710\" case/4",
+          "15\"\u00d715\"",
+          "23\"\u00d728\"",
+          "16\"\u00d736\"",
+          "23\"\u00d727\""
+        ]
+      }
+    ]
+  },
+  "SprayBake": {
+    "brand": "SprayBake",
+    "categories": [
+      {
+        "category": "Ceiling / Intake Filter",
+        "common_sizes": [
+          "79\"\u00d7246\""
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "30\"\u00d7300'",
+          "30\"\u00d750'"
+        ]
+      },
+      {
+        "category": "Pre-Filter",
+        "common_sizes": [
+          "23.25\"\u00d747\"\u00d78\" case/4",
+          "24\"\u00d760\""
+        ]
+      }
+    ]
+  },
+  "Blowtherm": {
+    "brand": "Blowtherm",
+    "categories": [
+      {
+        "category": "Ceiling / Intake Filter",
+        "common_sizes": [
+          "79\"\u00d7144\"",
+          "38\"\u00d7144\"",
+          "38\"\u00d780\"",
+          "73\"\u00d7120\"",
+          "75.5\"\u00d7149\"",
+          "30\"\u00d775.5\""
+        ]
+      },
+      {
+        "category": "Intake Filter",
+        "common_sizes": [
+          "20\"\u00d748\""
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "30\"\u00d7300'",
+          "20\"\u00d725\" case/30",
+          "20\"\u00d725\" case",
+          "30\"\u00d7100'"
+        ]
+      },
+      {
+        "category": "Pre-Filter",
+        "common_sizes": [
+          "23.25\"\u00d747\"\u00d78\" case/4"
+        ]
+      }
+    ]
+  },
+  "PFS Spray Booths": {
+    "brand": "PFS Spray Booths",
+    "categories": [
+      {
+        "category": "Ceiling / Intake Filter",
+        "common_sizes": [
+          "34\"\u00d7100\""
+        ]
+      },
+      {
+        "category": "Intake Filter",
+        "common_sizes": [
+          "20\"\u00d720\"\u00d72\""
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "20\"\u00d720\" case/30",
+          "20\"\u00d720\" case/100"
+        ]
+      }
+    ]
+  },
+  "Eagle": {
+    "brand": "Eagle",
+    "categories": [
+      {
+        "category": "Ceiling / Intake Filter",
+        "common_sizes": [
+          "48\"\u00d758\""
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "25\"\u00d772\"",
+          "20\"\u00d720\" case/30"
+        ]
+      }
+    ]
+  },
+  "AFC": {
+    "brand": "AFC",
+    "categories": [
+      {
+        "category": "Ceiling / Intake Filter",
+        "common_sizes": [
+          "38\"\u00d757\""
+        ]
+      },
+      {
+        "category": "Intake Filter",
+        "common_sizes": [
+          "20\"\u00d748\""
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "20\"\u00d7300'"
+        ]
+      },
+      {
+        "category": "Pre-Filter",
+        "common_sizes": [
+          "23\"\u00d755\""
+        ]
+      }
+    ]
+  },
+  "USI / ITALIA": {
+    "brand": "USI / ITALIA",
+    "categories": [
+      {
+        "category": "Intake Filter",
+        "common_sizes": [
+          "20\"\u00d750\""
+        ]
+      }
+    ]
+  },
+  "Binks / DeVilbiss": {
+    "brand": "Binks / DeVilbiss",
+    "categories": [
+      {
+        "category": "Ceiling / Intake Filter",
+        "common_sizes": [
+          "70\"\u00d7123\""
+        ]
+      },
+      {
+        "category": "Intake Filter",
+        "common_sizes": [
+          "20\"\u00d748\" case/10"
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "25\"\u00d772\"",
+          "30\"\u00d7300'"
+        ]
+      },
+      {
+        "category": "Pre-Filter",
+        "common_sizes": [
+          "23.25\"\u00d747\"\u00d78\" case/4"
+        ]
+      }
+    ]
+  },
+  "Nova Verta": {
+    "brand": "Nova Verta",
+    "categories": [
+      {
+        "category": "Ceiling / Intake Filter",
+        "common_sizes": [
+          "24\"\u00d7128\""
+        ]
+      },
+      {
+        "category": "Intake Filter",
+        "common_sizes": [
+          "20\"\u00d720\"\u00d72\""
+        ]
+      },
+      {
+        "category": "Exhaust / Arrestor Filter",
+        "common_sizes": [
+          "27\"\u00d7300'"
+        ]
+      }
+    ]
+  }
+}
