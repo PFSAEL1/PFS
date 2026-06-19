@@ -65,7 +65,7 @@ export const Hero = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-32 w-full">
           <div className="max-w-2xl">
             {/* Eyebrow badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/40 bg-blue-500/10 text-blue-400 text-sm font-medium mb-6 animate-fade-in">
+            <div className="eyebrow-brand inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm font-medium mb-6 animate-fade-in">
               <Shield className="w-3.5 h-3.5" />
               A Division of PFS Spray Booths — 30+ Years of Expertise
             </div>

@@ -124,7 +124,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           {/* Eyebrow */}
           <div className="flex justify-center mb-3">
-            <span className="bg-white/5 border border-white/10 rounded-full text-blue-400 text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
+            <span className="eyebrow-brand border rounded-full text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
               How It Works
             </span>
           </div>
@@ -207,7 +207,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6 bg-white/[0.02] border border-white/[0.08] rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
           {/* Left */}
           <div>
-            <span className="bg-white/5 border border-white/10 rounded-full text-blue-400 text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
+            <span className="eyebrow-brand border rounded-full text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
               Filter Membership
             </span>
             <h2 className="text-white text-xl font-semibold mt-3 leading-snug">

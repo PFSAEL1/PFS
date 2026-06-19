@@ -108,7 +108,7 @@ export default function PaintBoothFilters() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24 w-full text-center">
           {/* Eyebrow badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/40 bg-blue-500/10 text-blue-400 text-sm font-medium mb-6">
+          <div className="eyebrow-brand inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm font-medium mb-6">
             <Shield className="w-3.5 h-3.5" />
             Nationwide Shipping · Multiple US Fulfillment Locations · All Major Brands
           </div>

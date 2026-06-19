@@ -102,7 +102,7 @@ export default function Memberships() {
       <section className="pb-16 px-4 text-center">
         <div className="max-w-3xl mx-auto">
           <div className="flex justify-center mb-4">
-            <span className="bg-white/5 border border-white/10 rounded-full text-blue-400 text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
+            <span className="eyebrow-brand border rounded-full text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
               <Crown className="h-3.5 w-3.5" />
               Membership Plans
             </span>

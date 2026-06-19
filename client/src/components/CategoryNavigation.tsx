@@ -63,7 +63,7 @@ export const CategoryNavigation = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-10 md:mb-14">
           <div className="flex justify-start mb-3">
-            <span className="bg-white/5 border border-white/10 rounded-full text-blue-400 text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
+            <span className="eyebrow-brand border rounded-full text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
               Browse
             </span>
           </div>

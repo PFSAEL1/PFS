@@ -642,10 +642,17 @@ video::-internal-media-controls-play-button {
 .bg-accent-teal     { background-color: var(--accent-teal) !important; }
 
 /* Teal eyebrow pill variant (opt-in via .eyebrow-teal) */
+/* Brand-blue eyebrow pill — matches the hero CTA. Solid, clean, no neon.
+   .eyebrow-teal is kept as an alias so existing markup updates too. */
+.eyebrow-brand,
 .eyebrow-teal {
-  color: var(--accent-teal) !important;
-  background: color-mix(in srgb, var(--accent-teal) 10%, transparent) !important;
-  border-color: color-mix(in srgb, var(--accent-teal) 28%, transparent) !important;
+  color: #ffffff !important;
+  background: #3b82f6 !important; /* exact match to the hero bg-blue-500 CTA */
+  border-color: #3b82f6 !important;
+}
+.eyebrow-brand svg,
+.eyebrow-teal svg {
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
 /* ---- 3. Card surface depth -------------------------------------------

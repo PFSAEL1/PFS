@@ -76,7 +76,7 @@ export const TopMovers = () => {
       <div className="max-w-6xl mx-auto">
         {/* Eyebrow */}
         <div className="flex justify-center mb-3">
-          <span className="bg-white/5 border border-white/10 rounded-full text-blue-400 text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
+          <span className="eyebrow-brand border rounded-full text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
             Top Movers
           </span>
         </div>
