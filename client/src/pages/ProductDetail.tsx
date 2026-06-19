@@ -13,6 +13,7 @@ import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredDat
 import { ShoppingCart, Loader2, Package, Truck, Shield, ArrowLeft, Plus, Minus } from 'lucide-react';
 import { toast } from 'sonner';
 import { ProductSpecs } from '@/components/ProductSpecs';
+import { PfsBoothCompatibility } from '@/components/PfsBoothCompatibility';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 
@@ -254,6 +255,9 @@ export default function ProductDetail() {
 
         {/* Technical specifications */}
         <ProductSpecs product={product} />
+
+        {/* PFS booth compatibility */}
+        <PfsBoothCompatibility product={product} />
 
         {/* Related products */}
         {relatedProducts.length > 0 && (

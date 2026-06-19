@@ -140,3 +140,97 @@ export function getProductSpecs(input: any): SpecRow[] {
     { label: 'Change interval', value: interval },
   ];
 }
+
+// ---------------------------------------------------------------------------
+// PFS Booth Compatibility
+// Maps a filter product to the PFS-branded booths it's used in, and the role
+// it plays (intake / premium intake / heated intake / exhaust). Sourced from
+// PFS booth filter-compatibility notes (Orion Crossflow, Orion Semi-Downdraft,
+// Zenith Downdraft, Helios Side Downdraft).
+// ---------------------------------------------------------------------------
+
+export type BoothCompatRole = {
+  booth: string; // e.g. "Orion Crossflow"
+  position: 'Intake' | 'Exhaust';
+  note: string; // human-readable usage note
+};
+
+// Detect the "filter role" of a product from its title/tags/type.
+type FilterRole =
+  | 'intake-tacky'
+  | 'premium-intake' // 5KRI premium intake
+  | 'intake-blanket' // heated-version intake blankets
+  | 'fiberglass-exhaust' // 15g / 22g exhaust pads
+  | 'paint-pocket' // paint pockets 20x20
+  | 'exhaust-roll' // exhaust roll media (Zenith)
+  | null;
+
+function detectFilterRole(input: any): FilterRole {
+  const node = toNode(input);
+  const tags = tagsOf(node);
+  const title = lc(node.title);
+  const type = lc(node.productType);
+  const hay = `${tags.join(' ')} ${title} ${type}`;
+  const has = (...keys: string[]) => keys.some((k) => hay.includes(k));
+
+  // Premium intake first (more specific than generic intake)
+  if (has('5kri', '5-kri', 'premium intake', 'premium-intake')) return 'premium-intake';
+  // Intake blankets (heated-version intake)
+  if (has('intake blanket', 'intake-blanket', 'ceiling blanket', 'blanket')) return 'intake-blanket';
+  // Exhaust roll media
+  if (has('exhaust roll', 'roll media', 'fiberglass roll', 'exhaust-roll') && has('roll'))
+    return 'exhaust-roll';
+  // Paint pockets
+  if (has('paint pocket', 'paint-pocket', 'pocket')) return 'paint-pocket';
+  // Fiberglass exhaust pads (15g / 22g)
+  if (has('fiberglass') && has('exhaust', 'arrestor', 'pad')) return 'fiberglass-exhaust';
+  if (has('arrestor') || (has('exhaust') && has('fiberglass'))) return 'fiberglass-exhaust';
+  // Generic intake tacky panel
+  if (has('tacky') || (has('intake') && has('panel', 'tacky'))) return 'intake-tacky';
+  if (has('intake')) return 'intake-tacky';
+  return null;
+}
+
+// Booth roles per filter role, encoding the PFS compatibility notes.
+const ROLE_TO_BOOTHS: Record<Exclude<FilterRole, null>, BoothCompatRole[]> = {
+  'intake-tacky': [
+    { booth: 'Orion Crossflow', position: 'Intake', note: 'Standard 20×20 intake tacky filter.' },
+    { booth: 'Orion Semi-Downdraft', position: 'Intake', note: 'Standard (non-heated) 20×20 intake tacky filter.' },
+    { booth: 'Zenith Downdraft', position: 'Intake', note: '20×20 intake tacky filter (heated & non-heated).' },
+    { booth: 'Helios Side Downdraft', position: 'Intake', note: '20×20 intake tacky filter.' },
+  ],
+  'premium-intake': [
+    { booth: 'Orion Crossflow', position: 'Intake', note: 'Premium 5KRI intake media option.' },
+    { booth: 'Orion Semi-Downdraft', position: 'Intake', note: 'Premium 5KRI intake media option.' },
+    { booth: 'Zenith Downdraft', position: 'Intake', note: 'Premium 5KRI intake media option.' },
+    { booth: 'Helios Side Downdraft', position: 'Intake', note: 'Premium 5KRI intake media option.' },
+  ],
+  'intake-blanket': [
+    { booth: 'Orion Semi-Downdraft', position: 'Intake', note: 'Heated-version intake blanket (or 20×20 intake).' },
+    { booth: 'Zenith Downdraft', position: 'Intake', note: 'Heated-version alternate intake filter.' },
+    { booth: 'Helios Side Downdraft', position: 'Intake', note: 'Heated-version intake blanket (alternate to 20×20 intake).' },
+  ],
+  'fiberglass-exhaust': [
+    { booth: 'Orion Crossflow', position: 'Exhaust', note: '20×20 fiberglass exhaust filter — 15g or 22g.' },
+    { booth: 'Orion Semi-Downdraft', position: 'Exhaust', note: '20×20 fiberglass exhaust filter — 15g or 22g.' },
+    { booth: 'Helios Side Downdraft', position: 'Exhaust', note: '20×20 fiberglass exhaust filter — 15g or 22g.' },
+  ],
+  'paint-pocket': [
+    { booth: 'Orion Crossflow', position: 'Exhaust', note: '20×20 paint pocket exhaust option.' },
+    { booth: 'Orion Semi-Downdraft', position: 'Exhaust', note: '20×20 paint pocket exhaust option.' },
+    { booth: 'Helios Side Downdraft', position: 'Exhaust', note: '20×20 paint pocket exhaust option.' },
+  ],
+  'exhaust-roll': [
+    { booth: 'Zenith Downdraft', position: 'Exhaust', note: 'Exhaust roll media — 22g or 15g as needed.' },
+  ],
+};
+
+/**
+ * Returns the PFS booths a product is compatible with, or [] if the product
+ * isn't a recognized PFS-booth filter type.
+ */
+export function getPfsBoothCompatibility(input: any): BoothCompatRole[] {
+  const role = detectFilterRole(input);
+  if (!role) return [];
+  return ROLE_TO_BOOTHS[role] || [];
+}
