@@ -173,20 +173,42 @@ function detectFilterRole(input: any): FilterRole {
   const hay = `${tags.join(' ')} ${title} ${type}`;
   const has = (...keys: string[]) => keys.some((k) => hay.includes(k));
 
-  // Premium intake first (more specific than generic intake)
-  if (has('5kri', '5-kri', 'premium intake', 'premium-intake')) return 'premium-intake';
-  // Intake blankets (heated-version intake)
-  if (has('intake blanket', 'intake-blanket', 'ceiling blanket', 'blanket')) return 'intake-blanket';
-  // Exhaust roll media
-  if (has('exhaust roll', 'roll media', 'fiberglass roll', 'exhaust-roll') && has('roll'))
+  // --- Exclusions: hardware/accessories are not filters ---
+  // Holding grids, frames, tips, clips, etc. mount filters but aren't a filter
+  // media themselves, so they should not show a booth-compatibility section.
+  if (has('holding grid', 'holding-grids', 'holding grids', 'grid', 'frame', 'clip', 'accessor'))
+    return null;
+
+  // --- Premium intake (most specific) ---
+  // Catch both 5KRI (letter i) and 5KR1 (digit one) variants.
+  if (has('5kri', '5kr1', '5-kri', '5-kr1', '5 kr', 'premium intake', 'premium-intake'))
+    return 'premium-intake';
+
+  // --- Intake bag / pocket BAG filters are INTAKE, not exhaust paint-pockets ---
+  // "Pocket bag filter" + MERV / intake / aerospace NESHAP are pre-filter intake
+  // bag filters used on the air-supply side, distinct from exhaust paint pockets.
+  if (has('bag filter', 'pocket bag', 'bag', 'neshap')) return 'premium-intake';
+
+  // --- Ceiling diffusion media / intake blankets (heated-version intake) ---
+  if (has('ceiling diffusion', 'diffusion media', 'ceiling media', 'intake blanket',
+          'intake-blanket', 'ceiling blanket', 'blanket', 'swiss flow', 'downdraft ceiling'))
+    return 'intake-blanket';
+
+  // --- Exhaust roll media ---
+  if (has('roll') && has('arrestor', 'fiberglass', 'exhaust', 'roll media', 'roll-media'))
     return 'exhaust-roll';
-  // Paint pockets
-  if (has('paint pocket', 'paint-pocket', 'pocket')) return 'paint-pocket';
-  // Fiberglass exhaust pads (15g / 22g)
+
+  // --- Paint pockets (exhaust) ---
+  if (has('paint pocket', 'paint-pocket', 'paint pockets')) return 'paint-pocket';
+
+  // --- Fiberglass exhaust pads / arrestors (15g / 22g / accordion) ---
   if (has('fiberglass') && has('exhaust', 'arrestor', 'pad')) return 'fiberglass-exhaust';
+  if (has('accordion') && has('arrestor')) return 'fiberglass-exhaust';
   if (has('arrestor') || (has('exhaust') && has('fiberglass'))) return 'fiberglass-exhaust';
-  // Generic intake tacky panel
-  if (has('tacky') || (has('intake') && has('panel', 'tacky'))) return 'intake-tacky';
+
+  // --- Pleated / tacky intake panels ---
+  if (has('tacky', 'pleated', 'merv')) return 'intake-tacky';
+  if (has('intake') && has('panel', 'tacky', 'filter')) return 'intake-tacky';
   if (has('intake')) return 'intake-tacky';
   return null;
 }
@@ -200,10 +222,10 @@ const ROLE_TO_BOOTHS: Record<Exclude<FilterRole, null>, BoothCompatRole[]> = {
     { booth: 'Helios Side Downdraft', position: 'Intake', note: '20×20 intake tacky filter.' },
   ],
   'premium-intake': [
-    { booth: 'Orion Crossflow', position: 'Intake', note: 'Premium 5KRI intake media option.' },
-    { booth: 'Orion Semi-Downdraft', position: 'Intake', note: 'Premium 5KRI intake media option.' },
-    { booth: 'Zenith Downdraft', position: 'Intake', note: 'Premium 5KRI intake media option.' },
-    { booth: 'Helios Side Downdraft', position: 'Intake', note: 'Premium 5KRI intake media option.' },
+    { booth: 'Orion Crossflow', position: 'Intake', note: 'Premium intake / pre-filter media option (5KR1 panel or pocket-bag).' },
+    { booth: 'Orion Semi-Downdraft', position: 'Intake', note: 'Premium intake / pre-filter media option (5KR1 panel or pocket-bag).' },
+    { booth: 'Zenith Downdraft', position: 'Intake', note: 'Premium intake / pre-filter media option (5KR1 panel or pocket-bag).' },
+    { booth: 'Helios Side Downdraft', position: 'Intake', note: 'Premium intake / pre-filter media option (5KR1 panel or pocket-bag).' },
   ],
   'intake-blanket': [
     { booth: 'Orion Semi-Downdraft', position: 'Intake', note: 'Heated-version intake blanket (or 20×20 intake).' },
