@@ -42,7 +42,7 @@ export default function Home() {
 
       {/* 3. Filters in Action — three feature rectangles */}
       <section className="section-darker tex-dots py-20 px-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Eyebrow */}
           <div className="flex justify-center mb-3">
             <span className="eyebrow-teal border rounded-full text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
@@ -85,7 +85,7 @@ export default function Home() {
               },
             ].map((card) => (
               <Link key={card.title} href={card.href}>
-                <div className="relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-blue-500/45 transition-all duration-200 h-[300px] md:h-[420px]">
+                <div className="relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-blue-500/45 transition-all duration-200 h-[360px] md:h-[520px]">
                   <img
                     src={card.image}
                     alt={card.alt}

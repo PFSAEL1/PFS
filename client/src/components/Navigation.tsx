@@ -82,7 +82,7 @@ export const Navigation = () => {
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-1">
-              <Link href="/" className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5">
+              <Link href="/" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
                 Home
               </Link>
 
@@ -90,7 +90,7 @@ export const Navigation = () => {
               <div className="relative" ref={shopDropdownRef}>
                 <button
                   onClick={() => setShopOpen(!shopOpen)}
-                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5"
+                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5"
                 >
                   Products <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${shopOpen ? 'rotate-180' : ''}`} />
                 </button>
@@ -125,13 +125,13 @@ export const Navigation = () => {
               </div>
 
               <Link href="/paint-booth-filters" className="px-3 py-2 text-sm font-semibold text-orange-500 hover:text-orange-300 transition-colors rounded-md hover:bg-white/5">Filters</Link>
-              <Link href="/memberships" className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5">
+              <Link href="/memberships" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
                 Memberships
               </Link>
-              <Link href="/filter-scanner" className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5">
+              <Link href="/filter-scanner" className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
                 <Sparkles className="w-4 h-4 text-[#4d9fff]" /> AI Scanner
               </Link>
-              <Link href="/contact" className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/5">
+              <Link href="/contact" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
                 Contact
               </Link>
               {isAdmin && (
@@ -210,18 +210,18 @@ export const Navigation = () => {
           {isOpen && (
             <div className="md:hidden border-t border-white/10 py-3 space-y-0.5 bg-black">
               <Link href="/paint-booth-filters" className="block px-4 py-2.5 text-sm font-semibold text-orange-500 hover:text-orange-300 hover:bg-white/5 rounded-lg transition-colors">Shop Filters</Link>
-              <Link href="/shop" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">All Products</Link>
-              <Link href="/shop-by-type" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Type</Link>
-              <Link href="/shop-by-size" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Size</Link>
-              <Link href="/brands" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Brands</Link>
-              <Link href="/filter-compatibility" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Filter Compatibility</Link>
-              <Link href="/why-choose-us" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Why Choose Us</Link>
-              <Link href="/memberships" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Memberships</Link>
-              <Link href="/blog" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Blog</Link>
-              <Link href="/filter-scanner" className="flex items-center gap-2 px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+              <Link href="/shop" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">All Products</Link>
+              <Link href="/shop-by-type" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Type</Link>
+              <Link href="/shop-by-size" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Size</Link>
+              <Link href="/brands" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Brands</Link>
+              <Link href="/filter-compatibility" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Filter Compatibility</Link>
+              <Link href="/why-choose-us" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Why Choose Us</Link>
+              <Link href="/memberships" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Memberships</Link>
+              <Link href="/blog" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Blog</Link>
+              <Link href="/filter-scanner" className="flex items-center gap-2 px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">
                 <Sparkles className="w-4 h-4 text-[#4d9fff]" /> AI Scanner
               </Link>
-              <Link href="/contact" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Contact</Link>
+              <Link href="/contact" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Contact</Link>
               {isAdmin && (
                 <Link href="/filter-database" className="block px-4 py-2.5 text-sm text-[#4d9fff] hover:text-blue-300 hover:bg-white/5 rounded-lg transition-colors">Filter Database (Admin)</Link>
               )}

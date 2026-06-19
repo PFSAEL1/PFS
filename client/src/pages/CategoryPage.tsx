@@ -18,6 +18,8 @@ import {
 } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
+import { ProductBadges } from '@/components/ProductBadge';
+import { getProductBadges } from '@/lib/productSignals';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
@@ -218,7 +220,8 @@ export default function CategoryPage() {
               return (
                 <div key={product.node.id} className="glow-card group">
                   <Link href={`/product/${product.node.handle}`}>
-                    <div className="product-img-wrap aspect-square overflow-hidden cursor-pointer">
+                    <div className="product-img-wrap relative aspect-square overflow-hidden cursor-pointer">
+                      <ProductBadges badges={getProductBadges(product)} />
                       <img
                         src={image}
                         alt={product.node.title}

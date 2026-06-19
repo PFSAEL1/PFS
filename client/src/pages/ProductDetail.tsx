@@ -12,6 +12,9 @@ import { useCartStore } from '@/stores/cartStore';
 import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredData';
 import { ShoppingCart, Loader2, Package, Truck, Shield, ArrowLeft, Plus, Minus } from 'lucide-react';
 import { toast } from 'sonner';
+import { ProductSpecs } from '@/components/ProductSpecs';
+import { ProductBadges } from '@/components/ProductBadge';
+import { getProductBadges } from '@/lib/productSignals';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
@@ -23,6 +26,7 @@ export default function ProductDetail() {
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [zoom, setZoom] = useState<{ x: number; y: number; show: boolean }>({ x: 50, y: 50, show: false });
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
 
@@ -126,8 +130,33 @@ export default function ProductDetail() {
         <div className="grid lg:grid-cols-2 gap-12 mb-16">
           {/* Images */}
           <div>
-            <div className="aspect-square overflow-hidden rounded-2xl bg-[#0d0d0d]/5/30 mb-4">
+            <div
+              className="group/zoom relative aspect-square overflow-hidden rounded-2xl bg-[#0d0d0d] mb-4 cursor-zoom-in"
+              onMouseMove={(e) => {
+                const r = e.currentTarget.getBoundingClientRect();
+                setZoom({
+                  x: ((e.clientX - r.left) / r.width) * 100,
+                  y: ((e.clientY - r.top) / r.height) * 100,
+                  show: true,
+                });
+              }}
+              onMouseLeave={() => setZoom((z) => ({ ...z, show: false }))}
+            >
+              <ProductBadges badges={getProductBadges(product)} />
               <img src={mainImage} alt={product.title} className="w-full h-full object-cover" />
+              {/* Zoom-detail circle (desktop) */}
+              <div
+                className={`pointer-events-none absolute hidden md:block h-44 w-44 rounded-full border-2 border-white/70 shadow-2xl ring-1 ring-black/30 transition-opacity duration-150 ${zoom.show ? 'opacity-100' : 'opacity-0'}`}
+                style={{
+                  left: `calc(${zoom.x}% - 88px)`,
+                  top: `calc(${zoom.y}% - 88px)`,
+                  backgroundImage: `url(${mainImage})`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: '250%',
+                  backgroundPosition: `${zoom.x}% ${zoom.y}%`,
+                  backgroundColor: '#0d0d0d',
+                }}
+              />
             </div>
             {images.length > 1 && (
               <div className="flex gap-2 overflow-x-auto">
@@ -222,6 +251,9 @@ export default function ProductDetail() {
             </div>
           </div>
         </div>
+
+        {/* Technical specifications */}
+        <ProductSpecs product={product} />
 
         {/* Related products */}
         {relatedProducts.length > 0 && (
