@@ -96,12 +96,12 @@ const ZOHO_FORM_HTML = `<!DOCTYPE html>
 </head>
 <body>
 <div id='crmWebToEntityForm' class='zcwf_lblLeft crmWebToEntityForm'>
-  <form id='webform7365078000001463008' action='https://crm.zoho.com/crm/WebToLeadForm' name='WebToLeads7365078000001463008' method='POST' onSubmit='javascript:document.charset="UTF-8"; return checkMandatory7365078000001463008()' accept-charset='UTF-8'>
+  <form id='webform7365078000001463008' action='https://crm.zoho.com/crm/WebToLeadForm' name='WebToLeads7365078000001463008' method='POST' target='_top' onSubmit='javascript:document.charset="UTF-8"; return checkMandatory7365078000001463008()' accept-charset='UTF-8'>
     <input type='text' style='display:none;' name='xnQsjsdp' value='82414cc7c481e269ec947edc4ebdd00a92e8ae14c4733c389f3749bb123f258a'></input>
     <input type='hidden' name='zc_gad' id='zc_gad' value=''></input>
     <input type='text' style='display:none;' name='xmIwtLD' value='8599de6e05111fc77dd833b75331ee9ffb56e4a53615f78a00009c2afac367fd76d5155c7160c5bff6c7b57638153c40'></input>
     <input type='text' style='display:none;' name='actionType' value='TGVhZHM='></input>
-    <input type='text' style='display:none;' name='returnURL' value='https://www.pfsfilters.com/'></input>
+    <input type='text' style='display:none;' name='returnURL' value='https://www.pfsfilters.com/thank-you'></input>
     <div class='zcwf_title'>PFS Filters - Website Form</div>
     <div class='zcwf_row'>
       <div class='zcwf_col_lab'><label for='First_Name'>First Name <span style='color:#ef4444;'>*</span></label></div>
@@ -268,6 +268,7 @@ export const ContactForm = () => {
               ref={iframeRef}
               title="PFS Filters Contact Form"
               srcDoc={ZOHO_FORM_HTML}
+              sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-top-navigation-by-user-activation"
               style={{ width: '100%', height: iframeHeight, border: 'none', background: 'transparent' }}
             />
           </div>

@@ -13,6 +13,7 @@ import ProductDetail from './pages/ProductDetail';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
+import ThankYou from './pages/ThankYou';
 import WhyChooseUs from './pages/WhyChooseUs';
 import Memberships from './pages/Memberships';
 import Auth from './pages/Auth';
@@ -51,6 +52,7 @@ function Router() {
 
       {/* Info pages */}
       <Route path="/contact" component={Contact} />
+      <Route path="/thank-you" component={ThankYou} />
       <Route path="/why-choose-us" component={WhyChooseUs} />
       <Route path="/memberships" component={Memberships} />
       <Route path="/returns" component={Returns} />
