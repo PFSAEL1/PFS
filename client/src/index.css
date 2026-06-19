@@ -37,24 +37,28 @@
 }
 :root {
   /* Dark theme as default — pure black background */
-  --background: hsl(0 0% 4%);
-  --foreground: hsl(0 0% 96%);
-  --card: hsl(0 0% 8%);
-  --card-foreground: hsl(0 0% 96%);
-  --popover: hsl(0 0% 8%);
-  --popover-foreground: hsl(0 0% 96%);
+  --background: hsl(0 0% 5%);
+  --foreground: hsl(0 0% 98%);
+  --card: hsl(0 0% 11%);
+  --card-foreground: hsl(0 0% 98%);
+  --popover: hsl(0 0% 11%);
+  --popover-foreground: hsl(0 0% 98%);
   
   /* Electric blue primary */
   --primary: hsl(207 100% 50%);
   --primary-foreground: hsl(0 0% 100%);
   
   /* Secondary — dark gray */
-  --secondary: hsl(0 0% 12%);
-  --secondary-foreground: hsl(0 0% 96%);
+  --secondary: hsl(0 0% 14%);
+  --secondary-foreground: hsl(0 0% 98%);
   
-  /* Muted */
-  --muted: hsl(0 0% 12%);
-  --muted-foreground: hsl(0 0% 55%);
+  /* Muted — raised to ~#bdbdbd (WCAG AA on dark) */
+  --muted: hsl(0 0% 14%);
+  --muted-foreground: hsl(0 0% 74%);
+
+  /* Secondary accent — muted warm teal, used sparingly for hierarchy */
+  --accent-teal: hsl(174 60% 56%);
+  --accent-teal-foreground: hsl(0 0% 5%);
   
   /* Accent */
   --accent: hsl(0 0% 14%);
@@ -81,18 +85,20 @@
 /* oklch override for browsers that support it */
 @supports (color: oklch(0.5 0.1 200)) {
   :root {
-    --background: oklch(0.09 0 0);
-    --foreground: oklch(0.96 0 0);
-    --card: oklch(0.13 0 0);
-    --card-foreground: oklch(0.96 0 0);
-    --popover: oklch(0.13 0 0);
-    --popover-foreground: oklch(0.96 0 0);
+    --background: oklch(0.11 0 0);
+    --foreground: oklch(0.98 0 0);
+    --card: oklch(0.16 0 0);
+    --card-foreground: oklch(0.98 0 0);
+    --popover: oklch(0.16 0 0);
+    --popover-foreground: oklch(0.98 0 0);
     --primary: oklch(0.62 0.22 230);
     --primary-foreground: oklch(1 0 0);
-    --secondary: oklch(0.17 0 0);
-    --secondary-foreground: oklch(0.96 0 0);
-    --muted: oklch(0.17 0 0);
-    --muted-foreground: oklch(0.55 0 0);
+    --secondary: oklch(0.19 0 0);
+    --secondary-foreground: oklch(0.98 0 0);
+    --muted: oklch(0.19 0 0);
+    --muted-foreground: oklch(0.79 0 0);
+    --accent-teal: oklch(0.79 0.11 184);
+    --accent-teal-foreground: oklch(0.11 0 0);
     --accent: oklch(0.19 0 0);
     --accent-foreground: oklch(0.96 0 0);
     --destructive: oklch(0.577 0.245 27.325);
@@ -586,3 +592,124 @@ video::-internal-media-controls-play-button {
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+
+/* ============================================================
+   ACCESSIBILITY + DEPTH PASS (global, non-destructive)
+   Goal: lift low-contrast body copy to WCAG AA, give cards a
+   distinct surface, add a restrained secondary (teal) accent,
+   and differentiate section backgrounds with subtle texture.
+   ============================================================ */
+
+/* ---- 1. Body-copy contrast floor -------------------------------------
+   Many components use faint white-opacity utilities (text-white/40..60)
+   and text-muted-foreground for functional body copy. On a near-black
+   page these fail AA at small sizes. We raise the *effective* color of
+   these utilities to a minimum of ~#c4c4c4 without touching markup.
+   Decorative uses (borders, backgrounds) are unaffected because these
+   selectors only target text color utilities. */
+.text-white\/40,
+.text-white\/45,
+.text-white\/50,
+.text-white\/55,
+.text-white\/60,
+.text-white\/65,
+.text-white\/70 {
+  color: rgb(200 200 200) !important;   /* ~#c8c8c8 — clears AA for body text */
+}
+
+/* Small print / metadata: lift but allow slightly dimmer than body */
+.text-white\/25,
+.text-white\/30,
+.text-white\/35 {
+  color: rgb(165 165 165) !important;   /* ~#a5a5a5 — AA for ≥18px / bold */
+}
+
+/* shadcn muted text — used 70+ times for descriptions */
+.text-muted-foreground {
+  color: hsl(0 0% 74%) !important;       /* ~#bdbdbd */
+}
+
+/* Generic light-gray tailwind grays sometimes used for copy */
+.text-gray-400 { color: rgb(190 190 190) !important; }
+.text-gray-500 { color: rgb(170 170 170) !important; }
+
+/* ---- 2. Secondary accent: muted teal ---------------------------------
+   Use sparingly for eyebrows, dividers, secondary CTAs so the blue
+   isn't the only hierarchy cue. */
+.text-accent-teal   { color: var(--accent-teal) !important; }
+.border-accent-teal { border-color: var(--accent-teal) !important; }
+.bg-accent-teal     { background-color: var(--accent-teal) !important; }
+
+/* Teal eyebrow pill variant (opt-in via .eyebrow-teal) */
+.eyebrow-teal {
+  color: var(--accent-teal) !important;
+  background: color-mix(in srgb, var(--accent-teal) 10%, transparent) !important;
+  border-color: color-mix(in srgb, var(--accent-teal) 28%, transparent) !important;
+}
+
+/* ---- 3. Card surface depth -------------------------------------------
+   Give common card patterns a clearly lighter surface (#1a1a1a-ish)
+   against the darker page so elements read as raised, not flat. */
+.glow-card {
+  background: linear-gradient(135deg, hsl(0 0% 13%) 0%, hsl(0 0% 10%) 100%) !important;
+  border-color: hsl(0 0% 20%) !important;
+}
+.feature-card {
+  background: linear-gradient(160deg, hsl(0 0% 13%) 0%, hsl(0 0% 9%) 100%) !important;
+  border-color: hsl(0 0% 19%) !important;
+}
+/* Faint translucent card panels used inline (bg-white/[0.02]/[0.03]) get
+   a real surface so they separate from the page. */
+.bg-white\/\[0\.02\],
+.bg-white\/\[0\.03\],
+.bg-white\/5 {
+  background-color: hsl(0 0% 11%) !important;
+  border-color: hsl(0 0% 18%);
+}
+
+/* ---- 4. Section background differentiation + texture -----------------
+   Replace the flat same-shade blacks with alternating tones plus a
+   barely-there dot texture so sections have rhythm and depth. */
+.section-dark   { background-color: #0d0d0d !important; }
+.section-darker { background-color: #080808 !important; }
+.section-raised {
+  background:
+    radial-gradient(1200px 400px at 50% -10%, rgba(0,153,255,0.05), transparent 60%),
+    linear-gradient(180deg, #161616 0%, #101010 100%) !important;
+}
+
+/* Subtle dotted texture utility — apply to any <section> via .tex-dots */
+.tex-dots {
+  position: relative;
+}
+.tex-dots::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events: none;
+  z-index: 0;
+}
+.tex-dots > * { position: relative; z-index: 1; }
+
+/* Faint diagonal hairline texture — alternate sections via .tex-lines */
+.tex-lines {
+  position: relative;
+}
+.tex-lines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255,255,255,0.018) 0px,
+    rgba(255,255,255,0.018) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.tex-lines > * { position: relative; z-index: 1; }

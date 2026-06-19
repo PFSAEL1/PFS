@@ -40,98 +40,66 @@ export default function Home() {
 
       {/* 2. Trust strip is inside SocialProofBanner — bg handled there */}
 
-      {/* 3. Filters in Action — #080808 */}
-      <section className="py-20 px-4" style={{ backgroundColor: '#080808' }}>
+      {/* 3. Filters in Action — three feature rectangles */}
+      <section className="section-darker tex-dots py-20 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Eyebrow */}
           <div className="flex justify-center mb-3">
-            <span className="bg-white/5 border border-white/10 rounded-full text-blue-400 text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
+            <span className="eyebrow-teal border rounded-full text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
               Our Filters in Action
             </span>
           </div>
-          <h2 className="text-white text-2xl font-semibold text-center mt-2">
+          <h2 className="text-white text-2xl md:text-3xl font-semibold text-center mt-2">
             Built for real booths. Proven in the field.
           </h2>
           <p className="text-white/60 text-sm text-center mt-2 mb-10">
             Every filter ships from the same team that builds the booths.
           </p>
 
-          {/* Photo Grid: 2-col desktop */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Photo 1 — Large, spans both rows on left */}
-            <div className="md:row-span-2 relative rounded-xl overflow-hidden border border-white/[0.08] group">
-              <img
-                src="/images/PFS_7.jpg"
-                alt="Ceiling intake blankets in downdraft booth"
-                className="w-full h-[320px] md:h-[520px] object-cover object-center"
-              />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)' }} />
-              <div className="absolute bottom-4 left-4 z-10">
-                <p className="text-white font-medium text-sm">Ceiling Intake Blankets</p>
-                <p className="text-white/60 text-xs">Downdraft booth — PFS installed</p>
-                <Link href="/category/ceiling-blankets">
-                  <span className="text-blue-400 text-xs font-medium mt-1 inline-block hover:text-blue-300 transition-colors">Shop Ceiling Blankets →</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Photo 2 — Top right */}
-            <div className="relative rounded-xl overflow-hidden border border-white/[0.08] group">
-              <img
-                src="/images/Spray-booth_2.webp"
-                alt="Fiberglass exhaust arrestors in semi-downdraft booth"
-                className="w-full h-[250px] object-cover object-center"
-              />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)' }} />
-              <div className="absolute bottom-4 left-4 z-10">
-                <p className="text-white font-medium text-sm">Fiberglass Exhaust Arrestors</p>
-                <p className="text-white/60 text-xs">Semi-downdraft configuration</p>
-                <Link href="/category/fiberglass-arrestors">
-                  <span className="text-blue-400 text-xs font-medium mt-1 inline-block hover:text-blue-300 transition-colors">Shop Arrestors →</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Photo 3 — Bottom right */}
-            <div className="relative rounded-xl overflow-hidden border border-white/[0.08] group">
-              <img
-                src="/images/PFS_1.webp"
-                alt="Exhaust filter wall in powder coat booth"
-                className="w-full h-[250px] object-cover object-center"
-              />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)' }} />
-              <div className="absolute bottom-4 left-4 z-10">
-                <p className="text-white font-medium text-sm">Exhaust Filter Wall</p>
-                <p className="text-white/60 text-xs">Powder coat booth — full media load</p>
-                <Link href="/category/fiberglass-arrestors">
-                  <span className="text-blue-400 text-xs font-medium mt-1 inline-block hover:text-blue-300 transition-colors">Shop Exhaust Filters →</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Photo 4 — Full width banner */}
-          <div className="relative rounded-xl overflow-hidden border border-white/[0.08] mt-4">
-            <img
-              src="/images/Interior_crossflow.jpg"
-              alt="Large-scale industrial crossflow booth"
-              className="w-full h-[200px] md:h-[280px] object-cover"
-              style={{ objectPosition: 'center 40%' }}
-            />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 60%)' }} />
-            <div className="absolute top-1/2 -translate-y-1/2 left-6 z-10 max-w-xs">
-              <span className="bg-white/5 border border-white/10 rounded-full text-blue-400 text-[10px] tracking-widest font-medium px-3 py-1 inline-flex items-center uppercase">
-                Large-Scale Installations
-              </span>
-              <p className="text-white font-medium text-base mt-3 leading-snug">
-                From body shops to aerospace facilities — PFS filters every booth we build.
-              </p>
-              <Link href="/contact">
-                <span className="inline-block border border-white/20 text-white/80 hover:border-white/40 hover:text-white px-5 py-2 rounded-lg text-sm mt-3 transition-colors duration-150">
-                  Get a Custom Quote →
-                </span>
+          {/* Three large rectangles: Intake Blankets · Exhaust Filters · Intake Pads */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                title: 'Intake Blankets',
+                subtitle: 'Overhead ceiling intake filtration',
+                image: '/images/home_intake_blankets.webp',
+                alt: 'Aircraft in a PFS downdraft booth with ceiling intake blankets overhead',
+                href: '/category/ceiling-blankets',
+                cta: 'Shop Intake Blankets',
+              },
+              {
+                title: 'Exhaust Filters',
+                subtitle: 'High-capacity fiberglass exhaust media',
+                image: '/images/home_exhaust_filters.webp',
+                alt: 'PFS booth interior with a fiberglass exhaust filter wall',
+                href: '/category/fiberglass-arrestors',
+                cta: 'Shop Exhaust Filters',
+              },
+              {
+                title: 'Intake Pads',
+                subtitle: 'Diffusion pads for clean, even airflow',
+                image: '/images/home_intake_pads.webp',
+                alt: 'PFS Zenith booth with green ceiling intake pads installed',
+                href: '/category/tacky-panels',
+                cta: 'Shop Intake Pads',
+              },
+            ].map((card) => (
+              <Link key={card.title} href={card.href}>
+                <div className="relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-blue-500/45 transition-all duration-200 h-[300px] md:h-[420px]">
+                  <img
+                    src={card.image}
+                    alt={card.alt}
+                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 55%, transparent 100%)' }} />
+                  <div className="absolute bottom-5 left-5 right-5 z-10">
+                    <p className="text-white font-semibold text-lg leading-tight">{card.title}</p>
+                    <p className="text-white/75 text-sm mt-1">{card.subtitle}</p>
+                    <span className="text-blue-400 text-sm font-medium mt-2 inline-block group-hover:text-blue-300 transition-colors">{card.cta} →</span>
+                  </div>
+                </div>
               </Link>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -151,8 +119,8 @@ export default function Home() {
       {/* Divider */}
       <div className="w-full h-px bg-white/[0.04]" />
 
-      {/* 6. How It Works — #0e0e0e */}
-      <section className="py-20 px-4" style={{ backgroundColor: '#0e0e0e' }}>
+      {/* 6. How It Works — raised, lined texture */}
+      <section className="section-raised tex-lines py-20 px-4">
         <div className="max-w-5xl mx-auto">
           {/* Eyebrow */}
           <div className="flex justify-center mb-3">
@@ -205,8 +173,8 @@ export default function Home() {
       {/* Divider */}
       <div className="w-full h-px bg-white/[0.04]" />
 
-      {/* 7. Booth Brand Compatibility Strip — #080808 */}
-      <section className="py-14 px-4" style={{ backgroundColor: '#080808' }}>
+      {/* 7. Booth Brand Compatibility Strip — darkest */}
+      <section className="section-darker py-14 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-white/25 text-xs tracking-widest font-medium uppercase">Compatible With</p>
           <p className="text-white/60 text-sm mt-2 mb-8">Filters for every major booth brand</p>
@@ -234,8 +202,8 @@ export default function Home() {
       {/* Divider */}
       <div className="w-full h-px bg-white/[0.04]" />
 
-      {/* 8. Membership Banner — #0e0e0e */}
-      <section className="py-16 px-4" style={{ backgroundColor: '#0e0e0e' }}>
+      {/* 8. Membership Banner — raised */}
+      <section className="section-raised py-16 px-4">
         <div className="max-w-4xl mx-auto px-6 bg-white/[0.02] border border-white/[0.08] rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
           {/* Left */}
           <div>
