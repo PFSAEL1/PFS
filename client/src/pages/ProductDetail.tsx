@@ -121,9 +121,11 @@ export default function ProductDetail() {
       />
       <Navigation />
       <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
-        <Breadcrumb items={[{ label: 'Shop', href: '/shop' }, { label: product.title }]} />
+        <div className="[&_*]:!text-[#9aa0a6] [&_a:hover]:!text-white">
+          <Breadcrumb items={[{ label: 'Shop', href: '/shop' }, { label: product.title }]} />
+        </div>
         <Link href="/shop">
-          <Button variant="ghost" size="sm" className="gap-2 mb-6 -ml-2">
+          <Button variant="ghost" size="sm" className="gap-2 mb-6 -ml-2 text-[#bdbdbd] hover:text-white">
             <ArrowLeft className="h-4 w-4" /> Back to Shop
           </Button>
         </Link>
@@ -132,7 +134,8 @@ export default function ProductDetail() {
           {/* Images */}
           <div>
             <div
-              className="group/zoom relative aspect-square overflow-hidden rounded-2xl bg-[#0d0d0d] mb-4 cursor-zoom-in"
+              className="group/zoom relative aspect-square overflow-hidden rounded-2xl bg-[#161616] border border-[#2a2a2a] shadow-xl mb-4 cursor-zoom-in"
+              style={{ backgroundImage: 'radial-gradient(circle at 50% 42%, rgba(80,90,110,0.18), rgba(13,13,13,0) 62%)' }}
               onMouseMove={(e) => {
                 const r = e.currentTarget.getBoundingClientRect();
                 setZoom({
@@ -144,7 +147,7 @@ export default function ProductDetail() {
               onMouseLeave={() => setZoom((z) => ({ ...z, show: false }))}
             >
               <ProductBadges badges={getProductBadges(product)} />
-              <img src={mainImage} alt={product.title} className="w-full h-full object-cover" />
+              <img src={mainImage} alt={product.title} className="relative z-[1] w-full h-full object-cover" />
               {/* Zoom-detail circle (desktop) */}
               <div
                 className={`pointer-events-none absolute hidden md:block h-44 w-44 rounded-full border-2 border-white/70 shadow-2xl ring-1 ring-black/30 transition-opacity duration-150 ${zoom.show ? 'opacity-100' : 'opacity-0'}`}
@@ -155,7 +158,7 @@ export default function ProductDetail() {
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: '250%',
                   backgroundPosition: `${zoom.x}% ${zoom.y}%`,
-                  backgroundColor: '#0d0d0d',
+                  backgroundColor: '#161616',
                 }}
               />
             </div>
@@ -188,13 +191,13 @@ export default function ProductDetail() {
             </div>
 
             {product.description && (
-              <p className="text-white/50 leading-relaxed mb-6">{product.description}</p>
+              <p className="text-white/70 leading-relaxed mb-6">{product.description}</p>
             )}
 
             {/* Variant selector */}
             {product.variants?.edges?.length > 1 && (
               <div className="mb-6">
-                <p className="font-semibold mb-2">Options</p>
+                <p className="font-semibold mb-2 text-white">Options</p>
                 <div className="flex flex-wrap gap-2">
                   {product.variants.edges.map((edge: { node: { id: string; title: string; availableForSale: boolean } }) => (
                     <button
@@ -202,8 +205,8 @@ export default function ProductDetail() {
                       onClick={() => setSelectedVariantId(edge.node.id)}
                       className={`px-3 py-1.5 text-sm rounded-lg border-2 transition-colors ${
                         selectedVariantId === edge.node.id
-                          ? 'border-primary bg-blue-500/10 text-blue-400'
-                          : 'border-white/10 hover:border-primary/50'
+                          ? 'border-blue-400 bg-blue-500/15 text-blue-300'
+                          : 'border-[#3a3a3a] bg-[#1a1a1a] text-white/85 hover:border-blue-400/60 hover:bg-[#202020]'
                       } ${!edge.node.availableForSale ? 'opacity-50 cursor-not-allowed' : ''}`}
                       disabled={!edge.node.availableForSale}
                     >
@@ -237,16 +240,16 @@ export default function ProductDetail() {
             </div>
 
             {/* Trust badges */}
-            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10">
+            <div className="grid grid-cols-3 gap-3 mt-2 pt-6 border-t border-[#2a2a2a]">
               {[
                 { icon: Truck, label: 'Fast Shipping', sub: '1-2 day processing' },
                 { icon: Shield, label: 'Quality Guaranteed', sub: 'Or we make it right' },
                 { icon: Package, label: 'Custom Sizes', sub: 'Cut to spec' },
               ].map((item) => (
-                <div key={item.label} className="text-center p-3 bg-[#0d0d0d]/5/30 rounded-lg">
+                <div key={item.label} className="text-center p-3 bg-[#161616] border border-[#242424] rounded-lg">
                   <item.icon className="h-5 w-5 text-blue-400 mx-auto mb-1" />
-                  <p className="text-xs font-semibold">{item.label}</p>
-                  <p className="text-xs text-white/50">{item.sub}</p>
+                  <p className="text-xs font-semibold text-white/90">{item.label}</p>
+                  <p className="text-xs text-white/55">{item.sub}</p>
                 </div>
               ))}
             </div>
@@ -266,8 +269,8 @@ export default function ProductDetail() {
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
               {relatedProducts.map((rp) => (
                 <Link key={rp.node.id} href={`/product/${rp.node.handle}`}>
-                  <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                    <div className="aspect-square overflow-hidden bg-[#0d0d0d]/5/30">
+                  <Card className="bg-[#161616] border-[#2a2a2a] hover:border-blue-400/40 hover:shadow-md transition-all cursor-pointer">
+                    <div className="aspect-square overflow-hidden bg-[#1a1a1a]">
                       <img
                         src={rp.node.images.edges[0]?.node.url || FALLBACK_IMAGE}
                         alt={rp.node.title}
