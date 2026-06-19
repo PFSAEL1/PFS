@@ -17,14 +17,14 @@ const categories: Category[] = [
     title: 'Ceiling Blankets',
     subtitle: 'Overhead intake filtration',
     href: '/category/ceiling-blankets',
-    image: '/images/cat_ceiling_blankets.webp',
+    image: '/images/cat_ceiling_blankets.png',
     mode: 'product',
   },
   {
     title: 'Fiberglass Arrestors',
     subtitle: 'High-capacity exhaust filtration',
     href: '/category/fiberglass-arrestors',
-    image: '/images/cat_fiberglass_arrestors.webp',
+    image: '/images/cat_fiberglass_arrestors.png',
     mode: 'product',
   },
   {
@@ -38,7 +38,7 @@ const categories: Category[] = [
     title: 'Roll Media',
     subtitle: 'Continuous roll filtration',
     href: '/category/roll-media',
-    image: '/images/cat_roll_media.webp',
+    image: '/images/cat_roll_media.png',
     mode: 'product',
   },
   {
@@ -83,13 +83,20 @@ export const CategoryNavigation = () => {
                 {/* Media area — large */}
                 <div className="relative w-full aspect-[4/3] overflow-hidden">
                   {cat.mode === 'product' ? (
-                    <img
-                      src={cat.image}
-                      alt={cat.title}
-                      className="absolute inset-0 w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
-                      style={{ backgroundColor: '#edeef0' }}
-                      loading="lazy"
-                    />
+                    <div
+                      className="absolute inset-0 flex items-center justify-center p-6"
+                      style={{
+                        background:
+                          'radial-gradient(120% 120% at 50% 35%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.015) 100%)',
+                      }}
+                    >
+                      <img
+                        src={cat.image}
+                        alt={cat.title}
+                        className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_10px_24px_rgba(0,0,0,0.55)]"
+                        loading="lazy"
+                      />
+                    </div>
                   ) : (
                     <>
                       <img
