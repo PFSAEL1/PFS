@@ -14,16 +14,16 @@ export const SocialProofBanner = () => {
   // Render the set twice for a seamless infinite loop.
   const loop = [...ITEMS, ...ITEMS];
   return (
-    <div className="bg-[#0a0a0a] border-b border-white/10 py-3 overflow-hidden group">
+    <div className="ticker-bar bg-[#0a0a0a] border-b border-white/10 py-2 overflow-hidden group">
       <div className="ticker-track flex w-max items-center gap-10 whitespace-nowrap group-hover:[animation-play-state:paused]">
         {loop.map((item, i) => (
           <div
             key={i}
-            className="flex items-center gap-2.5 text-sm font-medium text-white/85"
+            className="ticker-item flex items-center gap-2.5"
           >
-            <item.icon className="h-4 w-4 text-blue-400 shrink-0" />
+            <item.icon className="h-3 w-3 text-blue-400/70 shrink-0" />
             <span>{item.text}</span>
-            <span className="ml-10 h-1 w-1 rounded-full bg-white/25" aria-hidden />
+            <span className="ticker-dot ml-10 h-1 w-1 rounded-full bg-white" aria-hidden />
           </div>
         ))}
       </div>

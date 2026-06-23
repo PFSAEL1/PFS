@@ -737,3 +737,62 @@ video::-internal-media-controls-play-button {
     justify-content: center;
   }
 }
+
+
+/* ---- Hero headline: condensed, engineered, two-tier scale ---- */
+.hero-headline {
+  font-family: 'Barlow Condensed', 'Oswald', 'Inter', system-ui, sans-serif;
+  font-weight: 800;            /* ExtraBold */
+  letter-spacing: -0.02em;     /* tighten from the loose default — reads engineered */
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+/* Tier 1 — the setup line: white, slightly smaller */
+.hero-tier1 {
+  display: block;
+  color: #ffffff;
+  font-size: clamp(1.9rem, 4.4vw, 3.4rem);   /* ~10% reduced vs old base */
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+/* Tier 2 — the key message: ~20% larger, diagonal gradient fill */
+.hero-tier2 {
+  display: block;
+  margin-top: 0.12em;
+  font-size: clamp(2.5rem, 6.2vw, 4.6rem);   /* ~20% larger than tier 1 */
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  background: linear-gradient(135deg, #60a5fa 0%, #a5f3fc 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ---- Hero left-side vignette: grounds the headline to the image ---- */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.5) 40%,
+    rgba(0, 0, 0, 0) 70%
+  );
+}
+
+/* ---- Trust ticker: quiet, subordinate, broadcast-style ---- */
+.ticker-bar {
+  opacity: 0.75;            /* the whole bar whispers */
+}
+.ticker-item {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.8);
+}
+.ticker-dot {
+  opacity: 0.4;
+}

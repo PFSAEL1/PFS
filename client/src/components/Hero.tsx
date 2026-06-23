@@ -57,9 +57,9 @@ export const Hero = () => {
             disablePictureInPicture
             style={{ pointerEvents: 'none' }}
           />
-          {/* Gradient overlay: strong on left for text readability, fades right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          {/* Left-side vignette: grounds the headline to the image, keeps filter imagery on the right fully visible */}
+          <div className="hero-vignette" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-[1]" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-32 w-full">
@@ -70,13 +70,13 @@ export const Hero = () => {
               A Division of PFS Spray Booths — 30+ Years of Expertise
             </div>
 
-            {/* Headline */}
+            {/* Headline — two visual tiers: white setup line, larger gradient key message */}
             <h1
-              className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6 animate-slide-up"
+              className="hero-headline mb-6 animate-slide-up"
               style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}
             >
-              The Only Filter Program That{' '}
-              <span className="text-blue-400">Manages Your Entire Booth</span>
+              <span className="hero-tier1">The Only Filter Program That</span>
+              <span className="hero-tier2">Manages Your Entire Booth</span>
             </h1>
 
             {/* Subheadline */}
