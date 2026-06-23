@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
@@ -791,8 +792,21 @@ video::-internal-media-controls-play-button {
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+.ticker-item span {
+  color: rgba(255, 255, 255, 0.72) !important;
 }
 .ticker-dot {
   opacity: 0.4;
+  background-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* ---- Force Barlow Condensed 800 on the actual rendered hero headline ---- */
+.hero-headline,
+.hero-headline .hero-tier1,
+.hero-headline .hero-tier2 {
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
 }
