@@ -2,7 +2,7 @@
 // for the product detail page. Renders only when the product matches a
 // recognized PFS-booth filter role.
 import { useState } from 'react';
-import { ChevronDown, Wind, ChevronRight } from 'lucide-react';
+import { ChevronDown, Filter, ChevronRight } from 'lucide-react';
 import { getPfsBoothCompatibility } from '@/lib/productSignals';
 
 export const PfsBoothCompatibility = ({ product }: { product: any }) => {
@@ -14,11 +14,12 @@ export const PfsBoothCompatibility = ({ product }: { product: any }) => {
     <section className="mt-6 max-w-3xl">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between rounded-xl border border-white/[0.07] bg-[#161616] px-5 py-4 text-left transition-colors hover:border-white/20"
+        className="flex w-full items-center justify-between rounded-xl border px-5 py-4 text-left transition-colors hover:border-white/20"
+        style={{ background: '#161616', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}
         aria-expanded={open}
       >
         <span className="flex items-center gap-2.5 text-lg font-semibold text-white">
-          <Wind className="h-5 w-5 text-teal-400" />
+          <Filter className="h-4 w-4 shrink-0" style={{ color: 'rgba(255,255,255,0.5)' }} aria-hidden="true" />
           Fits These PFS Booths
         </span>
         <ChevronDown
@@ -27,12 +28,13 @@ export const PfsBoothCompatibility = ({ product }: { product: any }) => {
       </button>
 
       {open && (
-        <div className="mt-3 overflow-hidden rounded-xl border border-white/[0.07]">
+        <div className="mt-3 overflow-hidden rounded-xl" style={{ border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}>
           <ul>
             {rows.map((row) => (
               <li
                 key={`${row.booth}-${row.position}`}
-                className="flex items-start gap-3 px-5 py-4 bg-[#1e1e1e] border-b border-white/[0.05]"
+                className="flex items-start gap-3 px-5 py-4"
+                style={{ background: '#1e1e1e', borderBottom: '1px solid rgba(255,255,255,0.05)' }}
               >
                 <ChevronRight
                   className="mt-1 h-4 w-4 shrink-0"
@@ -43,11 +45,8 @@ export const PfsBoothCompatibility = ({ product }: { product: any }) => {
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                     <span className="font-semibold text-white">{row.booth}</span>
                     <span
-                      className={`rounded-full px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide ${
-                        row.position === 'Intake'
-                          ? 'bg-teal-500/15 text-teal-300'
-                          : 'bg-blue-500/15 text-blue-300'
-                      }`}
+                      className="rounded-full px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide"
+                      style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.12)' }}
                     >
                       {row.position}
                     </span>
@@ -57,7 +56,7 @@ export const PfsBoothCompatibility = ({ product }: { product: any }) => {
               </li>
             ))}
           </ul>
-          <p className="bg-[#1e1e1e] px-5 py-3 text-xs text-white/55">
+          <p className="px-5 py-3 text-xs text-white/55" style={{ background: '#1e1e1e' }}>
             Not sure which configuration you have (heated vs. non-heated)?{' '}
             <a href="/filter-compatibility" className="text-teal-400 hover:underline">
               Use the compatibility finder

@@ -128,7 +128,7 @@ export default function ProductDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen text-white" style={{ background: '#0a0a0a' }}>
       <SEO
         title={`${product.title} - PFS Filters`}
         description={product.description || `Buy ${product.title} from PFS Filters. Premium paint booth filtration products with fast nationwide shipping.`}
@@ -151,8 +151,8 @@ export default function ProductDetail() {
           {/* Images */}
           <div>
             <div
-              className="group/zoom relative aspect-square overflow-hidden rounded-xl bg-[#161616] border border-white/[0.07] shadow-xl mb-4 cursor-zoom-in"
-              style={{ backgroundImage: 'radial-gradient(circle at 50% 42%, rgba(80,90,110,0.18), rgba(13,13,13,0) 62%)' }}
+              className="group/zoom relative aspect-square overflow-hidden shadow-xl mb-4 cursor-zoom-in"
+              style={{ backgroundColor: '#161616', backgroundImage: 'radial-gradient(circle at 50% 42%, rgba(80,90,110,0.18), rgba(13,13,13,0) 62%)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}
               onMouseMove={(e) => {
                 const r = e.currentTarget.getBoundingClientRect();
                 setZoom({
@@ -263,7 +263,7 @@ export default function ProductDetail() {
                 { icon: Shield, label: 'Quality Guaranteed', sub: 'Or we make it right' },
                 { icon: Package, label: 'Custom Sizes', sub: 'Cut to spec' },
               ].map((item) => (
-                <div key={item.label} className="text-center p-3 bg-[#161616] border border-white/[0.07] rounded-xl">
+                <div key={item.label} className="text-center p-3" style={{ background: '#161616', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '10px' }}>
                   <item.icon className="h-5 w-5 text-blue-400 mx-auto mb-1" />
                   <p className="text-xs font-semibold text-white/90">{item.label}</p>
                   <p className="text-xs text-white/55">{item.sub}</p>

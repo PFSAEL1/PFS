@@ -1,6 +1,6 @@
 // ProductSpecs — collapsible technical spec table for the product detail page.
 import { useState } from 'react';
-import { ChevronDown, FileText } from 'lucide-react';
+import { ChevronDown, List } from 'lucide-react';
 import { getProductSpecs } from '@/lib/productSignals';
 
 export const ProductSpecs = ({ product }: { product: any }) => {
@@ -12,11 +12,12 @@ export const ProductSpecs = ({ product }: { product: any }) => {
     <section className="mt-12 max-w-3xl">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between rounded-xl border border-white/[0.07] bg-[#161616] px-5 py-4 text-left transition-colors hover:border-white/20"
+        className="flex w-full items-center justify-between rounded-xl border px-5 py-4 text-left transition-colors hover:border-white/20"
+        style={{ background: '#161616', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}
         aria-expanded={open}
       >
         <span className="flex items-center gap-2.5 text-lg font-semibold text-white">
-          <FileText className="h-5 w-5 text-blue-400" />
+          <List className="h-4 w-4 shrink-0" style={{ color: 'rgba(255,255,255,0.5)' }} aria-hidden="true" />
           Technical Specifications
         </span>
         <ChevronDown
@@ -25,13 +26,13 @@ export const ProductSpecs = ({ product }: { product: any }) => {
       </button>
 
       {open && (
-        <div className="mt-3 overflow-hidden rounded-xl border border-white/[0.07]">
+        <div className="mt-3 overflow-hidden rounded-xl" style={{ border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}>
           <table className="w-full text-sm">
             <tbody>
               {specs.map((row) => (
                 <tr
                   key={row.label}
-                  className="bg-[#1e1e1e] border-b border-white/[0.05]"
+                  style={{ background: '#1e1e1e', borderBottom: '1px solid rgba(255,255,255,0.05)' }}
                 >
                   <th className="w-2/5 px-5 py-3.5 text-left align-top font-medium text-white/70">
                     {row.label}
@@ -41,7 +42,7 @@ export const ProductSpecs = ({ product }: { product: any }) => {
               ))}
             </tbody>
           </table>
-          <p className="bg-[#1e1e1e] px-5 py-3 text-xs text-white/55">
+          <p className="px-5 py-3 text-xs text-white/55" style={{ background: '#1e1e1e' }}>
             Specs are typical for this product family. Need to confirm an exact booth fit?{' '}
             <a href="/contact" className="text-blue-400 hover:underline">
               Contact us
