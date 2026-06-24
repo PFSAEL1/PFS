@@ -16,8 +16,8 @@ export const ProductSpecs = ({ product }: { product: any }) => {
         style={{ background: '#161616', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}
         aria-expanded={open}
       >
-        <span className="flex items-center gap-2.5 text-lg font-semibold text-white">
-          <List className="h-4 w-4 shrink-0" style={{ color: 'rgba(255,255,255,0.5)' }} aria-hidden="true" />
+        <span className="flex items-center gap-2.5 text-lg font-semibold" style={{ color: '#ffffff' }}>
+          <List className="h-4 w-4 shrink-0" style={{ color: 'rgba(59,130,246,0.8)' }} aria-hidden="true" />
           Technical Specifications
         </span>
         <ChevronDown
@@ -34,10 +34,10 @@ export const ProductSpecs = ({ product }: { product: any }) => {
                   key={row.label}
                   style={{ background: '#1e1e1e', borderBottom: '1px solid rgba(255,255,255,0.05)' }}
                 >
-                  <th className="w-2/5 px-5 py-3.5 text-left align-top font-medium text-white/70">
+                  <th className="w-2/5 px-5 py-3.5 text-left align-top font-medium" style={{ color: 'rgba(255,255,255,0.5)' }}>
                     {row.label}
                   </th>
-                  <td className="px-5 py-3.5 align-top text-white">{row.value}</td>
+                  <td className="px-5 py-3.5 align-top" style={{ color: '#ffffff' }}>{row.value}</td>
                 </tr>
               ))}
             </tbody>

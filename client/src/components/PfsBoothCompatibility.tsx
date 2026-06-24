@@ -18,8 +18,8 @@ export const PfsBoothCompatibility = ({ product }: { product: any }) => {
         style={{ background: '#161616', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}
         aria-expanded={open}
       >
-        <span className="flex items-center gap-2.5 text-lg font-semibold text-white">
-          <Filter className="h-4 w-4 shrink-0" style={{ color: 'rgba(255,255,255,0.5)' }} aria-hidden="true" />
+        <span className="flex items-center gap-2.5 text-lg font-semibold" style={{ color: '#ffffff' }}>
+          <Filter className="h-4 w-4 shrink-0" style={{ color: 'rgba(59,130,246,0.8)' }} aria-hidden="true" />
           Fits These PFS Booths
         </span>
         <ChevronDown
@@ -46,7 +46,7 @@ export const PfsBoothCompatibility = ({ product }: { product: any }) => {
                     <span className="font-semibold text-white">{row.booth}</span>
                     <span
                       className="rounded-full px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide"
-                      style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.12)' }}
+                      style={{ background: 'rgba(59,130,246,0.15)', color: '#93c5fd', border: '1px solid rgba(59,130,246,0.3)' }}
                     >
                       {row.position}
                     </span>
