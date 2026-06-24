@@ -12,7 +12,7 @@ export const ProductSpecs = ({ product }: { product: any }) => {
     <section className="mt-12 max-w-3xl">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between rounded-xl border border-white/10 bg-[#161616] px-5 py-4 text-left transition-colors hover:border-white/20"
+        className="flex w-full items-center justify-between rounded-xl border border-white/[0.07] bg-[#161616] px-5 py-4 text-left transition-colors hover:border-white/20"
         aria-expanded={open}
       >
         <span className="flex items-center gap-2.5 text-lg font-semibold text-white">
@@ -25,13 +25,13 @@ export const ProductSpecs = ({ product }: { product: any }) => {
       </button>
 
       {open && (
-        <div className="mt-3 overflow-hidden rounded-xl border border-white/10">
+        <div className="mt-3 overflow-hidden rounded-xl border border-white/[0.07]">
           <table className="w-full text-sm">
             <tbody>
-              {specs.map((row, i) => (
+              {specs.map((row) => (
                 <tr
                   key={row.label}
-                  className={i % 2 === 0 ? 'bg-[#141414]' : 'bg-[#101010]'}
+                  className="bg-[#1e1e1e] border-b border-white/[0.05]"
                 >
                   <th className="w-2/5 px-5 py-3.5 text-left align-top font-medium text-white/70">
                     {row.label}
@@ -41,7 +41,7 @@ export const ProductSpecs = ({ product }: { product: any }) => {
               ))}
             </tbody>
           </table>
-          <p className="bg-[#101010] px-5 py-3 text-xs text-white/55">
+          <p className="bg-[#1e1e1e] px-5 py-3 text-xs text-white/55">
             Specs are typical for this product family. Need to confirm an exact booth fit?{' '}
             <a href="/contact" className="text-blue-400 hover:underline">
               Contact us

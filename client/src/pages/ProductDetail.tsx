@@ -110,8 +110,25 @@ export default function ProductDetail() {
     setCartOpen(true);
   };
 
+  const handleAddRelatedToCart = (rp: ShopifyProduct) => {
+    const variant = rp.node.variants?.edges?.[0]?.node;
+    if (!variant) return;
+    addItem({
+      variantId: variant.id,
+      productId: rp.node.id,
+      title: rp.node.title,
+      variantTitle: variant.title,
+      price: variant.price,
+      quantity: 1,
+      image: rp.node.images?.edges?.[0]?.node?.url || FALLBACK_IMAGE,
+      handle: rp.node.handle,
+    });
+    toast.success(`${rp.node.title} added to cart`);
+    setCartOpen(true);
+  };
+
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#0a0a0a] text-white">
       <SEO
         title={`${product.title} - PFS Filters`}
         description={product.description || `Buy ${product.title} from PFS Filters. Premium paint booth filtration products with fast nationwide shipping.`}
@@ -120,7 +137,7 @@ export default function ProductDetail() {
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
       />
       <Navigation />
-      <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-4 pt-28 pb-20">
         <div className="[&_*]:!text-[#9aa0a6] [&_a:hover]:!text-white">
           <Breadcrumb items={[{ label: 'Shop', href: '/shop' }, { label: product.title }]} />
         </div>
@@ -134,7 +151,7 @@ export default function ProductDetail() {
           {/* Images */}
           <div>
             <div
-              className="group/zoom relative aspect-square overflow-hidden rounded-2xl bg-[#161616] border border-[#2a2a2a] shadow-xl mb-4 cursor-zoom-in"
+              className="group/zoom relative aspect-square overflow-hidden rounded-xl bg-[#161616] border border-white/[0.07] shadow-xl mb-4 cursor-zoom-in"
               style={{ backgroundImage: 'radial-gradient(circle at 50% 42%, rgba(80,90,110,0.18), rgba(13,13,13,0) 62%)' }}
               onMouseMove={(e) => {
                 const r = e.currentTarget.getBoundingClientRect();
@@ -240,13 +257,13 @@ export default function ProductDetail() {
             </div>
 
             {/* Trust badges */}
-            <div className="grid grid-cols-3 gap-3 mt-2 pt-6 border-t border-[#2a2a2a]">
+            <div className="grid grid-cols-3 gap-3 mt-2 pt-6">
               {[
                 { icon: Truck, label: 'Fast Shipping', sub: '1-2 day processing' },
                 { icon: Shield, label: 'Quality Guaranteed', sub: 'Or we make it right' },
                 { icon: Package, label: 'Custom Sizes', sub: 'Cut to spec' },
               ].map((item) => (
-                <div key={item.label} className="text-center p-3 bg-[#161616] border border-[#242424] rounded-lg">
+                <div key={item.label} className="text-center p-3 bg-[#161616] border border-white/[0.07] rounded-xl">
                   <item.icon className="h-5 w-5 text-blue-400 mx-auto mb-1" />
                   <p className="text-xs font-semibold text-white/90">{item.label}</p>
                   <p className="text-xs text-white/55">{item.sub}</p>
@@ -266,25 +283,34 @@ export default function ProductDetail() {
         {relatedProducts.length > 0 && (
           <div>
             <h2 className="text-2xl font-bold mb-6">Related Products</h2>
-            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {relatedProducts.map((rp) => (
-                <Link key={rp.node.id} href={`/product/${rp.node.handle}`}>
-                  <Card className="bg-[#161616] border-[#2a2a2a] hover:border-blue-400/40 hover:shadow-md transition-all cursor-pointer">
-                    <div className="aspect-square overflow-hidden bg-[#1a1a1a]">
+                <Card key={rp.node.id} className="flex flex-col bg-[#161616] border border-white/[0.07] hover:border-blue-400/40 hover:shadow-md transition-all overflow-hidden">
+                  <Link href={`/product/${rp.node.handle}`} className="cursor-pointer">
+                    <div className="aspect-square overflow-hidden bg-[#1e1e1e]">
                       <img
                         src={rp.node.images.edges[0]?.node.url || FALLBACK_IMAGE}
                         alt={rp.node.title}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <CardContent className="p-3">
+                  </Link>
+                  <CardContent className="flex flex-1 flex-col p-3">
+                    <Link href={`/product/${rp.node.handle}`} className="cursor-pointer">
                       <p className="font-medium text-sm line-clamp-2">{rp.node.title}</p>
                       <p className="text-blue-400 font-bold text-sm mt-1">
                         ${parseFloat(rp.node.priceRange.minVariantPrice.amount).toFixed(2)}
                       </p>
-                    </CardContent>
-                  </Card>
-                </Link>
+                    </Link>
+                    <button
+                      onClick={() => handleAddRelatedToCart(rp)}
+                      className="mt-3 w-full rounded-lg bg-[#2563eb] py-2.5 text-[13px] font-medium text-white transition-colors hover:bg-[#1d4ed8]"
+                      style={{ padding: '10px', borderRadius: '8px' }}
+                    >
+                      Add to Cart
+                    </button>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
