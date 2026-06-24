@@ -151,13 +151,26 @@ export default function CategoryPage() {
           </p>
         </div>
 
-        {/* Product count */}
-        {!loading && !error && (
-          <p className="text-sm text-white/70 mb-6">
-            {products.length === 0
-              ? 'No products found in this category'
-              : `${products.length} product${products.length !== 1 ? 's' : ''}`}
-          </p>
+        {/* Info bar */}
+        {!loading && !error && products.length > 0 && (
+          <div
+            className="flex flex-col sm:flex-row items-center justify-between gap-2 mb-6"
+            style={{
+              background: 'rgba(255,255,255,0.03)',
+              borderBottom: '1px solid rgba(255,255,255,0.06)',
+              padding: '12px 0',
+              fontSize: '13px',
+              color: 'rgba(255,255,255,0.5)',
+            }}
+          >
+            <span className="shrink-0">
+              {`${products.length} product${products.length !== 1 ? 's' : ''}`}
+            </span>
+            <span className="text-center">Custom cuts available on all sizes — contact us</span>
+            <Link href="/contact" className="shrink-0 hover:text-white transition-colors">
+              Need help choosing? Chat with us
+            </Link>
+          </div>
         )}
 
         {/* Loading state */}
@@ -209,7 +222,13 @@ export default function CategoryPage() {
 
         {/* Product grid */}
         {!loading && !error && products.length > 0 && (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pfs-grid-animate">
+          <div
+            className={`grid gap-6 pfs-grid-animate ${
+              products.length < 4
+                ? 'sm:grid-cols-2 lg:grid-cols-3'
+                : 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+            }`}
+          >
             {products.map((product) => {
               const variant = product.node.variants.edges[0]?.node;
               const image = product.node.images.edges[0]?.node.url || FALLBACK_IMAGE;

@@ -31,8 +31,8 @@ const categories: Category[] = [
     title: 'Tacky Panel Filters',
     subtitle: 'Superior particle capture',
     href: '/category/tacky-panels',
-    image: '/images/Spray-booth_2.webp',
-    mode: 'scene',
+    image: '/images/cat_tacky_panels.png',
+    mode: 'product',
   },
   {
     title: 'Roll Media',
@@ -45,15 +45,15 @@ const categories: Category[] = [
     title: 'Shop by Size',
     subtitle: '20x20, 20x25, custom cuts',
     href: '/shop-by-size',
-    image: '/images/Interior_crossflow.jpg',
-    mode: 'scene',
+    image: '/images/cat_fiberglass_arrestors.png',
+    mode: 'product',
   },
   {
     title: 'Shop by Type',
     subtitle: 'Intake, exhaust, MERV-rated',
     href: '/shop-by-type',
-    image: '/images/PFS_7.jpg',
-    mode: 'scene',
+    image: '/images/cat_roll_media.png',
+    mode: 'product',
   },
 ];
 
