@@ -14,8 +14,10 @@ const ZOHO_FORM_HTML = `<!DOCTYPE html>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <style>
-  html, body { margin: 0; padding: 0; background: transparent; }
+  html, body { margin: 0; padding: 0; background: transparent; height: auto !important; overflow: hidden !important; }
   body { font-family: 'Inter', system-ui, Arial, sans-serif; color: #e8eaed; }
+  /* keep the injected analytics script out of layout flow so it never adds height */
+  #wf_anal { display: none !important; }
   /* ---- Dark-theme overrides for the Zoho form ---- */
   #crmWebToEntityForm.zcwf_lblLeft {
     background-color: transparent !important;
@@ -200,21 +202,51 @@ export const ContactForm = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [iframeHeight, setIframeHeight] = useState(560);
 
-  // Auto-size the iframe to its content height so there's no inner scrollbar.
+  // Auto-size the iframe to the FORM's real content height. We measure the form
+  // element itself (not body/documentElement) because the iframe body height can
+  // echo the iframe's own height, creating a feedback loop that grows forever on
+  // mobile. We also only commit a height when it actually changes, so it settles.
   useEffect(() => {
     const resize = () => {
       try {
         const doc = iframeRef.current?.contentWindow?.document;
-        if (doc?.body) {
-          const h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
-          if (h > 0) setIframeHeight(h + 16);
+        const formEl = doc?.getElementById('crmWebToEntityForm');
+        if (formEl) {
+          const h = Math.ceil(formEl.getBoundingClientRect().height) + 8;
+          if (h > 0) {
+            setIframeHeight((prev) => (Math.abs(prev - h) > 2 ? h : prev));
+          }
         }
       } catch {
         /* cross-origin after submit redirect — ignore */
       }
     };
-    const t = setInterval(resize, 600);
-    return () => clearInterval(t);
+    // measure shortly after mount, then a few more times as fonts/layout settle.
+    const timers = [120, 400, 800, 1500, 2500].map((d) => window.setTimeout(resize, d));
+
+    // Observe the form element itself for genuine content-size changes (e.g.
+    // orientation change, font reflow). This only fires on real layout changes,
+    // so it stays accurate without re-introducing the runaway growth loop.
+    let observer: ResizeObserver | undefined;
+    const attachObserver = () => {
+      try {
+        const doc = iframeRef.current?.contentWindow?.document;
+        const formEl = doc?.getElementById('crmWebToEntityForm');
+        if (formEl && 'ResizeObserver' in window) {
+          observer = new ResizeObserver(resize);
+          observer.observe(formEl);
+        }
+      } catch {
+        /* ignore */
+      }
+    };
+    const attachTimer = window.setTimeout(attachObserver, 300);
+
+    return () => {
+      timers.forEach((t) => window.clearTimeout(t));
+      window.clearTimeout(attachTimer);
+      observer?.disconnect();
+    };
   }, []);
 
   return (
