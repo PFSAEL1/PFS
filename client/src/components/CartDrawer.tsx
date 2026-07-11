@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/sheet';
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2, Crown } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
+import { usePricing } from '@/hooks/usePricing';
 import { toast } from 'sonner';
 import { useLocation } from 'wouter';
 
@@ -25,6 +26,7 @@ export const CartDrawer = () => {
   } = useCartStore();
 
   const [, navigate] = useLocation();
+  const { discountPercent, discountCode, tier } = usePricing();
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = items.reduce(
@@ -32,9 +34,15 @@ export const CartDrawer = () => {
     0
   );
 
+  // Calculate discounted subtotal for display
+  const discountedSubtotal = discountPercent > 0
+    ? subtotal * (1 - discountPercent / 100)
+    : subtotal;
+
   const handleCheckout = async () => {
     try {
-      const checkoutUrl = await createCheckout();
+      // Auto-apply member discount code at checkout if available
+      const checkoutUrl = await createCheckout(discountCode || undefined);
       if (checkoutUrl) {
         toast.success('Redirecting to checkout...');
         window.location.href = checkoutUrl;
@@ -125,9 +133,26 @@ export const CartDrawer = () => {
 
         {items.length > 0 && (
           <div className="border-t border-white/10 pt-4 space-y-3">
+            {/* Member discount banner */}
+            {discountPercent > 0 && (
+              <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-2">
+                <Crown className="h-4 w-4 text-green-400 flex-shrink-0" />
+                <span className="text-xs text-green-300">
+                  {tier?.charAt(0).toUpperCase()}{tier?.slice(1)} member — {discountPercent}% discount applied
+                </span>
+              </div>
+            )}
+
             <div className="flex justify-between text-sm">
               <span className="text-white/50">Subtotal</span>
-              <span className="font-semibold">${subtotal.toFixed(2)}</span>
+              {discountPercent > 0 ? (
+                <div className="text-right">
+                  <span className="text-white/40 line-through text-xs mr-2">${subtotal.toFixed(2)}</span>
+                  <span className="font-semibold text-green-400">${discountedSubtotal.toFixed(2)}</span>
+                </div>
+              ) : (
+                <span className="font-semibold">${subtotal.toFixed(2)}</span>
+              )}
             </div>
             <p className="text-xs text-white/50">Shipping calculated at checkout</p>
             <Button

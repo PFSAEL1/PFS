@@ -10,8 +10,15 @@ interface PricingInfo {
 
 /**
  * Hook that checks if the logged-in user has a membership discount.
- * Uses the Supabase session to determine if user is logged in,
- * then checks their membership tier for discount percentage.
+ * 
+ * Strategy:
+ * 1. First checks Supabase `memberships` table (local cache)
+ * 2. Then calls the server-side Shopify pricing endpoint (source of truth)
+ *    which reads customer tags from Shopify Admin API
+ * 3. Uses whichever returns a valid discount (Shopify takes priority)
+ * 
+ * This means: if you tag a customer in Shopify with "bronze"/"silver"/"gold"/"platinum",
+ * they'll see their discounted prices when logged in on the site.
  */
 export function usePricing(): PricingInfo {
   const [pricing, setPricing] = useState<PricingInfo>({
@@ -30,25 +37,67 @@ export function usePricing(): PricingInfo {
           return;
         }
 
-        // Check membership from Supabase
-        const { data: memberData } = await supabase
-          .from('memberships')
-          .select('tier, status, discount_code')
-          .eq('user_id', session.user.id)
-          .eq('status', 'active')
-          .single();
+        // Strategy 1: Check Supabase memberships table (fast local lookup)
+        let localTier: string | null = null;
+        let localDiscount = 0;
+        let localCode: string | null = null;
 
-        if (memberData) {
-          const discountMap: Record<string, number> = {
-            bronze: 3,
-            silver: 5,
-            gold: 5,
-            platinum: 5,
-          };
+        try {
+          const { data: memberData } = await supabase
+            .from('memberships')
+            .select('tier, status, discount_code')
+            .eq('user_id', session.user.id)
+            .eq('status', 'active')
+            .single();
+
+          if (memberData) {
+            const discountMap: Record<string, number> = {
+              bronze: 3,
+              silver: 5,
+              gold: 5,
+              platinum: 5,
+            };
+            localTier = memberData.tier;
+            localDiscount = discountMap[memberData.tier] || 0;
+            localCode = memberData.discount_code || null;
+          }
+        } catch {
+          // Table might not exist yet or no membership found — that's fine
+        }
+
+        // Strategy 2: Check Shopify-based pricing via server endpoint (source of truth)
+        // This reads customer tags from Shopify Admin API
+        try {
+          const resp = await fetch('/api/trpc/orders.pricing', {
+            headers: {
+              'Authorization': `Bearer ${session.access_token}`,
+              'Content-Type': 'application/json',
+            },
+          });
+          if (resp.ok) {
+            const json = await resp.json();
+            const shopifyData = json?.result?.data;
+            if (shopifyData && shopifyData.discountPercent > 0) {
+              // Shopify is source of truth — use it
+              setPricing({
+                discountPercent: shopifyData.discountPercent,
+                discountCode: shopifyData.discountCode || localCode,
+                tier: shopifyData.tier || localTier,
+                loading: false,
+              });
+              return;
+            }
+          }
+        } catch {
+          // Server endpoint might not be available — fall back to local data
+        }
+
+        // Fall back to Supabase local data
+        if (localDiscount > 0) {
           setPricing({
-            discountPercent: discountMap[memberData.tier] || 0,
-            discountCode: memberData.discount_code || null,
-            tier: memberData.tier,
+            discountPercent: localDiscount,
+            discountCode: localCode,
+            tier: localTier,
             loading: false,
           });
         } else {
