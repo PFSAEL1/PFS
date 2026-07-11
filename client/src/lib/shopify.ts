@@ -57,6 +57,7 @@ export interface CartItem {
   quantity: number;
   image?: string;
   handle: string;
+  sellingPlanId?: string;
 }
 
 // Category slug → Shopify collection handle mapping
@@ -114,7 +115,7 @@ const SHOPIFY_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN || 'abc-filter-splash
 const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || '5e357a0ae8e9906edb44ef570a4ed219';
 
 async function storefrontApiRequest(query: string, variables?: Record<string, unknown>) {
-  const url = `https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`;
+  const url = `https://${SHOPIFY_DOMAIN}/api/2024-04/graphql.json`;
   const maxRetries = 3;
   let lastError: Error | null = null;
 
@@ -276,6 +277,50 @@ const GET_PRODUCT_BY_HANDLE_QUERY = `
         name
         values
       }
+      sellingPlanGroups(first: 5) {
+        edges {
+          node {
+            name
+            options {
+              name
+              values
+            }
+            sellingPlans(first: 10) {
+              edges {
+                node {
+                  id
+                  name
+                  description
+                  options {
+                    name
+                    value
+                  }
+                  priceAdjustments {
+                    adjustmentValue {
+                      ... on SellingPlanPercentagePriceAdjustment {
+                        adjustmentPercentage
+                      }
+                      ... on SellingPlanFixedAmountPriceAdjustment {
+                        adjustmentAmount {
+                          amount
+                          currencyCode
+                        }
+                      }
+                      ... on SellingPlanFixedPriceAdjustment {
+                        price {
+                          amount
+                          currencyCode
+                        }
+                      }
+                    }
+                  }
+                  recurringDeliveries
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 `;
@@ -378,10 +423,16 @@ export async function fetchRelatedProducts(currentProductId: string, limit = 4):
 }
 
 export async function createStorefrontCheckout(items: CartItem[], discountCode?: string): Promise<string> {
-  const lines = items.map(item => ({
-    quantity: item.quantity,
-    merchandiseId: item.variantId,
-  }));
+  const lines = items.map(item => {
+    const line: { quantity: number; merchandiseId: string; sellingPlanId?: string } = {
+      quantity: item.quantity,
+      merchandiseId: item.variantId,
+    };
+    if (item.sellingPlanId) {
+      line.sellingPlanId = item.sellingPlanId;
+    }
+    return line;
+  });
 
   const input: Record<string, unknown> = { lines };
   if (discountCode) input.discountCodes = [discountCode];

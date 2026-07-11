@@ -46,7 +46,7 @@ export const ProtectedRoute = ({ children, requireAdmin = false }: ProtectedRout
     );
   }
 
-  if (!isAuthorized) return <Redirect to="/" />;
+  if (!isAuthorized) return <Redirect to="/auth" />;
 
   return <>{children}</>;
 };

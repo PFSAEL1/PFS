@@ -10,7 +10,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { fetchProductByHandle, fetchRelatedProducts, ShopifyProduct } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
 import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredData';
-import { ShoppingCart, Loader2, Package, Truck, Shield, ArrowLeft, Plus, Minus } from 'lucide-react';
+import { ShoppingCart, Loader2, Package, Truck, Shield, ArrowLeft, Plus, Minus, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import { ProductSpecs } from '@/components/ProductSpecs';
 import { PfsBoothCompatibility } from '@/components/PfsBoothCompatibility';
@@ -18,6 +18,23 @@ import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
+
+type PurchaseOption = 'one-time' | 'subscription';
+
+interface SellingPlan {
+  id: string;
+  name: string;
+  description: string;
+  options: Array<{ name: string; value: string }>;
+  priceAdjustments: Array<{
+    adjustmentValue: {
+      adjustmentPercentage?: number;
+      adjustmentAmount?: { amount: string; currencyCode: string };
+      price?: { amount: string; currencyCode: string };
+    };
+  }>;
+  recurringDeliveries: boolean;
+}
 
 export default function ProductDetail() {
   const { handle } = useParams<{ handle: string }>();
@@ -28,6 +45,8 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [zoom, setZoom] = useState<{ x: number; y: number; show: boolean }>({ x: 50, y: 50, show: false });
+  const [purchaseOption, setPurchaseOption] = useState<PurchaseOption>('one-time');
+  const [selectedSellingPlanId, setSelectedSellingPlanId] = useState<string | null>(null);
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
 
@@ -38,6 +57,11 @@ export default function ProductDetail() {
       setProduct(data);
       if (data?.variants?.edges?.[0]) {
         setSelectedVariantId(data.variants.edges[0].node.id);
+      }
+      // Auto-select first selling plan if available
+      const firstPlan = data?.sellingPlanGroups?.edges?.[0]?.node?.sellingPlans?.edges?.[0]?.node;
+      if (firstPlan) {
+        setSelectedSellingPlanId(firstPlan.id);
       }
       fetchRelatedProducts(data?.id || '', 4).then(setRelatedProducts);
       setLoading(false);
@@ -73,10 +97,41 @@ export default function ProductDetail() {
   const selectedVariant = product.variants?.edges?.find((e: { node: { id: string } }) => e.node.id === selectedVariantId)?.node
     || product.variants?.edges?.[0]?.node;
   const images = product.images?.edges || [];
-  const price = selectedVariant?.price?.amount ? parseFloat(selectedVariant.price.amount).toFixed(2) : '—';
+  const basePrice = selectedVariant?.price?.amount ? parseFloat(selectedVariant.price.amount) : 0;
   const currency = selectedVariant?.price?.currencyCode || 'USD';
   const inStock = selectedVariant?.availableForSale ?? true;
   const mainImage = images[selectedImage]?.node?.url || FALLBACK_IMAGE;
+
+  // Extract selling plans
+  const sellingPlanGroups = product.sellingPlanGroups?.edges || [];
+  const hasSubscription = sellingPlanGroups.length > 0;
+  const allSellingPlans: SellingPlan[] = sellingPlanGroups.flatMap(
+    (group: { node: { sellingPlans: { edges: Array<{ node: SellingPlan }> } } }) =>
+      group.node.sellingPlans.edges.map((e: { node: SellingPlan }) => e.node)
+  );
+  const selectedPlan = allSellingPlans.find(p => p.id === selectedSellingPlanId);
+
+  // Calculate subscription price
+  const getSubscriptionPrice = (plan: SellingPlan | undefined): number => {
+    if (!plan || !plan.priceAdjustments?.[0]) return basePrice;
+    const adj = plan.priceAdjustments[0].adjustmentValue;
+    if (adj.adjustmentPercentage) {
+      return basePrice * (1 - adj.adjustmentPercentage / 100);
+    }
+    if (adj.adjustmentAmount) {
+      return basePrice - parseFloat(adj.adjustmentAmount.amount);
+    }
+    if (adj.price) {
+      return parseFloat(adj.price.amount);
+    }
+    return basePrice;
+  };
+
+  const displayPrice = purchaseOption === 'subscription' && selectedPlan
+    ? getSubscriptionPrice(selectedPlan)
+    : basePrice;
+
+  const discountPercent = selectedPlan?.priceAdjustments?.[0]?.adjustmentValue?.adjustmentPercentage;
 
   const breadcrumbSchema = createBreadcrumbSchema([
     { name: 'Home', url: 'https://pfsfilters.com' },
@@ -88,7 +143,7 @@ export default function ProductDetail() {
     name: product.title,
     description: product.description,
     image: mainImage,
-    price,
+    price: displayPrice.toFixed(2),
     currency,
     url: `https://pfsfilters.com/product/${handle}`,
     availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
@@ -105,8 +160,9 @@ export default function ProductDetail() {
       quantity,
       image: mainImage,
       handle: handle || '',
+      sellingPlanId: purchaseOption === 'subscription' ? selectedSellingPlanId || undefined : undefined,
     });
-    toast.success(`${product.title} added to cart`);
+    toast.success(`${product.title} added to cart${purchaseOption === 'subscription' ? ' (subscription)' : ''}`);
     setCartOpen(true);
   };
 
@@ -198,7 +254,10 @@ export default function ProductDetail() {
           <div>
             <h1 className="text-3xl md:text-4xl font-extrabold mb-3">{product.title}</h1>
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl font-bold text-blue-400">${price}</span>
+              <span className="text-3xl font-bold text-blue-400">${displayPrice.toFixed(2)}</span>
+              {purchaseOption === 'subscription' && discountPercent && (
+                <span className="text-sm line-through text-white/40">${basePrice.toFixed(2)}</span>
+              )}
               <span className="text-white/50">{currency}</span>
               {inStock ? (
                 <Badge className="bg-green-100 text-green-800">In Stock</Badge>
@@ -209,6 +268,86 @@ export default function ProductDetail() {
 
             {product.description && (
               <p className="text-white/70 leading-relaxed mb-6">{product.description}</p>
+            )}
+
+            {/* Subscribe & Save Option */}
+            {hasSubscription && (
+              <div className="mb-6 space-y-3">
+                <p className="font-semibold text-white text-sm uppercase tracking-wide">Purchase Options</p>
+                <div className="space-y-2">
+                  {/* One-time purchase */}
+                  <button
+                    onClick={() => setPurchaseOption('one-time')}
+                    className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
+                      purchaseOption === 'one-time'
+                        ? 'border-blue-400 bg-blue-500/10'
+                        : 'border-white/10 bg-[#141414] hover:border-white/20'
+                    }`}
+                  >
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                      purchaseOption === 'one-time' ? 'border-blue-400' : 'border-white/30'
+                    }`}>
+                      {purchaseOption === 'one-time' && <div className="w-2.5 h-2.5 rounded-full bg-blue-400" />}
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-white">One-time purchase</p>
+                      <p className="text-sm text-white/50">${basePrice.toFixed(2)}</p>
+                    </div>
+                  </button>
+
+                  {/* Subscribe & Save */}
+                  <button
+                    onClick={() => setPurchaseOption('subscription')}
+                    className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
+                      purchaseOption === 'subscription'
+                        ? 'border-blue-400 bg-blue-500/10'
+                        : 'border-white/10 bg-[#141414] hover:border-white/20'
+                    }`}
+                  >
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                      purchaseOption === 'subscription' ? 'border-blue-400' : 'border-white/30'
+                    }`}>
+                      {purchaseOption === 'subscription' && <div className="w-2.5 h-2.5 rounded-full bg-blue-400" />}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="font-medium text-white">Subscribe & Save</p>
+                        {discountPercent && (
+                          <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
+                            Save {discountPercent}%
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-sm text-white/50">
+                        ${getSubscriptionPrice(selectedPlan).toFixed(2)} — auto-delivered on schedule
+                      </p>
+                    </div>
+                    <RefreshCw className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  </button>
+                </div>
+
+                {/* Selling plan selector (if multiple plans) */}
+                {purchaseOption === 'subscription' && allSellingPlans.length > 1 && (
+                  <div className="pl-8 pt-2">
+                    <p className="text-xs text-white/50 mb-2">Delivery frequency:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {allSellingPlans.map((plan) => (
+                        <button
+                          key={plan.id}
+                          onClick={() => setSelectedSellingPlanId(plan.id)}
+                          className={`px-3 py-1.5 text-sm rounded-lg border transition-colors ${
+                            selectedSellingPlanId === plan.id
+                              ? 'border-blue-400 bg-blue-500/15 text-blue-300'
+                              : 'border-white/10 bg-[#1a1a1a] text-white/70 hover:border-blue-400/40'
+                          }`}
+                        >
+                          {plan.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
 
             {/* Variant selector */}
@@ -252,7 +391,7 @@ export default function ProductDetail() {
                 disabled={!inStock}
               >
                 <ShoppingCart className="h-5 w-5" />
-                {inStock ? 'Add to Cart' : 'Out of Stock'}
+                {!inStock ? 'Out of Stock' : purchaseOption === 'subscription' ? 'Subscribe & Add to Cart' : 'Add to Cart'}
               </Button>
             </div>
 
