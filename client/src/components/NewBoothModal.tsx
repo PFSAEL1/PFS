@@ -204,7 +204,37 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
         if (memberError) console.warn('Membership save warning:', memberError);
       }
 
-      toast.success(booth?.id ? 'Booth setup updated!' : 'Booth setup created!');
+      // Send invite email to customer (only for new booths with an email)
+      if (!booth?.id && form.customer_email) {
+        try {
+          const { data: { session: currentSession } } = await supabase.auth.getSession();
+          const inviteResp = await fetch('/api/invite-customer', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${currentSession?.access_token}`,
+            },
+            body: JSON.stringify({ email: form.customer_email }),
+          });
+          const inviteResult = await inviteResp.json();
+          if (inviteResult.success) {
+            if (inviteResult.alreadyExists) {
+              toast.success('Booth created! Customer already has an account.');
+            } else {
+              toast.success(`Booth created & invite sent to ${form.customer_email}`);
+            }
+          } else {
+            toast.success('Booth created! (Invite email could not be sent)');
+            console.warn('Invite failed:', inviteResult.error);
+          }
+        } catch (inviteErr) {
+          // Don't fail the whole save if invite fails
+          toast.success('Booth created! (Invite email could not be sent)');
+          console.warn('Invite error:', inviteErr);
+        }
+      } else {
+        toast.success(booth?.id ? 'Booth setup updated!' : 'Booth setup created!');
+      }
       onSaved();
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Failed to save booth setup');
