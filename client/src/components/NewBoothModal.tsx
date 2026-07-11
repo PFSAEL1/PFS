@@ -362,8 +362,9 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
                     </div>
                     <div>
                       <Label className="text-white/60 text-xs mb-1.5 block">Quantity</Label>
-                      <Input type="number" min={1} value={pos.quantity}
-                        onChange={e => updatePosition(i, 'quantity', parseInt(e.target.value) || 1)}
+                      <Input type="number" min={1} value={pos.quantity || ''}
+                        onFocus={e => e.target.select()}
+                        onChange={e => updatePosition(i, 'quantity', e.target.value === '' ? 0 : parseInt(e.target.value) || 0)}
                         className="bg-[#111] border-white/10 text-white" />
                     </div>
                   </div>
