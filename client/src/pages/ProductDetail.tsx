@@ -16,6 +16,7 @@ import { ProductSpecs } from '@/components/ProductSpecs';
 import { PfsBoothCompatibility } from '@/components/PfsBoothCompatibility';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
+import { usePricing } from '@/hooks/usePricing';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
@@ -49,6 +50,8 @@ export default function ProductDetail() {
   const [selectedSellingPlanId, setSelectedSellingPlanId] = useState<string | null>(null);
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
+  const { discountPercent, tier } = usePricing();
+  const isMember = discountPercent > 0 && !!tier;
 
   useEffect(() => {
     if (!handle) return;
@@ -102,9 +105,9 @@ export default function ProductDetail() {
   const inStock = selectedVariant?.availableForSale ?? true;
   const mainImage = images[selectedImage]?.node?.url || FALLBACK_IMAGE;
 
-  // Extract selling plans
+  // Extract selling plans — only show to members
   const sellingPlanGroups = product.sellingPlanGroups?.edges || [];
-  const hasSubscription = sellingPlanGroups.length > 0;
+  const hasSubscription = isMember && sellingPlanGroups.length > 0;
   const allSellingPlans: SellingPlan[] = sellingPlanGroups.flatMap(
     (group: { node: { sellingPlans: { edges: Array<{ node: SellingPlan }> } } }) =>
       group.node.sellingPlans.edges.map((e: { node: SellingPlan }) => e.node)
@@ -127,11 +130,14 @@ export default function ProductDetail() {
     return basePrice;
   };
 
+  // Apply member discount to base price for one-time purchases
+  const memberBasePrice = isMember ? basePrice * (1 - discountPercent / 100) : basePrice;
+
   const displayPrice = purchaseOption === 'subscription' && selectedPlan
     ? getSubscriptionPrice(selectedPlan)
-    : basePrice;
+    : memberBasePrice;
 
-  const discountPercent = selectedPlan?.priceAdjustments?.[0]?.adjustmentValue?.adjustmentPercentage;
+  const planDiscountPercent = selectedPlan?.priceAdjustments?.[0]?.adjustmentValue?.adjustmentPercentage;
 
   const breadcrumbSchema = createBreadcrumbSchema([
     { name: 'Home', url: 'https://pfsfilters.com' },
@@ -255,7 +261,10 @@ export default function ProductDetail() {
             <h1 className="text-3xl md:text-4xl font-extrabold mb-3">{product.title}</h1>
             <div className="flex items-center gap-3 mb-4">
               <span className="text-3xl font-bold text-blue-400">${displayPrice.toFixed(2)}</span>
-              {purchaseOption === 'subscription' && discountPercent && (
+              {purchaseOption === 'subscription' && planDiscountPercent && (
+                <span className="text-sm line-through text-white/40">${basePrice.toFixed(2)}</span>
+              )}
+              {purchaseOption === 'one-time' && isMember && (
                 <span className="text-sm line-through text-white/40">${basePrice.toFixed(2)}</span>
               )}
               <span className="text-white/50">{currency}</span>
@@ -312,9 +321,9 @@ export default function ProductDetail() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
                         <p className="font-medium text-white">Subscribe & Save</p>
-                        {discountPercent && (
+                        {planDiscountPercent && (
                           <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                            Save {discountPercent}%
+                            Save {planDiscountPercent}%
                           </Badge>
                         )}
                       </div>
