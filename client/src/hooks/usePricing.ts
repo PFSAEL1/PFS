@@ -43,12 +43,25 @@ export function usePricing(): PricingInfo {
         let localCode: string | null = null;
 
         try {
-          const { data: memberData } = await supabase
+          // Try by user_id first, then by email (admin assigns by email)
+          let memberData = null;
+          const { data: byId } = await supabase
             .from('memberships')
             .select('tier, status, discount_code')
             .eq('user_id', session.user.id)
             .eq('status', 'active')
             .single();
+          memberData = byId;
+
+          if (!memberData && session.user.email) {
+            const { data: byEmail } = await supabase
+              .from('memberships')
+              .select('tier, status, discount_code')
+              .eq('user_email', session.user.email)
+              .eq('status', 'active')
+              .single();
+            memberData = byEmail;
+          }
 
           if (memberData) {
             const discountMap: Record<string, number> = {

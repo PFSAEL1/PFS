@@ -41,6 +41,7 @@ interface BoothSetup {
   contact_email: string;
   contact_phone: string;
   is_member: boolean;
+  membership_tier: string;
   auto_reorder: boolean;
   interval_type: string;
   change_interval_days: number;
@@ -60,7 +61,15 @@ const TABS = ['Customer & Booth', 'Filter Positions', 'Ship-To Address', 'Contac
 const MANUFACTURERS = [
   'Accudraft', 'Binks', 'Blowtherm', 'Car-O-Liner', 'Col-Met',
   'Garmat', 'Global Finishing Solutions', 'Junair', 'Nordson',
-  'Spraybake', 'Spray Systems', 'USI Italia', 'Other'
+  'PFS', 'Spraybake', 'Spray Systems', 'USI Italia', 'Other'
+];
+
+const MEMBERSHIP_TIERS = [
+  { value: '', label: 'No Membership' },
+  { value: 'bronze', label: 'Bronze (3% off)' },
+  { value: 'silver', label: 'Silver (5% off)' },
+  { value: 'gold', label: 'Gold (5% off)' },
+  { value: 'platinum', label: 'Platinum (5% off)' },
 ];
 
 const POSITION_TYPES = [
@@ -78,7 +87,7 @@ const defaultBooth: BoothSetup = {
   booth_manufacturer: '', booth_model: '', notes: '',
   address_line1: '', address_line2: '', city: '', state: '', zip_code: '',
   primary_contact_name: '', contact_email: '', contact_phone: '',
-  is_member: false, auto_reorder: false,
+  is_member: false, membership_tier: '', auto_reorder: false,
   interval_type: 'calendar_days', change_interval_days: 90,
   change_interval_type: 'quick', last_filter_change: '', first_reminder_date: ''
 };
@@ -178,6 +187,23 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
         if (posError) throw posError;
       }
 
+      // If member with a tier, upsert their membership record
+      if (form.is_member && form.membership_tier && form.customer_email) {
+        const discountCodes: Record<string, string> = {
+          bronze: 'BRONZE3',
+          silver: 'SILVER5',
+          gold: 'GOLD5',
+          platinum: 'PLATINUM5',
+        };
+        const { error: memberError } = await supabase.from('memberships').upsert({
+          user_email: form.customer_email,
+          tier: form.membership_tier,
+          status: 'active',
+          discount_code: discountCodes[form.membership_tier] || '',
+        }, { onConflict: 'user_email' });
+        if (memberError) console.warn('Membership save warning:', memberError);
+      }
+
       toast.success(booth?.id ? 'Booth setup updated!' : 'Booth setup created!');
       onSaved();
     } catch (err: unknown) {
@@ -274,6 +300,16 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
                   </label>
                 )}
               </div>
+              {form.is_member && (
+                <div>
+                  <Label className="text-white/70 text-xs mb-1.5 block">Membership Tier / Discount Level</Label>
+                  <select value={form.membership_tier} onChange={e => updateForm('membership_tier', e.target.value)}
+                    className="w-full h-9 rounded-md bg-[#0d0d0d] border border-white/10 text-white text-sm px-3 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                    {MEMBERSHIP_TIERS.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
+                  </select>
+                  <p className="text-xs text-white/40 mt-1">This sets the discount level the customer sees when they log in.</p>
+                </div>
+              )}
               <div>
                 <Label className="text-white/70 text-xs mb-1.5 block">Notes</Label>
                 <Textarea value={form.notes} onChange={e => updateForm('notes', e.target.value)}
