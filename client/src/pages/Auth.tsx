@@ -57,13 +57,32 @@ export default function Auth() {
     }
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: signUpData.email,
         password: signUpData.password,
-        options: { data: { full_name: signUpData.name } },
+        options: {
+          data: { full_name: signUpData.name },
+          emailRedirectTo: 'https://www.pfsfilters.com/dashboard',
+        },
       });
       if (error) throw error;
-      toast.success('Account created! Please check your email to verify your account.');
+      // If auto-confirm is enabled, the session will be returned immediately
+      if (data.session) {
+        toast.success('Account created! Welcome to PFS Filters.');
+        navigate('/dashboard');
+      } else {
+        // Fallback: try signing in immediately (auto-confirm should make this work)
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email: signUpData.email,
+          password: signUpData.password,
+        });
+        if (signInError) {
+          toast.success('Account created! You can now sign in.');
+        } else {
+          toast.success('Account created! Welcome to PFS Filters.');
+          navigate('/dashboard');
+        }
+      }
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Sign up failed');
     } finally {
