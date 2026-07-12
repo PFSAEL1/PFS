@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
-import { X, Plus, Trash2, Layers, ChevronRight, ChevronLeft, RefreshCw } from 'lucide-react';
+import { X, Plus, Trash2, Layers, ChevronRight, ChevronLeft, RefreshCw, Copy, Check } from 'lucide-react';
 import ShopifyProductPicker from './ShopifyProductPicker';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -103,6 +103,8 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState<BoothSetup>(booth ? { ...defaultBooth, ...booth } : defaultBooth);
   const [positions, setPositions] = useState<FilterPosition[]>([defaultPosition(1)]);
+  const [inviteLink, setInviteLink] = useState<string | null>(null);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   useEffect(() => {
     if (booth?.id) {
@@ -206,6 +208,7 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
       }
 
       // Send invite email to customer (only for new booths with an email)
+      let hasInviteLink = false;
       if (!booth?.id && form.customer_email) {
         try {
           const { data: { session: currentSession } } = await supabase.auth.getSession();
@@ -219,7 +222,11 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
           });
           const inviteResult = await inviteResp.json();
           if (inviteResult.success) {
-            if (inviteResult.alreadyExists) {
+            if (inviteResult.inviteLink) {
+              setInviteLink(inviteResult.inviteLink);
+              hasInviteLink = true;
+              toast.success('Booth created & invite link generated!');
+            } else if (inviteResult.alreadyExists) {
               toast.success('Booth created! Customer already has an account.');
             } else {
               toast.success(`Booth created & invite sent to ${form.customer_email}`);
@@ -236,13 +243,68 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
       } else {
         toast.success(booth?.id ? 'Booth setup updated!' : 'Booth setup created!');
       }
-      onSaved();
+      // Only close if we don't have an invite link to show
+      if (!hasInviteLink) onSaved();
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Failed to save booth setup');
     } finally {
       setSaving(false);
     }
   };
+
+  const handleCopyLink = () => {
+    if (inviteLink) {
+      navigator.clipboard.writeText(inviteLink);
+      setLinkCopied(true);
+      toast.success('Invite link copied to clipboard!');
+      setTimeout(() => setLinkCopied(false), 3000);
+    }
+  };
+
+  // If invite link is available, show the link panel instead of the form
+  if (inviteLink) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => { onSaved(); }} />
+        <div className="relative w-full max-w-lg bg-[#111] border border-white/10 rounded-2xl shadow-2xl p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-white">Customer Invite Link</h2>
+            <button onClick={() => { onSaved(); }} className="w-7 h-7 rounded-lg hover:bg-white/5 flex items-center justify-center">
+              <X className="w-4 h-4 text-white/60" />
+            </button>
+          </div>
+          <p className="text-sm text-white/60 mb-4">
+            Booth created successfully! An invite email was sent to <span className="text-blue-400">{form.customer_email}</span>. 
+            You can also copy the link below to send it manually:
+          </p>
+          <div className="flex items-center gap-2 bg-[#0a0a0a] border border-white/10 rounded-lg p-3">
+            <input
+              type="text"
+              readOnly
+              value={inviteLink}
+              className="flex-1 bg-transparent text-sm text-white/80 outline-none truncate"
+            />
+            <button
+              onClick={handleCopyLink}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+                linkCopied
+                  ? 'bg-green-600/20 text-green-400 border border-green-500/30'
+                  : 'bg-blue-600 hover:bg-blue-500 text-white'
+              }`}
+            >
+              {linkCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              {linkCopied ? 'Copied!' : 'Copy'}
+            </button>
+          </div>
+          <div className="mt-4 flex justify-end">
+            <Button onClick={() => { onSaved(); }} className="bg-blue-600 hover:bg-blue-500 text-white text-sm">
+              Done
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">

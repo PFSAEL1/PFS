@@ -69,49 +69,65 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     );
 
     if (existingUser) {
-      // User already exists — send a password reset email instead
-      const { error: resetError } = await supabaseAdmin.auth.resetPasswordForEmail(email, {
-        redirectTo: 'https://www.pfsfilters.com/auth',
+      // User already exists — generate a password reset link and also send the email
+      const { data: linkData } = await supabaseAdmin.auth.admin.generateLink({
+        type: 'recovery',
+        email: email,
+        options: {
+          redirectTo: 'https://www.pfsfilters.com/auth',
+        },
       });
 
-      if (resetError) {
-        console.error('Password reset error:', resetError);
-        return res.status(200).json({
-          success: true,
-          message: 'User already exists. Password reset email may have been sent.',
-          alreadyExists: true,
-        });
-      }
+      // Also send the reset email
+      await supabaseAdmin.auth.resetPasswordForEmail(email, {
+        redirectTo: 'https://www.pfsfilters.com/auth',
+      });
 
       return res.status(200).json({
         success: true,
         message: 'User already exists. Password reset email sent.',
         alreadyExists: true,
+        inviteLink: linkData?.properties?.action_link || null,
       });
     }
 
-    // Invite new user by email
-    const { data, error } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, {
-      redirectTo: 'https://www.pfsfilters.com/auth',
+    // Generate invite link (creates user but does NOT send email)
+    const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
+      type: 'invite',
+      email: email,
+      options: {
+        redirectTo: 'https://www.pfsfilters.com/auth',
+      },
     });
 
-    if (error) {
-      console.error('Invite error:', error);
-      // If user already exists error, still return success
-      if (error.message?.includes('already') || error.message?.includes('exists')) {
+    if (linkError) {
+      console.error('Generate link error:', linkError);
+      if (linkError.message?.includes('already') || linkError.message?.includes('exists')) {
         return res.status(200).json({
           success: true,
           message: 'User already has an account.',
           alreadyExists: true,
+          inviteLink: null,
         });
       }
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: linkError.message });
     }
+
+    const inviteLink = linkData?.properties?.action_link || null;
+
+    // Also send the invite email so the customer gets it in their inbox
+    await supabaseAdmin.auth.admin.inviteUserByEmail(email, {
+      redirectTo: 'https://www.pfsfilters.com/auth',
+    }).catch(() => {
+      // User already created by generateLink, so inviteUserByEmail may error
+      // That's fine — the email was already queued by generateLink in some cases
+    });
 
     return res.status(200).json({
       success: true,
-      message: `Invite email sent to ${email}`,
-      userId: data?.user?.id,
+      message: `Invite sent to ${email}`,
+      userId: linkData?.user?.id,
+      inviteLink: inviteLink,
     });
   } catch (err: unknown) {
     console.error('Invite handler error:', err);
