@@ -149,8 +149,9 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
     setSaving(true);
     try {
       const { data: { session } } = await supabase.auth.getSession();
+      const { id: _id, ...formWithoutId } = form;
       const boothData = {
-        ...form,
+        ...formWithoutId,
         created_by: session?.user.id,
         change_interval_days: Number(form.change_interval_days),
         last_filter_change: form.last_filter_change || null,
