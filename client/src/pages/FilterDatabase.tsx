@@ -376,7 +376,7 @@ export default function FilterDatabase() {
                 <div key={booth.id}
                   onClick={() => { setEditingBooth(booth); setShowNewBoothModal(true); }}
                   className="group bg-[#111] border border-white/8 rounded-xl p-4 hover:border-white/15 transition-all cursor-pointer">
-                  <div className="flex items-start justify-between gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
                     <div className="flex items-start gap-3 min-w-0">
                       {/* Avatar */}
                       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/15 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -403,26 +403,26 @@ export default function FilterDatabase() {
                             </Badge>
                           )}
                         </div>
-                        <div className="flex items-center gap-3 flex-wrap text-xs text-white/70">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 sm:flex-wrap text-xs text-white/70">
                           <span className="flex items-center gap-1">
-                            <Building2 className="w-3 h-3" />
+                            <Building2 className="w-3 h-3 flex-shrink-0" />
                             {booth.booth_manufacturer}{booth.booth_model ? ` · ${booth.booth_model}` : ''}
                           </span>
                           {(booth.city || booth.state) && (
                             <span className="flex items-center gap-1">
-                              <MapPin className="w-3 h-3" />
+                              <MapPin className="w-3 h-3 flex-shrink-0" />
                               {[booth.city, booth.state].filter(Boolean).join(', ')}
                             </span>
                           )}
                           {booth.customer_email && (
                             <span className="flex items-center gap-1">
-                              <Mail className="w-3 h-3" />
+                              <Mail className="w-3 h-3 flex-shrink-0" />
                               {booth.customer_email}
                             </span>
                           )}
                           {booth.customer_phone && (
                             <span className="flex items-center gap-1">
-                              <Phone className="w-3 h-3" />
+                              <Phone className="w-3 h-3 flex-shrink-0" />
                               {booth.customer_phone}
                             </span>
                           )}
@@ -440,7 +440,7 @@ export default function FilterDatabase() {
                     </div>
 
                     {/* Right side: reminder status + order mode toggle + actions */}
-                    <div className="flex items-center gap-2 flex-shrink-0">
+                    <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 flex-shrink-0">
                       <div className={`flex items-center gap-1 text-xs ${reminder.color}`}>
                         <ReminderIcon className="w-3.5 h-3.5" />
                         <span>{reminder.label}</span>
