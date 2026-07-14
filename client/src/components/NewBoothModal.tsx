@@ -212,10 +212,10 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
       // If member with a tier, upsert their membership record
       if (form.is_member && form.membership_tier && form.customer_email) {
         const discountCodes: Record<string, string> = {
-          bronze: 'BRONZE3',
-          silver: 'SILVER5',
-          gold: 'GOLD5',
-          platinum: 'PLATINUM5',
+          bronze: 'MEMBER_BRONZE_3',
+          silver: 'MEMBER_SILVER_5',
+          gold: 'MEMBER_GOLD_5',
+          platinum: 'MEMBER_PLATINUM_5',
         };
         const { error: memberError } = await supabase.from('memberships').upsert({
           user_email: form.customer_email,

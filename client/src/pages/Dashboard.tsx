@@ -117,31 +117,46 @@ function DashboardContent() {
   const fetchOrders = async () => {
     setOrdersLoading(true);
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return;
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
 
-      // Fetch orders from Shopify via our API endpoint
-      const resp = await fetch('/api/customer-orders', {
-        headers: {
-          'Authorization': `Bearer ${session.access_token}`,
-        },
-      });
-      if (resp.ok) {
-        const json = await resp.json();
-        if (json.orders && Array.isArray(json.orders)) {
-          setOrders(json.orders);
+      // Collect all emails associated with this user
+      const emails: string[] = [];
+      if (user.email) emails.push(user.email.toLowerCase());
+
+      // Also check booth_setups for a linked shopify_email
+      const { data: boothData } = await supabase
+        .from('booth_setups')
+        .select('shopify_email')
+        .eq('customer_email', user.email);
+      if (boothData) {
+        for (const b of boothData) {
+          if (b.shopify_email && !emails.includes(b.shopify_email.toLowerCase())) {
+            emails.push(b.shopify_email.toLowerCase());
+          }
         }
-      } else {
-        // Fallback: try local customer_orders table
-        const { data: orderData } = await supabase
-          .from('customer_orders')
-          .select('*')
-          .eq('customer_email', session.user.email)
-          .order('created_at', { ascending: false })
-          .limit(10);
-        if (orderData) {
-          setOrders(orderData);
-        }
+      }
+
+      // Query customer_orders table for all associated emails
+      const { data: orderData } = await supabase
+        .from('customer_orders')
+        .select('*')
+        .in('customer_email', emails)
+        .order('order_date', { ascending: false })
+        .limit(20);
+
+      if (orderData && orderData.length > 0) {
+        // Map to the Order interface
+        const mapped: Order[] = orderData.map((o: any) => ({
+          id: o.id,
+          order_number: o.order_number || '',
+          created_at: o.order_date || o.created_at,
+          total_price: o.total_price || '0.00',
+          financial_status: o.financial_status || 'pending',
+          fulfillment_status: o.fulfillment_status || 'unfulfilled',
+          items: typeof o.items === 'string' ? JSON.parse(o.items) : (o.items || []),
+        }));
+        setOrders(mapped);
       }
     } catch (err) {
       console.error('Error fetching orders:', err);
