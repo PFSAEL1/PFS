@@ -409,19 +409,19 @@ export default function FilterDatabase() {
                             {booth.booth_manufacturer}{booth.booth_model ? ` · ${booth.booth_model}` : ''}
                           </span>
                           {(booth.city || booth.state) && (
-                            <span className="flex items-center gap-1">
+                            <span className="flex items-center gap-1 whitespace-nowrap">
                               <MapPin className="w-3 h-3 flex-shrink-0" />
                               {[booth.city, booth.state].filter(Boolean).join(', ')}
                             </span>
                           )}
                           {booth.customer_email && (
-                            <span className="flex items-center gap-1">
+                            <span className="flex items-center gap-1 whitespace-nowrap">
                               <Mail className="w-3 h-3 flex-shrink-0" />
                               {booth.customer_email}
                             </span>
                           )}
                           {booth.customer_phone && (
-                            <span className="flex items-center gap-1">
+                            <span className="flex items-center gap-1 whitespace-nowrap">
                               <Phone className="w-3 h-3 flex-shrink-0" />
                               {booth.customer_phone}
                             </span>
@@ -440,7 +440,7 @@ export default function FilterDatabase() {
                     </div>
 
                     {/* Right side: reminder status + order mode toggle + actions */}
-                    <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 flex-shrink-0">
+                    <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-2 flex-shrink-0 w-full sm:w-auto pl-13 sm:pl-0">
                       <div className={`flex items-center gap-1 text-xs ${reminder.color}`}>
                         <ReminderIcon className="w-3.5 h-3.5" />
                         <span>{reminder.label}</span>
