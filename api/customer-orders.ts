@@ -59,35 +59,75 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const data = await shopifyAdminRequest(`
-      query GetCustomerOrders($query: String!, $first: Int!) {
-        customers(first: 1, query: $query) {
-          edges {
-            node {
-              id
-              email
-              orders(first: $first, sortKey: CREATED_AT, reverse: true) {
-                edges {
-                  node {
-                    id
-                    name
-                    createdAt
-                    totalPriceSet {
-                      shopMoney {
-                        amount
-                        currencyCode
+    // Check if user has an alternate Shopify email in booth_setups or memberships
+    let shopifyEmail = userEmail;
+    
+    const { data: boothData } = await supabaseAdmin
+      .from('booth_setups')
+      .select('shopify_email')
+      .eq('customer_email', userEmail)
+      .not('shopify_email', 'is', null)
+      .limit(1)
+      .single();
+    
+    if (boothData?.shopify_email) {
+      shopifyEmail = boothData.shopify_email;
+    } else {
+      // Fallback: check memberships table
+      const { data: memberData } = await supabaseAdmin
+        .from('memberships')
+        .select('shopify_email')
+        .eq('user_email', userEmail)
+        .not('shopify_email', 'is', null)
+        .limit(1)
+        .single();
+      
+      if (memberData?.shopify_email) {
+        shopifyEmail = memberData.shopify_email;
+      }
+    }
+
+    console.log(`[Customer Orders] Searching Shopify for email: ${shopifyEmail} (user: ${userEmail})`);
+
+    // Search Shopify by the resolved email (may differ from login email)
+    const emailsToSearch = [shopifyEmail];
+    if (shopifyEmail !== userEmail) {
+      emailsToSearch.push(userEmail); // Also search by login email as fallback
+    }
+
+    let allOrders: any[] = [];
+
+    for (const searchEmail of emailsToSearch) {
+      const data = await shopifyAdminRequest(`
+        query GetCustomerOrders($query: String!, $first: Int!) {
+          customers(first: 1, query: $query) {
+            edges {
+              node {
+                id
+                email
+                orders(first: $first, sortKey: CREATED_AT, reverse: true) {
+                  edges {
+                    node {
+                      id
+                      name
+                      createdAt
+                      totalPriceSet {
+                        shopMoney {
+                          amount
+                          currencyCode
+                        }
                       }
-                    }
-                    displayFinancialStatus
-                    displayFulfillmentStatus
-                    lineItems(first: 10) {
-                      edges {
-                        node {
-                          title
-                          quantity
-                          originalUnitPriceSet {
-                            shopMoney {
-                              amount
+                      displayFinancialStatus
+                      displayFulfillmentStatus
+                      lineItems(first: 10) {
+                        edges {
+                          node {
+                            title
+                            quantity
+                            originalUnitPriceSet {
+                              shopMoney {
+                                amount
+                              }
                             }
                           }
                         }
@@ -99,35 +139,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             }
           }
         }
+      `, { query: `email:${searchEmail}`, first: 10 });
+
+      if (data.errors) {
+        console.error('[Customer Orders] GraphQL errors:', JSON.stringify(data.errors));
+        continue;
       }
-    `, { query: `email:${userEmail}`, first: 10 });
 
-    if (data.errors) {
-      console.error('[Customer Orders] GraphQL errors:', JSON.stringify(data.errors));
-      return res.status(500).json({ error: 'Failed to query Shopify', orders: [] });
+      const customer = data?.data?.customers?.edges?.[0]?.node;
+      if (customer) {
+        const orders = customer.orders.edges.map((edge: any) => ({
+          id: edge.node.id,
+          order_number: edge.node.name,
+          created_at: edge.node.createdAt,
+          total_price: edge.node.totalPriceSet.shopMoney.amount,
+          currency: edge.node.totalPriceSet.shopMoney.currencyCode,
+          financial_status: edge.node.displayFinancialStatus?.toLowerCase() || 'unknown',
+          fulfillment_status: edge.node.displayFulfillmentStatus?.toLowerCase() || 'unfulfilled',
+          items: edge.node.lineItems.edges.map((li: any) => ({
+            title: li.node.title,
+            quantity: li.node.quantity,
+            price: li.node.originalUnitPriceSet?.shopMoney?.amount || '0',
+          })),
+        }));
+        allOrders.push(...orders);
+      }
     }
 
-    const customer = data?.data?.customers?.edges?.[0]?.node;
-    if (!customer) {
-      return res.status(200).json({ orders: [] });
-    }
+    // Deduplicate orders by id
+    const uniqueOrders = Array.from(new Map(allOrders.map(o => [o.id, o])).values());
 
-    const orders = customer.orders.edges.map((edge: any) => ({
-      id: edge.node.id,
-      order_number: edge.node.name,
-      created_at: edge.node.createdAt,
-      total_price: edge.node.totalPriceSet.shopMoney.amount,
-      currency: edge.node.totalPriceSet.shopMoney.currencyCode,
-      financial_status: edge.node.displayFinancialStatus?.toLowerCase() || 'unknown',
-      fulfillment_status: edge.node.displayFulfillmentStatus?.toLowerCase() || 'unfulfilled',
-      items: edge.node.lineItems.edges.map((li: any) => ({
-        title: li.node.title,
-        quantity: li.node.quantity,
-        price: li.node.originalUnitPriceSet?.shopMoney?.amount || '0',
-      })),
-    }));
-
-    return res.status(200).json({ orders });
+    return res.status(200).json({ orders: uniqueOrders });
   } catch (error: any) {
     console.error('[Customer Orders] Failed to fetch from Shopify:', error?.message || error);
     return res.status(500).json({ error: 'Failed to fetch orders', orders: [] });
