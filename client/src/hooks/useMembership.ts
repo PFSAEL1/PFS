@@ -7,6 +7,7 @@ export type MembershipStatus = 'active' | 'cancelled' | 'expired';
 export interface Membership {
   id: string;
   user_id: string;
+  user_email?: string;
   tier: MembershipTier;
   status: MembershipStatus;
   started_at: string;
@@ -24,13 +25,42 @@ export const useMembership = () => {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) { setLoading(false); return; }
 
-        const [{ data: roleData }, { data: memberData }] = await Promise.all([
-          supabase.from('user_roles').select('role').eq('user_id', user.id).eq('role', 'admin').maybeSingle(),
-          supabase.from('memberships').select('*').eq('user_id', user.id).maybeSingle(),
-        ]);
+        // Check admin role
+        const { data: roleData } = await supabase
+          .from('user_roles')
+          .select('role')
+          .eq('user_id', user.id)
+          .eq('role', 'admin')
+          .maybeSingle();
 
         setIsAdmin(!!roleData);
-        setMembership(memberData as Membership);
+
+        // Try to find membership by user_id first
+        const { data: memberByUserId } = await supabase
+          .from('memberships')
+          .select('*')
+          .eq('user_id', user.id)
+          .maybeSingle();
+
+        if (memberByUserId) {
+          setMembership(memberByUserId as Membership);
+        } else if (user.email) {
+          // Fallback: look up by user_email (admin creates memberships by email)
+          const { data: memberByEmail } = await supabase
+            .from('memberships')
+            .select('*')
+            .eq('user_email', user.email)
+            .maybeSingle();
+
+          if (memberByEmail) {
+            // Also link the user_id for future lookups
+            await supabase
+              .from('memberships')
+              .update({ user_id: user.id })
+              .eq('id', memberByEmail.id);
+            setMembership(memberByEmail as Membership);
+          }
+        }
       } catch (err) {
         console.error('Error fetching membership:', err);
       } finally {
