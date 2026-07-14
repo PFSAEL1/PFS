@@ -10,9 +10,9 @@ import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 import {
   Database, Plus, Search, Download, Upload, Eye, Users, Crown,
-  Trash2, Send, RefreshCw, ChevronRight, Filter, Calendar,
+  Trash2, Send, RefreshCw, ChevronRight, Filter, Calendar, X,
   MapPin, Phone, Mail, Building2, AlertCircle, CheckCircle2, Clock,
-  BellRing, Zap, BellOff
+  BellRing, Zap, BellOff, Copy, Check, Link2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -64,6 +64,9 @@ export default function FilterDatabase() {
   const [selectedBooths, setSelectedBooths] = useState<Set<string>>(new Set());
   const [sendingReminder, setSendingReminder] = useState<string | null>(null);
   const [updatingMode, setUpdatingMode] = useState<string | null>(null);
+  const [generatingLink, setGeneratingLink] = useState<string | null>(null);
+  const [copiedLink, setCopiedLink] = useState<string | null>(null);
+  const [inviteLinkModal, setInviteLinkModal] = useState<{ email: string; link: string } | null>(null);
 
   // Check admin access
   useEffect(() => {
@@ -125,6 +128,46 @@ export default function FilterDatabase() {
     if (error) { toast.error('Failed to delete'); return; }
     toast.success('Booth setup deleted');
     fetchBooths();
+  };
+
+  const handleGetInviteLink = async (booth: BoothSetup) => {
+    if (!booth.customer_email) {
+      toast.error('No email address for this customer');
+      return;
+    }
+    setGeneratingLink(booth.id);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) throw new Error('Not authenticated');
+      const resp = await fetch('/api/invite-customer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ email: booth.customer_email }),
+      });
+      const result = await resp.json();
+      if (result.success && result.inviteLink) {
+        setInviteLinkModal({ email: booth.customer_email, link: result.inviteLink });
+      } else if (result.success && result.alreadyExists) {
+        // User exists but no link returned — try generating a recovery link
+        toast.info('Customer already has an account. A password reset link was generated.');
+      } else {
+        toast.error(result.error || 'Failed to generate invite link');
+      }
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to generate invite link');
+    } finally {
+      setGeneratingLink(null);
+    }
+  };
+
+  const handleCopyInviteLink = (link: string) => {
+    navigator.clipboard.writeText(link);
+    setCopiedLink(link);
+    toast.success('Invite link copied!');
+    setTimeout(() => setCopiedLink(null), 3000);
   };
 
   const handleSendReminder = async (booth: BoothSetup) => {
@@ -331,7 +374,8 @@ export default function FilterDatabase() {
               const canSend = currentMode !== 'off';
               return (
                 <div key={booth.id}
-                  className="group bg-[#111] border border-white/8 rounded-xl p-4 hover:border-white/15 transition-all">
+                  onClick={() => { setEditingBooth(booth); setShowNewBoothModal(true); }}
+                  className="group bg-[#111] border border-white/8 rounded-xl p-4 hover:border-white/15 transition-all cursor-pointer">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-start gap-3 min-w-0">
                       {/* Avatar */}
@@ -405,7 +449,7 @@ export default function FilterDatabase() {
                       {/* Order mode toggle — always visible */}
                       <div className="flex items-center rounded-md border border-white/10 overflow-hidden text-[10px]">
                         <button
-                          onClick={() => handleSetOrderMode(booth, 'off')}
+                          onClick={(e) => { e.stopPropagation(); handleSetOrderMode(booth, 'off'); }}
                           disabled={updatingMode === booth.id}
                           title="Off — no automated orders"
                           className={`px-2 py-1 flex items-center gap-1 transition-colors ${
@@ -416,7 +460,7 @@ export default function FilterDatabase() {
                           <BellOff className="w-2.5 h-2.5" /> Off
                         </button>
                         <button
-                          onClick={() => handleSetOrderMode(booth, 'reminder')}
+                          onClick={(e) => { e.stopPropagation(); handleSetOrderMode(booth, 'reminder'); }}
                           disabled={updatingMode === booth.id}
                           title="Send invoice reminder email via Shopify draft order"
                           className={`px-2 py-1 flex items-center gap-1 transition-colors border-l border-white/10 ${
@@ -427,7 +471,7 @@ export default function FilterDatabase() {
                           <BellRing className="w-2.5 h-2.5" /> Remind
                         </button>
                         <button
-                          onClick={() => handleSetOrderMode(booth, 'auto_reorder')}
+                          onClick={(e) => { e.stopPropagation(); handleSetOrderMode(booth, 'auto_reorder'); }}
                           disabled={updatingMode === booth.id}
                           title="Auto-complete order and charge customer"
                           className={`px-2 py-1 flex items-center gap-1 transition-colors border-l border-white/10 ${
@@ -439,9 +483,9 @@ export default function FilterDatabase() {
                         </button>
                       </div>
 
-                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="flex items-center gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                         <Button size="sm" variant="outline"
-                          onClick={() => handleSendReminder(booth)}
+                          onClick={(e) => { e.stopPropagation(); handleSendReminder(booth); }}
                           disabled={sendingReminder === booth.id || !canSend}
                           title={canSend ? `Send ${currentMode === 'reminder' ? 'invoice reminder' : 'auto-reorder'} now` : 'Select Remind or Auto mode first'}
                           className="h-7 px-2 border-white/10 bg-[#0d0d0d]/5 hover:bg-blue-500/20 hover:border-blue-500/30 text-white/60 hover:text-blue-300 text-xs gap-1 disabled:opacity-30 disabled:cursor-not-allowed">
@@ -451,12 +495,20 @@ export default function FilterDatabase() {
                           Send
                         </Button>
                         <Button size="sm" variant="outline"
-                          onClick={() => { setEditingBooth(booth); setShowNewBoothModal(true); }}
+                          onClick={(e) => { e.stopPropagation(); handleGetInviteLink(booth); }}
+                          disabled={generatingLink === booth.id || !booth.customer_email}
+                          title={booth.customer_email ? 'Get invite/password link for customer' : 'No email set'}
+                          className="h-7 px-2 border-white/10 bg-[#0d0d0d]/5 hover:bg-blue-500/20 hover:border-blue-500/30 text-white/60 hover:text-blue-300 text-xs gap-1 disabled:opacity-30">
+                          {generatingLink === booth.id ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Link2 className="w-3 h-3" />}
+                          Link
+                        </Button>
+                        <Button size="sm" variant="outline"
+                          onClick={(e) => { e.stopPropagation(); setEditingBooth(booth); setShowNewBoothModal(true); }}
                           className="h-7 px-2 border-white/10 bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 text-white/60 text-xs gap-1">
                           <ChevronRight className="w-3 h-3" /> Edit
                         </Button>
                         <Button size="sm" variant="outline"
-                          onClick={() => handleDelete(booth.id)}
+                          onClick={(e) => { e.stopPropagation(); handleDelete(booth.id); }}
                           className="h-7 px-2 border-white/10 bg-[#0d0d0d]/5 hover:bg-red-500/20 hover:border-red-500/30 text-white/70 hover:text-red-400 text-xs">
                           <Trash2 className="w-3 h-3" />
                         </Button>
@@ -469,6 +521,48 @@ export default function FilterDatabase() {
           </div>
         )}
       </div>
+
+      {/* Invite Link Modal */}
+      {inviteLinkModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setInviteLinkModal(null)} />
+          <div className="relative w-full max-w-lg bg-[#111] border border-white/10 rounded-2xl shadow-2xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-white">Customer Invite Link</h2>
+              <button onClick={() => setInviteLinkModal(null)} className="w-7 h-7 rounded-lg hover:bg-white/5 flex items-center justify-center">
+                <X className="w-4 h-4 text-white/60" />
+              </button>
+            </div>
+            <p className="text-sm text-white/60 mb-4">
+              Share this link with <span className="text-blue-400">{inviteLinkModal.email}</span> so they can set their password and log in:
+            </p>
+            <div className="flex items-center gap-2 bg-[#0a0a0a] border border-white/10 rounded-lg p-3">
+              <input
+                type="text"
+                readOnly
+                value={inviteLinkModal.link}
+                className="flex-1 bg-transparent text-sm text-white/80 outline-none truncate"
+              />
+              <button
+                onClick={() => handleCopyInviteLink(inviteLinkModal.link)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+                  copiedLink === inviteLinkModal.link
+                    ? 'bg-green-600/20 text-green-400 border border-green-500/30'
+                    : 'bg-blue-600 hover:bg-blue-500 text-white'
+                }`}
+              >
+                {copiedLink === inviteLinkModal.link ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                {copiedLink === inviteLinkModal.link ? 'Copied!' : 'Copy'}
+              </button>
+            </div>
+            <div className="mt-4 flex justify-end">
+              <Button onClick={() => setInviteLinkModal(null)} className="bg-blue-600 hover:bg-blue-500 text-white text-sm">
+                Done
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* New/Edit Booth Modal */}
       {showNewBoothModal && (
