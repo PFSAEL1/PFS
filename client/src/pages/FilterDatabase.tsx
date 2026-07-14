@@ -440,7 +440,7 @@ export default function FilterDatabase() {
                     </div>
 
                     {/* Right side: reminder status + order mode toggle + actions */}
-                    <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-2 flex-shrink-0 w-full sm:w-auto pl-13 sm:pl-0">
+                    <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-2 flex-shrink-0 w-full sm:w-auto ml-[52px] sm:ml-0">
                       <div className={`flex items-center gap-1 text-xs ${reminder.color}`}>
                         <ReminderIcon className="w-3.5 h-3.5" />
                         <span>{reminder.label}</span>
@@ -483,7 +483,7 @@ export default function FilterDatabase() {
                         </button>
                       </div>
 
-                      <div className="flex items-center gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                      <div className="hidden sm:flex items-center gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                         <Button size="sm" variant="outline"
                           onClick={(e) => { e.stopPropagation(); handleSendReminder(booth); }}
                           disabled={sendingReminder === booth.id || !canSend}
