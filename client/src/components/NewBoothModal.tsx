@@ -152,13 +152,31 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
     setSaving(true);
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      const { id: _id, ...formWithoutId } = form;
-      const boothData = {
-        ...formWithoutId,
-        created_by: session?.user.id,
-        change_interval_days: Number(form.change_interval_days),
+      // Only send valid booth_setups columns - exclude nested relations and auto-generated fields
+      const boothData: Record<string, any> = {
+        customer_name: form.customer_name,
+        customer_email: form.customer_email,
+        customer_phone: form.customer_phone,
+        booth_manufacturer: form.booth_manufacturer,
+        booth_model: form.booth_model,
+        notes: form.notes,
+        address_line1: form.address_line1,
+        address_line2: form.address_line2,
+        city: form.city,
+        state: form.state,
+        zip_code: form.zip_code,
+        primary_contact_name: form.primary_contact_name,
+        contact_email: form.contact_email,
+        contact_phone: form.contact_phone,
+        is_member: form.is_member,
+        membership_tier: form.membership_tier,
+        auto_reorder: form.auto_reorder,
+        interval_type: form.interval_type,
+        change_interval_days: Number(form.change_interval_days) || 90,
+        change_interval_type: form.change_interval_type,
         last_filter_change: form.last_filter_change || null,
         first_reminder_date: form.first_reminder_date || null,
+        created_by: session?.user.id,
       };
 
       let boothId = booth?.id;
