@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/lib/supabase';
+import { trpc } from '@/lib/trpc';
 import { useMembership } from '@/hooks/useMembership';
 import NewBoothModal from '@/components/NewBoothModal';
 import {
@@ -119,17 +120,17 @@ function DashboardContent() {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) return;
 
-      // Fetch orders from Shopify via server API
-      const resp = await fetch('/api/trpc/orders.list', {
+      // Fetch orders from Shopify via our API endpoint
+      const resp = await fetch('/api/customer-orders', {
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
-          'Content-Type': 'application/json',
         },
       });
       if (resp.ok) {
         const json = await resp.json();
-        const shopifyOrders = json?.result?.data?.orders || [];
-        setOrders(shopifyOrders);
+        if (json.orders && Array.isArray(json.orders)) {
+          setOrders(json.orders);
+        }
       } else {
         // Fallback: try local customer_orders table
         const { data: orderData } = await supabase
