@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
-import { X, Plus, Trash2, Layers, ChevronRight, ChevronLeft, RefreshCw, Copy, Check } from 'lucide-react';
+import { X, Plus, Trash2, Layers, ChevronRight, ChevronLeft, RefreshCw, Copy, Check, Link2 } from 'lucide-react';
 import ShopifyProductPicker from './ShopifyProductPicker';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -105,6 +105,7 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
   const [positions, setPositions] = useState<FilterPosition[]>([defaultPosition(1)]);
   const [inviteLink, setInviteLink] = useState<string | null>(null);
   const [linkCopied, setLinkCopied] = useState(false);
+  const [generatingLink, setGeneratingLink] = useState(false);
 
   useEffect(() => {
     if (booth?.id) {
@@ -318,9 +319,49 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
           <h2 className="text-base font-semibold text-white">
             {booth?.id ? 'Edit Booth Setup' : 'New Customer Booth Setup'}
           </h2>
-          <button onClick={onClose} className="w-7 h-7 rounded-lg bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 flex items-center justify-center transition-colors">
-            <X className="w-4 h-4 text-white/60" />
-          </button>
+          <div className="flex items-center gap-2">
+            {booth?.id && form.customer_email && (
+              <button
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  setGeneratingLink(true);
+                  try {
+                    const { data: { session } } = await supabase.auth.getSession();
+                    const resp = await fetch('/api/invite-customer', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${session?.access_token}`,
+                      },
+                      body: JSON.stringify({ email: form.customer_email }),
+                    });
+                    const result = await resp.json();
+                    if (result.success && result.inviteLink) {
+                      setInviteLink(result.inviteLink);
+                    } else if (result.success && result.alreadyExists) {
+                      // Generate a magic link / password reset instead
+                      setInviteLink(`https://www.pfsfilters.com/auth`);
+                      toast.info('Customer already has an account. Share the login page link.');
+                    } else {
+                      toast.error('Could not generate invite link');
+                    }
+                  } catch (err) {
+                    toast.error('Failed to generate link');
+                  } finally {
+                    setGeneratingLink(false);
+                  }
+                }}
+                disabled={generatingLink}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 text-blue-300 text-xs font-medium transition-all disabled:opacity-50"
+              >
+                {generatingLink ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Link2 className="w-3.5 h-3.5" />}
+                Share Invite Link
+              </button>
+            )}
+            <button onClick={onClose} className="w-7 h-7 rounded-lg bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 flex items-center justify-center transition-colors">
+              <X className="w-4 h-4 text-white/60" />
+            </button>
+          </div>
         </div>
 
         {/* Tab bar */}
