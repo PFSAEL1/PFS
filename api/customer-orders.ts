@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '';
-const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const SHOPIFY_SHOP_DOMAIN = process.env.SHOPIFY_SHOP_DOMAIN || 'abc-filter-splash-rwyxj.myshopify.com';
 const SHOPIFY_ADMIN_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN || '';
 
@@ -16,6 +16,11 @@ async function shopifyAdminRequest(query: string, variables: Record<string, any>
     },
     body: JSON.stringify({ query, variables }),
   });
+  if (!response.ok) {
+    const text = await response.text();
+    console.error('[Shopify API] Error:', response.status, text);
+    throw new Error(`Shopify API error: ${response.status}`);
+  }
   return response.json();
 }
 
@@ -30,18 +35,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    console.error('[Customer Orders] Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
+    return res.status(500).json({ error: 'Server configuration error', orders: [] });
+  }
+
   const token = authHeader.replace('Bearer ', '');
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+  
+  // Use service role key to verify the user's JWT token (VITE_ vars not available at runtime)
+  const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+  const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(token);
 
   if (authError || !user || !user.email) {
+    console.error('[Customer Orders] Auth error:', authError?.message || 'No user/email');
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
   const userEmail = user.email;
 
   if (!SHOPIFY_ADMIN_TOKEN) {
-    return res.status(500).json({ error: 'Shopify admin token not configured' });
+    console.error('[Customer Orders] SHOPIFY_ADMIN_TOKEN not configured');
+    return res.status(500).json({ error: 'Shopify admin token not configured', orders: [] });
   }
 
   try {
@@ -88,6 +102,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     `, { query: `email:${userEmail}`, first: 10 });
 
+    if (data.errors) {
+      console.error('[Customer Orders] GraphQL errors:', JSON.stringify(data.errors));
+      return res.status(500).json({ error: 'Failed to query Shopify', orders: [] });
+    }
+
     const customer = data?.data?.customers?.edges?.[0]?.node;
     if (!customer) {
       return res.status(200).json({ orders: [] });
@@ -109,8 +128,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }));
 
     return res.status(200).json({ orders });
-  } catch (error) {
-    console.error('[Customer Orders] Failed to fetch from Shopify:', error);
+  } catch (error: any) {
+    console.error('[Customer Orders] Failed to fetch from Shopify:', error?.message || error);
     return res.status(500).json({ error: 'Failed to fetch orders', orders: [] });
   }
 }
