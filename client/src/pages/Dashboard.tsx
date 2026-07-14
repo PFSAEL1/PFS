@@ -116,19 +116,31 @@ function DashboardContent() {
   const fetchOrders = async () => {
     setOrdersLoading(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
 
-      // Fetch orders from Supabase (synced from Shopify via webhook or manual sync)
-      const { data: orderData } = await supabase
-        .from('customer_orders')
-        .select('*')
-        .eq('customer_email', user.email)
-        .order('created_at', { ascending: false })
-        .limit(10);
-
-      if (orderData) {
-        setOrders(orderData);
+      // Fetch orders from Shopify via server API
+      const resp = await fetch('/api/trpc/orders.list', {
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (resp.ok) {
+        const json = await resp.json();
+        const shopifyOrders = json?.result?.data?.orders || [];
+        setOrders(shopifyOrders);
+      } else {
+        // Fallback: try local customer_orders table
+        const { data: orderData } = await supabase
+          .from('customer_orders')
+          .select('*')
+          .eq('customer_email', session.user.email)
+          .order('created_at', { ascending: false })
+          .limit(10);
+        if (orderData) {
+          setOrders(orderData);
+        }
       }
     } catch (err) {
       console.error('Error fetching orders:', err);
