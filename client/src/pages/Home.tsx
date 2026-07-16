@@ -93,9 +93,9 @@ export default function Home() {
                   />
                   <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 55%, transparent 100%)' }} />
                   <div className="absolute bottom-5 left-5 right-5 z-10">
-                    <p className="text-white font-semibold text-lg leading-tight">{card.title}</p>
+                    <p className="text-white font-bold text-xl leading-tight">{card.title}</p>
                     <p className="text-white/75 text-sm mt-1">{card.subtitle}</p>
-                    <span className="text-blue-400 text-sm font-medium mt-2 inline-block group-hover:text-blue-300 transition-colors">{card.cta} →</span>
+                    <span className="inline-flex items-center gap-2 mt-3 bg-[#4d9fff] text-black text-sm font-semibold px-5 py-2.5 rounded-lg group-hover:bg-[#6aadff] transition-colors duration-150">{card.cta} <span className="text-base">→</span></span>
                   </div>
                 </div>
               </Link>
