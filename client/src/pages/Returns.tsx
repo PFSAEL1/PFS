@@ -13,7 +13,7 @@ const breadcrumbSchema = createBreadcrumbSchema([
 
 export default function Returns() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Returns & Refunds Policy"
         description="Review our returns and refunds policy. Returns accepted within 10 days with 30% restocking fee. Learn about eligibility, non-refundable items, and refund processing."

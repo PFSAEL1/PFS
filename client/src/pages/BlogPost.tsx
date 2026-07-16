@@ -15,7 +15,7 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-[#080808] text-white">
+      <div className="min-h-screen bg-[#040404] text-white">
         <Navigation />
         <div className="container mx-auto px-4 pt-32 pb-16 text-center">
           <h1 className="text-4xl font-bold mb-4 text-white pfs-heading-animate">Post Not Found</h1>
@@ -72,7 +72,7 @@ export default function BlogPost() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title={post.title}
         description={post.excerpt}

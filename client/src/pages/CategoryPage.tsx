@@ -114,7 +114,7 @@ export default function CategoryPage() {
     : 'bg-white/5 border-white/15 text-white/50';
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title={`${title} - Paint Booth Filters | PFS Filters`}
         description={description}

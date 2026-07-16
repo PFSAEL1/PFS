@@ -175,7 +175,7 @@ export default function Auth() {
   // Show loading state while checking for auth tokens
   if (checkingSession) {
     return (
-      <div className="min-h-screen bg-[#080808] text-white flex items-center justify-center">
+      <div className="min-h-screen bg-[#040404] text-white flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
       </div>
     );
@@ -184,7 +184,7 @@ export default function Auth() {
   // Show Set Password form for invite or recovery flow
   if (isInviteFlow || isRecoveryFlow) {
     return (
-      <div className="min-h-screen bg-[#080808] text-white">
+      <div className="min-h-screen bg-[#040404] text-white">
         <SEO
           title="Set Your Password - PFS Filters"
           description="Set your password to access your PFS Filters account."
@@ -267,7 +267,7 @@ export default function Auth() {
   }
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Sign In - PFS Filters Account"
         description="Sign in to your PFS Filters account to manage orders, track memberships, and access exclusive discounts."

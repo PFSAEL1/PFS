@@ -33,7 +33,7 @@ const blogListSchema = {
 
 export default function Blog() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Spray Booth Maintenance & Filter Guide - Expert Tips & How-To"
         description="Expert advice on paint booth filters, maintenance schedules, filter selection, and troubleshooting. Learn from industry professionals with 20+ years experience."

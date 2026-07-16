@@ -67,7 +67,7 @@ const filterTypes = [
 
 export default function ShopByType() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Shop Paint Booth Filters by Type - Intake, Exhaust, Ceiling & More"
         description="Browse paint booth filters by type: fiberglass paint arrestors (exhaust), tacky panel filters (intake), ceiling blankets, roll media, and MERV-rated filters."

@@ -67,7 +67,7 @@ export default function FilterCompatibility() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Paint Booth Filter Compatibility Finder - Find Filters for Your Booth"
         description="Instantly find the right paint booth filters for your spray booth. Brand-matched ceiling, intake, exhaust/arrestor and pre-filter sizes for GFS, Garmat, Blowtherm, SprayBake, Accudraft, Binks and more."

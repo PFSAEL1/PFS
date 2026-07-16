@@ -73,7 +73,7 @@ export default function ProductDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#080808] text-white">
+      <div className="min-h-screen bg-[#040404] text-white">
         <Navigation />
         <div className="flex items-center justify-center min-h-[60vh]">
           <Loader2 className="h-10 w-10 animate-spin text-blue-400" />
@@ -85,7 +85,7 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-[#080808] text-white">
+      <div className="min-h-screen bg-[#040404] text-white">
         <Navigation />
         <div className="container mx-auto px-4 pt-32 pb-16 text-center">
           <Package className="h-16 w-16 mx-auto mb-4 text-white/50 opacity-30" />
@@ -190,7 +190,7 @@ export default function ProductDetail() {
   };
 
   return (
-    <div className="min-h-screen text-white" style={{ background: '#0a0a0a' }}>
+    <div className="min-h-screen text-white bg-[#040404]">
       <SEO
         title={`${product.title} - PFS Filters`}
         description={product.description || `Buy ${product.title} from PFS Filters. Premium paint booth filtration products with fast nationwide shipping.`}

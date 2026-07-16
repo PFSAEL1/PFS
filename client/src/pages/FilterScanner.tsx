@@ -15,7 +15,7 @@ const breadcrumbSchema = createBreadcrumbSchema([
 
 export default function FilterScanner() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="AI Filter Scanner - Identify & Reorder Paint Booth Filters Instantly"
         description="Use our AI-powered filter scanner to photograph your existing paint booth filters and instantly identify them for reordering. Available with Gold and Platinum memberships."

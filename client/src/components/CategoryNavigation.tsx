@@ -59,7 +59,7 @@ const categories: Category[] = [
 
 export const CategoryNavigation = () => {
   return (
-    <section className="py-16 md:py-24 px-4" style={{ backgroundColor: '#0e0e0e' }}>
+    <section className="section-raised tex-dots py-16 md:py-24 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="mb-10 md:mb-14">
           <div className="flex justify-start mb-3">

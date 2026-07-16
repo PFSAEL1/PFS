@@ -11,7 +11,7 @@ const breadcrumbSchema = createBreadcrumbSchema([
 
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Privacy Policy - PFS Filters"
         description="Read the PFS Filters privacy policy to understand how we collect, use, and protect your personal information."

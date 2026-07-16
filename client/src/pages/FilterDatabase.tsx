@@ -257,14 +257,14 @@ export default function FilterDatabase() {
 
   if (isAdmin === null) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+      <div className="min-h-screen flex items-center justify-center bg-[#040404]">
         <RefreshCw className="w-6 h-6 animate-spin text-blue-400" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       {/* Header */}
       <div className="border-b border-white/8 bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
@@ -536,7 +536,7 @@ export default function FilterDatabase() {
             <p className="text-sm text-white/60 mb-4">
               Share this link with <span className="text-blue-400">{inviteLinkModal.email}</span> so they can set their password and log in:
             </p>
-            <div className="flex items-center gap-2 bg-[#0a0a0a] border border-white/10 rounded-lg p-3">
+            <div className="flex items-center gap-2 bg-[#040404] border border-white/10 rounded-lg p-3">
               <input
                 type="text"
                 readOnly

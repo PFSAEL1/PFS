@@ -126,7 +126,7 @@ export default function Memberships() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Paint Booth Filter Memberships - Save on Every Order"
         description="Join PFS Filters membership for exclusive discounts, auto-reorder scheduling, AI filter scanner, and dedicated support. Plans from $29/month. Save 3-5% on every order."
@@ -163,8 +163,11 @@ export default function Memberships() {
         </div>
       </section>
 
+      {/* Arc divider */}
+      <div className="arc-divider arc-divider-up" />
+
       {/* Pricing cards */}
-      <section className="py-12 px-4" style={{ backgroundColor: '#0e0e0e' }}>
+      <section className="section-glow tex-dots py-12 px-4">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {tiers.map((tier) => (
             <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] ${tier.popular ? 'ring-2 ring-[#4d9fff]/50' : ''}`}>
@@ -218,11 +221,11 @@ export default function Memberships() {
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="w-full h-px bg-white/[0.04]" />
+      {/* Arc divider */}
+      <div className="arc-divider arc-divider-down" />
 
       {/* FAQ */}
-      <section className="py-16 px-4" style={{ backgroundColor: '#080808' }}>
+      <section className="section-darker tex-lines py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-10">Membership FAQ</h2>
           <div className="space-y-4">

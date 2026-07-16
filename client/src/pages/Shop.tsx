@@ -25,7 +25,7 @@ export default function Shop() {
   }, [location]);
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Shop All Paint Booth Filters - In Stock & Ready to Ship"
         description="Browse 50+ spray booth filters in stock. Fiberglass arrestors (20x20, 20x25), tacky panels, MERV-rated intake filters & exhaust filters. Same-day shipping on most orders. Custom sizes cut to spec."

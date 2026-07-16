@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 
 export default function ThankYou() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white flex flex-col">
+    <div className="min-h-screen bg-[#040404] text-white flex flex-col">
       <SEO
         title="Thank You - PFS Filters"
         description="Thanks for reaching out to PFS Filters. Our team has received your message and will get back to you shortly."

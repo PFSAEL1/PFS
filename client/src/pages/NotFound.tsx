@@ -6,7 +6,7 @@ import { Filter, Home, ShoppingBag } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <Navigation />
       <div className="container mx-auto px-4 pt-32 pb-16 text-center max-w-2xl">
         <div className="inline-flex items-center justify-center w-24 h-24 bg-blue-500/10 rounded-full mb-8">

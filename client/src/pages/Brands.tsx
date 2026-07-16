@@ -42,7 +42,7 @@ const brands = [
 
 export default function Brands() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Paint Booth Filter Brands - PFS Filters, Koch, Permatron & More"
         description="Shop paint booth filters from trusted brands including PFS Filters, Koch Filter, Permatron, and Andover Healthcare. All products quality-tested for spray booth applications."

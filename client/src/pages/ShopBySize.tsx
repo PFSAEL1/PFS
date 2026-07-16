@@ -29,7 +29,7 @@ const sizes = [
 
 export default function ShopBySize() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Shop Paint Booth Filters by Size - 20x20, 20x25, Custom Cuts"
         description="Find the right paint booth filter by size. We stock 20x20, 20x25, 24x24, 25x25 and many more standard sizes. Custom-cut filters available for any booth configuration."

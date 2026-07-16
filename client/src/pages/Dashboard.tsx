@@ -192,7 +192,7 @@ function DashboardContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO title="Dashboard - PFS Filters Account" description="Manage your PFS Filters account, memberships, and orders." noIndex />
       <Navigation />
       <div className="container mx-auto px-4 pt-24 pb-16 max-w-6xl">

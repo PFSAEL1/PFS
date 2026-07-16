@@ -677,31 +677,35 @@ video::-internal-media-controls-play-button {
 }
 
 /* ---- 4. Section background differentiation + texture -----------------
-   Premium depth system: alternating tones, radial glows, subtle textures,
-   and curved arc dividers for visual rhythm without looking AI-generated. */
-.section-dark   { background-color: #0c0c0c !important; }
-.section-darker { background-color: #050505 !important; }
+   Premium depth system inspired by Satellitor: alternating tones with
+   VISIBLE contrast, radial glows, textures, and curved arc dividers. */
+
+/* Base dark — near-black for contrast sections */
+.section-dark   { background-color: #0d0d0d !important; }
+/* Deepest dark — true near-black */
+.section-darker { background-color: #040404 !important; }
+/* Raised — noticeably lighter with top glow */
 .section-raised {
   background:
-    radial-gradient(900px 400px at 50% 0%, rgba(255,255,255,0.06), transparent 65%),
-    linear-gradient(180deg, #181818 0%, #111111 100%) !important;
+    radial-gradient(800px 350px at 50% 0%, rgba(255,255,255,0.10), transparent 60%),
+    linear-gradient(180deg, #1c1c1c 0%, #141414 100%) !important;
 }
 
-/* Elevated section with centered radial glow — premium depth */
+/* Elevated section with centered radial glow — visible depth */
 .section-glow {
   position: relative;
-  background-color: #0e0e0e !important;
+  background-color: #141414 !important;
   overflow: hidden;
 }
 .section-glow::after {
   content: '';
   position: absolute;
-  top: 40%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 1200px;
-  height: 800px;
-  background: radial-gradient(ellipse, rgba(255,255,255,0.045) 0%, transparent 65%);
+  width: 1400px;
+  height: 900px;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.07) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -710,7 +714,7 @@ video::-internal-media-controls-play-button {
 /* Curved arc divider between sections */
 .arc-divider {
   position: relative;
-  height: 100px;
+  height: 120px;
   overflow: hidden;
   margin-top: -1px;
 }
@@ -721,26 +725,26 @@ video::-internal-media-controls-play-button {
   left: 50%;
   transform: translateX(-50%);
   width: 200%;
-  height: 200px;
+  height: 240px;
   border-radius: 50%;
-  box-shadow: 0 0 120px 60px rgba(255,255,255,0.02);
-  border-top: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 0 100px 50px rgba(255,255,255,0.03);
+  border-top: 1px solid rgba(255,255,255,0.10);
 }
 /* Arc variant: dark-to-raised transition */
 .arc-divider-up {
-  background: linear-gradient(to bottom, #050505, #0e0e0e);
+  background: linear-gradient(to bottom, #040404, #141414);
 }
 .arc-divider-up::before {
-  background: #0e0e0e;
+  background: #141414;
 }
 .arc-divider-down {
-  background: linear-gradient(to bottom, #0e0e0e, #050505);
+  background: linear-gradient(to bottom, #141414, #040404);
 }
 .arc-divider-down::before {
-  background: #050505;
+  background: #040404;
 }
 
-/* Subtle dotted texture utility — apply to any <section> via .tex-dots */
+/* Dotted grid texture — visible dot pattern */
 .tex-dots {
   position: relative;
 }
@@ -748,14 +752,14 @@ video::-internal-media-controls-play-button {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 22px 22px;
+  background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
   pointer-events: none;
   z-index: 0;
 }
 .tex-dots > * { position: relative; z-index: 1; }
 
-/* Faint diagonal hairline texture — alternate sections via .tex-lines */
+/* Diagonal hairline texture */
 .tex-lines {
   position: relative;
 }
@@ -765,17 +769,17 @@ video::-internal-media-controls-play-button {
   inset: 0;
   background-image: repeating-linear-gradient(
     135deg,
-    rgba(255,255,255,0.022) 0px,
-    rgba(255,255,255,0.022) 1px,
+    rgba(255,255,255,0.04) 0px,
+    rgba(255,255,255,0.04) 1px,
     transparent 1px,
-    transparent 9px
+    transparent 8px
   );
   pointer-events: none;
   z-index: 0;
 }
 .tex-lines > * { position: relative; z-index: 1; }
 
-/* Noise grain texture — ultra subtle film grain for premium feel */
+/* Noise grain texture — film grain for premium feel */
 .tex-grain {
   position: relative;
 }
@@ -783,8 +787,8 @@ video::-internal-media-controls-play-button {
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.4;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.6;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
   pointer-events: none;

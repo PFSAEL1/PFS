@@ -89,7 +89,7 @@ export default function PaintBoothFilters() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-[#040404]">
       <Navigation />
       <SEO
         title="Paint Booth Filters — Every Brand, Every Size | Ships Fast Nationwide | PFS Filters"
@@ -99,7 +99,7 @@ export default function PaintBoothFilters() {
       />
 
       {/* SECTION 1 — HERO | Navy background */}
-      <section className="relative min-h-[70vh] md:min-h-[80vh] flex items-center overflow-hidden bg-black pt-24">
+      <section className="relative min-h-[70vh] md:min-h-[80vh] flex items-center overflow-hidden bg-[#040404] pt-24">
         {/* Gradient background */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-black via-[hsl(207,50%,8%)] to-black" />

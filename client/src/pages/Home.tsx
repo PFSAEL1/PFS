@@ -20,7 +20,7 @@ const combinedSchema = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-[#040404]">
       <SEO
         title="Buy Paint Booth Filters - Premium Spray Booth Filtration Systems"
         description="Shop premium paint booth filters from PFS Filters. Fiberglass arrestors, tacky panels, intake/exhaust filters for automotive & industrial spray booths. Fast shipping, custom sizes available."

@@ -46,7 +46,7 @@ export default function SubmitReview() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Submit a Review - PFS Filters"
         description="Share your experience with PFS Filters. Leave a review to help other shops find the right paint booth filters."

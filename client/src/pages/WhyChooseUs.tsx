@@ -35,7 +35,7 @@ const benefits = [
 
 export default function WhyChooseUs() {
   return (
-    <div className="min-h-screen bg-[#080808] text-white">
+    <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Why Choose PFS Filters | Premium Spray Booth Filtration Expert"
         description="Choose PFS Filters for premium paint booth filters backed by PFS expertise. Industry-leading quality, custom filtration solutions, expert technical support, and competitive pricing on all spray booth filters."
@@ -59,8 +59,11 @@ export default function WhyChooseUs() {
         </div>
       </section>
 
+      {/* Arc divider */}
+      <div className="arc-divider arc-divider-up" />
+
       {/* Features grid */}
-      <section className="py-16 px-4">
+      <section className="section-glow tex-dots py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
@@ -78,8 +81,11 @@ export default function WhyChooseUs() {
         </div>
       </section>
 
+      {/* Arc divider */}
+      <div className="arc-divider arc-divider-down" />
+
       {/* Benefits list */}
-      <section className="py-16 px-4 bg-[#060606]">
+      <section className="section-darker tex-lines py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-10">Everything You Need to Run a Cleaner Booth</h2>
           <div className="grid md:grid-cols-2 gap-4">
@@ -93,8 +99,11 @@ export default function WhyChooseUs() {
         </div>
       </section>
 
+      {/* Arc divider */}
+      <div className="arc-divider arc-divider-up" />
+
       {/* CTA */}
-      <section className="py-16 px-4 bg-white/3 border-y border-white/8 text-center">
+      <section className="section-raised py-16 px-4 text-center">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold mb-4 text-white pfs-heading-animate">Ready to Upgrade Your Filtration?</h2>
           <p className="text-white/60 mb-8">

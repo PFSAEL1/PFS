@@ -6,7 +6,7 @@ const LOGO_URL = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3w
 
 export const Footer = () => {
   return (
-    <footer className="bg-[#060606] border-t border-white/8 py-16 px-4">
+    <footer className="section-darker border-t border-white/8 py-16 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-3 gap-10 mb-12">
           <div>

@@ -61,7 +61,7 @@ export const TopMovers = () => {
 
   if (loading) {
     return (
-      <section className="py-16 px-4" style={{ backgroundColor: '#080808' }}>
+      <section className="section-darker py-16 px-4">
         <div className="flex justify-center py-16">
           <Loader2 className="h-7 w-7 animate-spin text-white/30" />
         </div>
@@ -72,7 +72,7 @@ export const TopMovers = () => {
   if (products.length === 0) return null;
 
   return (
-    <section className="py-16 px-4" style={{ backgroundColor: '#080808' }}>
+    <section className="section-darker tex-lines py-16 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Eyebrow */}
         <div className="flex justify-center mb-3">
