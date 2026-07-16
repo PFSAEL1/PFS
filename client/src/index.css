@@ -677,14 +677,67 @@ video::-internal-media-controls-play-button {
 }
 
 /* ---- 4. Section background differentiation + texture -----------------
-   Replace the flat same-shade blacks with alternating tones plus a
-   barely-there dot texture so sections have rhythm and depth. */
-.section-dark   { background-color: #0d0d0d !important; }
-.section-darker { background-color: #080808 !important; }
+   Premium depth system: alternating tones, radial glows, subtle textures,
+   and curved arc dividers for visual rhythm without looking AI-generated. */
+.section-dark   { background-color: #0a0a0a !important; }
+.section-darker { background-color: #060606 !important; }
 .section-raised {
   background:
-    radial-gradient(1200px 400px at 50% -10%, rgba(0,153,255,0.05), transparent 60%),
-    linear-gradient(180deg, #161616 0%, #101010 100%) !important;
+    radial-gradient(1000px 500px at 50% 0%, rgba(255,255,255,0.025), transparent 60%),
+    linear-gradient(180deg, #131313 0%, #0d0d0d 100%) !important;
+}
+
+/* Elevated section with centered radial glow — premium depth */
+.section-glow {
+  position: relative;
+  background-color: #0a0a0a !important;
+  overflow: hidden;
+}
+.section-glow::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.02) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.section-glow > * { position: relative; z-index: 1; }
+
+/* Curved arc divider between sections */
+.arc-divider {
+  position: relative;
+  height: 80px;
+  overflow: hidden;
+  margin-top: -1px;
+}
+.arc-divider::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200%;
+  height: 160px;
+  border-radius: 50%;
+  box-shadow: 0 0 80px 40px rgba(255,255,255,0.012);
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+/* Arc variant: dark-to-raised transition */
+.arc-divider-up {
+  background: linear-gradient(to bottom, #060606, #0d0d0d);
+}
+.arc-divider-up::before {
+  background: #0d0d0d;
+}
+.arc-divider-down {
+  background: linear-gradient(to bottom, #0d0d0d, #060606);
+}
+.arc-divider-down::before {
+  background: #060606;
 }
 
 /* Subtle dotted texture utility — apply to any <section> via .tex-dots */
@@ -695,8 +748,8 @@ video::-internal-media-controls-play-button {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 22px 22px;
+  background-image: radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 24px 24px;
   pointer-events: none;
   z-index: 0;
 }
@@ -712,8 +765,8 @@ video::-internal-media-controls-play-button {
   inset: 0;
   background-image: repeating-linear-gradient(
     135deg,
-    rgba(255,255,255,0.018) 0px,
-    rgba(255,255,255,0.018) 1px,
+    rgba(255,255,255,0.022) 0px,
+    rgba(255,255,255,0.022) 1px,
     transparent 1px,
     transparent 9px
   );
@@ -721,6 +774,23 @@ video::-internal-media-controls-play-button {
   z-index: 0;
 }
 .tex-lines > * { position: relative; z-index: 1; }
+
+/* Noise grain texture — ultra subtle film grain for premium feel */
+.tex-grain {
+  position: relative;
+}
+.tex-grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 0;
+}
+.tex-grain > * { position: relative; z-index: 1; }
 
 
 /* ---- Trust ticker (infinite scrolling marquee) ---- */

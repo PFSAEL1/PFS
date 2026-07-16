@@ -35,13 +35,13 @@ export default function Home() {
       </div>
       <Hero />
 
-      {/* Divider */}
-      <div className="w-full h-px bg-white/[0.04]" />
+      {/* Arc transition: hero → filters in action */}
+      <div className="arc-divider arc-divider-up" />
 
       {/* 2. Trust strip is inside SocialProofBanner — bg handled there */}
 
       {/* 3. Filters in Action — three feature rectangles */}
-      <section className="section-darker tex-dots py-20 px-4">
+      <section className="section-glow tex-dots py-20 px-4">
         <div className="max-w-7xl mx-auto">
           {/* Eyebrow */}
           <div className="flex justify-center mb-3">
@@ -104,23 +104,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="w-full h-px bg-white/[0.04]" />
+      {/* Arc transition: filters → category nav */}
+      <div className="arc-divider arc-divider-down" />
 
-      {/* 4. Shop by Category — #0e0e0e */}
+      {/* 4. Shop by Category */}
       <CategoryNavigation />
 
-      {/* Divider */}
-      <div className="w-full h-px bg-white/[0.04]" />
+      {/* Arc transition: category → top movers */}
+      <div className="arc-divider arc-divider-up" />
 
-      {/* 5. Top Movers — #080808 */}
+      {/* 5. Top Movers */}
       <TopMovers />
 
-      {/* Divider */}
-      <div className="w-full h-px bg-white/[0.04]" />
+      {/* Arc transition: top movers → how it works */}
+      <div className="arc-divider arc-divider-down" />
 
       {/* 6. How It Works — raised, lined texture */}
-      <section className="section-raised tex-lines py-20 px-4">
+      <section className="section-raised tex-lines tex-grain py-20 px-4">
         <div className="max-w-5xl mx-auto">
           {/* Eyebrow */}
           <div className="flex justify-center mb-3">
@@ -170,11 +170,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="w-full h-px bg-white/[0.04]" />
+      {/* Arc transition: how it works → brands */}
+      <div className="arc-divider arc-divider-up" />
 
-      {/* 7. Booth Brand Compatibility Strip — darkest */}
-      <section className="section-darker py-14 px-4">
+      {/* 7. Booth Brand Compatibility Strip */}
+      <section className="section-darker tex-dots py-14 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-white/25 text-xs tracking-widest font-medium uppercase">Compatible With</p>
           <p className="text-white/60 text-sm mt-2 mb-8">Filters for every major booth brand</p>
@@ -199,11 +199,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="w-full h-px bg-white/[0.04]" />
+      {/* Arc transition: brands → membership */}
+      <div className="arc-divider arc-divider-down" />
 
       {/* 8. Membership Banner — raised */}
-      <section className="section-raised py-16 px-4">
+      <section className="section-raised tex-grain py-16 px-4">
         <div className="max-w-4xl mx-auto px-6 bg-white/[0.02] border border-white/[0.08] rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
           {/* Left */}
           <div>
@@ -229,16 +229,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="w-full h-px bg-white/[0.04]" />
+      {/* Arc transition: membership → FAQ */}
+      <div className="arc-divider arc-divider-up" />
 
-      {/* 9. FAQ — #080808 */}
+      {/* 9. FAQ */}
       <FAQ />
 
-      {/* Divider */}
-      <div className="w-full h-px bg-white/[0.04]" />
+      {/* Arc transition: FAQ → footer */}
+      <div className="arc-divider arc-divider-down" />
 
-      {/* 10. Footer — #0e0e0e */}
+      {/* 10. Footer */}
       <StickyMobileCTA />
       <Footer />
     </div>
