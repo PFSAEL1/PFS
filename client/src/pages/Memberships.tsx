@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
@@ -6,7 +7,9 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
-import { Crown, Check, ArrowRight, Sparkles } from 'lucide-react';
+import { useCartStore } from '@/stores/cartStore';
+import { Crown, Check, ArrowRight, Sparkles, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://pfsfilters.com' },
@@ -22,6 +25,9 @@ const tiers = [
     color: 'bg-white/3 border-white/10',
     badge: 'bg-white/8 text-white/60',
     accentColor: 'amber',
+    variantId: 'gid://shopify/ProductVariant/52521774448772',
+    productId: 'gid://shopify/Product/10402239021188',
+    handle: 'bronze-membership',
     features: [
       '3% discount on all orders',
       'Priority email support',
@@ -37,6 +43,9 @@ const tiers = [
     color: 'bg-[#4d9fff]/5 border-[#4d9fff]/25',
     badge: 'bg-[#4d9fff]/10 text-[#4d9fff]',
     accentColor: 'blue',
+    variantId: 'gid://shopify/ProductVariant/52521764323460',
+    productId: 'gid://shopify/Product/10402238693508',
+    handle: 'silver-membership',
     features: [
       '5% discount on all orders',
       'Priority phone & email support',
@@ -54,6 +63,9 @@ const tiers = [
     color: 'bg-white/3 border-white/12',
     badge: 'bg-white/8 text-white/70',
     accentColor: 'yellow',
+    variantId: 'gid://shopify/ProductVariant/52521764716676',
+    productId: 'gid://shopify/Product/10402238857348',
+    handle: 'gold-membership',
     features: [
       '5% discount on all orders',
       'Dedicated account manager',
@@ -71,6 +83,9 @@ const tiers = [
     color: 'bg-white/5 border-white/15',
     badge: 'bg-white/10 text-white/80',
     accentColor: 'purple',
+    variantId: 'gid://shopify/ProductVariant/52521781985412',
+    productId: 'gid://shopify/Product/10402239283332',
+    handle: 'platinum',
     features: [
       'Custom filter sourcing',
       '5% discount on all orders',
@@ -85,6 +100,31 @@ const tiers = [
 ];
 
 export default function Memberships() {
+  const addItem = useCartStore((s) => s.addItem);
+  const setCartOpen = useCartStore((s) => s.setCartOpen);
+  const [loadingTier, setLoadingTier] = useState<string | null>(null);
+
+  const handleAddToCart = (tier: typeof tiers[0]) => {
+    setLoadingTier(tier.name);
+
+    // Extract the price number from the display string (e.g., "$49/mo" -> "49.00")
+    const priceAmount = tier.price.replace('$', '').replace('/mo', '').trim() + '.00';
+
+    addItem({
+      variantId: tier.variantId,
+      productId: tier.productId,
+      title: `${tier.name} Membership`,
+      variantTitle: 'Monthly',
+      price: { amount: priceAmount, currencyCode: 'USD' },
+      quantity: 1,
+      handle: tier.handle,
+    });
+
+    toast.success(`${tier.name} Membership added to cart`);
+    setLoadingTier(null);
+    setCartOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-[#080808] text-white">
       <SEO
@@ -147,17 +187,31 @@ export default function Memberships() {
                     <span className="text-white/70">{f}</span>
                   </div>
                 ))}
-                <Link href="/auth">
-                  {tier.popular ? (
-                    <button className="w-full mt-4 flex items-center justify-center gap-2 bg-[#4d9fff] text-black hover:bg-[#6aadff] py-3 rounded-lg text-sm font-medium transition-colors duration-150">
-                      Get Started <ArrowRight className="h-4 w-4" />
-                    </button>
-                  ) : (
-                    <button className="w-full mt-4 flex items-center justify-center gap-2 border border-white/15 text-white/65 hover:border-white/30 hover:text-white/90 px-6 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150">
-                      Get Started <ArrowRight className="h-4 w-4" />
-                    </button>
-                  )}
-                </Link>
+                {tier.popular ? (
+                  <button
+                    onClick={() => handleAddToCart(tier)}
+                    disabled={loadingTier === tier.name}
+                    className="w-full mt-4 flex items-center justify-center gap-2 bg-[#4d9fff] text-black hover:bg-[#6aadff] py-3 rounded-lg text-sm font-medium transition-colors duration-150 disabled:opacity-50"
+                  >
+                    {loadingTier === tier.name ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <>Add to Cart <ArrowRight className="h-4 w-4" /></>
+                    )}
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleAddToCart(tier)}
+                    disabled={loadingTier === tier.name}
+                    className="w-full mt-4 flex items-center justify-center gap-2 border border-white/15 text-white/65 hover:border-white/30 hover:text-white/90 px-6 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150 disabled:opacity-50"
+                  >
+                    {loadingTier === tier.name ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <>Add to Cart <ArrowRight className="h-4 w-4" /></>
+                    )}
+                  </button>
+                )}
               </CardContent>
             </Card>
           ))}
