@@ -679,29 +679,29 @@ video::-internal-media-controls-play-button {
 /* ---- 4. Section background differentiation + texture -----------------
    Premium depth system: alternating tones, radial glows, subtle textures,
    and curved arc dividers for visual rhythm without looking AI-generated. */
-.section-dark   { background-color: #0a0a0a !important; }
-.section-darker { background-color: #060606 !important; }
+.section-dark   { background-color: #0c0c0c !important; }
+.section-darker { background-color: #050505 !important; }
 .section-raised {
   background:
-    radial-gradient(1000px 500px at 50% 0%, rgba(255,255,255,0.025), transparent 60%),
-    linear-gradient(180deg, #131313 0%, #0d0d0d 100%) !important;
+    radial-gradient(900px 400px at 50% 0%, rgba(255,255,255,0.06), transparent 65%),
+    linear-gradient(180deg, #181818 0%, #111111 100%) !important;
 }
 
 /* Elevated section with centered radial glow — premium depth */
 .section-glow {
   position: relative;
-  background-color: #0a0a0a !important;
+  background-color: #0e0e0e !important;
   overflow: hidden;
 }
 .section-glow::after {
   content: '';
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 900px;
-  height: 600px;
-  background: radial-gradient(ellipse, rgba(255,255,255,0.02) 0%, transparent 70%);
+  width: 1200px;
+  height: 800px;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.045) 0%, transparent 65%);
   pointer-events: none;
   z-index: 0;
 }
@@ -710,7 +710,7 @@ video::-internal-media-controls-play-button {
 /* Curved arc divider between sections */
 .arc-divider {
   position: relative;
-  height: 80px;
+  height: 100px;
   overflow: hidden;
   margin-top: -1px;
 }
@@ -721,23 +721,23 @@ video::-internal-media-controls-play-button {
   left: 50%;
   transform: translateX(-50%);
   width: 200%;
-  height: 160px;
+  height: 200px;
   border-radius: 50%;
-  box-shadow: 0 0 80px 40px rgba(255,255,255,0.012);
-  border-top: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 0 120px 60px rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(255,255,255,0.07);
 }
 /* Arc variant: dark-to-raised transition */
 .arc-divider-up {
-  background: linear-gradient(to bottom, #060606, #0d0d0d);
+  background: linear-gradient(to bottom, #050505, #0e0e0e);
 }
 .arc-divider-up::before {
-  background: #0d0d0d;
+  background: #0e0e0e;
 }
 .arc-divider-down {
-  background: linear-gradient(to bottom, #0d0d0d, #060606);
+  background: linear-gradient(to bottom, #0e0e0e, #050505);
 }
 .arc-divider-down::before {
-  background: #060606;
+  background: #050505;
 }
 
 /* Subtle dotted texture utility — apply to any <section> via .tex-dots */
@@ -748,8 +748,8 @@ video::-internal-media-controls-play-button {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
   pointer-events: none;
   z-index: 0;
 }
