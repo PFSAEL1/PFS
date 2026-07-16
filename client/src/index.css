@@ -391,32 +391,7 @@
   margin-bottom: 1rem;
 }
 
-/* Section background variants */
-.section-dark {
-  background: hsl(0 0% 4%);
-}
-.section-darker {
-  background: hsl(0 0% 2%);
-}
-.section-raised {
-  background: linear-gradient(180deg, hsl(0 0% 7%) 0%, hsl(0 0% 5%) 100%);
-}
-.section-glow-bg {
-  background: hsl(0 0% 4%);
-  position: relative;
-  overflow: hidden;
-}
-.section-glow-bg::before {
-  content: '';
-  position: absolute;
-  top: -200px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(0, 153, 255, 0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
+/* Old section variants removed — see stronger versions below */
 
 /* Stat number glow */
 .stat-number {
@@ -681,20 +656,20 @@ video::-internal-media-controls-play-button {
    VISIBLE contrast, radial glows, textures, and curved arc dividers. */
 
 /* Base dark — near-black for contrast sections */
-.section-dark   { background-color: #111111 !important; }
+.section-dark   { background-color: #141414 !important; }
 /* Deepest dark — true near-black */
 .section-darker { background-color: #050505 !important; }
-/* Raised — CLEARLY lighter surface so sections stand out */
+/* Raised — VERY CLEARLY lighter surface so sections stand out */
 .section-raised {
   background:
-    radial-gradient(900px 400px at 50% 0%, rgba(255,255,255,0.08), transparent 55%),
-    linear-gradient(180deg, #262626 0%, #1e1e1e 100%) !important;
+    radial-gradient(1200px 500px at 50% 0%, rgba(255,255,255,0.10), transparent 50%),
+    linear-gradient(180deg, #2d2d2d 0%, #222222 100%) !important;
 }
 
 /* Elevated section with centered radial glow — visible depth */
 .section-glow {
   position: relative;
-  background-color: #1a1a1a !important;
+  background-color: #1f1f1f !important;
   overflow: hidden;
 }
 .section-glow::after {
@@ -727,18 +702,18 @@ video::-internal-media-controls-play-button {
   width: 200%;
   height: 200px;
   border-radius: 50%;
-  box-shadow: 0 0 80px 30px rgba(59,130,246,0.04);
-  border-top: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 0 80px 30px rgba(59,130,246,0.08);
+  border-top: 1px solid rgba(255,255,255,0.18);
 }
 /* Arc variant: dark-to-raised transition */
 .arc-divider-up {
-  background: linear-gradient(to bottom, #050505, #1a1a1a);
+  background: linear-gradient(to bottom, #050505, #222222);
 }
 .arc-divider-up::before {
-  background: #1a1a1a;
+  background: #222222;
 }
 .arc-divider-down {
-  background: linear-gradient(to bottom, #1a1a1a, #050505);
+  background: linear-gradient(to bottom, #222222, #050505);
 }
 .arc-divider-down::before {
   background: #050505;
