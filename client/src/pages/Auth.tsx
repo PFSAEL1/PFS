@@ -468,7 +468,7 @@ export default function Auth() {
           alt="PFS Filters"
           className={animState === 'intro' ? 'logo-breathing' : ''}
           style={{
-            width: animState === 'intro' ? '340px' : '120px',
+            width: animState === 'intro' ? '340px' : '200px',
             transition: animState !== 'intro'
               ? 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease-out'
               : 'none',
@@ -492,7 +492,7 @@ export default function Auth() {
       >
         <div className="bg-[#1a1a1a]/90 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl">
           {/* Spacer for the logo that moves into this position */}
-          <div className="flex justify-center mb-2" style={{ height: '50px' }}>
+          <div className="flex justify-center mb-4" style={{ height: '80px' }}>
             {/* The floating logo above lands here — this is just a spacer */}
           </div>
 
