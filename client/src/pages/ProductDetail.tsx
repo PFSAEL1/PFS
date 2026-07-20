@@ -347,6 +347,16 @@ export default function ProductDetail() {
                       <SelectItem value="3 Months">3 Months</SelectItem>
                     </SelectContent>
                   </Select>
+                  <div className="mt-3 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <svg className="w-4 h-4 text-blue-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="10" /></svg>
+                      <span className="text-sm text-white/70">Save 5% on repeat deliveries</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg className="w-4 h-4 text-blue-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="10" /></svg>
+                      <span className="text-sm text-white/70">Cancel Anytime</span>
+                    </div>
+                  </div>
                 </div>
               )}
 
