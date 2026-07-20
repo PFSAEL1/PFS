@@ -39,6 +39,16 @@ export const Footer = () => {
               ))}
               <li>
                 <a
+                  href="https://pfsfilters.myshopify.com/account"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/40 hover:text-white transition-colors"
+                >
+                  Manage Subscriptions
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://www.pfsspraybooths.com"
                   target="_blank"
                   rel="noopener noreferrer"

@@ -13,7 +13,7 @@ import { useMembership } from '@/hooks/useMembership';
 import NewBoothModal from '@/components/NewBoothModal';
 import {
   User, Crown, ShoppingBag, LogOut, Settings, ArrowRight,
-  Layers, Plus, Edit2, Package, Loader2, Calendar
+  Layers, Plus, Edit2, Package, Loader2, Calendar, RefreshCw
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -270,6 +270,23 @@ function DashboardContent() {
                   </Link>
                 </>
               )}
+            </CardContent>
+          </Card>
+
+          {/* Manage Subscriptions */}
+          <Card className="bg-[#111] border-white/8">
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center gap-2 text-base text-white">
+                <RefreshCw className="h-4 w-4 text-blue-400" /> Subscriptions
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-white/50 mb-3">Manage, pause, or cancel your Auto Delivery subscriptions</p>
+              <a href="https://pfsfilters.myshopify.com/account" target="_blank" rel="noopener noreferrer">
+                <Button size="sm" className="w-full bg-blue-500 hover:bg-blue-600 text-white gap-2">
+                  Manage Subscriptions <ArrowRight className="h-3.5 w-3.5" />
+                </Button>
+              </a>
             </CardContent>
           </Card>
 
