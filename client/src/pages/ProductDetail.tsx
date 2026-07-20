@@ -326,28 +326,28 @@ export default function ProductDetail() {
                   onClick={() => setPurchaseOption('subscription')}
                   className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
                     purchaseOption === 'subscription'
-                      ? 'border-green-400 bg-green-500/10'
+                      ? 'border-blue-400 bg-blue-500/10'
                       : 'border-white/10 bg-[#141414] hover:border-white/20'
                   }`}
                 >
                   <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                    purchaseOption === 'subscription' ? 'border-green-400' : 'border-white/30'
+                    purchaseOption === 'subscription' ? 'border-blue-400' : 'border-white/30'
                   }`}>
-                    {purchaseOption === 'subscription' && <div className="w-2.5 h-2.5 rounded-full bg-green-400" />}
+                    {purchaseOption === 'subscription' && <div className="w-2.5 h-2.5 rounded-full bg-blue-400" />}
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
                       <p className="font-medium text-white">Auto Delivery</p>
-                      <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs font-bold">
+                      <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs font-bold">
                         SAVE {AUTO_DELIVERY_DISCOUNT}%
                       </Badge>
                     </div>
                     <div className="flex items-center gap-2 mt-0.5">
-                      <span className="text-sm font-semibold text-green-400">${autoDeliveryPrice.toFixed(2)}</span>
+                      <span className="text-sm font-semibold text-blue-400">${autoDeliveryPrice.toFixed(2)}</span>
                       <span className="text-xs line-through text-white/40">${basePrice.toFixed(2)}</span>
                     </div>
                   </div>
-                  <RefreshCw className="h-4 w-4 text-green-400 flex-shrink-0" />
+                  <RefreshCw className="h-4 w-4 text-blue-400 flex-shrink-0" />
                 </button>
               </div>
 
@@ -406,7 +406,7 @@ export default function ProductDetail() {
                 </button>
               </div>
               <Button
-                className={`flex-1 gap-2 ${purchaseOption === 'subscription' ? 'bg-green-600 hover:bg-green-700 text-white' : 'bg-blue-500 hover:bg-blue-500/90 text-white'}`}
+                className={`flex-1 gap-2 bg-blue-500 hover:bg-blue-500/90 text-white`}
                 size="lg"
                 onClick={handleAddToCart}
                 disabled={!inStock}

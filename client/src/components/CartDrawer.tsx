@@ -121,16 +121,16 @@ export const CartDrawer = () => {
                     {/* Auto Delivery badge */}
                     {isSubscription && (
                       <div className="flex items-center gap-1 mt-0.5">
-                        <RefreshCw className="w-3 h-3 text-green-400" />
-                        <span className="text-xs text-green-400 font-medium">Auto Delivery</span>
-                        <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-[10px] px-1 py-0">
+                        <RefreshCw className="w-3 h-3 text-blue-400" />
+                        <span className="text-xs text-blue-400 font-medium">Auto Delivery</span>
+                        <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-[10px] px-1 py-0">
                           -{AUTO_DELIVERY_DISCOUNT}%
                         </Badge>
                       </div>
                     )}
                     {/* Price display */}
                     <div className="flex items-center gap-2 mt-1">
-                      <span className={`text-sm font-semibold ${isSubscription ? 'text-green-400' : 'text-blue-400'}`}>
+                      <span className="text-sm font-semibold text-blue-400">
                         ${(itemPrice * item.quantity).toFixed(2)}
                       </span>
                       {isSubscription && (
@@ -171,9 +171,9 @@ export const CartDrawer = () => {
           <div className="border-t border-white/10 pt-4 space-y-3">
             {/* Member discount banner */}
             {discountPercent > 0 && (
-              <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-2">
-                <Crown className="h-4 w-4 text-green-400 flex-shrink-0" />
-                <span className="text-xs text-green-300">
+              <div className="flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2">
+                <Crown className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                <span className="text-xs text-blue-300">
                   {tier?.charAt(0).toUpperCase()}{tier?.slice(1)} member — {discountPercent}% discount applied
                 </span>
               </div>
@@ -181,9 +181,9 @@ export const CartDrawer = () => {
 
             {/* Auto delivery savings summary */}
             {items.some(i => i.sellingPlanId) && (
-              <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-2">
-                <RefreshCw className="h-4 w-4 text-green-400 flex-shrink-0" />
-                <span className="text-xs text-green-300">
+              <div className="flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2">
+                <RefreshCw className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                <span className="text-xs text-blue-300">
                   Auto Delivery savings ({AUTO_DELIVERY_DISCOUNT}% off) included
                 </span>
               </div>
@@ -194,7 +194,7 @@ export const CartDrawer = () => {
               {discountPercent > 0 ? (
                 <div className="text-right">
                   <span className="text-white/40 line-through text-xs mr-2">${subtotal.toFixed(2)}</span>
-                  <span className="font-semibold text-green-400">${discountedSubtotal.toFixed(2)}</span>
+                  <span className="font-semibold text-blue-400">${discountedSubtotal.toFixed(2)}</span>
                 </div>
               ) : (
                 <span className="font-semibold">${subtotal.toFixed(2)}</span>
