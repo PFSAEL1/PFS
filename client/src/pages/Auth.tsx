@@ -31,13 +31,13 @@ function ParticleBackground() {
     window.addEventListener('resize', resize);
 
     // Create particles
-    const particleCount = 50;
+    const particleCount = 60;
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
         size: Math.random() * 3 + 1,
         opacity: Math.random() * 0.5 + 0.1,
       });
@@ -50,7 +50,6 @@ function ParticleBackground() {
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap around edges
         if (p.x < 0) p.x = canvas.width;
         if (p.x > canvas.width) p.x = 0;
         if (p.y < 0) p.y = canvas.height;
@@ -91,8 +90,11 @@ export default function Auth() {
   const [forgotPassword, setForgotPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
 
-  // Intro animation state
-  const [animPhase, setAnimPhase] = useState<'logo' | 'transition' | 'ready'>('logo');
+  // Cinematic intro animation state
+  // 'intro' = big logo centered with breathing glow
+  // 'shrinking' = logo physically shrinks and moves up, card appears
+  // 'done' = final state, everything settled
+  const [animState, setAnimState] = useState<'intro' | 'shrinking' | 'done'>('intro');
 
   // Invite/recovery flow state
   const [isInviteFlow, setIsInviteFlow] = useState(false);
@@ -102,22 +104,13 @@ export default function Auth() {
   const [passwordSet, setPasswordSet] = useState(false);
   const [checkingSession, setCheckingSession] = useState(true);
 
-  // Intro animation timing
+  // Animation timing
   useEffect(() => {
-    // Phase 1: Show big logo for 1.5s
-    const t1 = setTimeout(() => {
-      setAnimPhase('transition');
-    }, 1500);
-
-    // Phase 2: After transition completes (~1s), mark as ready
-    const t2 = setTimeout(() => {
-      setAnimPhase('ready');
-    }, 2600);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
+    // After 2s of the big logo with breathing glow, start shrinking
+    const t1 = setTimeout(() => setAnimState('shrinking'), 2000);
+    // After the shrink animation completes (~1.2s), mark as done
+    const t2 = setTimeout(() => setAnimState('done'), 3400);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
   useEffect(() => {
@@ -408,7 +401,7 @@ export default function Auth() {
     );
   }
 
-  // Main auth view with cinematic intro animation
+  // Main auth view with cinematic intro
   return (
     <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center relative overflow-hidden">
       <SEO
@@ -419,75 +412,103 @@ export default function Auth() {
       />
       <ParticleBackground />
 
-      {/* 
-        Cinematic Intro Animation:
-        Phase 'logo': Big logo centered on screen, no card visible
-        Phase 'transition': Logo scales down, card fades in from below
-        Phase 'ready': Everything settled, form fully visible
-      */}
-
-      {/* Keyframe animation for logo entrance */}
+      {/* CSS Animations */}
       <style>{`
-        @keyframes logoEntrance {
-          0% { transform: scale(0.5); opacity: 0; }
+        @keyframes breathingGlow {
+          0%, 100% { 
+            filter: drop-shadow(0 0 40px rgba(59, 130, 246, 0.4)) drop-shadow(0 0 80px rgba(59, 130, 246, 0.2));
+          }
+          50% { 
+            filter: drop-shadow(0 0 70px rgba(59, 130, 246, 0.7)) drop-shadow(0 0 140px rgba(59, 130, 246, 0.4));
+          }
+        }
+        @keyframes logoAppear {
+          0% { transform: scale(0.6); opacity: 0; }
           100% { transform: scale(1); opacity: 1; }
         }
-        .logo-intro {
-          animation: logoEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        @keyframes cardReveal {
+          0% { opacity: 0; transform: translateY(30px) scale(0.96); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes formFadeIn {
+          0% { opacity: 0; transform: translateY(15px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        .logo-breathing {
+          animation: breathingGlow 2.5s ease-in-out infinite, logoAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .card-reveal {
+          animation: cardReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .form-fade-in {
+          animation: formFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+          opacity: 0;
         }
       `}</style>
 
-      {/* Big centered logo - visible during 'logo' phase, then fades out */}
+      {/* 
+        The logo is ONE element that transitions between states:
+        - 'intro': Large, centered on screen, breathing glow
+        - 'shrinking': Shrinks and moves up to card position
+        - 'done': Small, at top of card
+      */}
       <div
-        className="fixed inset-0 flex items-center justify-center z-20 pointer-events-none"
+        className="fixed inset-0 flex items-center justify-center z-30 pointer-events-none"
         style={{
-          opacity: animPhase === 'logo' ? 1 : 0,
-          transition: 'opacity 0.8s ease-out',
+          transition: animState === 'shrinking' || animState === 'done' 
+            ? 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)' 
+            : 'none',
+          // Move the logo up to where the card's logo position will be
+          transform: animState === 'intro' 
+            ? 'translateY(0)' 
+            : 'translateY(-140px)',
+          opacity: animState === 'done' ? 0 : 1,
         }}
       >
         <img
           src={LOGO_URL}
           alt="PFS Filters"
-          className="logo-intro w-[280px] sm:w-[380px] md:w-[440px] object-contain"
+          className={animState === 'intro' ? 'logo-breathing' : ''}
           style={{
-            filter: 'drop-shadow(0 0 60px rgba(59, 130, 246, 0.5)) drop-shadow(0 0 120px rgba(59, 130, 246, 0.3))',
+            width: animState === 'intro' ? '340px' : '120px',
+            transition: animState === 'shrinking' || animState === 'done'
+              ? 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease-out'
+              : 'none',
+            filter: animState !== 'intro' 
+              ? 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))' 
+              : undefined,
+            objectFit: 'contain',
           }}
         />
       </div>
 
-      {/* Card with form - fades in and slides up during transition */}
+      {/* Card with form - appears after logo starts shrinking */}
       <div
-        className="relative z-10 w-full max-w-sm mx-4"
+        className={`relative z-10 w-full max-w-sm mx-4 ${
+          animState !== 'intro' ? 'card-reveal' : ''
+        }`}
         style={{
-          opacity: animPhase === 'logo' ? 0 : 1,
-          transform: animPhase === 'logo' ? 'translateY(40px)' : 'translateY(0)',
-          transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
+          opacity: animState === 'intro' ? 0 : undefined,
+          visibility: animState === 'intro' ? 'hidden' : 'visible',
         }}
       >
         <div className="bg-[#1a1a1a]/90 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl">
-          {/* Logo in card - small version that appears after transition */}
-          <div className="flex justify-center mb-2">
+          {/* Small logo inside card (visible once the floating logo fades) */}
+          <div className="flex justify-center mb-2" style={{ height: '50px' }}>
             <img
               src={LOGO_URL}
               alt="PFS Filters"
-              className="object-contain"
+              className="h-full object-contain"
               style={{
-                height: animPhase === 'transition' ? '80px' : '80px',
-                opacity: animPhase === 'logo' ? 0 : 1,
-                transition: 'opacity 0.5s ease-out 0.3s',
+                opacity: animState === 'done' ? 1 : 0,
+                transition: 'opacity 0.5s ease-out',
               }}
             />
           </div>
 
-          {/* Form content - fades in slightly after card */}
-          <div
-            style={{
-              opacity: animPhase === 'ready' ? 1 : animPhase === 'transition' ? 0.5 : 0,
-              transform: animPhase === 'ready' ? 'translateY(0)' : 'translateY(10px)',
-              transition: 'opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s',
-            }}
-          >
-            <p className="text-white/50 text-sm text-center mb-3">
+          {/* Form content with staggered fade-in */}
+          <div className={animState !== 'intro' ? 'form-fade-in' : ''} style={{ opacity: animState === 'intro' ? 0 : undefined }}>
+            <p className="text-white/50 text-sm text-center mb-4">
               {activeTab === 'signin' ? 'Sign in to your account' : 'Create your PFS Filters account'}
             </p>
 
