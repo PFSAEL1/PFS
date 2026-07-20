@@ -66,10 +66,10 @@ const MANUFACTURERS = [
 
 const MEMBERSHIP_TIERS = [
   { value: '', label: 'No Membership' },
-  { value: 'bronze', label: 'Bronze (3% off)' },
-  { value: 'silver', label: 'Silver (5% off)' },
-  { value: 'gold', label: 'Gold (5% off)' },
-  { value: 'platinum', label: 'Platinum (5% off)' },
+  { value: 'bronze', label: 'Bronze (6% off)' },
+  { value: 'silver', label: 'Silver (8% off)' },
+  { value: 'gold', label: 'Gold (10% off)' },
+  { value: 'platinum', label: 'Platinum (10% off)' },
 ];
 
 const POSITION_TYPES = [
@@ -212,10 +212,10 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
       // If member with a tier, upsert their membership record
       if (form.is_member && form.membership_tier && form.customer_email) {
         const discountCodes: Record<string, string> = {
-          bronze: 'MEMBER_BRONZE_3',
-          silver: 'MEMBER_SILVER_5',
-          gold: 'MEMBER_GOLD_5',
-          platinum: 'MEMBER_PLATINUM_5',
+          bronze: 'MEMBER_BRONZE_6',
+          silver: 'MEMBER_SILVER_8',
+          gold: 'MEMBER_GOLD_10',
+          platinum: 'MEMBER_PLATINUM_10',
         };
         const { error: memberError } = await supabase.from('memberships').upsert({
           user_email: form.customer_email,

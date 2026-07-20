@@ -20,7 +20,7 @@ const tiers = [
   {
     name: 'Bronze',
     price: '$29/mo',
-    discount: '3%',
+    discount: '6%',
     spendTarget: 'Best for shops spending $300–600/mo',
     color: 'bg-white/3 border-white/10',
     badge: 'bg-white/8 text-white/60',
@@ -28,8 +28,9 @@ const tiers = [
     variantId: 'gid://shopify/ProductVariant/52521774448772',
     productId: 'gid://shopify/Product/10402239021188',
     handle: 'bronze-membership',
+    badgeImage: '/images/badges/badge_bronze.png',
     features: [
-      '3% discount on all orders',
+      '6% discount on all orders',
       'Priority email support',
       'Filter change reminders',
       'Order history tracking',
@@ -38,7 +39,7 @@ const tiers = [
   {
     name: 'Silver',
     price: '$49/mo',
-    discount: '5%',
+    discount: '8%',
     spendTarget: 'Best for shops spending $600–1,200/mo',
     color: 'bg-[#4d9fff]/5 border-[#4d9fff]/25',
     badge: 'bg-[#4d9fff]/10 text-[#4d9fff]',
@@ -46,8 +47,9 @@ const tiers = [
     variantId: 'gid://shopify/ProductVariant/52521764323460',
     productId: 'gid://shopify/Product/10402238693508',
     handle: 'silver-membership',
+    badgeImage: '/images/badges/badge_silver.png',
     features: [
-      '5% discount on all orders',
+      '8% discount on all orders',
       'Priority phone & email support',
       'Filter change reminders',
       'Booth filter database',
@@ -58,7 +60,7 @@ const tiers = [
   {
     name: 'Gold',
     price: '$79/mo',
-    discount: '5%',
+    discount: '10%',
     spendTarget: 'Best for shops spending $1,200–2,500/mo',
     color: 'bg-white/3 border-white/12',
     badge: 'bg-white/8 text-white/70',
@@ -66,8 +68,9 @@ const tiers = [
     variantId: 'gid://shopify/ProductVariant/52521764716676',
     productId: 'gid://shopify/Product/10402238857348',
     handle: 'gold-membership',
+    badgeImage: '/images/badges/badge_gold.png',
     features: [
-      '5% discount on all orders',
+      '10% discount on all orders',
       'Dedicated account manager',
       'AI filter scanner access',
       'Booth filter database',
@@ -78,7 +81,7 @@ const tiers = [
   {
     name: 'Platinum',
     price: '$149/mo',
-    discount: '5% + Free Shipping',
+    discount: '10% + Free Shipping',
     spendTarget: 'High-volume shops + custom sourcing',
     color: 'bg-white/5 border-white/15',
     badge: 'bg-white/10 text-white/80',
@@ -86,9 +89,10 @@ const tiers = [
     variantId: 'gid://shopify/ProductVariant/52521781985412',
     productId: 'gid://shopify/Product/10402239283332',
     handle: 'platinum',
+    badgeImage: '/images/badges/badge_platinum.png',
     features: [
       'Custom filter sourcing',
-      '5% discount on all orders',
+      '10% discount on all orders',
       'Free shipping on all orders',
       'Dedicated account manager',
       'AI filter scanner access',
@@ -129,7 +133,7 @@ export default function Memberships() {
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Paint Booth Filter Memberships - Save on Every Order"
-        description="Join PFS Filters membership for exclusive discounts, auto-reorder scheduling, AI filter scanner, and dedicated support. Plans from $29/month. Save 3-5% on every order."
+        description="Join PFS Filters membership for exclusive discounts, auto-reorder scheduling, AI filter scanner, and dedicated support. Plans from $29/month. Save 6-10% on every order."
         canonical="https://pfsfilters.com/memberships"
         structuredData={breadcrumbSchema}
       />
@@ -179,8 +183,14 @@ export default function Memberships() {
                 </div>
               )}
               <CardHeader className="pb-4">
+                {tier.badgeImage && (
+                  <div className="flex justify-center mb-3">
+                    <img src={tier.badgeImage} alt={`${tier.name} Level Badge`} className="w-20 h-20 object-contain" />
+                  </div>
+                )}
                 <Badge className={`w-fit mb-2 ${tier.badge}`}>{tier.name}</Badge>
                 <CardTitle className="text-2xl">{tier.price}</CardTitle>
+                <div className="text-lg font-bold text-green-400 mt-1">Save {tier.discount}</div>
                 <p className="text-white/45 text-xs">{tier.spendTarget}</p>
               </CardHeader>
               <CardContent className="space-y-3">

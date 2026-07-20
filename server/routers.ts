@@ -169,13 +169,13 @@ export const appRouter = router({
         let discountCode: string | null = null;
 
         if (tags.includes('platinum')) {
-          tier = 'platinum'; discountPercent = 5;
+          tier = 'platinum'; discountPercent = 10;
         } else if (tags.includes('gold')) {
-          tier = 'gold'; discountPercent = 5;
+          tier = 'gold'; discountPercent = 10;
         } else if (tags.includes('silver')) {
-          tier = 'silver'; discountPercent = 5;
+          tier = 'silver'; discountPercent = 8;
         } else if (tags.includes('bronze')) {
-          tier = 'bronze'; discountPercent = 3;
+          tier = 'bronze'; discountPercent = 6;
         }
 
         // Check metafields for custom discount code

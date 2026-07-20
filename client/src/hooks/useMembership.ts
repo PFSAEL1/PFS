@@ -75,7 +75,7 @@ export const useMembership = () => {
   const getMemberDiscount = () => {
     if (!hasActiveMembership()) return 0;
     const discounts: Record<MembershipTier, number> = {
-      bronze: 0.03, silver: 0.05, gold: 0.05, platinum: 0.05,
+      bronze: 0.06, silver: 0.08, gold: 0.10, platinum: 0.10,
     };
     return discounts[membership!.tier] || 0;
   };

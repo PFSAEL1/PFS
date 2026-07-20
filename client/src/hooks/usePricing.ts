@@ -65,10 +65,10 @@ export function usePricing(): PricingInfo {
 
           if (memberData) {
             const discountMap: Record<string, number> = {
-              bronze: 3,
-              silver: 5,
-              gold: 5,
-              platinum: 5,
+              bronze: 6,
+              silver: 8,
+              gold: 10,
+              platinum: 10,
             };
             localTier = memberData.tier;
             localDiscount = discountMap[memberData.tier] || 0;
