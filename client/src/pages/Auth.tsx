@@ -449,20 +449,19 @@ export default function Auth() {
       {/* 
         The logo is ONE element that transitions between states:
         - 'intro': Large, centered on screen, breathing glow
-        - 'shrinking': Shrinks and moves up to card position
-        - 'done': Small, at top of card
+        - 'shrinking': Moves up and fades out (NO size change)
+        - 'done': Hidden, small static logo in card takes over
       */}
       <div
         className="fixed inset-0 flex items-center justify-center z-30 pointer-events-none"
         style={{
-          transition: animState === 'shrinking' || animState === 'done' 
-            ? 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)' 
+          transition: animState !== 'intro' 
+            ? 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease-out 0.4s' 
             : 'none',
-          // Move the logo up to where the card's logo position will be
           transform: animState === 'intro' 
             ? 'translateY(0)' 
-            : 'translateY(-140px)',
-          opacity: animState === 'done' ? 0 : 1,
+            : 'translateY(-100px)',
+          opacity: animState === 'intro' ? 1 : 0,
         }}
       >
         <img
@@ -470,10 +469,7 @@ export default function Auth() {
           alt="PFS Filters"
           className={animState === 'intro' ? 'logo-breathing' : ''}
           style={{
-            width: animState === 'intro' ? '340px' : '120px',
-            transition: animState === 'shrinking' || animState === 'done'
-              ? 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease-out'
-              : 'none',
+            width: '340px',
             filter: animState !== 'intro' 
               ? 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))' 
               : undefined,
