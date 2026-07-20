@@ -299,76 +299,77 @@ export default function ProductDetail() {
             )}
 
             {/* Purchase Options: One-time vs Auto Delivery */}
-            <div className="mb-6 space-y-3">
-              <div className="space-y-2">
-                {/* One-time purchase */}
-                <button
-                  onClick={() => setPurchaseOption('one-time')}
-                  className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
-                    purchaseOption === 'one-time'
-                      ? 'border-blue-400 bg-blue-500/10'
-                      : 'border-white/10 bg-[#141414] hover:border-white/20'
-                  }`}
-                >
-                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                    purchaseOption === 'one-time' ? 'border-blue-400' : 'border-white/30'
-                  }`}>
-                    {purchaseOption === 'one-time' && <div className="w-2.5 h-2.5 rounded-full bg-blue-400" />}
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-medium text-white">One-time purchase</p>
-                    <p className="text-sm text-white/50">${memberBasePrice.toFixed(2)}</p>
-                  </div>
-                </button>
-
-                {/* Auto Delivery */}
-                <button
-                  onClick={() => setPurchaseOption('subscription')}
-                  className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
-                    purchaseOption === 'subscription'
-                      ? 'border-blue-400 bg-blue-500/10'
-                      : 'border-white/10 bg-[#141414] hover:border-white/20'
-                  }`}
-                >
-                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+            <div className="mb-6 rounded-2xl border border-white/10 bg-[#111111] overflow-hidden">
+              {/* Auto Delivery option - featured on top */}
+              <button
+                onClick={() => setPurchaseOption('subscription')}
+                className={`w-full p-5 transition-all text-left relative ${
+                  purchaseOption === 'subscription'
+                    ? 'bg-blue-500/8 border-b border-blue-400/30'
+                    : 'border-b border-white/5 hover:bg-white/3'
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  <div className={`w-5 h-5 mt-0.5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
                     purchaseOption === 'subscription' ? 'border-blue-400' : 'border-white/30'
                   }`}>
                     {purchaseOption === 'subscription' && <div className="w-2.5 h-2.5 rounded-full bg-blue-400" />}
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <p className="font-medium text-white">Auto Delivery</p>
-                      <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs font-bold">
+                    <div className="flex items-center gap-2 mb-2">
+                      <p className="font-semibold text-white text-base">Auto Delivery</p>
+                      <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs font-bold px-2">
                         SAVE {AUTO_DELIVERY_DISCOUNT}%
                       </Badge>
                     </div>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <span className="text-sm font-semibold text-blue-400">${autoDeliveryPrice.toFixed(2)}</span>
-                      <span className="text-xs line-through text-white/40">${basePrice.toFixed(2)}</span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-2xl font-bold text-blue-400">${autoDeliveryPrice.toFixed(2)}</span>
+                      <span className="text-sm line-through text-white/35">${basePrice.toFixed(2)}</span>
                     </div>
+                    <p className="text-xs text-white/50 mt-1">Free shipping on every delivery</p>
                   </div>
-                  <RefreshCw className="h-4 w-4 text-blue-400 flex-shrink-0" />
-                </button>
-              </div>
+                  <RefreshCw className={`h-5 w-5 flex-shrink-0 mt-1 ${purchaseOption === 'subscription' ? 'text-blue-400' : 'text-white/30'}`} />
+                </div>
+              </button>
 
-              {/* Delivery interval dropdown (shown when Auto Delivery selected) */}
+              {/* Delivery interval selector (shown when Auto Delivery selected) */}
               {purchaseOption === 'subscription' && (
-                <div className="pl-8 pt-2">
-                  <p className="text-xs text-white/50 mb-2">Delivery frequency:</p>
+                <div className="px-5 py-4 bg-[#0d0d0d] border-b border-white/5">
+                  <p className="text-xs text-white/50 mb-2 font-medium uppercase tracking-wide">Deliver every</p>
                   <Select value={deliveryInterval} onValueChange={setDeliveryInterval}>
-                    <SelectTrigger className="w-full bg-[#1a1a1a] border-white/15 text-white">
+                    <SelectTrigger className="w-full bg-[#1a1a1a] border-white/15 text-white h-11 rounded-lg">
                       <SelectValue placeholder="Select interval" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1a1a1a] border-white/15">
                       <SelectItem value="1 Month">1 Month</SelectItem>
                       <SelectItem value="2 Months">2 Months</SelectItem>
                       <SelectItem value="3 Months">3 Months</SelectItem>
-                      <SelectItem value="6 Months">6 Months</SelectItem>
-                      <SelectItem value="Year">Year</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               )}
+
+              {/* One-time purchase option */}
+              <button
+                onClick={() => setPurchaseOption('one-time')}
+                className={`w-full p-5 transition-all text-left ${
+                  purchaseOption === 'one-time'
+                    ? 'bg-blue-500/5'
+                    : 'hover:bg-white/3'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                    purchaseOption === 'one-time' ? 'border-blue-400' : 'border-white/30'
+                  }`}>
+                    {purchaseOption === 'one-time' && <div className="w-2.5 h-2.5 rounded-full bg-blue-400" />}
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-white text-base">One-time purchase</p>
+                    <span className="text-xl font-bold text-white/90">${memberBasePrice.toFixed(2)}</span>
+                  </div>
+                </div>
+              </button>
             </div>
 
             {/* Variant selector */}
