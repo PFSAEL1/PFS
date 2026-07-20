@@ -41,6 +41,15 @@ export const CartDrawer = () => {
     return originalPrice;
   };
 
+  // Calculate item price with member discount applied (for display)
+  const getItemMemberPrice = (item: typeof items[0]) => {
+    const basePrice = getItemDisplayPrice(item);
+    if (discountPercent > 0) {
+      return basePrice * (1 - discountPercent / 100);
+    }
+    return basePrice;
+  };
+
   const subtotal = items.reduce(
     (sum, item) => sum + getItemDisplayPrice(item) * item.quantity,
     0
@@ -130,15 +139,35 @@ export const CartDrawer = () => {
                     )}
                     {/* Price display */}
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-sm font-semibold text-blue-400">
-                        ${(itemPrice * item.quantity).toFixed(2)}
-                      </span>
-                      {isSubscription && (
-                        <span className="text-xs line-through text-white/40">
-                          ${(originalPrice * item.quantity).toFixed(2)}
-                        </span>
+                      {discountPercent > 0 ? (
+                        <>
+                          <span className="text-sm font-semibold text-blue-400">
+                            ${(getItemMemberPrice(item) * item.quantity).toFixed(2)}
+                          </span>
+                          <span className="text-xs line-through text-white/40">
+                            ${(originalPrice * item.quantity).toFixed(2)}
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-sm font-semibold text-blue-400">
+                            ${(itemPrice * item.quantity).toFixed(2)}
+                          </span>
+                          {isSubscription && (
+                            <span className="text-xs line-through text-white/40">
+                              ${(originalPrice * item.quantity).toFixed(2)}
+                            </span>
+                          )}
+                        </>
                       )}
                     </div>
+                    {/* Member discount badge per item */}
+                    {discountPercent > 0 && (
+                      <div className="flex items-center gap-1 mt-0.5">
+                        <Crown className="w-3 h-3 text-blue-400" />
+                        <span className="text-[10px] text-blue-300">{tier?.charAt(0).toUpperCase()}{tier?.slice(1)} -{discountPercent}%</span>
+                      </div>
+                    )}
                     <div className="flex items-center gap-2 mt-2">
                       <button
                         onClick={() => updateQuantity(item.variantId, item.quantity - 1)}

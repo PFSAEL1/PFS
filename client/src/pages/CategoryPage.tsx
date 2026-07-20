@@ -11,6 +11,7 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ShoppingCart, Loader2, Package, ArrowLeft, Wind, Filter } from 'lucide-react';
+import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 import {
   fetchProductsByCategory,
   CATEGORY_COLLECTION_MAP,
@@ -50,6 +51,7 @@ export default function CategoryPage() {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { discountPercent } = usePricing();
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
   const styleInjected = useRef(false);
@@ -243,7 +245,8 @@ export default function CategoryPage() {
             {products.map((product) => {
               const variant = product.node.variants.edges[0]?.node;
               const image = product.node.images.edges[0]?.node.url || FALLBACK_IMAGE;
-              const price = variant?.price.amount ? parseFloat(variant.price.amount).toFixed(2) : '—';
+              const originalPrice = variant?.price.amount ? parseFloat(variant.price.amount) : 0;
+              const price = originalPrice > 0 ? originalPrice.toFixed(2) : '—';
               const currency = variant?.price.currencyCode || 'USD';
               const inStock = variant?.availableForSale ?? true;
 
@@ -267,9 +270,17 @@ export default function CategoryPage() {
                       </h3>
                     </Link>
                     <div className="flex items-center justify-between mt-2 mb-3">
-                      <span className="font-bold text-blue-400">
-                        ${price} <span className="text-xs font-normal text-white/50">{currency}</span>
-                      </span>
+                      {discountPercent > 0 && originalPrice > 0 ? (
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-blue-400">${getDiscountedPrice(originalPrice, discountPercent).toFixed(2)}</span>
+                          <span className="text-xs line-through text-white/40">${price}</span>
+                          <span className="text-xs font-normal text-white/50">{currency}</span>
+                        </div>
+                      ) : (
+                        <span className="font-bold text-blue-400">
+                          ${price} <span className="text-xs font-normal text-white/50">{currency}</span>
+                        </span>
+                      )}
                       {!inStock && (
                         <Badge variant="secondary" className="text-xs">Out of Stock</Badge>
                       )}

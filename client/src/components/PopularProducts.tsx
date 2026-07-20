@@ -6,6 +6,7 @@ import { Link } from 'wouter';
 import { ShoppingCart, ArrowRight, ArrowLeft, Loader2, ChevronRight } from 'lucide-react';
 import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
+import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 import { toast } from 'sonner';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
@@ -13,6 +14,7 @@ const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150
 export const PopularProducts = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
+  const { discountPercent } = usePricing();
   const [addingId, setAddingId] = useState<string | null>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
   const addItem = useCartStore((s) => s.addItem);
@@ -107,7 +109,9 @@ export const PopularProducts = () => {
             {products.map((product) => {
               const variant = product.node.variants.edges[0]?.node;
               const image = product.node.images.edges[0]?.node.url || FALLBACK_IMAGE;
-              const price = variant?.price.amount ? parseFloat(variant.price.amount).toFixed(2) : null;
+              const originalPrice = variant?.price.amount ? parseFloat(variant.price.amount) : 0;
+              const memberPrice = discountPercent > 0 ? getDiscountedPrice(originalPrice, discountPercent) : originalPrice;
+              const price = originalPrice > 0 ? originalPrice.toFixed(2) : null;
               const isAdding = addingId === product.node.id;
 
               return (
@@ -138,7 +142,14 @@ export const PopularProducts = () => {
 
                       <div className="flex items-center justify-between mt-auto">
                         {price ? (
-                          <span className="text-base font-bold text-white">${price}</span>
+                          discountPercent > 0 ? (
+                            <div className="flex items-center gap-2">
+                              <span className="text-base font-bold text-blue-400">${memberPrice.toFixed(2)}</span>
+                              <span className="text-xs line-through text-white/40">${price}</span>
+                            </div>
+                          ) : (
+                            <span className="text-base font-bold text-white">${price}</span>
+                          )
                         ) : (
                           <span className="text-sm text-white/30">—</span>
                         )}

@@ -5,6 +5,7 @@ import { Link } from 'wouter';
 import { Loader2, Star, ShoppingCart } from 'lucide-react';
 import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
+import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 import { toast } from 'sonner';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
@@ -24,6 +25,7 @@ function ratingFor(seed: string): { stars: number; count: number } {
 export const TopMovers = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
+  const { discountPercent } = usePricing();
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
 
@@ -92,7 +94,8 @@ export const TopMovers = () => {
           {products.map((product) => {
             const image = product.node.images.edges[0]?.node.url || FALLBACK_IMAGE;
             const variant = product.node.variants.edges[0]?.node;
-            const price = variant?.price?.amount ? parseFloat(variant.price.amount).toFixed(2) : '—';
+            const originalPrice = variant?.price?.amount ? parseFloat(variant.price.amount) : 0;
+            const price = originalPrice > 0 ? originalPrice.toFixed(2) : '—';
             const inStock = variant?.availableForSale ?? true;
             const { stars, count } = ratingFor(product.node.handle || product.node.id);
 
@@ -129,7 +132,14 @@ export const TopMovers = () => {
 
                     <div className="mt-auto pt-3">
                       <div className="flex items-center justify-between mb-2.5">
-                        <span className="text-blue-400 font-bold text-base">${price}</span>
+                        {discountPercent > 0 && originalPrice > 0 ? (
+                          <div className="flex items-center gap-2">
+                            <span className="text-blue-400 font-bold text-base">${getDiscountedPrice(originalPrice, discountPercent).toFixed(2)}</span>
+                            <span className="text-xs line-through text-white/40">${price}</span>
+                          </div>
+                        ) : (
+                          <span className="text-blue-400 font-bold text-base">${price}</span>
+                        )}
                         {!inStock && <span className="text-white/40 text-xs">Out of stock</span>}
                       </div>
                       <button
