@@ -10,6 +10,7 @@ import {
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2, Crown, RefreshCw } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 import { usePricing } from '@/hooks/usePricing';
+import { useMembership } from '@/hooks/useMembership';
 import { toast } from 'sonner';
 import { useLocation } from 'wouter';
 
@@ -29,6 +30,7 @@ export const CartDrawer = () => {
 
   const [, navigate] = useLocation();
   const { discountPercent, discountCode, tier, loading: pricingLoading } = usePricing();
+  const { membership, loading: membershipLoading } = useMembership();
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -60,29 +62,49 @@ export const CartDrawer = () => {
     ? subtotal * (1 - discountPercent / 100)
     : subtotal;
 
-  // Derive the discount code — use the one from usePricing, or generate from tier as fallback
+  // Code map for all tiers
+  const DISCOUNT_CODE_MAP: Record<string, string> = {
+    bronze: 'MEMBER_BRONZE_6',
+    silver: 'MEMBER_SILVER_8',
+    gold: 'MEMBER_GOLD_10',
+    platinum: 'MEMBER_PLATINUM_10',
+  };
+
+  // Derive the discount code from multiple sources for maximum reliability
   const getEffectiveDiscountCode = (): string | undefined => {
+    // Source 1: Direct from usePricing
     if (discountCode) return discountCode;
-    if (tier) {
-      const codeMap: Record<string, string> = {
-        bronze: 'MEMBER_BRONZE_6',
-        silver: 'MEMBER_SILVER_8',
-        gold: 'MEMBER_GOLD_10',
-        platinum: 'MEMBER_PLATINUM_10',
-      };
-      return codeMap[tier];
+    // Source 2: Generate from usePricing tier
+    if (tier && DISCOUNT_CODE_MAP[tier]) return DISCOUNT_CODE_MAP[tier];
+    // Source 3: Generate from useMembership (backup)
+    if (membership?.status === 'active' && membership?.tier) {
+      return DISCOUNT_CODE_MAP[membership.tier];
     }
     return undefined;
   };
 
   const handleCheckout = async () => {
+    // If we know the user is a member but data is still loading, wait
+    if (pricingLoading || membershipLoading) {
+      toast.info('Loading your member discount...');
+      return;
+    }
+
     try {
       const effectiveCode = getEffectiveDiscountCode();
-      console.log('[Checkout] effectiveCode:', effectiveCode, 'discountCode:', discountCode, 'tier:', tier, 'discountPercent:', discountPercent);
+      console.log('[Checkout] effectiveCode:', effectiveCode, 'discountCode:', discountCode, 'tier:', tier, 'membershipTier:', membership?.tier, 'discountPercent:', discountPercent);
+      
+      // Safety check: if we're showing member prices but have no code, warn the user
+      if (discountPercent > 0 && !effectiveCode) {
+        console.error('[Checkout] Member discount detected but no code available!');
+        toast.error('Unable to apply your member discount. Please try again.');
+        return;
+      }
+
       const checkoutUrl = await createCheckout(effectiveCode);
       console.log('[Checkout] checkoutUrl:', checkoutUrl);
       if (checkoutUrl) {
-        toast.success('Redirecting to checkout...');
+        toast.success('Redirecting to checkout with your member discount...');
         window.location.href = checkoutUrl;
       }
     } catch (err) {
@@ -251,14 +273,14 @@ export const CartDrawer = () => {
             <Button
               className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2"
               onClick={handleCheckout}
-              disabled={isLoading || pricingLoading}
+              disabled={isLoading || pricingLoading || membershipLoading}
             >
-              {isLoading || pricingLoading ? (
+              {isLoading || pricingLoading || membershipLoading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
                 <ExternalLink className="h-4 w-4" />
               )}
-              {pricingLoading ? 'Loading pricing...' : isLoading ? 'Processing...' : 'Checkout'}
+              {(pricingLoading || membershipLoading) ? 'Loading discount...' : isLoading ? 'Processing...' : 'Checkout'}
             </Button>
             <Button
               variant="ghost"
