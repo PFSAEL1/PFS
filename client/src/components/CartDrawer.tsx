@@ -28,7 +28,7 @@ export const CartDrawer = () => {
   } = useCartStore();
 
   const [, navigate] = useLocation();
-  const { discountPercent, discountCode, tier } = usePricing();
+  const { discountPercent, discountCode, tier, loading: pricingLoading } = usePricing();
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -60,11 +60,26 @@ export const CartDrawer = () => {
     ? subtotal * (1 - discountPercent / 100)
     : subtotal;
 
+  // Derive the discount code — use the one from usePricing, or generate from tier as fallback
+  const getEffectiveDiscountCode = (): string | undefined => {
+    if (discountCode) return discountCode;
+    if (tier) {
+      const codeMap: Record<string, string> = {
+        bronze: 'MEMBER_BRONZE_6',
+        silver: 'MEMBER_SILVER_8',
+        gold: 'MEMBER_GOLD_10',
+        platinum: 'MEMBER_PLATINUM_10',
+      };
+      return codeMap[tier];
+    }
+    return undefined;
+  };
+
   const handleCheckout = async () => {
     try {
-      // Auto-apply member discount code at checkout if available
-      console.log('[Checkout] discountCode:', discountCode, 'tier:', tier, 'discountPercent:', discountPercent);
-      const checkoutUrl = await createCheckout(discountCode || undefined);
+      const effectiveCode = getEffectiveDiscountCode();
+      console.log('[Checkout] effectiveCode:', effectiveCode, 'discountCode:', discountCode, 'tier:', tier, 'discountPercent:', discountPercent);
+      const checkoutUrl = await createCheckout(effectiveCode);
       console.log('[Checkout] checkoutUrl:', checkoutUrl);
       if (checkoutUrl) {
         toast.success('Redirecting to checkout...');
@@ -236,14 +251,14 @@ export const CartDrawer = () => {
             <Button
               className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2"
               onClick={handleCheckout}
-              disabled={isLoading}
+              disabled={isLoading || pricingLoading}
             >
-              {isLoading ? (
+              {isLoading || pricingLoading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
                 <ExternalLink className="h-4 w-4" />
               )}
-              {isLoading ? 'Processing...' : 'Checkout'}
+              {pricingLoading ? 'Loading pricing...' : isLoading ? 'Processing...' : 'Checkout'}
             </Button>
             <Button
               variant="ghost"

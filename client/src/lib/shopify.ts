@@ -436,7 +436,7 @@ export async function createStorefrontCheckout(items: CartItem[], discountCode?:
 
   const input: Record<string, unknown> = { lines };
   if (discountCode) input.discountCodes = [discountCode];
-  console.log('[Shopify Cart] Creating cart with discountCode:', discountCode, 'input:', JSON.stringify(input));
+  console.log('[Shopify Cart] Creating cart with discountCode:', discountCode);
 
   const cartData = await storefrontApiRequest(CART_CREATE_MUTATION, { input });
 
@@ -446,12 +446,22 @@ export async function createStorefrontCheckout(items: CartItem[], discountCode?:
 
   const cart = cartData.data.cartCreate.cart;
   console.log('[Shopify Cart] Discount codes in response:', JSON.stringify(cart.discountCodes));
+  console.log('[Shopify Cart] Cart total:', cart.cost?.totalAmount?.amount, 'subtotal:', cart.cost?.subtotalAmount?.amount);
   if (!cart.checkoutUrl) throw new Error('No checkout URL returned from Shopify');
 
-  const url = new URL(cart.checkoutUrl);
-  url.searchParams.set('channel', 'online_store');
-  if (discountCode) url.searchParams.set('discount', discountCode);
-  console.log('[Shopify Cart] Final URL with discount param:', url.toString());
+  // Verify discount was applied in the cart
+  const discountApplied = cart.discountCodes?.some((d: { applicable: boolean }) => d.applicable);
+  console.log('[Shopify Cart] Discount applied in cart:', discountApplied);
 
-  return url.toString();
+  // Use Shopify's /discount/CODE redirect URL format as the most reliable way
+  // to ensure the discount is applied at checkout
+  if (discountCode) {
+    // Format: https://store.myshopify.com/discount/CODE?redirect=/checkouts/...
+    const checkoutPath = new URL(cart.checkoutUrl).pathname + new URL(cart.checkoutUrl).search;
+    const discountUrl = `https://pfsfilters.myshopify.com/discount/${discountCode}?redirect=${encodeURIComponent(checkoutPath)}`;
+    console.log('[Shopify Cart] Using discount redirect URL:', discountUrl);
+    return discountUrl;
+  }
+
+  return cart.checkoutUrl;
 }
