@@ -171,23 +171,28 @@ export default function Memberships() {
       <div className="arc-divider arc-divider-up" />
 
       {/* Pricing cards */}
-      <section className="section-glow tex-dots py-12 px-4">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="section-glow tex-dots pt-24 pb-12 px-4">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {tiers.map((tier) => (
-            <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] ${tier.popular ? 'ring-2 ring-[#4d9fff]/50' : ''}`}>
+            <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] ${tier.popular ? 'ring-2 ring-[#4d9fff]/50' : ''} mt-16 overflow-visible`}>
+              {/* Badge - half overflowing the top of the card */}
+              {tier.badgeImage && (
+                <div className="absolute -top-14 left-1/2 -translate-x-1/2 z-10">
+                  <div className="relative">
+                    {/* Blue glow behind badge */}
+                    <div className="absolute inset-0 bg-[#4d9fff]/30 blur-xl rounded-full scale-110" />
+                    <img src={tier.badgeImage} alt={`${tier.name} Member Badge`} className="relative w-28 h-28 object-contain drop-shadow-[0_0_15px_rgba(77,159,255,0.5)]" />
+                  </div>
+                </div>
+              )}
               {tier.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
                   <Badge className="bg-[#4d9fff] text-black gap-1">
                     <Sparkles className="h-3 w-3" /> Most Popular
                   </Badge>
                 </div>
               )}
-              <CardHeader className="pb-4">
-                {tier.badgeImage && (
-                  <div className="flex justify-center mb-3">
-                    <img src={tier.badgeImage} alt={`${tier.name} Level Badge`} className="w-20 h-20 object-contain" />
-                  </div>
-                )}
+              <CardHeader className="pb-4 pt-16">
                 <Badge className={`w-fit mb-2 ${tier.badge}`}>{tier.name}</Badge>
                 <CardTitle className="text-2xl">{tier.price}</CardTitle>
                 <div className="text-lg font-bold text-green-400 mt-1">Save {tier.discount}</div>
