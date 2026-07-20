@@ -447,21 +447,20 @@ export default function Auth() {
       `}</style>
 
       {/* 
-        The logo is ONE element that transitions between states:
+        The logo is ONE continuous element:
         - 'intro': Large (340px), centered on screen, breathing glow, zooms in from 60%
-        - 'shrinking': Moves up and fades out (stays at 340px, no shrink)
-        - 'done': Hidden, small static logo in card takes over
+        - 'shrinking': Shrinks down and moves up into the card's logo position
+        - 'done': Settled at final size/position (becomes the card logo)
       */}
       <div
         className="fixed inset-0 flex items-center justify-center z-30 pointer-events-none"
         style={{
           transition: animState !== 'intro' 
-            ? 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease-out 0.3s' 
+            ? 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)' 
             : 'none',
           transform: animState === 'intro' 
             ? 'translateY(0)' 
-            : 'translateY(-120px)',
-          opacity: animState === 'intro' ? 1 : 0,
+            : 'translateY(-168px)',
         }}
       >
         <img
@@ -469,7 +468,10 @@ export default function Auth() {
           alt="PFS Filters"
           className={animState === 'intro' ? 'logo-breathing' : ''}
           style={{
-            width: '340px',
+            width: animState === 'intro' ? '340px' : '120px',
+            transition: animState !== 'intro'
+              ? 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease-out'
+              : 'none',
             filter: animState !== 'intro' 
               ? 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))' 
               : undefined,
@@ -489,17 +491,9 @@ export default function Auth() {
         }}
       >
         <div className="bg-[#1a1a1a]/90 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl">
-          {/* Small logo inside card (visible once the floating logo fades) */}
+          {/* Spacer for the logo that moves into this position */}
           <div className="flex justify-center mb-2" style={{ height: '50px' }}>
-            <img
-              src={LOGO_URL}
-              alt="PFS Filters"
-              className="h-full object-contain"
-              style={{
-                opacity: animState === 'done' ? 1 : 0,
-                transition: 'opacity 0.5s ease-out',
-              }}
-            />
+            {/* The floating logo above lands here — this is just a spacer */}
           </div>
 
           {/* Form content with staggered fade-in */}
