@@ -1,22 +1,95 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'wouter';
 import { SEO } from '@/components/SEO';
-import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Loader2, Filter, CheckCircle } from 'lucide-react';
+import { Loader2, CheckCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
+
+const LOGO_URL = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo-transparent_e33888bf.png';
+
+// Floating particles background component
+function ParticleBackground() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationId: number;
+    let particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = [];
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Create particles
+    const particleCount = 50;
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 3 + 1,
+        opacity: Math.random() * 0.5 + 0.1,
+      });
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap around edges
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+        ctx.fill();
+      });
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none"
+      style={{ zIndex: 0 }}
+    />
+  );
+}
 
 export default function Auth() {
   const [, navigate] = useLocation();
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<'signin' | 'signup'>('signin');
   const [signInData, setSignInData] = useState({ email: '', password: '' });
   const [signUpData, setSignUpData] = useState({ email: '', password: '', confirmPassword: '', name: '' });
+  const [forgotPassword, setForgotPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
 
   // Invite/recovery flow state
   const [isInviteFlow, setIsInviteFlow] = useState(false);
@@ -27,7 +100,6 @@ export default function Auth() {
   const [checkingSession, setCheckingSession] = useState(true);
 
   useEffect(() => {
-    // Check URL hash for auth tokens (Supabase redirects with hash fragments)
     const hash = window.location.hash;
     if (hash) {
       const params = new URLSearchParams(hash.substring(1));
@@ -46,13 +118,11 @@ export default function Auth() {
       }
     }
 
-    // Also listen for auth state changes (Supabase auto-detects tokens in URL)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'PASSWORD_RECOVERY') {
         setIsRecoveryFlow(true);
         setCheckingSession(false);
       } else if (event === 'SIGNED_IN' && session) {
-        // Check if this is from an invite link (user has no password set yet)
         const hash = window.location.hash;
         if (hash.includes('type=invite') || hash.includes('type=signup')) {
           setIsInviteFlow(true);
@@ -65,7 +135,6 @@ export default function Auth() {
       }
     });
 
-    // Fallback: stop checking after a short delay
     const timeout = setTimeout(() => setCheckingSession(false), 2000);
 
     return () => {
@@ -90,7 +159,6 @@ export default function Auth() {
       if (error) throw error;
       setPasswordSet(true);
       toast.success('Password set successfully! Redirecting...');
-      // Clear the hash from the URL
       window.history.replaceState(null, '', '/auth');
       setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err: unknown) {
@@ -110,7 +178,6 @@ export default function Auth() {
       });
       if (error) throw error;
       toast.success('Signed in successfully!');
-      // Check admin role and redirect accordingly
       if (authData.user) {
         const { data: roleData } = await supabase
           .from('user_roles')
@@ -148,12 +215,10 @@ export default function Auth() {
         },
       });
       if (error) throw error;
-      // If auto-confirm is enabled, the session will be returned immediately
       if (data.session) {
         toast.success('Account created! Welcome to PFS Filters.');
         navigate('/dashboard');
       } else {
-        // Fallback: try signing in immediately (auto-confirm should make this work)
         const { error: signInError } = await supabase.auth.signInWithPassword({
           email: signUpData.email,
           password: signUpData.password,
@@ -172,177 +237,299 @@ export default function Auth() {
     }
   };
 
-  // Show loading state while checking for auth tokens
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+        redirectTo: 'https://www.pfsfilters.com/auth',
+      });
+      if (error) throw error;
+      toast.success('Password reset email sent! Check your inbox.');
+      setForgotPassword(false);
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : 'Failed to send reset email');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Loading state
   if (checkingSession) {
     return (
-      <div className="min-h-screen bg-[#040404] text-white flex items-center justify-center">
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
       </div>
     );
   }
 
-  // Show Set Password form for invite or recovery flow
+  // Set Password form (invite/recovery)
   if (isInviteFlow || isRecoveryFlow) {
     return (
-      <div className="min-h-screen bg-[#040404] text-white">
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center relative overflow-hidden">
         <SEO
           title="Set Your Password - PFS Filters"
           description="Set your password to access your PFS Filters account."
           canonical="https://pfsfilters.com/auth"
           noIndex
         />
-        <Navigation />
-        <div className="container mx-auto px-4 pt-32 pb-16 flex justify-center">
-          <div className="w-full max-w-md">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 mb-4">
-                <Filter className="h-8 w-8 text-blue-400" />
-                <span className="text-2xl font-bold">PFS Filters</span>
-              </div>
-              <p className="text-white/70">
-                {isInviteFlow
-                  ? "Welcome! Set your password to get started."
-                  : "Set your new password below."}
-              </p>
+        <ParticleBackground />
+        <div className="relative z-10 w-full max-w-sm mx-4">
+          <div className="bg-[#1a1a1a]/90 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl">
+            <div className="flex justify-center mb-6">
+              <img src={LOGO_URL} alt="PFS Filters" className="h-10 object-contain" />
             </div>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-center">
-                  {passwordSet ? 'Password Set!' : isInviteFlow ? 'Create Your Password' : 'Reset Password'}
-                </CardTitle>
-                <CardDescription className="text-center">
-                  {passwordSet
-                    ? 'Your password has been set. Redirecting to your dashboard...'
-                    : 'Choose a secure password for your account.'}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {passwordSet ? (
-                  <div className="flex flex-col items-center gap-4 py-4">
-                    <CheckCircle className="h-12 w-12 text-green-400" />
-                    <p className="text-white/70 text-sm">Redirecting...</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSetPassword} className="space-y-4">
-                    <div className="space-y-1.5">
-                      <Label htmlFor="new-password">New Password</Label>
-                      <Input
-                        id="new-password"
-                        type="password"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        placeholder="••••••••"
-                        required
-                        minLength={6}
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="confirm-new-password">Confirm Password</Label>
-                      <Input
-                        id="confirm-new-password"
-                        type="password"
-                        value={confirmNewPassword}
-                        onChange={(e) => setConfirmNewPassword(e.target.value)}
-                        placeholder="••••••••"
-                        required
-                        minLength={6}
-                      />
-                    </div>
-                    <Button
-                      type="submit"
-                      className="w-full bg-blue-500 text-white hover:bg-blue-500/90"
-                      disabled={loading}
-                    >
-                      {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Set Password'}
-                    </Button>
-                  </form>
-                )}
-              </CardContent>
-            </Card>
+            <h2 className="text-xl font-semibold text-white text-center mb-1">
+              {passwordSet ? 'Password Set!' : isInviteFlow ? 'Create Your Password' : 'Reset Password'}
+            </h2>
+            <p className="text-white/50 text-sm text-center mb-6">
+              {passwordSet
+                ? 'Redirecting to your dashboard...'
+                : 'Choose a secure password for your account'}
+            </p>
+            {passwordSet ? (
+              <div className="flex flex-col items-center gap-4 py-4">
+                <CheckCircle className="h-12 w-12 text-green-400" />
+              </div>
+            ) : (
+              <form onSubmit={handleSetPassword} className="space-y-4">
+                <div className="space-y-1.5">
+                  <Label htmlFor="new-password" className="text-white/70 text-sm">New Password</Label>
+                  <Input
+                    id="new-password"
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                    minLength={6}
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="confirm-new-password" className="text-white/70 text-sm">Confirm Password</Label>
+                  <Input
+                    id="confirm-new-password"
+                    type="password"
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                    minLength={6}
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
+                  disabled={loading}
+                >
+                  {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Set Password'}
+                </Button>
+              </form>
+            )}
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
 
+  // Forgot password view
+  if (forgotPassword) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center relative overflow-hidden">
+        <SEO
+          title="Reset Password - PFS Filters"
+          description="Reset your PFS Filters account password."
+          canonical="https://pfsfilters.com/auth"
+          noIndex
+        />
+        <ParticleBackground />
+        <div className="relative z-10 w-full max-w-sm mx-4">
+          <div className="bg-[#1a1a1a]/90 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl">
+            <div className="flex justify-center mb-6">
+              <img src={LOGO_URL} alt="PFS Filters" className="h-10 object-contain" />
+            </div>
+            <h2 className="text-xl font-semibold text-white text-center mb-1">Reset Password</h2>
+            <p className="text-white/50 text-sm text-center mb-6">
+              Enter your email and we'll send you a reset link
+            </p>
+            <form onSubmit={handleForgotPassword} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="reset-email" className="text-white/70 text-sm">Email</Label>
+                <Input
+                  id="reset-email"
+                  type="email"
+                  value={resetEmail}
+                  onChange={(e) => setResetEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  required
+                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
+                disabled={loading}
+              >
+                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Send Reset Link'}
+              </Button>
+            </form>
+            <button
+              onClick={() => setForgotPassword(false)}
+              className="w-full mt-4 text-sm text-white/50 hover:text-white transition-colors"
+            >
+              Back to Sign In
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Main auth view
   return (
-    <div className="min-h-screen bg-[#040404] text-white">
+    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center relative overflow-hidden">
       <SEO
         title="Sign In - PFS Filters Account"
         description="Sign in to your PFS Filters account to manage orders, track memberships, and access exclusive discounts."
         canonical="https://pfsfilters.com/auth"
         noIndex
       />
-      <Navigation />
-      <section className="section-glow pt-32 pb-16 px-4">
-      <div className="container mx-auto flex justify-center">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <Filter className="h-8 w-8 text-blue-400" />
-              <span className="text-2xl font-bold">PFS Filters</span>
-            </div>
-            <p className="text-white/70">Sign in to your account or create a new one</p>
+      <ParticleBackground />
+
+      <div className="relative z-10 w-full max-w-sm mx-4">
+        <div className="bg-[#1a1a1a]/90 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl">
+          {/* Logo */}
+          <div className="flex justify-center mb-0">
+            <img src={LOGO_URL} alt="PFS Filters" className="h-56 object-contain" />
           </div>
-          <Card>
-            <CardContent className="pt-6">
-              <Tabs defaultValue="signin">
-                <TabsList className="w-full mb-6">
-                  <TabsTrigger value="signin" className="flex-1">Sign In</TabsTrigger>
-                  <TabsTrigger value="signup" className="flex-1">Create Account</TabsTrigger>
-                </TabsList>
 
-                <TabsContent value="signin">
-                  <form onSubmit={handleSignIn} className="space-y-4">
-                    <div className="space-y-1.5">
-                      <Label htmlFor="signin-email">Email</Label>
-                      <Input id="signin-email" type="email" value={signInData.email} onChange={(e) => setSignInData((p) => ({ ...p, email: e.target.value }))} placeholder="your@email.com" required />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="signin-password">Password</Label>
-                      <Input id="signin-password" type="password" value={signInData.password} onChange={(e) => setSignInData((p) => ({ ...p, password: e.target.value }))} placeholder="••••••••" required />
-                    </div>
-                    <Button type="submit" className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90" disabled={loading}>
-                      {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Sign In'}
-                    </Button>
-                  </form>
-                </TabsContent>
+          {/* Subtitle */}
+          <p className="text-white/50 text-sm text-center mb-3">
+            {activeTab === 'signin' ? 'Sign in to your account' : 'Create your PFS Filters account'}
+          </p>
 
-                <TabsContent value="signup">
-                  <form onSubmit={handleSignUp} className="space-y-4">
-                    <div className="space-y-1.5">
-                      <Label htmlFor="signup-name">Full Name</Label>
-                      <Input id="signup-name" value={signUpData.name} onChange={(e) => setSignUpData((p) => ({ ...p, name: e.target.value }))} placeholder="Your name" required />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="signup-email">Email</Label>
-                      <Input id="signup-email" type="email" value={signUpData.email} onChange={(e) => setSignUpData((p) => ({ ...p, email: e.target.value }))} placeholder="your@email.com" required />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="signup-password">Password</Label>
-                      <Input id="signup-password" type="password" value={signUpData.password} onChange={(e) => setSignUpData((p) => ({ ...p, password: e.target.value }))} placeholder="••••••••" required />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="signup-confirm">Confirm Password</Label>
-                      <Input id="signup-confirm" type="password" value={signUpData.confirmPassword} onChange={(e) => setSignUpData((p) => ({ ...p, confirmPassword: e.target.value }))} placeholder="••••••••" required />
-                    </div>
-                    <Button type="submit" className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90" disabled={loading}>
-                      {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Create Account'}
-                    </Button>
-                  </form>
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-          </Card>
+          {/* Sign In Form */}
+          {activeTab === 'signin' && (
+            <form onSubmit={handleSignIn} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="signin-email" className="text-white/70 text-sm">Email</Label>
+                <Input
+                  id="signin-email"
+                  type="email"
+                  value={signInData.email}
+                  onChange={(e) => setSignInData((p) => ({ ...p, email: e.target.value }))}
+                  placeholder="your@email.com"
+                  required
+                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="signin-password" className="text-white/70 text-sm">Password</Label>
+                  <button
+                    type="button"
+                    onClick={() => setForgotPassword(true)}
+                    className="text-xs text-white/40 hover:text-white/70 transition-colors"
+                  >
+                    Forgot password?
+                  </button>
+                </div>
+                <Input
+                  id="signin-password"
+                  type="password"
+                  value={signInData.password}
+                  onChange={(e) => setSignInData((p) => ({ ...p, password: e.target.value }))}
+                  placeholder="••••••••"
+                  required
+                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
+                disabled={loading}
+              >
+                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Sign In'}
+              </Button>
+            </form>
+          )}
+
+          {/* Sign Up Form */}
+          {activeTab === 'signup' && (
+            <form onSubmit={handleSignUp} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="signup-name" className="text-white/70 text-sm">Full Name</Label>
+                <Input
+                  id="signup-name"
+                  value={signUpData.name}
+                  onChange={(e) => setSignUpData((p) => ({ ...p, name: e.target.value }))}
+                  placeholder="Your name"
+                  required
+                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="signup-email" className="text-white/70 text-sm">Email</Label>
+                <Input
+                  id="signup-email"
+                  type="email"
+                  value={signUpData.email}
+                  onChange={(e) => setSignUpData((p) => ({ ...p, email: e.target.value }))}
+                  placeholder="your@email.com"
+                  required
+                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="signup-password" className="text-white/70 text-sm">Password</Label>
+                <Input
+                  id="signup-password"
+                  type="password"
+                  value={signUpData.password}
+                  onChange={(e) => setSignUpData((p) => ({ ...p, password: e.target.value }))}
+                  placeholder="••••••••"
+                  required
+                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="signup-confirm" className="text-white/70 text-sm">Confirm Password</Label>
+                <Input
+                  id="signup-confirm"
+                  type="password"
+                  value={signUpData.confirmPassword}
+                  onChange={(e) => setSignUpData((p) => ({ ...p, confirmPassword: e.target.value }))}
+                  placeholder="••••••••"
+                  required
+                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
+                disabled={loading}
+              >
+                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Create Account'}
+              </Button>
+            </form>
+          )}
+
+          {/* Toggle between sign in and sign up */}
+          <div className="mt-6 text-center">
+            <button
+              type="button"
+              onClick={() => setActiveTab(activeTab === 'signin' ? 'signup' : 'signin')}
+              className="text-sm text-white/50 hover:text-white transition-colors"
+            >
+              {activeTab === 'signin'
+                ? "Don't have an account? Sign up"
+                : 'Already have an account? Sign in'}
+            </button>
+          </div>
         </div>
       </div>
-      </section>
-
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-down" />
-
-      <Footer />
     </div>
   );
 }
