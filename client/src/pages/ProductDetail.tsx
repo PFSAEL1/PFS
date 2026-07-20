@@ -11,6 +11,7 @@ import { fetchProductByHandle, fetchRelatedProducts, ShopifyProduct } from '@/li
 import { useCartStore } from '@/stores/cartStore';
 import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredData';
 import { ShoppingCart, Loader2, Package, Truck, Shield, ArrowLeft, Plus, Minus, RefreshCw } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
 import { ProductSpecs } from '@/components/ProductSpecs';
 import { PfsBoothCompatibility } from '@/components/PfsBoothCompatibility';
@@ -48,6 +49,7 @@ export default function ProductDetail() {
   const [zoom, setZoom] = useState<{ x: number; y: number; show: boolean }>({ x: 50, y: 50, show: false });
   const [purchaseOption, setPurchaseOption] = useState<PurchaseOption>('one-time');
   const [selectedSellingPlanId, setSelectedSellingPlanId] = useState<string | null>(null);
+  const [deliveryInterval, setDeliveryInterval] = useState('1 Month');
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
   const { discountPercent, tier } = usePricing();
@@ -105,18 +107,23 @@ export default function ProductDetail() {
   const inStock = selectedVariant?.availableForSale ?? true;
   const mainImage = images[selectedImage]?.node?.url || FALLBACK_IMAGE;
 
-  // Extract selling plans — only show to members
+  // Extract selling plans — show to ALL users
   const sellingPlanGroups = product.sellingPlanGroups?.edges || [];
-  const hasSubscription = isMember && sellingPlanGroups.length > 0;
+  const hasShopifySubscription = sellingPlanGroups.length > 0;
+  // Always show Auto Delivery option for all products
+  const hasSubscription = true;
+  const AUTO_DELIVERY_DISCOUNT = 5; // 5% off for auto delivery
   const allSellingPlans: SellingPlan[] = sellingPlanGroups.flatMap(
     (group: { node: { sellingPlans: { edges: Array<{ node: SellingPlan }> } } }) =>
       group.node.sellingPlans.edges.map((e: { node: SellingPlan }) => e.node)
   );
   const selectedPlan = allSellingPlans.find(p => p.id === selectedSellingPlanId);
 
-  // Calculate subscription price
+  // Calculate subscription price — always 5% off for auto delivery
+  const autoDeliveryPrice = basePrice * (1 - AUTO_DELIVERY_DISCOUNT / 100);
+
   const getSubscriptionPrice = (plan: SellingPlan | undefined): number => {
-    if (!plan || !plan.priceAdjustments?.[0]) return basePrice;
+    if (!plan || !plan.priceAdjustments?.[0]) return autoDeliveryPrice;
     const adj = plan.priceAdjustments[0].adjustmentValue;
     if (adj.adjustmentPercentage) {
       return basePrice * (1 - adj.adjustmentPercentage / 100);
@@ -127,17 +134,17 @@ export default function ProductDetail() {
     if (adj.price) {
       return parseFloat(adj.price.amount);
     }
-    return basePrice;
+    return autoDeliveryPrice;
   };
 
   // Apply member discount to base price for one-time purchases
   const memberBasePrice = isMember ? basePrice * (1 - discountPercent / 100) : basePrice;
 
-  const displayPrice = purchaseOption === 'subscription' && selectedPlan
-    ? getSubscriptionPrice(selectedPlan)
+  const displayPrice = purchaseOption === 'subscription'
+    ? (hasShopifySubscription && selectedPlan ? getSubscriptionPrice(selectedPlan) : autoDeliveryPrice)
     : memberBasePrice;
 
-  const planDiscountPercent = selectedPlan?.priceAdjustments?.[0]?.adjustmentValue?.adjustmentPercentage;
+  const planDiscountPercent = AUTO_DELIVERY_DISCOUNT;
 
   const breadcrumbSchema = createBreadcrumbSchema([
     { name: 'Home', url: 'https://pfsfilters.com' },
@@ -157,6 +164,7 @@ export default function ProductDetail() {
 
   const handleAddToCart = () => {
     if (!selectedVariant) return;
+    const isAutoDelivery = purchaseOption === 'subscription';
     addItem({
       variantId: selectedVariant.id,
       productId: product.id,
@@ -166,9 +174,9 @@ export default function ProductDetail() {
       quantity,
       image: mainImage,
       handle: handle || '',
-      sellingPlanId: purchaseOption === 'subscription' ? selectedSellingPlanId || undefined : undefined,
+      sellingPlanId: isAutoDelivery && hasShopifySubscription ? (selectedSellingPlanId || allSellingPlans[0]?.id || undefined) : undefined,
     });
-    toast.success(`${product.title} added to cart${purchaseOption === 'subscription' ? ' (subscription)' : ''}`);
+    toast.success(`${product.title} added to cart${isAutoDelivery ? ' (Auto Delivery)' : ''}`);
     setCartOpen(true);
   };
 
@@ -271,13 +279,12 @@ export default function ProductDetail() {
           {/* Details */}
           <div>
             <h1 className="text-3xl md:text-4xl font-extrabold mb-3">{product.title}</h1>
+
+            {/* Price display */}
             <div className="flex items-center gap-3 mb-4">
               <span className="text-3xl font-bold text-blue-400">${displayPrice.toFixed(2)}</span>
-              {purchaseOption === 'subscription' && planDiscountPercent && (
-                <span className="text-sm line-through text-white/40">${basePrice.toFixed(2)}</span>
-              )}
-              {purchaseOption === 'one-time' && isMember && (
-                <span className="text-sm line-through text-white/40">${basePrice.toFixed(2)}</span>
+              {(purchaseOption === 'subscription' || (purchaseOption === 'one-time' && isMember)) && (
+                <span className="text-lg line-through text-white/40">${basePrice.toFixed(2)}</span>
               )}
               <span className="text-white/50">{currency}</span>
               {inStock ? (
@@ -291,85 +298,78 @@ export default function ProductDetail() {
               <p className="text-white/70 leading-relaxed mb-6">{product.description}</p>
             )}
 
-            {/* Subscribe & Save Option */}
-            {hasSubscription && (
-              <div className="mb-6 space-y-3">
-                <p className="font-semibold text-white text-sm uppercase tracking-wide">Purchase Options</p>
-                <div className="space-y-2">
-                  {/* One-time purchase */}
-                  <button
-                    onClick={() => setPurchaseOption('one-time')}
-                    className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
-                      purchaseOption === 'one-time'
-                        ? 'border-blue-400 bg-blue-500/10'
-                        : 'border-white/10 bg-[#141414] hover:border-white/20'
-                    }`}
-                  >
-                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                      purchaseOption === 'one-time' ? 'border-blue-400' : 'border-white/30'
-                    }`}>
-                      {purchaseOption === 'one-time' && <div className="w-2.5 h-2.5 rounded-full bg-blue-400" />}
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-white">One-time purchase</p>
-                      <p className="text-sm text-white/50">${basePrice.toFixed(2)}</p>
-                    </div>
-                  </button>
+            {/* Purchase Options: One-time vs Auto Delivery */}
+            <div className="mb-6 space-y-3">
+              <div className="space-y-2">
+                {/* One-time purchase */}
+                <button
+                  onClick={() => setPurchaseOption('one-time')}
+                  className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
+                    purchaseOption === 'one-time'
+                      ? 'border-blue-400 bg-blue-500/10'
+                      : 'border-white/10 bg-[#141414] hover:border-white/20'
+                  }`}
+                >
+                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                    purchaseOption === 'one-time' ? 'border-blue-400' : 'border-white/30'
+                  }`}>
+                    {purchaseOption === 'one-time' && <div className="w-2.5 h-2.5 rounded-full bg-blue-400" />}
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium text-white">One-time purchase</p>
+                    <p className="text-sm text-white/50">${memberBasePrice.toFixed(2)}</p>
+                  </div>
+                </button>
 
-                  {/* Subscribe & Save */}
-                  <button
-                    onClick={() => setPurchaseOption('subscription')}
-                    className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
-                      purchaseOption === 'subscription'
-                        ? 'border-blue-400 bg-blue-500/10'
-                        : 'border-white/10 bg-[#141414] hover:border-white/20'
-                    }`}
-                  >
-                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                      purchaseOption === 'subscription' ? 'border-blue-400' : 'border-white/30'
-                    }`}>
-                      {purchaseOption === 'subscription' && <div className="w-2.5 h-2.5 rounded-full bg-blue-400" />}
+                {/* Auto Delivery */}
+                <button
+                  onClick={() => setPurchaseOption('subscription')}
+                  className={`w-full flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
+                    purchaseOption === 'subscription'
+                      ? 'border-green-400 bg-green-500/10'
+                      : 'border-white/10 bg-[#141414] hover:border-white/20'
+                  }`}
+                >
+                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                    purchaseOption === 'subscription' ? 'border-green-400' : 'border-white/30'
+                  }`}>
+                    {purchaseOption === 'subscription' && <div className="w-2.5 h-2.5 rounded-full bg-green-400" />}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="font-medium text-white">Auto Delivery</p>
+                      <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs font-bold">
+                        SAVE {AUTO_DELIVERY_DISCOUNT}%
+                      </Badge>
                     </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <p className="font-medium text-white">Subscribe & Save</p>
-                        {planDiscountPercent && (
-                          <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                            Save {planDiscountPercent}%
-                          </Badge>
-                        )}
-                      </div>
-                      <p className="text-sm text-white/50">
-                        ${getSubscriptionPrice(selectedPlan).toFixed(2)} — auto-delivered on schedule
-                      </p>
-                    </div>
-                    <RefreshCw className="h-4 w-4 text-blue-400 flex-shrink-0" />
-                  </button>
-                </div>
-
-                {/* Selling plan selector (if multiple plans) */}
-                {purchaseOption === 'subscription' && allSellingPlans.length > 1 && (
-                  <div className="pl-8 pt-2">
-                    <p className="text-xs text-white/50 mb-2">Delivery frequency:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {allSellingPlans.map((plan) => (
-                        <button
-                          key={plan.id}
-                          onClick={() => setSelectedSellingPlanId(plan.id)}
-                          className={`px-3 py-1.5 text-sm rounded-lg border transition-colors ${
-                            selectedSellingPlanId === plan.id
-                              ? 'border-blue-400 bg-blue-500/15 text-blue-300'
-                              : 'border-white/10 bg-[#1a1a1a] text-white/70 hover:border-blue-400/40'
-                          }`}
-                        >
-                          {plan.name}
-                        </button>
-                      ))}
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="text-sm font-semibold text-green-400">${autoDeliveryPrice.toFixed(2)}</span>
+                      <span className="text-xs line-through text-white/40">${basePrice.toFixed(2)}</span>
                     </div>
                   </div>
-                )}
+                  <RefreshCw className="h-4 w-4 text-green-400 flex-shrink-0" />
+                </button>
               </div>
-            )}
+
+              {/* Delivery interval dropdown (shown when Auto Delivery selected) */}
+              {purchaseOption === 'subscription' && (
+                <div className="pl-8 pt-2">
+                  <p className="text-xs text-white/50 mb-2">Delivery frequency:</p>
+                  <Select value={deliveryInterval} onValueChange={setDeliveryInterval}>
+                    <SelectTrigger className="w-full bg-[#1a1a1a] border-white/15 text-white">
+                      <SelectValue placeholder="Select interval" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#1a1a1a] border-white/15">
+                      <SelectItem value="1 Month">1 Month</SelectItem>
+                      <SelectItem value="2 Months">2 Months</SelectItem>
+                      <SelectItem value="3 Months">3 Months</SelectItem>
+                      <SelectItem value="6 Months">6 Months</SelectItem>
+                      <SelectItem value="Year">Year</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+            </div>
 
             {/* Variant selector */}
             {product.variants?.edges?.length > 1 && (
@@ -406,13 +406,13 @@ export default function ProductDetail() {
                 </button>
               </div>
               <Button
-                className="flex-1 bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2"
+                className={`flex-1 gap-2 ${purchaseOption === 'subscription' ? 'bg-green-600 hover:bg-green-700 text-white' : 'bg-blue-500 hover:bg-blue-500/90 text-white'}`}
                 size="lg"
                 onClick={handleAddToCart}
                 disabled={!inStock}
               >
-                <ShoppingCart className="h-5 w-5" />
-                {!inStock ? 'Out of Stock' : purchaseOption === 'subscription' ? 'Subscribe & Add to Cart' : 'Add to Cart'}
+                {purchaseOption === 'subscription' ? <RefreshCw className="h-5 w-5" /> : <ShoppingCart className="h-5 w-5" />}
+                {!inStock ? 'Out of Stock' : purchaseOption === 'subscription' ? 'Subscribe' : 'Add to Cart'}
               </Button>
             </div>
 
