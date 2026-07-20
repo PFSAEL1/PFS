@@ -117,7 +117,20 @@ export default function ProductDetail() {
     (group: { node: { sellingPlans: { edges: Array<{ node: SellingPlan }> } } }) =>
       group.node.sellingPlans.edges.map((e: { node: SellingPlan }) => e.node)
   );
-  const selectedPlan = allSellingPlans.find(p => p.id === selectedSellingPlanId);
+  // Map delivery interval to the correct selling plan
+  const getSellingPlanForInterval = (interval: string): SellingPlan | undefined => {
+    const intervalMap: Record<string, string> = {
+      '1 Month': 'month',
+      '2 Months': '2 month',
+      '3 Months': '3 month',
+    };
+    const searchTerm = intervalMap[interval] || 'month';
+    return allSellingPlans.find(p => 
+      p.name.toLowerCase().includes(searchTerm) || 
+      p.options?.some(o => o.value.toLowerCase().includes(searchTerm))
+    );
+  };
+  const selectedPlan = getSellingPlanForInterval(deliveryInterval) || allSellingPlans[0];
 
   // Calculate subscription price — always 5% off for auto delivery
   const autoDeliveryPrice = basePrice * (1 - AUTO_DELIVERY_DISCOUNT / 100);
@@ -174,7 +187,7 @@ export default function ProductDetail() {
       quantity,
       image: mainImage,
       handle: handle || '',
-      sellingPlanId: isAutoDelivery && hasShopifySubscription ? (selectedSellingPlanId || allSellingPlans[0]?.id || undefined) : undefined,
+      sellingPlanId: isAutoDelivery && hasShopifySubscription ? (selectedPlan?.id || allSellingPlans[0]?.id || undefined) : undefined,
     });
     toast.success(`${product.title} added to cart${isAutoDelivery ? ' (Auto Delivery)' : ''}`);
     setCartOpen(true);
