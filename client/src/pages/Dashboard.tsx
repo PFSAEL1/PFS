@@ -195,19 +195,30 @@ function DashboardContent() {
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO title="Dashboard - PFS Filters Account" description="Manage your PFS Filters account, memberships, and orders." noIndex />
       <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16 max-w-6xl">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-white pfs-heading-animate">
-              Welcome back{userName ? `, ${userName.split(' ')[0]}` : ''}!
-            </h1>
-            <p className="text-white/50">{userEmail}</p>
+
+      {/* Header - darker */}
+      <section className="section-darker pt-24 pb-6 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-white pfs-heading-animate">
+                Welcome back{userName ? `, ${userName.split(' ')[0]}` : ''}!
+              </h1>
+              <p className="text-white/50">{userEmail}</p>
+            </div>
+            <Button variant="outline" onClick={handleSignOut} className="gap-2">
+              <LogOut className="h-4 w-4" /> Sign Out
+            </Button>
           </div>
-          <Button variant="outline" onClick={handleSignOut} className="gap-2">
-            <LogOut className="h-4 w-4" /> Sign Out
-          </Button>
         </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-up" />
+
+      {/* Main content - raised */}
+      <section className="section-raised tex-grain py-10 px-4">
+      <div className="container mx-auto max-w-6xl">
 
         {/* Top cards row */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -508,6 +519,11 @@ function DashboardContent() {
           )}
         </div>
       </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-down" />
+
       <Footer />
 
       {/* Booth Modal */}

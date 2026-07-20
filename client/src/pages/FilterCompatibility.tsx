@@ -76,15 +76,25 @@ export default function FilterCompatibility() {
       />
       <Navigation />
 
-      <div className="max-w-5xl mx-auto px-4 pt-28 pb-20">
-        <Breadcrumb items={[{ label: 'Filter Compatibility' }]} />
-
-        <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-white">Filter Compatibility Finder</h1>
-          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto">
-            Select your booth brand and instantly see the filter types and sizes it uses — matched to filters we stock and cut to spec.
-          </p>
+      {/* Header - darker */}
+      <section className="section-darker pt-28 pb-10 px-4">
+        <div className="max-w-5xl mx-auto">
+          <Breadcrumb items={[{ label: 'Filter Compatibility' }]} />
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-white">Filter Compatibility Finder</h1>
+            <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto">
+              Select your booth brand and instantly see the filter types and sizes it uses — matched to filters we stock and cut to spec.
+            </p>
+          </div>
         </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-up" />
+
+      {/* Content - raised */}
+      <section className="section-raised tex-dots py-12 px-4">
+      <div className="max-w-5xl mx-auto">
 
         {/* Search box */}
         <Card className="max-w-2xl mx-auto mb-6 bg-[#111] border-white/10">
@@ -247,6 +257,11 @@ export default function FilterCompatibility() {
           </div>
         </div>
       </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-down" />
+
       <Footer />
     </div>
   );

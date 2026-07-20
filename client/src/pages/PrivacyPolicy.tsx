@@ -19,9 +19,21 @@ export default function PrivacyPolicy() {
         structuredData={breadcrumbSchema}
       />
       <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
-        <Breadcrumb items={[{ label: 'Privacy Policy' }]} />
-        <h1 className="text-4xl font-bold mb-8 text-white pfs-heading-animate">Privacy Policy</h1>
+
+      {/* Header - darker */}
+      <section className="section-darker pt-24 pb-8 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <Breadcrumb items={[{ label: 'Privacy Policy' }]} />
+          <h1 className="text-4xl font-bold mb-2 text-white pfs-heading-animate">Privacy Policy</h1>
+        </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-up" />
+
+      {/* Content - raised */}
+      <section className="section-raised tex-grain py-12 px-4">
+      <div className="container mx-auto max-w-4xl">
         <div className="prose prose-lg max-w-none space-y-6 text-white/50">
           <p className="text-sm">Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
 
@@ -61,6 +73,11 @@ export default function PrivacyPolicy() {
           </section>
         </div>
       </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-down" />
+
       <Footer />
     </div>
   );

@@ -54,8 +54,20 @@ export default function SubmitReview() {
         noIndex
       />
       <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16 max-w-2xl">
-        <Breadcrumb items={[{ label: 'Submit Review' }]} />
+
+      {/* Header - darker */}
+      <section className="section-darker pt-24 pb-6 px-4">
+        <div className="container mx-auto max-w-2xl">
+          <Breadcrumb items={[{ label: 'Submit Review' }]} />
+        </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-up" />
+
+      {/* Content - raised */}
+      <section className="section-raised tex-grain py-12 px-4">
+      <div className="container mx-auto max-w-2xl">
 
         {submitted ? (
           <Card className="text-center">
@@ -129,6 +141,11 @@ export default function SubmitReview() {
           </Card>
         )}
       </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-down" />
+
       <Footer />
     </div>
   );

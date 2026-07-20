@@ -123,33 +123,44 @@ export default function CategoryPage() {
       />
       <Navigation />
 
-      <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
-        <Breadcrumb
-          items={[
-            { label: 'Shop by Type', href: '/shop-by-type' },
-            { label: title },
-          ]}
-        />
+      {/* Header - darker */}
+      <section className="section-darker pt-28 pb-10 px-4">
+        <div className="max-w-7xl mx-auto">
+          <Breadcrumb
+            items={[
+              { label: 'Shop by Type', href: '/shop-by-type' },
+              { label: title },
+            ]}
+          />
 
-        {/* Page header */}
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            {position && (
-              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-bold uppercase tracking-wider ${positionColor}`}>
-                {position === 'INTAKE' && <Wind className="h-3 w-3" />}
-                {position === 'EXHAUST' && <Filter className="h-3 w-3" />}
-                {position}
-              </span>
-            )}
+          {/* Page header */}
+          <div className="mb-4">
+            <div className="flex items-center gap-3 mb-4">
+              {position && (
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-bold uppercase tracking-wider ${positionColor}`}>
+                  {position === 'INTAKE' && <Wind className="h-3 w-3" />}
+                  {position === 'EXHAUST' && <Filter className="h-3 w-3" />}
+                  {position}
+                </span>
+              )}
+            </div>
+
+            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-4 pfs-heading-animate">
+              {title}
+            </h1>
+            <p className="text-lg text-white/70 max-w-2xl pfs-sub-animate">
+              {description}
+            </p>
           </div>
-
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-4 pfs-heading-animate">
-            {title}
-          </h1>
-          <p className="text-lg text-white/70 max-w-2xl pfs-sub-animate">
-            {description}
-          </p>
         </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-up" />
+
+      {/* Products - raised */}
+      <section className="section-raised tex-dots py-12 px-4">
+        <div className="max-w-7xl mx-auto">
 
         {/* Info bar */}
         {!loading && !error && products.length > 0 && (
@@ -290,7 +301,11 @@ export default function CategoryPage() {
             </Link>
           </div>
         )}
-      </div>
+        </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-down" />
 
       <Footer />
     </div>

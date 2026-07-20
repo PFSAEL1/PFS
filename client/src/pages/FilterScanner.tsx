@@ -23,10 +23,12 @@ export default function FilterScanner() {
         structuredData={breadcrumbSchema}
       />
       <Navigation />
-      <div className="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
-        <Breadcrumb items={[{ label: 'AI Filter Scanner' }]} />
 
-        <div className="text-center mb-12">
+      {/* Header - darker */}
+      <section className="section-darker pt-24 pb-10 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <Breadcrumb items={[{ label: 'AI Filter Scanner' }]} />
+          <div className="text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-primary/20 mb-4">
             <Sparkles className="h-4 w-4 text-blue-400" />
             <span className="text-sm font-semibold text-blue-400">AI-Powered</span>
@@ -37,7 +39,16 @@ export default function FilterScanner() {
           <p className="text-xl text-white/50 max-w-2xl mx-auto">
             Photograph your existing filters and our AI instantly identifies them — so you can reorder the exact right product in seconds.
           </p>
+          </div>
         </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-up" />
+
+      {/* Content - raised */}
+      <section className="section-raised tex-dots py-14 px-4">
+        <div className="container mx-auto max-w-4xl">
 
         {/* How it works */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
@@ -83,7 +94,12 @@ export default function FilterScanner() {
             </div>
           </CardContent>
         </Card>
-      </div>
+        </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-down" />
+
       <Footer />
     </div>
   );

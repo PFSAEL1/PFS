@@ -199,15 +199,27 @@ export default function ProductDetail() {
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
       />
       <Navigation />
-      <div className="max-w-7xl mx-auto px-4 md:px-4 pt-28 pb-20">
-        <div className="[&_*]:!text-[#9aa0a6] [&_a:hover]:!text-white">
-          <Breadcrumb items={[{ label: 'Shop', href: '/shop' }, { label: product.title }]} />
+
+      {/* Header - darker */}
+      <section className="section-darker pt-28 pb-4 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="[&_*]:!text-[#9aa0a6] [&_a:hover]:!text-white">
+            <Breadcrumb items={[{ label: 'Shop', href: '/shop' }, { label: product.title }]} />
+          </div>
+          <Link href="/shop">
+            <Button variant="ghost" size="sm" className="gap-2 mb-2 -ml-2 text-[#bdbdbd] hover:text-white">
+              <ArrowLeft className="h-4 w-4" /> Back to Shop
+            </Button>
+          </Link>
         </div>
-        <Link href="/shop">
-          <Button variant="ghost" size="sm" className="gap-2 mb-6 -ml-2 text-[#bdbdbd] hover:text-white">
-            <ArrowLeft className="h-4 w-4" /> Back to Shop
-          </Button>
-        </Link>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-up" />
+
+      {/* Product content - raised */}
+      <section className="section-raised py-10 px-4">
+      <div className="max-w-7xl mx-auto">
 
         <div className="grid lg:grid-cols-2 gap-12 mb-16">
           {/* Images */}
@@ -464,6 +476,11 @@ export default function ProductDetail() {
           </div>
         )}
       </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-down" />
+
       <Footer />
     </div>
   );

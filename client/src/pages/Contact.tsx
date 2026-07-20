@@ -20,12 +20,25 @@ export default function Contact() {
         structuredData={breadcrumbSchema}
       />
       <Navigation />
-      <div className="pt-20">
-        <div className="container mx-auto px-4 pt-6">
+
+      {/* Header - darker */}
+      <section className="section-darker pt-28 pb-6 px-4">
+        <div className="container mx-auto">
           <Breadcrumb items={[{ label: 'Contact' }]} />
         </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-up" />
+
+      {/* Contact form - raised */}
+      <section className="section-raised tex-grain py-10 px-4">
         <ContactForm />
-      </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-down" />
+
       <Footer />
     </div>
   );

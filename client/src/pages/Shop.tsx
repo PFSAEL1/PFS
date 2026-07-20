@@ -33,20 +33,38 @@ export default function Shop() {
         structuredData={breadcrumbSchema}
       />
       <Navigation />
-      <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
-        <Breadcrumb items={[{ label: 'Shop' }]} />
-        <div className="text-center mb-10">
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-white">
-            Shop Paint Booth Filters
-          </h1>
-          <p className="text-lg text-white/50 max-w-3xl mx-auto">
-            Premium <strong>spray booth filters</strong> and <strong>paint arrestors</strong> engineered for superior overspray capture. All products tested, quality assured, and shipped fast nationwide.
-          </p>
-        </div>
-        <ShopifyProducts categoryFilter={categoryFilter} sizeFilter={sizeFilter} />
 
-        {/* SEO content block */}
-        <div className="max-w-4xl mx-auto glow-card p-8 mt-12">
+      {/* Header section - darker base */}
+      <section className="section-darker pt-28 pb-10 px-4">
+        <div className="max-w-7xl mx-auto">
+          <Breadcrumb items={[{ label: 'Shop' }]} />
+          <div className="text-center mb-4">
+            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-white">
+              Shop Paint Booth Filters
+            </h1>
+            <p className="text-lg text-white/50 max-w-3xl mx-auto">
+              Premium <strong>spray booth filters</strong> and <strong>paint arrestors</strong> engineered for superior overspray capture. All products tested, quality assured, and shipped fast nationwide.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-up" />
+
+      {/* Products grid - raised section */}
+      <section className="section-raised tex-dots py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <ShopifyProducts categoryFilter={categoryFilter} sizeFilter={sizeFilter} />
+        </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-down" />
+
+      {/* SEO content block - glow section */}
+      <section className="section-glow py-16 px-4">
+        <div className="max-w-4xl mx-auto glow-card p-8">
           <div className="flex items-start gap-4 mb-6">
             <div className="glow-icon">
               <Package className="h-6 w-6 text-blue-400" />
@@ -65,7 +83,8 @@ export default function Shop() {
             </p>
           </div>
         </div>
-      </div>
+      </section>
+
       <Footer />
     </div>
   );

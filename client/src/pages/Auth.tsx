@@ -275,7 +275,8 @@ export default function Auth() {
         noIndex
       />
       <Navigation />
-      <div className="container mx-auto px-4 pt-32 pb-16 flex justify-center">
+      <section className="section-glow pt-32 pb-16 px-4">
+      <div className="container mx-auto flex justify-center">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 mb-4">
@@ -336,6 +337,11 @@ export default function Auth() {
           </Card>
         </div>
       </div>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-down" />
+
       <Footer />
     </div>
   );

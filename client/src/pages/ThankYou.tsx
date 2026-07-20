@@ -14,7 +14,9 @@ export default function ThankYou() {
         canonical="https://pfsfilters.com/thank-you"
       />
       <Navigation />
-      <main className="flex-1 pt-20 flex items-center justify-center px-4">
+
+      {/* Content - glow */}
+      <section className="section-glow flex-1 pt-20 flex items-center justify-center px-4">
         <div className="max-w-xl w-full text-center py-20">
           <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-blue-500/10 border border-blue-500/30">
             <CheckCircle2 className="h-11 w-11 text-blue-400" />
@@ -59,7 +61,11 @@ export default function ThankYou() {
             </div>
           </div>
         </div>
-      </main>
+      </section>
+
+      {/* Arc transition */}
+      <div className="arc-divider arc-divider-down" />
+
       <Footer />
     </div>
   );
