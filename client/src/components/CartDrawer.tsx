@@ -63,12 +63,15 @@ export const CartDrawer = () => {
   const handleCheckout = async () => {
     try {
       // Auto-apply member discount code at checkout if available
+      console.log('[Checkout] discountCode:', discountCode, 'tier:', tier, 'discountPercent:', discountPercent);
       const checkoutUrl = await createCheckout(discountCode || undefined);
+      console.log('[Checkout] checkoutUrl:', checkoutUrl);
       if (checkoutUrl) {
         toast.success('Redirecting to checkout...');
         window.location.href = checkoutUrl;
       }
-    } catch {
+    } catch (err) {
+      console.error('[Checkout] Error:', err);
       toast.error('Failed to create checkout. Please try again.');
     }
   };

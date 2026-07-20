@@ -436,6 +436,7 @@ export async function createStorefrontCheckout(items: CartItem[], discountCode?:
 
   const input: Record<string, unknown> = { lines };
   if (discountCode) input.discountCodes = [discountCode];
+  console.log('[Shopify Cart] Creating cart with discountCode:', discountCode, 'input:', JSON.stringify(input));
 
   const cartData = await storefrontApiRequest(CART_CREATE_MUTATION, { input });
 
@@ -444,11 +445,13 @@ export async function createStorefrontCheckout(items: CartItem[], discountCode?:
   }
 
   const cart = cartData.data.cartCreate.cart;
+  console.log('[Shopify Cart] Discount codes in response:', JSON.stringify(cart.discountCodes));
   if (!cart.checkoutUrl) throw new Error('No checkout URL returned from Shopify');
 
   const url = new URL(cart.checkoutUrl);
   url.searchParams.set('channel', 'online_store');
   if (discountCode) url.searchParams.set('discount', discountCode);
+  console.log('[Shopify Cart] Final URL with discount param:', url.toString());
 
   return url.toString();
 }
