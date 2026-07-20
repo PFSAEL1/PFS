@@ -423,8 +423,8 @@ export default function Auth() {
           }
         }
         @keyframes logoAppear {
-          0% { transform: scale(0.6); opacity: 0; }
-          100% { transform: scale(1); opacity: 1; }
+          0% { opacity: 0; }
+          100% { opacity: 1; }
         }
         @keyframes cardReveal {
           0% { opacity: 0; transform: translateY(30px) scale(0.96); }
@@ -435,7 +435,7 @@ export default function Auth() {
           100% { opacity: 1; transform: translateY(0); }
         }
         .logo-breathing {
-          animation: breathingGlow 2.5s ease-in-out infinite, logoAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: breathingGlow 2.5s ease-in-out infinite, logoAppear 0.5s ease-out forwards;
         }
         .card-reveal {
           animation: cardReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -448,20 +448,20 @@ export default function Auth() {
 
       {/* 
         The logo is ONE element that transitions between states:
-        - 'intro': Large, centered on screen, breathing glow
-        - 'shrinking': Moves up and fades out (NO size change)
+        - 'intro': Large (340px), centered on screen, breathing glow
+        - 'shrinking': Shrinks to 120px and moves up to card position
         - 'done': Hidden, small static logo in card takes over
       */}
       <div
         className="fixed inset-0 flex items-center justify-center z-30 pointer-events-none"
         style={{
           transition: animState !== 'intro' 
-            ? 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease-out 0.4s' 
+            ? 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)' 
             : 'none',
           transform: animState === 'intro' 
             ? 'translateY(0)' 
-            : 'translateY(-100px)',
-          opacity: animState === 'intro' ? 1 : 0,
+            : 'translateY(-140px)',
+          opacity: animState === 'done' ? 0 : 1,
         }}
       >
         <img
@@ -469,7 +469,10 @@ export default function Auth() {
           alt="PFS Filters"
           className={animState === 'intro' ? 'logo-breathing' : ''}
           style={{
-            width: '340px',
+            width: animState === 'intro' ? '340px' : '120px',
+            transition: animState !== 'intro'
+              ? 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease-out'
+              : 'none',
             filter: animState !== 'intro' 
               ? 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))' 
               : undefined,
