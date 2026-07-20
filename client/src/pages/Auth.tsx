@@ -91,6 +91,9 @@ export default function Auth() {
   const [forgotPassword, setForgotPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
 
+  // Intro animation state
+  const [animPhase, setAnimPhase] = useState<'logo' | 'transition' | 'ready'>('logo');
+
   // Invite/recovery flow state
   const [isInviteFlow, setIsInviteFlow] = useState(false);
   const [isRecoveryFlow, setIsRecoveryFlow] = useState(false);
@@ -98,6 +101,24 @@ export default function Auth() {
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [passwordSet, setPasswordSet] = useState(false);
   const [checkingSession, setCheckingSession] = useState(true);
+
+  // Intro animation timing
+  useEffect(() => {
+    // Phase 1: Show big logo for 1.5s
+    const t1 = setTimeout(() => {
+      setAnimPhase('transition');
+    }, 1500);
+
+    // Phase 2: After transition completes (~1s), mark as ready
+    const t2 = setTimeout(() => {
+      setAnimPhase('ready');
+    }, 2600);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, []);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -387,7 +408,7 @@ export default function Auth() {
     );
   }
 
-  // Main auth view
+  // Main auth view with cinematic intro animation
   return (
     <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center relative overflow-hidden">
       <SEO
@@ -398,135 +419,196 @@ export default function Auth() {
       />
       <ParticleBackground />
 
-      <div className="relative z-10 w-full max-w-sm mx-4">
+      {/* 
+        Cinematic Intro Animation:
+        Phase 'logo': Big logo centered on screen, no card visible
+        Phase 'transition': Logo scales down, card fades in from below
+        Phase 'ready': Everything settled, form fully visible
+      */}
+
+      {/* Keyframe animation for logo entrance */}
+      <style>{`
+        @keyframes logoEntrance {
+          0% { transform: scale(0.5); opacity: 0; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        .logo-intro {
+          animation: logoEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+      `}</style>
+
+      {/* Big centered logo - visible during 'logo' phase, then fades out */}
+      <div
+        className="fixed inset-0 flex items-center justify-center z-20 pointer-events-none"
+        style={{
+          opacity: animPhase === 'logo' ? 1 : 0,
+          transition: 'opacity 0.8s ease-out',
+        }}
+      >
+        <img
+          src={LOGO_URL}
+          alt="PFS Filters"
+          className="logo-intro w-[280px] sm:w-[380px] md:w-[440px] object-contain"
+          style={{
+            filter: 'drop-shadow(0 0 60px rgba(59, 130, 246, 0.5)) drop-shadow(0 0 120px rgba(59, 130, 246, 0.3))',
+          }}
+        />
+      </div>
+
+      {/* Card with form - fades in and slides up during transition */}
+      <div
+        className="relative z-10 w-full max-w-sm mx-4"
+        style={{
+          opacity: animPhase === 'logo' ? 0 : 1,
+          transform: animPhase === 'logo' ? 'translateY(40px)' : 'translateY(0)',
+          transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
+        }}
+      >
         <div className="bg-[#1a1a1a]/90 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl">
-          {/* Logo */}
-          <div className="flex justify-center mb-0">
-            <img src={LOGO_URL} alt="PFS Filters" className="h-56 object-contain" />
+          {/* Logo in card - small version that appears after transition */}
+          <div className="flex justify-center mb-2">
+            <img
+              src={LOGO_URL}
+              alt="PFS Filters"
+              className="object-contain"
+              style={{
+                height: animPhase === 'transition' ? '80px' : '80px',
+                opacity: animPhase === 'logo' ? 0 : 1,
+                transition: 'opacity 0.5s ease-out 0.3s',
+              }}
+            />
           </div>
 
-          {/* Subtitle */}
-          <p className="text-white/50 text-sm text-center mb-3">
-            {activeTab === 'signin' ? 'Sign in to your account' : 'Create your PFS Filters account'}
-          </p>
+          {/* Form content - fades in slightly after card */}
+          <div
+            style={{
+              opacity: animPhase === 'ready' ? 1 : animPhase === 'transition' ? 0.5 : 0,
+              transform: animPhase === 'ready' ? 'translateY(0)' : 'translateY(10px)',
+              transition: 'opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s',
+            }}
+          >
+            <p className="text-white/50 text-sm text-center mb-3">
+              {activeTab === 'signin' ? 'Sign in to your account' : 'Create your PFS Filters account'}
+            </p>
 
-          {/* Sign In Form */}
-          {activeTab === 'signin' && (
-            <form onSubmit={handleSignIn} className="space-y-4">
-              <div className="space-y-1.5">
-                <Label htmlFor="signin-email" className="text-white/70 text-sm">Email</Label>
-                <Input
-                  id="signin-email"
-                  type="email"
-                  value={signInData.email}
-                  onChange={(e) => setSignInData((p) => ({ ...p, email: e.target.value }))}
-                  placeholder="your@email.com"
-                  required
-                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="signin-password" className="text-white/70 text-sm">Password</Label>
-                  <button
-                    type="button"
-                    onClick={() => setForgotPassword(true)}
-                    className="text-xs text-white/40 hover:text-white/70 transition-colors"
-                  >
-                    Forgot password?
-                  </button>
+            {/* Sign In Form */}
+            {activeTab === 'signin' && (
+              <form onSubmit={handleSignIn} className="space-y-4">
+                <div className="space-y-1.5">
+                  <Label htmlFor="signin-email" className="text-white/70 text-sm">Email</Label>
+                  <Input
+                    id="signin-email"
+                    type="email"
+                    value={signInData.email}
+                    onChange={(e) => setSignInData((p) => ({ ...p, email: e.target.value }))}
+                    placeholder="your@email.com"
+                    required
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                  />
                 </div>
-                <Input
-                  id="signin-password"
-                  type="password"
-                  value={signInData.password}
-                  onChange={(e) => setSignInData((p) => ({ ...p, password: e.target.value }))}
-                  placeholder="••••••••"
-                  required
-                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
-                />
-              </div>
-              <Button
-                type="submit"
-                className="w-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
-                disabled={loading}
-              >
-                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Sign In'}
-              </Button>
-            </form>
-          )}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="signin-password" className="text-white/70 text-sm">Password</Label>
+                    <button
+                      type="button"
+                      onClick={() => setForgotPassword(true)}
+                      className="text-xs text-white/40 hover:text-white/70 transition-colors"
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
+                  <Input
+                    id="signin-password"
+                    type="password"
+                    value={signInData.password}
+                    onChange={(e) => setSignInData((p) => ({ ...p, password: e.target.value }))}
+                    placeholder="••••••••"
+                    required
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
+                  disabled={loading}
+                >
+                  {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Sign In'}
+                </Button>
+              </form>
+            )}
 
-          {/* Sign Up Form */}
-          {activeTab === 'signup' && (
-            <form onSubmit={handleSignUp} className="space-y-4">
-              <div className="space-y-1.5">
-                <Label htmlFor="signup-name" className="text-white/70 text-sm">Full Name</Label>
-                <Input
-                  id="signup-name"
-                  value={signUpData.name}
-                  onChange={(e) => setSignUpData((p) => ({ ...p, name: e.target.value }))}
-                  placeholder="Your name"
-                  required
-                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="signup-email" className="text-white/70 text-sm">Email</Label>
-                <Input
-                  id="signup-email"
-                  type="email"
-                  value={signUpData.email}
-                  onChange={(e) => setSignUpData((p) => ({ ...p, email: e.target.value }))}
-                  placeholder="your@email.com"
-                  required
-                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="signup-password" className="text-white/70 text-sm">Password</Label>
-                <Input
-                  id="signup-password"
-                  type="password"
-                  value={signUpData.password}
-                  onChange={(e) => setSignUpData((p) => ({ ...p, password: e.target.value }))}
-                  placeholder="••••••••"
-                  required
-                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="signup-confirm" className="text-white/70 text-sm">Confirm Password</Label>
-                <Input
-                  id="signup-confirm"
-                  type="password"
-                  value={signUpData.confirmPassword}
-                  onChange={(e) => setSignUpData((p) => ({ ...p, confirmPassword: e.target.value }))}
-                  placeholder="••••••••"
-                  required
-                  className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
-                />
-              </div>
-              <Button
-                type="submit"
-                className="w-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
-                disabled={loading}
-              >
-                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Create Account'}
-              </Button>
-            </form>
-          )}
+            {/* Sign Up Form */}
+            {activeTab === 'signup' && (
+              <form onSubmit={handleSignUp} className="space-y-4">
+                <div className="space-y-1.5">
+                  <Label htmlFor="signup-name" className="text-white/70 text-sm">Full Name</Label>
+                  <Input
+                    id="signup-name"
+                    value={signUpData.name}
+                    onChange={(e) => setSignUpData((p) => ({ ...p, name: e.target.value }))}
+                    placeholder="Your name"
+                    required
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="signup-email" className="text-white/70 text-sm">Email</Label>
+                  <Input
+                    id="signup-email"
+                    type="email"
+                    value={signUpData.email}
+                    onChange={(e) => setSignUpData((p) => ({ ...p, email: e.target.value }))}
+                    placeholder="your@email.com"
+                    required
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="signup-password" className="text-white/70 text-sm">Password</Label>
+                  <Input
+                    id="signup-password"
+                    type="password"
+                    value={signUpData.password}
+                    onChange={(e) => setSignUpData((p) => ({ ...p, password: e.target.value }))}
+                    placeholder="••••••••"
+                    required
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="signup-confirm" className="text-white/70 text-sm">Confirm Password</Label>
+                  <Input
+                    id="signup-confirm"
+                    type="password"
+                    value={signUpData.confirmPassword}
+                    onChange={(e) => setSignUpData((p) => ({ ...p, confirmPassword: e.target.value }))}
+                    placeholder="••••••••"
+                    required
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
+                  disabled={loading}
+                >
+                  {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Create Account'}
+                </Button>
+              </form>
+            )}
 
-          {/* Toggle between sign in and sign up */}
-          <div className="mt-6 text-center">
-            <button
-              type="button"
-              onClick={() => setActiveTab(activeTab === 'signin' ? 'signup' : 'signin')}
-              className="text-sm text-white/50 hover:text-white transition-colors"
-            >
-              {activeTab === 'signin'
-                ? "Don't have an account? Sign up"
-                : 'Already have an account? Sign in'}
-            </button>
+            {/* Toggle between sign in and sign up */}
+            <div className="mt-6 text-center">
+              <button
+                type="button"
+                onClick={() => setActiveTab(activeTab === 'signin' ? 'signup' : 'signin')}
+                className="text-sm text-white/50 hover:text-white transition-colors"
+              >
+                {activeTab === 'signin'
+                  ? "Don't have an account? Sign up"
+                  : 'Already have an account? Sign in'}
+              </button>
+            </div>
           </div>
         </div>
       </div>
