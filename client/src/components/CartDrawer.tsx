@@ -7,11 +7,13 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
-import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2, Crown } from 'lucide-react';
+import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2, Crown, RefreshCw } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 import { usePricing } from '@/hooks/usePricing';
 import { toast } from 'sonner';
 import { useLocation } from 'wouter';
+
+const AUTO_DELIVERY_DISCOUNT = 5; // 5% off for auto delivery
 
 export const CartDrawer = () => {
   const {
@@ -29,12 +31,22 @@ export const CartDrawer = () => {
   const { discountPercent, discountCode, tier } = usePricing();
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Calculate item price considering auto delivery discount
+  const getItemDisplayPrice = (item: typeof items[0]) => {
+    const originalPrice = parseFloat(item.price.amount);
+    if (item.sellingPlanId) {
+      return originalPrice * (1 - AUTO_DELIVERY_DISCOUNT / 100);
+    }
+    return originalPrice;
+  };
+
   const subtotal = items.reduce(
-    (sum, item) => sum + parseFloat(item.price.amount) * item.quantity,
+    (sum, item) => sum + getItemDisplayPrice(item) * item.quantity,
     0
   );
 
-  // Calculate discounted subtotal for display
+  // Calculate discounted subtotal for member discount (on top of auto delivery)
   const discountedSubtotal = discountPercent > 0
     ? subtotal * (1 - discountPercent / 100)
     : subtotal;
@@ -87,47 +99,71 @@ export const CartDrawer = () => {
               </Button>
             </div>
           ) : (
-            items.map((item) => (
-              <div key={item.variantId} className="flex gap-3 p-3 bg-white/5/30 rounded-lg">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-16 h-16 object-cover rounded-md flex-shrink-0"
-                  />
-                )}
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-sm truncate">{item.title}</p>
-                  {item.variantTitle && item.variantTitle !== 'Default Title' && (
-                    <p className="text-xs text-white/50">{item.variantTitle}</p>
+            items.map((item) => {
+              const originalPrice = parseFloat(item.price.amount);
+              const itemPrice = getItemDisplayPrice(item);
+              const isSubscription = !!item.sellingPlanId;
+
+              return (
+                <div key={item.variantId} className="flex gap-3 p-3 bg-white/5/30 rounded-lg">
+                  {item.image && (
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-16 h-16 object-cover rounded-md flex-shrink-0"
+                    />
                   )}
-                  <p className="text-sm font-semibold text-blue-400 mt-1">
-                    ${(parseFloat(item.price.amount) * item.quantity).toFixed(2)}
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <button
-                      onClick={() => updateQuantity(item.variantId, item.quantity - 1)}
-                      className="w-6 h-6 rounded border border-white/10 flex items-center justify-center hover:bg-accent transition-colors"
-                    >
-                      <Minus className="w-3 h-3" />
-                    </button>
-                    <span className="text-sm font-medium w-6 text-center">{item.quantity}</span>
-                    <button
-                      onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
-                      className="w-6 h-6 rounded border border-white/10 flex items-center justify-center hover:bg-accent transition-colors"
-                    >
-                      <Plus className="w-3 h-3" />
-                    </button>
-                    <button
-                      onClick={() => removeItem(item.variantId)}
-                      className="ml-auto p-1 text-destructive hover:bg-destructive/10 rounded transition-colors"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm truncate">{item.title}</p>
+                    {item.variantTitle && item.variantTitle !== 'Default Title' && (
+                      <p className="text-xs text-white/50">{item.variantTitle}</p>
+                    )}
+                    {/* Auto Delivery badge */}
+                    {isSubscription && (
+                      <div className="flex items-center gap-1 mt-0.5">
+                        <RefreshCw className="w-3 h-3 text-green-400" />
+                        <span className="text-xs text-green-400 font-medium">Auto Delivery</span>
+                        <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-[10px] px-1 py-0">
+                          -{AUTO_DELIVERY_DISCOUNT}%
+                        </Badge>
+                      </div>
+                    )}
+                    {/* Price display */}
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className={`text-sm font-semibold ${isSubscription ? 'text-green-400' : 'text-blue-400'}`}>
+                        ${(itemPrice * item.quantity).toFixed(2)}
+                      </span>
+                      {isSubscription && (
+                        <span className="text-xs line-through text-white/40">
+                          ${(originalPrice * item.quantity).toFixed(2)}
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2 mt-2">
+                      <button
+                        onClick={() => updateQuantity(item.variantId, item.quantity - 1)}
+                        className="w-6 h-6 rounded border border-white/10 flex items-center justify-center hover:bg-accent transition-colors"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </button>
+                      <span className="text-sm font-medium w-6 text-center">{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
+                        className="w-6 h-6 rounded border border-white/10 flex items-center justify-center hover:bg-accent transition-colors"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </button>
+                      <button
+                        onClick={() => removeItem(item.variantId)}
+                        className="ml-auto p-1 text-destructive hover:bg-destructive/10 rounded transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
 
@@ -139,6 +175,16 @@ export const CartDrawer = () => {
                 <Crown className="h-4 w-4 text-green-400 flex-shrink-0" />
                 <span className="text-xs text-green-300">
                   {tier?.charAt(0).toUpperCase()}{tier?.slice(1)} member — {discountPercent}% discount applied
+                </span>
+              </div>
+            )}
+
+            {/* Auto delivery savings summary */}
+            {items.some(i => i.sellingPlanId) && (
+              <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-2">
+                <RefreshCw className="h-4 w-4 text-green-400 flex-shrink-0" />
+                <span className="text-xs text-green-300">
+                  Auto Delivery savings ({AUTO_DELIVERY_DISCOUNT}% off) included
                 </span>
               </div>
             )}
