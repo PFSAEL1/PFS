@@ -186,6 +186,17 @@ export const appRouter = router({
           discountCode = discountMeta.node.value;
         }
 
+        // Fallback: generate discount code from tier if no metafield set
+        if (!discountCode && tier) {
+          const codeMap: Record<string, string> = {
+            bronze: 'MEMBER_BRONZE_6',
+            silver: 'MEMBER_SILVER_8',
+            gold: 'MEMBER_GOLD_10',
+            platinum: 'MEMBER_PLATINUM_10',
+          };
+          discountCode = codeMap[tier] || null;
+        }
+
         return { discountCode, discountPercent, tier };
       } catch (error) {
         console.error('[Pricing] Failed to fetch from Shopify:', error);

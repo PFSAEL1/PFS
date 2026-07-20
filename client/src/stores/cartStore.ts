@@ -68,15 +68,14 @@ export const useCartStore = create<CartState>()(
       setCartOpen: (open) => set({ isCartOpen: open }),
 
       createCheckout: async (discountCode?: string) => {
-        const { items, cachedCheckoutUrl } = get();
+        const { items } = get();
         if (items.length === 0) return null;
 
-        if (cachedCheckoutUrl && !discountCode) return cachedCheckoutUrl;
-
+        // Always create a fresh checkout to ensure discount code is applied
         set({ isLoading: true });
         try {
           const checkoutUrl = await createStorefrontCheckout(items, discountCode);
-          if (!discountCode) set({ cachedCheckoutUrl: checkoutUrl });
+          set({ cachedCheckoutUrl: checkoutUrl });
           return checkoutUrl;
         } catch (error) {
           console.error('Failed to create checkout:', error);

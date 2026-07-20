@@ -73,6 +73,17 @@ export function usePricing(): PricingInfo {
             localTier = memberData.tier;
             localDiscount = discountMap[memberData.tier] || 0;
             localCode = memberData.discount_code || null;
+
+            // Fallback: generate code from tier if no custom code stored
+            if (!localCode && localTier) {
+              const codeMap: Record<string, string> = {
+                bronze: 'MEMBER_BRONZE_6',
+                silver: 'MEMBER_SILVER_8',
+                gold: 'MEMBER_GOLD_10',
+                platinum: 'MEMBER_PLATINUM_10',
+              };
+              localCode = codeMap[localTier] || null;
+            }
           }
         } catch {
           // Table might not exist yet or no membership found — that's fine
@@ -92,9 +103,20 @@ export function usePricing(): PricingInfo {
             const shopifyData = json?.result?.data;
             if (shopifyData && shopifyData.discountPercent > 0) {
               // Shopify is source of truth — use it
+              // Ensure we always have a discount code
+              let finalCode = shopifyData.discountCode || localCode;
+              if (!finalCode && shopifyData.tier) {
+                const codeMap: Record<string, string> = {
+                  bronze: 'MEMBER_BRONZE_6',
+                  silver: 'MEMBER_SILVER_8',
+                  gold: 'MEMBER_GOLD_10',
+                  platinum: 'MEMBER_PLATINUM_10',
+                };
+                finalCode = codeMap[shopifyData.tier] || null;
+              }
               setPricing({
                 discountPercent: shopifyData.discountPercent,
-                discountCode: shopifyData.discountCode || localCode,
+                discountCode: finalCode,
                 tier: shopifyData.tier || localTier,
                 loading: false,
               });
