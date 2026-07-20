@@ -298,7 +298,8 @@ export default function ProductDetail() {
               <p className="text-white/70 leading-relaxed mb-6">{product.description}</p>
             )}
 
-            {/* Purchase Options: One-time vs Auto Delivery */}
+            {/* Purchase Options: One-time vs Auto Delivery (non-members only) */}
+            {!isMember ? (
             <div className="mb-6 rounded-2xl border border-white/10 bg-[#111111] overflow-hidden">
               {/* Auto Delivery option - featured on top */}
               <button
@@ -371,6 +372,20 @@ export default function ProductDetail() {
                 </div>
               </button>
             </div>
+            ) : (
+              <div className="mb-6">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold text-blue-400">${memberBasePrice.toFixed(2)}</span>
+                  {discountPercent > 0 && (
+                    <span className="text-sm line-through text-white/35">${basePrice.toFixed(2)}</span>
+                  )}
+                  <span className="text-sm text-white/50">USD</span>
+                </div>
+                {discountPercent > 0 && (
+                  <p className="text-xs text-blue-400 mt-1 font-medium">{tier?.charAt(0).toUpperCase()}{tier?.slice(1)} member — {discountPercent}% discount applied</p>
+                )}
+              </div>
+            )}
 
             {/* Variant selector */}
             {product.variants?.edges?.length > 1 && (
