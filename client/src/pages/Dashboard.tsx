@@ -241,12 +241,12 @@ function DashboardContent() {
 
           {/* Membership card */}
           <Card className="bg-[#111] border-white/8">
-            <CardHeader className="pb-3">
+            <CardHeader className="pb-1 pt-4">
               <CardTitle className="flex items-center gap-2 text-base text-white">
                 <Crown className="h-4 w-4 text-blue-400" /> Membership
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               {membershipLoading ? (
                 <p className="text-sm text-white/50">Loading...</p>
               ) : membership ? (
