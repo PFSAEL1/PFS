@@ -175,12 +175,12 @@ export default function Memberships() {
       <section className="section-glow tex-dots pt-24 pb-12 px-4">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {tiers.map((tier) => (
-            <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] mt-16 overflow-visible`}>
-              {/* Badge - half overflowing the top of the card */}
-              <div className="absolute -top-14 left-1/2 -translate-x-1/2 z-10">
-                <TierMedal tier={tier.name.toLowerCase() as 'bronze' | 'silver' | 'gold' | 'platinum'} size={112} />
+            <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] mt-20 overflow-visible`}>
+              {/* Badge - overflowing the top of the card */}
+              <div className="absolute -top-16 left-1/2 -translate-x-1/2 z-10">
+                <TierMedal tier={tier.name.toLowerCase() as 'bronze' | 'silver' | 'gold' | 'platinum'} size={90} />
               </div>
-              <CardHeader className="pb-4 pt-16">
+              <CardHeader className="pb-4 pt-24">
                 <CardTitle className="text-2xl">{tier.price}</CardTitle>
                 <div className="text-lg font-bold text-[#4d9fff] mt-1">Save {tier.discount}</div>
                 <p className="text-white/45 text-xs">{tier.spendTarget}</p>
