@@ -174,7 +174,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                   {discountPercent === 0 && (
                     <div className="pointer-events-none absolute right-0 top-0 z-10 overflow-hidden w-[130px] h-[130px]">
                       {/* Ribbon */}
-                      <div className="absolute top-[22px] right-[-35px] w-[180px] text-center rotate-45 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 shadow-lg">
+                      <div className="absolute top-[26px] right-[-30px] w-[180px] flex items-center justify-center rotate-45 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 shadow-lg">
                         {/* Traveling light sweep */}
                         <div className="absolute inset-0 overflow-hidden">
                           <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent 0%, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%, transparent 100%)', backgroundSize: '200% 100%', animation: 'ribbon-light-sweep 2.5s ease-in-out infinite' }} />
