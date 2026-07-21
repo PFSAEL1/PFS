@@ -137,7 +137,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
           }} />
           <div className="relative px-8 py-10 flex flex-col items-center text-center gap-4">
             {/* Large tier medal badge */}
-            <img src={`/images/badges/badge_${tier}.png`} alt={`${tier} Member Badge`} className="w-36 h-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]" />
+            <img src={`/images/badges/badge_${tier}.png`} alt={`${tier} Member Badge`} className="w-44 h-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]" />
             {/* Large tier title */}
             <h3 className={`text-4xl md:text-5xl font-black tracking-tight ${
               tier === 'gold' ? 'text-yellow-400' :
