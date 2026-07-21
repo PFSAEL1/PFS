@@ -106,58 +106,70 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
 
   return (
     <>
-      {/* Member pricing banner - premium tier announcement */}
+      {/* Member pricing banner - large centered hero announcement */}
       {discountPercent > 0 && tier && (
-        <div className="mb-8 relative overflow-hidden rounded-2xl border border-white/10">
+        <div className="mb-10 relative overflow-hidden rounded-3xl border border-white/10">
           {/* Animated gradient background */}
           <div className="absolute inset-0" style={{
             background: tier === 'gold'
-              ? 'linear-gradient(135deg, rgba(234,179,8,0.15) 0%, rgba(161,98,7,0.08) 50%, rgba(234,179,8,0.12) 100%)'
+              ? 'radial-gradient(ellipse at center, rgba(234,179,8,0.18) 0%, rgba(161,98,7,0.06) 70%, transparent 100%)'
               : tier === 'platinum'
-              ? 'linear-gradient(135deg, rgba(148,163,184,0.15) 0%, rgba(100,116,139,0.08) 50%, rgba(148,163,184,0.12) 100%)'
-              : 'linear-gradient(135deg, rgba(192,192,192,0.12) 0%, rgba(107,114,128,0.06) 50%, rgba(192,192,192,0.10) 100%)'
+              ? 'radial-gradient(ellipse at center, rgba(148,163,184,0.18) 0%, rgba(100,116,139,0.06) 70%, transparent 100%)'
+              : 'radial-gradient(ellipse at center, rgba(192,192,192,0.15) 0%, rgba(107,114,128,0.05) 70%, transparent 100%)'
           }} />
-          {/* Subtle shimmer effect */}
-          <div className="absolute inset-0 opacity-30" style={{
-            background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%)',
+          {/* Shimmer sweep */}
+          <div className="absolute inset-0 opacity-40" style={{
+            background: 'linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.1) 50%, transparent 65%)',
             animation: 'shimmer 3s ease-in-out infinite',
           }} />
-          <div className="relative px-6 py-5 flex items-center gap-5">
-            {/* Tier icon/badge */}
-            <div className="flex-shrink-0">
-              <div className={`w-14 h-14 rounded-full flex items-center justify-center border ${
-                tier === 'gold' ? 'border-yellow-500/40 bg-yellow-500/10' :
-                tier === 'platinum' ? 'border-slate-300/40 bg-slate-300/10' :
-                'border-gray-400/40 bg-gray-400/10'
-              }`}>
-                <span className={`text-2xl font-black ${
-                  tier === 'gold' ? 'text-yellow-400' :
-                  tier === 'platinum' ? 'text-slate-200' :
-                  'text-gray-300'
-                }`}>
-                  {tier === 'gold' ? '★' : tier === 'platinum' ? '◆' : '●'}
-                </span>
-              </div>
-            </div>
-            {/* Tier text */}
-            <div>
-              <h3 className={`text-2xl font-extrabold tracking-tight ${
+          {/* Breathing glow ring behind badge */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" style={{
+            width: '200px',
+            height: '200px',
+            borderRadius: '50%',
+            background: tier === 'gold'
+              ? 'radial-gradient(circle, rgba(234,179,8,0.2) 0%, transparent 70%)'
+              : tier === 'platinum'
+              ? 'radial-gradient(circle, rgba(148,163,184,0.2) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(192,192,192,0.15) 0%, transparent 70%)',
+            animation: 'breathe 2.5s ease-in-out infinite',
+          }} />
+          <div className="relative px-8 py-10 flex flex-col items-center text-center gap-4">
+            {/* Large tier badge */}
+            <div className={`w-24 h-24 rounded-full flex items-center justify-center border-2 ${
+              tier === 'gold' ? 'border-yellow-500/50 bg-yellow-500/10 shadow-[0_0_40px_rgba(234,179,8,0.2)]' :
+              tier === 'platinum' ? 'border-slate-300/50 bg-slate-300/10 shadow-[0_0_40px_rgba(148,163,184,0.2)]' :
+              'border-gray-400/50 bg-gray-400/10 shadow-[0_0_40px_rgba(192,192,192,0.15)]'
+            }`}>
+              <span className={`text-4xl ${
                 tier === 'gold' ? 'text-yellow-400' :
                 tier === 'platinum' ? 'text-slate-200' :
                 'text-gray-300'
               }`}>
-                {tier.charAt(0).toUpperCase() + tier.slice(1)} Member
-              </h3>
-              <p className="text-white/50 text-sm mt-0.5">
-                Your <span className="font-semibold text-white/80">{discountPercent}%</span> member discount is reflected in all prices below
-              </p>
+                {tier === 'gold' ? '★' : tier === 'platinum' ? '◆' : '●'}
+              </span>
             </div>
+            {/* Large tier title */}
+            <h3 className={`text-4xl md:text-5xl font-black tracking-tight ${
+              tier === 'gold' ? 'text-yellow-400' :
+              tier === 'platinum' ? 'text-slate-200' :
+              'text-gray-300'
+            }`}>
+              {tier.charAt(0).toUpperCase() + tier.slice(1)} Member
+            </h3>
+            <p className="text-white/50 text-base max-w-md">
+              Your <span className="font-bold text-white/90 text-lg">{discountPercent}%</span> member discount is automatically applied to all prices below
+            </p>
           </div>
-          {/* CSS for shimmer */}
+          {/* CSS animations */}
           <style>{`
             @keyframes shimmer {
               0%, 100% { transform: translateX(-100%); }
               50% { transform: translateX(100%); }
+            }
+            @keyframes breathe {
+              0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+              50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
             }
           `}</style>
         </div>
