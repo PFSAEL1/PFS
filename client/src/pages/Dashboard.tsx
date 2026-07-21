@@ -251,20 +251,17 @@ function DashboardContent() {
                 <p className="text-sm text-white/50">Loading...</p>
               ) : membership ? (
                 <>
-                  <div className="flex items-center gap-3 mb-2">
+                  <div className="flex items-center gap-2">
                     <img src={`/images/badges/badge_${membership.tier}.png`} alt={`${membership.tier} Member Badge`} className="w-24 h-auto object-contain" />
                     <div>
-                      <Badge className={tierColors[membership.tier] || 'bg-[#0d0d0d]/5'}>
-                        {membership.tier.charAt(0).toUpperCase() + membership.tier.slice(1)} Member
-                      </Badge>
-                      <p className="text-sm text-white/50 mt-1">
+                      <p className="text-sm text-white/50">
                         Status: <span className={membership.status === 'active' ? 'text-green-400 font-medium' : 'text-red-400'}>{membership.status}</span>
+                      </p>
+                      <p className="text-xs text-white/40 mt-1">
+                        {{ bronze: '6%', silver: '8%', gold: '10%', platinum: '10%' }[membership.tier]} discount applied at checkout
                       </p>
                     </div>
                   </div>
-                  <p className="text-xs text-white/40 mt-1">
-                    {{ bronze: '6%', silver: '8%', gold: '10%', platinum: '10%' }[membership.tier]} discount applied at checkout
-                  </p>
                 </>
               ) : (
                 <>
