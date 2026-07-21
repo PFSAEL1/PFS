@@ -35,7 +35,7 @@ export default function Shop() {
       <Navigation />
 
       {/* Header section - darker base */}
-      <section className="section-darker pt-28 pb-10 px-4">
+      <section className="section-darker pt-28 pb-4 px-4">
         <div className="max-w-7xl mx-auto">
           <Breadcrumb items={[{ label: 'Shop' }]} />
           <div className="text-center mb-4">
@@ -53,7 +53,7 @@ export default function Shop() {
       <div className="arc-divider arc-divider-up" />
 
       {/* Products grid - raised section */}
-      <section className="section-raised tex-dots py-12 px-4">
+      <section className="section-raised tex-dots py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <ShopifyProducts categoryFilter={categoryFilter} sizeFilter={sizeFilter} />
         </div>
