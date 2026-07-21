@@ -178,7 +178,7 @@ export default function Memberships() {
             <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] mt-20 overflow-visible`}>
               {/* Badge - overflowing the top of the card */}
               <div className="absolute -top-16 left-1/2 -translate-x-1/2 z-10">
-                <TierMedal tier={tier.name.toLowerCase() as 'bronze' | 'silver' | 'gold' | 'platinum'} size={90} />
+                <img src={tier.badgeImage} alt={`${tier.name} Member Badge`} className="w-28 h-auto object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]" />
               </div>
               <CardHeader className="pb-4 pt-24">
                 <CardTitle className="text-2xl">{tier.price}</CardTitle>
