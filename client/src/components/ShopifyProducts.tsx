@@ -172,9 +172,9 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                   <ProductBadges badges={getProductBadges(product)} />
                   {/* Subscribe & Save diagonal ribbon - non-members only */}
                   {discountPercent === 0 && (
-                    <div className="pointer-events-none absolute right-0 top-0 z-10 overflow-hidden w-[130px] h-[130px]">
+                    <div className="pointer-events-none absolute right-0 top-0 z-10 overflow-hidden w-[120px] h-[120px]">
                       {/* Ribbon */}
-                      <div className="absolute top-[26px] right-[-30px] w-[180px] flex items-center justify-center rotate-45 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 shadow-lg">
+                      <div className="absolute top-0 right-0 w-[170px] text-center rotate-45 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 shadow-lg" style={{ top: '20px', right: '-45px' }}>
                         {/* Traveling light sweep */}
                         <div className="absolute inset-0 overflow-hidden">
                           <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent 0%, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%, transparent 100%)', backgroundSize: '200% 100%', animation: 'ribbon-light-sweep 2.5s ease-in-out infinite' }} />
