@@ -10,6 +10,7 @@ import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { useCartStore } from '@/stores/cartStore';
 import { Crown, Check, ArrowRight, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { TierMedal } from '@/components/TierMedal';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://pfsfilters.com' },
@@ -176,15 +177,9 @@ export default function Memberships() {
           {tiers.map((tier) => (
             <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] mt-16 overflow-visible`}>
               {/* Badge - half overflowing the top of the card */}
-              {tier.badgeImage && (
-                <div className="absolute -top-14 left-1/2 -translate-x-1/2 z-10">
-                  <div className="relative">
-                    {/* Blue glow behind badge */}
-                    <div className="absolute inset-0 bg-[#4d9fff]/30 blur-xl rounded-full scale-110" />
-                    <img src={tier.badgeImage} alt={`${tier.name} Member Badge`} className="relative w-28 h-28 object-contain drop-shadow-[0_0_15px_rgba(77,159,255,0.5)]" />
-                  </div>
-                </div>
-              )}
+              <div className="absolute -top-14 left-1/2 -translate-x-1/2 z-10">
+                <TierMedal tier={tier.name.toLowerCase() as 'bronze' | 'silver' | 'gold' | 'platinum'} size={112} />
+              </div>
               <CardHeader className="pb-4 pt-16">
                 <CardTitle className="text-2xl">{tier.price}</CardTitle>
                 <div className="text-lg font-bold text-[#4d9fff] mt-1">Save {tier.discount}</div>

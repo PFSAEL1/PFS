@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/lib/supabase';
 import { trpc } from '@/lib/trpc';
 import { useMembership } from '@/hooks/useMembership';
+import { TierMedal } from '@/components/TierMedal';
 import NewBoothModal from '@/components/NewBoothModal';
 import {
   User, Crown, ShoppingBag, LogOut, Settings, ArrowRight,
@@ -251,11 +252,7 @@ function DashboardContent() {
               ) : membership ? (
                 <>
                   <div className="flex items-center gap-3 mb-2">
-                    <img
-                      src={`/images/badges/badge_${membership.tier}.png`}
-                      alt={`${membership.tier} badge`}
-                      className="w-14 h-14 object-contain"
-                    />
+                    <TierMedal tier={membership.tier as 'bronze' | 'silver' | 'gold' | 'platinum'} size={56} />
                     <div>
                       <Badge className={tierColors[membership.tier] || 'bg-[#0d0d0d]/5'}>
                         {membership.tier.charAt(0).toUpperCase() + membership.tier.slice(1)} Member

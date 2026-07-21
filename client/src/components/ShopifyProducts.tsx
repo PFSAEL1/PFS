@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
+import { TierMedal } from '@/components/TierMedal';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
@@ -135,20 +136,8 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
             animation: 'breathe 2.5s ease-in-out infinite',
           }} />
           <div className="relative px-8 py-10 flex flex-col items-center text-center gap-4">
-            {/* Large tier badge */}
-            <div className={`w-24 h-24 rounded-full flex items-center justify-center border-2 ${
-              tier === 'gold' ? 'border-yellow-500/50 bg-yellow-500/10 shadow-[0_0_40px_rgba(234,179,8,0.2)]' :
-              tier === 'platinum' ? 'border-slate-300/50 bg-slate-300/10 shadow-[0_0_40px_rgba(148,163,184,0.2)]' :
-              'border-gray-400/50 bg-gray-400/10 shadow-[0_0_40px_rgba(192,192,192,0.15)]'
-            }`}>
-              <span className={`text-4xl ${
-                tier === 'gold' ? 'text-yellow-400' :
-                tier === 'platinum' ? 'text-slate-200' :
-                'text-gray-300'
-              }`}>
-                {tier === 'gold' ? '★' : tier === 'platinum' ? '◆' : '●'}
-              </span>
-            </div>
+            {/* Large tier medal badge */}
+            <TierMedal tier={tier as 'bronze' | 'silver' | 'gold' | 'platinum'} size={140} />
             {/* Large tier title */}
             <h3 className={`text-4xl md:text-5xl font-black tracking-tight ${
               tier === 'gold' ? 'text-yellow-400' :
