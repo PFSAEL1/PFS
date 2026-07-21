@@ -20,7 +20,7 @@ export const blogPosts: BlogPost[] = [
     date: "2024-10-15",
     readTime: "6 min read",
     category: "Maintenance",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/og-image_9075de08.jpg",
+    image: "/images/blog-featured-pfs.jpg",
     keywords: ["paint booth filter replacement", "filter maintenance schedule", "spray booth maintenance"],
     content: `
 After working with hundreds of body shops over the past 15 years, I've learned that filter replacement isn't a one-size-fits-all situation. Last month, I visited two shops in the same town—one was changing their exhaust filters every three weeks, while the other was pushing six months. Both thought they were doing it right.
