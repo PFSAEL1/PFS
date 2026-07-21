@@ -106,15 +106,60 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
 
   return (
     <>
-      {/* Member pricing banner */}
+      {/* Member pricing banner - premium tier announcement */}
       {discountPercent > 0 && tier && (
-        <div className="mb-6 p-3 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center gap-3">
-          <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
-            {tier.charAt(0).toUpperCase() + tier.slice(1)} Member
-          </Badge>
-          <span className="text-sm text-green-300/80">
-            Your {discountPercent}% member discount is reflected in prices below
-          </span>
+        <div className="mb-8 relative overflow-hidden rounded-2xl border border-white/10">
+          {/* Animated gradient background */}
+          <div className="absolute inset-0" style={{
+            background: tier === 'gold'
+              ? 'linear-gradient(135deg, rgba(234,179,8,0.15) 0%, rgba(161,98,7,0.08) 50%, rgba(234,179,8,0.12) 100%)'
+              : tier === 'platinum'
+              ? 'linear-gradient(135deg, rgba(148,163,184,0.15) 0%, rgba(100,116,139,0.08) 50%, rgba(148,163,184,0.12) 100%)'
+              : 'linear-gradient(135deg, rgba(192,192,192,0.12) 0%, rgba(107,114,128,0.06) 50%, rgba(192,192,192,0.10) 100%)'
+          }} />
+          {/* Subtle shimmer effect */}
+          <div className="absolute inset-0 opacity-30" style={{
+            background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%)',
+            animation: 'shimmer 3s ease-in-out infinite',
+          }} />
+          <div className="relative px-6 py-5 flex items-center gap-5">
+            {/* Tier icon/badge */}
+            <div className="flex-shrink-0">
+              <div className={`w-14 h-14 rounded-full flex items-center justify-center border ${
+                tier === 'gold' ? 'border-yellow-500/40 bg-yellow-500/10' :
+                tier === 'platinum' ? 'border-slate-300/40 bg-slate-300/10' :
+                'border-gray-400/40 bg-gray-400/10'
+              }`}>
+                <span className={`text-2xl font-black ${
+                  tier === 'gold' ? 'text-yellow-400' :
+                  tier === 'platinum' ? 'text-slate-200' :
+                  'text-gray-300'
+                }`}>
+                  {tier === 'gold' ? '★' : tier === 'platinum' ? '◆' : '●'}
+                </span>
+              </div>
+            </div>
+            {/* Tier text */}
+            <div>
+              <h3 className={`text-2xl font-extrabold tracking-tight ${
+                tier === 'gold' ? 'text-yellow-400' :
+                tier === 'platinum' ? 'text-slate-200' :
+                'text-gray-300'
+              }`}>
+                {tier.charAt(0).toUpperCase() + tier.slice(1)} Member
+              </h3>
+              <p className="text-white/50 text-sm mt-0.5">
+                Your <span className="font-semibold text-white/80">{discountPercent}%</span> member discount is reflected in all prices below
+              </p>
+            </div>
+          </div>
+          {/* CSS for shimmer */}
+          <style>{`
+            @keyframes shimmer {
+              0%, 100% { transform: translateX(-100%); }
+              50% { transform: translateX(100%); }
+            }
+          `}</style>
         </div>
       )}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

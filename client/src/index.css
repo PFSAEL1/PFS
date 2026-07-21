@@ -662,8 +662,8 @@ video::-internal-media-controls-play-button {
 /* Raised — VERY CLEARLY lighter surface so sections stand out */
 .section-raised {
   background:
-    radial-gradient(1200px 500px at 50% 0%, rgba(255,255,255,0.10), transparent 50%),
-    linear-gradient(180deg, #2d2d2d 0%, #222222 100%) !important;
+    radial-gradient(1200px 500px at 50% 0%, rgba(255,255,255,0.08), transparent 50%),
+    linear-gradient(180deg, #1a1a1a 0%, #151515 100%) !important;
 }
 
 /* Elevated section with centered radial glow — visible depth */
@@ -686,10 +686,10 @@ video::-internal-media-controls-play-button {
 }
 .section-glow > * { position: relative; z-index: 1; }
 
-/* Curved arc divider between sections */
+/* Smooth gradient divider between sections */
 .arc-divider {
   position: relative;
-  height: 100px;
+  height: 120px;
   overflow: hidden;
   margin-top: -1px;
 }
@@ -705,18 +705,18 @@ video::-internal-media-controls-play-button {
   box-shadow: 0 0 80px 30px rgba(59,130,246,0.08);
   border-top: 1px solid rgba(255,255,255,0.18);
 }
-/* Arc variant: dark-to-raised transition */
+/* Arc variant: dark-to-raised transition — smooth blended gradients */
 .arc-divider-up {
-  background: linear-gradient(to bottom, #050505, #222222);
+  background: linear-gradient(to bottom, #050505 0%, #0a0a0a 30%, #111111 60%, #1a1a1a 100%);
 }
 .arc-divider-up::before {
-  background: #222222;
+  background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
 }
 .arc-divider-down {
-  background: linear-gradient(to bottom, #222222, #050505);
+  background: linear-gradient(to bottom, #151515 0%, #101010 40%, #080808 70%, #050505 100%);
 }
 .arc-divider-down::before {
-  background: #050505;
+  background: linear-gradient(to bottom, #151515, #050505);
 }
 
 /* Dotted grid texture — visible dot pattern */
