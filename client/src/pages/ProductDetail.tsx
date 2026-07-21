@@ -331,7 +331,7 @@ export default function ProductDetail() {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <p className="font-semibold text-white text-base">Auto Delivery</p>
+                      <p className="font-semibold text-white text-base">Subscribe & Save</p>
                       <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs font-bold px-2">
                         SAVE {AUTO_DELIVERY_DISCOUNT}%
                       </Badge>
