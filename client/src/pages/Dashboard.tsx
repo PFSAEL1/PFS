@@ -252,7 +252,7 @@ function DashboardContent() {
               ) : membership ? (
                 <>
                   <div className="flex items-center gap-3 mb-2">
-                    <img src={`/images/badges/badge_${membership.tier}.png`} alt={`${membership.tier} Member Badge`} className="w-14 h-auto object-contain" />
+                    <img src={`/images/badges/badge_${membership.tier}.png`} alt={`${membership.tier} Member Badge`} className="w-24 h-auto object-contain" />
                     <div>
                       <Badge className={tierColors[membership.tier] || 'bg-[#0d0d0d]/5'}>
                         {membership.tier.charAt(0).toUpperCase() + membership.tier.slice(1)} Member
