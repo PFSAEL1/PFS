@@ -170,13 +170,32 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
               <Link href={`/product/${product.node.handle}`}>
                 <div className="product-img-wrap relative aspect-square overflow-hidden cursor-pointer">
                   <ProductBadges badges={getProductBadges(product)} />
-                  {/* Subscribe & Save diagonal ribbon - non-members only */}
+                  {/* Subscribe & Save corner peel - non-members only */}
                   {discountPercent === 0 && (
-                    <div className="pointer-events-none absolute -right-[1px] -top-[1px] z-10 overflow-hidden w-24 h-24">
-                      <div className="absolute top-[12px] right-[-28px] w-[130px] text-center rotate-45 bg-blue-500 shadow-md" style={{ animation: 'ribbon-shimmer 3s ease-in-out infinite' }}>
-                        <span className="block text-[9px] font-bold text-white tracking-wide py-1 uppercase">
-                          Subscribe & Save
-                        </span>
+                    <div className="pointer-events-none absolute right-0 top-0 z-10 w-20 h-20">
+                      {/* Revealed content underneath the peel */}
+                      <div className="absolute right-0 top-0 w-full h-full overflow-hidden">
+                        <div className="absolute right-0 top-0 w-full h-full bg-blue-500" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}>
+                          <div className="absolute top-[10px] right-[6px] text-center" style={{ transform: 'rotate(0deg)' }}>
+                            <svg className="w-4 h-4 text-white mx-auto mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M21 2v6h-6" />
+                              <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+                              <path d="M3 22v-6h6" />
+                              <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+                            </svg>
+                            <span className="text-[7px] font-bold text-white tracking-wide uppercase leading-tight block">
+                              Auto<br/>Ship
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      {/* The folded/peeled corner */}
+                      <div className="absolute right-0 top-0" style={{ width: '28px', height: '28px' }}>
+                        <div className="w-full h-full" style={{
+                          background: 'linear-gradient(135deg, transparent 50%, #1a1a1a 50%, #2a2a2a 60%, #1a1a1a 100%)',
+                          boxShadow: '-2px 2px 4px rgba(0,0,0,0.4)',
+                          animation: 'peel-breathe 3s ease-in-out infinite'
+                        }} />
                       </div>
                     </div>
                   )}
