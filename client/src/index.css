@@ -657,13 +657,15 @@ video::-internal-media-controls-play-button {
 
 /* Base dark — near-black for contrast sections */
 .section-dark   { background-color: #141414 !important; }
-/* Deepest dark — true near-black */
-.section-darker { background-color: #050505 !important; }
-/* Raised — VERY CLEARLY lighter surface so sections stand out */
+/* Deepest dark — true near-black, fades at bottom edge */
+.section-darker {
+  background: linear-gradient(180deg, #050505 0%, #050505 70%, #080808 100%) !important;
+}
+/* Raised — lighter surface, fades from divider color at top */
 .section-raised {
   background:
-    radial-gradient(1200px 500px at 50% 0%, rgba(255,255,255,0.08), transparent 50%),
-    linear-gradient(180deg, #1a1a1a 0%, #151515 100%) !important;
+    radial-gradient(1200px 500px at 50% 0%, rgba(255,255,255,0.04), transparent 50%),
+    linear-gradient(180deg, #0f0f0f 0%, #111111 20%, #131313 100%) !important;
 }
 
 /* Elevated section with centered radial glow — visible depth */
@@ -696,14 +698,14 @@ video::-internal-media-controls-play-button {
 .arc-divider::before {
   content: none;
 }
-/* Dark-to-raised: seamless fade from near-black into the raised section */
+/* Dark-to-raised: seamless fade from #080808 (section-darker bottom) to #0f0f0f (section-raised top) */
 .arc-divider-up {
-  background: linear-gradient(to bottom, #050505 0%, #080808 15%, #0c0c0c 30%, #101010 45%, #141414 60%, #171717 75%, #1a1a1a 100%);
+  background: linear-gradient(to bottom, #080808 0%, #090909 20%, #0b0b0b 40%, #0c0c0c 60%, #0e0e0e 80%, #0f0f0f 100%);
 }
 .arc-divider-up::before { content: none; }
-/* Raised-to-dark: seamless fade back down */
+/* Raised-to-dark: seamless fade from #131313 (section-raised bottom) to #0a0a0a (section-glow) */
 .arc-divider-down {
-  background: linear-gradient(to bottom, #151515 0%, #131313 15%, #111111 30%, #0e0e0e 45%, #0c0c0c 60%, #0a0a0a 75%, #080808 100%);
+  background: linear-gradient(to bottom, #131313 0%, #111111 20%, #0f0f0f 40%, #0d0d0d 60%, #0b0b0b 80%, #0a0a0a 100%);
 }
 .arc-divider-down::before { content: none; }
 
