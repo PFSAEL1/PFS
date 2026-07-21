@@ -170,27 +170,13 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
               <Link href={`/product/${product.node.handle}`}>
                 <div className="product-img-wrap relative aspect-square overflow-hidden cursor-pointer">
                   <ProductBadges badges={getProductBadges(product)} />
-                  {/* Subscribe & Save floating tag - non-members only */}
+                  {/* Subscribe & Save diagonal ribbon - non-members only */}
                   {discountPercent === 0 && (
-                    <div className="pointer-events-none absolute right-3 top-2 z-10" style={{ animation: 'float-tag 3s ease-in-out infinite' }}>
-                      {/* String connecting to corner */}
-                      <div className="absolute -top-2 right-3 w-px h-2 bg-white/30" />
-                      {/* Tag body */}
-                      <div className="relative bg-[#111] border border-white/20 rounded-md shadow-lg" style={{ clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 50% 85%, 0% 100%)' }}>
-                        <div className="px-3 pt-2 pb-4 flex flex-col items-center gap-1">
-                          {/* Hole at top */}
-                          <div className="w-2 h-2 rounded-full border border-white/40 mb-0.5" />
-                          {/* Refresh icon */}
-                          <svg className="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M21 2v6h-6" />
-                            <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
-                            <path d="M3 22v-6h6" />
-                            <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
-                          </svg>
-                          <span className="text-[8px] font-bold text-white tracking-wider uppercase leading-tight text-center">
-                            Subscribe<br/>& Save
-                          </span>
-                        </div>
+                    <div className="pointer-events-none absolute -right-[1px] -top-[1px] z-10 overflow-hidden w-24 h-24">
+                      <div className="absolute top-[12px] right-[-28px] w-[130px] text-center rotate-45 bg-blue-500 shadow-md" style={{ animation: 'ribbon-shimmer 3s ease-in-out infinite' }}>
+                        <span className="block text-[9px] font-bold text-white tracking-wide py-1 uppercase">
+                          Subscribe & Save
+                        </span>
                       </div>
                     </div>
                   )}
