@@ -179,7 +179,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                           <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent 0%, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%, transparent 100%)', backgroundSize: '200% 100%', animation: 'ribbon-light-sweep 2.5s ease-in-out infinite' }} />
                         </div>
                         <span className="relative block text-[7px] font-bold text-white tracking-wider uppercase">
-                          Subscribe & Save
+                          Auto Delivery
                         </span>
                       </div>
                     </div>
