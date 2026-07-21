@@ -172,10 +172,23 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                   <ProductBadges badges={getProductBadges(product)} />
                   {/* Subscribe & Save badge - opposite corner, non-members only */}
                   {discountPercent === 0 && (
-                    <div className="pointer-events-none absolute right-2.5 top-2.5 z-10">
-                      <span className="rounded-full px-2.5 py-1 text-[11px] font-semibold leading-none tracking-wide backdrop-blur-sm bg-green-600/85 text-white ring-1 ring-green-400/30">
-                        Subscribe & Save
-                      </span>
+                    <div className="pointer-events-none absolute right-2 top-2 z-10">
+                      <div className="relative overflow-hidden rounded-lg px-2.5 py-1.5 bg-gradient-to-r from-blue-600/90 to-indigo-600/90 backdrop-blur-sm ring-1 ring-blue-400/30 shadow-lg shadow-blue-500/20">
+                        {/* Shimmer animation */}
+                        <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_ease-in-out_infinite]" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)' }} />
+                        <div className="flex items-center gap-1.5">
+                          {/* Repeat/sync icon */}
+                          <svg className="w-3 h-3 text-blue-200 animate-[spin_4s_linear_infinite]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 2v6h-6" />
+                            <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+                            <path d="M3 22v-6h6" />
+                            <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+                          </svg>
+                          <span className="text-[10px] font-bold text-white tracking-wide uppercase">
+                            Subscribe & Save
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   )}
                   <img
