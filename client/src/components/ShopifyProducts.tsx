@@ -170,32 +170,21 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
               <Link href={`/product/${product.node.handle}`}>
                 <div className="product-img-wrap relative aspect-square overflow-hidden cursor-pointer">
                   <ProductBadges badges={getProductBadges(product)} />
-                  {/* Subscribe & Save corner peel - non-members only */}
+                  {/* Subscribe & Save diagonal ribbon - non-members only */}
                   {discountPercent === 0 && (
-                    <div className="pointer-events-none absolute right-0 top-0 z-10 w-20 h-20">
-                      {/* Revealed content underneath the peel */}
-                      <div className="absolute right-0 top-0 w-full h-full overflow-hidden">
-                        <div className="absolute right-0 top-0 w-full h-full bg-blue-500" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}>
-                          <div className="absolute top-[10px] right-[6px] text-center" style={{ transform: 'rotate(0deg)' }}>
-                            <svg className="w-4 h-4 text-white mx-auto mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M21 2v6h-6" />
-                              <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
-                              <path d="M3 22v-6h6" />
-                              <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
-                            </svg>
-                            <span className="text-[7px] font-bold text-white tracking-wide uppercase leading-tight block">
-                              Auto<br/>Ship
-                            </span>
-                          </div>
+                    <div className="pointer-events-none absolute -right-[1px] -top-[1px] z-10 overflow-hidden w-[100px] h-[100px]">
+                      {/* Ribbon */}
+                      <div className="absolute top-[14px] right-[-30px] w-[140px] text-center rotate-45 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 shadow-lg">
+                        {/* Traveling light sweep */}
+                        <div className="absolute inset-0 overflow-hidden">
+                          <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent 0%, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%, transparent 100%)', backgroundSize: '200% 100%', animation: 'ribbon-light-sweep 2.5s ease-in-out infinite' }} />
                         </div>
-                      </div>
-                      {/* The folded/peeled corner */}
-                      <div className="absolute right-0 top-0" style={{ width: '28px', height: '28px' }}>
-                        <div className="w-full h-full" style={{
-                          background: 'linear-gradient(135deg, transparent 50%, #1a1a1a 50%, #2a2a2a 60%, #1a1a1a 100%)',
-                          boxShadow: '-2px 2px 4px rgba(0,0,0,0.4)',
-                          animation: 'peel-breathe 3s ease-in-out infinite'
-                        }} />
+                        {/* Folded edges */}
+                        <div className="absolute left-0 bottom-0 w-0 h-0 border-t-[3px] border-t-blue-800 border-l-[3px] border-l-transparent" />
+                        <div className="absolute right-0 bottom-0 w-0 h-0 border-t-[3px] border-t-blue-800 border-r-[3px] border-r-transparent" />
+                        <span className="relative block text-[9px] font-bold text-white tracking-wider py-[5px] uppercase drop-shadow-sm">
+                          Subscribe & Save
+                        </span>
                       </div>
                     </div>
                   )}
