@@ -137,7 +137,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
           }} />
           <div className="relative px-8 py-5 flex flex-col items-center text-center gap-2">
             {/* Tier medal badge */}
-            <img src={`/images/badges/badge_${tier}.png`} alt={`${tier} Member Badge`} className="w-28 h-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]" />
+            <img src={`/images/badges/badge_${tier}.png`} alt={`${tier} Member Badge`} className="w-36 h-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]" />
 
             <p className="text-white/50 text-sm max-w-md">
               Your <span className="font-bold text-white/90">{discountPercent}%</span> member discount is automatically applied to all prices below
