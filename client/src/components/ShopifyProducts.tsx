@@ -172,17 +172,13 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                   <ProductBadges badges={getProductBadges(product)} />
                   {/* Subscribe & Save diagonal ribbon - non-members only */}
                   {discountPercent === 0 && (
-                    <div className="pointer-events-none absolute right-0 top-0 z-10 w-[120px] h-[120px] overflow-hidden">
-                      {/* Ribbon */}
-                      <div className="absolute w-[170px] text-center bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 shadow-lg" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%) rotate(45deg)' }}>
-                        {/* Traveling light sweep */}
+                    <div className="pointer-events-none absolute right-[-32px] top-[8px] z-10 rotate-45">
+                      <div className="relative w-[150px] text-center bg-blue-600 py-[4px]">
+                        {/* Light sweep animation */}
                         <div className="absolute inset-0 overflow-hidden">
                           <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent 0%, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%, transparent 100%)', backgroundSize: '200% 100%', animation: 'ribbon-light-sweep 2.5s ease-in-out infinite' }} />
                         </div>
-                        {/* Folded edges */}
-                        <div className="absolute left-0 bottom-0 w-0 h-0 border-t-[3px] border-t-blue-800 border-l-[3px] border-l-transparent" />
-                        <div className="absolute right-0 bottom-0 w-0 h-0 border-t-[3px] border-t-blue-800 border-r-[3px] border-r-transparent" />
-                        <span className="relative block text-[9px] font-bold text-white tracking-wider py-[5px] uppercase drop-shadow-sm">
+                        <span className="relative block text-[8px] font-bold text-white tracking-wider uppercase">
                           Subscribe & Save
                         </span>
                       </div>
