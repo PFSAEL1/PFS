@@ -170,6 +170,14 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
               <Link href={`/product/${product.node.handle}`}>
                 <div className="product-img-wrap relative aspect-square overflow-hidden cursor-pointer">
                   <ProductBadges badges={getProductBadges(product)} />
+                  {/* Subscribe & Save badge - opposite corner, non-members only */}
+                  {discountPercent === 0 && (
+                    <div className="pointer-events-none absolute right-2.5 top-2.5 z-10">
+                      <span className="rounded-full px-2.5 py-1 text-[11px] font-semibold leading-none tracking-wide backdrop-blur-sm bg-green-600/85 text-white ring-1 ring-green-400/30">
+                        Subscribe & Save
+                      </span>
+                    </div>
+                  )}
                   <img
                     src={image}
                     alt={product.node.title}
