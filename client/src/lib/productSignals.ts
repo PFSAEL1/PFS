@@ -60,7 +60,7 @@ export function getProductBadges(input: any, max = 2): ProductBadge[] {
   }
   // Custom cut: multiple size variants or explicit custom tag
   if (has('custom', 'cut-to-size', 'made-to-order') || variantCount(node) > 2) {
-    badges.push({ label: 'Custom Cut', tone: 'custom' });
+    badges.push({ label: 'View Sizes', tone: 'custom' });
   }
   // Ships same day: default trust signal for in-stock catalog items
   const anyInStock =
