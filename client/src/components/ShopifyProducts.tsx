@@ -173,18 +173,21 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                   {/* Subscribe & Save badge - opposite corner, non-members only */}
                   {discountPercent === 0 && (
                     <div className="pointer-events-none absolute right-2 top-2 z-10">
-                      <div className="relative overflow-hidden rounded-md bg-white/95 backdrop-blur-sm shadow-md shadow-black/20 border border-white/20">
-                        {/* Shimmer animation */}
-                        <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_ease-in-out_infinite]" style={{ background: 'linear-gradient(90deg, transparent, rgba(0,0,0,0.04), transparent)' }} />
-                        <div className="flex flex-col items-center px-2 py-1.5 gap-0.5">
-                          {/* Package/box icon */}
-                          <svg className="w-3.5 h-3.5 text-gray-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
-                            <path d="m3.3 7 8.7 5 8.7-5" />
-                            <path d="M12 22V12" />
+                      <div className="relative rounded-lg bg-black/90 backdrop-blur-sm shadow-lg shadow-blue-500/15 border border-blue-400/40 animate-[pulse-border_2.5s_ease-in-out_infinite]">
+                        {/* Shimmer sweep */}
+                        <div className="absolute inset-0 rounded-lg overflow-hidden">
+                          <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_ease-in-out_infinite]" style={{ background: 'linear-gradient(90deg, transparent, rgba(96,165,250,0.15), transparent)' }} />
+                        </div>
+                        <div className="relative flex items-center gap-1.5 px-2.5 py-1.5">
+                          {/* Refresh/repeat icon */}
+                          <svg className="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 2v6h-6" />
+                            <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+                            <path d="M3 22v-6h6" />
+                            <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
                           </svg>
-                          <span className="text-[8px] font-bold text-gray-900 tracking-wide uppercase leading-tight text-center">
-                            Subscribe<br/>& Save
+                          <span className="text-[10px] font-bold text-white tracking-wide">
+                            Subscribe & Save
                           </span>
                         </div>
                       </div>
