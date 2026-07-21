@@ -657,15 +657,13 @@ video::-internal-media-controls-play-button {
 
 /* Base dark — near-black for contrast sections */
 .section-dark   { background-color: #141414 !important; }
-/* Deepest dark — true near-black, fades at bottom edge */
+/* Deepest dark — true near-black */
 .section-darker {
-  background: linear-gradient(180deg, #050505 0%, #050505 70%, #080808 100%) !important;
+  background: #050505 !important;
 }
-/* Raised — lighter surface, fades from divider color at top */
+/* Raised — slightly lighter surface, no radial glow that creates edges */
 .section-raised {
-  background:
-    radial-gradient(1200px 500px at 50% 0%, rgba(255,255,255,0.04), transparent 50%),
-    linear-gradient(180deg, #0f0f0f 0%, #111111 20%, #131313 100%) !important;
+  background: #0d0d0d !important;
 }
 
 /* Elevated section with centered radial glow — visible depth */
@@ -688,24 +686,24 @@ video::-internal-media-controls-play-button {
 }
 .section-glow > * { position: relative; z-index: 1; }
 
-/* Smooth gradient divider between sections — pure fade, no hard lines */
+/* Smooth gradient divider between sections — pure full-width fade */
 .arc-divider {
   position: relative;
-  height: 80px;
-  margin-top: -1px;
-  margin-bottom: -1px;
+  height: 100px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .arc-divider::before {
   content: none;
 }
-/* Dark-to-raised: seamless fade from #080808 (section-darker bottom) to #0f0f0f (section-raised top) */
+/* Dark-to-raised: #050505 → #0d0d0d */
 .arc-divider-up {
-  background: linear-gradient(to bottom, #080808 0%, #090909 20%, #0b0b0b 40%, #0c0c0c 60%, #0e0e0e 80%, #0f0f0f 100%);
+  background: linear-gradient(to bottom, #050505, #0d0d0d);
 }
 .arc-divider-up::before { content: none; }
-/* Raised-to-dark: seamless fade from #131313 (section-raised bottom) to #0a0a0a (section-glow) */
+/* Raised-to-dark: #0d0d0d → #050505 */
 .arc-divider-down {
-  background: linear-gradient(to bottom, #131313 0%, #111111 20%, #0f0f0f 40%, #0d0d0d 60%, #0b0b0b 80%, #0a0a0a 100%);
+  background: linear-gradient(to bottom, #0d0d0d, #050505);
 }
 .arc-divider-down::before { content: none; }
 
