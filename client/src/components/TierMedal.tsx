@@ -10,39 +10,43 @@ interface TierMedalProps {
 const tierConfigs = {
   bronze: {
     label: 'BRONZE',
-    outerRing: ['#cd7f32', '#a0522d', '#e8a862', '#cd7f32'],
-    innerCircle: ['#f4c78e', '#e8a862', '#cd7f32', '#8b4513'],
-    ribbon: ['#cd7f32', '#8b4513'],
-    cardBorder: ['#cd7f32', '#8b4513', '#cd7f32'],
-    highlight: '#f4c78e',
-    textColor: '#e8a862',
+    // Warm copper/rose gold tones
+    border: ['#d4a574', '#8b5e3c', '#d4a574', '#a0724a'],
+    outerRing: ['#d4a574', '#8b5e3c', '#c9956a', '#6b4226'],
+    innerFace: ['#f0c8a8', '#d4a574', '#b8845a', '#8b5e3c'],
+    ribbon: ['#d4a574', '#8b5e3c', '#6b4226'],
+    textGradient: ['#d4a574', '#8b5e3c'],
+    glowColor: 'rgba(212,165,116,0.12)',
   },
   silver: {
     label: 'SILVER',
-    outerRing: ['#ffffff', '#c0c0c0', '#e8e8e8', '#a8a8a8'],
-    innerCircle: ['#ffffff', '#e8e8e8', '#c0c0c0', '#909090'],
-    ribbon: ['#c0c0c0', '#707070'],
-    cardBorder: ['#e8e8e8', '#909090', '#e8e8e8'],
-    highlight: '#ffffff',
-    textColor: '#e0e0e0',
+    // Cool white/silver with glass-like border
+    border: ['#ffffff', '#a0a0a0', '#e8e8e8', '#808080'],
+    outerRing: ['#e0e0e0', '#a0a0a0', '#d0d0d0', '#808080'],
+    innerFace: ['#ffffff', '#e8e8e8', '#c8c8c8', '#a0a0a0'],
+    ribbon: ['#c0c0c0', '#808080', '#606060'],
+    textGradient: ['#ffffff', '#a0a0a0'],
+    glowColor: 'rgba(255,255,255,0.1)',
   },
   gold: {
     label: 'GOLD',
-    outerRing: ['#ffd700', '#daa520', '#fff2a0', '#b8860b'],
-    innerCircle: ['#fff8b0', '#ffd700', '#daa520', '#996515'],
-    ribbon: ['#ffd700', '#b8860b'],
-    cardBorder: ['#ffd700', '#b8860b', '#ffd700'],
-    highlight: '#fffacd',
-    textColor: '#ffd700',
+    // Rich gold tones
+    border: ['#ffd700', '#b8860b', '#ffd700', '#996515'],
+    outerRing: ['#ffd700', '#b8860b', '#e6c200', '#8b6914'],
+    innerFace: ['#fff5a0', '#ffd700', '#daa520', '#b8860b'],
+    ribbon: ['#ffd700', '#b8860b', '#8b6914'],
+    textGradient: ['#ffd700', '#b8860b'],
+    glowColor: 'rgba(255,215,0,0.12)',
   },
   platinum: {
     label: 'PLATINUM',
-    outerRing: ['#e8e8e8', '#b0b0b0', '#f0f0f0', '#8e8e8e'],
-    innerCircle: ['#f8f8ff', '#e0e0e0', '#b8b8b8', '#808080'],
-    ribbon: ['#c8c8c8', '#6e6e6e'],
-    cardBorder: ['#e0e0e0', '#808080', '#e0e0e0'],
-    highlight: '#ffffff',
-    textColor: '#e0e0e0',
+    // Elegant cool platinum
+    border: ['#e8e8e8', '#8e8e8e', '#d0d0d0', '#6e6e6e'],
+    outerRing: ['#d8d8d8', '#9e9e9e', '#c8c8c8', '#7e7e7e'],
+    innerFace: ['#f0f0f0', '#d8d8d8', '#b8b8b8', '#909090'],
+    ribbon: ['#b8b8b8', '#7e7e7e', '#5e5e5e'],
+    textGradient: ['#e0e0e0', '#909090'],
+    glowColor: 'rgba(200,200,200,0.1)',
   },
 };
 
@@ -50,13 +54,12 @@ export function TierMedal({ tier, size = 120, className = '', showLabel = true }
   const config = tierConfigs[tier];
   const id = `medal-${tier}-${Math.random().toString(36).slice(2, 8)}`;
 
-  // Aspect ratio: card is taller than wide (like the inspo)
-  const cardWidth = size;
-  const cardHeight = showLabel ? size * 1.45 : size * 1.1;
   const viewW = 100;
-  const viewH = showLabel ? 145 : 110;
+  const viewH = 140;
+  const cardWidth = size;
+  const cardHeight = size * (viewH / viewW);
   const cx = 50;
-  const cy = 48;
+  const medalCy = 52;
 
   return (
     <svg
@@ -69,108 +72,122 @@ export function TierMedal({ tier, size = 120, className = '', showLabel = true }
     >
       <defs>
         {/* Card border gradient */}
-        <linearGradient id={`${id}-card-border`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor={config.cardBorder[0]} stopOpacity="0.6" />
-          <stop offset="50%" stopColor={config.cardBorder[1]} stopOpacity="0.3" />
-          <stop offset="100%" stopColor={config.cardBorder[2]} stopOpacity="0.6" />
+        <linearGradient id={`${id}-border`} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor={config.border[0]} />
+          <stop offset="35%" stopColor={config.border[1]} />
+          <stop offset="65%" stopColor={config.border[2]} />
+          <stop offset="100%" stopColor={config.border[3]} />
         </linearGradient>
         {/* Outer ring gradient */}
-        <linearGradient id={`${id}-outer`} x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id={`${id}-outer`} x1="20%" y1="0%" x2="80%" y2="100%">
           <stop offset="0%" stopColor={config.outerRing[0]} />
           <stop offset="33%" stopColor={config.outerRing[1]} />
           <stop offset="66%" stopColor={config.outerRing[2]} />
           <stop offset="100%" stopColor={config.outerRing[3]} />
         </linearGradient>
-        {/* Inner circle gradient */}
-        <radialGradient id={`${id}-inner`} cx="40%" cy="35%" r="65%">
-          <stop offset="0%" stopColor={config.innerCircle[0]} />
-          <stop offset="35%" stopColor={config.innerCircle[1]} />
-          <stop offset="70%" stopColor={config.innerCircle[2]} />
-          <stop offset="100%" stopColor={config.innerCircle[3]} />
+        {/* Inner face radial gradient */}
+        <radialGradient id={`${id}-face`} cx="38%" cy="32%" r="68%">
+          <stop offset="0%" stopColor={config.innerFace[0]} />
+          <stop offset="30%" stopColor={config.innerFace[1]} />
+          <stop offset="65%" stopColor={config.innerFace[2]} />
+          <stop offset="100%" stopColor={config.innerFace[3]} />
         </radialGradient>
-        {/* Ribbon gradient left */}
-        <linearGradient id={`${id}-ribbon-l`} x1="0%" y1="0%" x2="100%" y2="100%">
+        {/* Ribbon gradient */}
+        <linearGradient id={`${id}-ribbon`} x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor={config.ribbon[0]} />
-          <stop offset="100%" stopColor={config.ribbon[1]} />
+          <stop offset="50%" stopColor={config.ribbon[1]} />
+          <stop offset="100%" stopColor={config.ribbon[2]} />
         </linearGradient>
-        {/* Ribbon gradient right */}
-        <linearGradient id={`${id}-ribbon-r`} x1="100%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor={config.ribbon[0]} />
-          <stop offset="100%" stopColor={config.ribbon[1]} />
+        {/* Text gradient */}
+        <linearGradient id={`${id}-text`} x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor={config.textGradient[0]} />
+          <stop offset="100%" stopColor={config.textGradient[1]} />
         </linearGradient>
-        {/* Drop shadow */}
-        <filter id={`${id}-shadow`} x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="1.5" stdDeviation="2.5" floodColor="rgba(0,0,0,0.5)" floodOpacity="0.5" />
+        {/* Shadow filter */}
+        <filter id={`${id}-shadow`} x="-15%" y="-15%" width="130%" height="130%">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor="rgba(0,0,0,0.6)" floodOpacity="0.6" />
         </filter>
-        {/* Card glow */}
-        <filter id={`${id}-glow`} x="-10%" y="-10%" width="120%" height="120%">
-          <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor={config.outerRing[0]} floodOpacity="0.15" />
+        {/* Card shadow */}
+        <filter id={`${id}-card-shadow`} x="-5%" y="-5%" width="110%" height="110%">
+          <feDropShadow dx="0" dy="3" stdDeviation="4" floodColor="rgba(0,0,0,0.4)" floodOpacity="0.4" />
         </filter>
       </defs>
 
-      {/* Card background with metallic border */}
+      {/* Card background */}
       <rect
-        x="3" y="3"
-        width={viewW - 6} height={viewH - 6}
-        rx="12" ry="12"
-        fill="#111111"
-        stroke={`url(#${id}-card-border)`}
-        strokeWidth="1.5"
-        filter={`url(#${id}-glow)`}
+        x="4" y="4"
+        width={viewW - 8} height={viewH - 8}
+        rx="10" ry="10"
+        fill="#1a1a1f"
+        filter={`url(#${id}-card-shadow)`}
       />
+      {/* Card metallic border */}
+      <rect
+        x="4" y="4"
+        width={viewW - 8} height={viewH - 8}
+        rx="10" ry="10"
+        fill="none"
+        stroke={`url(#${id}-border)`}
+        strokeWidth="2"
+      />
+      {/* Subtle inner card highlight at top */}
+      <rect
+        x="6" y="6"
+        width={viewW - 12} height="30"
+        rx="8" ry="8"
+        fill="url(#none)"
+        opacity="0"
+      />
+      <ellipse cx={cx} cy="8" rx="30" ry="4" fill="white" opacity="0.04" />
 
-      {/* Ribbons behind medal */}
+      {/* Ribbon - V-shaped, wider like the inspo */}
       <path
-        d={`M${cx - 10} ${cy + 18} L${cx - 16} ${cy + 38} L${cx - 8} ${cy + 32} L${cx - 4} ${cy + 40} L${cx - 3} ${cy + 20}`}
-        fill={`url(#${id}-ribbon-l)`}
-        opacity="0.85"
-      />
-      <path
-        d={`M${cx + 10} ${cy + 18} L${cx + 16} ${cy + 38} L${cx + 8} ${cy + 32} L${cx + 4} ${cy + 40} L${cx + 3} ${cy + 20}`}
-        fill={`url(#${id}-ribbon-r)`}
-        opacity="0.85"
+        d={`M${cx - 8} ${medalCy + 16} L${cx - 14} ${medalCy + 36} L${cx - 6} ${medalCy + 30} L${cx} ${medalCy + 38} L${cx + 6} ${medalCy + 30} L${cx + 14} ${medalCy + 36} L${cx + 8} ${medalCy + 16} Z`}
+        fill={`url(#${id}-ribbon)`}
+        opacity="0.9"
       />
 
       {/* Medal body */}
       <g filter={`url(#${id}-shadow)`}>
-        {/* Outer ring */}
-        <circle cx={cx} cy={cy} r="28" fill={`url(#${id}-outer)`} />
-        {/* Inner border ring */}
-        <circle cx={cx} cy={cy} r="24" fill="none" stroke={config.outerRing[1]} strokeWidth="1" opacity="0.6" />
-        {/* Inner circle (main face) */}
-        <circle cx={cx} cy={cy} r="22" fill={`url(#${id}-inner)`} />
+        {/* Outer ring (thick) */}
+        <circle cx={cx} cy={medalCy} r="26" fill={`url(#${id}-outer)`} />
+        {/* Dark separator ring */}
+        <circle cx={cx} cy={medalCy} r="22" fill="#1a1a1f" />
+        {/* Inner face */}
+        <circle cx={cx} cy={medalCy} r="20" fill={`url(#${id}-face)`} />
         {/* Decorative inner ring */}
-        <circle cx={cx} cy={cy} r="18" fill="none" stroke={config.outerRing[1]} strokeWidth="0.6" opacity="0.4" />
-        {/* Highlight reflection */}
-        <ellipse cx={cx - 6} cy={cy - 7} rx="9" ry="6" fill={config.highlight} opacity="0.3" />
-        {/* Small center dot */}
-        <circle cx={cx} cy={cy} r="3" fill={config.outerRing[1]} opacity="0.3" />
+        <circle cx={cx} cy={medalCy} r="16" fill="none" stroke={config.outerRing[0]} strokeWidth="0.5" opacity="0.4" />
+        {/* Top highlight reflection */}
+        <ellipse cx={cx - 4} cy={medalCy - 8} rx="8" ry="5" fill="white" opacity="0.25" />
+        {/* Bottom subtle reflection */}
+        <ellipse cx={cx + 3} cy={medalCy + 6} rx="5" ry="3" fill="white" opacity="0.08" />
       </g>
 
-      {/* Label text */}
+      {/* Tier label in serif font */}
       {showLabel && (
         <>
           <text
             x={cx}
-            y={viewH - 28}
+            y={viewH - 26}
             textAnchor="middle"
-            fill={config.textColor}
-            fontSize="10"
-            fontWeight="800"
-            fontFamily="system-ui, -apple-system, sans-serif"
-            letterSpacing="1.5"
+            fill={`url(#${id}-text)`}
+            fontSize="14"
+            fontWeight="700"
+            fontFamily="'Georgia', 'Times New Roman', 'Playfair Display', serif"
+            letterSpacing="2"
           >
             {config.label}
           </text>
           <text
             x={cx}
-            y={viewH - 15}
+            y={viewH - 12}
             textAnchor="middle"
-            fill="rgba(255,255,255,0.5)"
-            fontSize="7"
+            fill={`url(#${id}-text)`}
+            fontSize="9"
             fontWeight="600"
-            fontFamily="system-ui, -apple-system, sans-serif"
-            letterSpacing="0.8"
+            fontFamily="'Georgia', 'Times New Roman', 'Playfair Display', serif"
+            letterSpacing="1.5"
+            opacity="0.7"
           >
             MEMBER
           </text>
