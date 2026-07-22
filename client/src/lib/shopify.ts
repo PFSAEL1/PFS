@@ -422,8 +422,44 @@ export async function fetchRelatedProducts(currentProductId: string, limit = 4):
   return products.filter((p: ShopifyProduct) => p.node.id !== currentProductId).slice(0, limit);
 }
 
+// Variant IDs that need direct checkout URL (bypasses Storefront Cart API issues)
+const DIRECT_CHECKOUT_VARIANTS: Record<string, string> = {
+  'gid://shopify/ProductVariant/52549337317508': '52549337317508', // PFS VITRA
+};
+
 export async function createStorefrontCheckout(items: CartItem[], discountCode?: string): Promise<string> {
-  const lines = items.map(item => {
+  // Separate items into regular (Storefront Cart API) and direct-checkout items
+  const regularItems = items.filter(item => !DIRECT_CHECKOUT_VARIANTS[item.variantId]);
+  const directItems = items.filter(item => DIRECT_CHECKOUT_VARIANTS[item.variantId]);
+
+  // If ALL items are direct-checkout items, use Shopify's direct /checkout URL
+  if (regularItems.length === 0 && directItems.length > 0) {
+    const lineParams = directItems.map((item, i) => {
+      const numericId = DIRECT_CHECKOUT_VARIANTS[item.variantId];
+      return `line_items[${i}][variant_id]=${numericId}&line_items[${i}][quantity]=${item.quantity}`;
+    }).join('&');
+    let url = `https://pfsfilters.myshopify.com/checkout?${lineParams}`;
+    if (discountCode) url += `&discount=${encodeURIComponent(discountCode)}`;
+    console.log('[Shopify Cart] Using direct checkout URL for special items:', url);
+    return url;
+  }
+
+  // If there's a mix of regular + direct items, build a combined direct checkout URL
+  // (the Storefront Cart API would drop the direct items)
+  if (directItems.length > 0 && regularItems.length > 0) {
+    const allItems = [...regularItems, ...directItems];
+    const lineParams = allItems.map((item, i) => {
+      const numericId = DIRECT_CHECKOUT_VARIANTS[item.variantId] || item.variantId.split('/').pop();
+      return `line_items[${i}][variant_id]=${numericId}&line_items[${i}][quantity]=${item.quantity}`;
+    }).join('&');
+    let url = `https://pfsfilters.myshopify.com/checkout?${lineParams}`;
+    if (discountCode) url += `&discount=${encodeURIComponent(discountCode)}`;
+    console.log('[Shopify Cart] Using direct checkout URL for mixed cart:', url);
+    return url;
+  }
+
+  // Standard flow: all regular items go through Storefront Cart API
+  const lines = regularItems.map(item => {
     const line: { quantity: number; merchandiseId: string; sellingPlanId?: string } = {
       quantity: item.quantity,
       merchandiseId: item.variantId,
@@ -458,7 +494,6 @@ export async function createStorefrontCheckout(items: CartItem[], discountCode?:
   }
 
   // Use the cart's checkout URL directly — the discount is embedded in the cart object
-  // The cart was created with discountCodes so Shopify checkout will honor it
   console.log('[Shopify Cart] Checkout URL:', cart.checkoutUrl);
   return cart.checkoutUrl;
 }

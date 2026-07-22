@@ -3,82 +3,33 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Package, ShieldCheck, Truck, ShoppingCart, Loader2 } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { Package, ShieldCheck, Truck, ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
+import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
 
-// PFS VITRA Shopify Product ID (numeric)
-const SHOPIFY_PRODUCT_ID = '10413119733892';
-const SHOPIFY_DOMAIN = 'abc-filter-splash-rwyxj.myshopify.com';
-const STOREFRONT_TOKEN = '5e357a0ae8e9906edb44ef570a4ed219';
+// PFS VITRA variant info — same format as Shopify products
+const PFS_VITRA_VARIANT_ID = 'gid://shopify/ProductVariant/52549337317508';
+const PFS_VITRA_PRODUCT_ID = 'gid://shopify/Product/10413119733892';
 
 export default function PfsVitra() {
   const [quantity, setQuantity] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const buyClientRef = useRef<any>(null);
+  const addItem = useCartStore((s) => s.addItem);
+  const setCartOpen = useCartStore((s) => s.setCartOpen);
 
-  useEffect(() => {
-    // Load Shopify Buy SDK
-    const script = document.createElement('script');
-    script.src = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-    script.async = true;
-    script.onload = () => {
-      // Initialize the Buy SDK client
-      if ((window as any).ShopifyBuy) {
-        const client = (window as any).ShopifyBuy.buildClient({
-          domain: SHOPIFY_DOMAIN,
-          storefrontAccessToken: STOREFRONT_TOKEN,
-        });
-        buyClientRef.current = client;
-      }
-    };
-    document.head.appendChild(script);
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
-
-  const handleBuyNow = async () => {
-    setLoading(true);
-    try {
-      const client = buyClientRef.current;
-      if (!client) {
-        throw new Error('Shop client not loaded yet. Please wait a moment and try again.');
-      }
-
-      // Fetch the product using the Buy SDK
-      const productId = `gid://shopify/Product/${SHOPIFY_PRODUCT_ID}`;
-      const product = await client.product.fetch(productId);
-      
-      if (!product || !product.variants || product.variants.length === 0) {
-        throw new Error('Product not found');
-      }
-
-      const variant = product.variants[0];
-
-      // Create a checkout using the Buy SDK (this bypasses the Storefront Cart API)
-      const checkout = await client.checkout.create();
-      
-      // Add the item to the checkout
-      const lineItemsToAdd = [{
-        variantId: variant.id,
-        quantity: quantity,
-      }];
-      
-      const updatedCheckout = await client.checkout.addLineItems(checkout.id, lineItemsToAdd);
-      
-      if (updatedCheckout && updatedCheckout.webUrl) {
-        toast.success('Redirecting to checkout...');
-        window.location.href = updatedCheckout.webUrl;
-      } else {
-        throw new Error('Failed to create checkout');
-      }
-    } catch (error: any) {
-      console.error('Checkout error:', error);
-      toast.error(error.message || 'Unable to process checkout. Please try again or contact us.');
-    } finally {
-      setLoading(false);
-    }
+  const handleAddToCart = () => {
+    addItem({
+      variantId: PFS_VITRA_VARIANT_ID,
+      productId: PFS_VITRA_PRODUCT_ID,
+      title: 'PFS VITRA',
+      variantTitle: 'Default',
+      price: { amount: '80.00', currencyCode: 'USD' },
+      quantity,
+      image: undefined,
+      handle: 'pfs-vitra',
+    });
+    toast.success('PFS VITRA added to cart');
+    setCartOpen(true);
   };
 
   return (
@@ -173,21 +124,11 @@ export default function PfsVitra() {
 
               <div className="pt-4 space-y-3">
                 <Button
-                  onClick={handleBuyNow}
-                  disabled={loading}
+                  onClick={handleAddToCart}
                   className="w-full bg-blue-500 text-white hover:bg-blue-500/90 font-bold text-base py-6 gap-2"
                 >
-                  {loading ? (
-                    <>
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                      Processing...
-                    </>
-                  ) : (
-                    <>
-                      <ShoppingCart className="h-5 w-5" />
-                      Buy Now — ${(80 * quantity).toFixed(2)}
-                    </>
-                  )}
+                  <ShoppingCart className="h-5 w-5" />
+                  Add to Cart — ${(80 * quantity).toFixed(2)}
                 </Button>
               </div>
 
