@@ -13,8 +13,8 @@ export default function PfsVitra() {
 
   const handleAddToCart = () => {
     addItem({
-      variantId: 'pfs-vitra-001',
-      productId: 'pfs-vitra',
+      variantId: 'gid://shopify/ProductVariant/52548822925444',
+      productId: 'gid://shopify/Product/10412763971716',
       title: 'PFS VITRA',
       variantTitle: 'Glass Shield Washable Coating',
       price: { amount: '80.00', currencyCode: 'USD' },
