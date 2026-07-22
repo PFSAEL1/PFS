@@ -4,26 +4,22 @@ import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Package, ShieldCheck, Truck, ShoppingCart } from 'lucide-react';
-import { useCartStore } from '@/stores/cartStore';
+import { useState } from 'react';
 import { toast } from 'sonner';
 
-export default function PfsVitra() {
-  const addItem = useCartStore((s) => s.addItem);
-  const setCartOpen = useCartStore((s) => s.setCartOpen);
+// PFS VITRA variant numeric ID (extracted from gid://shopify/ProductVariant/52548934434948)
+const VITRA_VARIANT_ID = '52548934434948';
+const SHOPIFY_DOMAIN = 'pfsfilters.myshopify.com';
 
-  const handleAddToCart = () => {
-    addItem({
-      variantId: 'gid://shopify/ProductVariant/52548934434948',
-      productId: 'gid://shopify/Product/10412787695748',
-      title: 'PFS VITRA',
-      variantTitle: 'Glass Shield Washable Coating',
-      price: { amount: '80.00', currencyCode: 'USD' },
-      quantity: 1,
-      image: null,
-      handle: 'pfs-vitra',
-    });
-    toast.success('PFS VITRA added to cart');
-    setCartOpen(true);
+export default function PfsVitra() {
+  const [quantity, setQuantity] = useState(1);
+
+  const handleBuyNow = () => {
+    // Use Shopify's direct /cart/ URL which bypasses the Storefront Cart API entirely
+    // Format: https://{store}.myshopify.com/cart/{variant_id}:{quantity}
+    const checkoutUrl = `https://${SHOPIFY_DOMAIN}/cart/${VITRA_VARIANT_ID}:${quantity}`;
+    toast.success('Redirecting to checkout...');
+    window.location.href = checkoutUrl;
   };
 
   return (
@@ -96,13 +92,33 @@ export default function PfsVitra() {
                 </div>
               </div>
 
+              {/* Quantity selector */}
+              <div className="flex items-center gap-4 border-t border-white/10 pt-5">
+                <span className="text-white/60 text-sm">Quantity:</span>
+                <div className="flex items-center border border-white/20 rounded-lg overflow-hidden">
+                  <button
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="px-3 py-2 text-white/60 hover:bg-white/10 transition-colors"
+                  >
+                    -
+                  </button>
+                  <span className="px-4 py-2 text-white font-medium min-w-[40px] text-center">{quantity}</span>
+                  <button
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="px-3 py-2 text-white/60 hover:bg-white/10 transition-colors"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
               <div className="pt-4 space-y-3">
                 <Button
-                  onClick={handleAddToCart}
+                  onClick={handleBuyNow}
                   className="w-full bg-blue-500 text-white hover:bg-blue-500/90 font-bold text-base py-6 gap-2"
                 >
                   <ShoppingCart className="h-5 w-5" />
-                  Add to Cart — $80.00
+                  Buy Now — ${(80 * quantity).toFixed(2)}
                 </Button>
               </div>
 
