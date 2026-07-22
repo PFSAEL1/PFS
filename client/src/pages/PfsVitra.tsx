@@ -7,8 +7,8 @@ import { Package, ShieldCheck, Truck, ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-// PFS VITRA variant numeric ID (extracted from gid://shopify/ProductVariant/52548934434948)
-const VITRA_VARIANT_ID = '52548934434948';
+// PFS VITRA variant numeric ID (extracted from gid://shopify/ProductVariant/52549324210308)
+const VITRA_VARIANT_ID = '52549324210308';
 const SHOPIFY_DOMAIN = 'pfsfilters.myshopify.com';
 
 export default function PfsVitra() {
