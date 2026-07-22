@@ -3,23 +3,40 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Package, ShieldCheck, Truck, ShoppingCart } from 'lucide-react';
+import { Package, ShieldCheck, Truck, ShoppingCart, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-// PFS VITRA variant numeric ID (extracted from gid://shopify/ProductVariant/52549324210308)
-const VITRA_VARIANT_ID = '52549324210308';
-const SHOPIFY_DOMAIN = 'pfsfilters.myshopify.com';
+// PFS VITRA variant ID (from Shopify)
+const VITRA_VARIANT_ID = '52549337317508';
 
 export default function PfsVitra() {
   const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-  const handleBuyNow = () => {
-    // Use Shopify's direct /cart/ URL which bypasses the Storefront Cart API entirely
-    // Format: https://{store}.myshopify.com/cart/{variant_id}:{quantity}
-    const checkoutUrl = `https://${SHOPIFY_DOMAIN}/cart/${VITRA_VARIANT_ID}:${quantity}`;
-    toast.success('Redirecting to checkout...');
-    window.location.href = checkoutUrl;
+  const handleBuyNow = async () => {
+    setLoading(true);
+    try {
+      // Use server-side draft order endpoint to bypass Storefront Cart API issue
+      const response = await fetch('/api/consumable-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ variantId: VITRA_VARIANT_ID, quantity }),
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.checkoutUrl) {
+        toast.success('Redirecting to checkout...');
+        window.location.href = data.checkoutUrl;
+      } else {
+        throw new Error(data.error || 'Failed to create checkout');
+      }
+    } catch (error: any) {
+      console.error('Checkout error:', error);
+      toast.error('Unable to process checkout. Please try again or contact us.');
+      setLoading(false);
+    }
   };
 
   return (
@@ -115,10 +132,20 @@ export default function PfsVitra() {
               <div className="pt-4 space-y-3">
                 <Button
                   onClick={handleBuyNow}
+                  disabled={loading}
                   className="w-full bg-blue-500 text-white hover:bg-blue-500/90 font-bold text-base py-6 gap-2"
                 >
-                  <ShoppingCart className="h-5 w-5" />
-                  Buy Now — ${(80 * quantity).toFixed(2)}
+                  {loading ? (
+                    <>
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart className="h-5 w-5" />
+                      Buy Now — ${(80 * quantity).toFixed(2)}
+                    </>
+                  )}
                 </Button>
               </div>
 

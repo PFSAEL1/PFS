@@ -35,6 +35,65 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
+
+  // Consumable product checkout via Shopify Admin draft order
+  // Bypasses Storefront Cart API inventory issue for new products
+  app.post('/api/consumable-checkout', async (req, res) => {
+    try {
+      const shopDomain = process.env.SHOPIFY_SHOP_DOMAIN || 'abc-filter-splash-rwyxj.myshopify.com';
+      const adminToken = process.env.SHOPIFY_ADMIN_TOKEN;
+      if (!adminToken) {
+        return res.status(500).json({ error: 'Admin token not configured' });
+      }
+
+      const { variantId, quantity = 1, email } = req.body;
+      if (!variantId) {
+        return res.status(400).json({ error: 'Missing variantId' });
+      }
+
+      // Extract numeric variant ID from GID format
+      const match = String(variantId).match(/(\d+)$/);
+      const numericId = match ? parseInt(match[1], 10) : parseInt(variantId, 10);
+
+      // Create draft order
+      const draftPayload = {
+        draft_order: {
+          line_items: [{ variant_id: numericId, quantity: quantity }],
+          ...(email ? { email } : {}),
+          use_customer_default_address: true
+        }
+      };
+
+      const createResp = await fetch(
+        `https://${shopDomain}/admin/api/2024-04/draft_orders.json`,
+        {
+          method: 'POST',
+          headers: {
+            'X-Shopify-Access-Token': adminToken,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(draftPayload)
+        }
+      );
+
+      if (!createResp.ok) {
+        const errText = await createResp.text();
+        console.error('[Consumable Checkout] Draft order failed:', errText);
+        return res.status(500).json({ error: 'Failed to create order', details: errText });
+      }
+
+      const { draft_order } = await createResp.json() as any;
+      return res.json({
+        success: true,
+        checkoutUrl: draft_order.invoice_url,
+        orderId: draft_order.id
+      });
+    } catch (err: any) {
+      console.error('[Consumable Checkout] Error:', err);
+      return res.status(500).json({ error: err.message });
+    }
+  });
+
   // tRPC API
   app.use(
     "/api/trpc",
