@@ -17,7 +17,7 @@ export const consumableProducts = [
     currency: 'USD',
     image: null, // null = "coming soon" placeholder
     href: '/consumables/pfs-vitra',
-    externalLink: 'https://totalfinishingsupplies.com/products/like90-glass-shield-washable-coating?variant=44468685734136',
+
     inStock: true,
     badge: 'New',
   },

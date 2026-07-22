@@ -3,10 +3,28 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Package, ExternalLink, ShieldCheck, Truck } from 'lucide-react';
+import { Package, ShieldCheck, Truck, ShoppingCart } from 'lucide-react';
+import { useCartStore } from '@/stores/cartStore';
+import { toast } from 'sonner';
 
 export default function PfsVitra() {
-  const externalLink = 'https://totalfinishingsupplies.com/products/like90-glass-shield-washable-coating?variant=44468685734136';
+  const addItem = useCartStore((s) => s.addItem);
+  const setCartOpen = useCartStore((s) => s.setCartOpen);
+
+  const handleAddToCart = () => {
+    addItem({
+      variantId: 'pfs-vitra-001',
+      productId: 'pfs-vitra',
+      title: 'PFS VITRA',
+      variantTitle: 'Glass Shield Washable Coating',
+      price: { amount: '80.00', currencyCode: 'USD' },
+      quantity: 1,
+      image: null,
+      handle: 'pfs-vitra',
+    });
+    toast.success('PFS VITRA added to cart');
+    setCartOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-[#040404] text-white">
@@ -20,7 +38,7 @@ export default function PfsVitra() {
       {/* Header */}
       <section className="section-darker pt-28 pb-10 px-4">
         <div className="max-w-7xl mx-auto">
-          <Breadcrumb items={[{ label: 'Consumables', href: '/consumables/pfs-vitra' }, { label: 'PFS VITRA' }]} />
+          <Breadcrumb items={[{ label: 'Consumables', href: '/consumables' }, { label: 'PFS VITRA' }]} />
         </div>
       </section>
 
@@ -79,15 +97,13 @@ export default function PfsVitra() {
               </div>
 
               <div className="pt-4 space-y-3">
-                <a href={externalLink} target="_blank" rel="noopener noreferrer">
-                  <Button className="w-full bg-blue-500 text-white hover:bg-blue-500/90 font-bold text-base py-6 gap-2">
-                    <ExternalLink className="h-4 w-4" />
-                    Order Now — $80.00
-                  </Button>
-                </a>
-                <p className="text-center text-white/30 text-xs">
-                  Opens secure checkout page
-                </p>
+                <Button
+                  onClick={handleAddToCart}
+                  className="w-full bg-blue-500 text-white hover:bg-blue-500/90 font-bold text-base py-6 gap-2"
+                >
+                  <ShoppingCart className="h-5 w-5" />
+                  Add to Cart — $80.00
+                </Button>
               </div>
 
               <div className="bg-white/[0.03] border border-white/10 rounded-xl p-4 mt-6">
