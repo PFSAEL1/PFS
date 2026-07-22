@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Package, ShieldCheck, Truck, ShoppingCart, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { trpc } from '@/lib/trpc';
 
 // PFS VITRA variant ID (from Shopify)
 const VITRA_VARIANT_ID = '52549337317508';
@@ -15,23 +14,29 @@ export default function PfsVitra() {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const checkoutMutation = trpc.consumableCheckout.useMutation({
-    onSuccess: (data) => {
-      if (data.checkoutUrl) {
+  const handleBuyNow = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/consumable-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ variantId: VITRA_VARIANT_ID, quantity }),
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.checkoutUrl) {
         toast.success('Redirecting to checkout...');
         window.location.href = data.checkoutUrl;
+      } else {
+        throw new Error(data.error || 'Failed to create checkout');
       }
-    },
-    onError: (error) => {
+    } catch (error: any) {
       console.error('Checkout error:', error);
       toast.error('Unable to process checkout. Please try again or contact us.');
+    } finally {
       setLoading(false);
-    },
-  });
-
-  const handleBuyNow = () => {
-    setLoading(true);
-    checkoutMutation.mutate({ variantId: VITRA_VARIANT_ID, quantity });
+    }
   };
 
   return (
@@ -127,10 +132,10 @@ export default function PfsVitra() {
               <div className="pt-4 space-y-3">
                 <Button
                   onClick={handleBuyNow}
-                  disabled={loading || checkoutMutation.isPending}
+                  disabled={loading}
                   className="w-full bg-blue-500 text-white hover:bg-blue-500/90 font-bold text-base py-6 gap-2"
                 >
-                  {(loading || checkoutMutation.isPending) ? (
+                  {loading ? (
                     <>
                       <Loader2 className="h-5 w-5 animate-spin" />
                       Processing...
