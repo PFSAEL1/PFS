@@ -44,6 +44,53 @@ export const appRouter = router({
     }),
   }),
 
+  consumableCheckout: publicProcedure
+    .input(z.object({ variantId: z.string(), quantity: z.number().min(1).default(1) }))
+    .mutation(async ({ input }) => {
+      const shopDomain = process.env.SHOPIFY_SHOP_DOMAIN || 'abc-filter-splash-rwyxj.myshopify.com';
+      const adminToken = process.env.SHOPIFY_ADMIN_TOKEN;
+      if (!adminToken) {
+        throw new Error('Checkout service unavailable');
+      }
+
+      // Extract numeric variant ID
+      const match = String(input.variantId).match(/(\d+)$/);
+      const numericId = match ? parseInt(match[1], 10) : parseInt(input.variantId, 10);
+
+      // Create draft order via REST Admin API
+      const draftPayload = {
+        draft_order: {
+          line_items: [{ variant_id: numericId, quantity: input.quantity }],
+          use_customer_default_address: true
+        }
+      };
+
+      const createResp = await fetch(
+        `https://${shopDomain}/admin/api/2024-04/draft_orders.json`,
+        {
+          method: 'POST',
+          headers: {
+            'X-Shopify-Access-Token': adminToken,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(draftPayload)
+        }
+      );
+
+      if (!createResp.ok) {
+        const errText = await createResp.text();
+        console.error('[ConsumableCheckout] Draft order failed:', errText);
+        throw new Error('Failed to create checkout');
+      }
+
+      const { draft_order } = await createResp.json() as any;
+      return {
+        success: true,
+        checkoutUrl: draft_order.invoice_url,
+        orderId: draft_order.id
+      };
+    }),
+
   orders: router({
     // Get customer's past orders from Shopify
     list: protectedProcedure
