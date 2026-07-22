@@ -4,36 +4,78 @@ import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Package, ShieldCheck, Truck, ShoppingCart, Loader2 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 
-// PFS VITRA variant ID (from Shopify)
-const VITRA_VARIANT_ID = '52549337317508';
+// PFS VITRA Shopify Product ID (numeric)
+const SHOPIFY_PRODUCT_ID = '10413119733892';
+const SHOPIFY_DOMAIN = 'abc-filter-splash-rwyxj.myshopify.com';
+const STOREFRONT_TOKEN = '5e357a0ae8e9906edb44ef570a4ed219';
 
 export default function PfsVitra() {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(false);
+  const buyClientRef = useRef<any>(null);
+
+  useEffect(() => {
+    // Load Shopify Buy SDK
+    const script = document.createElement('script');
+    script.src = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+    script.async = true;
+    script.onload = () => {
+      // Initialize the Buy SDK client
+      if ((window as any).ShopifyBuy) {
+        const client = (window as any).ShopifyBuy.buildClient({
+          domain: SHOPIFY_DOMAIN,
+          storefrontAccessToken: STOREFRONT_TOKEN,
+        });
+        buyClientRef.current = client;
+      }
+    };
+    document.head.appendChild(script);
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
   const handleBuyNow = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/consumable-checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ variantId: VITRA_VARIANT_ID, quantity }),
-      });
+      const client = buyClientRef.current;
+      if (!client) {
+        throw new Error('Shop client not loaded yet. Please wait a moment and try again.');
+      }
 
-      const data = await response.json();
+      // Fetch the product using the Buy SDK
+      const productId = `gid://shopify/Product/${SHOPIFY_PRODUCT_ID}`;
+      const product = await client.product.fetch(productId);
+      
+      if (!product || !product.variants || product.variants.length === 0) {
+        throw new Error('Product not found');
+      }
 
-      if (data.success && data.checkoutUrl) {
+      const variant = product.variants[0];
+
+      // Create a checkout using the Buy SDK (this bypasses the Storefront Cart API)
+      const checkout = await client.checkout.create();
+      
+      // Add the item to the checkout
+      const lineItemsToAdd = [{
+        variantId: variant.id,
+        quantity: quantity,
+      }];
+      
+      const updatedCheckout = await client.checkout.addLineItems(checkout.id, lineItemsToAdd);
+      
+      if (updatedCheckout && updatedCheckout.webUrl) {
         toast.success('Redirecting to checkout...');
-        window.location.href = data.checkoutUrl;
+        window.location.href = updatedCheckout.webUrl;
       } else {
-        throw new Error(data.error || 'Failed to create checkout');
+        throw new Error('Failed to create checkout');
       }
     } catch (error: any) {
       console.error('Checkout error:', error);
-      toast.error('Unable to process checkout. Please try again or contact us.');
+      toast.error(error.message || 'Unable to process checkout. Please try again or contact us.');
     } finally {
       setLoading(false);
     }
