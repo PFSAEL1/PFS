@@ -30,6 +30,7 @@ import FilterDatabase from './pages/FilterDatabase';
 import CategoryPage from './pages/CategoryPage';
 import PaintBoothFilters from './pages/PaintBoothFilters';
 import NotFound from './pages/NotFound';
+import PfsVitra from './pages/PfsVitra';
 
 // Light version pages (kept in codebase but not routed in production)
 function Router() {
@@ -66,6 +67,7 @@ function Router() {
 
       {/* Category pages — filtered by slug */}
       <Route path="/category/:slug" component={CategoryPage} />
+      <Route path="/consumables/pfs-vitra" component={PfsVitra} />
 
       {/* Features */}
       <Route path="/filter-scanner" component={FilterScanner} />
