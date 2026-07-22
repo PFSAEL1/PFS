@@ -10,6 +10,7 @@ import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 import { TierMedal } from '@/components/TierMedal';
+import { consumableProducts } from '@/pages/Consumables';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
@@ -157,6 +158,50 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
         </div>
       )}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {/* Local consumable products (PFS VITRA etc.) */}
+        {!categoryFilter && !sizeFilter && consumableProducts.map((cp) => (
+          <div key={cp.id} className="glow-card group">
+            <Link href={cp.href}>
+              <div className="product-img-wrap relative aspect-square overflow-hidden cursor-pointer">
+                {cp.badge && (
+                  <span className="absolute top-3 left-3 z-10 px-2 py-0.5 text-xs font-bold bg-blue-500 text-white rounded-full">
+                    {cp.badge}
+                  </span>
+                )}
+                {cp.image ? (
+                  <img src={cp.image} alt={cp.title} className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300" />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center p-6">
+                    <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+                      <Package className="h-8 w-8 text-white/20" />
+                    </div>
+                    <p className="text-white/30 text-sm font-medium">Image Coming Soon</p>
+                    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo-transparent_e33888bf.png" alt="PFS Filters" className="w-20 opacity-15 mt-4" />
+                  </div>
+                )}
+              </div>
+            </Link>
+            <div className="p-4">
+              <Link href={cp.href}>
+                <h3 className="font-semibold text-sm leading-tight mb-1 hover:text-blue-400 transition-colors line-clamp-2">
+                  {cp.title}
+                </h3>
+              </Link>
+              <p className="text-white/40 text-xs mb-2">{cp.subtitle}</p>
+              <div className="flex items-center justify-between mt-2 mb-3">
+                <span className="font-bold text-blue-400">
+                  ${cp.price.toFixed(2)} <span className="text-xs font-normal text-white/70">{cp.currency}</span>
+                </span>
+              </div>
+              <Link href={cp.href}>
+                <Button size="sm" className="w-full bg-blue-500 text-white hover:bg-blue-500/90 gap-2">
+                  <ShoppingCart className="h-3.5 w-3.5" />
+                  View Product
+                </Button>
+              </Link>
+            </div>
+          </div>
+        ))}
         {products.map((product) => {
           const variant = product.node.variants.edges[0]?.node;
           const image = product.node.images.edges[0]?.node.url || FALLBACK_IMAGE;
