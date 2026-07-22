@@ -115,6 +115,9 @@ export const Navigation = () => {
                     <Link href="/consumables" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
                       Consumables
                     </Link>
+                    <Link href="/aerospace" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+                      Aerospace Filters
+                    </Link>
                     <div className="border-t border-white/10 my-1.5 mx-3"></div>
                     <div className="px-3 py-1.5 text-xs font-semibold text-white/30 uppercase tracking-wider">Info</div>
                     <Link href="/why-choose-us" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
@@ -219,6 +222,7 @@ export const Navigation = () => {
               <Link href="/brands" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Brands</Link>
               <Link href="/filter-compatibility" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Filter Compatibility</Link>
               <Link href="/consumables" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Consumables</Link>
+              <Link href="/aerospace" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Aerospace Filters</Link>
               <Link href="/why-choose-us" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Why Choose Us</Link>
               <Link href="/memberships" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Memberships</Link>
               <Link href="/blog" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Blog</Link>

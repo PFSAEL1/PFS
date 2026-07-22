@@ -32,6 +32,7 @@ import PaintBoothFilters from './pages/PaintBoothFilters';
 import NotFound from './pages/NotFound';
 import PfsVitra from './pages/PfsVitra';
 import Consumables from './pages/Consumables';
+import Aerospace from './pages/Aerospace';
 
 // Light version pages (kept in codebase but not routed in production)
 function Router() {
@@ -70,6 +71,7 @@ function Router() {
       <Route path="/category/:slug" component={CategoryPage} />
       <Route path="/consumables" component={Consumables} />
       <Route path="/consumables/pfs-vitra" component={PfsVitra} />
+      <Route path="/aerospace" component={Aerospace} />
 
       {/* Features */}
       <Route path="/filter-scanner" component={FilterScanner} />
