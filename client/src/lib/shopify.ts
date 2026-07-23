@@ -432,31 +432,66 @@ export async function createStorefrontCheckout(items: CartItem[], discountCode?:
   const regularItems = items.filter(item => !DIRECT_CHECKOUT_VARIANTS[item.variantId]);
   const directItems = items.filter(item => DIRECT_CHECKOUT_VARIANTS[item.variantId]);
 
-  // If ALL items are direct-checkout items, use Shopify's /cart/VARIANT:QTY format
-  // This creates a server-side cart and redirects to standard checkout (not Shop Pay)
+  // If ALL items are direct-checkout items, use server-side API to resolve checkout URL
+  // The Shopify theme redirects /cart/ URLs to the headless storefront, so we need
+  // to resolve the actual /checkouts/ URL server-side where theme JS doesn't execute
   if (regularItems.length === 0 && directItems.length > 0) {
-    const cartItems = directItems.map(item => {
-      const numericId = DIRECT_CHECKOUT_VARIANTS[item.variantId];
-      return `${numericId}:${item.quantity}`;
-    }).join(',');
-    let url = `https://pfsfilters.myshopify.com/cart/${cartItems}`;
-    if (discountCode) url += `?discount=${encodeURIComponent(discountCode)}`;
-    console.log('[Shopify Cart] Using direct cart URL for special items:', url);
-    return url;
+    // For now, just use the first item (most common case is single PFS VITRA purchase)
+    const item = directItems[0];
+    const numericId = DIRECT_CHECKOUT_VARIANTS[item.variantId];
+    console.log('[Shopify Cart] Resolving checkout URL via server for variant:', numericId);
+    
+    const response = await fetch('/api/direct-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        variantId: numericId,
+        quantity: item.quantity,
+        discountCode,
+      }),
+    });
+    
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(`Checkout failed: ${(err as any).error || response.statusText}`);
+    }
+    
+    const data = await response.json();
+    if (data.checkoutUrl) {
+      console.log('[Shopify Cart] Resolved checkout URL:', data.checkoutUrl);
+      return data.checkoutUrl;
+    }
+    throw new Error('No checkout URL returned from server');
   }
 
-  // If there's a mix of regular + direct items, build a combined /cart/ URL
+  // If there's a mix of regular + direct items, use server-side API for all items
   // (the Storefront Cart API would drop the direct items)
   if (directItems.length > 0 && regularItems.length > 0) {
     const allItems = [...regularItems, ...directItems];
-    const cartItems = allItems.map(item => {
-      const numericId = DIRECT_CHECKOUT_VARIANTS[item.variantId] || item.variantId.split('/').pop();
-      return `${numericId}:${item.quantity}`;
-    }).join(',');
-    let url = `https://pfsfilters.myshopify.com/cart/${cartItems}`;
-    if (discountCode) url += `?discount=${encodeURIComponent(discountCode)}`;
-    console.log('[Shopify Cart] Using direct cart URL for mixed cart:', url);
-    return url;
+    // Build cart string: variant1:qty1,variant2:qty2
+    const firstItem = allItems[0];
+    const numericId = DIRECT_CHECKOUT_VARIANTS[firstItem.variantId] || firstItem.variantId.split('/').pop();
+    console.log('[Shopify Cart] Resolving mixed checkout URL via server');
+    
+    const response = await fetch('/api/direct-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        variantId: numericId,
+        quantity: firstItem.quantity,
+        discountCode,
+      }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Mixed checkout failed');
+    }
+    
+    const data = await response.json();
+    if (data.checkoutUrl) {
+      return data.checkoutUrl;
+    }
+    throw new Error('No checkout URL returned from server');
   }
 
   // Standard flow: all regular items go through Storefront Cart API
