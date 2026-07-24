@@ -435,7 +435,7 @@ export default function Auth() {
             alt="PFS Filters"
             style={{
               width: '250px',
-              filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))',
+              filter: 'brightness(1.8) drop-shadow(0 0 25px rgba(59, 130, 246, 0.5))',
               objectFit: 'contain',
             }}
           />
@@ -443,11 +443,11 @@ export default function Auth() {
 
         {/* Card with form - matches desktop layout */}
         <div className="relative z-10 w-full max-w-sm mt-8">
-          <div className="bg-[#1a1a1a]/90 border border-white/10 rounded-2xl p-8 shadow-2xl">
+          <div className="bg-[#111111] border border-white/5 rounded-2xl p-8 shadow-2xl">
             {/* Spacer for the logo above */}
             <div className="flex justify-center mb-6" style={{ height: '80px' }} />
 
-            <p className="text-white/50 text-sm text-center mb-4">
+            <p className="text-white/70 text-sm text-center mb-4">
               {activeTab === 'signin' ? 'Sign in to your account' : 'Create your PFS Filters account'}
             </p>
 
@@ -455,7 +455,7 @@ export default function Auth() {
             {activeTab === 'signin' && (
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div className="space-y-1.5">
-                  <Label htmlFor="signin-email" className="text-white/70 text-sm">Email</Label>
+                  <Label htmlFor="signin-email" className="text-white text-sm font-medium">Email</Label>
                   <Input
                     id="signin-email"
                     type="email"
@@ -465,16 +465,16 @@ export default function Auth() {
                     placeholder="your@email.com"
                     required
                     autoComplete="email"
-                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20 text-[16px] h-11"
+                    className="bg-black border-white/20 text-white placeholder:text-white/40 focus:border-blue-500/50 focus:ring-blue-500/20 text-[16px] h-11"
                   />
                 </div>
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="signin-password" className="text-white/70 text-sm">Password</Label>
+                    <Label htmlFor="signin-password" className="text-white text-sm font-medium">Password</Label>
                     <button
                       type="button"
                       onClick={() => setForgotPassword(true)}
-                      className="text-xs text-white/40 active:text-white/70"
+                      className="text-xs text-white/60 active:text-white"
                     >
                       Forgot password?
                     </button>
@@ -487,12 +487,12 @@ export default function Auth() {
                     placeholder="••••••••"
                     required
                     autoComplete="current-password"
-                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20 text-[16px] h-11"
+                    className="bg-black border-white/20 text-white placeholder:text-white/40 focus:border-blue-500/50 focus:ring-blue-500/20 text-[16px] h-11"
                   />
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-white text-black font-semibold active:bg-white/80 h-12 text-base"
+                  className="w-full bg-white text-black font-bold active:bg-white/80 h-12 text-base"
                   disabled={loading}
                 >
                   {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Sign In'}
@@ -504,7 +504,7 @@ export default function Auth() {
             {activeTab === 'signup' && (
               <form onSubmit={handleSignUp} className="space-y-3">
                 <div className="space-y-1.5">
-                  <Label htmlFor="signup-name" className="text-white/70 text-sm">Full Name</Label>
+                  <Label htmlFor="signup-name" className="text-white text-sm font-medium">Full Name</Label>
                   <Input
                     id="signup-name"
                     value={signUpData.name}
@@ -512,11 +512,11 @@ export default function Auth() {
                     placeholder="Your name"
                     required
                     autoComplete="name"
-                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20 text-[16px] h-11"
+                    className="bg-black border-white/20 text-white placeholder:text-white/40 focus:border-blue-500/50 focus:ring-blue-500/20 text-[16px] h-11"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="signup-email" className="text-white/70 text-sm">Email</Label>
+                  <Label htmlFor="signup-email" className="text-white text-sm font-medium">Email</Label>
                   <Input
                     id="signup-email"
                     type="email"
@@ -526,11 +526,11 @@ export default function Auth() {
                     placeholder="your@email.com"
                     required
                     autoComplete="email"
-                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20 text-[16px] h-11"
+                    className="bg-black border-white/20 text-white placeholder:text-white/40 focus:border-blue-500/50 focus:ring-blue-500/20 text-[16px] h-11"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="signup-password" className="text-white/70 text-sm">Password</Label>
+                  <Label htmlFor="signup-password" className="text-white text-sm font-medium">Password</Label>
                   <Input
                     id="signup-password"
                     type="password"
@@ -539,11 +539,11 @@ export default function Auth() {
                     placeholder="••••••••"
                     required
                     autoComplete="new-password"
-                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20 text-[16px] h-11"
+                    className="bg-black border-white/20 text-white placeholder:text-white/40 focus:border-blue-500/50 focus:ring-blue-500/20 text-[16px] h-11"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="signup-confirm" className="text-white/70 text-sm">Confirm Password</Label>
+                  <Label htmlFor="signup-confirm" className="text-white text-sm font-medium">Confirm Password</Label>
                   <Input
                     id="signup-confirm"
                     type="password"
@@ -552,12 +552,12 @@ export default function Auth() {
                     placeholder="••••••••"
                     required
                     autoComplete="new-password"
-                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20 text-[16px] h-11"
+                    className="bg-black border-white/20 text-white placeholder:text-white/40 focus:border-blue-500/50 focus:ring-blue-500/20 text-[16px] h-11"
                   />
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-white text-black font-semibold active:bg-white/80 h-12 text-base"
+                  className="w-full bg-white text-black font-bold active:bg-white/80 h-12 text-base"
                   disabled={loading}
                 >
                   {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Create Account'}
@@ -570,7 +570,7 @@ export default function Auth() {
               <button
                 type="button"
                 onClick={() => setActiveTab(activeTab === 'signin' ? 'signup' : 'signin')}
-                className="text-sm text-white/50 active:text-white"
+                className="text-sm text-white/60 active:text-white"
               >
                 {activeTab === 'signin'
                   ? "Don't have an account? Sign up"
