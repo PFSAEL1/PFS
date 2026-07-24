@@ -10,11 +10,25 @@ import { toast } from 'sonner';
 
 const LOGO_URL = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo-transparent_e33888bf.png';
 
-// Floating particles background component
-function ParticleBackground() {
+// Check if device is mobile/low-power
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
+}
+
+// Lightweight particle background - disabled on mobile to prevent freezing
+function ParticleBackground({ disabled }: { disabled?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    if (disabled) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -30,16 +44,16 @@ function ParticleBackground() {
     resize();
     window.addEventListener('resize', resize);
 
-    // Create particles
-    const particleCount = 60;
+    // Reduced particle count for better performance
+    const particleCount = 30;
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        size: Math.random() * 3 + 1,
-        opacity: Math.random() * 0.5 + 0.1,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 2.5 + 1,
+        opacity: Math.random() * 0.4 + 0.1,
       });
     }
 
@@ -70,7 +84,9 @@ function ParticleBackground() {
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', resize);
     };
-  }, []);
+  }, [disabled]);
+
+  if (disabled) return null;
 
   return (
     <canvas
@@ -89,12 +105,13 @@ export default function Auth() {
   const [signUpData, setSignUpData] = useState({ email: '', password: '', confirmPassword: '', name: '' });
   const [forgotPassword, setForgotPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
+  const isMobile = useIsMobile();
 
-  // Cinematic intro animation state
-  // 'intro' = big logo centered with breathing glow
-  // 'shrinking' = logo physically shrinks and moves up, card appears
-  // 'done' = final state, everything settled
-  const [animState, setAnimState] = useState<'intro' | 'shrinking' | 'done'>('intro');
+  // Cinematic intro animation state - skip on mobile to prevent freezing
+  const [animState, setAnimState] = useState<'intro' | 'shrinking' | 'done'>(
+    // On mobile, skip directly to 'done' state to avoid heavy animations
+    typeof window !== 'undefined' && window.innerWidth < 768 ? 'done' : 'intro'
+  );
 
   // Invite/recovery flow state
   const [isInviteFlow, setIsInviteFlow] = useState(false);
@@ -104,14 +121,13 @@ export default function Auth() {
   const [passwordSet, setPasswordSet] = useState(false);
   const [checkingSession, setCheckingSession] = useState(true);
 
-  // Animation timing
+  // Animation timing - only run on desktop
   useEffect(() => {
-    // After 2s of the big logo with breathing glow, start shrinking
+    if (isMobile || animState === 'done') return;
     const t1 = setTimeout(() => setAnimState('shrinking'), 2000);
-    // After the shrink animation completes (~1.2s), mark as done
     const t2 = setTimeout(() => setAnimState('done'), 3400);
     return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -287,9 +303,9 @@ export default function Auth() {
           canonical="https://pfsfilters.com/auth"
           noIndex
         />
-        <ParticleBackground />
+        <ParticleBackground disabled={isMobile} />
         <div className="relative z-10 w-full max-w-sm mx-4">
-          <div className="bg-[#1a1a1a]/90 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl">
+          <div className="bg-[#1a1a1a]/90 border border-white/10 rounded-2xl p-8 shadow-2xl">
             <div className="flex justify-center mb-6">
               <img src={LOGO_URL} alt="PFS Filters" className="h-10 object-contain" />
             </div>
@@ -358,9 +374,9 @@ export default function Auth() {
           canonical="https://pfsfilters.com/auth"
           noIndex
         />
-        <ParticleBackground />
+        <ParticleBackground disabled={isMobile} />
         <div className="relative z-10 w-full max-w-sm mx-4">
-          <div className="bg-[#1a1a1a]/90 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl">
+          <div className="bg-[#1a1a1a]/90 border border-white/10 rounded-2xl p-8 shadow-2xl">
             <div className="flex justify-center mb-6">
               <img src={LOGO_URL} alt="PFS Filters" className="h-10 object-contain" />
             </div>
@@ -401,7 +417,7 @@ export default function Auth() {
     );
   }
 
-  // Main auth view with cinematic intro
+  // Main auth view - mobile gets a clean, instant-load version; desktop gets cinematic intro
   return (
     <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center relative overflow-hidden">
       <SEO
@@ -410,94 +426,107 @@ export default function Auth() {
         canonical="https://pfsfilters.com/auth"
         noIndex
       />
-      <ParticleBackground />
+      <ParticleBackground disabled={isMobile} />
 
-      {/* CSS Animations */}
-      <style>{`
-        @keyframes breathingGlow {
-          0%, 100% { 
-            filter: drop-shadow(0 0 40px rgba(59, 130, 246, 0.4)) drop-shadow(0 0 80px rgba(59, 130, 246, 0.2));
+      {/* CSS Animations - only used on desktop */}
+      {!isMobile && (
+        <style>{`
+          @keyframes breathingGlow {
+            0%, 100% { 
+              filter: drop-shadow(0 0 40px rgba(59, 130, 246, 0.4)) drop-shadow(0 0 80px rgba(59, 130, 246, 0.2));
+            }
+            50% { 
+              filter: drop-shadow(0 0 70px rgba(59, 130, 246, 0.7)) drop-shadow(0 0 140px rgba(59, 130, 246, 0.4));
+            }
           }
-          50% { 
-            filter: drop-shadow(0 0 70px rgba(59, 130, 246, 0.7)) drop-shadow(0 0 140px rgba(59, 130, 246, 0.4));
+          @keyframes logoAppear {
+            0% { transform: scale(0.6); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
           }
-        }
-        @keyframes logoAppear {
-          0% { transform: scale(0.6); opacity: 0; }
-          100% { transform: scale(1); opacity: 1; }
-        }
-        @keyframes cardReveal {
-          0% { opacity: 0; transform: translateY(30px) scale(0.96); }
-          100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes formFadeIn {
-          0% { opacity: 0; transform: translateY(15px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        .logo-breathing {
-          animation: breathingGlow 2.5s ease-in-out infinite, logoAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .card-reveal {
-          animation: cardReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .form-fade-in {
-          animation: formFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-          opacity: 0;
-        }
-      `}</style>
+          @keyframes cardReveal {
+            0% { opacity: 0; transform: translateY(30px) scale(0.96); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+          }
+          @keyframes formFadeIn {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+          .logo-breathing {
+            animation: breathingGlow 2.5s ease-in-out infinite, logoAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          }
+          .card-reveal {
+            animation: cardReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          }
+          .form-fade-in {
+            animation: formFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+            opacity: 0;
+          }
+        `}</style>
+      )}
 
-      {/* 
-        The logo is ONE continuous element:
-        - 'intro': Large (340px), centered on screen, breathing glow, zooms in from 60%
-        - 'shrinking': Shrinks down and moves up into the card's logo position
-        - 'done': Settled at final size/position (becomes the card logo)
-      */}
-      <div
-        className="fixed inset-0 flex items-center justify-center z-30 pointer-events-none"
-        style={{
-          transition: animState !== 'intro' 
-            ? 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)' 
-            : 'none',
-          transform: animState === 'intro' 
-            ? 'translateY(0)' 
-            : 'translateY(-168px)',
-        }}
-      >
-        <img
-          src={LOGO_URL}
-          alt="PFS Filters"
-          className={animState === 'intro' ? 'logo-breathing' : ''}
+      {/* Logo animation - only on desktop */}
+      {!isMobile && (
+        <div
+          className="fixed inset-0 flex items-center justify-center z-30 pointer-events-none"
           style={{
-            width: animState === 'intro' ? '340px' : '250px',
-            transition: animState !== 'intro'
-              ? 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease-out'
+            transition: animState !== 'intro' 
+              ? 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)' 
               : 'none',
-            filter: animState !== 'intro' 
-              ? 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))' 
-              : undefined,
-            objectFit: 'contain',
+            transform: animState === 'intro' 
+              ? 'translateY(0)' 
+              : 'translateY(-168px)',
           }}
-        />
-      </div>
+        >
+          <img
+            src={LOGO_URL}
+            alt="PFS Filters"
+            className={animState === 'intro' ? 'logo-breathing' : ''}
+            style={{
+              width: animState === 'intro' ? '340px' : '250px',
+              transition: animState !== 'intro'
+                ? 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease-out'
+                : 'none',
+              filter: animState !== 'intro' 
+                ? 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))' 
+                : undefined,
+              objectFit: 'contain',
+            }}
+          />
+        </div>
+      )}
 
-      {/* Card with form - appears after logo starts shrinking */}
+      {/* Card with form */}
       <div
         className={`relative z-10 w-full max-w-sm mx-4 ${
-          animState !== 'intro' ? 'card-reveal' : ''
+          !isMobile && animState !== 'intro' ? 'card-reveal' : ''
         }`}
         style={{
-          opacity: animState === 'intro' ? 0 : undefined,
-          visibility: animState === 'intro' ? 'hidden' : 'visible',
+          opacity: !isMobile && animState === 'intro' ? 0 : 1,
+          visibility: !isMobile && animState === 'intro' ? 'hidden' : 'visible',
         }}
       >
-        <div className="bg-[#1a1a1a]/90 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl">
-          {/* Spacer for the logo that moves into this position */}
-          <div className="flex justify-center mb-6" style={{ height: '110px' }}>
-            {/* The floating logo above lands here — this is just a spacer */}
-          </div>
+        <div className="bg-[#1a1a1a]/90 border border-white/10 rounded-2xl p-8 shadow-2xl">
+          {/* Logo area */}
+          {isMobile ? (
+            // Mobile: static logo directly in the card
+            <div className="flex justify-center mb-6">
+              <img
+                src={LOGO_URL}
+                alt="PFS Filters"
+                className="h-12 object-contain"
+                style={{ filter: 'drop-shadow(0 0 15px rgba(59, 130, 246, 0.3))' }}
+              />
+            </div>
+          ) : (
+            // Desktop: spacer for the floating logo that animates into position
+            <div className="flex justify-center mb-6" style={{ height: '110px' }} />
+          )}
 
-          {/* Form content with staggered fade-in */}
-          <div className={animState !== 'intro' ? 'form-fade-in' : ''} style={{ opacity: animState === 'intro' ? 0 : undefined }}>
+          {/* Form content */}
+          <div
+            className={!isMobile && animState !== 'intro' ? 'form-fade-in' : ''}
+            style={{ opacity: !isMobile && animState === 'intro' ? 0 : 1 }}
+          >
             <p className="text-white/50 text-sm text-center mb-4">
               {activeTab === 'signin' ? 'Sign in to your account' : 'Create your PFS Filters account'}
             </p>
@@ -514,7 +543,8 @@ export default function Auth() {
                     onChange={(e) => setSignInData((p) => ({ ...p, email: e.target.value }))}
                     placeholder="your@email.com"
                     required
-                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                    autoComplete="email"
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20 text-base"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -535,12 +565,13 @@ export default function Auth() {
                     onChange={(e) => setSignInData((p) => ({ ...p, password: e.target.value }))}
                     placeholder="••••••••"
                     required
-                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                    autoComplete="current-password"
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20 text-base"
                   />
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
+                  className="w-full bg-white text-black font-semibold hover:bg-white/90 transition-colors h-11"
                   disabled={loading}
                 >
                   {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Sign In'}
@@ -559,7 +590,8 @@ export default function Auth() {
                     onChange={(e) => setSignUpData((p) => ({ ...p, name: e.target.value }))}
                     placeholder="Your name"
                     required
-                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                    autoComplete="name"
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20 text-base"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -571,7 +603,8 @@ export default function Auth() {
                     onChange={(e) => setSignUpData((p) => ({ ...p, email: e.target.value }))}
                     placeholder="your@email.com"
                     required
-                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                    autoComplete="email"
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20 text-base"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -583,7 +616,8 @@ export default function Auth() {
                     onChange={(e) => setSignUpData((p) => ({ ...p, password: e.target.value }))}
                     placeholder="••••••••"
                     required
-                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                    autoComplete="new-password"
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20 text-base"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -595,12 +629,13 @@ export default function Auth() {
                     onChange={(e) => setSignUpData((p) => ({ ...p, confirmPassword: e.target.value }))}
                     placeholder="••••••••"
                     required
-                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20"
+                    autoComplete="new-password"
+                    className="bg-[#0a0a0a] border-white/10 text-white placeholder:text-white/30 focus:border-blue-500/50 focus:ring-blue-500/20 text-base"
                   />
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
+                  className="w-full bg-white text-black font-semibold hover:bg-white/90 transition-colors h-11"
                   disabled={loading}
                 >
                   {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Create Account'}
