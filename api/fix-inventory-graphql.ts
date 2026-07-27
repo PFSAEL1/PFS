@@ -3,120 +3,95 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 const SHOPIFY_SHOP_DOMAIN = process.env.SHOPIFY_SHOP_DOMAIN || 'abc-filter-splash-rwyxj.myshopify.com';
 const SHOPIFY_ADMIN_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN || '';
 
+async function graphql(query: string) {
+  const resp = await fetch(
+    `https://${SHOPIFY_SHOP_DOMAIN}/admin/api/2024-04/graphql.json`,
+    {
+      method: 'POST',
+      headers: {
+        'X-Shopify-Access-Token': SHOPIFY_ADMIN_TOKEN,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query }),
+    }
+  );
+  return resp.json();
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (req.body?.secret !== 'pfs-fix-2026') return res.status(403).json({ error: 'Forbidden' });
   if (!SHOPIFY_ADMIN_TOKEN) return res.status(500).json({ error: 'Admin token not configured' });
 
-  const variantGid = req.body?.variantGid || 'gid://shopify/ProductVariant/52549337317508';
-  const productGid = req.body?.productGid || 'gid://shopify/Product/10413119733892';
-
-  const results: any = { steps: [] };
+  const variantGid = 'gid://shopify/ProductVariant/52549337317508';
+  const productGid = 'gid://shopify/Product/10413119733892';
+  const results: any[] = [];
 
   try {
-    // Step 1: Try to set inventory_policy to "continue" using productVariantUpdate
-    // This allows selling even when out of stock
-    const variantUpdateMutation = `
-      mutation {
-        productVariantUpdate(input: {
-          id: "${variantGid}"
-          inventoryPolicy: CONTINUE
-        }) {
-          productVariant {
-            id
-            inventoryPolicy
-            inventoryManagement
-          }
-          userErrors {
-            field
-            message
-          }
-        }
-      }
-    `;
-
-    const step1Resp = await fetch(
-      `https://${SHOPIFY_SHOP_DOMAIN}/admin/api/2024-04/graphql.json`,
-      {
-        method: 'POST',
-        headers: {
-          'X-Shopify-Access-Token': SHOPIFY_ADMIN_TOKEN,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query: variantUpdateMutation }),
-      }
-    );
-    const step1Data = await step1Resp.json() as any;
-    results.steps.push({ name: 'productVariantUpdate (CONTINUE policy)', status: step1Resp.status, data: step1Data });
-
-    // Step 2: Try to disable inventory tracking entirely
-    const disableTrackingMutation = `
-      mutation {
-        productVariantUpdate(input: {
-          id: "${variantGid}"
-          inventoryManagement: null
-        }) {
-          productVariant {
-            id
-            inventoryPolicy
-            inventoryManagement
-          }
-          userErrors {
-            field
-            message
-          }
-        }
-      }
-    `;
-
-    const step2Resp = await fetch(
-      `https://${SHOPIFY_SHOP_DOMAIN}/admin/api/2024-04/graphql.json`,
-      {
-        method: 'POST',
-        headers: {
-          'X-Shopify-Access-Token': SHOPIFY_ADMIN_TOKEN,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query: disableTrackingMutation }),
-      }
-    );
-    const step2Data = await step2Resp.json() as any;
-    results.steps.push({ name: 'productVariantUpdate (disable tracking)', status: step2Resp.status, data: step2Data });
-
-    // Step 3: Try inventoryItemUpdate to disable tracking at the item level
-    // First get the inventory item ID
-    const getItemQuery = `
+    // Step 1: Get the inventory item ID and current state
+    const infoQuery = `
       query {
         productVariant(id: "${variantGid}") {
           id
+          title
+          inventoryPolicy
           inventoryItem {
             id
             tracked
+            inventoryLevels(first: 5) {
+              edges {
+                node {
+                  id
+                  location {
+                    id
+                    name
+                  }
+                  quantities(names: ["available"]) {
+                    name
+                    quantity
+                  }
+                }
+              }
+            }
           }
-          inventoryPolicy
-          inventoryManagement
         }
       }
     `;
+    const info = await graphql(infoQuery) as any;
+    results.push({ step: 'get_info', data: info });
 
-    const step3Resp = await fetch(
-      `https://${SHOPIFY_SHOP_DOMAIN}/admin/api/2024-04/graphql.json`,
-      {
-        method: 'POST',
-        headers: {
-          'X-Shopify-Access-Token': SHOPIFY_ADMIN_TOKEN,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query: getItemQuery }),
+    const inventoryItemId = info?.data?.productVariant?.inventoryItem?.id;
+    const tracked = info?.data?.productVariant?.inventoryItem?.tracked;
+    const currentPolicy = info?.data?.productVariant?.inventoryPolicy;
+    const levels = info?.data?.productVariant?.inventoryItem?.inventoryLevels?.edges;
+    const locationId = levels?.[0]?.node?.location?.id;
+
+    // Step 2: Set inventory policy to CONTINUE (sell when out of stock)
+    const policyMutation = `
+      mutation {
+        productVariantsBulkUpdate(
+          productId: "${productGid}"
+          variants: [{
+            id: "${variantGid}"
+            inventoryPolicy: CONTINUE
+          }]
+        ) {
+          productVariants {
+            id
+            inventoryPolicy
+          }
+          userErrors {
+            field
+            message
+          }
+        }
       }
-    );
-    const step3Data = await step3Resp.json() as any;
-    results.steps.push({ name: 'query variant info', status: step3Resp.status, data: step3Data });
+    `;
+    const policyResult = await graphql(policyMutation) as any;
+    results.push({ step: 'set_policy_continue', data: policyResult });
 
-    const inventoryItemId = step3Data?.data?.productVariant?.inventoryItem?.id;
-
+    // Step 3: Untrack inventory (set tracked to false)
     if (inventoryItemId) {
-      // Step 4: Set tracked to false on the inventory item
       const untrackMutation = `
         mutation {
           inventoryItemUpdate(id: "${inventoryItemId}", input: {
@@ -133,30 +108,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           }
         }
       `;
+      const untrackResult = await graphql(untrackMutation) as any;
+      results.push({ step: 'untrack_inventory', data: untrackResult });
+    }
 
-      const step4Resp = await fetch(
-        `https://${SHOPIFY_SHOP_DOMAIN}/admin/api/2024-04/graphql.json`,
-        {
-          method: 'POST',
-          headers: {
-            'X-Shopify-Access-Token': SHOPIFY_ADMIN_TOKEN,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ query: untrackMutation }),
-        }
-      );
-      const step4Data = await step4Resp.json() as any;
-      results.steps.push({ name: 'inventoryItemUpdate (untrack)', status: step4Resp.status, data: step4Data });
-
-      // Step 5: Also try to set quantity high just in case
-      const setQuantityMutation = `
+    // Step 4: Also try to set quantity to 999 if we have a location
+    if (inventoryItemId && locationId) {
+      const setQtyMutation = `
         mutation {
           inventorySetQuantities(input: {
             name: "available"
             reason: "correction"
             quantities: [{
               inventoryItemId: "${inventoryItemId}"
-              locationId: "gid://shopify/Location/104571969668"
+              locationId: "${locationId}"
               quantity: 999
             }]
           }) {
@@ -170,23 +135,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           }
         }
       `;
-
-      const step5Resp = await fetch(
-        `https://${SHOPIFY_SHOP_DOMAIN}/admin/api/2024-04/graphql.json`,
-        {
-          method: 'POST',
-          headers: {
-            'X-Shopify-Access-Token': SHOPIFY_ADMIN_TOKEN,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ query: setQuantityMutation }),
-        }
-      );
-      const step5Data = await step5Resp.json() as any;
-      results.steps.push({ name: 'inventorySetQuantities (999)', status: step5Resp.status, data: step5Data });
+      const qtyResult = await graphql(setQtyMutation) as any;
+      results.push({ step: 'set_quantity_999', data: qtyResult });
     }
 
-    return res.status(200).json(results);
+    return res.status(200).json({ success: true, results });
   } catch (error: any) {
     return res.status(500).json({ error: error.message, results });
   }
