@@ -20,7 +20,6 @@ async function adminGraphQL(query: string, variables?: any) {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Simple auth
   const { secret, action } = req.body || {};
   if (secret !== 'pfs-admin-fix-2024') {
     return res.status(403).json({ error: 'Forbidden' });
@@ -29,12 +28,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const results: any = {};
 
-    // Step 1: Check what scopes we have by trying different queries
-    // Try shop query (basic scope)
-    const shopResult = await adminGraphQL('{ shop { name myshopifyDomain } }');
-    results.shop = shopResult;
-
-    // Step 2: Try to read the product
+    // Step 1: Read the product with correct 2024-04 fields
     const productResult = await adminGraphQL(`{
       product(id: "${PRODUCT_ID}") {
         id
@@ -46,11 +40,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
               id
               title
               inventoryPolicy
-              inventoryManagement
               inventoryQuantity
               inventoryItem {
                 id
                 tracked
+                inventoryLevels(first: 5) {
+                  edges {
+                    node {
+                      id
+                      location {
+                        id
+                        name
+                      }
+                      quantities(names: ["available"]) {
+                        name
+                        quantity
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -59,62 +67,41 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }`);
     results.product = productResult;
 
-    // Step 3: If we can read the product, try to update it
-    if (!productResult.errors) {
-      // Try to set inventoryPolicy to CONTINUE (allow selling when out of stock)
-      const updateVariant = await adminGraphQL(`
-        mutation {
-          productVariantUpdate(input: {
+    // Step 2: Try to set inventoryPolicy to CONTINUE (sell when out of stock)
+    const setBulkPolicy = await adminGraphQL(`
+      mutation {
+        productVariantsBulkUpdate(
+          productId: "${PRODUCT_ID}"
+          variants: [{
             id: "${VARIANT_ID}"
             inventoryPolicy: CONTINUE
-          }) {
-            productVariant {
-              id
-              inventoryPolicy
-            }
-            userErrors {
-              field
-              message
-            }
+          }]
+        ) {
+          productVariants {
+            id
+            inventoryPolicy
+          }
+          userErrors {
+            field
+            message
           }
         }
-      `);
-      results.updateVariant = updateVariant;
-
-      // Try to disable inventory tracking
-      if (productResult.data?.product?.variants?.edges?.[0]?.node?.inventoryItem?.id) {
-        const inventoryItemId = productResult.data.product.variants.edges[0].node.inventoryItem.id;
-        const updateInventoryItem = await adminGraphQL(`
-          mutation {
-            inventoryItemUpdate(id: "${inventoryItemId}", input: {
-              tracked: false
-            }) {
-              inventoryItem {
-                id
-                tracked
-              }
-              userErrors {
-                field
-                message
-              }
-            }
-          }
-        `);
-        results.updateInventoryItem = updateInventoryItem;
       }
-    } else {
-      // If we can't read products, try just the mutations blindly
-      results.note = "Cannot read product, trying mutations blindly";
+    `);
+    results.setBulkPolicy = setBulkPolicy;
+
+    // Step 3: Try to disable inventory tracking on the inventory item
+    if (productResult?.data?.product?.variants?.edges?.[0]?.node?.inventoryItem?.id) {
+      const inventoryItemId = productResult.data.product.variants.edges[0].node.inventoryItem.id;
       
-      const updateVariant = await adminGraphQL(`
+      const disableTracking = await adminGraphQL(`
         mutation {
-          productVariantUpdate(input: {
-            id: "${VARIANT_ID}"
-            inventoryPolicy: CONTINUE
+          inventoryItemUpdate(id: "${inventoryItemId}", input: {
+            tracked: false
           }) {
-            productVariant {
+            inventoryItem {
               id
-              inventoryPolicy
+              tracked
             }
             userErrors {
               field
@@ -123,10 +110,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           }
         }
       `);
-      results.updateVariantBlind = updateVariant;
+      results.disableTracking = disableTracking;
     }
 
-    // Step 4: Also try to create a draft order as alternative checkout
+    // Step 4: If we can't read the product, try to set inventory quantity directly
+    if (productResult?.errors) {
+      // Try inventorySetQuantities with a guessed inventory item ID
+      const setQty = await adminGraphQL(`
+        mutation {
+          inventorySetQuantities(input: {
+            reason: "correction"
+            name: "available"
+            quantities: [{
+              inventoryItemId: "gid://shopify/InventoryItem/54651534614660"
+              locationId: "gid://shopify/Location/105453527172"
+              quantity: 999
+            }]
+          }) {
+            inventoryAdjustmentGroup {
+              reason
+            }
+            userErrors {
+              field
+              message
+            }
+          }
+        }
+      `);
+      results.setQtyBlind = setQty;
+    }
+
+    // Step 5: Also try draft order approach
     if (action === 'draft_order') {
       const draftOrder = await adminGraphQL(`
         mutation {
