@@ -424,7 +424,7 @@ export async function fetchRelatedProducts(currentProductId: string, limit = 4):
 
 // Variant IDs that need direct checkout URL (bypasses Storefront Cart API issues)
 const DIRECT_CHECKOUT_VARIANTS: Record<string, string> = {
-  'gid://shopify/ProductVariant/52549337317508': '52549337317508', // PFS VITRA
+  // PFS VITRA now works through standard Storefront Cart API — no bypass needed
 };
 
 export async function createStorefrontCheckout(items: CartItem[], discountCode?: string): Promise<string> {
