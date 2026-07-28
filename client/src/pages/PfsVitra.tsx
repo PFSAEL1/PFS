@@ -9,8 +9,8 @@ import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
 
 // PFS VITRA variant info — same format as Shopify products
-const PFS_VITRA_VARIANT_ID = 'gid://shopify/ProductVariant/52549337317508';
-const PFS_VITRA_PRODUCT_ID = 'gid://shopify/Product/10413119733892';
+const PFS_VITRA_VARIANT_ID = 'gid://shopify/ProductVariant/52571232206980';
+const PFS_VITRA_PRODUCT_ID = 'gid://shopify/Product/10419370885252';
 
 export default function PfsVitra() {
   const [quantity, setQuantity] = useState(1);
