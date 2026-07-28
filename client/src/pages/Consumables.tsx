@@ -21,6 +21,18 @@ export const consumableProducts = [
     inStock: true,
     badge: 'New',
   },
+  {
+    id: 'pfs-vanguard',
+    title: 'PFS VANGUARD™',
+    subtitle: 'Complete Booth Protection Kit',
+    description: 'Includes premium Booth Coating and Glass Shield Coating. Everything needed to protect booth surfaces and viewing glass from overspray buildup.',
+    price: 595.00,
+    currency: 'USD',
+    image: null,
+    href: '/consumables/pfs-vanguard',
+    inStock: true,
+    badge: 'Kit',
+  },
 ];
 
 export default function Consumables() {

@@ -31,6 +31,7 @@ import CategoryPage from './pages/CategoryPage';
 import PaintBoothFilters from './pages/PaintBoothFilters';
 import NotFound from './pages/NotFound';
 import PfsVitra from './pages/PfsVitra';
+import PfsVanguard from './pages/PfsVanguard';
 import Consumables from './pages/Consumables';
 import Aerospace from './pages/Aerospace';
 
@@ -71,6 +72,7 @@ function Router() {
       <Route path="/category/:slug" component={CategoryPage} />
       <Route path="/consumables" component={Consumables} />
       <Route path="/consumables/pfs-vitra" component={PfsVitra} />
+      <Route path="/consumables/pfs-vanguard" component={PfsVanguard} />
       <Route path="/aerospace" component={Aerospace} />
 
       {/* Features */}
