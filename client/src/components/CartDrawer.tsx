@@ -164,7 +164,7 @@ export const CartDrawer = () => {
                   )}
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-sm truncate">{item.title}</p>
-                    {item.variantTitle && item.variantTitle !== 'Default Title' && (
+                    {item.variantTitle && item.variantTitle !== 'Default Title' && item.variantTitle !== 'Default' && (
                       <p className="text-xs text-white/50">{item.variantTitle}</p>
                     )}
                     {/* Auto Delivery badge */}
