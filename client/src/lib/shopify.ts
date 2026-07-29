@@ -181,7 +181,7 @@ const PRODUCT_FIELDS = `
       }
     }
   }
-  variants(first: 10) {
+  variants(first: 50) {
     edges {
       node {
         id
@@ -256,7 +256,7 @@ const GET_PRODUCT_BY_HANDLE_QUERY = `
           }
         }
       }
-      variants(first: 10) {
+      variants(first: 50) {
         edges {
           node {
             id
