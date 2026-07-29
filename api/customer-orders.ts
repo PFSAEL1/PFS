@@ -87,13 +87,39 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    console.log(`[Customer Orders] Searching Shopify for email: ${shopifyEmail} (user: ${userEmail})`);
-
-    // Search Shopify by the resolved email (may differ from login email)
-    const emailsToSearch = [shopifyEmail];
-    if (shopifyEmail !== userEmail) {
-      emailsToSearch.push(userEmail); // Also search by login email as fallback
+    // Generate fuzzy email variants (handles missing .com, etc.)
+    function generateEmailVariants(email: string): string[] {
+      const variants: string[] = [email.toLowerCase()];
+      const lower = email.toLowerCase();
+      const atIdx = lower.indexOf('@');
+      if (atIdx === -1) return variants;
+      const localPart = lower.slice(0, atIdx);
+      const domainPart = lower.slice(atIdx + 1);
+      if (!domainPart.includes('.')) {
+        // Domain has no TLD - add common ones
+        for (const tld of ['.com', '.net', '.org', '.co']) {
+          variants.push(`${localPart}@${domainPart}${tld}`);
+        }
+      } else {
+        // Domain has TLD - also add version without it
+        const domainBase = domainPart.split('.')[0];
+        variants.push(`${localPart}@${domainBase}`);
+      }
+      return [...new Set(variants)];
     }
+
+    // Build list of all email variants to search
+    const emailsToSearch: string[] = [];
+    for (const variant of generateEmailVariants(shopifyEmail)) {
+      if (!emailsToSearch.includes(variant)) emailsToSearch.push(variant);
+    }
+    if (shopifyEmail !== userEmail) {
+      for (const variant of generateEmailVariants(userEmail)) {
+        if (!emailsToSearch.includes(variant)) emailsToSearch.push(variant);
+      }
+    }
+
+    console.log(`[Customer Orders] Searching Shopify for emails: ${emailsToSearch.join(', ')} (user: ${userEmail})`);
 
     let allOrders: any[] = [];
 
@@ -166,8 +192,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    // Deduplicate orders by id
-    const uniqueOrders = Array.from(new Map(allOrders.map(o => [o.id, o])).values());
+    // Also query the local customer_orders table with fuzzy email variants
+    // (catches orders stored by webhook that Shopify search might miss)
+    const { data: localOrders } = await supabaseAdmin
+      .from('customer_orders')
+      .select('*')
+      .in('customer_email', emailsToSearch)
+      .order('order_date', { ascending: false })
+      .limit(20);
+
+    if (localOrders && localOrders.length > 0) {
+      for (const lo of localOrders) {
+        allOrders.push({
+          id: lo.shopify_order_id || lo.id,
+          order_number: lo.order_number || '',
+          created_at: lo.order_date || lo.created_at,
+          total_price: lo.total_price || '0.00',
+          currency: lo.currency || 'USD',
+          financial_status: lo.financial_status || 'pending',
+          fulfillment_status: lo.fulfillment_status || 'unfulfilled',
+          items: typeof lo.items === 'string' ? JSON.parse(lo.items) : (lo.items || []),
+        });
+      }
+    }
+
+    // Deduplicate orders by order_number (prefer Shopify data)
+    const uniqueOrders = Array.from(
+      new Map(allOrders.map(o => [o.order_number || o.id, o])).values()
+    );
 
     return res.status(200).json({ orders: uniqueOrders });
   } catch (error: any) {

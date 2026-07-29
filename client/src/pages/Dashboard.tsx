@@ -115,106 +115,28 @@ function DashboardContent() {
     }
   };
 
-  // Generate fuzzy email variants for matching (handles typos like missing .com)
-  const generateEmailVariants = (email: string): string[] => {
-    const variants: string[] = [email.toLowerCase()];
-    const lower = email.toLowerCase();
-    const atIdx = lower.indexOf('@');
-    if (atIdx === -1) return variants;
-
-    const localPart = lower.slice(0, atIdx);
-    const domainPart = lower.slice(atIdx + 1);
-
-    // If domain has no TLD (e.g. "colemanelectricalservice" without .com)
-    // add common TLD variants
-    if (!domainPart.includes('.')) {
-      for (const tld of ['.com', '.net', '.org', '.co']) {
-        variants.push(`${localPart}@${domainPart}${tld}`);
-      }
-    } else {
-      // If domain has TLD, also add the version without it
-      const domainBase = domainPart.split('.')[0];
-      variants.push(`${localPart}@${domainBase}`);
-    }
-
-    return [...new Set(variants)];
-  };
-
   const fetchOrders = async () => {
     setOrdersLoading(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
 
-      // Collect all emails associated with this user
-      const baseEmails: string[] = [];
-      if (user.email) baseEmails.push(user.email.toLowerCase());
+      // Use the server-side API which has service role (bypasses RLS)
+      // and does fuzzy email matching
+      const res = await fetch('/api/customer-orders', {
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      });
+      const data = await res.json();
 
-      // Also check booth_setups for a linked shopify_email
-      const { data: boothData } = await supabase
-        .from('booth_setups')
-        .select('shopify_email')
-        .eq('customer_email', user.email);
-      if (boothData) {
-        for (const b of boothData) {
-          if (b.shopify_email && !baseEmails.includes(b.shopify_email.toLowerCase())) {
-            baseEmails.push(b.shopify_email.toLowerCase());
-          }
-        }
-      }
-
-      // Generate fuzzy variants for all emails (handles missing .com, etc.)
-      const allEmailVariants: string[] = [];
-      for (const email of baseEmails) {
-        for (const variant of generateEmailVariants(email)) {
-          if (!allEmailVariants.includes(variant)) {
-            allEmailVariants.push(variant);
-          }
-        }
-      }
-
-      // Also extract user's name for name-based matching
-      const userName = user.user_metadata?.full_name || '';
-
-      // Query customer_orders table by all email variants
-      const { data: orderData } = await supabase
-        .from('customer_orders')
-        .select('*')
-        .in('customer_email', allEmailVariants)
-        .order('order_date', { ascending: false })
-        .limit(20);
-
-      // Also do a secondary query by customer_name if we have a name
-      let nameOrders: any[] = [];
-      if (userName && userName.trim().length > 2) {
-        const { data: nameData } = await supabase
-          .from('customer_orders')
-          .select('*')
-          .ilike('customer_name', userName.trim())
-          .order('order_date', { ascending: false })
-          .limit(10);
-        if (nameData) nameOrders = nameData;
-      }
-
-      // Merge and deduplicate
-      const allOrders = [...(orderData || []), ...nameOrders];
-      if (allOrders.length > 0) {
-        const seen = new Set<string>();
-        const unique = allOrders.filter((o: any) => {
-          const key = o.shopify_order_id || o.id;
-          if (seen.has(key)) return false;
-          seen.add(key);
-          return true;
-        });
-        // Map to the Order interface
-        const mapped: Order[] = unique.map((o: any) => ({
+      if (data.orders && data.orders.length > 0) {
+        const mapped: Order[] = data.orders.map((o: any) => ({
           id: o.id,
           order_number: o.order_number || '',
-          created_at: o.order_date || o.created_at,
+          created_at: o.created_at || '',
           total_price: o.total_price || '0.00',
           financial_status: o.financial_status || 'pending',
           fulfillment_status: o.fulfillment_status || 'unfulfilled',
-          items: typeof o.items === 'string' ? JSON.parse(o.items) : (o.items || []),
+          items: o.items || [],
         }));
         setOrders(mapped);
       }
