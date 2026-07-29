@@ -7,7 +7,7 @@ const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
 const SHOPIFY_WEBHOOK_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET || "";
 
 function verifyShopifyWebhook(rawBody: string, hmacHeader: string): boolean {
-  if (!SHOPIFY_WEBHOOK_SECRET) return true; // Skip verification if no secret configured
+  if (!SHOPIFY_WEBHOOK_SECRET) return true;
   const hash = crypto
     .createHmac("sha256", SHOPIFY_WEBHOOK_SECRET)
     .update(rawBody, "utf8")
@@ -16,38 +16,38 @@ function verifyShopifyWebhook(rawBody: string, hmacHeader: string): boolean {
 }
 
 /**
- * Fuzzy match: try to find a site account that matches the order's customer name.
- * Strategies (in order):
- *   1. Exact email match (already handled by customer_email field)
- *   2. Name-based: "Ryan Fevold" → search for emails containing "ryan.fevold" or "rfevold"
- *   3. Last name + first initial pattern
- *   4. Partial name in email local part
+ * Normalize an email by ensuring the domain has a valid TLD.
+ * If the domain part has no dot (e.g. "colemanelectricalservice"), append ".com".
+ */
+function normalizeEmail(email: string): string {
+  if (!email) return email;
+  const lower = email.toLowerCase().trim();
+  const atIdx = lower.indexOf("@");
+  if (atIdx === -1) return lower;
+
+  const localPart = lower.slice(0, atIdx);
+  const domainPart = lower.slice(atIdx + 1);
+
+  // If domain has no TLD (no dot), append .com
+  if (!domainPart.includes(".")) {
+    return `${localPart}@${domainPart}.com`;
+  }
+  return lower;
+}
+
+/**
+ * Fuzzy match: try to find a site account that matches the order's customer.
+ * Strategies:
+ *   1. Normalized email match (fix missing .com etc.)
+ *   2. Name-based: "Ryan Fevold" → search for emails containing "ryan.fevold"
+ *   3. Full name metadata match
  */
 async function fuzzyMatchAccount(
   supabase: any,
   customerName: string,
   customerEmail: string
 ): Promise<string | null> {
-  if (!customerName || customerName.trim().length < 3) return null;
-
-  const nameParts = customerName.trim().toLowerCase().split(/\s+/);
-  if (nameParts.length < 2) return null;
-
-  const firstName = nameParts[0];
-  const lastName = nameParts[nameParts.length - 1];
-
-  // Build search patterns to look for in auth.users emails
-  const patterns = [
-    `${firstName}.${lastName}`,     // ryan.fevold
-    `${firstName}${lastName}`,      // ryanfevold
-    `${firstName[0]}${lastName}`,   // rfevold
-    `${lastName}.${firstName}`,     // fevold.ryan
-    `${lastName}${firstName[0]}`,   // fevoldr
-  ];
-
   try {
-    // Use admin API to list users and search by email patterns
-    // We'll search for users whose email contains our patterns
     const { data: { users }, error } = await supabase.auth.admin.listUsers({
       perPage: 1000,
     });
@@ -57,61 +57,70 @@ async function fuzzyMatchAccount(
       return null;
     }
 
-    // Don't match if the order email already exactly matches a user
-    const exactMatch = users.find(
-      (u: any) => u.email?.toLowerCase() === customerEmail.toLowerCase()
+    const normalizedOrderEmail = normalizeEmail(customerEmail);
+
+    // Strategy 1: Check if normalized email matches a user
+    const normalizedMatch = users.find(
+      (u: any) => u.email && normalizeEmail(u.email) === normalizedOrderEmail
     );
-    if (exactMatch) {
-      // Already an exact match - no fuzzy needed
-      return null;
+    if (normalizedMatch) {
+      console.log(`[Webhook Fuzzy] Normalized match: "${customerEmail}" → ${normalizedMatch.email}`);
+      return normalizedMatch.email.toLowerCase();
     }
 
-    // Try each pattern against all user emails
-    for (const pattern of patterns) {
-      const match = users.find((u: any) => {
-        if (!u.email) return false;
-        const emailLocal = u.email.toLowerCase().split("@")[0];
-        return emailLocal === pattern || emailLocal.includes(pattern);
-      });
-      if (match) {
-        console.log(
-          `[Webhook Fuzzy] Matched "${customerName}" → ${match.email} (pattern: ${pattern})`
-        );
-        return match.email.toLowerCase();
+    // Strategy 2: Name-based matching
+    if (customerName && customerName.trim().length >= 3) {
+      const nameParts = customerName.trim().toLowerCase().split(/\s+/);
+      if (nameParts.length >= 2) {
+        const firstName = nameParts[0];
+        const lastName = nameParts[nameParts.length - 1];
+        const patterns = [
+          `${firstName}.${lastName}`,
+          `${firstName}${lastName}`,
+          `${firstName[0]}${lastName}`,
+          `${lastName}.${firstName}`,
+        ];
+
+        for (const pattern of patterns) {
+          const match = users.find((u: any) => {
+            if (!u.email) return false;
+            const emailLocal = u.email.toLowerCase().split("@")[0];
+            return emailLocal === pattern || emailLocal.includes(pattern);
+          });
+          if (match) {
+            console.log(`[Webhook Fuzzy] Name pattern match: "${customerName}" → ${match.email} (pattern: ${pattern})`);
+            return match.email.toLowerCase();
+          }
+        }
       }
     }
 
-    // Additional strategy: check if user's full_name metadata matches
-    const nameMatch = users.find((u: any) => {
-      const meta = u.user_metadata;
-      if (!meta?.full_name) return false;
-      const metaName = meta.full_name.toLowerCase().trim();
-      const orderName = customerName.toLowerCase().trim();
-      return metaName === orderName;
-    });
-    if (nameMatch) {
-      console.log(
-        `[Webhook Fuzzy] Matched "${customerName}" → ${nameMatch.email} (full_name metadata)`
-      );
-      return nameMatch.email.toLowerCase();
+    // Strategy 3: Full name metadata match
+    if (customerName && customerName.trim().length >= 3) {
+      const nameMatch = users.find((u: any) => {
+        const meta = u.user_metadata;
+        if (!meta?.full_name) return false;
+        return meta.full_name.toLowerCase().trim() === customerName.toLowerCase().trim();
+      });
+      if (nameMatch) {
+        console.log(`[Webhook Fuzzy] Metadata name match: "${customerName}" → ${nameMatch.email}`);
+        return nameMatch.email.toLowerCase();
+      }
     }
 
-    console.log(`[Webhook Fuzzy] No match found for "${customerName}"`);
     return null;
   } catch (err: any) {
-    console.error("[Webhook Fuzzy] Error during fuzzy match:", err.message);
+    console.error("[Webhook Fuzzy] Error:", err.message);
     return null;
   }
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Only accept POST
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    // Verify webhook signature (optional but recommended)
     const hmacHeader = req.headers["x-shopify-hmac-sha256"] as string;
     const rawBody = JSON.stringify(req.body);
     
@@ -127,7 +136,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // Extract order info
-    const customerEmail = order.email || order.contact_email || "";
+    const rawEmail = order.email || order.contact_email || "";
     const customerName = order.customer
       ? `${order.customer.first_name || ""} ${order.customer.last_name || ""}`.trim()
       : (order.billing_address?.name || "");
@@ -145,18 +154,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Initialize Supabase
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-    // Fuzzy match: try to find the site account this order belongs to
-    const linkedEmail = await fuzzyMatchAccount(
+    // Determine the best email to store:
+    // 1. First normalize the checkout email (fix missing .com)
+    // 2. Then try fuzzy matching to find the actual site account
+    let resolvedEmail = normalizeEmail(rawEmail);
+
+    const matchedAccountEmail = await fuzzyMatchAccount(
       supabase,
       customerName,
-      customerEmail
+      rawEmail
     );
+
+    if (matchedAccountEmail) {
+      // Use the matched account email so the order shows up in their dashboard
+      resolvedEmail = matchedAccountEmail;
+    }
 
     // Build order record
     const orderRecord: any = {
       shopify_order_id: order.id.toString(),
       order_number: order.order_number?.toString() || order.name || "",
-      customer_email: customerEmail.toLowerCase(),
+      customer_email: resolvedEmail,
       customer_name: customerName,
       total_price: order.total_price || "0.00",
       subtotal_price: order.subtotal_price || "0.00",
@@ -182,12 +200,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         : null,
     };
 
-    // If fuzzy match found a different account, store the linked email
-    if (linkedEmail && linkedEmail !== customerEmail.toLowerCase()) {
-      orderRecord.linked_email = linkedEmail;
-      console.log(`[Webhook] Order ${orderRecord.order_number}: linked "${customerEmail}" → "${linkedEmail}" via fuzzy match`);
-    }
-
     // Save to Supabase
     const { error } = await supabase
       .from("customer_orders")
@@ -198,8 +210,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ error: "Failed to save order", details: error.message });
     }
 
-    console.log(`Order ${orderRecord.order_number} saved for ${customerEmail}${linkedEmail ? ` (linked to ${linkedEmail})` : ''}`);
-    return res.status(200).json({ success: true, order_number: orderRecord.order_number, linked_email: linkedEmail || null });
+    console.log(`Order ${orderRecord.order_number} saved for ${resolvedEmail} (original: ${rawEmail})`);
+    return res.status(200).json({ success: true, order_number: orderRecord.order_number });
   } catch (err: any) {
     console.error("Webhook error:", err);
     return res.status(500).json({ error: "Internal error", details: err.message });

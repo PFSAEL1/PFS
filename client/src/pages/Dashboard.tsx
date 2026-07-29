@@ -115,6 +115,31 @@ function DashboardContent() {
     }
   };
 
+  // Generate fuzzy email variants for matching (handles typos like missing .com)
+  const generateEmailVariants = (email: string): string[] => {
+    const variants: string[] = [email.toLowerCase()];
+    const lower = email.toLowerCase();
+    const atIdx = lower.indexOf('@');
+    if (atIdx === -1) return variants;
+
+    const localPart = lower.slice(0, atIdx);
+    const domainPart = lower.slice(atIdx + 1);
+
+    // If domain has no TLD (e.g. "colemanelectricalservice" without .com)
+    // add common TLD variants
+    if (!domainPart.includes('.')) {
+      for (const tld of ['.com', '.net', '.org', '.co']) {
+        variants.push(`${localPart}@${domainPart}${tld}`);
+      }
+    } else {
+      // If domain has TLD, also add the version without it
+      const domainBase = domainPart.split('.')[0];
+      variants.push(`${localPart}@${domainBase}`);
+    }
+
+    return [...new Set(variants)];
+  };
+
   const fetchOrders = async () => {
     setOrdersLoading(true);
     try {
@@ -122,8 +147,8 @@ function DashboardContent() {
       if (!user) return;
 
       // Collect all emails associated with this user
-      const emails: string[] = [];
-      if (user.email) emails.push(user.email.toLowerCase());
+      const baseEmails: string[] = [];
+      if (user.email) baseEmails.push(user.email.toLowerCase());
 
       // Also check booth_setups for a linked shopify_email
       const { data: boothData } = await supabase
@@ -132,24 +157,50 @@ function DashboardContent() {
         .eq('customer_email', user.email);
       if (boothData) {
         for (const b of boothData) {
-          if (b.shopify_email && !emails.includes(b.shopify_email.toLowerCase())) {
-            emails.push(b.shopify_email.toLowerCase());
+          if (b.shopify_email && !baseEmails.includes(b.shopify_email.toLowerCase())) {
+            baseEmails.push(b.shopify_email.toLowerCase());
           }
         }
       }
 
-      // Query customer_orders table by email match OR linked_email (fuzzy match)
+      // Generate fuzzy variants for all emails (handles missing .com, etc.)
+      const allEmailVariants: string[] = [];
+      for (const email of baseEmails) {
+        for (const variant of generateEmailVariants(email)) {
+          if (!allEmailVariants.includes(variant)) {
+            allEmailVariants.push(variant);
+          }
+        }
+      }
+
+      // Also extract user's name for name-based matching
+      const userName = user.user_metadata?.full_name || '';
+
+      // Query customer_orders table by all email variants
       const { data: orderData } = await supabase
         .from('customer_orders')
         .select('*')
-        .or(emails.map(e => `customer_email.eq.${e}`).concat(emails.map(e => `linked_email.eq.${e}`)).join(','))
+        .in('customer_email', allEmailVariants)
         .order('order_date', { ascending: false })
         .limit(20);
 
-      if (orderData && orderData.length > 0) {
-        // Deduplicate by shopify_order_id
+      // Also do a secondary query by customer_name if we have a name
+      let nameOrders: any[] = [];
+      if (userName && userName.trim().length > 2) {
+        const { data: nameData } = await supabase
+          .from('customer_orders')
+          .select('*')
+          .ilike('customer_name', userName.trim())
+          .order('order_date', { ascending: false })
+          .limit(10);
+        if (nameData) nameOrders = nameData;
+      }
+
+      // Merge and deduplicate
+      const allOrders = [...(orderData || []), ...nameOrders];
+      if (allOrders.length > 0) {
         const seen = new Set<string>();
-        const unique = orderData.filter((o: any) => {
+        const unique = allOrders.filter((o: any) => {
           const key = o.shopify_order_id || o.id;
           if (seen.has(key)) return false;
           seen.add(key);
