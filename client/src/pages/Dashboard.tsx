@@ -138,17 +138,25 @@ function DashboardContent() {
         }
       }
 
-      // Query customer_orders table for all associated emails
+      // Query customer_orders table by email match OR linked_email (fuzzy match)
       const { data: orderData } = await supabase
         .from('customer_orders')
         .select('*')
-        .in('customer_email', emails)
+        .or(emails.map(e => `customer_email.eq.${e}`).concat(emails.map(e => `linked_email.eq.${e}`)).join(','))
         .order('order_date', { ascending: false })
         .limit(20);
 
       if (orderData && orderData.length > 0) {
+        // Deduplicate by shopify_order_id
+        const seen = new Set<string>();
+        const unique = orderData.filter((o: any) => {
+          const key = o.shopify_order_id || o.id;
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        });
         // Map to the Order interface
-        const mapped: Order[] = orderData.map((o: any) => ({
+        const mapped: Order[] = unique.map((o: any) => ({
           id: o.id,
           order_number: o.order_number || '',
           created_at: o.order_date || o.created_at,
