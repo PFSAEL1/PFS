@@ -34,6 +34,7 @@ import PfsVitra from './pages/PfsVitra';
 import PfsVanguard from './pages/PfsVanguard';
 import Consumables from './pages/Consumables';
 import Aerospace from './pages/Aerospace';
+import AerospaceHub from './pages/AerospaceHub';
 
 // Light version pages (kept in codebase but not routed in production)
 function Router() {
@@ -74,6 +75,7 @@ function Router() {
       <Route path="/consumables/pfs-vitra" component={PfsVitra} />
       <Route path="/consumables/pfs-vanguard" component={PfsVanguard} />
       <Route path="/aerospace" component={Aerospace} />
+      <Route path="/industries/aerospace-paint-booth-filters" component={AerospaceHub} />
 
       {/* Features */}
       <Route path="/filter-scanner" component={FilterScanner} />

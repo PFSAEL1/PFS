@@ -8,7 +8,7 @@ export const Footer = () => {
   return (
     <footer className="section-darker border-t border-white/8 py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-10 mb-12">
+        <div className="grid md:grid-cols-4 gap-10 mb-12">
           <div>
             <img
               src={LOGO_URL}
@@ -57,6 +57,23 @@ export const Footer = () => {
                   PFS Spray Booths ↗
                 </a>
               </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-white text-sm uppercase tracking-wider mb-4">Industries Served</h3>
+            <ul className="space-y-2 text-sm">
+              {[
+                { href: '/industries/aerospace-paint-booth-filters', label: 'Aerospace & MRO' },
+                { href: '/paint-booth-filters', label: 'Automotive' },
+                { href: '/shop', label: 'Industrial & Woodworking' },
+              ].map(({ href, label }) => (
+                <li key={href}>
+                  <Link href={href} className="text-white/40 hover:text-white transition-colors">
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
