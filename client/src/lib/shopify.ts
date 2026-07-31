@@ -98,6 +98,12 @@ export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string;
     description: 'Durable synthetic filtration media with excellent moisture resistance. Ideal for high-humidity environments and water-based coatings.',
     position: 'EXHAUST',
   },
+  'pre-filters': {
+    collectionHandle: 'pre-filters',
+    title: 'Pre-Filters',
+    description: 'First-stage filtration that extends the life of your primary ceiling media by up to 50%. Catches large particles before they reach expensive diffusion blankets.',
+    position: 'INTAKE',
+  },
 };
 
 // Tag-based fallback mapping when collections don't exist
@@ -109,6 +115,7 @@ export const CATEGORY_TAG_MAP: Record<string, string[]> = {
   'roll-media': ['roll', 'roll media', 'media roll'],
   'merv-filters': ['merv', 'merv-10', 'merv-13', 'merv10', 'merv13'],
   'polyester-media': ['polyester', 'synthetic media'],
+  'pre-filters': ['pre-filter', 'prefilter', 'pre filter', 'first stage'],
 };
 
 const SHOPIFY_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN || 'abc-filter-splash-rwyxj.myshopify.com';

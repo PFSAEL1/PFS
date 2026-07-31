@@ -62,6 +62,14 @@ const filterTypes = [
     image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-grids_294ef927.jpg',
     tags: ['Synthetic', 'Moisture Resistant', 'Durable'],
   },
+  {
+    title: 'Pre-Filters',
+    position: 'INTAKE',
+    desc: 'First-stage filtration that extends the life of your primary ceiling media by up to 50%. Catches large particles before they reach expensive diffusion blankets — the highest ROI maintenance upgrade.',
+    href: '/category/pre-filters',
+    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-roll-blue_a1ff9192.png',
+    tags: ['Cost Savings', 'Protection', 'High ROI'],
+  },
 ];
 
 export default function ShopByType() {

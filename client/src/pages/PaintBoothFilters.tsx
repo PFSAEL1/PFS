@@ -247,7 +247,7 @@ export default function PaintBoothFilters() {
             <div className="glow-card p-6">
               <h3 className="text-lg font-bold text-white mb-2 mt-7">Prefilters</h3>
               <p className="text-sm text-white/50 mb-4 leading-relaxed">Extend primary exhaust filter life by up to 50%. Highest return-on-investment maintenance upgrade available.</p>
-              <a href="https://www.pfsfilters.com/shop-by-type" className="text-blue-400 font-semibold text-sm hover:text-blue-300 transition-colors">
+              <a href="https://www.pfsfilters.com/category/pre-filters" className="text-blue-400 font-semibold text-sm hover:text-blue-300 transition-colors">
                 Shop Prefilters →
               </a>
             </div>
