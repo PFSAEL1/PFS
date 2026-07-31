@@ -224,4 +224,59 @@ After a few months, you'll have the data to optimize your schedule for your spec
 Need help setting up a maintenance program? Our team can help you create a customized schedule based on your booth model and paint volume.
     `,
   },
+  {
+    slug: "aerospace-paint-booth-compliance-method-319",
+    title: "Understanding EPA Method 319 for Aerospace Paint Booths",
+    excerpt: "EPA Method 319 is the standard test method for measuring paint overspray arrestor performance in aerospace applications—specifically regarding hexavalent chromium. Here's what facility managers need to know.",
+    author: "PFS Engineering",
+    date: "2026-07-30",
+    readTime: "7 min read",
+    category: "Aerospace",
+    image: "/images/blog-featured-pfs.jpg",
+    keywords: ["EPA Method 319", "aerospace paint booth compliance", "chromate overspray filtration", "NESHAP aerospace", "hexavalent chromium paint booth", "aerospace exhaust filtration", "3-stage overspray system"],
+    content: `
+If you operate an aerospace finishing facility, you've likely encountered references to EPA Method 319. It's one of the most critical standards governing how paint overspray arrestors perform in environments where hexavalent chromium compounds are present. Understanding what it requires—and what it doesn't—can help you make informed decisions about your booth's filtration system.
+
+## What Is EPA Method 319?
+
+EPA Method 319 is a test procedure developed by the Environmental Protection Agency to measure the capture efficiency of paint overspray arrestors. It was specifically designed for aerospace applications where chromated primers and coatings produce hazardous overspray containing hexavalent chromium (Cr6+).
+
+The method establishes a standardized way to verify that a filter system can capture a specified percentage of chromium-containing particulate before exhaust air leaves the booth. It's referenced in NESHAP (National Emission Standards for Hazardous Air Pollutants) regulations that apply to aerospace manufacturing and maintenance facilities.
+
+## Why Standard Single-Stage Filters Aren't Enough
+
+A conventional single-stage fiberglass paint arrestor is designed to capture bulk overspray—the heavy, visible paint particles that make up the majority of booth exhaust. These filters work well for standard automotive and industrial finishing.
+
+However, aerospace chromated coatings produce extremely fine particulate that can pass through single-stage media. To meet the capture efficiencies required under Method 319 testing, facilities typically need a **multi-stage filtration system**:
+
+**Stage 1 — Pre-filter:** A high-capacity media (such as CPA roll media or fiberglass arrestor) that captures the bulk overspray and extends the life of downstream stages.
+
+**Stage 2 — Secondary filter:** A tackified polyester or synthetic media (such as ME/PT-type media) that captures finer particles the pre-filter missed. Typically rated at MERV 8 or higher.
+
+**Stage 3 — Final filter:** A high-efficiency pocket bag filter (such as HEPA-XFP-type configurations) that captures the finest remaining particulate to meet the required overall system efficiency.
+
+## How to Upgrade Your Existing Booth
+
+The good news: you don't always need a completely new spray booth to achieve compliance. Many existing aerospace booths can be retrofitted with multi-stage filtration by modifying the exhaust plenum configuration. Key considerations include:
+
+- **Plenum depth** — Multi-stage systems require more physical space than a single filter bank. Measure your available exhaust cavity depth.
+- **Static pressure** — Adding filter stages increases resistance. Your booth's fan system must be capable of maintaining adequate airflow velocity (typically 100+ FPM at the work surface) with the additional pressure drop.
+- **Filter access** — Each stage needs to be independently replaceable. Consider how technicians will access and change filters in your specific booth layout.
+- **Monitoring** — Install differential pressure gauges across each stage so you can track loading and schedule changes before efficiency drops.
+
+## What This Means for Your Facility
+
+If your aerospace facility applies chromated primers or coatings, your local air quality district likely requires documentation that your exhaust filtration meets specific capture efficiency thresholds. Method 319 is the test procedure that verifies this.
+
+The specific filter products, configurations, and system designs that achieve compliance depend on your facility's unique factors: booth dimensions, airflow volume, coating types, and production schedule.
+
+## The PFS Approach
+
+PFS Filters supplies aerospace-grade filtration media including multi-pocket bag filters, NESHAP 319 final-stage bags, intake panels, and roll media used in multi-stage exhaust systems. Our engineering team—backed by 30+ years of spray booth design experience—can review your current setup and recommend the right filter configuration for your application.
+
+We don't make blanket compliance guarantees, because every facility is different. What we do is provide the right media, sized correctly, and help you understand how the pieces fit together.
+
+**Ready to review your aerospace filtration setup?**
+    `,
+  },
 ];

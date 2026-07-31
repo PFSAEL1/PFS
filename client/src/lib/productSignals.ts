@@ -131,7 +131,9 @@ export function getProductSpecs(input: any): SpecRow[] {
   if (has('exhaust', 'arrestor', 'pocket', 'roll')) interval = 'Typically every 100–150 spray hours';
   else if (has('intake', 'ceiling', 'blanket')) interval = 'Typically every 600–1,000 spray hours';
 
-  return [
+  // Aerospace-specific specs for Swiss Flow / ceiling diffusion media
+  const isAerospace = has('swiss flow', '600g', 'ultra-premium', 'aerospace');
+  const specs: SpecRow[] = [
     { label: 'Filter media', value: media },
     { label: 'Media weight', value: gram },
     { label: 'Efficiency rating', value: efficiency },
@@ -139,6 +141,21 @@ export function getProductSpecs(input: any): SpecRow[] {
     { label: 'Sizes available', value: sizes },
     { label: 'Change interval', value: interval },
   ];
+
+  if (isAerospace || has('ceiling', 'blanket', 'downdraft')) {
+    specs.push(
+      { label: 'Aerospace application', value: 'Aircraft paint booth ceiling diffusion — ensures laminar airflow for defect-free finishes' },
+      { label: 'Airflow pattern', value: 'Uniform downward laminar flow, minimizes turbulence across large aircraft surfaces' },
+    );
+  }
+  if (isAerospace) {
+    specs.push(
+      { label: 'Facility types', value: 'MRO hangars, aerospace OEM finishing, military aircraft maintenance' },
+      { label: 'Compliance relevance', value: 'Supports NESHAP-regulated environments when paired with multi-stage exhaust systems' },
+    );
+  }
+
+  return specs;
 }
 
 // ---------------------------------------------------------------------------
