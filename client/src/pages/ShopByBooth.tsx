@@ -88,8 +88,8 @@ export default function ShopByBooth() {
               {/* Glow effect */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#4d9fff]/5 rounded-full blur-3xl" />
               <div className="relative flex items-center gap-6">
-                <div className="flex-shrink-0 w-32 h-20 bg-white/10 rounded-xl flex items-center justify-center p-3 border border-white/10">
-                  <img src="/images/brands/pfs-filters.png" alt="PFS Filters" className="max-w-full max-h-full object-contain" />
+                <div className="flex-shrink-0 w-44 h-28 bg-white rounded-xl flex items-center justify-center p-4">
+                  <img src="/images/brands/pfs-filters.png" alt="PFS Filters" className="max-w-full max-h-20 object-contain" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
@@ -208,23 +208,23 @@ function BrandCard({ brand, typeFilter }: { brand: BoothBrand; typeFilter: Booth
     <Link href={`/shop-by-booth/${brand.slug}`}>
       <div className="group border border-white/8 bg-white/[0.03] rounded-2xl overflow-hidden h-full cursor-pointer transition-all duration-300 hover:border-white/20 hover:bg-white/[0.06] hover:shadow-[0_8px_32px_rgba(255,255,255,0.04)]">
         {/* Logo area */}
-        <div className="h-28 bg-white/[0.02] border-b border-white/5 flex items-center justify-center p-4 relative overflow-hidden">
+        <div className="h-44 bg-white rounded-t-2xl flex items-center justify-center p-6 relative overflow-hidden">
           {logoSrc ? (
             <img
               src={logoSrc}
               alt={`${brand.name} logo`}
-              className="max-h-16 max-w-[80%] object-contain opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+              className="max-h-28 max-w-[90%] object-contain group-hover:scale-105 transition-all duration-300"
             />
           ) : (
             <div className="text-center">
-              <span className="text-2xl font-bold text-white/30 group-hover:text-white/50 transition-colors">
-                {brand.name.split(' ').map(w => w[0]).join('').slice(0, 3)}
+              <span className="text-4xl font-extrabold text-gray-800 group-hover:text-gray-600 transition-colors">
+                {brand.name}
               </span>
             </div>
           )}
           {/* Country badge */}
           {brand.country && (
-            <span className="absolute top-2 right-2 flex items-center gap-1 text-[10px] text-white/40 bg-black/40 backdrop-blur-sm border border-white/8 px-2 py-0.5 rounded-full">
+            <span className="absolute top-2 right-2 flex items-center gap-1 text-[10px] text-gray-500 bg-gray-100 border border-gray-200 px-2 py-0.5 rounded-full">
               <MapPin className="h-2.5 w-2.5" /> {brand.country}
             </span>
           )}
