@@ -21,13 +21,13 @@ const BRAND_LOGOS: Record<string, string> = {
   'col-met': '/images/brands/col-met.png',
   'global-finishing-solutions': '/images/brands/global-finishing-solutions.png',
   'blowtherm': '/images/brands/blowtherm.png',
-  'junair': '/images/brands/junair.webp',
+  'junair': '/images/brands/junair.png',
   'nova-verta': '/images/brands/nova-verta.png',
   'devilbiss': '/images/brands/devilbiss.png',
   'usi-italia': '/images/brands/usi-italia.png',
   'spraybake': '/images/brands/spraybake.png',
-  'eagle': '/images/brands/eagle.jpg',
-  'saima': '/images/brands/saima.jpg',
+  'eagle': '/images/brands/eagle.png',
+  'saima': '/images/brands/saima.png',
 };
 
 export default function ShopByBooth() {
