@@ -4,11 +4,114 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
-import { ArrowRight, ShoppingCart, Phone, Clock, Layers, Wind, Filter as FilterIcon } from 'lucide-react';
+import { ArrowRight, ShoppingCart, Phone, Clock, Layers, Wind, Filter as FilterIcon, ExternalLink } from 'lucide-react';
 import { getBrandBySlug, BOOTH_TYPES, type BoothModel } from '@/data/boothBrands';
 
 interface BrandDetailProps {
   params: { slug: string };
+}
+
+// Map filter sizes to actual product URLs based on category
+function getProductLink(size: string, category: 'ceiling' | 'intake' | 'exhaust' | 'prefilter'): string {
+  // Normalize the size for comparison
+  const normalized = size.replace(/[""]/g, '"').replace(/×/g, 'x').replace(/'/g, "'");
+
+  if (category === 'exhaust') {
+    // Rolls go to the roll product
+    if (normalized.includes('300') || normalized.includes('100')) {
+      return '/product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs';
+    }
+    // Standard pads go to 22-gram pads (most popular)
+    return '/product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs';
+  }
+
+  if (category === 'intake') {
+    // Standard intake panels go to 300 Series Tacky
+    return '/product/300-series-tacky-filter-panel';
+  }
+
+  if (category === 'prefilter') {
+    // All prefilters go to MERV 10 pleated
+    return '/product/pleated-air-filters-merv-10';
+  }
+
+  if (category === 'ceiling') {
+    // Map ceiling sizes to specific products
+    // Swiss Flow sizes
+    const swissFlowSizes = ['36"x108"', '33"x45.5"', '36.75"x54"', '37"x64"', '39"x59"', '40"x100"', '44"x50"', '81"x144"'];
+    // L560 Ceiling Diffusion sizes
+    const l560Sizes = ['58"x58"', '37"x64"', '36.75"x54"', '48"x66"', '26"x120"', '51"x128"', '60"x120"'];
+
+    // Check if size matches Swiss Flow or L560 variants
+    const sizeNorm = normalized.replace(/[""']/g, '').toLowerCase();
+
+    if (sizeNorm.includes('37') && sizeNorm.includes('64')) {
+      return '/product/ceiling-diffusion-media';
+    }
+    if (sizeNorm.includes('51') && sizeNorm.includes('128')) {
+      return '/product/ceiling-diffusion-media';
+    }
+    if (sizeNorm.includes('36.75') && sizeNorm.includes('54')) {
+      return '/product/ceiling-diffusion-media';
+    }
+    if (sizeNorm.includes('48') && sizeNorm.includes('66')) {
+      return '/product/ceiling-diffusion-media';
+    }
+
+    // For sizes we don't have exact matches for, link to the ceiling category
+    // These are the ones the user needs to add as variants
+    return '/product/ceiling-diffusion-media';
+  }
+
+  return '/shop';
+}
+
+// Check if a size has an exact product match
+function hasExactMatch(size: string, category: 'ceiling' | 'intake' | 'exhaust' | 'prefilter'): boolean {
+  const sizeNorm = size.replace(/[""]/g, '"').replace(/×/g, 'x').replace(/'/g, "'").replace(/[""']/g, '').toLowerCase();
+
+  if (category === 'exhaust') {
+    // We have 20x20, 20x25, and rolls up to 41x300
+    if (sizeNorm.includes('20') && (sizeNorm.includes('20') || sizeNorm.includes('25'))) return true;
+    if (sizeNorm.includes('300') || sizeNorm.includes('100')) return true;
+    return true; // We cover all standard exhaust sizes
+  }
+
+  if (category === 'intake') {
+    // We have 20x20, 20x25, 24x24 in tacky panels
+    if (sizeNorm.includes('20') && sizeNorm.includes('20')) return true;
+    if (sizeNorm.includes('20') && sizeNorm.includes('25')) return true;
+    if (sizeNorm.includes('24') && sizeNorm.includes('24')) return true;
+    if (sizeNorm.includes('48')) return false; // 20x48 not available
+    return true;
+  }
+
+  if (category === 'prefilter') {
+    return true; // We have 20x20x2 and 24x24x2 in MERV 10
+  }
+
+  if (category === 'ceiling') {
+    // Exact matches we have
+    if (sizeNorm.includes('37') && sizeNorm.includes('64')) return true;
+    if (sizeNorm.includes('51') && sizeNorm.includes('128')) return true;
+    if (sizeNorm.includes('36.75') && sizeNorm.includes('54')) return true;
+    if (sizeNorm.includes('48') && sizeNorm.includes('66')) return true;
+    if (sizeNorm.includes('58') && sizeNorm.includes('58')) return true;
+    if (sizeNorm.includes('26') && sizeNorm.includes('120')) return true;
+    if (sizeNorm.includes('60') && sizeNorm.includes('120')) return true;
+    // Swiss Flow sizes
+    if (sizeNorm.includes('36') && sizeNorm.includes('108')) return true;
+    if (sizeNorm.includes('33') && sizeNorm.includes('45')) return true;
+    if (sizeNorm.includes('39') && sizeNorm.includes('59')) return true;
+    if (sizeNorm.includes('40') && sizeNorm.includes('100')) return true;
+    if (sizeNorm.includes('44') && sizeNorm.includes('50')) return true;
+    if (sizeNorm.includes('81') && sizeNorm.includes('144')) return true;
+    // These are NOT available yet:
+    // 38x62, 38x107, 38x102, 38x67, 48x108, 59x149, 36x144
+    return false;
+  }
+
+  return false;
 }
 
 export default function BrandDetail({ params }: BrandDetailProps) {
@@ -105,7 +208,7 @@ export default function BrandDetail({ params }: BrandDetailProps) {
       <section className="section-raised tex-dots py-14 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-2">{brand.name} Models</h2>
-          <p className="text-white/50 text-sm mb-8">Select your model to see compatible filter sizes. All sizes available for order.</p>
+          <p className="text-white/50 text-sm mb-8">Click any filter size to go directly to that product. Sizes marked with a call icon require a quote.</p>
           <div className="grid gap-4">
             {brand.models.map((model) => (
               <ModelCard key={model.name} model={model} brandName={brand.name} />
@@ -153,10 +256,10 @@ export default function BrandDetail({ params }: BrandDetailProps) {
 
 function ModelCard({ model, brandName }: { model: BoothModel; brandName: string }) {
   const filterCategories = [
-    { key: 'ceiling', label: 'Ceiling / Diffusion Media', icon: Layers, accent: 'text-sky-300', ring: 'bg-sky-500/10 border-sky-500/20' },
-    { key: 'intake', label: 'Intake Panels', icon: Wind, accent: 'text-teal-300', ring: 'bg-teal-500/10 border-teal-500/20' },
-    { key: 'exhaust', label: 'Exhaust Arrestors', icon: FilterIcon, accent: 'text-blue-300', ring: 'bg-blue-500/10 border-blue-500/20' },
-    { key: 'prefilter', label: 'Pre-Filters', icon: FilterIcon, accent: 'text-emerald-300', ring: 'bg-emerald-500/10 border-emerald-500/20' },
+    { key: 'ceiling' as const, label: 'Ceiling / Diffusion Media', icon: Layers, accent: 'text-sky-300', ring: 'bg-sky-500/10 border-sky-500/20' },
+    { key: 'intake' as const, label: 'Intake Panels', icon: Wind, accent: 'text-teal-300', ring: 'bg-teal-500/10 border-teal-500/20' },
+    { key: 'exhaust' as const, label: 'Exhaust Arrestors', icon: FilterIcon, accent: 'text-blue-300', ring: 'bg-blue-500/10 border-blue-500/20' },
+    { key: 'prefilter' as const, label: 'Pre-Filters', icon: FilterIcon, accent: 'text-emerald-300', ring: 'bg-emerald-500/10 border-emerald-500/20' },
   ];
 
   return (
@@ -178,7 +281,7 @@ function ModelCard({ model, brandName }: { model: BoothModel; brandName: string 
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {filterCategories.map(({ key, label, icon: Icon, accent, ring }) => {
-          const sizes = model.filters[key as keyof typeof model.filters];
+          const sizes = model.filters[key];
           if (!sizes || sizes.length === 0) return null;
           return (
             <div key={key} className={`border rounded-xl p-3 ${ring}`}>
@@ -186,14 +289,33 @@ function ModelCard({ model, brandName }: { model: BoothModel; brandName: string 
                 <Icon className={`h-3.5 w-3.5 ${accent}`} />
                 <span className={`text-xs font-semibold ${accent}`}>{label}</span>
               </div>
-              <div className="space-y-1">
-                {sizes.map((size) => (
-                  <Link key={size} href={`/shop?size=${encodeURIComponent(size.replace(/[""]/g, '').replace(/×/g, 'x'))}`}>
-                    <span className="block text-sm text-white/80 hover:text-white cursor-pointer transition-colors">
-                      {size}
-                    </span>
-                  </Link>
-                ))}
+              <div className="space-y-1.5">
+                {sizes.map((size) => {
+                  const hasMatch = hasExactMatch(size, key);
+                  const productLink = getProductLink(size, key);
+
+                  if (hasMatch) {
+                    return (
+                      <Link key={size} href={productLink}>
+                        <span className="flex items-center gap-1.5 text-sm text-white/80 hover:text-white cursor-pointer transition-colors group">
+                          <ExternalLink className="h-3 w-3 text-white/30 group-hover:text-[#4d9fff] transition-colors" />
+                          {size}
+                        </span>
+                      </Link>
+                    );
+                  } else {
+                    // No exact match — link to contact for a quote
+                    return (
+                      <Link key={size} href="/contact">
+                        <span className="flex items-center gap-1.5 text-sm text-white/50 hover:text-white cursor-pointer transition-colors group" title="Contact us for this size">
+                          <Phone className="h-3 w-3 text-white/20 group-hover:text-orange-400 transition-colors" />
+                          {size}
+                          <span className="text-[10px] text-orange-400/70 ml-auto">Call</span>
+                        </span>
+                      </Link>
+                    );
+                  }
+                })}
               </div>
             </div>
           );
