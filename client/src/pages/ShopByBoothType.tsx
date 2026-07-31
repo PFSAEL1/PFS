@@ -4,8 +4,16 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
-import { ArrowRight, Wind, ArrowDown, ArrowDownRight, Layers } from 'lucide-react';
-import { BOOTH_BRANDS, BOOTH_TYPES, type BoothType, getBrandsByType } from '@/data/boothBrands';
+import { ArrowRight, Wind, Layers, ArrowDown } from 'lucide-react';
+import { BOOTH_TYPES, type BoothType, getBrandsByType } from '@/data/boothBrands';
+import {
+  CrossdraftDiagram,
+  DowndraftDiagram,
+  SemiDowndraftDiagram,
+  SideDowndraftDiagram,
+  OpenFaceDiagram,
+  PrepStationDiagram,
+} from '@/components/AirflowDiagrams';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://pfsfilters.com' },
@@ -14,84 +22,68 @@ const breadcrumbSchema = createBreadcrumbSchema([
 
 const TYPE_CARDS: {
   type: BoothType;
-  image: string;
+  Diagram: React.FC;
+  accentColor: string;
+  glowColor: string;
   badge?: string;
   badgeColor?: string;
-  features: string[];
+  description: string;
   filterNeeds: string;
 }[] = [
   {
     type: 'downdraft',
-    image: '/images/booth-types/full-downdraft-3d.webp',
+    Diagram: DowndraftDiagram,
+    accentColor: 'border-cyan-500/30',
+    glowColor: 'hover:shadow-[0_0_40px_rgba(34,211,238,0.08)]',
     badge: 'BEST FINISH QUALITY',
     badgeColor: 'bg-red-600',
-    features: [
-      'Full ceiling plenum intake',
-      'Raised grated floor exhaust',
-      'Cleanest airflow pattern',
-      'Premium automotive & aerospace',
-    ],
+    description: 'Air enters from full ceiling plenum and exits through raised floor grates into a basement pit. Provides the cleanest, most contamination-free finish.',
     filterNeeds: 'Ceiling diffusion media + exhaust arrestors + pre-filters',
   },
   {
     type: 'crossdraft',
-    image: '/images/booth-types/crossflow-3d.webp',
-    badge: 'MOST COMMON',
+    Diagram: CrossdraftDiagram,
+    accentColor: 'border-cyan-500/30',
+    glowColor: 'hover:shadow-[0_0_40px_rgba(34,211,238,0.08)]',
+    badge: 'MOST POPULAR',
     badgeColor: 'bg-blue-600',
-    features: [
-      'Horizontal front-to-rear airflow',
-      'Front intake / rear exhaust',
-      'Most economical option',
-      'Ideal for auto body shops',
-    ],
+    description: 'Horizontal front-to-rear airflow. Air enters through intake filters on the front wall and exits through exhaust filters on the rear wall.',
     filterNeeds: 'Intake panels (front/side) + exhaust arrestors (rear wall)',
   },
   {
     type: 'semi-downdraft',
-    image: '/images/booth-types/semi-downdraft-3d.webp',
+    Diagram: SemiDowndraftDiagram,
+    accentColor: 'border-purple-500/30',
+    glowColor: 'hover:shadow-[0_0_40px_rgba(168,85,247,0.08)]',
     badge: 'MID-RANGE',
     badgeColor: 'bg-purple-600',
-    features: [
-      'Ceiling intake at front half',
-      'Rear floor-level exhaust',
-      'Better finish than crossdraft',
-      'No full pit required',
-    ],
+    description: 'Air enters from the ceiling at the front half and exits through rear floor-level exhaust. Better finish than crossdraft without requiring a full pit.',
     filterNeeds: 'Partial ceiling media + rear exhaust arrestors',
   },
   {
     type: 'side-downdraft',
-    image: '/images/booth-types/side-downdraft-3d.webp',
+    Diagram: SideDowndraftDiagram,
+    accentColor: 'border-cyan-600/30',
+    glowColor: 'hover:shadow-[0_0_40px_rgba(6,182,212,0.08)]',
     badge: 'NO PIT REQUIRED',
-    badgeColor: 'bg-cyan-600',
-    features: [
-      'Ceiling intake',
-      'Side wall fan plenum exhaust',
-      'Drop on existing slab',
-      'Retrofit & lease-friendly',
-    ],
+    badgeColor: 'bg-cyan-700',
+    description: 'Ceiling intake with side wall fan plenum exhaust. Drops directly on existing concrete slab — no pit excavation needed.',
     filterNeeds: 'Ceiling media + side-wall exhaust arrestors',
   },
   {
     type: 'open-face',
-    image: '/images/booth-types/heated-booth.webp',
-    features: [
-      'Open-front design',
-      'Rear wall exhaust only',
-      'Lower cost, faster throughput',
-      'Parts & touch-up work',
-    ],
+    Diagram: OpenFaceDiagram,
+    accentColor: 'border-emerald-500/30',
+    glowColor: 'hover:shadow-[0_0_40px_rgba(16,185,129,0.08)]',
+    description: 'Open front design with rear wall exhaust only. Lower cost, faster throughput for parts painting and touch-up work.',
     filterNeeds: 'Rear wall exhaust arrestors (no intake filtration required)',
   },
   {
     type: 'prep-station',
-    image: '/images/booth-types/raised-basement-3d.webp',
-    features: [
-      'Controlled dust containment',
-      'Ceiling panels + exhaust',
-      'Adjacent to paint booths',
-      'Sanding & masking work',
-    ],
+    Diagram: PrepStationDiagram,
+    accentColor: 'border-amber-500/30',
+    glowColor: 'hover:shadow-[0_0_40px_rgba(245,158,11,0.08)]',
+    description: 'Controlled dust containment with ceiling panels and exhaust. Positioned adjacent to paint booths for sanding and masking work.',
     filterNeeds: 'Ceiling panels + exhaust filters for dust containment',
   },
 ];
@@ -108,104 +100,92 @@ export default function ShopByBoothType() {
       <Navigation />
 
       {/* Hero Header */}
-      <section className="relative pt-28 pb-16 px-4 overflow-hidden">
-        {/* Animated background gradient */}
+      <section className="relative pt-28 pb-14 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a1628] via-[#040404] to-[#040404]" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#4d9fff]/5 rounded-full blur-[120px] animate-pulse" />
         
         <div className="max-w-7xl mx-auto relative z-10">
           <Breadcrumb items={[{ label: 'Shop by Booth Type' }]} />
           <div className="text-center mt-6">
-            <p className="text-[#4d9fff] text-xs font-semibold uppercase tracking-[0.3em] mb-4 animate-fade-in">
+            <p className="text-[#4d9fff] text-xs font-semibold uppercase tracking-[0.3em] mb-4">
               Airflow Configurations
             </p>
             <h1 className="text-5xl md:text-6xl font-extrabold mb-5 text-white tracking-tight">
               Choose Your Airflow
             </h1>
             <p className="text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
-              Your booth's airflow pattern determines which filters go where. Select your configuration to find exact filter matches.
+              Your booth's airflow pattern determines which filters go where. Select your configuration to find exact filter matches for your booth.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Booth Type Cards - Premium Grid */}
+      {/* Booth Type Cards */}
       <section className="px-4 pb-20">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TYPE_CARDS.map((card, index) => {
+          <div className="grid lg:grid-cols-2 gap-8">
+            {TYPE_CARDS.map((card) => {
               const info = BOOTH_TYPES[card.type];
               const brands = getBrandsByType(card.type);
+              const DiagramComponent = card.Diagram;
               return (
-                <Link key={card.type} href={`/shop-by-booth?type=${card.type}`}>
-                  <div 
-                    className="group relative border border-white/[0.06] bg-[#0a0a0a] rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(77,159,255,0.08)] hover:-translate-y-1 cursor-pointer h-full flex flex-col"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    {/* Image Section */}
-                    <div className="relative h-56 overflow-hidden bg-gradient-to-br from-gray-900 to-black">
-                      <img
-                        src={card.image}
-                        alt={`${info.label} paint booth airflow diagram`}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      {/* Overlay gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60" />
-                      
-                      {/* Badge */}
-                      {card.badge && (
-                        <div className={`absolute top-3 left-3 ${card.badgeColor} text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg`}>
-                          {card.badge}
-                        </div>
-                      )}
-                      
-                      {/* Brand count */}
-                      <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white/80 text-xs px-2.5 py-1 rounded-full border border-white/10">
-                        {brands.length} brands
+                <div
+                  key={card.type}
+                  className={`group relative border ${card.accentColor} bg-[#080810] rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-500 ${card.glowColor}`}
+                >
+                  {/* Animated Diagram Section */}
+                  <div className="relative h-52 md:h-56 bg-gradient-to-b from-[#0c0c18] to-[#080810] p-4 border-b border-white/[0.04]">
+                    {/* Badge */}
+                    {card.badge && (
+                      <div className={`absolute top-3 left-3 z-10 ${card.badgeColor} text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg`}>
+                        {card.badge}
                       </div>
+                    )}
+                    {/* Brand count */}
+                    <div className="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur-sm text-white/70 text-xs px-2.5 py-1 rounded-full border border-white/10">
+                      {brands.length} brands
+                    </div>
+                    
+                    <DiagramComponent />
+                  </div>
+
+                  {/* Content Section */}
+                  <div className="p-6">
+                    <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-[#4d9fff] transition-colors">
+                      {info.label}
+                    </h2>
+                    <p className="text-sm text-white/50 leading-relaxed mb-4">
+                      {card.description}
+                    </p>
+
+                    {/* Filter needs */}
+                    <div className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-3 mb-4">
+                      <span className="text-[10px] font-semibold text-white/30 uppercase tracking-wider">Filters Needed</span>
+                      <p className="text-xs text-white/60 mt-0.5">{card.filterNeeds}</p>
                     </div>
 
-                    {/* Content Section */}
-                    <div className="p-5 flex-1 flex flex-col">
-                      <h2 className="text-xl font-bold text-white mb-2 group-hover:text-[#4d9fff] transition-colors">
-                        {info.label}
-                      </h2>
-                      
-                      {/* Features list */}
-                      <div className="space-y-1.5 mb-4 flex-1">
-                        {card.features.map((feature, i) => (
-                          <div key={i} className="flex items-center gap-2">
-                            <div className="w-1 h-1 rounded-full bg-[#4d9fff]/60" />
-                            <span className="text-xs text-white/55">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Filter needs */}
-                      <div className="border-t border-white/[0.06] pt-3 mb-4">
-                        <span className="text-[10px] font-semibold text-white/30 uppercase tracking-wider">Filters Needed</span>
-                        <p className="text-xs text-white/50 mt-0.5 leading-relaxed">{card.filterNeeds}</p>
-                      </div>
-
-                      {/* Brand chips */}
-                      <div className="flex flex-wrap gap-1 mb-4">
-                        {brands.slice(0, 4).map(b => (
-                          <span key={b.slug} className="text-[10px] bg-white/[0.04] text-white/50 border border-white/[0.08] px-2 py-0.5 rounded-full">
+                    {/* Brand chips */}
+                    <div className="flex flex-wrap gap-1.5 mb-5">
+                      {brands.slice(0, 5).map(b => (
+                        <Link key={b.slug} href={`/shop-by-booth/${b.slug}`}>
+                          <span className="text-[11px] bg-white/[0.04] text-white/55 border border-white/[0.08] px-2.5 py-0.5 rounded-full hover:bg-white/10 hover:text-white cursor-pointer transition-colors">
                             {b.name}
                           </span>
-                        ))}
-                        {brands.length > 4 && (
-                          <span className="text-[10px] text-white/30 px-1">+{brands.length - 4} more</span>
-                        )}
-                      </div>
-
-                      {/* CTA Button */}
-                      <div className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white/[0.04] border border-white/10 text-white/80 font-medium rounded-xl group-hover:bg-[#4d9fff]/10 group-hover:border-[#4d9fff]/30 group-hover:text-white transition-all text-sm">
-                        Browse Filters <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                      </div>
+                        </Link>
+                      ))}
+                      {brands.length > 5 && (
+                        <span className="text-[11px] text-white/30 px-1 self-center">+{brands.length - 5} more</span>
+                      )}
                     </div>
+
+                    {/* CTA Button */}
+                    <Link href={`/shop-by-booth?type=${card.type}`}>
+                      <button className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white/[0.04] border border-white/10 text-white/80 font-semibold rounded-xl group-hover:bg-[#4d9fff]/10 group-hover:border-[#4d9fff]/30 group-hover:text-white transition-all text-sm">
+                        Browse Filters <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </button>
+                    </Link>
                   </div>
-                </Link>
+                </div>
               );
             })}
           </div>
