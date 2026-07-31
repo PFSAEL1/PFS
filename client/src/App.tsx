@@ -35,6 +35,10 @@ import PfsVanguard from './pages/PfsVanguard';
 import Consumables from './pages/Consumables';
 import Aerospace from './pages/Aerospace';
 import AerospaceHub from './pages/AerospaceHub';
+import ShopByBooth from './pages/ShopByBooth';
+import BrandDetail from './pages/BrandDetail';
+import ShopByBoothType from './pages/ShopByBoothType';
+import ShopByFilterType from './pages/ShopByFilterType';
 
 // Light version pages (kept in codebase but not routed in production)
 function Router() {
@@ -68,6 +72,10 @@ function Router() {
       <Route path="/shop-by-type" component={ShopByType} />
       <Route path="/filter-compatibility" component={FilterCompatibility} />
       <Route path="/brands" component={Brands} />
+      <Route path="/shop-by-booth" component={ShopByBooth} />
+      <Route path="/shop-by-booth/:slug" component={BrandDetail} />
+      <Route path="/shop-by-booth-type" component={ShopByBoothType} />
+      <Route path="/shop-by-filter-type" component={ShopByFilterType} />
 
       {/* Category pages — filtered by slug */}
       <Route path="/category/:slug" component={CategoryPage} />
