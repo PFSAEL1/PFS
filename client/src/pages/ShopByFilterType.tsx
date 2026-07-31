@@ -35,7 +35,7 @@ const filterCategories = [
     position: 'INTAKE',
     desc: 'Adhesive-coated panels trap dust, debris, and airborne particles at the intake. Keeps contaminants out for a flawless finish.',
     href: '/category/tacky-panels',
-    image: '/images/filters/tacky-intake.jpg',
+    image: 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/tacky-panel-green_7675d2dd-699a-43c3-995e-43de1e536727.png?v=1775862087',
     tags: ['High Efficiency', 'Premium'],
     featured: false,
   },
