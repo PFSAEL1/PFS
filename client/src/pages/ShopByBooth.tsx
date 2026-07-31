@@ -5,13 +5,30 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
-import { Search, ArrowRight, MapPin, Factory, ChevronDown, X } from 'lucide-react';
+import { Search, ArrowRight, MapPin, Factory, ChevronDown, X, Star } from 'lucide-react';
 import { BOOTH_BRANDS, BOOTH_TYPES, type BoothType, type BoothBrand } from '@/data/boothBrands';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://pfsfilters.com' },
   { name: 'Shop by Booth', url: 'https://pfsfilters.com/shop-by-booth' },
 ]);
+
+// Logo mapping for brands that have logos
+const BRAND_LOGOS: Record<string, string> = {
+  'pfs-filters': '/images/brands/pfs-filters.png',
+  'accudraft': '/images/brands/accudraft.png',
+  'garmat-usa': '/images/brands/garmat-usa.png',
+  'col-met': '/images/brands/col-met.png',
+  'global-finishing-solutions': '/images/brands/global-finishing-solutions.png',
+  'blowtherm': '/images/brands/blowtherm.png',
+  'junair': '/images/brands/junair.webp',
+  'nova-verta': '/images/brands/nova-verta.png',
+  'devilbiss': '/images/brands/devilbiss.png',
+  'usi-italia': '/images/brands/usi-italia.png',
+  'spraybake': '/images/brands/spraybake.png',
+  'eagle': '/images/brands/eagle.jpg',
+  'saima': '/images/brands/saima.jpg',
+};
 
 export default function ShopByBooth() {
   const [query, setQuery] = useState('');
@@ -63,8 +80,36 @@ export default function ShopByBooth() {
       {/* Arc transition */}
       <div className="arc-divider arc-divider-up" />
 
+      {/* PFS Featured Card */}
+      <section className="section-raised tex-dots pt-8 pb-4 px-4">
+        <div className="max-w-7xl mx-auto">
+          <Link href="/shop">
+            <div className="group relative overflow-hidden border-2 border-[#4d9fff]/40 bg-gradient-to-r from-[#4d9fff]/10 via-[#4d9fff]/5 to-transparent rounded-2xl p-6 mb-8 cursor-pointer transition-all duration-300 hover:border-[#4d9fff]/60 hover:shadow-[0_0_40px_rgba(77,159,255,0.15)]">
+              {/* Glow effect */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#4d9fff]/5 rounded-full blur-3xl" />
+              <div className="relative flex items-center gap-6">
+                <div className="flex-shrink-0 w-32 h-20 bg-white/10 rounded-xl flex items-center justify-center p-3 border border-white/10">
+                  <img src="/images/brands/pfs-filters.png" alt="PFS Filters" className="max-w-full max-h-full object-contain" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Star className="h-4 w-4 text-[#4d9fff] fill-[#4d9fff]" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#4d9fff]">Our Brand</span>
+                  </div>
+                  <h2 className="text-2xl font-bold text-white mb-1">PFS Filters</h2>
+                  <p className="text-white/60 text-sm">Premium filtration media engineered for every spray booth. Universal compatibility, superior performance.</p>
+                </div>
+                <div className="hidden md:flex items-center gap-2 text-[#4d9fff] font-semibold group-hover:gap-3 transition-all">
+                  Shop All Products <ArrowRight className="h-4 w-4" />
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       {/* Search & Filter bar */}
-      <section className="section-raised tex-dots py-8 px-4">
+      <section className="section-raised tex-dots py-4 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row gap-4 mb-8">
             {/* Search */}
@@ -106,7 +151,7 @@ export default function ShopByBooth() {
           </p>
 
           {/* Brand grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((brand) => (
               <BrandCard key={brand.slug} brand={brand} typeFilter={typeFilter} />
             ))}
@@ -157,36 +202,55 @@ function BrandCard({ brand, typeFilter }: { brand: BoothBrand; typeFilter: Booth
     : brand.models.length;
 
   const boothTypes = [...new Set(brand.models.map(m => m.type))];
+  const logoSrc = BRAND_LOGOS[brand.slug];
 
   return (
     <Link href={`/shop-by-booth/${brand.slug}`}>
-      <div className="group border border-white/8 bg-white/[0.03] rounded-2xl p-5 h-full cursor-pointer transition-all duration-300 hover:border-white/20 hover:bg-white/[0.06] hover:shadow-[0_8px_32px_rgba(255,255,255,0.04)]">
-        <div className="flex items-start justify-between mb-3">
-          <h3 className="font-bold text-lg text-white group-hover:text-white/90">{brand.name}</h3>
+      <div className="group border border-white/8 bg-white/[0.03] rounded-2xl overflow-hidden h-full cursor-pointer transition-all duration-300 hover:border-white/20 hover:bg-white/[0.06] hover:shadow-[0_8px_32px_rgba(255,255,255,0.04)]">
+        {/* Logo area */}
+        <div className="h-28 bg-white/[0.02] border-b border-white/5 flex items-center justify-center p-4 relative overflow-hidden">
+          {logoSrc ? (
+            <img
+              src={logoSrc}
+              alt={`${brand.name} logo`}
+              className="max-h-16 max-w-[80%] object-contain opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+            />
+          ) : (
+            <div className="text-center">
+              <span className="text-2xl font-bold text-white/30 group-hover:text-white/50 transition-colors">
+                {brand.name.split(' ').map(w => w[0]).join('').slice(0, 3)}
+              </span>
+            </div>
+          )}
+          {/* Country badge */}
           {brand.country && (
-            <span className="flex items-center gap-1 text-xs text-white/40 bg-white/5 border border-white/8 px-2 py-0.5 rounded-full">
-              <MapPin className="h-3 w-3" /> {brand.country}
+            <span className="absolute top-2 right-2 flex items-center gap-1 text-[10px] text-white/40 bg-black/40 backdrop-blur-sm border border-white/8 px-2 py-0.5 rounded-full">
+              <MapPin className="h-2.5 w-2.5" /> {brand.country}
             </span>
           )}
         </div>
-        <p className="text-sm text-white/60 leading-relaxed mb-4 line-clamp-2">{brand.description}</p>
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {boothTypes.slice(0, 3).map(t => (
-            <span key={t} className="text-xs bg-white/5 text-white/50 border border-white/8 px-2 py-0.5 rounded-full capitalize">
-              {BOOTH_TYPES[t].label}
+
+        {/* Info area */}
+        <div className="p-4">
+          <h3 className="font-bold text-base text-white group-hover:text-white/90 mb-2">{brand.name}</h3>
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {boothTypes.slice(0, 3).map(t => (
+              <span key={t} className="text-[10px] bg-white/5 text-white/50 border border-white/8 px-2 py-0.5 rounded-full capitalize">
+                {BOOTH_TYPES[t].label}
+              </span>
+            ))}
+            {boothTypes.length > 3 && (
+              <span className="text-[10px] text-white/40">+{boothTypes.length - 3}</span>
+            )}
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="flex items-center gap-1.5 text-xs text-white/40">
+              <Factory className="h-3.5 w-3.5" /> {modelCount} model{modelCount !== 1 ? 's' : ''}
             </span>
-          ))}
-          {boothTypes.length > 3 && (
-            <span className="text-xs text-white/40">+{boothTypes.length - 3}</span>
-          )}
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="flex items-center gap-1.5 text-xs text-white/40">
-            <Factory className="h-3.5 w-3.5" /> {modelCount} model{modelCount !== 1 ? 's' : ''}
-          </span>
-          <span className="flex items-center gap-1 text-sm font-semibold text-white/50 group-hover:text-white transition-all group-hover:gap-2">
-            View Filters <ArrowRight className="h-3.5 w-3.5" />
-          </span>
+            <span className="flex items-center gap-1 text-sm font-semibold text-white/50 group-hover:text-white transition-all group-hover:gap-2">
+              View <ArrowRight className="h-3.5 w-3.5" />
+            </span>
+          </div>
         </div>
       </div>
     </Link>
