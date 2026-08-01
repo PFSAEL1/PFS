@@ -98,8 +98,8 @@ export default function ShopByBooth() {
               {/* Glow effect */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#4d9fff]/5 rounded-full blur-3xl" />
               <div className="relative flex items-center gap-6">
-                <div className="flex-shrink-0 w-60 h-36 bg-white rounded-xl flex items-center justify-center p-2">
-                  <img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" className="w-56 h-32 object-contain" />
+                <div className="flex-shrink-0 w-64 h-40 bg-gray-100 rounded-xl flex items-center justify-center p-4">
+                  <img src="/images/brands/pfs-logo-tight.png" alt="PFS Filters" className="w-full h-full object-contain" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
