@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { Link } from 'wouter';
+import { useState, useMemo, useEffect } from 'react';
+import { Link, useLocation } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
@@ -31,8 +31,18 @@ const BRAND_LOGOS: Record<string, string> = {
 };
 
 export default function ShopByBooth() {
+  const [location] = useLocation();
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<BoothType | ''>('');
+
+  // Read ?type= from URL on mount to support links from Shop by Booth Type page
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const typeParam = params.get('type') as BoothType | null;
+    if (typeParam && typeParam in BOOTH_TYPES) {
+      setTypeFilter(typeParam);
+    }
+  }, [location]);
 
   const filtered = useMemo(() => {
     let brands = [...BOOTH_BRANDS];
@@ -88,8 +98,8 @@ export default function ShopByBooth() {
               {/* Glow effect */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#4d9fff]/5 rounded-full blur-3xl" />
               <div className="relative flex items-center gap-6">
-                <div className="flex-shrink-0 w-56 h-36 bg-white rounded-xl flex items-center justify-center p-2">
-                  <img src="/images/brands/pfs-filters-black.webp" alt="PFS Filters" className="w-48 h-28 object-contain" />
+                <div className="flex-shrink-0 w-60 h-36 bg-white rounded-xl flex items-center justify-center p-2">
+                  <img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" className="w-56 h-32 object-contain" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
