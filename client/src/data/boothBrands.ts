@@ -598,6 +598,30 @@ export const BOOTH_BRANDS: BoothBrand[] = [
     replacementCycle: { intake: '30–45 days', exhaust: '70–100 days', ceiling: '6–12 months' },
   },
   {
+    slug: 'pfs-spray-booths',
+    name: 'PFS Spray Booths',
+    country: 'USA',
+    description: 'Our own line of premium spray booths engineered for maximum airflow efficiency and filter accessibility. PFS Spray Booths feature the Orion, Zenith, and Helios series — designed from the ground up to deliver superior finish quality with easy-to-source replacement filters.',
+    industries: ['Automotive Refinish', 'Industrial', 'Fleet & Truck', 'Woodworking'],
+    models: [
+      // Orion Semi-Downdraft series
+      { name: 'Orion 27 Semi-Downdraft', type: 'semi-downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"', '20"×25"'] } },
+      { name: 'Orion 30 Semi-Downdraft', type: 'semi-downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"', '20"×25"'] } },
+      { name: 'Orion 33 Semi-Downdraft', type: 'semi-downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"', '20"×25"'] } },
+      // Zenith Downdraft series
+      { name: 'Zenith 27 Downdraft', type: 'downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"', '20"×25"'], ceiling: ['38"×120"'] } },
+      { name: 'Zenith 30 Downdraft', type: 'downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"', '20"×25"'], ceiling: ['38"×120"'] } },
+      { name: 'Zenith 33 Downdraft', type: 'downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"', '20"×25"'], ceiling: ['38"×120"'] } },
+      // Helios Side-Downdraft series
+      { name: 'Helios 27 Side-Downdraft', type: 'side-downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"'], ceiling: ['38"×120"'] } },
+      { name: 'Helios 30 Side-Downdraft', type: 'side-downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"'], ceiling: ['38"×120"'] } },
+      { name: 'Helios 33 Side-Downdraft', type: 'side-downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"'], ceiling: ['38"×120"'] } },
+      // Orion Prep Station
+      { name: 'Orion Prep Station', type: 'prep-station', filters: { intake: ['20"×20"'], exhaust: ['20"×20"'] } },
+    ],
+    replacementCycle: { intake: '30–45 days', exhaust: '70–100 days', ceiling: '6–12 months' },
+  },
+  {
     slug: 'optima',
     name: 'Optima',
     country: 'Italy',

@@ -28,6 +28,7 @@ const BRAND_LOGOS: Record<string, string> = {
   'spraybake': '/images/brands/spraybake.png',
   'eagle': '/images/brands/eagle.png',
   'saima': '/images/brands/saima.png',
+  'pfs-spray-booths': '/images/brands/pfs-logo-tight.png',
 };
 
 export default function ShopByBooth() {
