@@ -115,7 +115,7 @@ export const Navigation = () => {
                     <Link href="/brands" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
                       Brands
                     </Link>
-                    <Link href="/filter-compatibility" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+                    <Link href="/filter-finder" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
                       Filter Finder Tool
                     </Link>
                     <Link href="/consumables" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
@@ -228,7 +228,7 @@ export const Navigation = () => {
               <Link href="/shop-by-booth-type" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Booth Type</Link>
               <Link href="/shop-by-size" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Size</Link>
               <Link href="/brands" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Brands</Link>
-              <Link href="/filter-compatibility" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Filter Finder Tool</Link>
+              <Link href="/filter-finder" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Filter Finder Tool</Link>
               <Link href="/consumables" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Consumables</Link>
               <Link href="/aerospace" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Aerospace Filters</Link>
               <Link href="/why-choose-us" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Why Choose Us</Link>

@@ -191,7 +191,7 @@ export default function ShopByBooth() {
                 Get Help Choosing
               </button>
             </Link>
-            <Link href="/filter-compatibility">
+            <Link href="/filter-finder">
               <button className="px-6 py-3 border border-white/20 text-white font-semibold rounded-xl hover:bg-white/5 transition-colors">
                 Use Filter Finder Tool
               </button>

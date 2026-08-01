@@ -23,7 +23,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import FilterScanner from './pages/FilterScanner';
 import ShopBySize from './pages/ShopBySize';
 import ShopByType from './pages/ShopByType';
-import FilterCompatibility from './pages/FilterCompatibility';
+// FilterCompatibility removed — redirects to FilterFinder
 import Brands from './pages/Brands';
 import SubmitReview from './pages/SubmitReview';
 import FilterDatabase from './pages/FilterDatabase';
@@ -39,6 +39,7 @@ import ShopByBooth from './pages/ShopByBooth';
 import BrandDetail from './pages/BrandDetail';
 import ShopByBoothType from './pages/ShopByBoothType';
 import ShopByFilterType from './pages/ShopByFilterType';
+import FilterFinder from './pages/FilterFinder';
 
 // Light version pages (kept in codebase but not routed in production)
 function Router() {
@@ -70,7 +71,8 @@ function Router() {
       {/* Shop navigation */}
       <Route path="/shop-by-size" component={ShopBySize} />
       <Route path="/shop-by-type" component={ShopByType} />
-      <Route path="/filter-compatibility" component={FilterCompatibility} />
+      <Route path="/filter-compatibility" component={FilterFinder} />
+      <Route path="/filter-finder" component={FilterFinder} />
       <Route path="/brands" component={Brands} />
       <Route path="/shop-by-booth" component={ShopByBooth} />
       <Route path="/shop-by-booth/:slug" component={BrandDetail} />

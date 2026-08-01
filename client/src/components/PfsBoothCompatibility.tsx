@@ -58,7 +58,7 @@ export const PfsBoothCompatibility = ({ product }: { product: any }) => {
           </ul>
           <p className="px-5 py-3 text-xs text-white/55" style={{ background: '#1e1e1e' }}>
             Not sure which configuration you have (heated vs. non-heated)?{' '}
-            <a href="/filter-compatibility" className="text-teal-400 hover:underline">
+            <a href="/filter-finder" className="text-teal-400 hover:underline">
               Use the compatibility finder
             </a>{' '}
             or{' '}
