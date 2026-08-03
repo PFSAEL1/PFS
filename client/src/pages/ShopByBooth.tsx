@@ -94,24 +94,24 @@ export default function ShopByBooth() {
       {/* PFS Featured Card */}
       <section className="section-raised tex-dots pt-8 pb-4 px-4">
         <div className="max-w-7xl mx-auto">
-          <Link href="/shop">
+          <Link href="/shop-by-booth/pfs-spray-booths">
             <div className="group relative overflow-hidden border-2 border-[#4d9fff]/40 bg-gradient-to-r from-[#4d9fff]/10 via-[#4d9fff]/5 to-transparent rounded-2xl p-6 mb-8 cursor-pointer transition-all duration-300 hover:border-[#4d9fff]/60 hover:shadow-[0_0_40px_rgba(77,159,255,0.15)]">
               {/* Glow effect */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#4d9fff]/5 rounded-full blur-3xl" />
               <div className="relative flex items-center gap-6">
                 <div className="flex-shrink-0 w-64 h-40 bg-gray-100 rounded-xl flex items-center justify-center p-4">
-                  <img src="/images/brands/pfs-logo-tight.png" alt="PFS Filters" className="w-full h-full object-contain" />
+                  <img src="/images/brands/pfs-logo-tight.png" alt="PFS Spray Booths" className="w-full h-full object-contain" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <Star className="h-4 w-4 text-[#4d9fff] fill-[#4d9fff]" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#4d9fff]">Our Brand</span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#4d9fff]">Our Booths</span>
                   </div>
-                  <h2 className="text-2xl font-bold text-white mb-1">PFS Filters</h2>
-                  <p className="text-white/60 text-sm">Premium filtration media engineered for every spray booth. Universal compatibility, superior performance.</p>
+                  <h2 className="text-2xl font-bold text-white mb-1">PFS Spray Booths</h2>
+                  <p className="text-white/60 text-sm">Orion, Zenith & Helios series — 10 models across Semi-Downdraft, Downdraft, Side-Downdraft & Prep Station configurations.</p>
                 </div>
                 <div className="hidden md:flex items-center gap-2 text-[#4d9fff] font-semibold group-hover:gap-3 transition-all">
-                  Shop All Products <ArrowRight className="h-4 w-4" />
+                  View Models & Filters <ArrowRight className="h-4 w-4" />
                 </div>
               </div>
             </div>
