@@ -1,0 +1,88 @@
+# Platinum Finishing Systems (PFS)
+# https://platinumfinishingsystems.com
+# llms.txt — Machine-readable site summary for AI language models and search engines
+
+## About
+
+Platinum Finishing Systems (PFS) is a turnkey industrial finishing systems manufacturer headquartered in Santa Rosa, California. PFS designs, fabricates, and installs complete industrial finishing lines including spray paint booths, powder coating systems, industrial curing ovens, abrasive blast rooms, air make-up units, and robotic finishing cells. PFS serves automotive, aerospace, defense, transit, agricultural, and general industrial manufacturing customers nationwide.
+
+All PFS equipment is manufactured in Santa Rosa, CA. PFS uses ETL/UL certified components, UL 508A listed control panels, and designs systems to comply with NFPA 33, NFPA 86, and OSHA 1910.94 as applicable.
+
+## Products
+
+### Spray Paint Booths
+- Cross-flow spray booths (PFS Orion Series)
+- Semi-downdraft spray booths (PFS Orion Series)
+- Full downdraft spray booths (PFS Helios Series)
+- Side downdraft spray booths (PFS Helios Series)
+- Open-face spray booths
+- Drive-through spray booths
+- Aircraft and aerospace paint booths
+- Truck and large vehicle spray booths
+- Outdoor spray booths (metal building)
+- Container spray booths (ISO shipping container)
+- Double-wall spray booths (PFS Zenith Series)
+- Inspection booths
+- Prep booths and prep stations
+- Custom spray booths
+
+### Powder Coating Systems
+- Spray-to-waste powder coating booths (disposable filter and pulse-clean cartridge models)
+- Powder reclaim systems (cyclone and cartridge recovery)
+- Automated powder coating systems
+
+### Industrial Ovens
+- Batch curing ovens
+- Walk-in ovens
+- Conveyor ovens
+- Large equipment ovens
+- Infrared ovens
+- Custom industrial ovens
+
+### Blast Systems
+- Abrasive blast booths
+- Blast rooms with media reclaim
+- Containerized blast booths (shipping container blast rooms)
+
+### Support Equipment
+- Heated and non-heated air make-up units (AMUs)
+- Paint mix rooms (NFPA 33 compliant)
+- Sanding and grinding booths
+- Wash booths and pre-treatment systems
+- Environmental control rooms
+- Replacement filters and consumables
+
+## Key Differentiators
+
+- Vertical manufacturer: PFS designs, fabricates, and installs in-house — no middlemen
+- Factory-direct pricing
+- ETL/UL certified components on all systems
+- UL 508A listed control panels
+- NFPA 33 and NFPA 86 compliant designs
+- OSHA 1910.94 compliant blast room ventilation
+- Custom sizing for any part envelope or production volume
+- Nationwide installation and service
+
+## Contact
+
+- Phone: (888) 545-7715
+- Email: info@platinumfinishingsystems.com
+- Location: Santa Rosa, CA
+
+## Sitemap
+
+- Home: https://platinumfinishingsystems.com/
+- Paint Booths: https://platinumfinishingsystems.com/products/paint-booths
+- Powder Coating: https://platinumfinishingsystems.com/products/powder-booths
+- Industrial Ovens: https://platinumfinishingsystems.com/products/ovens
+- Blast Systems: https://platinumfinishingsystems.com/products/blast-systems
+- Air Make-Up Units: https://platinumfinishingsystems.com/products/air-make-up-units
+- Prep & Support: https://platinumfinishingsystems.com/products/prep-support
+- Environmental Rooms: https://platinumfinishingsystems.com/products/environmental-rooms
+- Outdoor Booths: https://platinumfinishingsystems.com/products/outdoor-booths
+- Container Booths: https://platinumfinishingsystems.com/products/container-booths
+- Industries: https://platinumfinishingsystems.com/industries
+- Service: https://platinumfinishingsystems.com/service
+- Resources: https://platinumfinishingsystems.com/resources
+- Contact: https://platinumfinishingsystems.com/contact
+- Request a Quote: https://platinumfinishingsystems.com/contact/request-a-quote

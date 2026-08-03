@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Home -->
+  <url><loc>https://platinumfinishingsystems.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <!-- Products Hub -->
+  <url><loc>https://platinumfinishingsystems.com/products</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <!-- Enclosed Spray Booths -->
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/full-downdraft</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/semi-downdraft</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/side-downdraft</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/cross-flow</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/heated-booth</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/cross-flow-all</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/double-wall</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/raised-basement</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/inspection-booth</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Powder Coating Booths -->
+  <url><loc>https://platinumfinishingsystems.com/products/powder-booths</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/powder-booths/spray-to-waste</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/powder-booths/reclaim-booths</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/powder-booths/automated-powder</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Blast Systems -->
+  <url><loc>https://platinumfinishingsystems.com/products/blast-systems</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/blast-systems/blasting-booths</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/blast-systems/reclaim-blasting</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/blast-systems/blast-rooms</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/blast-systems/containerized-blast</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Surface Prep -->
+  <url><loc>https://platinumfinishingsystems.com/products/surface-prep</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/surface-prep/prep-stations</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/surface-prep/mixing-rooms</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/surface-prep/wash-booths</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/surface-prep/blasting-booths</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/surface-prep/sanding-booths</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/surface-prep/grinding-booths</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Outdoor & Specialty Booths -->
+  <url><loc>https://platinumfinishingsystems.com/products/outdoor-booths</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/outdoor-booths/outdoor-spray-booth</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/outdoor-booths/non-heated</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Container Booths -->
+  <url><loc>https://platinumfinishingsystems.com/products/container-booths</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/container-booths/container-booth</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Specialty Booths -->
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/aircraft-booth</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/truck-booth</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/sprinter-van-booth</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/open-face-booth</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/paint-walls</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Air Make-Up Units -->
+  <url><loc>https://platinumfinishingsystems.com/products/air-make-up-units</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/air-make-up-units/heated-amu</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Industrial Ovens -->
+  <url><loc>https://platinumfinishingsystems.com/products/ovens</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/ovens/batch-oven</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/ovens/walk-in-oven</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/ovens/conveyor</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Environmental Rooms -->
+  <url><loc>https://platinumfinishingsystems.com/products/environmental-rooms</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/environmental-rooms/temperature-controlled</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Parts & Filters -->
+  <url><loc>https://platinumfinishingsystems.com/parts</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/parts/filters</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <!-- Automation & Integration -->
+  <url><loc>https://platinumfinishingsystems.com/integration</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/integration/liquid-paint-lines</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/integration/powder-coating-lines</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/integration/conveyor-systems</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/integration/pretreatment-systems</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/integration/robotic-finishing-cells</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/integration/system-integration</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Industries -->
+  <url><loc>https://platinumfinishingsystems.com/industries</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industries/aerospace</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industries/automotive-manufacturing</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industries/collision-repair</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industries/industrial-manufacturing</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industries/truck-bus-fleet</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industries/marine</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industries/rail-transit</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industries/energy-utilities</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industries/heavy-equipment</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industries/woodworking</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industries/government-military</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industries/education</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <!-- Company -->
+  <url><loc>https://platinumfinishingsystems.com/company</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/company/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/company/manufacturing</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/company/certifications</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/company/careers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/company/news</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/company/meet-the-team</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <!-- Service -->
+  <url><loc>https://platinumfinishingsystems.com/service</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/service/filter-replacement</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/service/preventive-maintenance</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/service/emergency-repair</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Resources -->
+  <url><loc>https://platinumfinishingsystems.com/resources</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/resources/faqs</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/resources/downloads</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/resources/videos</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/resources/spec-sheets</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- California Service Landing Page -->
+  <url><loc>https://platinumfinishingsystems.com/spray-booth-service-california</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <!-- Los Angeles County Service Landing Page -->
+  <url><loc>https://platinumfinishingsystems.com/spray-booth-service-los-angeles</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <!-- Bay Area Service Landing Page -->
+  <url><loc>https://platinumfinishingsystems.com/spray-booth-service-bay-area</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <!-- Filters Landing Page -->
+  <url><loc>https://platinumfinishingsystems.com/filters</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Legal -->
+  <url><loc>https://platinumfinishingsystems.com/legal</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <!-- Distributor & Contact -->
+  <url><loc>https://platinumfinishingsystems.com/become-a-distributor</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/contact/request-a-quote</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <!-- Ovens Sub-pages -->
+  <url><loc>https://platinumfinishingsystems.com/products/ovens/batch</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/ovens/walk-in</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Paint Booth Alternate Routes -->
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/aircraft</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/crossflow</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/crossflow-all</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/downdraft-raised-basement</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/enclosed</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/paint-booths/truck-booths</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Prep & Support -->
+  <url><loc>https://platinumfinishingsystems.com/products/prep-stations</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/prep-support/paint-mix-rooms</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/prep-support/paint-walls</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/products/prep-support/prep-stations</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Enclosures & Storage -->
+  <url><loc>https://platinumfinishingsystems.com/enclosures-storage</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Integration & Automation -->
+  <url><loc>https://platinumfinishingsystems.com/integration-automation</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Support -->
+  <url><loc>https://platinumfinishingsystems.com/support</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Landing Pages -->
+  <url><loc>https://platinumfinishingsystems.com/industrial-paint-booths</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://platinumfinishingsystems.com/industrial</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Parts & Filters -->
+  <url><loc>https://platinumfinishingsystems.com/products/parts-filters</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Blast Systems Sub -->
+  <url><loc>https://platinumfinishingsystems.com/products/blast-systems/reclaim-blasting-booths</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>
