@@ -12,10 +12,10 @@ import { useSEO } from "@/hooks/useSEO";
 const BLUE = "#1B3A6B";
 const GOLD = "#C8A84B";
 
-const HERO_VIDEO_MP4 = "/manus-storage/pfs-facility-drone-hero_ca12546c.mp4";
+const HERO_VIDEO_MP4 = "https://pfsspraybooth-qb3z7l9y.manus.space/manus-storage/pfs-facility-drone-hero_ca12546c.mp4";
 const HERO_POSTER    = "/manus-storage/pfs-facility-building_bece7d21.jpg";
 const FACILITY_SIGN  = "/manus-storage/pfs-facility-sign_9582dc74.jpg";
-const STORY_VIDEO    = "/manus-storage/pfs-drone-facility_460ea18b.mp4";
+const STORY_VIDEO    = "https://pfsspraybooth-qb3z7l9y.manus.space/manus-storage/pfs-drone-facility_460ea18b.mp4";
 
 const STATS = [
   { num: "2012",         label: "Founded" },

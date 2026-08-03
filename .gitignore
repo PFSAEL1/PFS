@@ -111,3 +111,7 @@ temp/
 # Manus version file (auto-generated, not part of source)
 client/public/__manus__/version.json
 .project-config.json
+
+# Large video files (>100MB - exceeds GitHub limit)
+client/public/manus-storage/pfs-facility-drone-hero_ca12546c.mp4
+client/public/manus-storage/pfs-drone-facility_460ea18b.mp4
