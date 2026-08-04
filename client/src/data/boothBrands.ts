@@ -609,9 +609,9 @@ export const BOOTH_BRANDS: BoothBrand[] = [
       { name: 'Orion 30 Semi-Downdraft', type: 'semi-downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"', '20"×25"'] } },
       { name: 'Orion 33 Semi-Downdraft', type: 'semi-downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"', '20"×25"'] } },
       // Zenith Downdraft series
-      { name: 'Zenith 27 Downdraft', type: 'downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"', '20"×25"'], ceiling: ['38"×120"'] } },
-      { name: 'Zenith 30 Downdraft', type: 'downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"', '20"×25"'], ceiling: ['38"×120"'] } },
-      { name: 'Zenith 33 Downdraft', type: 'downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"', '20"×25"'], ceiling: ['38"×120"'] } },
+      { name: 'Zenith 27 Downdraft', type: 'downdraft', filters: { intake: ['20"×20"'], exhaust: ['Fiberglass Roll'], ceiling: ['38"×120"'] } },
+      { name: 'Zenith 30 Downdraft', type: 'downdraft', filters: { intake: ['20"×20"'], exhaust: ['Fiberglass Roll'], ceiling: ['38"×120"'] } },
+      { name: 'Zenith 33 Downdraft', type: 'downdraft', filters: { intake: ['20"×20"'], exhaust: ['Fiberglass Roll'], ceiling: ['38"×120"'] } },
       // Helios Side-Downdraft series
       { name: 'Helios 27 Side-Downdraft', type: 'side-downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"'], ceiling: ['38"×120"'] } },
       { name: 'Helios 30 Side-Downdraft', type: 'side-downdraft', filters: { intake: ['20"×20"'], exhaust: ['20"×20"'], ceiling: ['38"×120"'] } },
