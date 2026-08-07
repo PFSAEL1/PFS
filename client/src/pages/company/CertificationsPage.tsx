@@ -184,7 +184,7 @@ export default function CertificationsPage() {
           </div>
 
           {/* Headline */}
-          <h1
+          <h1  data-animation="slideLeft"
             style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "clamp(2.4rem, 5.5vw, 4.2rem)",
@@ -199,7 +199,7 @@ export default function CertificationsPage() {
             Built to the Highest<br />
             Industry Standards
           </h1>
-          <p
+          <p data-animation="slideLeft"
             style={{
               fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
               fontSize: "clamp(0.95rem, 1.3vw, 1.1rem)",
@@ -213,12 +213,12 @@ export default function CertificationsPage() {
           </p>
 
           <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap",marginTop:"0.5rem" }}>
-            <Link href="/contact/request-a-quote">
+            <Link href="/contact/request-a-quote" data-animation="slideLeft">
               <button className="btn-glow" style={{ fontFamily:"'Chakra Petch',sans-serif",fontWeight:700,fontSize:"0.82rem",letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.9rem 2.2rem",display:"inline-flex",alignItems:"center",gap:"0.5rem",cursor:"pointer" }}>
                 REQUEST DOCUMENTATION <ArrowRight size={14} />
               </button>
             </Link>
-            <a href="tel:8885457715">
+            <a href="tel:8885457715" data-animation="slideRight">
               <button style={{ fontFamily:"'Chakra Petch',sans-serif",fontWeight:700,fontSize:"0.82rem",letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.9rem 2.2rem",background:"transparent",color:"#fff",border:"1.5px solid rgba(255,255,255,0.45)",cursor:"pointer",transition:"border-color 0.2s" }}
                 onMouseEnter={e=>(e.currentTarget.style.borderColor="#fff")}
                 onMouseLeave={e=>(e.currentTarget.style.borderColor="rgba(255,255,255,0.45)")}>
@@ -236,7 +236,7 @@ export default function CertificationsPage() {
       {/* ── COMPLIANCE DETAIL SECTION ──────────────────────────────────────── */}
       <section style={{ background: "#f9fafb", padding: "5rem 0" }}>
         <div className="container">
-          <div
+          <div data-animation="fadeIn"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
@@ -307,7 +307,7 @@ export default function CertificationsPage() {
           }}
         >
           <div>
-            <h2
+            <h2 data-animation="slideLeft"
               style={{
                 fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
                 fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
@@ -319,7 +319,7 @@ export default function CertificationsPage() {
             >
               Need Compliance Documentation?
             </h2>
-            <p
+            <p data-animation="slideLeft"
               style={{
                 fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
                 fontSize: "0.95rem",
@@ -331,7 +331,7 @@ export default function CertificationsPage() {
             </p>
           </div>
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-            <Link href="/contact/request-a-quote">
+            <Link href="/contact/request-a-quote" data-animation="slideLeft">
               <button
                 className="btn-glow"
                 style={{
@@ -350,7 +350,7 @@ export default function CertificationsPage() {
                 REQUEST DOCUMENTATION <ArrowRight size={14} />
               </button>
             </Link>
-            <a href="tel:8885457715">
+            <a href="tel:8885457715" data-animation="slideRight">
               <button
                 style={{
                   fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",

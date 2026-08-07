@@ -277,7 +277,7 @@ export default function FullDowndraftBoothPage() {
 
 
           {/* Headline */}
-          <h1 style={{
+          <h1 data-animation="slideLeft" style={{
             fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
             fontSize: "clamp(2.4rem, 9vw, 5.2rem)",
             fontWeight: 800, color: "#fff", lineHeight: 1.0,
@@ -290,7 +290,7 @@ export default function FullDowndraftBoothPage() {
             Booth — Quote
           </h1>
 
-          <p style={{
+          <p data-animation="slideLeft" style={{
             fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
             fontSize: "clamp(0.88rem, 2.5vw, 1.05rem)",
             color: "rgba(255,255,255,0.82)",
@@ -304,10 +304,10 @@ export default function FullDowndraftBoothPage() {
 
           {/* CTAs */}
           <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", maxWidth: "340px" }}>
-            <Link href="/contact/request-a-quote?from=full-downdraft-booth">
+            <Link href="/contact/request-a-quote?from=full-downdraft-booth" data-animation="slideLeft">
               <span className="btn-glow" style={{ width: "100%", justifyContent: "center" }}>GET PRICING <ArrowRight size={16} /></span>
             </Link>
-            <a href="tel:8885457715" style={{ width: "100%" }}>
+            <a href="tel:8885457715" style={{ width: "100%" }} data-animation="slideRight"> 
               <span style={{
                 display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
                 background: "transparent", color: "#fff", border: "1.5px solid rgba(255,255,255,0.5)",
@@ -347,12 +347,12 @@ export default function FullDowndraftBoothPage() {
           <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"1.5rem" }}>
             <div style={{ textAlign:"center" }}>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.5rem" }}>FEATURED PRODUCT</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,4vw,2.4rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.5rem" }}>PFS Zenith Full Downdraft Spray Booth</h2>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,4vw,2.4rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.5rem" }}>PFS Zenith Full Downdraft Spray Booth</h2>
               <div style={{ display:"flex",flexWrap:"wrap",gap:"0.5rem",justifyContent:"center",marginBottom:"0.75rem" }}>
                 <span style={{ display:"inline-flex",alignItems:"center",gap:"0.35rem",background:BLUE,color:"#fff",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.68rem",fontWeight:800,letterSpacing:"0.16em",textTransform:"uppercase",padding:"0.28rem 0.85rem" }}>PFS ZENITH SERIES</span>
                 <span style={{ display:"inline-flex",alignItems:"center",gap:"0.35rem",background:"#dc2626",color:"#fff",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.68rem",fontWeight:800,letterSpacing:"0.16em",textTransform:"uppercase",padding:"0.28rem 0.85rem" }}><Flame size={10} /> HEATED OPTIONS</span>
               </div>
-              <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.95rem)",color:"#555",maxWidth:"540px",margin:"0 auto",lineHeight:1.7 }}>
+              <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.95rem)",color:"#555",maxWidth:"540px",margin:"0 auto",lineHeight:1.7 }}>
                 Full ceiling plenum intake. Full raised grated floor exhaust into concrete pit. ETL listed. UL 508A controls. Built to NFPA 33 standards. Standard sizes 14'W × 9–12'H × 24–33'L. Heated configurations available.
               </p>
             </div>
@@ -365,10 +365,10 @@ export default function FullDowndraftBoothPage() {
               />
             </div>
             <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap",justifyContent:"center" }}>
-              <Link href="/contact/request-a-quote?from=full-downdraft-booth">
+              <Link href="/contact/request-a-quote?from=full-downdraft-booth" data-animation="slideLeft">
                 <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15}/></span>
               </Link>
-              <Link href="/products/paint-booths/enclosed">
+              <Link href="/products/paint-booths/enclosed" data-animation="slideRight">
                 <span style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:"transparent",color:BLUE,border:`2px solid ${BLUE}`,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"clamp(0.82rem,2.5vw,0.88rem)",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1rem 2rem",cursor:"pointer" }}>SEE ALL ENCLOSED BOOTHS <ArrowRight size={15}/></span>
               </Link>
             </div>
@@ -381,14 +381,14 @@ export default function FullDowndraftBoothPage() {
         <div className="container">
           <div style={{ textAlign:"center",marginBottom:"2rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>HOW IT WORKS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.65rem" }}>Full Downdraft Airflow Pattern</h2>
-            <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.9rem)",color:"#666",maxWidth:"520px",margin:"0 auto",lineHeight:1.7 }}>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.65rem" }}>Full Downdraft Airflow Pattern</h2>
+            <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.9rem)",color:"#666",maxWidth:"520px",margin:"0 auto",lineHeight:1.7 }}>
               Air enters through a full ceiling plenum with intake filters spanning the entire roof. It flows straight down through the booth, exits through the grated floor into the concrete pit, travels through the underground exhaust duct, and exhausts up through the stack.
             </p>
           </div>
           <FullDowndraftAirflowSVG />
           <div style={{ textAlign:"center",marginTop:"1.75rem" }}>
-            <Link href="/contact/request-a-quote?from=full-downdraft-booth">
+            <Link href="/contact/request-a-quote?from=full-downdraft-booth" data-animation="slideRight">
               <span className="btn-glow">GET PRICING <ArrowRight size={15}/></span>
             </Link>
           </div>
@@ -401,9 +401,9 @@ export default function FullDowndraftBoothPage() {
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1rem",marginBottom: specsOpen ? "2rem" : 0 }}>
             <div>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.3rem" }}>STANDARD FEATURES</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.2rem,3vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Every Unit Ships Fully Certified</h2>
+              <h2 data-animation="slideLeft"style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.2rem,3vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Every Unit Ships Fully Certified</h2>
             </div>
-            <button onClick={() => setSpecsOpen(!specsOpen)} style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:specsOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:specsOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.25rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap",minHeight:"48px" }}>
+            <button data-animation="slideRight" onClick={() => setSpecsOpen(!specsOpen)} style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:specsOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:specsOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.25rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap",minHeight:"48px" }}>
               {specsOpen ? <><ChevronUp size={15}/> HIDE</> : <><ChevronDown size={15}/> SEE SPECS</>}
             </button>
           </div>
@@ -445,9 +445,9 @@ export default function FullDowndraftBoothPage() {
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1rem",marginBottom: sizesOpen ? "1.5rem" : 0 }}>
             <div>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.3rem" }}>STANDARD SIZES</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.2rem,3vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>14' Wide — 9, 10, or 12 ft Interior Height</h2>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.2rem,3vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>14' Wide — 9, 10, or 12 ft Interior Height</h2>
             </div>
-            <button onClick={() => setSizesOpen(!sizesOpen)} style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:sizesOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:sizesOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.25rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap",minHeight:"48px" }}>
+            <button data-animation="slideRight" onClick={() => setSizesOpen(!sizesOpen)} style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:sizesOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:sizesOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.25rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap",minHeight:"48px" }}>
               {sizesOpen ? <><ChevronUp size={15}/> HIDE</> : <><ChevronDown size={15}/> SEE SIZES</>}
             </button>
           </div>
@@ -486,8 +486,8 @@ export default function FullDowndraftBoothPage() {
         <div className="container">
           <div style={{ marginBottom:"2rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>REAL INSTALLATIONS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.5rem" }}>PFS Zenith — In the Field</h2>
-            <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.9rem)",color:"#666",maxWidth:"480px",lineHeight:1.7 }}>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.5rem" }}>PFS Zenith — In the Field</h2>
+            <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.9rem)",color:"#666",maxWidth:"480px",lineHeight:1.7 }}>
               Every photo is a real PFS installation — no CGI, no stock imagery. These are Zenith full-downdraft booths shipped and installed by PFS.
             </p>
           </div>
@@ -501,15 +501,15 @@ export default function FullDowndraftBoothPage() {
           <div style={{ display:"flex",flexWrap:"wrap",gap:"2.5rem",alignItems:"center",justifyContent:"space-between" }}>
             <div style={{ flex:"1 1 320px" }}>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:"#f87171",textTransform:"uppercase",display:"block",marginBottom:"0.5rem" }}>OPTIONAL UPGRADE</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,4vw,2.6rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem",lineHeight:1.05 }}>Ask About Our<br/>Heated Booth Options</h2>
-              <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.84rem,2vw,0.96rem)",color:"rgba(255,255,255,0.72)",lineHeight:1.7,maxWidth:"480px",marginBottom:"1.5rem" }}>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,4vw,2.6rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem",lineHeight:1.05 }}>Ask About Our<br/>Heated Booth Options</h2>
+              <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.84rem,2vw,0.96rem)",color:"rgba(255,255,255,0.72)",lineHeight:1.7,maxWidth:"480px",marginBottom:"1.5rem" }}>
                 The PFS Zenith full-downdraft booth is available with a fully integrated heating system — spray mode, flash mode, and bake mode. Heated configurations include a gas-fired or electric air make-up unit, programmable cycle timers, and safety interlocks. Ask your PFS engineer about heated options when requesting a quote.
               </p>
               <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap" }}>
-                <Link href="/contact/request-a-quote?from=full-downdraft-booth">
+                <Link href="/contact/request-a-quote?from=full-downdraft-booth" data-animation="slideLeft">
                   <span style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:"#dc2626",color:"#fff",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.88rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1rem 2rem",cursor:"pointer" }}>ASK ABOUT HEATED <ArrowRight size={15}/></span>
                 </Link>
-                <Link href="/products/paint-booths/heated">
+                <Link href="/products/paint-booths/heated" data-animation="slideRight">
                   <span style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:"transparent",color:"rgba(255,255,255,0.85)",border:"1.5px solid rgba(255,255,255,0.35)",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.88rem",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1rem 2rem",cursor:"pointer" }}>VIEW HEATED BOOTHS <ArrowRight size={15}/></span>
                 </Link>
               </div>
@@ -530,15 +530,15 @@ export default function FullDowndraftBoothPage() {
       <section style={{ background:"#fff",padding:"3rem 0",borderBottom:"1px solid #e5e7eb" }}>
         <div className="container" style={{ textAlign:"center" }}>
           <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.5rem" }}>COMPLETE YOUR SYSTEM</span>
-          <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Pairs Well With a Mixing Room or Air Make-Up Unit</h2>
-          <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.88rem",color:"#666",maxWidth:"480px",margin:"0 auto 1.5rem",lineHeight:1.7 }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Pairs Well With a Mixing Room or Air Make-Up Unit</h2>
+          <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.88rem",color:"#666",maxWidth:"480px",margin:"0 auto 1.5rem",lineHeight:1.7 }}>
             Maximize throughput and compliance by pairing your full-downdraft booth with a dedicated mixing room for paint prep and an air make-up unit for tempered make-up air.
           </p>
           <div style={{ display:"flex",gap:"1rem",justifyContent:"center",flexWrap:"wrap" }}>
-            <Link href="/products/mixing-rooms">
+            <Link href="/products/mixing-rooms" data-animation="slideLeft">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.4rem",background:BLUE,color:"#fff",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.85rem 1.75rem",cursor:"pointer" }}>VIEW MIXING ROOMS <ArrowRight size={13}/></span>
             </Link>
-            <Link href="/products/air-make-up-units">
+            <Link href="/products/air-make-up-units" data-animation="slideRight">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.4rem",background:"transparent",color:BLUE,border:`2px solid ${BLUE}`,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.85rem 1.75rem",cursor:"pointer" }}>VIEW AIR MAKE-UP UNITS <ArrowRight size={13}/></span>
             </Link>
           </div>
@@ -557,7 +557,7 @@ export default function FullDowndraftBoothPage() {
         <div className="container" style={{ maxWidth:"860px" }}>
           <div style={{ textAlign:"center", marginBottom:"2.5rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>FREQUENTLY ASKED QUESTIONS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Full Downdraft Paint Booth — Common Questions</h2>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Full Downdraft Paint Booth — Common Questions</h2>
           </div>
           {[
             { q: "How does a full downdraft paint booth work?", a: "A full downdraft spray booth draws fresh, filtered air through a ceiling plenum spanning the entire roof. Air flows straight down through the booth at a controlled velocity — typically 50–100 FPM — carrying overspray away from the painter and the vehicle surface. The contaminated air exits through a full grated floor into an underground concrete pit, travels through an exhaust duct, and exhausts up through the stack. This top-to-bottom airflow pattern is the cleanest configuration available for enclosed spray booths." },
@@ -593,8 +593,8 @@ export default function FullDowndraftBoothPage() {
       <section style={{ background:"#f8f9fb", padding:"clamp(2.5rem, 6vw, 4rem) 0", borderTop:"1px solid #e2e8f0" }}>
         <div className="container">
           <p style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif", fontSize:"0.75rem", fontWeight:700, color:BLUE, letterSpacing:"0.18em", textTransform:"uppercase", marginBottom:"0.6rem" }}>INDUSTRIES SERVED</p>
-          <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif", fontSize:"clamp(1.4rem,3vw,2rem)", fontWeight:800, color:BLUE, marginBottom:"1.5rem" }}>Who Uses Full Downdraft Booths?</h2>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(160px, 1fr))", gap:"0.75rem" }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif", fontSize:"clamp(1.4rem,3vw,2rem)", fontWeight:800, color:BLUE, marginBottom:"1.5rem" }}>Who Uses Full Downdraft Booths?</h2>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(160px, 1fr))", gap:"0.75rem" }} data-animation="fadeIn">
             {[
               { label:"Aerospace & Defense", href:"/industries/aerospace-defense" },
               { label:"Automotive Manufacturing", href:"/industries/automotive-manufacturing" },
@@ -613,17 +613,17 @@ export default function FullDowndraftBoothPage() {
       {/* BOTTOM CTA */}
       <section style={{ background:BLUE, padding:"clamp(2.5rem, 6vw, 4rem) 0" }}>
         <div className="container" style={{ textAlign:"center" }}>
-          <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,4vw,2.8rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,4vw,2.8rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>
             Ready to Quote Your Full Downdraft Booth?
           </h2>
-          <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.88rem,2vw,1rem)",color:"rgba(255,255,255,0.75)",maxWidth:"480px",margin:"0 auto 2rem",lineHeight:1.7 }}>
+          <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.88rem,2vw,1rem)",color:"rgba(255,255,255,0.75)",maxWidth:"480px",margin:"0 auto 2rem",lineHeight:1.7 }}>
             ETL listed. UL 508A certified. Concrete pit specs included with every quote. Ships nationally.
           </p>
           <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap",justifyContent:"center" }}>
-            <Link href="/contact/request-a-quote?from=full-downdraft-booth">
+            <Link href="/contact/request-a-quote?from=full-downdraft-booth" data-animation="slideLeft">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:"#fff",color:BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"clamp(0.88rem,2.5vw,0.95rem)",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1.1rem 2.5rem",cursor:"pointer" }}>GET PRICING <ArrowRight size={16}/></span>
             </Link>
-            <a href="tel:8885457715">
+            <a href="tel:8885457715" data-animation="slideRight">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:"transparent",color:"#fff",border:"2px solid rgba(255,255,255,0.5)",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"clamp(0.88rem,2.5vw,0.95rem)",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1.1rem 2.5rem",cursor:"pointer" }}>CALL (888) 545-7715</span>
             </a>
           </div>

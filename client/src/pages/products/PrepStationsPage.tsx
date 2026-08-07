@@ -14,57 +14,57 @@ const HERO_VIDEO = "/manus-storage/pfs-prep-station-hero_2554e281.mp4";
 
 const GALLERY_IMGS = [
   // ── REAL INSTALL PHOTOS ──
-  { src: "/manus-storage/prep-pfs-ceiling-bay_4951f2ee.png",        alt: "PFS Orion Prep — ceiling-mounted bay with blue curtains and built-in lighting, factory install",   pos: "center 40%" },
-  { src: "/manus-storage/prep-multi-bay-bronze_254a9acf.webp",               alt: "PFS Orion Prep — multi-bay prep station with PFS Bronze Edition signage, PFS", pos: "center 50%" },
-  { src: "/manus-storage/pfs-exhaust-wall-curtain-2133_325854c1.webp", alt: "PFS prep station — exterior view with blue curtain walls, exhaust stack, and PFS branding",          pos: "center 50%" },
-  { src: "/manus-storage/prep-curtain-blue-close_04a96de3.webp",    alt: "PFS prep station — close-up of blue vinyl curtain panels with clear vision strip",                   pos: "center 50%" },
-  { src: "/manus-storage/prep-curtain-blue-interior_b13d3bd7.png",  alt: "PFS prep station — interior view of blue curtain bay with exhaust filter wall and PFS branding",     pos: "center 50%" },
-  { src: "/manus-storage/prep-curtain-red-car_4caad6b9.jpg",        alt: "PFS prep station — curtain bay with vehicle inside, red lower curtain and clear upper panels",       pos: "center 50%" },
-  { src: "/manus-storage/prep-install-1998_a6cdee6e.jpg",           alt: "PFS prep station install — real field photo 1",  pos: "center 50%" },
-  { src: "/manus-storage/prep-install-1997_8fa14562.jpg",           alt: "PFS prep station install — real field photo 2",  pos: "center 50%" },
-  { src: "/manus-storage/prep-install-0301_065f1881.jpg",           alt: "PFS prep station install — real field photo 3",  pos: "center 50%" },
-  { src: "/manus-storage/prep-install-0298_fef36a62.jpg",           alt: "PFS prep station install — real field photo 4",  pos: "center 50%" },
-  { src: "/manus-storage/prep-install-8990_8ffd823f.jpg",           alt: "PFS prep station install — real field photo 5",  pos: "center 50%" },
-  { src: "/manus-storage/IMG_8990_a26ad617.jpg",             alt: "PFS prep station — exhaust wall with filter media, real install photo",            pos: "center 50%" },
+  { src: "/manus-storage/prep-pfs-ceiling-bay_4951f2ee.png", alt: "PFS Orion Prep — ceiling-mounted bay with blue curtains and built-in lighting, factory install", pos: "center 40%" },
+  { src: "/manus-storage/prep-multi-bay-bronze_254a9acf.webp", alt: "PFS Orion Prep — multi-bay prep station with PFS Bronze Edition signage, PFS", pos: "center 50%" },
+  { src: "/manus-storage/pfs-exhaust-wall-curtain-2133_325854c1.webp", alt: "PFS prep station — exterior view with blue curtain walls, exhaust stack, and PFS branding", pos: "center 50%" },
+  { src: "/manus-storage/prep-curtain-blue-close_04a96de3.webp", alt: "PFS prep station — close-up of blue vinyl curtain panels with clear vision strip", pos: "center 50%" },
+  { src: "/manus-storage/prep-curtain-blue-interior_b13d3bd7.png", alt: "PFS prep station — interior view of blue curtain bay with exhaust filter wall and PFS branding", pos: "center 50%" },
+  { src: "/manus-storage/prep-curtain-red-car_4caad6b9.jpg", alt: "PFS prep station — curtain bay with vehicle inside, red lower curtain and clear upper panels", pos: "center 50%" },
+  { src: "/manus-storage/prep-install-1998_a6cdee6e.jpg", alt: "PFS prep station install — real field photo 1", pos: "center 50%" },
+  { src: "/manus-storage/prep-install-1997_8fa14562.jpg", alt: "PFS prep station install — real field photo 2", pos: "center 50%" },
+  { src: "/manus-storage/prep-install-0301_065f1881.jpg", alt: "PFS prep station install — real field photo 3", pos: "center 50%" },
+  { src: "/manus-storage/prep-install-0298_fef36a62.jpg", alt: "PFS prep station install — real field photo 4", pos: "center 50%" },
+  { src: "/manus-storage/prep-install-8990_8ffd823f.jpg", alt: "PFS prep station install — real field photo 5", pos: "center 50%" },
+  { src: "/manus-storage/IMG_8990_a26ad617.jpg", alt: "PFS prep station — exhaust wall with filter media, real install photo", pos: "center 50%" },
   // ── RENDERS ──
-  { src: "/manus-storage/prep-featured-single_efec884d.png",        alt: "PFS Orion Prep — single-bay render, angled view, black curtains and green filter media",            pos: "center 50%" },
-  { src: "/manus-storage/prep-featured-multi_cdce74a7.png",         alt: "PFS Orion Prep — three-bay multi-bay render, ceiling-mounted, black curtains",                      pos: "center 50%" },
+  { src: "/manus-storage/prep-featured-single_efec884d.png", alt: "PFS Orion Prep — single-bay render, angled view, black curtains and green filter media", pos: "center 50%" },
+  { src: "/manus-storage/prep-featured-multi_cdce74a7.png", alt: "PFS Orion Prep — three-bay multi-bay render, ceiling-mounted, black curtains", pos: "center 50%" },
   // ── NEW INSTALL PHOTOS ──
-  { src: "/manus-storage/prep-station-front-shelves_6eb5db66.jpeg",   alt: "PFS prep station — front view showing exhaust wall with open storage shelves below, factory floor",  pos: "center 50%" },
-  { src: "/manus-storage/prep-station-with-booth-wide_2c5f7c58.jpeg", alt: "PFS prep station and enclosed paint booth — wide install view showing full system layout",            pos: "center 40%" },
+  { src: "/manus-storage/prep-station-front-shelves_6eb5db66.jpeg", alt: "PFS prep station — front view showing exhaust wall with open storage shelves below, factory floor", pos: "center 50%" },
+  { src: "/manus-storage/prep-station-with-booth-wide_2c5f7c58.jpeg", alt: "PFS prep station and enclosed paint booth — wide install view showing full system layout", pos: "center 40%" },
 ];
 
-const ETL_LOGO  = "/manus-storage/pfs-etl-logo_7758f722.png";
-const UL_LOGO   = "/manus-storage/pfs-ul508a-clean_e8efdeb8.jpg";
+const ETL_LOGO = "/manus-storage/pfs-etl-logo_7758f722.png";
+const UL_LOGO = "/manus-storage/pfs-ul508a-clean_e8efdeb8.jpg";
 const NFPA_LOGO = "/manus-storage/pfs-nfpa-logo_4b710cc9.png";
-const EPA_LOGO  = "/manus-storage/pfs-epa-logo_e4165f68.webp";
+const EPA_LOGO = "/manus-storage/pfs-epa-logo_e4165f68.webp";
 const OSHA_LOGO = "/manus-storage/pfs-osha-logo_0c460739.jpg";
-const USA_FLAG  = "/manus-storage/pfs-usa-flag_8fca512e.jpg";
+const USA_FLAG = "/manus-storage/pfs-usa-flag_8fca512e.jpg";
 
 const BLUE = "#1B3A6B";
 
 /* ── CERTIFICATIONS ── */
 const CERTS = [
-  { img: ETL_LOGO,  title: "ETL & ETL-C Listed",    sub: "Intertek — USA & Canada",             imgH: 44 },
-  { img: UL_LOGO,   title: "UL 508A Certified",      sub: "Industrial Control Panel Fabricator", imgH: 44 },
-  { img: NFPA_LOGO, title: "NFPA 33 Compliant",      sub: "Spray Application Standard",          imgH: 44 },
-  { img: EPA_LOGO,  title: "EPA Compliant",           sub: "Air Quality Standards",               imgH: 36 },
-  { img: OSHA_LOGO, title: "OSHA Compliant",          sub: "Workplace Safety Standards",          imgH: 36 },
-  { img: USA_FLAG,  title: "Made in the USA",         sub: "Santa Rosa, CA",                      imgH: 36 },
+  { img: ETL_LOGO, title: "ETL & ETL-C Listed", sub: "Intertek — USA & Canada", imgH: 44 },
+  { img: UL_LOGO, title: "UL 508A Certified", sub: "Industrial Control Panel Fabricator", imgH: 44 },
+  { img: NFPA_LOGO, title: "NFPA 33 Compliant", sub: "Spray Application Standard", imgH: 44 },
+  { img: EPA_LOGO, title: "EPA Compliant", sub: "Air Quality Standards", imgH: 36 },
+  { img: OSHA_LOGO, title: "OSHA Compliant", sub: "Workplace Safety Standards", imgH: 36 },
+  { img: USA_FLAG, title: "Made in the USA", sub: "Santa Rosa, CA", imgH: 36 },
 ];
 const CERTS_LOOP = [...CERTS, ...CERTS];
 
 /* ── FEATURES ── */
 const ALL_FEATURES = [
-  { num: "01", title: "UL Listed Tube Axial Fan",             body: "Same high-efficiency, UL listed tube axial fan used in our enclosed paint booths. Moves air through the exhaust wall at consistent face velocity — pulling sanding dust, overspray, and contaminants away from the operator and work surface." },
-  { num: "02", title: "CID2 Lighting — 4-Tube Fixtures",     body: "Class I Division 2 inside-access four-tube light fixtures — the same fixtures specified in our cross-flow and enclosed booths. Fluorescent or LED tube compatible. Uniform, shadow-free illumination across the full work area." },
-  { num: "03", title: "UL 508A Control Panel",               body: "PFS Core Control Panel — UL 508A certified with spray and flash modes. Programmable cycle timers, safety interlocks, and optional BMS integration. Same panel platform as our enclosed spray booths." },
-  { num: "04", title: "Heated Versions Available",            body: "Heated prep station configurations are available upon request. Integrated heat accelerates flash-off times, improves primer adhesion in cold climates, and keeps your prep area productive year-round — same heating options as our enclosed paint booths." },
+  { num: "01", title: "UL Listed Tube Axial Fan", body: "Same high-efficiency, UL listed tube axial fan used in our enclosed paint booths. Moves air through the exhaust wall at consistent face velocity — pulling sanding dust, overspray, and contaminants away from the operator and work surface." },
+  { num: "02", title: "CID2 Lighting — 4-Tube Fixtures", body: "Class I Division 2 inside-access four-tube light fixtures — the same fixtures specified in our cross-flow and enclosed booths. Fluorescent or LED tube compatible. Uniform, shadow-free illumination across the full work area." },
+  { num: "03", title: "UL 508A Control Panel", body: "PFS Core Control Panel — UL 508A certified with spray and flash modes. Programmable cycle timers, safety interlocks, and optional BMS integration. Same panel platform as our enclosed spray booths." },
+  { num: "04", title: "Heated Versions Available", body: "Heated prep station configurations are available upon request. Integrated heat accelerates flash-off times, improves primer adhesion in cold climates, and keeps your prep area productive year-round — same heating options as our enclosed paint booths." },
   { num: "05", title: "Fiberglass Exhaust + Tacky Intake Filters", body: "Exhaust uses fiberglass media filters. Intake uses tacky-type filters standard. Blanket intake upgrades available for heated configurations. All filter media is OEM-sourced and available for fast reorder." },
-  { num: "06", title: "Full Enclosure Option",               body: "Available in open or fully enclosed configurations. The enclosed version provides complete containment — same panel construction and door hardware as our enclosed paint booths — keeping dust and contaminants isolated from adjacent spray areas." },
-  { num: "07", title: "Galvanized or Powder Coated Steel",   body: "Structural panels available in galvanized or powder coated finish. Built to NFPA 33 standards with air quality and OSHA compliance on every unit. Same panel system used across the PFS booth lineup." },
-  { num: "08", title: "Curtain or Fully Enclosed Ceiling",   body: "Choose between a curtain-only configuration for maximum flexibility, or a fully enclosed ceiling panel system with optional built-in LED lighting. Multi-bay configurations available." },
-  { num: "09", title: "Ships Nationally — Factory Direct",   body: "PFS prep stations ship to all 50 states. Factory-direct pricing, fast lead times, and dedicated project support from order through installation. Same manufacturing facility and quality control as our full spray booth lineup." },
+  { num: "06", title: "Full Enclosure Option", body: "Available in open or fully enclosed configurations. The enclosed version provides complete containment — same panel construction and door hardware as our enclosed paint booths — keeping dust and contaminants isolated from adjacent spray areas." },
+  { num: "07", title: "Galvanized or Powder Coated Steel", body: "Structural panels available in galvanized or powder coated finish. Built to NFPA 33 standards with air quality and OSHA compliance on every unit. Same panel system used across the PFS booth lineup." },
+  { num: "08", title: "Curtain or Fully Enclosed Ceiling", body: "Choose between a curtain-only configuration for maximum flexibility, or a fully enclosed ceiling panel system with optional built-in LED lighting. Multi-bay configurations available." },
+  { num: "09", title: "Ships Nationally — Factory Direct", body: "PFS prep stations ship to all 50 states. Factory-direct pricing, fast lead times, and dedicated project support from order through installation. Same manufacturing facility and quality control as our full spray booth lineup." },
 ];
 
 /* ── SIZES ── */
@@ -74,17 +74,17 @@ const DEPTHS = ["24'", "27'", "30'", "Custom"];
 
 /* ── RELATED PRODUCTS ── */
 const PRODUCTS = [
-  { label: "Air Make-Up Units",     href: "/products/air-make-up-units",                    img: "/manus-storage/pfs-amu-card_41f0dd88.jpg",                     desc: "Tempered make-up air systems to replace exhausted air and maintain positive pressure." },
-  { label: "Mixing Rooms",          href: "/products/mixing-rooms",                        img: "/manus-storage/IMG_0498_a98f5f38.jpg",          desc: "NFPA 33 compliant mixing rooms for safe paint preparation adjacent to your spray booth." },
-  { label: "Enclosed Paint Booths", href: "/products/paint-booths/enclosed",               img: "/manus-storage/enclosed-booth-card-zenith_7e010642.jpg",        desc: "Full-enclosure booths for superior overspray containment and finish quality." },
-  { label: "Open Face Booths",      href: "/products/paint-booths/open-face",              img: "/manus-storage/IMG_2132_c21b2839.jpg",                          desc: "Open-front spray booths for large parts and high-throughput production environments." },
+  { label: "Air Make-Up Units", href: "/products/air-make-up-units", img: "/manus-storage/pfs-amu-card_41f0dd88.jpg", desc: "Tempered make-up air systems to replace exhausted air and maintain positive pressure." },
+  { label: "Mixing Rooms", href: "/products/mixing-rooms", img: "/manus-storage/IMG_0498_a98f5f38.jpg", desc: "NFPA 33 compliant mixing rooms for safe paint preparation adjacent to your spray booth." },
+  { label: "Enclosed Paint Booths", href: "/products/paint-booths/enclosed", img: "/manus-storage/enclosed-booth-card-zenith_7e010642.jpg", desc: "Full-enclosure booths for superior overspray containment and finish quality." },
+  { label: "Open Face Booths", href: "/products/paint-booths/open-face", img: "/manus-storage/IMG_2132_c21b2839.jpg", desc: "Open-front spray booths for large parts and high-throughput production environments." },
 ];
 
 /* ── CERT CAROUSEL ── */
 function CertCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
-  const animRef  = useRef<number>(0);
-  const posRef   = useRef(0);
+  const animRef = useRef<number>(0);
+  const posRef = useRef(0);
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
@@ -122,12 +122,12 @@ export default function PrepStationsPage() {
   });
 
   const [featuresOpen, setFeaturesOpen] = useState(false);
-  const [sizesOpen, setSizesOpen]       = useState(false);
+  const [sizesOpen, setSizesOpen] = useState(false);
   const [selectedDepth, setSelectedDepth] = useState<string | null>(null);
 
   // Gallery lightbox
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
-  const openLightbox  = (i: number) => setLightboxIdx(i);
+  const openLightbox = (i: number) => setLightboxIdx(i);
   const closeLightbox = () => setLightboxIdx(null);
   const prevImg = () => setLightboxIdx(i => i !== null ? (i - 1 + GALLERY_IMGS.length) % GALLERY_IMGS.length : null);
   const nextImg = () => setLightboxIdx(i => i !== null ? (i + 1) % GALLERY_IMGS.length : null);
@@ -180,17 +180,17 @@ export default function PrepStationsPage() {
             <div style={{ width: 32, height: 2, background: "#fff" }} />
             <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.18em", color: "rgba(255,255,255,0.7)", textTransform: "uppercase" }}>PFS PREP & SUPPORT SYSTEMS</span>
           </div>
-          <h1 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(2.4rem,6vw,4.5rem)", lineHeight: 1.0, color: "#fff", textTransform: "uppercase", letterSpacing: "-0.01em", margin: "0 0 0.75rem" }}>
+          <h1 data-animation="slideLeft" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(2.4rem,6vw,4.5rem)", lineHeight: 1.0, color: "#fff", textTransform: "uppercase", letterSpacing: "-0.01em", margin: "0 0 0.75rem" }}>
             ORION PREP<br />STATIONS
           </h1>
-          <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "clamp(0.95rem,1.8vw,1.15rem)", maxWidth: 560, lineHeight: 1.6, margin: "0 0 1.5rem" }}>
+          <p data-animation="slideLeft" style={{ color: "rgba(255,255,255,0.8)", fontSize: "clamp(0.95rem,1.8vw,1.15rem)", maxWidth: 560, lineHeight: 1.6, margin: "0 0 1.5rem" }}>
             Exhaust wall prep stations with curtain or fully enclosed ceiling configurations. Single and multi-bay layouts for body shops, collision centers, and industrial finishing lines.
           </p>
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-            <Link href="/contact/request-a-quote?from=prep-station" className="btn-glow" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, letterSpacing: "0.1em", fontSize: "0.85rem", padding: "0.75rem 2rem", textTransform: "uppercase", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
+          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }} >
+            <Link data-animation="slideLeft" href="/contact/request-a-quote?from=prep-station" className="btn-glow" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, letterSpacing: "0.1em", fontSize: "0.85rem", padding: "0.75rem 2rem", textTransform: "uppercase", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
               REQUEST A QUOTE <ArrowRight size={15} />
             </Link>
-            <a href="tel:8885457715" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, letterSpacing: "0.1em", fontSize: "0.85rem", padding: "0.75rem 2rem", textTransform: "uppercase", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem", border: "2px solid rgba(255,255,255,0.5)", color: "#fff", background: "transparent" }}>
+            <a href="tel:8885457715" data-animation="slideRight" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, letterSpacing: "0.1em", fontSize: "0.85rem", padding: "0.75rem 2rem", textTransform: "uppercase", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem", border: "2px solid rgba(255,255,255,0.5)", color: "#fff", background: "transparent" }}>
               <Phone size={14} /> (888) 545-7715
             </a>
           </div>
@@ -207,7 +207,7 @@ export default function PrepStationsPage() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.18em", color: BLUE, textTransform: "uppercase", display: "block", marginBottom: "0.6rem" }}>ORION PREP SERIES</span>
-            <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.8rem,3.5vw,2.8rem)", textTransform: "uppercase", lineHeight: 1.05, color: "#111", margin: "0 0 1.2rem" }}>
+            <h2 data-animation="slideLeft" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.8rem,3.5vw,2.8rem)", textTransform: "uppercase", lineHeight: 1.05, color: "#111", margin: "0 0 1.2rem" }}>
               PREP SMARTER.<br />PAINT FASTER.
             </h2>
             <p style={{ color: "#444", lineHeight: 1.75, fontSize: "0.97rem", marginBottom: "1rem" }}>
@@ -243,20 +243,20 @@ export default function PrepStationsPage() {
       <section style={{ background: "#f5f5f5", padding: "clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.18em", color: BLUE, textTransform: "uppercase", display: "block", marginBottom: "0.5rem" }}>CONFIGURATIONS</span>
-          <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.6rem,3vw,2.4rem)", textTransform: "uppercase", lineHeight: 1.05, color: "#111", margin: "0 0 2rem" }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.6rem,3vw,2.4rem)", textTransform: "uppercase", lineHeight: 1.05, color: "#111", margin: "0 0 2rem" }}>
             TWO WAYS TO CONFIGURE
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }} data-animation="fadeIn">
             {[
               {
                 title: "EXHAUST WALL + CURTAINS",
-                  img: "/manus-storage/pfs-exhaust-wall-curtain-2133_325854c1.webp",
+                img: "/manus-storage/pfs-exhaust-wall-curtain-2133_325854c1.webp",
                 body: "Exhaust filter wall with vinyl curtain sides. Maximum flexibility — curtains pull back for easy vehicle and large-part access. Available in single or multi-bay configurations. Standard color: PFS Blue.",
                 tags: ["Curtain sides", "Open access", "Multi-bay ready"],
               },
               {
                 title: "FULLY ENCLOSED CEILING",
-                  img: "/manus-storage/prep-pfs-ceiling-bay_4951f2ee.png",
+                img: "/manus-storage/prep-pfs-ceiling-bay_4951f2ee.png",
                 body: "Full ceiling panel system with exhaust wall and curtain sides. Optional built-in LED lighting package integrated into the ceiling for superior illumination. Cleaner, more controlled prep environment.",
                 tags: ["Enclosed ceiling", "Optional LED lighting", "Superior illumination"],
               },
@@ -292,7 +292,7 @@ export default function PrepStationsPage() {
           </div>
           <div>
             <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.18em", color: BLUE, textTransform: "uppercase", display: "block", marginBottom: "0.6rem" }}>MULTI-BAY CONFIGURATIONS</span>
-            <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.6rem,3vw,2.4rem)", textTransform: "uppercase", lineHeight: 1.05, color: "#111", margin: "0 0 1rem" }}>
+            <h2 data-animation="slideLeft" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.6rem,3vw,2.4rem)", textTransform: "uppercase", lineHeight: 1.05, color: "#111", margin: "0 0 1rem" }}>
               SCALE YOUR<br />PREP CAPACITY
             </h2>
             <p style={{ color: "#444", lineHeight: 1.75, fontSize: "0.97rem", marginBottom: "1rem" }}>
@@ -301,7 +301,7 @@ export default function PrepStationsPage() {
             <p style={{ color: "#444", lineHeight: 1.75, fontSize: "0.97rem", marginBottom: "1.5rem" }}>
               Multi-bay configurations are common in high-volume collision centers, fleet shops, and industrial finishing operations where multiple vehicles or parts need to be prepped simultaneously.
             </p>
-            <Link href="/contact/request-a-quote?from=prep-station" className="btn-glow" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, letterSpacing: "0.1em", fontSize: "0.85rem", padding: "0.75rem 2rem", textTransform: "uppercase", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
+            <Link data-animation="slideRight" href="/contact/request-a-quote?from=prep-station" className="btn-glow" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, letterSpacing: "0.1em", fontSize: "0.85rem", padding: "0.75rem 2rem", textTransform: "uppercase", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
               CONFIGURE MULTI-BAY <ArrowRight size={15} />
             </Link>
           </div>
@@ -312,10 +312,10 @@ export default function PrepStationsPage() {
       <section style={{ background: "#f5f5f5", padding: "clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.18em", color: BLUE, textTransform: "uppercase", display: "block", marginBottom: "0.5rem" }}>STANDARD FEATURES</span>
-          <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.6rem,3vw,2.4rem)", textTransform: "uppercase", lineHeight: 1.05, color: "#111", margin: "0 0 2rem" }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.6rem,3vw,2.4rem)", textTransform: "uppercase", lineHeight: 1.05, color: "#111", margin: "0 0 2rem" }}>
             BUILT TO THE SAME STANDARD<br />AS OUR SPRAY BOOTHS
           </h2>
-          <button
+          <button data-animation="slideRight"
             onClick={() => setFeaturesOpen(v => !v)}
             style={{ marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: BLUE, background: "none", border: `1.5px solid ${BLUE}`, padding: "0.6rem 1.4rem", cursor: "pointer" }}
           >
@@ -339,10 +339,10 @@ export default function PrepStationsPage() {
       <section style={{ padding: "clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem)", maxWidth: 1200, margin: "0 auto" }}>
         <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.18em", color: BLUE, textTransform: "uppercase", display: "block", marginBottom: "0.5rem" }}>STANDARD SIZES</span>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem", marginBottom: "1.5rem" }}>
-          <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.6rem,3vw,2.4rem)", textTransform: "uppercase", lineHeight: 1.05, color: "#111", margin: 0 }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.6rem,3vw,2.4rem)", textTransform: "uppercase", lineHeight: 1.05, color: "#111", margin: 0 }}>
             STANDARD DIMENSIONS
           </h2>
-          <button
+          <button data-animation="slideRight"
             onClick={() => setSizesOpen(v => !v)}
             style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: BLUE, background: "none", border: `1.5px solid ${BLUE}`, padding: "0.55rem 1.2rem", cursor: "pointer" }}
           >
@@ -411,7 +411,7 @@ export default function PrepStationsPage() {
       <section style={{ background: "#111", padding: "clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,4rem)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.18em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", display: "block", marginBottom: "0.5rem" }}>REAL INSTALLS &amp; RENDERS</span>
-          <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.6rem,3vw,2.4rem)", textTransform: "uppercase", lineHeight: 1.05, color: "#fff", margin: "0 0 2rem" }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.6rem,3vw,2.4rem)", textTransform: "uppercase", lineHeight: 1.05, color: "#fff", margin: "0 0 2rem" }}>
             ORION PREP GALLERY
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "0.75rem" }}>
@@ -459,14 +459,14 @@ export default function PrepStationsPage() {
       <section style={{ background: BLUE, padding: "clamp(2rem,4vw,3rem) clamp(1.5rem,5vw,4rem)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1.5rem" }}>
           <div>
-            <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.4rem,2.5vw,2rem)", textTransform: "uppercase", color: "#fff", margin: "0 0 0.4rem" }}>READY TO CONFIGURE YOUR PREP STATION?</h2>
-            <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.95rem", margin: 0 }}>Single bay, multi-bay, curtain or enclosed ceiling — we build to your specs.</p>
+            <h2 data-animation="slideLeft" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: "clamp(1.4rem,2.5vw,2rem)", textTransform: "uppercase", color: "#fff", margin: "0 0 0.4rem" }}>READY TO CONFIGURE YOUR PREP STATION?</h2>
+            <p data-animation="slideLeft" style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.95rem", margin: 0 }}>Single bay, multi-bay, curtain or enclosed ceiling — we build to your specs.</p>
           </div>
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-            <Link href="/contact/request-a-quote?from=prep-station" className="btn-glow" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, letterSpacing: "0.1em", fontSize: "0.85rem", padding: "0.75rem 2rem", textTransform: "uppercase", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
+            <Link data-animation="slideLeft" href="/contact/request-a-quote?from=prep-station" className="btn-glow" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, letterSpacing: "0.1em", fontSize: "0.85rem", padding: "0.75rem 2rem", textTransform: "uppercase", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
               GET PRICING <ArrowRight size={15} />
             </Link>
-            <a href="tel:8885457715" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, letterSpacing: "0.1em", fontSize: "0.85rem", padding: "0.75rem 2rem", textTransform: "uppercase", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem", border: "2px solid rgba(255,255,255,0.5)", color: "#fff", background: "transparent" }}>
+            <a data-animation="slideRight" href="tel:8885457715" style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, letterSpacing: "0.1em", fontSize: "0.85rem", padding: "0.75rem 2rem", textTransform: "uppercase", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem", border: "2px solid rgba(255,255,255,0.5)", color: "#fff", background: "transparent" }}>
               <Phone size={14} /> (888) 545-7715
             </a>
           </div>
@@ -475,11 +475,11 @@ export default function PrepStationsPage() {
 
 
       {/* FAQ SECTION */}
-      <section style={{ background:"#f8f9fb", padding:"clamp(2.5rem, 6vw, 4rem) 0", borderTop:"1px solid #e5e7eb" }}>
-        <div className="container" style={{ maxWidth:"860px" }}>
-          <div style={{ textAlign:"center", marginBottom:"2.5rem" }}>
-            <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:"#1B3A6B",textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>FREQUENTLY ASKED QUESTIONS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Paint Prep Stations — Common Questions</h2>
+      <section style={{ background: "#f8f9fb", padding: "clamp(2.5rem, 6vw, 4rem) 0", borderTop: "1px solid #e5e7eb" }}>
+        <div className="container" style={{ maxWidth: "860px" }}>
+          <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+            <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.14em", color: "#1B3A6B", textTransform: "uppercase", display: "block", marginBottom: "0.4rem" }}>FREQUENTLY ASKED QUESTIONS</span>
+            <h2 data-animation="slideLeft" style={{ fontFamily: "'Barlow Condensed','Oswald',sans-serif", fontSize: "clamp(1.4rem,3.5vw,2.2rem)", fontWeight: 800, color: "#111", letterSpacing: "-0.01em", margin: 0 }}>Paint Prep Stations — Common Questions</h2>
           </div>
           {[
             { q: "What is a paint prep station used for?", a: "A paint prep station provides a dedicated, code-compliant environment for sanding, priming, masking, and other surface preparation tasks that need to happen before final painting. By handling prep work in a separate station, you keep your spray booth available for final coats — increasing overall throughput and reducing contamination risk in the booth." },
@@ -488,26 +488,28 @@ export default function PrepStationsPage() {
             { q: "What filtration system does a PFS prep station use?", a: "PFS prep stations use a 4-stage exhaust filtration system that captures paint overspray, dust, and VOCs. The system includes a pre-filter, a primary paint arrestor, a secondary filter, and an activated carbon stage for VOC capture. This multi-stage approach extends filter life and maintains code-compliant air quality." },
             { q: "Can PFS build a custom-size prep station?", a: "Yes. PFS manufactures prep stations in custom widths, heights, and lengths. Ductless mobile configurations are also available for shops that need flexibility. Contact a PFS engineer for a custom quote." },
           ].map((item, i) => (
-            <details key={i} style={{ borderBottom:"1px solid #e5e7eb", padding:"1.25rem 0" }}>
-              <summary style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"clamp(0.95rem,2.5vw,1.1rem)",fontWeight:800,color:"#111",letterSpacing:"0.01em",cursor:"pointer",listStyle:"none",display:"flex",justifyContent:"space-between",alignItems:"center",gap:"1rem" }}>
+            <details key={i} style={{ borderBottom: "1px solid #e5e7eb", padding: "1.25rem 0" }}>
+              <summary style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: "clamp(0.95rem,2.5vw,1.1rem)", fontWeight: 800, color: "#111", letterSpacing: "0.01em", cursor: "pointer", listStyle: "none", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
                 {item.q}
-                <span style={{ color:"#1B3A6B", flexShrink:0, fontSize:"1.4rem", fontWeight:300, lineHeight:1 }}>+</span>
+                <span style={{ color: "#1B3A6B", flexShrink: 0, fontSize: "1.4rem", fontWeight: 300, lineHeight: 1 }}>+</span>
               </summary>
-              <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.9rem)",color:"#555",lineHeight:1.75,margin:"1rem 0 0",paddingRight:"1.5rem" }}>{item.a}</p>
+              <p style={{ fontFamily: "'Inter',sans-serif", fontSize: "clamp(0.82rem,2vw,0.9rem)", color: "#555", lineHeight: 1.75, margin: "1rem 0 0", paddingRight: "1.5rem" }}>{item.a}</p>
             </details>
           ))}
         </div>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [
-            { "@type": "Question", "name": "What is a paint prep station used for?", "acceptedAnswer": { "@type": "Answer", "text": "A paint prep station provides a dedicated, code-compliant environment for sanding, priming, masking, and other surface preparation tasks that need to happen before final painting. By handling prep wor..." } },
-            { "@type": "Question", "name": "What is the difference between a prep station and a spray booth?", "acceptedAnswer": { "@type": "Answer", "text": "A spray booth is designed for the application of paint and coatings under controlled airflow conditions. A prep station is designed for sanding, priming, and masking — tasks that generate dust and req..." } },
-            { "@type": "Question", "name": "Do prep stations need to be NFPA 33 compliant?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Prep stations used for priming and surface coating operations are subject to NFPA 33 requirements. PFS prep stations are built to NFPA 33 standards with ETL/UL listed and certified components and..." } },
-            { "@type": "Question", "name": "What filtration system does a PFS prep station use?", "acceptedAnswer": { "@type": "Answer", "text": "PFS prep stations use a 4-stage exhaust filtration system that captures paint overspray, dust, and VOCs. The system includes a pre-filter, a primary paint arrestor, a secondary filter, and an activate..." } },
-            { "@type": "Question", "name": "Can PFS build a custom-size prep station?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. PFS manufactures prep stations in custom widths, heights, and lengths. Ductless mobile configurations are also available for shops that need flexibility. Contact a PFS engineer for a custom quote..." } }
-          ]
-        }) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "What is a paint prep station used for?", "acceptedAnswer": { "@type": "Answer", "text": "A paint prep station provides a dedicated, code-compliant environment for sanding, priming, masking, and other surface preparation tasks that need to happen before final painting. By handling prep wor..." } },
+              { "@type": "Question", "name": "What is the difference between a prep station and a spray booth?", "acceptedAnswer": { "@type": "Answer", "text": "A spray booth is designed for the application of paint and coatings under controlled airflow conditions. A prep station is designed for sanding, priming, and masking — tasks that generate dust and req..." } },
+              { "@type": "Question", "name": "Do prep stations need to be NFPA 33 compliant?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Prep stations used for priming and surface coating operations are subject to NFPA 33 requirements. PFS prep stations are built to NFPA 33 standards with ETL/UL listed and certified components and..." } },
+              { "@type": "Question", "name": "What filtration system does a PFS prep station use?", "acceptedAnswer": { "@type": "Answer", "text": "PFS prep stations use a 4-stage exhaust filtration system that captures paint overspray, dust, and VOCs. The system includes a pre-filter, a primary paint arrestor, a secondary filter, and an activate..." } },
+              { "@type": "Question", "name": "Can PFS build a custom-size prep station?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. PFS manufactures prep stations in custom widths, heights, and lengths. Ductless mobile configurations are also available for shops that need flexibility. Contact a PFS engineer for a custom quote..." } }
+            ]
+          })
+        }} />
       </section>
 
       {/* ── RELATED PRODUCTS ── */}

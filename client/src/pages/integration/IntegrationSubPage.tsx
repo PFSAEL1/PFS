@@ -362,11 +362,11 @@ export default function IntegrationSubPage() {
         bgImage={content.img}
         bgVideo={
           sub === "liquid-paint-lines" ? PAINT_VIDEO :
-          sub === "pretreatment-systems" ? PRETREAT_VIDEO :
-          sub === "robotic-finishing-cells" ? ROBOTIC_VIDEO :
-          sub === "conveyor-systems" ? CONVEYOR_VIDEO :
-          sub === "system-integration" ? SYSTEM_INTEGRATION_VIDEO :
-          sub === "powder-coating-lines" ? POWDER_VIDEO : undefined
+            sub === "pretreatment-systems" ? PRETREAT_VIDEO :
+              sub === "robotic-finishing-cells" ? ROBOTIC_VIDEO :
+                sub === "conveyor-systems" ? CONVEYOR_VIDEO :
+                  sub === "system-integration" ? SYSTEM_INTEGRATION_VIDEO :
+                    sub === "powder-coating-lines" ? POWDER_VIDEO : undefined
         }
         ctaPricingHref={`/contact/request-a-quote?from=integration-${sub}`}
       />
@@ -377,7 +377,7 @@ export default function IntegrationSubPage() {
           <div className="grid lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2">
               <span className="section-label" style={{ color: "#1B2B4B" }}>Solution Overview</span>
-              <h2 className="section-heading">{content.title}</h2>
+              <h2 data-animation="slideLeft" className="section-heading">{content.title}</h2>
               <p className="section-body mb-5">{content.body}</p>
               {content.body2 && <p className="section-body mb-5">{content.body2}</p>}
               {content.body3 && <p className="section-body mb-8">{content.body3}</p>}
@@ -391,8 +391,8 @@ export default function IntegrationSubPage() {
                 ))}
               </ul>
               <div className="flex flex-wrap gap-3">
-                <Link href={`/contact/request-a-quote?from=integration-${sub}`}><span className="btn-glow">Request Info <ArrowRight size={14} /></span></Link>
-                <Link href="/contact/talk-to-an-engineer"><span className="btn-outline">Talk to an Engineer</span></Link>
+                <Link data-animation="slideLeft" href={`/contact/request-a-quote?from=integration-${sub}`}><span className="btn-glow">Request Info <ArrowRight size={14} /></span></Link>
+                <Link data-animation="slideRight" href="/contact/talk-to-an-engineer"><span className="btn-outline">Talk to an Engineer</span></Link>
               </div>
             </div>
             <div>
@@ -430,12 +430,12 @@ export default function IntegrationSubPage() {
           <div className="container" style={{ maxWidth: "800px" }}>
             <div className="mb-8">
               <span className="section-label" style={{ color: "#1B2B4B" }}>FAQ</span>
-              <h2 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.4rem, 3vw, 1.9rem)", fontWeight: 700, color: "#1a1a1a", textTransform: "uppercase", letterSpacing: "0.02em", marginTop: "0.25rem" }}>
+              <h2 data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.4rem, 3vw, 1.9rem)", fontWeight: 700, color: "#1a1a1a", textTransform: "uppercase", letterSpacing: "0.02em", marginTop: "0.25rem" }}>
                 Frequently Asked Questions
               </h2>
             </div>
             <FAQAccordion faqs={content.faqs} />
-            <div className="mt-8">
+            <div className="mt-8" data-animation="slideRight">
               <Link href="/contact/talk-to-an-engineer"><span className="btn-glow">Ask an Engineer <ArrowRight size={14} /></span></Link>
             </div>
           </div>
@@ -448,7 +448,7 @@ export default function IntegrationSubPage() {
           <div className="container">
             <div className="mb-8">
               <span className="section-label" style={{ color: "#1B2B4B" }}>Complete Your System</span>
-              <h3 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.4rem, 3vw, 1.9rem)", fontWeight: 700, color: "#1a1a1a", textTransform: "uppercase", letterSpacing: "0.02em", marginTop: "0.25rem" }}>
+              <h3 data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.4rem, 3vw, 1.9rem)", fontWeight: 700, color: "#1a1a1a", textTransform: "uppercase", letterSpacing: "0.02em", marginTop: "0.25rem" }}>
                 You May Also Need
               </h3>
             </div>
@@ -460,8 +460,8 @@ export default function IntegrationSubPage() {
                       <img src={rp.image} alt={`PFS ${rp.title}`} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} className="group-hover:scale-105" />
                     </div>
                     <div style={{ padding: "1.25rem" }}>
-                      <h4 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1rem", fontWeight: 700, color: "#1a1a1a", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "0.25rem" }}>{rp.title}</h4>
-                      <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.8rem", color: "#666", lineHeight: 1.5, marginBottom: "0.75rem" }}>{rp.subtitle}</p>
+                      <h4 data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1rem", fontWeight: 700, color: "#1a1a1a", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "0.25rem" }}>{rp.title}</h4>
+                      <p data-animation="slideRight" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.8rem", color: "#666", lineHeight: 1.5, marginBottom: "0.75rem" }}>{rp.subtitle}</p>
                       <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#1B2B4B" }}>
                         Learn More <ArrowRight size={11} />
                       </span>

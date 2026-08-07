@@ -79,10 +79,10 @@ export default function MeetTheTeamPage() {
           <div className="container">
             <div style={{ maxWidth: 600 }}>
               <p style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.8rem", fontWeight: 500, color: GOLD, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "0.75rem" }}>PFS — Industrial Finishing Equipment</p>
-              <h1 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(2.4rem, 5vw, 3.8rem)", fontWeight: 800, color: "#fff", lineHeight: 1.05, letterSpacing: "0.02em", textTransform: "uppercase", marginBottom: "1rem" }}>
+              <h1 data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(2.4rem, 5vw, 3.8rem)", fontWeight: 800, color: "#fff", lineHeight: 1.05, letterSpacing: "0.02em", textTransform: "uppercase", marginBottom: "1rem" }}>
                 Meet the Team
               </h1>
-              <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "1rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, maxWidth: 480 }}>
+              <p data-animation="slideLeft" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "1rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, maxWidth: 480 }}>
                 The engineers, fabricators, and project managers who build every PFS system.
               </p>
             </div>
@@ -104,10 +104,10 @@ export default function MeetTheTeamPage() {
               Full Profiles Coming Soon
             </span>
           </div>
-          <h2 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 800, color: BLUE, lineHeight: 1.1, letterSpacing: "0.02em", textTransform: "uppercase", marginBottom: "1rem" }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 800, color: BLUE, lineHeight: 1.1, letterSpacing: "0.02em", textTransform: "uppercase", marginBottom: "1rem" }}>
             People Who Know the Job
           </h2>
-          <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.95rem", color: "#4a5568", lineHeight: 1.75, maxWidth: 600, margin: "0 auto" }}>
+          <p data-animation="slideLeft" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.95rem", color: "#4a5568", lineHeight: 1.75, maxWidth: 600, margin: "0 auto" }}>
             Every person on the PFS team was hired because they know finishing systems — not just how to sell them, but how to build them, install them, and make them perform. Full team profiles are coming soon.
           </p>
         </div>
@@ -116,7 +116,7 @@ export default function MeetTheTeamPage() {
       {/* TEAM GRID — PLACEHOLDERS */}
       <section style={{ padding: "5rem 0", background: "#fff" }}>
         <div className="container">
-          <div style={{
+          <div data-animation="fadeIn" style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
             gap: "1.5rem",
@@ -175,14 +175,14 @@ export default function MeetTheTeamPage() {
           </Link>
           <div style={{ width: 1, height: 40, background: "#e2e8f0" }} />
           <div>
-            <p style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1.1rem", fontWeight: 700, color: BLUE, letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+            <p data-animation="slideLeft"style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1.1rem", fontWeight: 700, color: BLUE, letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
               Ready to Work with Us?
             </p>
-            <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.9rem", color: "#4a5568", lineHeight: 1.7, maxWidth: 400, marginBottom: "1.25rem" }}>
+            <p data-animation="slideLeft" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.9rem", color: "#4a5568", lineHeight: 1.7, maxWidth: 400, marginBottom: "1.25rem" }}>
               Whether you need a single booth or a full finishing line, our team is ready to help you spec the right system.
             </p>
             <Link href="/contact">
-              <button style={{
+              <button data-animation="slideRight" style={{
                 background: BLUE, color: "#fff",
                 fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
                 fontSize: "0.9rem", fontWeight: 700,

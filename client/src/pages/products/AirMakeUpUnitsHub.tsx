@@ -27,8 +27,8 @@ export default function AirMakeUpUnitsHub() {
         <div className="container">
           <div className="mb-12">
             <span className="section-label">Air Make-Up Units</span>
-            <h2 className="section-heading">Choose Your Configuration</h2>
-            <p className="section-body max-w-2xl">Proper air replacement is required by OSHA and NFPA 33 for any spray booth. PFS manufactures heated and non-heated AMUs for every climate and application.</p>
+            <h2 data-animation="slideLeft" className="section-heading">Choose Your Configuration</h2>
+            <p data-animation="slideLeft" className="section-body max-w-2xl">Proper air replacement is required by OSHA and NFPA 33 for any spray booth. PFS manufactures heated and non-heated AMUs for every climate and application.</p>
           </div>
 
           {/* Two large cards side by side */}
@@ -44,13 +44,13 @@ export default function AirMakeUpUnitsHub() {
                   />
                 </div>
                 <div className="p-8">
-                  <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-start justify-between mb-3" data-animation="slideLeft">
                     <h3 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1.5rem", fontWeight: 700, color: "#1a1a1a", lineHeight: 1.2 }}>
                       Heated Air Make-Up Units
                     </h3>
                     <ArrowRight size={20} className="text-[#1B2B4B] flex-shrink-0 mt-1 group-hover:translate-x-1 transition-transform" />
                   </div>
-                  <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.9rem", color: "#555", lineHeight: 1.7, marginBottom: "1.5rem" }}>
+                  <p data-animation="slideLeft" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.9rem", color: "#555", lineHeight: 1.7, marginBottom: "1.5rem" }}>
                     Gas-fired or electric heated AMUs for cold climates and temperature-sensitive coatings. Available with natural gas, propane, or electric heat sources. Required for booths operating in sub-freezing environments.
                   </p>
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -58,7 +58,7 @@ export default function AirMakeUpUnitsHub() {
                       <span key={tag} style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", backgroundColor: "#f4f4f2", color: "#444", padding: "0.25rem 0.6rem" }}>{tag}</span>
                     ))}
                   </div>
-                  <span className="btn-glow inline-flex items-center gap-2">Get Pricing <ArrowRight size={14} /></span>
+                  <span data-animation="slideRight"className="btn-glow inline-flex items-center gap-2">Get Pricing <ArrowRight size={14} /></span>
                 </div>
               </div>
             </Link>
@@ -74,13 +74,13 @@ export default function AirMakeUpUnitsHub() {
                   />
                 </div>
                 <div className="p-8">
-                  <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-start justify-between mb-3" data-animation="slideLeft">
                     <h3 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1.5rem", fontWeight: 700, color: "#1a1a1a", lineHeight: 1.2 }}>
                       Non-Heated Air Make-Up Units
                     </h3>
                     <ArrowRight size={20} className="text-[#1B2B4B] flex-shrink-0 mt-1 group-hover:translate-x-1 transition-transform" />
                   </div>
-                  <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.9rem", color: "#555", lineHeight: 1.7, marginBottom: "1.5rem" }}>
+                  <p data-animation="slideLeft" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.9rem", color: "#555", lineHeight: 1.7, marginBottom: "1.5rem" }}>
                     Designed to bring fresh outside air into the paint booth. Non-tempered. Heated options available upon request.
                   </p>
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -88,7 +88,7 @@ export default function AirMakeUpUnitsHub() {
                       <span key={tag} style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", backgroundColor: "#f4f4f2", color: "#444", padding: "0.25rem 0.6rem" }}>{tag}</span>
                     ))}
                   </div>
-                  <span className="btn-glow inline-flex items-center gap-2">Get Pricing <ArrowRight size={14} /></span>
+                  <span data-animation="slideRight" className="btn-glow inline-flex items-center gap-2">Get Pricing <ArrowRight size={14} /></span>
                 </div>
               </div>
             </Link>
@@ -98,19 +98,19 @@ export default function AirMakeUpUnitsHub() {
           <div style={{ backgroundColor: "#1a1a1a", padding: "2.5rem 2rem" }}>
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
-                <h3 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1.4rem", fontWeight: 700, color: "#ffffff", marginBottom: "0.4rem" }}>
+                <h3 data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1.4rem", fontWeight: 700, color: "#ffffff", marginBottom: "0.4rem" }}>
                   Not Sure Which AMU You Need?
                 </h3>
-                <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.875rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.6 }}>
+                <p data-animation="slideLeft" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.875rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.6 }}>
                   Our team will size the right unit for your booth CFM, climate, and heat source — at no charge.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
                 <Link href="/contact/request-a-quote">
-                  <span className="btn-glow flex items-center gap-2">Get Pricing <ArrowRight size={14} /></span>
+                  <span data-animation="slideLeft" className="btn-glow flex items-center gap-2">Get Pricing <ArrowRight size={14} /></span>
                 </Link>
                 <a href="tel:+18885457715">
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.8rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#ffffff", border: "1.5px solid rgba(255,255,255,0.4)", padding: "0.6rem 1.2rem", cursor: "pointer" }}>
+                  <span data-animation="slideRight" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.8rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#ffffff", border: "1.5px solid rgba(255,255,255,0.4)", padding: "0.6rem 1.2rem", cursor: "pointer" }}>
                     <Phone size={14} /> (888) 545-7715
                   </span>
                 </a>

@@ -166,19 +166,19 @@ export default function WalkInOvenPage() {
             ))}
           </nav>
           <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.72rem",fontWeight:700,letterSpacing:"0.18em",color:"rgba(255,255,255,0.5)",textTransform:"uppercase",display:"block",marginBottom:"1rem" }}>INDUSTRIAL OVENS — WALK-IN</span>
-          <h1 style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(2.6rem,7vw,5rem)",fontWeight:800,color:"#fff",lineHeight:1.0,letterSpacing:"-0.01em",marginBottom:"1rem",maxWidth:"700px" }}>
+          <h1 data-animation="slideLeft" style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(2.6rem,7vw,5rem)",fontWeight:800,color:"#fff",lineHeight:1.0,letterSpacing:"-0.01em",marginBottom:"1rem",maxWidth:"700px" }}>
             Walk-In Curing Ovens<br />
             Built for Production
           </h1>
           <span style={{ display:"inline-flex",alignItems:"center",gap:"0.4rem",background:"rgba(27,58,107,0.75)",border:"1px solid rgba(107,163,224,0.4)",color:"#6fa3e0",borderRadius:"2px",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",textTransform:"uppercase",padding:"0.3rem 0.75rem",marginBottom:"1.25rem" }}>PFS VULCAN SERIES</span>
-          <p style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"clamp(0.95rem,1.8vw,1.1rem)",color:"rgba(255,255,255,0.82)",lineHeight:1.7,marginBottom:"2.5rem",maxWidth:"520px" }}>
+          <p  data-animation="slideLeft" style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"clamp(0.95rem,1.8vw,1.1rem)",color:"rgba(255,255,255,0.82)",lineHeight:1.7,marginBottom:"2.5rem",maxWidth:"520px" }}>
             Industrial walk-in curing ovens for powder coating, liquid paint baking, and heat treating. Double-wall insulated panels, UL 508A controls, gas or electric heat. Custom sizes available. Ships nationally.
           </p>
           <div style={{ display:"flex",flexWrap:"wrap",gap:"1rem" }}>
-            <Link href="/contact/request-a-quote?from=walk-in-oven">
+            <Link href="/contact/request-a-quote?from=walk-in-oven" data-animation="slideLeft">
               <span className="btn-glow" style={{ width:"100%",maxWidth:"320px",justifyContent:"center" }}>GET PRICING <ArrowRight size={16} /></span>
             </Link>
-            <Link href="/contact/talk-to-an-engineer?from=walk-in-oven">
+            <Link href="/contact/talk-to-an-engineer?from=walk-in-oven" data-animation="slideRight">
               <span className="btn-glow-white" style={{ width:"100%",maxWidth:"320px",justifyContent:"center" }}>TALK TO AN ENGINEER <ArrowRight size={16} /></span>
             </Link>
           </div>
@@ -191,7 +191,7 @@ export default function WalkInOvenPage() {
       {/* ── OVERVIEW STATS ── */}
       <section style={{ background:"#f5f5f5",padding:"3rem 0",borderBottom:"1px solid #e5e7eb" }}>
         <div className="container">
-          <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:"1.5rem" }}>
+          <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:"1.5rem" }} data-animation="fadeIn">
             {[
               { val:"20-ga+",  label:"Steel Construction" },
               { val:"6\"",     label:"Insulated Walls & Roof" },
@@ -215,9 +215,9 @@ export default function WalkInOvenPage() {
           <div style={{ display:"flex",flexDirection:"column",alignItems:"center",gap:"1.5rem" }}>
             <div style={{ textAlign:"center" }}>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.6rem" }}>FEATURED OVEN</span>
-              <h2 style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.5rem" }}>PFS VULCAN Walk-In Curing Oven</h2>
+              <h2  data-animation="slideLeft" style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.5rem" }}>PFS VULCAN Walk-In Curing Oven</h2>
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.4rem",background:BLUE,color:"#fff",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.68rem",fontWeight:800,letterSpacing:"0.16em",textTransform:"uppercase",padding:"0.28rem 0.85rem",marginBottom:"0.75rem" }}>PFS VULCAN SERIES</span>
-              <p style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"0.95rem",color:"#555",maxWidth:"560px",margin:"0 auto",lineHeight:1.7 }}>
+              <p  data-animation="slideLeft" style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"0.95rem",color:"#555",maxWidth:"560px",margin:"0 auto",lineHeight:1.7 }}>
                 Double-wall insulated construction. UL 508A controls. Gas, propane, or electric heat. Available in walk-in and drive-in configurations with fork truck access options. Standard and fully custom sizes.
               </p>
             </div>
@@ -225,10 +225,10 @@ export default function WalkInOvenPage() {
               <img src={FEATURED_IMG} alt="PFS VULCAN walk-in curing oven" style={{ width:"100%",height:"auto",display:"block",objectFit:"contain",maxHeight:"420px" }} />
             </div>
             <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap",justifyContent:"center" }}>
-              <Link href="/contact/request-a-quote?from=walk-in-oven">
+              <Link href="/contact/request-a-quote?from=walk-in-oven" data-animation="slideLeft">
                 <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15}/></span>
               </Link>
-              <Link href="/contact/talk-to-an-engineer?from=walk-in-oven">
+              <Link href="/contact/talk-to-an-engineer?from=walk-in-oven" data-animation="slideRight">
                 <span className="btn-outline">TALK TO AN ENGINEER <ArrowRight size={15}/></span>
               </Link>
             </div>
@@ -242,9 +242,9 @@ export default function WalkInOvenPage() {
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1rem",marginBottom:specsOpen?"2rem":0 }}>
             <div>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.3rem" }}>STANDARD FEATURES</span>
-              <h2 style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Every Oven Ships Fully Equipped</h2>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Every Oven Ships Fully Equipped</h2>
             </div>
-            <button onClick={() => setSpecsOpen(!specsOpen)} style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:specsOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:specsOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.5rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap" }}>
+            <button data-animation="slideRight" onClick={() => setSpecsOpen(!specsOpen)} style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:specsOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:specsOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.5rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap" }}>
               {specsOpen ? <><ChevronUp size={15}/> HIDE FEATURES</> : <><ChevronDown size={15}/> SEE STANDARD FEATURES</>}
             </button>
           </div>
@@ -288,8 +288,8 @@ export default function WalkInOvenPage() {
           <div style={{ display:"flex",flexDirection:"column",gap:"1.5rem",maxWidth:960,margin:"0 auto" }}>
             <div style={{ textAlign:"center" }}>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.18em",color:"rgba(255,255,255,0.45)",textTransform:"uppercase",display:"block",marginBottom:"0.5rem" }}>BUILT-IN PROTECTION</span>
-              <h2 style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Comprehensive Safety — Standard on Every Unit</h2>
-              <p style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"0.9rem",color:"rgba(255,255,255,0.7)",maxWidth:"520px",margin:"0 auto",lineHeight:1.7 }}>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Comprehensive Safety — Standard on Every Unit</h2>
+              <p data-animation="slideLeft" style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"0.9rem",color:"rgba(255,255,255,0.7)",maxWidth:"520px",margin:"0 auto",lineHeight:1.7 }}>
                 PFS walk-in ovens include the following safety equipment as standard:
               </p>
             </div>
@@ -307,7 +307,7 @@ export default function WalkInOvenPage() {
                 </div>
               ))}
             </div>
-            <div style={{ textAlign:"center",marginTop:"0.5rem" }}>
+            <div data-animation="slideRight" style={{ textAlign:"center",marginTop:"0.5rem" }} >
               <Link href="/contact/talk-to-an-engineer?from=walk-in-oven">
                 <span className="btn-glow">TALK TO AN ENGINEER <ArrowRight size={15}/></span>
               </Link>
@@ -322,25 +322,25 @@ export default function WalkInOvenPage() {
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1rem",marginBottom:sizesOpen?"2rem":0 }}>
             <div>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.3rem" }}>STANDARD SIZES</span>
-              <h2 style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Find Your Configuration</h2>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Find Your Configuration</h2>
             </div>
-            <button onClick={() => setSizesOpen(!sizesOpen)} style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:sizesOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:sizesOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.5rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap" }}>
+            <button data-animation="slideRight" onClick={() => setSizesOpen(!sizesOpen)} style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:sizesOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:sizesOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.5rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap" }}>
               {sizesOpen ? <><ChevronUp size={15}/> HIDE SIZES</> : <><ChevronDown size={15}/> SEE STANDARD SIZES</>}
             </button>
           </div>
 
           {sizesOpen && (
             <>
-              <p style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"0.88rem",color:"#666",marginBottom:"1.75rem" }}>
+              <p data-animation="slideLeft" style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"0.88rem",color:"#666",marginBottom:"1.75rem" }}>
                 Select a width — available depths appear below. All sizes listed at 10&apos; interior height. Custom heights, widths, and depths available on request.
               </p>
 
               {/* Width selector */}
               <div style={{ marginBottom:"1.5rem" }}>
-                <div style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",marginBottom:"0.6rem" }}>SELECT WIDTH</div>
+                <div data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",marginBottom:"0.6rem" }}>SELECT WIDTH</div>
                 <div style={{ display:"inline-flex",border:`2px solid ${BLUE}`,overflow:"hidden",borderRadius:"2px",flexWrap:"wrap" }}>
                   {WIDTH_KEYS.map((w, i, arr) => (
-                    <button
+                    <button  data-animation="slideRight"
                       key={w}
                       onClick={() => { setSelectedWidth(w); setSelectedDepth(null); }}
                       style={{ padding:"0.75rem 1.75rem",background:selectedWidth===w?BLUE:"transparent",color:selectedWidth===w?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.9rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",border:"none",borderRight:i<arr.length-1?`1px solid ${BLUE}`:"none",cursor:"pointer",transition:"background 0.15s,color 0.15s" }}
@@ -406,16 +406,16 @@ export default function WalkInOvenPage() {
         <div className="container">
           <div className="text-center mb-6">
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.5rem" }}>GALLERY</span>
-            <h2 style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em" }}>Built in the USA. Proven in the Field.</h2>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em" }}>Built in the USA. Proven in the Field.</h2>
           </div>
           <div className="mb-6">
             <GalleryGrid images={GALLERY_IMGS} cardHeight="320px" className="grid grid-cols-1 sm:grid-cols-3 gap-3" />
           </div>
           <div className="text-center" style={{ display:"flex",gap:"1rem",justifyContent:"center",flexWrap:"wrap" }}>
-            <Link href="/contact/request-a-quote?from=walk-in-oven">
+            <Link href="/contact/request-a-quote?from=walk-in-oven" data-animation="slideLeft">
               <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15}/></span>
             </Link>
-            <a href="tel:8885457715">
+            <a href="tel:8885457715" data-animation="slideRight">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:"transparent",color:BLUE,border:`2px solid ${BLUE}`,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.85rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1rem 2.5rem",cursor:"pointer" }}>CALL (888) 545-7715</span>
             </a>
           </div>
@@ -443,7 +443,7 @@ export default function WalkInOvenPage() {
         })}} />
         <div className="container" style={{ maxWidth:"860px" }}>
           <p style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif", fontSize:"0.72rem", fontWeight:700, letterSpacing:"0.15em", textTransform:"uppercase", color:"#1a3a6b", marginBottom:"0.75rem" }}>FREQUENTLY ASKED QUESTIONS</p>
-          <h2 style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif", fontSize:"clamp(1.5rem,3vw,2.2rem)", fontWeight:800, color:"#0d1b2a", marginBottom:"2.5rem", lineHeight:1.1 }}>Walk-In Curing Oven FAQ</h2>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif", fontSize:"clamp(1.5rem,3vw,2.2rem)", fontWeight:800, color:"#0d1b2a", marginBottom:"2.5rem", lineHeight:1.1 }}>Walk-In Curing Oven FAQ</h2>
           {[
             { q:"What temperature does a powder coating oven need to reach?", a:"Most powder coatings cure between 325°F and 400°F (163°C–204°C), with 350°F being the most common cure temperature. PFS walk-in ovens are engineered to maintain temperature uniformity within ±10°F throughout the full chamber, ensuring consistent cure quality across every part in the load." },
             { q:"What is the difference between a direct-fired and indirect-fired curing oven?", a:"A direct-fired oven introduces combustion gases directly into the oven airstream, providing high efficiency and fast heat-up times. An indirect-fired oven uses a heat exchanger to keep combustion gases separated from the product, which is required for solvent-based coatings and applications where combustion byproducts could contaminate the finish. PFS offers both configurations." },
@@ -464,13 +464,13 @@ export default function WalkInOvenPage() {
       {/* ── MID-PAGE CTA BAND ── */}
       <section style={{ background:BLUE,padding:"3.5rem 0" }}>
         <div className="container" style={{ textAlign:"center" }}>
-          <h2 style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.6rem,3.5vw,2.6rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Ready to Configure Your Walk-In Oven?</h2>
-          <p style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"0.95rem",color:"rgba(255,255,255,0.8)",marginBottom:"2rem",maxWidth:"480px",margin:"0 auto 2rem" }}>Factory-direct pricing. Fast lead times. Every system factory-tested before shipment.</p>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.6rem,3.5vw,2.6rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Ready to Configure Your Walk-In Oven?</h2>
+          <p  data-animation="slideLeft" style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"0.95rem",color:"rgba(255,255,255,0.8)",marginBottom:"2rem",maxWidth:"480px",margin:"0 auto 2rem" }}>Factory-direct pricing. Fast lead times. Every system factory-tested before shipment.</p>
           <div style={{ display:"flex",gap:"1rem",justifyContent:"center",flexWrap:"wrap" }}>
-            <Link href="/contact/request-a-quote?from=walk-in-oven">
+            <Link href="/contact/request-a-quote?from=walk-in-oven" data-animation="slideLeft">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:"#fff",color:BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.88rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1rem 2.5rem",cursor:"pointer" }}>GET PRICING <ArrowRight size={15}/></span>
             </Link>
-            <Link href="/contact/talk-to-an-engineer?from=walk-in-oven">
+            <Link href="/contact/talk-to-an-engineer?from=walk-in-oven" data-animation="slideRight">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:"transparent",color:"#fff",border:"1.5px solid rgba(255,255,255,0.5)",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.88rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1rem 2.5rem",cursor:"pointer" }}>TALK TO AN ENGINEER <ArrowRight size={15}/></span>
             </Link>
           </div>
@@ -481,7 +481,7 @@ export default function WalkInOvenPage() {
       <section style={{ padding:"4rem 0",background:"#fff" }}>
         <div className="container">
           <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.18em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.5rem" }}>COMPLETE YOUR FINISHING LINE</span>
-          <h2 style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"2.5rem" }}>You May Also Need</h2>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"2.5rem" }}>You May Also Need</h2>
           <SiteProductCardSection cards={PRODUCTS} />
         </div>
       </section>

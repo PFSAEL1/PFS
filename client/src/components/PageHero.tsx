@@ -57,7 +57,7 @@ function PageHeroVideo({
     if (!v) return;
     v.muted = true;
     v.playsInline = true;
-    v.play().catch(() => {});
+    v.play().catch(() => { });
   }, []);
   return (
     <>
@@ -123,12 +123,12 @@ export default function PageHero({
 
       {/* Hero photo or video — Aerospace-style fade: still image underneath, video fades in on canplay */}
       {bgVideo ? (
-          <PageHeroVideo
-            bgVideo={bgVideo}
-            bgImage={bgImage}
-            bgImagePosition={bgImagePosition}
-            bgImageFit={bgImageFit}
-            bgPoster={bgPoster}
+        <PageHeroVideo
+          bgVideo={bgVideo}
+          bgImage={bgImage}
+          bgImagePosition={bgImagePosition}
+          bgImageFit={bgImageFit}
+          bgPoster={bgPoster}
           KB_STYLE={KB_STYLE}
         />
       ) : bgImage ? (
@@ -237,6 +237,7 @@ export default function PageHero({
 
         {/* Title */}
         <h1
+          data-animation="slideLeft"
           style={{
             fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
             fontSize: "clamp(2.2rem, 4.5vw, 3.4rem)",
@@ -255,6 +256,7 @@ export default function PageHero({
         {/* Subtitle */}
         {subtitle && (
           <p
+            data-animation="slideLeft"
             className="max-w-2xl"
             style={{
               fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
@@ -272,13 +274,14 @@ export default function PageHero({
         {/* CTA Buttons */}
         {ctaPricing && (
           <div className="flex flex-wrap gap-3">
-            <Link href={ctaPricingHref}>
+            <Link href={ctaPricingHref}
+              data-animation="slideLeft">
               <span className="btn-glow" style={{ padding: "0.75rem 2rem", fontSize: "0.85rem" }}>
                 GET PRICING →
               </span>
             </Link>
             {ctaPhone && (
-              <a href={`tel:${ctaPhone.replace(/\D/g, "")}`}>
+              <a href={`tel:${ctaPhone.replace(/\D/g, "")}`} data-animation="slideRight">
                 <button
                   style={{
                     fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",

@@ -52,8 +52,8 @@ export function SiteProductCard({ label, href, img, desc }: SiteProductCardProps
           />
         </div>
         {/* Card body */}
-        <div style={{ padding: "1.1rem 1.2rem 1.3rem" }}>
-          <div
+        <div style={{ padding: "1.1rem 1.2rem 1.3rem" }} >
+          <div data-animation="slideLeft"
             style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "0.9rem",
@@ -67,7 +67,7 @@ export function SiteProductCard({ label, href, img, desc }: SiteProductCardProps
           >
             {label}
           </div>
-          <div
+          <div data-animation="slideRight"
             style={{
               fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
               fontSize: "0.8rem",
@@ -127,7 +127,7 @@ export function SiteProductCardSection({
       }}
     >
       <div className="container">
-        <div style={{ marginBottom: "2rem" }}>
+        <div style={{ marginBottom: "2rem" }}> 
           <span
             style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
@@ -142,7 +142,7 @@ export function SiteProductCardSection({
           >
             {label}
           </span>
-          <h3
+          <h3 data-animation="slideLeft"
             style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "clamp(1.4rem, 3vw, 1.9rem)",

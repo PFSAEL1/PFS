@@ -321,12 +321,13 @@ export default function CollisionRepairPage() {
             COLLISION REPAIR &amp; AUTO BODY
           </span>
 
-          <h1 style={{
+          <h1 data-animation="slideLeft" style={{
             fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
             fontSize: "clamp(2.6rem, 7vw, 5rem)",
             fontWeight: 800, color: "#fff", lineHeight: 1.0,
             letterSpacing: "-0.01em", marginBottom: "1rem",
             maxWidth: "680px",
+            
           }}>
             Collision Repair &amp;<br />Auto Body Booths
           </h1>
@@ -343,7 +344,7 @@ export default function CollisionRepairPage() {
             PFS HELIOS SERIES
           </span>
 
-          <p style={{
+          <p  data-animation="slideLeft" style={{
             fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
             fontSize: "clamp(0.95rem, 1.8vw, 1.1rem)",
             color: "rgba(255,255,255,0.82)",
@@ -355,10 +356,10 @@ export default function CollisionRepairPage() {
           </p>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
-            <Link href="/contact/request-a-quote">
+            <Link href="/contact/request-a-quote" data-animation="slideLeft">
               <span className="btn-glow" style={{ width: "100%", maxWidth: "320px", justifyContent: "center" }}>GET PRICING <ArrowRight size={16} /></span>
             </Link>
-            <a href="tel:8885457715" style={{ width: "100%", maxWidth: "320px" }}>
+            <a href="tel:8885457715" style={{ width: "100%", maxWidth: "320px" }} data-animation="slideRight">
               <span style={{
                 display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
                 background: "transparent", color: "#fff", border: "1.5px solid rgba(255,255,255,0.5)",
@@ -388,7 +389,7 @@ export default function CollisionRepairPage() {
               }}>
                 FEATURED PAINT BOOTH
               </span>
-              <h2 style={{
+              <h2 data-animation="slideLeft" style={{
                 fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
                 fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 800,
                 color: "#111", letterSpacing: "-0.01em", marginBottom: "0.5rem",
@@ -422,10 +423,10 @@ export default function CollisionRepairPage() {
             </div>
 
             <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
-              <Link href="/contact/request-a-quote">
+              <Link href="/contact/request-a-quote" data-animation="slideLeft">
                 <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15} /></span>
               </Link>
-              <Link href="/products/paint-booths/enclosed">
+              <Link href="/products/paint-booths/enclosed" data-animation="slideRight">
                 <span style={{
                   display: "inline-flex", alignItems: "center", gap: "0.5rem",
                   background: "transparent", color: BLUE,
@@ -449,7 +450,7 @@ export default function CollisionRepairPage() {
       <section style={{ padding: "0 0 4rem", background: "#fff" }}>
         <div className="container">
           <div className="text-center mb-8">
-            <h2 style={{
+            <h2 data-animation="slideLeft"  style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 800,
               color: "#111", letterSpacing: "-0.01em",
@@ -478,7 +479,7 @@ export default function CollisionRepairPage() {
             ]}
             cardHeight="clamp(220px,30vw,360px)"
           />
-          <div className="text-center mt-8">
+          <div className="text-center mt-8" data-animation="slideRight">
             <Link href="/contact/request-a-quote">
               <span className="btn-glow">GET PRICING <ArrowRight size={15} /></span>
             </Link>
@@ -506,7 +507,7 @@ export default function CollisionRepairPage() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5 mb-5">
+          <div className="grid md:grid-cols-3 gap-5 mb-5" data-animation="fadeIn">
             {FEATURES_VISIBLE.map((f) => (
               <div key={f.title} style={{ background: "#fff", padding: "1.75rem", borderTop: `3px solid ${BLUE}`, display: "flex", flexDirection: "column" }}>
                 <div style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "2rem", fontWeight: 900, color: `rgba(27,58,107,0.12)`, lineHeight: 1, marginBottom: "0.5rem" }}>{f.num}</div>
@@ -559,7 +560,7 @@ export default function CollisionRepairPage() {
           )}
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <button
+            <button data-animation="slideLeft"
               onClick={() => setFeaturesOpen(!featuresOpen)}
               style={{
                 display: "inline-flex", alignItems: "center", gap: "0.4rem",
@@ -573,7 +574,7 @@ export default function CollisionRepairPage() {
                 ? <><ChevronUp size={14} /> SHOW LESS</>
                 : <><ChevronDown size={14} /> SEE ALL SPECIFICATIONS &amp; BOOTH TYPES</>}
             </button>
-            <Link href="/contact/request-a-quote">
+            <Link href="/contact/request-a-quote" data-animation="slideRight">
               <span className="btn-glow">GET PRICING <ArrowRight size={15} /></span>
             </Link>
           </div>
@@ -584,18 +585,18 @@ export default function CollisionRepairPage() {
       <section style={{ background: BLUE, padding: "3.5rem 0" }}>
         <div className="container">
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "1.5rem" }}>
-            <h2 style={{
+            <h2 data-animation="slideLeft" style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "clamp(1.6rem, 4vw, 2.6rem)",
               fontWeight: 800, color: "#fff", letterSpacing: "-0.01em", lineHeight: 1.1,
             }}>
               Tell us your shop dimensions.<br />We'll spec the booth.
             </h2>
-            <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.95rem", color: "rgba(255,255,255,0.85)", maxWidth: "440px" }}>
+            <p data-animation="slideLeft" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.95rem", color: "rgba(255,255,255,0.85)", maxWidth: "440px" }}>
               Quote in 24 hours. ETL listed. Installed nationwide by PFS-certified technicians.
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
-              <Link href="/contact/request-a-quote">
+              <Link href="/contact/request-a-quote"data-animation="slideLeft">
                 <span style={{
                   display: "inline-flex", alignItems: "center", gap: "0.5rem",
                   background: "#fff", color: BLUE,
@@ -606,7 +607,7 @@ export default function CollisionRepairPage() {
                   GET PRICING <ArrowRight size={16} />
                 </span>
               </Link>
-              <a href="tel:8885457715">
+              <a href="tel:8885457715" data-animation="slideRight">
                 <span style={{
                   display: "inline-flex", alignItems: "center", gap: "0.5rem",
                   background: "transparent", color: "#fff", border: "1.5px solid rgba(255,255,255,0.6)",
@@ -628,7 +629,7 @@ export default function CollisionRepairPage() {
         <div className="container" style={{ maxWidth:"860px" }}>
           <div style={{ textAlign:"center", marginBottom:"2.5rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:"#1B3A6B",textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>FREQUENTLY ASKED QUESTIONS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Collision Repair Spray Booths — Common Questions</h2>
+            <h2  data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Collision Repair Spray Booths — Common Questions</h2>
           </div>
           {[
             { q: "What size spray booth do I need for a collision repair shop?", a: "A standard collision repair spray booth for passenger cars and light trucks is typically 14 ft wide x 24 ft deep x 9 ft tall. Shops that service SUVs, vans, and light-duty trucks should consider a 14 ft wide x 27 ft deep x 10 ft tall booth. Shops that service full-size trucks, RVs, and commercial vehicles need a 16–18 ft wide x 40+ ft deep booth. PFS manufactures all of these sizes and custom configurations." },

@@ -1381,8 +1381,8 @@ export default function ProductSubPage() {
                   {data.seriesBadge}
                 </span>
               )}
-              <h2 className="section-heading">{data.title}</h2>
-              <p className="section-body" style={{ marginBottom: "2rem" }}>{data.body}</p>
+              <h2 data-animation="slideLeft"  className="section-heading">{data.title}</h2>
+              <p data-animation="slideLeft" className="section-body" style={{ marginBottom: "2rem" }}>{data.body}</p>
 
               {(() => {
                 const SHOW_COUNT = 6;
@@ -1392,7 +1392,7 @@ export default function ProductSubPage() {
                   : data.features;
                 return (
                   <div className="mb-8">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3" data-animation="fadeIn">
                       {visibleFeatures.map((f) => (
                         <div key={f} className="flex items-start gap-2.5">
                           <CheckCircle2 size={16} style={{ color: "#1B2B4B", flexShrink: 0, marginTop: "2px" }} />
@@ -1414,10 +1414,10 @@ export default function ProductSubPage() {
               })()}
 
               <div className="flex flex-wrap gap-3">
-                <Link href="/contact/request-a-quote">
+                <Link href="/contact/request-a-quote" data-animation="slideLeft">
                   <span className="btn-glow">Request a Quote <ArrowRight size={14} /></span>
                 </Link>
-                <a href="tel:8885457715">
+                <a href="tel:8885457715" data-animation="slideRight">
                   <span className="btn-outline">Call (888) 545-7715</span>
                 </a>
               </div>

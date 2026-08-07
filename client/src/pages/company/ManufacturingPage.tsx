@@ -127,7 +127,7 @@ export default function ManufacturingPage() {
           </span>
 
           {/* Headline */}
-          <h1
+          <h1 data-animation="slideLeft"
             style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "clamp(2.6rem, 7vw, 5rem)",
@@ -143,7 +143,7 @@ export default function ManufacturingPage() {
             Engineered to Last.
           </h1>
 
-          <p
+          <p data-animation="slideLeft"
             style={{
               fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
               fontSize: "clamp(0.95rem, 1.3vw, 1.1rem)",
@@ -158,7 +158,7 @@ export default function ManufacturingPage() {
 
           {/* CTAs */}
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-            <Link href="/contact/request-a-quote">
+            <Link href="/contact/request-a-quote" data-animation="slideLeft">
               <button
                 style={{
                   fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
@@ -182,7 +182,7 @@ export default function ManufacturingPage() {
                 REQUEST INFO <ArrowRight size={14} />
               </button>
             </Link>
-            <Link href="/products">
+            <Link href="/products" data-animation="slideRight">
               <button
                 style={{
                   fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
@@ -233,7 +233,7 @@ export default function ManufacturingPage() {
                   borderRight: i < STATS.length - 1 ? "1px solid rgba(255,255,255,0.1)" : "none",
                 }}
               >
-                <div
+                <div data-animation="slideLeft"
                   style={{
                     fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
                     fontSize: "clamp(1.4rem, 2.5vw, 2rem)",
@@ -245,7 +245,7 @@ export default function ManufacturingPage() {
                 >
                   {s.num}
                 </div>
-                <div
+                <div data-animation="slideRight"
                   style={{
                     fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
                     fontSize: "0.62rem",
@@ -279,7 +279,7 @@ export default function ManufacturingPage() {
           >
             OUR CAPABILITIES
           </span>
-          <h2
+          <h2 data-animation="slideLeft"
             style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)",
@@ -293,7 +293,7 @@ export default function ManufacturingPage() {
             Everything Under One Roof
           </h2>
 
-          <div
+          <div data-animation="fadeIn"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
@@ -364,7 +364,7 @@ export default function ManufacturingPage() {
             className="mfg-body-grid"
           >
             <div>
-              <h2
+              <h2 data-animation="slideLeft"
                 style={{
                   fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
                   fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
@@ -465,7 +465,7 @@ export default function ManufacturingPage() {
           }}
         >
           <div>
-            <h2
+            <h2 data-animation="slideLeft"
               style={{
                 fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
                 fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
@@ -477,7 +477,7 @@ export default function ManufacturingPage() {
             >
               Ready to Build Your System?
             </h2>
-            <p
+            <p data-animation="slideLeft"
               style={{
                 fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
                 fontSize: "0.95rem",
@@ -489,7 +489,7 @@ export default function ManufacturingPage() {
           </div>
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
             <Link href="/contact/request-a-quote">
-              <button
+              <button data-animation="slideLeft"
                 style={{
                   fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
                   fontWeight: 700,
@@ -513,7 +513,7 @@ export default function ManufacturingPage() {
               </button>
             </Link>
             <a href="tel:8885457715">
-              <button
+              <button data-animation="slideRight"
                 style={{
                   fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
                   fontWeight: 700,

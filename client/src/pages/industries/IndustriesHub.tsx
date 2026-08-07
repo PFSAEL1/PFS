@@ -44,8 +44,8 @@ export default function IndustriesHub() {
         <div className="container">
           <div className="mb-10">
             <span className="section-label">Industries</span>
-            <h2 className="section-heading-lg">Built for Your Industry</h2>
-            <p className="section-body max-w-2xl">From collision repair shops to aerospace facilities, PFS has the experience and product range to meet the most demanding finishing requirements.</p>
+            <h2 className="section-heading-lg" data-animation="slideLeft">Built for Your Industry</h2>
+            <p className="section-body max-w-2xl" data-animation="slideLeft">From collision repair shops to aerospace facilities, PFS has the experience and product range to meet the most demanding finishing requirements.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {INDUSTRIES.map((ind) => (
@@ -55,11 +55,11 @@ export default function IndustriesHub() {
                     <img src={ind.img} alt={ind.label} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" style={{ objectPosition: (ind as any).imgPosition || 'center center' }} />
                   </div>
                   <div className="p-5">
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center justify-between mb-2" data-animation="slideLeft">
                       <h3 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1rem", fontWeight: 600, color: "#1a1a1a", letterSpacing: "0.03em" }}>{ind.label}</h3>
-                      <ChevronRight size={16} style={{ color: "#FFFFFF" }} />
+                      <ChevronRight size={16} style={{ color: "#FFFFFF" }} data-animation="slideLeft"/>
                     </div>
-                    <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.82rem", color: "#666", lineHeight: 1.6 }}>{ind.desc}</p>
+                    <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.82rem", color: "#666", lineHeight: 1.6 }} data-animation="slideRight">{ind.desc}</p>
                   </div>
                 </div>
               </Link>

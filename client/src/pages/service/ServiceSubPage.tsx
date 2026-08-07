@@ -5,7 +5,7 @@ import { ArrowRight, Phone, CheckCircle } from "lucide-react";
 
 // New original AI-generated images — no internet-sourced photos
 const SERVICE_TECH_1 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663492797025/Qb3z7L9Ycd6rmfwTi5bWop/pfs-service-tech-1_8685fcab.jpg";
-const SERVICE_TEAM  = "/manus-storage/pfs-team-photo-rebranded_537b580c.png";
+const SERVICE_TEAM = "/manus-storage/pfs-team-photo-rebranded_537b580c.png";
 
 interface SvcContent {
   title: string;
@@ -312,7 +312,7 @@ export default function ServiceSubPage() {
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
               <span className="section-label">Service Details</span>
-              <h2 className="section-heading">{content.title}</h2>
+              <h2 data-animation="slideLeft" className="section-heading">{content.title}</h2>
               <div className="red-divider" />
               <p className="section-body mb-8">{content.body}</p>
 
@@ -327,8 +327,8 @@ export default function ServiceSubPage() {
               </div>
 
               <div className="flex flex-wrap gap-3">
-                <Link href="/contact/service-request"><span className="btn-glow flex items-center gap-2">Request Service <ArrowRight size={14} /></span></Link>
-                <a href="tel:8885457715" className="btn-outline flex items-center gap-2"><Phone size={14} /> (888) 545-7715</a>
+                <Link data-animation="slideLeft" href="/contact/service-request"><span className="btn-glow flex items-center gap-2">Request Service <ArrowRight size={14} /></span></Link>
+                <a data-animation="slideRight" href="tel:8885457715" className="btn-outline flex items-center gap-2"><Phone size={14} /> (888) 545-7715</a>
               </div>
 
               {/* Extra CTAs for Paint Booth Cleaning — filter store links */}
@@ -392,7 +392,7 @@ export default function ServiceSubPage() {
         <section className="py-12" style={{ background: "#F4F4F2" }}>
           <div className="container">
             <span className="section-label">{sub === "installation-services" ? "Installation Gallery" : "Field Service Gallery"}</span>
-            <h2 className="section-heading" style={{ marginBottom: "1.5rem" }}>Our Work</h2>
+            <h2 data-animation="slideLeft" className="section-heading" style={{ marginBottom: "1.5rem" }}>Our Work</h2>
             <div style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",

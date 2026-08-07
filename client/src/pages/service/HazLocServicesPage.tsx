@@ -281,7 +281,7 @@ export default function HazLocServicesPage() {
             <span style={{ display: "inline-block", width: "28px", height: "2px", background: BLUE_LIGHT }} />
             PFS — CRITICAL ENVIRONMENT SERVICES
           </div>
-          <h1 style={{
+          <h1 data-animation="slideLeft" style={{
             fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
             fontSize: "clamp(2.2rem, 5vw, 3.8rem)", fontWeight: 900,
             color: "#fff", lineHeight: 1.0, textTransform: "uppercase",
@@ -289,7 +289,7 @@ export default function HazLocServicesPage() {
           }}>
             Hazardous Location &<br />Critical Environment<br />Services
           </h1>
-          <p style={{
+          <p data-animation="slideLeft" style={{
             fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
             fontSize: "clamp(0.88rem, 1.4vw, 1.02rem)",
             color: "rgba(255,255,255,0.78)", lineHeight: 1.65,
@@ -311,7 +311,7 @@ export default function HazLocServicesPage() {
             ))}
           </div>
           <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-            <Link href="/contact">
+            <Link href="/contact" data-animation="slideLeft">
               <button style={{
                 background: BLUE, color: "#fff", border: "none",
                 padding: "0.85rem 1.8rem",
@@ -324,7 +324,7 @@ export default function HazLocServicesPage() {
                 REQUEST SERVICE <ArrowRight size={14} />
               </button>
             </Link>
-            <a href="tel:+18885457715">
+            <a href="tel:+18885457715" data-animation="slideRight">
               <button style={{
                 background: RED, color: "#fff", border: "none",
                 padding: "0.85rem 1.8rem",
@@ -342,7 +342,7 @@ export default function HazLocServicesPage() {
       </section>
 
       {/* ── INTRO BAND ───────────────────────────────────────────────────── */}
-      <section style={{
+      <section data-animation="fadeIn" style={{
         background: "#111", borderBottom: "3px solid #1B3A6B",
         padding: "2rem",
       }}>
@@ -378,13 +378,13 @@ export default function HazLocServicesPage() {
             color: BLUE, letterSpacing: "0.18em", textTransform: "uppercase",
             marginBottom: "0.4rem",
           }}>SERVICE CATEGORIES</div>
-          <h2 style={{
+          <h2 data-animation="slideLeft" style={{
             fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
             fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900,
             color: "#111", textTransform: "uppercase",
             letterSpacing: "-0.01em", margin: "0 0 0.5rem", lineHeight: 1.1,
           }}>What We Service</h2>
-          <p style={{
+          <p data-animation="slideLeft" style={{
             fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
             fontSize: "0.9rem", color: "#666", lineHeight: 1.6, maxWidth: "640px",
           }}>
@@ -392,7 +392,7 @@ export default function HazLocServicesPage() {
           </p>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}  data-animation="fadeIn">
           {SERVICES.map((svc) => {
             const isOpen = openService === svc.id;
             return (
@@ -532,7 +532,7 @@ export default function HazLocServicesPage() {
                 color: "rgba(255,255,255,0.45)", letterSpacing: "0.2em",
                 textTransform: "uppercase", marginBottom: "0.4rem",
               }}>PREVENTIVE MAINTENANCE CONTRACTS</div>
-              <h2 style={{
+              <h2 data-animation="slideLeft" style={{
                 fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
                 fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 900,
                 color: "#fff", textTransform: "uppercase",
@@ -586,7 +586,7 @@ export default function HazLocServicesPage() {
                 </ul>
               </div>
             ))}
-            <div style={{ gridColumn: "1 / -1", marginTop: "0.5rem" }}>
+            <div style={{ gridColumn: "1 / -1", marginTop: "0.5rem" }} data-animation="slideRight">
               <Link href="/contact">
                 <button style={{
                   background: "#fff", color: BLUE, border: "none",
@@ -614,7 +614,7 @@ export default function HazLocServicesPage() {
             color: BLUE, letterSpacing: "0.18em", textTransform: "uppercase",
             marginBottom: "0.4rem",
           }}>FREQUENTLY ASKED QUESTIONS</div>
-          <h2 style={{
+          <h2 data-animation="slideLeft" style={{
             fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
             fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)", fontWeight: 900,
             color: "#111", textTransform: "uppercase",
@@ -680,13 +680,13 @@ export default function HazLocServicesPage() {
             color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em",
             textTransform: "uppercase", marginBottom: "0.75rem",
           }}>NATIONWIDE COVERAGE — 24/7 EMERGENCY RESPONSE</div>
-          <h2 style={{
+          <h2 data-animation="slideLeft" style={{
             fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
             fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", fontWeight: 900,
             color: "#fff", textTransform: "uppercase",
             letterSpacing: "-0.01em", margin: "0 0 1rem", lineHeight: 1.1,
           }}>Ready to Schedule Service?</h2>
-          <p style={{
+          <p data-animation="slideLeft" style={{
             fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
             fontSize: "0.95rem", color: "rgba(255,255,255,0.6)",
             lineHeight: 1.65, marginBottom: "2rem", maxWidth: "560px", margin: "0 auto 2rem",
@@ -694,7 +694,7 @@ export default function HazLocServicesPage() {
             Contact us to schedule a service visit, request a preventive maintenance contract quote, or discuss emergency response coverage for your facility.
           </p>
           <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/contact">
+            <Link href="/contact" data-animation="slideLeft">
               <button style={{
                 background: BLUE, color: "#fff", border: "none",
                 padding: "1rem 2.2rem",
@@ -707,7 +707,7 @@ export default function HazLocServicesPage() {
                 REQUEST SERVICE <ArrowRight size={14} />
               </button>
             </Link>
-            <a href="tel:+18885457715">
+            <a href="tel:+18885457715" data-animation="slideRight">
               <button style={{
                 background: "transparent", color: "#fff",
                 border: "2px solid rgba(255,255,255,0.3)",

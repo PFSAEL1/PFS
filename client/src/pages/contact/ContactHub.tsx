@@ -35,7 +35,7 @@ export default function ContactHub() {
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
               <span className="section-label">Get in Touch</span>
-              <h2 className="section-heading">Send Us a Message</h2>
+              <h2 data-animation="slideLeft" className="section-heading">Send Us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-5 mt-6">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
@@ -61,7 +61,8 @@ export default function ContactHub() {
                   <label className="form-label">Message *</label>
                   <textarea className="form-input" rows={5} required value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} />
                 </div>
-                <button type="submit" className="btn-glow">Send Message</button>
+                <button data-animation="slideRight"
+                  type="submit" className="btn-glow">Send Message</button>
               </form>
             </div>
             <div className="space-y-6">

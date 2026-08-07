@@ -336,7 +336,7 @@ export default function AutomotiveManufacturingPage() {
           }}>
             AUTOMOTIVE MANUFACTURING
           </span>
-          <h1 style={{
+          <h1 data-animation="slideLeft" style={{
             fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
             fontSize: "clamp(2.6rem, 7vw, 5rem)",
             fontWeight: 800, color: "#fff", lineHeight: 1.0,
@@ -358,7 +358,7 @@ export default function AutomotiveManufacturingPage() {
           }}>
             PFS ZENITH &amp; ORION-R SERIES
           </span>
-          <p style={{
+          <p data-animation="slideLeft" style={{
             fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
             fontSize: "clamp(0.95rem, 1.8vw, 1.1rem)",
             color: "rgba(255,255,255,0.82)",
@@ -367,10 +367,10 @@ export default function AutomotiveManufacturingPage() {
             Laminar downdraft airflow. Robotic arm integration ready. Drive-through and conveyor-integrated configurations. ETL/UL listed and UL 508A certified components. NFPA 33 compliant. Engineered for OEM, Tier 1, and high-volume automotive finishing — installed nationwide.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
-            <Link href="/contact/request-a-quote">
+            <Link href="/contact/request-a-quote" data-animation="slideLeft">
               <span className="btn-glow">GET PRICING <ArrowRight size={16} /></span>
             </Link>
-            <a href="tel:8885457715">
+            <a href="tel:8885457715" data-animation="slideRight">
               <span style={{
                 display: "inline-flex", alignItems: "center", gap: "0.5rem",
                 background: "transparent", color: "#fff", border: "1.5px solid rgba(255,255,255,0.55)",
@@ -400,7 +400,7 @@ export default function AutomotiveManufacturingPage() {
               }}>
                 FEATURED PAINT BOOTH
               </span>
-              <h2 style={{
+              <h2 data-animation="slideLeft" style={{
                 fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
                 fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 800,
                 color: "#111", letterSpacing: "-0.01em", marginBottom: "0.5rem",
@@ -416,7 +416,7 @@ export default function AutomotiveManufacturingPage() {
               }}>
                 PFS ZENITH SERIES
               </span>
-              <p style={{
+              <p data-animation="slideLeft" style={{
                 fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.95rem", color: "#555",
                 maxWidth: "520px", margin: "0 auto", lineHeight: 1.7,
               }}>
@@ -431,10 +431,10 @@ export default function AutomotiveManufacturingPage() {
               />
             </div>
             <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
-              <Link href="/contact/request-a-quote">
+              <Link href="/contact/request-a-quote" data-animation="slideLeft">
                 <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15} /></span>
               </Link>
-              <Link href="/products/paint-booths/enclosed">
+              <Link href="/products/paint-booths/enclosed" data-animation="slideRight">
                 <span style={{
                   display: "inline-flex", alignItems: "center", gap: "0.5rem",
                   background: "transparent", color: BLUE, border: `2px solid ${BLUE}`,
@@ -457,7 +457,7 @@ export default function AutomotiveManufacturingPage() {
       <section style={{ padding: "0 0 4rem", background: "#fff" }}>
         <div className="container">
           <div className="text-center mb-8">
-            <h2 style={{
+            <h2 data-animation="slideLeft" style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 800,
               color: "#111", letterSpacing: "-0.01em",
@@ -473,7 +473,7 @@ export default function AutomotiveManufacturingPage() {
             ]}
             cardHeight="clamp(220px,30vw,360px)"
           />
-          <div className="text-center">
+          <div className="text-center" data-animation="slideRight">
             <Link href="/contact/request-a-quote">
               <span className="btn-glow">GET PRICING <ArrowRight size={15} /></span>
             </Link>
@@ -492,7 +492,7 @@ export default function AutomotiveManufacturingPage() {
             }}>
               STANDARD SPECIFICATION
             </span>
-            <h2 style={{
+            <h2 data-animation="slideLeft" style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 800,
               color: "#111", letterSpacing: "-0.01em",
@@ -554,7 +554,7 @@ export default function AutomotiveManufacturingPage() {
           )}
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <button
+            <button data-animation="slideLeft"
               onClick={() => setFeaturesOpen(!featuresOpen)}
               style={{
                 display: "inline-flex", alignItems: "center", gap: "0.4rem",
@@ -568,7 +568,7 @@ export default function AutomotiveManufacturingPage() {
                 ? <><ChevronUp size={14} /> SHOW LESS</>
                 : <><ChevronDown size={14} /> SEE ALL SPECIFICATIONS &amp; BOOTH TYPES</>}
             </button>
-            <Link href="/contact/request-a-quote">
+            <Link href="/contact/request-a-quote" data-animation="slideRight">
               <span className="btn-glow">GET PRICING <ArrowRight size={15} /></span>
             </Link>
           </div>
@@ -579,18 +579,18 @@ export default function AutomotiveManufacturingPage() {
       <section style={{ background: BLUE, padding: "3.5rem 0" }}>
         <div className="container">
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "1.5rem" }}>
-            <h2 style={{
+            <h2 data-animation="slideLeft"  style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "clamp(1.6rem, 4vw, 2.6rem)",
               fontWeight: 800, color: "#fff", letterSpacing: "-0.01em", lineHeight: 1.1,
             }}>
               Tell us your vehicle dimensions.<br />We'll spec the booth.
             </h2>
-            <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.95rem", color: "rgba(255,255,255,0.85)", maxWidth: "440px" }}>
+            <p data-animation="slideLeft" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.95rem", color: "rgba(255,255,255,0.85)", maxWidth: "440px" }}>
               Quote in 24 hours. manufactured in the USA with ETL/UL listed components. Installed nationwide by PFS-certified technicians.
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
-              <Link href="/contact/request-a-quote">
+              <Link href="/contact/request-a-quote" data-animation="slideLeft" >
                 <span style={{
                   display: "inline-flex", alignItems: "center", gap: "0.5rem",
                   background: "#fff", color: BLUE,
@@ -601,7 +601,7 @@ export default function AutomotiveManufacturingPage() {
                   GET PRICING <ArrowRight size={16} />
                 </span>
               </Link>
-              <a href="tel:8885457715">
+              <a href="tel:8885457715" data-animation="slideRight">
                 <span style={{
                   display: "inline-flex", alignItems: "center", gap: "0.5rem",
                   background: "transparent", color: "#fff", border: "1.5px solid rgba(255,255,255,0.6)",
@@ -623,7 +623,7 @@ export default function AutomotiveManufacturingPage() {
         <div className="container" style={{ maxWidth:"860px" }}>
           <div style={{ textAlign:"center", marginBottom:"2.5rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:"#1B3A6B",textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>FREQUENTLY ASKED QUESTIONS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Automotive Manufacturing Spray Booths — Common Questions</h2>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Automotive Manufacturing Spray Booths — Common Questions</h2>
           </div>
           {[
             { q: "What type of spray booth is used in automotive manufacturing?", a: "Automotive manufacturing plants use full-downdraft spray booths for body-in-white (BIW) painting, heated booths for primer and topcoat bake cycles, and integrated conveyor finishing lines for high-volume production. PFS manufactures all of these systems and can design integrated finishing lines for OEM and Tier 1 automotive suppliers." },

@@ -231,17 +231,17 @@ export default function SprayToWastePage() {
           <span style={{ display:"inline-block",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:800,letterSpacing:"0.18em",textTransform:"uppercase",color:"rgba(255,255,255,0.6)",marginBottom:"0.75rem" }}>
             POWDER COATING SYSTEMS
           </span>
-          <h1 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(2.2rem,6vw,4.2rem)",fontWeight:900,color:"#fff",letterSpacing:"-0.02em",lineHeight:1.05,marginBottom:"1rem",maxWidth:"700px" }}>
+          <h1 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(2.2rem,6vw,4.2rem)",fontWeight:900,color:"#fff",letterSpacing:"-0.02em",lineHeight:1.05,marginBottom:"1rem",maxWidth:"700px" }}>
             SPRAY-TO-WASTE<br />POWDER BOOTHS
           </h1>
-          <p style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"clamp(0.95rem,1.8vw,1.1rem)",color:"rgba(255,255,255,0.82)",lineHeight:1.7,marginBottom:"2.5rem",maxWidth:"520px" }}>
+          <p data-animation="slideLeft" style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"clamp(0.95rem,1.8vw,1.1rem)",color:"rgba(255,255,255,0.82)",lineHeight:1.7,marginBottom:"2.5rem",maxWidth:"520px" }}>
             Non-recovery powder coating booths built for frequent color changes, batch operations, and job shops. 3-stage filtration. Clean air recirculation. No exhaust stack required. Ships nationally.
           </p>
           <div style={{ display:"flex",flexWrap:"wrap",gap:"1rem" }}>
-            <Link href="/contact/request-a-quote?from=spray-to-waste">
+            <Link href="/contact/request-a-quote?from=spray-to-waste" data-animation="slideLeft">
               <span className="btn-glow" style={{ justifyContent:"center" }}>GET PRICING <ArrowRight size={16} /></span>
             </Link>
-            <a href="tel:8885457715">
+            <a href="tel:8885457715" data-animation="slideRight">
               <span className="btn-glow-white" style={{ background:"transparent",color:"#fff",justifyContent:"center" }}>CALL (888) 545-7715</span>
             </a>
           </div>
@@ -257,8 +257,8 @@ export default function SprayToWastePage() {
           <div style={{ display:"flex",flexDirection:"column",alignItems:"center",gap:"1.5rem" }}>
             <div style={{ textAlign:"center" }}>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.6rem" }}>FEATURED INSTALLATION</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,3vw,2.4rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.5rem" }}>PFS Enclosed Spray-to-Waste Powder Booth</h2>
-              <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.95rem",color:"#555",maxWidth:"560px",margin:"0 auto",lineHeight:1.7 }}>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,3vw,2.4rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.5rem" }}>PFS Enclosed Spray-to-Waste Powder Booth</h2>
+              <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.95rem",color:"#555",maxWidth:"560px",margin:"0 auto",lineHeight:1.7 }}>
                 Engineered for a precision manufacturing facility requiring clean, multi-color powder coating capability. White powder-coated steel enclosure, full-height glass viewing windows, and a bank of disposable filter modules at the exhaust wall for maximum overspray capture. Built in the USA — ETL/UL certified components, NFPA 33 compliant.
               </p>
             </div>
@@ -266,10 +266,10 @@ export default function SprayToWastePage() {
               <img src={FEATURED_IMG} alt="PFS enclosed spray-to-waste powder booth — featured installation" style={{ width:"100%",height:"auto",display:"block",objectFit:"cover",objectPosition:"center" }} />
             </div>
             <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap",justifyContent:"center" }}>
-              <Link href="/contact/request-a-quote?from=spray-to-waste">
+              <Link href="/contact/request-a-quote?from=spray-to-waste" data-animation="slideLeft">
                 <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15}/></span>
               </Link>
-              <Link href="/products/powder-booths">
+              <Link href="/products/powder-booths" data-animation="slideRight">
                 <span className="btn-outline">VIEW ALL POWDER SYSTEMS <ArrowRight size={15}/></span>
               </Link>
             </div>
@@ -282,8 +282,8 @@ export default function SprayToWastePage() {
         <div className="container">
           <div style={{ textAlign:"center",marginBottom:"2rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.5rem" }}>TWO FILTRATION MODELS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Choose Your Filtration System</h2>
-            <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.9rem",color:"#666",maxWidth:"560px",margin:"0 auto",lineHeight:1.7 }}>
+            <h2  data-animation="slideLeft"style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Choose Your Filtration System</h2>
+            <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.9rem",color:"#666",maxWidth:"560px",margin:"0 auto",lineHeight:1.7 }}>
               PFS spray-to-waste booths are available with two distinct filtration approaches. Select a model below to see how each system works.
             </p>
           </div>
@@ -308,7 +308,7 @@ export default function SprayToWastePage() {
 
           {/* Disposable filter content */}
           {filtrationOpen === 'disposable' && (
-            <div style={{ border:`2px solid ${BLUE}`,padding:"2rem",marginBottom:"1.5rem" }}>
+            <div style={{ border:`2px solid ${BLUE}`,padding:"2rem",marginBottom:"1.5rem" }} data-animation="fadeIn">
               <div style={{ marginBottom:"1.5rem" }}>
                 <h3 style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"1.4rem",fontWeight:800,color:"#111",letterSpacing:"0.01em",marginBottom:"0.5rem" }}>3-Stage Disposable Filter System</h3>
                 <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.88rem",color:"#555",lineHeight:1.7,maxWidth:"680px" }}>
@@ -370,7 +370,7 @@ export default function SprayToWastePage() {
             <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.88rem",color:"#888",textAlign:"center",padding:"1.5rem 0" }}>Select a filtration model above to see how it works.</p>
           )}
 
-          <div style={{ textAlign:"center",marginTop:"1.5rem" }}>
+          <div style={{ textAlign:"center",marginTop:"1.5rem" }} data-animation="slideRight">
             <Link href="/contact/request-a-quote?from=spray-to-waste">
               <span className="btn-glow">ASK ABOUT FILTRATION OPTIONS <ArrowRight size={15}/></span>
             </Link>
@@ -384,9 +384,9 @@ export default function SprayToWastePage() {
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1rem",marginBottom: compOpen ? "2rem" : 0 }}>
             <div>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.3rem" }}>WHICH SYSTEM IS RIGHT FOR YOU?</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Spray-to-Waste vs. Powder Reclaim</h2>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Spray-to-Waste vs. Powder Reclaim</h2>
             </div>
-            <button
+            <button data-animation="slideRight"
               onClick={() => setCompOpen(!compOpen)}
               style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:compOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:compOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.5rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap" }}
             >
@@ -446,9 +446,9 @@ export default function SprayToWastePage() {
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1rem",marginBottom: specsOpen ? "2rem" : 0 }}>
             <div>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.3rem" }}>STANDARD FEATURES</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Built with Certified Components</h2>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Built with Certified Components</h2>
             </div>
-            <button
+            <button data-animation="slideRight" 
               onClick={() => setSpecsOpen(!specsOpen)}
               style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:specsOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:specsOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.5rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap" }}
             >
@@ -502,9 +502,9 @@ export default function SprayToWastePage() {
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1rem",marginBottom: sizesOpen ? "2rem" : 0 }}>
             <div>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.3rem" }}>STANDARD SIZES</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Common Booth Widths — 4' to 16' and Custom</h2>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Common Booth Widths — 4' to 16' and Custom</h2>
             </div>
-            <button
+            <button data-animation="slideRight"
               onClick={() => setSizesOpen(!sizesOpen)}
               style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:sizesOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:sizesOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.5rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap" }}
             >
@@ -585,12 +585,12 @@ export default function SprayToWastePage() {
       <section style={{ padding:"3rem 0 4rem",background:"#fff" }}>
         <div className="container">
           <div className="text-center mb-6">
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em" }}>Built in the USA. Proven in the Field.</h2>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em" }}>Built in the USA. Proven in the Field.</h2>
           </div>
           <div className="mb-6">
             <GalleryGrid images={GALLERY_IMGS} cardHeight="280px" className="grid grid-cols-1 sm:grid-cols-2 gap-3" />
           </div>
-          <div className="text-center">
+          <div className="text-center" data-animation="slideRight" >
             <Link href="/contact/request-a-quote?from=spray-to-waste">
               <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15}/></span>
             </Link>
@@ -601,13 +601,13 @@ export default function SprayToWastePage() {
       {/* ── MID-PAGE CTA BAND ── */}
       <section style={{ background:BLUE,padding:"3.5rem 0" }}>
         <div className="container" style={{ textAlign:"center" }}>
-          <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,3.5vw,2.6rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Ready to Configure Your Spray-to-Waste Booth?</h2>
-          <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.95rem",color:"rgba(255,255,255,0.8)",marginBottom:"2rem",maxWidth:"480px",margin:"0 auto 2rem" }}>Factory-direct pricing. Fast lead times. Dedicated support from order through installation.</p>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,3.5vw,2.6rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Ready to Configure Your Spray-to-Waste Booth?</h2>
+          <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.95rem",color:"rgba(255,255,255,0.8)",marginBottom:"2rem",maxWidth:"480px",margin:"0 auto 2rem" }}>Factory-direct pricing. Fast lead times. Dedicated support from order through installation.</p>
           <div style={{ display:"flex",gap:"1rem",justifyContent:"center",flexWrap:"wrap" }}>
-            <Link href="/contact/request-a-quote?from=spray-to-waste">
+            <Link href="/contact/request-a-quote?from=spray-to-waste" data-animation="slideLeft">
               <span className="btn-glow-white">GET PRICING <ArrowRight size={16}/></span>
             </Link>
-            <a href="tel:8885457715">
+            <a href="tel:8885457715" data-animation="slideRight"> 
               <span className="btn-glow-white" style={{ background:"transparent",color:"#fff" }}>CALL (888) 545-7715</span>
             </a>
           </div>
@@ -619,7 +619,7 @@ export default function SprayToWastePage() {
         <div className="container" style={{ maxWidth:"820px" }}>
           <div style={{ marginBottom:"2.5rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>FREQUENTLY ASKED QUESTIONS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Spray-to-Waste Powder Booth — Common Questions</h2>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Spray-to-Waste Powder Booth — Common Questions</h2>
           </div>
           {[
             {

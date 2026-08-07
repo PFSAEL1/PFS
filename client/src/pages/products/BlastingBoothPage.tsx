@@ -392,8 +392,8 @@ export function BlastingBoothsPage() {
               </span>
 
               <span className="section-label">Blasting Systems</span>
-              <h2 className="section-heading">Blasting Booths</h2>
-              <p className="section-body" style={{ marginBottom: "1.5rem" }}>
+              <h2 data-animation="slideLeft" className="section-heading">Blasting Booths</h2>
+              <p data-animation="slideLeft" className="section-body" style={{ marginBottom: "1.5rem" }}>
                 PFS Goliath Series blast rooms are fully enclosed, purpose-built environments for abrasive blasting operations. Each booth is designed to contain media, protect operators, and capture dust — keeping your facility clean and your team safe. Whether you're blasting structural steel, heavy equipment, aerospace components, or production parts, we size and configure each booth to match your workflow.
               </p>
 
@@ -420,10 +420,10 @@ export function BlastingBoothsPage() {
 
               {/* CTA row */}
               <div className="flex flex-wrap gap-3 mb-8">
-                <Link href="/contact/request-a-quote?from=blast-booth">
+                <Link href="/contact/request-a-quote?from=blast-booth" data-animation="slideLeft">
                   <span className="btn-glow">Request a Quote <ArrowRight size={14} /></span>
                 </Link>
-                <a href="tel:8885457715">
+                <a href="tel:8885457715" data-animation="slideRight">
                   <span className="btn-outline">Call (888) 545-7715</span>
                 </a>
               </div>
@@ -556,8 +556,8 @@ export function ReclaimBlastingBoothsPage() {
               </span>
 
               <span className="section-label">Blasting Systems</span>
-              <h2 className="section-heading">Reclaim Blasting Booths</h2>
-              <p className="section-body" style={{ marginBottom: "1.5rem" }}>
+              <h2 data-animation="slideLeft" className="section-heading">Reclaim Blasting Booths</h2>
+              <p data-animation="slideLeft" className="section-body" style={{ marginBottom: "1.5rem" }}>
                 PFS Goliath Series reclaim blast rooms add an integrated media recovery system to the standard blast booth — dramatically reducing media consumption, disposal costs, and production downtime. Recovered media is automatically classified, cleaned, and returned to the blast machine, keeping your operation running with minimal manual intervention. Available in mechanical bucket elevator or pneumatic vacuum configurations to match your media type and production volume.
               </p>
 
@@ -584,10 +584,10 @@ export function ReclaimBlastingBoothsPage() {
 
               {/* CTA row */}
               <div className="flex flex-wrap gap-3 mb-8">
-                <Link href="/contact/request-a-quote?from=blast-booth">
+                <Link href="/contact/request-a-quote?from=blast-booth" data-animation="slideLeft">
                   <span className="btn-glow">Request a Quote <ArrowRight size={14} /></span>
                 </Link>
-                <a href="tel:8885457715">
+                <a href="tel:8885457715" data-animation="slideRight">
                   <span className="btn-outline">Call (888) 545-7715</span>
                 </a>
               </div>
@@ -670,7 +670,7 @@ export function ReclaimBlastingBoothsPage() {
         <div className="container" style={{ maxWidth:"860px" }}>
           <div style={{ textAlign:"center", marginBottom:"2.5rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:"#1B3A6B",textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>FREQUENTLY ASKED QUESTIONS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Blast Rooms &amp; Abrasive Blasting Booths — Common Questions</h2>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Blast Rooms &amp; Abrasive Blasting Booths — Common Questions</h2>
           </div>
           {[
             { q: "What is a blast room used for?", a: "A blast room provides an enclosed, ventilated environment for abrasive blasting — the process of propelling abrasive media at high velocity to clean, strip, or profile a surface. Blast rooms capture spent media and dust, protect workers and the surrounding facility, and comply with OSHA and EPA regulations for abrasive blasting operations." },

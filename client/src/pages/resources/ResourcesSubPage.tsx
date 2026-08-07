@@ -101,7 +101,7 @@ function GatedDownload({ doc }: { doc: typeof GATED_DOWNLOADS[0] }) {
           <FileText size={22} color="#fff" />
         </div>
         <div style={{ flex: 1 }}>
-          <h3
+          <h3 data-animation="slideLeft"
             style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "1rem",
@@ -112,7 +112,7 @@ function GatedDownload({ doc }: { doc: typeof GATED_DOWNLOADS[0] }) {
           >
             {doc.title}
           </h3>
-          <p
+          <p data-animation="slideLeft"
             style={{
               fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
               fontSize: "0.85rem",
@@ -139,7 +139,7 @@ function GatedDownload({ doc }: { doc: typeof GATED_DOWNLOADS[0] }) {
         </div>
         <div style={{ flexShrink: 0 }}>
           {!submitted ? (
-            <button
+            <button  data-animation="slideRight"
               onClick={() => setOpen(!open)}
               style={{
                 display: "inline-flex",
@@ -155,7 +155,6 @@ function GatedDownload({ doc }: { doc: typeof GATED_DOWNLOADS[0] }) {
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
                 cursor: "pointer",
-                transition: "all 0.2s ease, box-shadow 0.25s ease",
               }}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLButtonElement;
@@ -176,7 +175,7 @@ function GatedDownload({ doc }: { doc: typeof GATED_DOWNLOADS[0] }) {
               {open ? "Cancel" : "Download"}
             </button>
           ) : (
-            <a
+            <a 
               href={doc.url}
               target="_blank"
               rel="noopener noreferrer"
@@ -429,8 +428,8 @@ export default function ResourcesSubPage() {
           <div className="grid lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2">
               <span className="section-label">Resources</span>
-              <h2 className="section-heading">{content.title}</h2>
-              <p className="section-body mb-8">{content.body}</p>
+              <h2 data-animation="slideLeft" className="section-heading">{content.title}</h2>
+              <p data-animation="slideLeft" className="section-body mb-8">{content.body}</p>
 
               {/* Gated downloads for installation-guides and downloads pages */}
               {showGatedDownloads ? (
@@ -456,9 +455,14 @@ export default function ResourcesSubPage() {
                   ))}
                 </div>
               ) : (
-                <div className="p-6 border border-gray-200 bg-gray-50">
-                  <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.875rem", color: "#555", lineHeight: 1.7, marginBottom: "1rem" }}>Resources are available upon request. Contact us to receive the documentation you need.</p>
-                  <Link href="/contact/request-a-quote"><span className="btn-glow">Request Resources <ArrowRight size={14} /></span></Link>
+                <div className="p-6 border border-gray-200 bg-gray-50" >
+                  <p data-animation="slideLeft" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.875rem", color: "#555", lineHeight: 1.7, marginBottom: "1rem" }}>Resources are available upon request. Contact us to receive the documentation you need.</p>
+                  <Link data-animation="slideRight"  href="/contact/request-a-quote" className='btn-glow'><span style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.5rem",
+                  }}>Request Resources <ArrowRight size={14} /></span></Link>
                 </div>
               )}
             </div>

@@ -105,7 +105,7 @@ export default function SupportPage() {
               }}>
                 PFS Technical Support
               </span>
-              <h1 style={{
+              <h1 data-animation="slideLeft" style={{
                 fontFamily: "'Archivo Narrow', sans-serif",
                 fontSize: "clamp(2rem, 4vw, 3rem)",
                 fontWeight: 700,
@@ -115,7 +115,7 @@ export default function SupportPage() {
               }}>
                 Equipment Down?<br />We're On It.
               </h1>
-              <p style={{
+              <p data-animation="slideLeft" style={{
                 fontFamily: "'Archivo Narrow', sans-serif",
                 fontSize: "1rem",
                 color: "#555",

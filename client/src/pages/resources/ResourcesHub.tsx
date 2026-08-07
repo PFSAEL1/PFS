@@ -56,9 +56,9 @@ export default function ResourcesHub() {
         <div className="container">
           <div className="mb-10">
             <span className="section-label">Resource Library</span>
-            <h2 className="section-heading-lg">Everything You Need to Specify, Install, and Operate PFS Equipment</h2>
+            <h2 data-animation="slideLeft" className="section-heading-lg">Everything You Need to Specify, Install, and Operate PFS Equipment</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" data-animation="fadeIn">
             {RESOURCES.map((r) => {
               const Icon = r.icon;
               return (

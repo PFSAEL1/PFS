@@ -47,9 +47,9 @@ function Collapsible({ title, label, defaultOpen = false, children }: { title: s
         onClick={() => setOpen(!open)}
         style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem 0", background: "transparent", border: "none", cursor: "pointer", textAlign: "left" }}
       >
-        <div>
+        <div data-animation="slideLeft">
           {label && <span style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.65rem", fontWeight: 700, color: GOLD, letterSpacing: "0.18em", textTransform: "uppercase", display: "block", marginBottom: "0.2rem" }}>{label}</span>}
-          <span style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.1rem, 3vw, 1.4rem)", fontWeight: 800, color: BLUE, letterSpacing: "0.02em", textTransform: "uppercase" }}>{title}</span>
+          <span  style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.1rem, 3vw, 1.4rem)", fontWeight: 800, color: BLUE, letterSpacing: "0.02em", textTransform: "uppercase" }}>{title}</span>
         </div>
         <span style={{ color: BLUE, flexShrink: 0, marginLeft: "1rem" }}>{open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}</span>
       </button>
@@ -109,19 +109,19 @@ export default function CompanyHub() {
           <div className="container">
             <div style={{ maxWidth: 620 }}>
               <p style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.75rem", fontWeight: 600, color: GOLD, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "0.65rem" }}>About PFS</p>
-              <h1 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(2.2rem, 5vw, 3.8rem)", fontWeight: 800, color: "#fff", lineHeight: 1.05, letterSpacing: "0.02em", textTransform: "uppercase", marginBottom: "1rem" }}>
+              <h1 data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(2.2rem, 5vw, 3.8rem)", fontWeight: 800, color: "#fff", lineHeight: 1.05, letterSpacing: "0.02em", textTransform: "uppercase", marginBottom: "1rem" }}>
                 We Started as Distributors.<br /><span style={{ color: GOLD }}>Now We're Manufacturers.</span>
               </h1>
-              <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "clamp(0.9rem, 1.8vw, 1.05rem)", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, marginBottom: "1.75rem", maxWidth: 480 }}>
+              <p data-animation="slideLeft" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "clamp(0.9rem, 1.8vw, 1.05rem)", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, marginBottom: "1.75rem", maxWidth: 480 }}>
                 Founded 2012. In-house manufacturing since 2020. Shipping across the USA and Canada.
               </p>
               <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-                <Link href="/contact">
+                <Link href="/contact" data-animation="slideLeft">
                   <button style={{ background: GOLD, color: "#fff", fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.88rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.8rem 1.75rem", border: "none", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
                     Get a Quote <ArrowRight size={15} />
                   </button>
                 </Link>
-                <Link href="/company/team">
+                <Link href="/company/team" data-animation="slideRight">
                   <button style={{ background: "transparent", color: "#fff", fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.88rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.8rem 1.75rem", border: "2px solid rgba(255,255,255,0.55)", cursor: "pointer" }}>
                     Meet the Team
                   </button>
@@ -138,8 +138,8 @@ export default function CompanyHub() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.5rem" }}>
             {STATS.map((s) => (
               <div key={s.label} style={{ textAlign: "center", padding: "0.4rem 0.25rem" }}>
-                <div style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.3rem, 3vw, 2rem)", fontWeight: 700, color: GOLD, lineHeight: 1.1 }}>{s.num}</div>
-                <div style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "clamp(0.6rem, 1.2vw, 0.72rem)", color: "rgba(255,255,255,0.72)", textTransform: "uppercase", letterSpacing: "0.08em", marginTop: "0.25rem" }}>{s.label}</div>
+                <div data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.3rem, 3vw, 2rem)", fontWeight: 700, color: GOLD, lineHeight: 1.1 }}>{s.num}</div>
+                <div data-animation="slideRight" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "clamp(0.6rem, 1.2vw, 0.72rem)", color: "rgba(255,255,255,0.72)", textTransform: "uppercase", letterSpacing: "0.08em", marginTop: "0.25rem" }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -239,12 +239,12 @@ export default function CompanyHub() {
       <section style={{ padding: "3.5rem 0", background: "#f8f9fb", borderTop: "1px solid #e2e8f0" }}>
         <div className="container" style={{ textAlign: "center" }}>
           <span style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.7rem", fontWeight: 600, color: GOLD, letterSpacing: "0.2em", textTransform: "uppercase", display: "block", marginBottom: "0.5rem" }}>The People Behind PFS</span>
-          <h2 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", fontWeight: 800, color: BLUE, lineHeight: 1.1, letterSpacing: "0.02em", textTransform: "uppercase", marginBottom: "0.85rem" }}>Meet the Team</h2>
-          <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.9rem", color: "#4a5568", lineHeight: 1.75, maxWidth: 480, margin: "0 auto 1.75rem" }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", fontWeight: 800, color: BLUE, lineHeight: 1.1, letterSpacing: "0.02em", textTransform: "uppercase", marginBottom: "0.85rem" }}>Meet the Team</h2>
+          <p data-animation="slideLeft" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.9rem", color: "#4a5568", lineHeight: 1.75, maxWidth: 480, margin: "0 auto 1.75rem" }}>
             Engineers, fabricators, project managers, and installers who take pride in every unit that leaves our floor.
           </p>
           <Link href="/company/team">
-            <span className="btn-glow">Meet the Team <ArrowRight size={15} /></span>
+            <span className="btn-glow" data-animation="slideRight">Meet the Team <ArrowRight size={15} /></span>
           </Link>
         </div>
       </section>
@@ -255,7 +255,7 @@ export default function CompanyHub() {
         <div className="container" style={{ position: "relative" }}>
           <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
             <span style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.7rem", fontWeight: 600, color: GOLD, letterSpacing: "0.2em", textTransform: "uppercase", display: "block", marginBottom: "0.5rem" }}>Verified Customer Reviews</span>
-            <h2 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", fontWeight: 800, color: "#fff", lineHeight: 1.1, letterSpacing: "0.02em", textTransform: "uppercase", marginBottom: "0.5rem" }}>What Our Customers Say</h2>
+            <h2 data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", fontWeight: 800, color: "#fff", lineHeight: 1.1, letterSpacing: "0.02em", textTransform: "uppercase", marginBottom: "0.5rem" }}>What Our Customers Say</h2>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", marginTop: "0.75rem" }}>
               <div style={{ display: "flex", gap: "2px" }}>
                 {[1,2,3,4,5].map(i => (
@@ -267,7 +267,8 @@ export default function CompanyHub() {
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem", marginBottom: "2.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem", marginBottom: "2.5rem" }} data-animation="fadeIn"
+>
             {[
               {
                 name: "Stephanie Walbourne",
@@ -310,7 +311,7 @@ export default function CompanyHub() {
             ))}
           </div>
 
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: "center" }} data-animation="slideLeft">
             <a
               href="https://www.google.com/maps/place/Platinum+Finishing+Systems+-+Spray+Booths/@38.5107813,-122.790046,17z/data=!3m1!4b1!4m6!3m5!1s0x80843e9a96d2e3ab:0xf9cb90a9f3dee95f"
               target="_blank"
@@ -329,17 +330,17 @@ export default function CompanyHub() {
       <section style={{ background: BLUE, padding: "3.5rem 0", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: "repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 80px)" }} />
         <div className="container" style={{ position: "relative", textAlign: "center" }}>
-          <h2 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 800, color: "#fff", lineHeight: 1.1, letterSpacing: "0.02em", textTransform: "uppercase", marginBottom: "0.75rem" }}>Get a Quote in 24 Hours</h2>
-          <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.95rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.7, maxWidth: 480, margin: "0 auto 2rem" }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 800, color: "#fff", lineHeight: 1.1, letterSpacing: "0.02em", textTransform: "uppercase", marginBottom: "0.75rem" }}>Get a Quote in 24 Hours</h2>
+          <p data-animation="slideLeft" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.95rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.7, maxWidth: 480, margin: "0 auto 2rem" }}>
             Tell us your application, your space, and your timeline. We'll come back with a complete system recommendation and pricing — fast.
           </p>
           <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/contact">
+            <Link href="/contact" data-animation="slideLeft">
               <button style={{ background: GOLD, color: "#fff", fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.88rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.85rem 2rem", border: "none", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
                 Get a Quote <ArrowRight size={15} />
               </button>
             </Link>
-            <Link href="/contact">
+            <Link href="/contact" data-animation="slideRight">
               <button style={{ background: "transparent", color: "#fff", fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.88rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.85rem 2rem", border: "2px solid rgba(255,255,255,0.5)", cursor: "pointer" }}>
                 Schedule Consultation
               </button>

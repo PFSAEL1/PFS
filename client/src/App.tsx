@@ -110,6 +110,11 @@ import FiltersPage from "./pages/FiltersPage";
 import CaliforniaServicePage from "./pages/CaliforniaServicePage";
 import LosAngelesServicePage from "@/pages/LosAngelesServicePage";
 import BayAreaServicePage from "@/pages/BayAreaServicePage";
+import GlobalAnimations from "./GlobalAnimations";
+
+
+// import { motion } from "motion/react";
+// import { fadeIn, slideLeft, slideRight, zoomIn } from "../animations";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -209,7 +214,7 @@ function Router() {
       <Route path="/industries/rail-transit" component={RailTransitPage} />
       <Route path="/industries/automotive-manufacturing" component={AutomotiveManufacturingPage} />
       <Route path="/industries/heavy-equipment" component={HeavyEquipmentPage} />
-          <Route path="/industries/energy-utilities" component={EnergyUtilitiesPage} />
+      <Route path="/industries/energy-utilities" component={EnergyUtilitiesPage} />
       <Route path="/industries/:industry" component={IndustryPage} />
 
       {/* Integration & Automation */}
@@ -259,16 +264,19 @@ function Router() {
 
 function App() {
   return (
-    <ErrorBoundary>
-      <ThemeProvider defaultTheme="light">
-        <TooltipProvider>
-          <Toaster />
-          <Layout>
-            <Router />
-          </Layout>
-        </TooltipProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
+    <>
+      <GlobalAnimations  />
+      <ErrorBoundary>
+        <ThemeProvider defaultTheme="light">
+          <TooltipProvider>
+            <Toaster />
+            <Layout>
+              <Router />
+            </Layout>
+          </TooltipProvider>
+        </ThemeProvider>
+      </ErrorBoundary>
+    </>
   );
 }
 

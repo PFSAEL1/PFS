@@ -286,7 +286,7 @@ export default function ResourcesFAQsPage() {
                   border: "1px solid #e2e8f0",
                 }}
               >
-                <p
+                <p data-animation="slideLeft"
                   style={{
                     fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
                     fontSize: "0.875rem",
@@ -297,7 +297,7 @@ export default function ResourcesFAQsPage() {
                   For the complete warranty terms, return policy, freight policy, and legal notices, see the PFS Legal & Policies page.
                 </p>
                 <Link href="/legal">
-                  <span className="btn-glow" style={{ fontSize: "0.78rem", padding: "0.65rem 1.5rem" }}>
+                  <span data-animation="slideRight" className="btn-glow" style={{ fontSize: "0.78rem", padding: "0.65rem 1.5rem" }}>
                     View Full Legal & Policies <ArrowRight size={13} />
                   </span>
                 </Link>

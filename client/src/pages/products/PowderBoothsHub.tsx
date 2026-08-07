@@ -51,8 +51,8 @@ export default function PowderBoothsHub() {
         <div className="container">
           <div className="mb-10">
             <span className="section-label">Powder Coating</span>
-            <h2 className="section-heading">Choose Your System</h2>
-            <p className="section-body max-w-2xl">From manual job shop booths to fully integrated automated lines, PFS engineers powder coating systems around your part geometry, production volume, and powder chemistry.</p>
+            <h2 data-animation="slideLeft" className="section-heading">Choose Your System</h2>
+            <p data-animation="slideLeft" className="section-body max-w-2xl">From manual job shop booths to fully integrated automated lines, PFS engineers powder coating systems around your part geometry, production volume, and powder chemistry.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {SYSTEMS.map((s) => (
@@ -62,8 +62,8 @@ export default function PowderBoothsHub() {
                     <img src={s.img} alt={s.label} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   </div>
                   <div className="p-5">
-                    <h3 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1rem", fontWeight: 700, color: "#1a1a1a", marginBottom: "0.4rem" }}>{s.label}</h3>
-                    <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.8rem", color: "#666", lineHeight: 1.6 }}>{s.desc}</p>
+                    <h3 data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1rem", fontWeight: 700, color: "#1a1a1a", marginBottom: "0.4rem" }}>{s.label}</h3>
+                    <p data-animation="slideRight" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.8rem", color: "#666", lineHeight: 1.6 }}>{s.desc}</p>
                   </div>
                 </div>
               </Link>
@@ -72,10 +72,10 @@ export default function PowderBoothsHub() {
           <div className="mt-10 p-8 border border-gray-200 bg-gray-50">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
-                <h3 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1.25rem", fontWeight: 700, color: "#1a1a1a", marginBottom: "0.5rem" }}>Need a Custom Powder System?</h3>
-                <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.875rem", color: "#555", lineHeight: 1.7 }}>Our engineers can design a complete powder coating system around your exact facility, process, and throughput requirements.</p>
+                <h3 data-animation="slideLeft" style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "1.25rem", fontWeight: 700, color: "#1a1a1a", marginBottom: "0.5rem" }}>Need a Custom Powder System?</h3>
+                <p data-animation="slideLeft"   style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.875rem", color: "#555", lineHeight: 1.7 }}>Our engineers can design a complete powder coating system around your exact facility, process, and throughput requirements.</p>
               </div>
-              <Link href="/contact/request-a-quote?from=powder-booth"><span className="btn-glow flex-shrink-0">Get Pricing <ArrowRight size={14} /></span></Link>
+              <Link href="/contact/request-a-quote?from=powder-booth" data-animation="slideRight" ><span className="btn-glow flex-shrink-0">Get Pricing <ArrowRight size={14} /></span></Link>
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@ export default function PowderBoothsHub() {
         })}} />
         <div className="container" style={{ maxWidth:"860px" }}>
           <p style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif", fontSize:"0.72rem", fontWeight:700, letterSpacing:"0.15em", textTransform:"uppercase", color:"#1a3a6b", marginBottom:"0.75rem" }}>FREQUENTLY ASKED QUESTIONS</p>
-          <h2 style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif", fontSize:"clamp(1.5rem,3vw,2.2rem)", fontWeight:800, color:"#0d1b2a", marginBottom:"2.5rem", lineHeight:1.1 }}>Powder Coating Booth FAQ</h2>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif", fontSize:"clamp(1.5rem,3vw,2.2rem)", fontWeight:800, color:"#0d1b2a", marginBottom:"2.5rem", lineHeight:1.1 }}>Powder Coating Booth FAQ</h2>
           {[
             { q:"What is the difference between a spray-to-waste and a reclaim powder coating booth?", a:"A spray-to-waste powder coating booth collects overspray in disposable filters and discards it. A powder reclaim booth uses a cartridge recovery system to collect, clean, and recycle overspray back into the application process, reducing material costs significantly in high-volume operations. PFS manufactures both configurations." },
             { q:"What CFM do I need for my powder coating booth?", a:"Powder coating booth airflow is typically sized between 4,000 and 10,000 CFM depending on booth dimensions, application method, and the specific powder being applied. PFS engineers size each booth to deliver optimal airflow for maximum transfer efficiency and powder containment while meeting NFPA 33 and OSHA requirements." },

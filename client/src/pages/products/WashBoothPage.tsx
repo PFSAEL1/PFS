@@ -160,7 +160,7 @@ export default function WashBoothPage() {
             fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.18em",
             color: "rgba(255,255,255,0.5)", textTransform: "uppercase", display: "block", marginBottom: "1rem",
           }}>PAINT BOOTHS — ENCLOSED</span>
-            <h1 style={{
+            <h1 data-animation="slideLeft" style={{
             fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
             fontSize: "clamp(2.6rem, 7vw, 5rem)",
             fontWeight: 800, color: "#fff", lineHeight: 1.0,
@@ -179,7 +179,7 @@ export default function WashBoothPage() {
             letterSpacing: "0.14em", textTransform: "uppercase",
             padding: "0.3rem 0.75rem", marginBottom: "1.25rem",
           }}>SURFACE PREPARATION</span>
-          <p style={{
+          <p data-animation="slideLeft" style={{
             fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
             fontSize: "clamp(0.95rem, 1.8vw, 1.1rem)",
             color: "rgba(255,255,255,0.82)",
@@ -190,10 +190,10 @@ export default function WashBoothPage() {
             manufactured in the USA with ETL/UL listed components. NFPA 33 compliant. Enclosed wash booths engineered for industrial pre-treatment — manual high-pressure washing, chemical rinsing, and surface prep before powder coating or liquid paint. Custom sizes. Ships nationally.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
-            <Link href="/contact/request-a-quote?from=wash-booth">
+            <Link href="/contact/request-a-quote?from=wash-booth" data-animation="slideLeft">
               <span className="btn-glow" style={{ width: "100%", maxWidth: "320px", justifyContent: "center" }}>GET PRICING <ArrowRight size={16} /></span>
             </Link>
-            <a href="tel:8885457715" style={{ width: "100%", maxWidth: "320px" }}>
+            <a href="tel:8885457715" data-animation="slideRight" style={{ width: "100%", maxWidth: "320px" }}>
               <span className="btn-glow-white" style={{ background: "transparent", color: "#fff", width: "100%", maxWidth: "320px", justifyContent: "center" }}>CALL (888) 545-7715</span>
             </a>
           </div>
@@ -211,14 +211,14 @@ export default function WashBoothPage() {
             {/* Text column — order 2 on mobile so image appears first */}
             <div className="order-2 md:order-1">
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.6rem" }}>SURFACE PREPARATION</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,3vw,2.4rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"1rem" }}>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,3vw,2.4rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"1rem" }}>
                 Industrial Pre-Treatment Starts Here
               </h2>
-              <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.95rem",color:"#555",lineHeight:1.7,marginBottom:"1.5rem" }}>
+              <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.95rem",color:"#555",lineHeight:1.7,marginBottom:"1.5rem" }}>
                 Coating adhesion starts with a clean substrate. A PFS enclosed wash booth gives your facility a dedicated, code-compliant space for high-pressure washing, chemical pre-treatment, and rinse operations — eliminating oils, scale, and contamination before any paint or powder is applied. Wet-duty exhaust fan, floor drain, and integrated lighting included standard.
               </p>
               <Link href="/contact/request-a-quote?from=wash-booth">
-                <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15}/></span>
+                <span data-animation="slideRight" className="btn-glow">REQUEST A QUOTE <ArrowRight size={15}/></span>
               </Link>
             </div>
             {/* Image column — order 1 on mobile so it appears above text */}
@@ -242,9 +242,9 @@ export default function WashBoothPage() {
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1rem",marginBottom: specsOpen ? "2rem" : 0 }}>
             <div>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.3rem" }}>STANDARD FEATURES</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Every Unit Ships Fully Certified</h2>
+              <h2 data-animation="slideLeft"  style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Every Unit Ships Fully Certified</h2>
             </div>
-            <button
+            <button data-animation="slideRight"
               onClick={() => setSpecsOpen(!specsOpen)}
               style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:specsOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:specsOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.5rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap" }}
             >
@@ -280,7 +280,7 @@ export default function WashBoothPage() {
                 </div>
               )}
               <div style={{ textAlign:"center" }}>
-                <button
+                <button 
                   onClick={() => setFeaturesOpen(!featuresOpen)}
                   style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:"transparent",border:`2px solid ${BLUE}`,color:BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.75rem",cursor:"pointer" }}
                 >
@@ -297,13 +297,13 @@ export default function WashBoothPage() {
         <div className="container">
           <div className="text-center mb-6">
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.5rem" }}>GALLERY</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em" }}>Built in the USA. Proven in the Field.</h2>
-            <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.85rem",color:"#888",marginTop:"0.5rem" }}>Real PFS wash booths — installed and in operation.</p>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em" }}>Built in the USA. Proven in the Field.</h2>
+            <p data-animation="slideRight" style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.85rem",color:"#888",marginTop:"0.5rem" }}>Real PFS wash booths — installed and in operation.</p>
           </div>
           <div className="mb-6">
             <GalleryGrid images={GALLERY_IMGS} cardHeight="280px" className="grid grid-cols-1 sm:grid-cols-2 gap-3" />
           </div>
-          <div className="text-center">
+          <div className="text-center" data-animation="slideRight">
             <Link href="/contact/request-a-quote?from=wash-booth">
               <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15}/></span>
             </Link>
@@ -314,13 +314,13 @@ export default function WashBoothPage() {
       {/* MID-PAGE CTA BAND */}
       <section style={{ background:BLUE,padding:"3.5rem 0" }}>
         <div className="container" style={{ textAlign:"center" }}>
-          <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,3.5vw,2.6rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Ready to Configure Your Wash Booth?</h2>
-          <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.95rem",color:"rgba(255,255,255,0.8)",marginBottom:"2rem",maxWidth:"480px",margin:"0 auto 2rem" }}>Factory-direct pricing. Fast lead times. Dedicated support from order through installation.</p>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,3.5vw,2.6rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Ready to Configure Your Wash Booth?</h2>
+          <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.95rem",color:"rgba(255,255,255,0.8)",marginBottom:"2rem",maxWidth:"480px",margin:"0 auto 2rem" }}>Factory-direct pricing. Fast lead times. Dedicated support from order through installation.</p>
           <div style={{ display:"flex",gap:"1rem",justifyContent:"center",flexWrap:"wrap" }}>
-            <Link href="/contact/request-a-quote?from=wash-booth">
+            <Link href="/contact/request-a-quote?from=wash-booth" data-animation="slideLeft">
               <span className="btn-glow-white">GET PRICING <ArrowRight size={16}/></span>
             </Link>
-            <a href="tel:8885457715">
+            <a href="tel:8885457715" data-animation="slideRight">
               <span className="btn-glow-white" style={{ background: "transparent", color: "#fff" }}>CALL (888) 545-7715</span>
             </a>
           </div>
@@ -331,15 +331,15 @@ export default function WashBoothPage() {
       <section style={{ background:"#111",padding:"3rem 0",borderTop:`4px solid ${BLUE}` }}>
         <div className="container" style={{ textAlign:"center" }}>
           <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.18em",color:"rgba(255,255,255,0.45)",textTransform:"uppercase",display:"block",marginBottom:"0.5rem" }}>COMPLETE YOUR PREP LINE</span>
-          <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Pairs with a Batch Oven or Pretreatment System</h2>
-          <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.9rem",color:"rgba(255,255,255,0.7)",maxWidth:"480px",margin:"0 auto 1.75rem",lineHeight:1.7 }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Pairs with a Batch Oven or Pretreatment System</h2>
+          <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.9rem",color:"rgba(255,255,255,0.7)",maxWidth:"480px",margin:"0 auto 1.75rem",lineHeight:1.7 }}>
             After washing, parts can be transferred directly to a batch oven for dry-off, or integrated into a full pretreatment line before powder coating or liquid paint application.
           </p>
           <div style={{ display:"flex",gap:"1rem",justifyContent:"center",flexWrap:"wrap" }}>
-            <Link href="/products/ovens/batch">
+            <Link href="/products/ovens/batch" data-animation="slideLeft">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.4rem",background:BLUE,color:"#fff",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.85rem 1.75rem",cursor:"pointer" }}>VIEW BATCH OVENS <ArrowRight size={13}/></span>
             </Link>
-            <Link href="/integration-automation/pretreatment-systems">
+            <Link href="/integration-automation/pretreatment-systems" data-animation="slideRight">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.4rem",background:"transparent",color:"#fff",border:"2px solid rgba(255,255,255,0.35)",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.85rem 1.75rem",cursor:"pointer" }}>VIEW PRETREATMENT SYSTEMS <ArrowRight size={13}/></span>
             </Link>
           </div>
@@ -352,7 +352,7 @@ export default function WashBoothPage() {
         <div className="container" style={{ maxWidth:"860px" }}>
           <div style={{ textAlign:"center", marginBottom:"2.5rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:"#1B3A6B",textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>FREQUENTLY ASKED QUESTIONS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Industrial Wash Booths — Common Questions</h2>
+            <h2  data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Industrial Wash Booths — Common Questions</h2>
           </div>
           {[
             { q: "What is an industrial wash booth used for?", a: "An industrial wash booth provides a dedicated, enclosed environment for pressure washing, steam cleaning, and degreasing vehicles, equipment, and parts before painting or coating. The booth captures wash water and contaminants, prevents overspray from entering the facility, and complies with EPA and local wastewater regulations by routing effluent to a proper collection or treatment system." },

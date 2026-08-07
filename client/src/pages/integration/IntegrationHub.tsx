@@ -44,7 +44,7 @@ export default function IntegrationHub() {
           <div className="grid lg:grid-cols-2 gap-14 items-center mb-16">
             <div>
               <span className="section-label">Complete Finishing Lines</span>
-              <h2 className="section-heading-lg">One Source for Your Entire Finishing System</h2>
+              <h2 data-animation="slideLeft" className="section-heading-lg">One Source for Your Entire Finishing System</h2>
               <p className="section-body mb-6">
                 Most finishing equipment suppliers sell individual pieces of equipment. PFS is different — we design, engineer, manufacture, and install complete finishing systems, from the first pretreatment stage through the final curing oven.
               </p>
@@ -52,7 +52,7 @@ export default function IntegrationHub() {
                 Working with a single source for your entire finishing line eliminates integration headaches, simplifies project management, and ensures every component is designed to work together seamlessly.
               </p>
               <Link href="/contact/talk-to-an-engineer">
-                <span className="btn-glow">Talk to a Systems Engineer <ArrowRight size={14} /></span>
+                <span className="btn-glow" data-animation="slideRight">Talk to a Systems Engineer <ArrowRight size={14} /></span>
               </Link>
             </div>
             <div>
@@ -62,7 +62,7 @@ export default function IntegrationHub() {
 
           <div className="mb-10">
             <span className="section-label">Solutions</span>
-            <h2 className="section-heading">Integrated Finishing Solutions</h2>
+            <h2 data-animation="slideLeft" className="section-heading">Integrated Finishing Solutions</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {SOLUTIONS.map((sol) => (
@@ -72,11 +72,11 @@ export default function IntegrationHub() {
                     <img src={sol.img} alt={sol.label} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   </div>
                   <div className="p-5">
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center justify-between mb-2" data-animation="slideLeft" >
                       <h3 style={{ fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif", fontSize: "0.95rem", fontWeight: 600, color: "#1a1a1a" }}>{sol.label}</h3>
                       <ChevronRight size={16} style={{ color: "#FFFFFF" }} />
                     </div>
-                    <p style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.8rem", color: "#666", lineHeight: 1.6 }}>{sol.desc}</p>
+                    <p data-animation="slideRight" style={{ fontFamily: "'Archivo Narrow', 'Inter', sans-serif", fontSize: "0.8rem", color: "#666", lineHeight: 1.6 }}>{sol.desc}</p>
                   </div>
                 </div>
               </Link>

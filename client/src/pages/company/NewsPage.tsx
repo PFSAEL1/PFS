@@ -145,7 +145,7 @@ export default function NewsPage() {
             </span>
           </div>
 
-          <h1
+          <h1 data-animation="slideLeft"
             style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "clamp(2.4rem, 6vw, 4.5rem)",
@@ -160,7 +160,7 @@ export default function NewsPage() {
             News &<br />Press
           </h1>
 
-          <p
+          <p data-animation="slideLeft"
             style={{
               fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
               fontSize: "clamp(0.95rem, 1.4vw, 1.1rem)",
@@ -189,7 +189,7 @@ export default function NewsPage() {
           </div>
 
           {/* Article card */}
-          <article
+          <article 
             style={{
               background: "#fff",
               border: `1px solid #e5e7eb`,
@@ -198,7 +198,7 @@ export default function NewsPage() {
             }}
           >
             {/* Press photo — full width */}
-            <div style={{ position:"relative",overflow:"hidden",maxHeight:"480px" }}>
+            <div style={{ position:"relative",overflow:"hidden",maxHeight:"480px" }} data-animation="fadeIn">
               <img
                 src={PRESS_PHOTO}
                 alt="PFS Orion spray booth being installed at a customer facility — PFS technicians on-site with forklift and booth panels"
@@ -304,8 +304,8 @@ export default function NewsPage() {
 
               {/* Article CTAs */}
               <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap",marginTop:"2.5rem",paddingTop:"2rem",borderTop:"1px solid #e5e7eb" }}>
-                <Link href="/service">
-                  <button className="btn-glow" style={{ fontFamily:"'Chakra Petch',sans-serif",fontWeight:700,fontSize:"0.82rem",letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.9rem 2rem",display:"inline-flex",alignItems:"center",gap:"0.5rem",cursor:"pointer" }}>
+                <Link href="/service" data-animation="slideLeft" className="btn-glow" style={{padding:'0'}}>
+                  <button  style={{ padding:"0.9rem 2rem",display:"inline-flex",alignItems:"center",gap:"0.5rem",cursor:"pointer" }}>
                     EXPLORE PFS SERVICE <ArrowRight size={14} />
                   </button>
                 </Link>
@@ -314,7 +314,7 @@ export default function NewsPage() {
                     ORDER FILTERS <ArrowRight size={14} />
                   </button>
                 </Link>
-                <a href="tel:8885457715">
+                <a href="tel:8885457715" data-animation="slideRight">
                   <button style={{ fontFamily:"'Chakra Petch',sans-serif",fontWeight:700,fontSize:"0.82rem",letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.9rem 2rem",background:"transparent",color:"#111",border:"1.5px solid #ccc",cursor:"pointer",transition:"border-color 0.2s" }}
                     onMouseEnter={e=>(e.currentTarget.style.borderColor="#111")}
                     onMouseLeave={e=>(e.currentTarget.style.borderColor="#ccc")}>
@@ -337,7 +337,7 @@ export default function NewsPage() {
                 Recent News
               </span>
             </div>
-            <h2
+            <h2 data-animation="slideLeft"
               style={{
                 fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
                 fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
@@ -350,7 +350,7 @@ export default function NewsPage() {
             </h2>
           </div>
 
-          <div style={{ display:"flex",flexDirection:"column",gap:"1.5rem" }}>
+          <div style={{ display:"flex",flexDirection:"column",gap:"1.5rem" }} data-animation="fadeIn">
             {PRESS_RELEASES.map((pr, i) => (
               <Link key={i} href={pr.href}>
                 <div
@@ -393,20 +393,20 @@ export default function NewsPage() {
       <section style={{ background: BLUE, padding: "4rem 0" }}>
         <div className="container" style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1.5rem" }}>
           <div>
-            <h2 style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#fff",lineHeight:1.1,marginBottom:"0.5rem" }}>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Chakra Petch','Barlow Condensed',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#fff",lineHeight:1.1,marginBottom:"0.5rem" }}>
               Media Inquiries
             </h2>
-            <p style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"0.95rem",color:"rgba(255,255,255,0.7)",lineHeight:1.6 }}>
+            <p data-animation="slideLeft"  style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"0.95rem",color:"rgba(255,255,255,0.7)",lineHeight:1.6 }}>
               For press inquiries, product photography, or media requests, contact our team directly.
             </p>
           </div>
           <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap" }}>
-            <a href="mailto:info@pfsspraybooths.com">
+            <a href="mailto:info@pfsspraybooths.com" data-animation="slideLeft">
               <button className="btn-glow" style={{ fontFamily:"'Chakra Petch',sans-serif",fontWeight:700,fontSize:"0.82rem",letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.85rem 2rem",cursor:"pointer",display:"inline-flex",alignItems:"center",gap:"0.5rem" }}>
                 EMAIL US <ArrowRight size={14} />
               </button>
             </a>
-            <a href="tel:8885457715">
+            <a href="tel:8885457715" data-animation="slideRight">
               <button style={{ fontFamily:"'Chakra Petch',sans-serif",fontWeight:700,fontSize:"0.82rem",letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.85rem 2rem",background:"transparent",color:"#fff",border:"1.5px solid rgba(255,255,255,0.5)",cursor:"pointer",transition:"border-color 0.2s" }}
                 onMouseEnter={e=>(e.currentTarget.style.borderColor="#fff")}
                 onMouseLeave={e=>(e.currentTarget.style.borderColor="rgba(255,255,255,0.5)")}>

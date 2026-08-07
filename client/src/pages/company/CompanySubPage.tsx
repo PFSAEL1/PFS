@@ -47,9 +47,9 @@ export default function CompanySubPage() {
           <div className="grid lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2">
               <span className="section-label">Company</span>
-              <h2 className="section-heading">{content.title}</h2>
-              <p className="section-body mb-4">{content.body}</p>
-              <div className="mt-6">
+              <h2 data-animation="slideLeft" className="section-heading">{content.title}</h2>
+              <p  data-animation="slideLeft" className="section-body mb-4">{content.body}</p>
+              <div className="mt-6" data-animation="slideRight">
                 <Link href="/contact/request-a-quote"><span className="btn-glow">Contact Us <ArrowRight size={14} /></span></Link>
               </div>
             </div>

@@ -181,7 +181,7 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    transition: all 0.2s ease, box-shadow 0.2s ease;
+    /* transition: all 0.2s ease, box-shadow 0.2s ease; */
     cursor: pointer;
     text-decoration: none;
     white-space: nowrap;
@@ -206,7 +206,7 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    transition: all 0.2s ease, box-shadow 0.2s ease;
+    /* transition: all 0.2s ease, box-shadow 0.2s ease; */
     cursor: pointer;
     text-decoration: none;
     white-space: nowrap;
@@ -232,7 +232,7 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    transition: all 0.2s ease, box-shadow 0.25s ease;
+    /* transition: all 0.2s ease, box-shadow 0.25s ease; */
     cursor: pointer;
     text-decoration: none;
     white-space: nowrap;
@@ -263,7 +263,7 @@
     cursor: pointer;
     text-decoration: none;
     white-space: nowrap;
-    transition: all 0.2s ease, box-shadow 0.25s ease;
+    /* transition: all 0.2s ease, box-shadow 0.25s ease; */
   }
   .btn-glow:hover, .btn-glow:active {
     background: #0f1a30;

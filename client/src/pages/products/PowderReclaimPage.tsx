@@ -226,17 +226,17 @@ export default function PowderReclaimPage() {
           <span style={{ display:"inline-block",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:800,letterSpacing:"0.18em",textTransform:"uppercase",color:"rgba(255,255,255,0.6)",marginBottom:"0.75rem" }}>
             POWDER COATING SYSTEMS
           </span>
-          <h1 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(2.2rem,6vw,4.2rem)",fontWeight:900,color:"#fff",letterSpacing:"-0.02em",lineHeight:1.05,marginBottom:"1rem",maxWidth:"700px" }}>
+          <h1  data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(2.2rem,6vw,4.2rem)",fontWeight:900,color:"#fff",letterSpacing:"-0.02em",lineHeight:1.05,marginBottom:"1rem",maxWidth:"700px" }}>
             POWDER RECLAIM<br />BOOTHS
           </h1>
-          <p style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"clamp(0.95rem,1.8vw,1.1rem)",color:"rgba(255,255,255,0.82)",lineHeight:1.7,marginBottom:"2.5rem",maxWidth:"520px" }}>
+          <p data-animation="slideLeft" style={{ fontFamily:"'Archivo Narrow','Inter',sans-serif",fontSize:"clamp(0.95rem,1.8vw,1.1rem)",color:"rgba(255,255,255,0.82)",lineHeight:1.7,marginBottom:"2.5rem",maxWidth:"520px" }}>
             Cyclone powder recovery systems that capture and recycle overspray in a closed loop — built for high-volume single-color operations where material efficiency drives cost per part. Ships nationally.
           </p>
           <div style={{ display:"flex",flexWrap:"wrap",gap:"1rem" }}>
-            <Link href="/contact/request-a-quote?from=powder-reclaim">
+            <Link href="/contact/request-a-quote?from=powder-reclaim" data-animation="slideLeft">
               <span className="btn-glow" style={{ justifyContent:"center" }}>GET PRICING <ArrowRight size={16} /></span>
             </Link>
-            <a href="tel:8885457715">
+            <a href="tel:8885457715" data-animation="slideRight">
               <span className="btn-glow-white" style={{ background:"transparent",color:"#fff",justifyContent:"center" }}>CALL (888) 545-7715</span>
             </a>
           </div>
@@ -252,8 +252,8 @@ export default function PowderReclaimPage() {
           <div style={{ display:"flex",flexDirection:"column",alignItems:"center",gap:"1.5rem" }}>
             <div style={{ textAlign:"center" }}>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.6rem" }}>FEATURED INSTALLATION</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,3vw,2.4rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.5rem" }}>PFS Powder Reclaim System — Cyclone Recovery</h2>
-              <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.95rem",color:"#555",maxWidth:"560px",margin:"0 auto",lineHeight:1.7 }}>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,3vw,2.4rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.5rem" }}>PFS Powder Reclaim System — Cyclone Recovery</h2>
+              <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.95rem",color:"#555",maxWidth:"560px",margin:"0 auto",lineHeight:1.7 }}>
                 Engineered for a high-volume production facility requiring maximum powder material efficiency. Twin cyclone separators, closed-loop powder recycling, non-conductive enclosure, and stainless steel floor. ETL/UL certified components. NFPA 33 compliant. Built in Santa Rosa, CA.
               </p>
             </div>
@@ -261,10 +261,10 @@ export default function PowderReclaimPage() {
               <img src={FEATURED_IMG} alt="PFS powder reclaim booth — featured installation, cyclone recovery system" style={{ width:"100%",height:"auto",display:"block",objectFit:"cover",objectPosition:"center" }} />
             </div>
             <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap",justifyContent:"center" }}>
-              <Link href="/contact/request-a-quote?from=powder-reclaim">
+              <Link href="/contact/request-a-quote?from=powder-reclaim" data-animation="slideLeft">
                 <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15}/></span>
               </Link>
-              <Link href="/products/powder-booths">
+              <Link href="/products/powder-booths" data-animation="slideRight">
                 <span className="btn-outline">VIEW ALL POWDER SYSTEMS <ArrowRight size={15}/></span>
               </Link>
             </div>
@@ -277,8 +277,8 @@ export default function PowderReclaimPage() {
         <div className="container">
           <div style={{ textAlign:"center",marginBottom:"2.5rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.5rem" }}>HOW IT WORKS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Closed-Loop Cyclone Recovery — Continuous, Uninterrupted</h2>
-            <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.9rem",color:"#666",maxWidth:"580px",margin:"0 auto",lineHeight:1.7 }}>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Closed-Loop Cyclone Recovery — Continuous, Uninterrupted</h2>
+            <p data-animation="slideLeft"  style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.9rem",color:"#666",maxWidth:"580px",margin:"0 auto",lineHeight:1.7 }}>
               Overspray powder is captured, cleaned, and returned to the feed system in a continuous closed loop — without stopping production. No exhaust stack required.
             </p>
           </div>
@@ -289,7 +289,7 @@ export default function PowderReclaimPage() {
               { step:"STEP 3", title:"Media Classification", body:"Recovered powder passes through a media classifier that removes oversized particles, agglomerates, and contaminants before the powder is returned to the feed hopper." },
               { step:"STEP 4", title:"Powder Recycling", body:"Cleaned, classified powder is continuously fed back into the application system. The closed loop runs without interruption — maximizing material utilization throughout the production run." },
             ].map((s) => (
-              <div key={s.step} style={{ background:"#f8f9fb",border:"1px solid #e5e7eb",padding:"1.75rem",display:"flex",flexDirection:"column",gap:"0.5rem" }}>
+              <div key={s.step} style={{ background:"#f8f9fb",border:"1px solid #e5e7eb",padding:"1.75rem",display:"flex",flexDirection:"column",gap:"0.5rem" }} data-animation="fadeIn">
                 <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.68rem",fontWeight:800,letterSpacing:"0.18em",color:BLUE,textTransform:"uppercase" }}>{s.step}</span>
                 <h3 style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"1.1rem",fontWeight:800,color:"#111",letterSpacing:"0.01em",margin:0 }}>{s.title}</h3>
                 <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.83rem",color:"#555",lineHeight:1.65,margin:0 }}>{s.body}</p>
@@ -304,12 +304,12 @@ export default function PowderReclaimPage() {
         <div className="container">
           <div style={{ textAlign:"center",marginBottom:"2.5rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.5rem" }}>WHICH SYSTEM IS RIGHT FOR YOU?</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Powder Reclaim vs. Spray-to-Waste</h2>
-            <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.9rem",color:"#666",maxWidth:"520px",margin:"0 auto",lineHeight:1.7 }}>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Powder Reclaim vs. Spray-to-Waste</h2>
+            <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.9rem",color:"#666",maxWidth:"520px",margin:"0 auto",lineHeight:1.7 }}>
               Both systems produce excellent finishes. The right choice depends on your production volume, color change frequency, and powder material cost.
             </p>
           </div>
-          <div style={{ overflowX:"auto" }}>
+          <div style={{ overflowX:"auto" }} data-animation="fadeIn">
             <table style={{ width:"100%",borderCollapse:"collapse",fontFamily:"'Inter',sans-serif",fontSize:"0.88rem" }}>
               <thead>
                 <tr>
@@ -340,10 +340,10 @@ export default function PowderReclaimPage() {
             </table>
           </div>
           <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap",justifyContent:"center",marginTop:"2rem" }}>
-            <Link href="/contact/request-a-quote?from=powder-reclaim">
+            <Link href="/contact/request-a-quote?from=powder-reclaim" data-animation="slideLeft">
               <span className="btn-glow">GET PRICING — POWDER RECLAIM <ArrowRight size={15}/></span>
             </Link>
-            <Link href="/products/powder-booths/spray-to-waste">
+            <Link href="/products/powder-booths/spray-to-waste" data-animation="slideRight">
               <span className="btn-outline">VIEW SPRAY-TO-WASTE BOOTHS <ArrowRight size={15}/></span>
             </Link>
           </div>
@@ -356,9 +356,9 @@ export default function PowderReclaimPage() {
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1rem",marginBottom: specsOpen ? "2rem" : 0 }}>
             <div>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.3rem" }}>STANDARD FEATURES</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Built with Certified Components</h2>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Built with Certified Components</h2>
             </div>
-            <button
+            <button data-animation="slideRight"
               onClick={() => setSpecsOpen(!specsOpen)}
               style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:specsOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:specsOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.5rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap" }}
             >
@@ -412,9 +412,9 @@ export default function PowderReclaimPage() {
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1rem",marginBottom: sizesOpen ? "2rem" : 0 }}>
             <div>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.3rem" }}>STANDARD SIZES</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Common Booth Widths — 4' to 16' and Custom</h2>
+              <h2  data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.3rem,2.5vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Common Booth Widths — 4' to 16' and Custom</h2>
             </div>
-            <button
+            <button data-animation="slideRight"
               onClick={() => setSizesOpen(!sizesOpen)}
               style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:sizesOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:sizesOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.5rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap" }}
             >
@@ -495,12 +495,12 @@ export default function PowderReclaimPage() {
       <section style={{ padding:"3rem 0 4rem",background:"#fff" }}>
         <div className="container">
           <div className="text-center mb-6">
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em" }}>Built in the USA. Proven in Production.</h2>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,3vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em" }}>Built in the USA. Proven in Production.</h2>
           </div>
           <div className="mb-6">
             <GalleryGrid images={GALLERY_IMGS} cardHeight="280px" className="grid grid-cols-1 sm:grid-cols-2 gap-3" />
           </div>
-          <div className="text-center">
+          <div className="text-center" data-animation="slideRight">
             <Link href="/contact/request-a-quote?from=powder-reclaim">
               <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15}/></span>
             </Link>
@@ -511,13 +511,13 @@ export default function PowderReclaimPage() {
       {/* ── MID-PAGE CTA BAND ── */}
       <section style={{ background:BLUE,padding:"3.5rem 0" }}>
         <div className="container" style={{ textAlign:"center" }}>
-          <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,3.5vw,2.6rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Ready to Configure Your Powder Reclaim System?</h2>
-          <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.95rem",color:"rgba(255,255,255,0.8)",marginBottom:"2rem",maxWidth:"480px",margin:"0 auto 2rem" }}>Factory-direct pricing. Fast lead times. Dedicated support from order through installation.</p>
+          <h2 data-animation="slideLeft"  style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.6rem,3.5vw,2.6rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.75rem" }}>Ready to Configure Your Powder Reclaim System?</h2>
+          <p data-animation="slideLeft"style={{ fontFamily:"'Inter',sans-serif",fontSize:"0.95rem",color:"rgba(255,255,255,0.8)",marginBottom:"2rem",maxWidth:"480px",margin:"0 auto 2rem" }}>Factory-direct pricing. Fast lead times. Dedicated support from order through installation.</p>
           <div style={{ display:"flex",gap:"1rem",justifyContent:"center",flexWrap:"wrap" }}>
-            <Link href="/contact/request-a-quote?from=powder-reclaim">
+            <Link href="/contact/request-a-quote?from=powder-reclaim" data-animation="slideLeft">
               <span className="btn-glow-white">GET PRICING <ArrowRight size={16}/></span>
             </Link>
-            <a href="tel:8885457715">
+            <a href="tel:8885457715" data-animation="slideRight">
               <span className="btn-glow-white" style={{ background:"transparent",color:"#fff" }}>CALL (888) 545-7715</span>
             </a>
           </div>
@@ -528,8 +528,8 @@ export default function PowderReclaimPage() {
       <section style={{ background:"#fff",padding:"4rem 0" }}>
         <div className="container" style={{ maxWidth:"820px" }}>
           <div style={{ marginBottom:"2.5rem" }}>
-            <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>FREQUENTLY ASKED QUESTIONS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Powder Reclaim Booths — Common Questions</h2>
+            <span  style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>FREQUENTLY ASKED QUESTIONS</span>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Powder Reclaim Booths — Common Questions</h2>
           </div>
           {[
             {

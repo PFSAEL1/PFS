@@ -253,7 +253,7 @@ function PartCard({
   const isExternal = href.startsWith("http");
 
   return (
-    <div
+    <div data-animation="fadeIn"
       id={`part-${id}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -317,7 +317,7 @@ function PartCard({
           fontSize: "1rem", fontWeight: 800,
           color: "#111", letterSpacing: "0.03em", textTransform: "uppercase",
           marginBottom: "0.5rem", lineHeight: 1.2,
-        }}>
+        }} >
           {label}
         </div>
         <div style={{
@@ -460,7 +460,7 @@ export default function PartsHubPage() {
             <span style={{ display: "inline-block", width: "28px", height: "2px", background: BLUE_LIGHT }} />
             PFS INDUSTRIAL FINISHING SYSTEMS
           </div>
-          <h1 style={{
+          <h1 data-animation="slideLeft" style={{
             fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
             fontSize: "clamp(2.4rem, 5vw, 3.8rem)", fontWeight: 900,
             color: "#fff", lineHeight: 1.0, textTransform: "uppercase",
@@ -468,7 +468,7 @@ export default function PartsHubPage() {
           }}>
             OEM Parts &<br />Accessories
           </h1>
-          <p style={{
+          <p data-animation="slideLeft" style={{
             fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
             fontSize: "clamp(0.9rem, 1.5vw, 1.05rem)",
             color: "rgba(255,255,255,0.8)", lineHeight: 1.6,
@@ -478,7 +478,7 @@ export default function PartsHubPage() {
             Spec-matched components — shipped nationally from Santa Rosa, CA.
           </p>
           <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-            <Link href="/contact">
+            <Link href="/contact" data-animation="slideLeft" >
               <button style={{
                 background: BLUE, color: "#fff",
                 border: "none", padding: "0.85rem 1.8rem",
@@ -491,7 +491,7 @@ export default function PartsHubPage() {
                 REQUEST PARTS QUOTE <ArrowRight size={14} />
               </button>
             </Link>
-            <a href="tel:+18885457715">
+            <a href="tel:+18885457715" data-animation="slideRight" >
               <button style={{
                 background: "transparent", color: "#fff",
                 border: "2px solid rgba(255,255,255,0.4)",
@@ -610,7 +610,7 @@ export default function PartsHubPage() {
           }}>
             GENUINE OEM COMPONENTS
           </div>
-          <h2 style={{
+          <h2 data-animation="slideLeft" style={{
             fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
             fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 900,
             color: "#111", textTransform: "uppercase",
@@ -618,7 +618,7 @@ export default function PartsHubPage() {
           }}>
             All Parts & Accessories
           </h2>
-          <p style={{
+          <p data-animation="slideLeft" style={{
             fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
             fontSize: "0.88rem", color: "#555", lineHeight: 1.6,
             maxWidth: "560px", marginTop: "0.5rem",
@@ -661,7 +661,7 @@ export default function PartsHubPage() {
             }}>
               NEED A SPECIFIC PART?
             </div>
-            <h3 style={{
+            <h3 data-animation="slideLeft" style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 900,
               color: "#fff", textTransform: "uppercase",
@@ -669,7 +669,7 @@ export default function PartsHubPage() {
             }}>
               We'll Cross-Reference Your<br />Booth Serial Number
             </h3>
-            <p style={{
+            <p data-animation="slideLeft" style={{
               fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
               fontSize: "0.88rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.6,
               maxWidth: "480px",
@@ -678,7 +678,7 @@ export default function PartsHubPage() {
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", minWidth: "220px" }}>
-            <Link href="/contact">
+            <Link href="/contact" data-animation="slideLeft">
               <button style={{
                 width: "100%",
                 background: BLUE, color: "#fff",
@@ -692,7 +692,7 @@ export default function PartsHubPage() {
                 REQUEST PARTS QUOTE <ArrowRight size={14} />
               </button>
             </Link>
-            <a href="tel:+18885457715" style={{ textDecoration: "none" }}>
+            <a href="tel:+18885457715" style={{ textDecoration: "none" }} data-animation="slideRight">
               <button style={{
                 width: "100%",
                 background: "transparent", color: "#fff",
@@ -713,7 +713,7 @@ export default function PartsHubPage() {
 
       {/* ── BULK / SUBSCRIPTION SECTION ── */}
       <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "3rem 2rem" }}>
-        <div style={{
+        <div data-animation="fadeIn" style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
           gap: "1.5rem",

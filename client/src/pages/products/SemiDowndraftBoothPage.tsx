@@ -245,7 +245,7 @@ export default function SemiDowndraftBoothPage() {
           </div>
 
           {/* Headline — immediately communicates product type */}
-          <h1 style={{
+          <h1 data-animation="slideLeft" style={{
             fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
             fontSize: "clamp(2.4rem, 9vw, 5.2rem)",
             fontWeight: 800, color: "#fff", lineHeight: 1.0,
@@ -258,7 +258,7 @@ export default function SemiDowndraftBoothPage() {
             Booth — Quote
           </h1>
 
-          <p style={{
+          <p data-animation="slideLeft" style={{
             fontFamily: "'Archivo Narrow', 'Inter', sans-serif",
             fontSize: "clamp(0.88rem, 2.5vw, 1.05rem)",
             color: "rgba(255,255,255,0.82)",
@@ -271,10 +271,10 @@ export default function SemiDowndraftBoothPage() {
 
           {/* CTAs — stacked on mobile, side-by-side on desktop */}
           <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", maxWidth: "340px" }}>
-            <Link href="/contact/request-a-quote?from=semi-downdraft-booth">
+            <Link href="/contact/request-a-quote?from=semi-downdraft-booth" data-animation="slideLeft">
               <span className="btn-glow" style={{ width: "100%", justifyContent: "center" }}>GET PRICING <ArrowRight size={16} /></span>
             </Link>
-            <a href="tel:8885457715" style={{ width: "100%" }}>
+            <a href="tel:8885457715" style={{ width: "100%" }} data-animation="slideRight">
               <span style={{
                 display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
                 background: "transparent", color: "#fff", border: "1.5px solid rgba(255,255,255,0.5)",
@@ -296,12 +296,12 @@ export default function SemiDowndraftBoothPage() {
           <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"1.5rem" }}>
             <div style={{ textAlign:"center" }}>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.5rem" }}>FEATURED PRODUCT</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,4vw,2.4rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.5rem" }}>PFS Orion Semi-Downdraft Spray Booth</h2>
+              <h2 data-animation="slideLeft"  style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,4vw,2.4rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.5rem" }}>PFS Orion Semi-Downdraft Spray Booth</h2>
               <div style={{ display:"flex",flexWrap:"wrap",gap:"0.5rem",justifyContent:"center",marginBottom:"0.75rem" }}>
                 <span style={{ display:"inline-flex",alignItems:"center",gap:"0.35rem",background:BLUE,color:"#fff",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.68rem",fontWeight:800,letterSpacing:"0.16em",textTransform:"uppercase",padding:"0.28rem 0.85rem" }}>PFS ORION SERIES</span>
                 <span style={{ display:"inline-flex",alignItems:"center",gap:"0.35rem",background:"#dc2626",color:"#fff",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.68rem",fontWeight:800,letterSpacing:"0.16em",textTransform:"uppercase",padding:"0.28rem 0.85rem" }}><Flame size={10} /> HEATED OPTIONS</span>
               </div>
-              <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.95rem)",color:"#555",maxWidth:"540px",margin:"0 auto",lineHeight:1.7 }}>
+              <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.95rem)",color:"#555",maxWidth:"540px",margin:"0 auto",lineHeight:1.7 }}>
                 Front ceiling intake filters cover 60% of the ceiling area — air enters clean, flows diagonally toward the floor, sweeps rear-ward, and exhausts through a rear wall plenum. No concrete pit required. ETL/UL listed components. UL 508A control panel. NFPA 33 and OSHA compliant. Standard sizes 14'W × 9–12'H × 24–33'L. Heated configurations available. Custom sizes engineered to your facility.
               </p>
             </div>
@@ -314,10 +314,10 @@ export default function SemiDowndraftBoothPage() {
               />
             </div>
             <div style={{ display:"flex",gap:"1rem",flexWrap:"wrap",justifyContent:"center" }}>
-              <Link href="/contact/request-a-quote?from=semi-downdraft-booth">
+              <Link href="/contact/request-a-quote?from=semi-downdraft-booth" data-animation="slideLeft">
                 <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15}/></span>
               </Link>
-              <Link href="/products/paint-booths/enclosed">
+              <Link href="/products/paint-booths/enclosed" data-animation="slideRight">
                 <span style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:"transparent",color:BLUE,border:`2px solid ${BLUE}`,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"clamp(0.82rem,2.5vw,0.88rem)",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1rem 2rem",cursor:"pointer" }}>SEE ALL ENCLOSED BOOTHS <ArrowRight size={15}/></span>
               </Link>
             </div>
@@ -330,13 +330,13 @@ export default function SemiDowndraftBoothPage() {
         <div className="container">
           <div style={{ textAlign:"center",marginBottom:"2rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>HOW IT WORKS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.65rem" }}>Semi-Downdraft Airflow Pattern</h2>
-            <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.9rem)",color:"#666",maxWidth:"500px",margin:"0 auto",lineHeight:1.7 }}>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.65rem" }}>Semi-Downdraft Airflow Pattern</h2>
+            <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.9rem)",color:"#666",maxWidth:"500px",margin:"0 auto",lineHeight:1.7 }}>
               Air enters through ceiling intake filters on the front 60% of the roof, flows downward, sweeps along the floor toward the rear wall, and exits up through the side-wall exhaust plenum and out the exhaust stack.
             </p>
           </div>
           <SemiDowndraftAirflowSVG />
-          <div style={{ textAlign:"center",marginTop:"1.75rem" }}>
+          <div style={{ textAlign:"center",marginTop:"1.75rem" }} data-animation="slideRight">
             <Link href="/contact/request-a-quote?from=semi-downdraft-booth">
               <span className="btn-glow">GET PRICING <ArrowRight size={15}/></span>
             </Link>
@@ -350,9 +350,9 @@ export default function SemiDowndraftBoothPage() {
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1rem",marginBottom: specsOpen ? "2rem" : 0 }}>
             <div>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.3rem" }}>STANDARD FEATURES</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.2rem,3vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Every Unit Ships Fully Certified</h2>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.2rem,3vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Every Unit Ships Fully Certified</h2>
             </div>
-            <button onClick={() => setSpecsOpen(!specsOpen)} style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:specsOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:specsOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.25rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap",minHeight:"48px" }}>
+            <button data-animation="slideRight" onClick={() => setSpecsOpen(!specsOpen)} style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:specsOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:specsOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.25rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap",minHeight:"48px" }}>
               {specsOpen ? <><ChevronUp size={15}/> HIDE</> : <><ChevronDown size={15}/> SEE SPECS</>}
             </button>
           </div>
@@ -394,9 +394,9 @@ export default function SemiDowndraftBoothPage() {
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"1rem",marginBottom: sizesOpen ? "1.5rem" : 0 }}>
             <div>
               <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.3rem" }}>STANDARD SIZES</span>
-              <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.2rem,3vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>14' Wide — Choose Your Height</h2>
+              <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.2rem,3vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>14' Wide — Choose Your Height</h2>
             </div>
-            <button onClick={() => setSizesOpen(!sizesOpen)} style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:sizesOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:sizesOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.25rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap",minHeight:"48px" }}>
+            <button data-animation="slideRight" onClick={() => setSizesOpen(!sizesOpen)} style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:sizesOpen?BLUE:"transparent",border:`2px solid ${BLUE}`,color:sizesOpen?"#fff":BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.75rem 1.25rem",cursor:"pointer",transition:"background 0.15s,color 0.15s",whiteSpace:"nowrap",minHeight:"48px" }}>
               {sizesOpen ? <><ChevronUp size={15}/> HIDE</> : <><ChevronDown size={15}/> SEE SIZES</>}
             </button>
           </div>
@@ -434,12 +434,12 @@ export default function SemiDowndraftBoothPage() {
         <div className="container">
           <div style={{ textAlign:"center",marginBottom:"1.5rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>REAL INSTALLATIONS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em" }}>Built in the USA. Proven in the Field.</h2>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em" }}>Built in the USA. Proven in the Field.</h2>
           </div>
           <div className="mb-5">
             <GalleryGrid images={GALLERY_IMGS} cardHeight="clamp(200px,40vw,300px)" className="grid grid-cols-1 sm:grid-cols-2 gap-3" />
           </div>
-          <div style={{ textAlign:"center" }}>
+          <div style={{ textAlign:"center" }} data-animation="slideRight">
             <Link href="/contact/request-a-quote?from=semi-downdraft-booth">
               <span className="btn-glow">REQUEST A QUOTE <ArrowRight size={15}/></span>
             </Link>
@@ -450,13 +450,13 @@ export default function SemiDowndraftBoothPage() {
       {/* MID-PAGE CTA BAND */}
       <section style={{ background:BLUE, padding:"clamp(2.5rem,6vw,3.5rem) 0" }}>
         <div className="container" style={{ textAlign:"center" }}>
-          <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,4vw,2.6rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.65rem" }}>Ready to Configure Your Semi-Downdraft Booth?</h2>
-          <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.85rem,2vw,0.95rem)",color:"rgba(255,255,255,0.8)",marginBottom:"1.75rem",maxWidth:"440px",margin:"0 auto 1.75rem" }}>Factory-direct pricing. Fast lead times. Dedicated support from order through installation.</p>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.5rem,4vw,2.6rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.65rem" }}>Ready to Configure Your Semi-Downdraft Booth?</h2>
+          <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.85rem,2vw,0.95rem)",color:"rgba(255,255,255,0.8)",marginBottom:"1.75rem",maxWidth:"440px",margin:"0 auto 1.75rem" }}>Factory-direct pricing. Fast lead times. Dedicated support from order through installation.</p>
           <div style={{ display:"flex",gap:"0.85rem",justifyContent:"center",flexWrap:"wrap" }}>
-            <Link href="/contact/request-a-quote?from=semi-downdraft-booth">
+            <Link href="/contact/request-a-quote?from=semi-downdraft-booth" data-animation="slideLeft">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:"#fff",color:BLUE,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"clamp(0.85rem,2.5vw,0.9rem)",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1.1rem 2rem",cursor:"pointer",minHeight:"48px" }}>GET PRICING <ArrowRight size={16}/></span>
             </Link>
-            <a href="tel:8885457715">
+            <a href="tel:8885457715" data-animation="slideRight">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:"transparent",color:"#fff",border:"1.5px solid rgba(255,255,255,0.6)",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"clamp(0.85rem,2.5vw,0.9rem)",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1.1rem 2rem",cursor:"pointer",minHeight:"48px" }}>CALL (888) 545-7715</span>
             </a>
           </div>
@@ -467,12 +467,12 @@ export default function SemiDowndraftBoothPage() {
       <section style={{ background:"#111", padding:"clamp(2.5rem,6vw,3rem) 0", borderTop:`4px solid ${BLUE}` }}>
         <div className="container" style={{ textAlign:"center" }}>
           <span style={{ display:"inline-flex",alignItems:"center",gap:"0.4rem",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.18em",color:"rgba(255,255,255,0.45)",textTransform:"uppercase",marginBottom:"0.5rem" }}><Flame size={12} style={{ color:"#f87171" }} /> HEATED ADD-ON</span>
-          <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.65rem" }}>Heated Options Available</h2>
-          <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.9rem)",color:"rgba(255,255,255,0.7)",maxWidth:"460px",margin:"0 auto 1.5rem",lineHeight:1.7 }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#fff",letterSpacing:"-0.01em",marginBottom:"0.65rem" }}>Heated Options Available</h2>
+          <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.9rem)",color:"rgba(255,255,255,0.7)",maxWidth:"460px",margin:"0 auto 1.5rem",lineHeight:1.7 }}>
             Add a direct-fired or indirect-fired heat system for accelerated cure times. Blanket intake filter upgrades included with all heated configurations. Spray, flash, and bake modes.
           </p>
           <Link href="/contact/request-a-quote?from=semi-downdraft-booth">
-            <span style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:BLUE,color:"#fff",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.88rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1rem 2rem",cursor:"pointer",minHeight:"48px" }}>ASK ABOUT HEATED OPTIONS <ArrowRight size={15}/></span>
+            <span data-animation="slideRight" style={{ display:"inline-flex",alignItems:"center",gap:"0.5rem",background:BLUE,color:"#fff",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.88rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"1rem 2rem",cursor:"pointer",minHeight:"48px" }}>ASK ABOUT HEATED OPTIONS <ArrowRight size={15}/></span>
           </Link>
         </div>
       </section>
@@ -481,15 +481,15 @@ export default function SemiDowndraftBoothPage() {
       <section style={{ background:"#fff", padding:"clamp(2rem,5vw,3rem) 0", borderBottom:"1px solid #e5e7eb" }}>
         <div className="container" style={{ textAlign:"center" }}>
           <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:BLUE,textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>COMPLETE YOUR SYSTEM</span>
-          <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.2rem,3vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.65rem" }}>Pairs Well With a Mixing Room or Air Make-Up Unit</h2>
-          <p style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.88rem)",color:"#666",maxWidth:"460px",margin:"0 auto 1.25rem",lineHeight:1.7 }}>
+          <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.2rem,3vw,1.9rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",marginBottom:"0.65rem" }}>Pairs Well With a Mixing Room or Air Make-Up Unit</h2>
+          <p data-animation="slideLeft" style={{ fontFamily:"'Inter',sans-serif",fontSize:"clamp(0.82rem,2vw,0.88rem)",color:"#666",maxWidth:"460px",margin:"0 auto 1.25rem",lineHeight:1.7 }}>
             Maximize throughput and compliance by pairing your semi-downdraft booth with a dedicated mixing room for paint prep and an AMU for tempered make-up air.
           </p>
           <div style={{ display:"flex",gap:"0.75rem",justifyContent:"center",flexWrap:"wrap" }}>
-            <Link href="/products/mixing-rooms">
+            <Link href="/products/mixing-rooms" data-animation="slideLeft">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.4rem",background:BLUE,color:"#fff",fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.85rem 1.5rem",cursor:"pointer",minHeight:"48px" }}>VIEW MIXING ROOMS <ArrowRight size={13}/></span>
             </Link>
-            <Link href="/products/air-make-up-units">
+            <Link href="/products/air-make-up-units" data-animation="slideRight">
               <span style={{ display:"inline-flex",alignItems:"center",gap:"0.4rem",background:"transparent",color:BLUE,border:`2px solid ${BLUE}`,fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.82rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"0.85rem 1.5rem",cursor:"pointer",minHeight:"48px" }}>VIEW AIR MAKE-UP UNITS <ArrowRight size={13}/></span>
             </Link>
           </div>
@@ -502,7 +502,7 @@ export default function SemiDowndraftBoothPage() {
         <div className="container" style={{ maxWidth:"860px" }}>
           <div style={{ textAlign:"center", marginBottom:"2.5rem" }}>
             <span style={{ fontFamily:"'Barlow Condensed',sans-serif",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.14em",color:"#1B3A6B",textTransform:"uppercase",display:"block",marginBottom:"0.4rem" }}>FREQUENTLY ASKED QUESTIONS</span>
-            <h2 style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Semi-Downdraft Paint Booth — Common Questions</h2>
+            <h2 data-animation="slideLeft" style={{ fontFamily:"'Barlow Condensed','Oswald',sans-serif",fontSize:"clamp(1.4rem,3.5vw,2.2rem)",fontWeight:800,color:"#111",letterSpacing:"-0.01em",margin:0 }}>Semi-Downdraft Paint Booth — Common Questions</h2>
           </div>
           {[
             { q: "How does a semi-downdraft paint booth work?", a: "A semi-downdraft spray booth draws fresh, filtered air through a ceiling plenum at the front of the booth. Air flows diagonally from the front ceiling toward the rear floor, carrying overspray away from the painter and the work surface. The contaminated air exits through exhaust filters in the rear lower wall or floor, then travels through an exhaust duct to the stack. This airflow pattern delivers excellent finish quality without requiring a full-floor concrete pit." },

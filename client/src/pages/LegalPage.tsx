@@ -348,6 +348,7 @@ export default function LegalPage() {
           </div>
 
           <h1
+          data-animation="slideLeft"
             style={{
               fontFamily: "'Chakra Petch', 'Barlow Condensed', sans-serif",
               fontSize: "clamp(2rem, 5vw, 3.5rem)",
