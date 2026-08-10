@@ -420,7 +420,7 @@ export default function PartsHubPage() {
     <div style={{ background: "#f5f5f5", minHeight: "100vh" }}>
 
       {/* ── HERO ── */}
-      <section style={{
+      <section test style={{
         position: "relative",
         height: "clamp(340px, 50vh, 520px)",
         overflow: "hidden",
