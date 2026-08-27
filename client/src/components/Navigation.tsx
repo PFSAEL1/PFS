@@ -76,7 +76,7 @@ export const Navigation = () => {
               <img
                 src={LOGO_URL}
                 alt="PFS Filters"
-                className="h-16 w-auto"
+                className="h-28 w-auto"
               />
             </Link>
 
