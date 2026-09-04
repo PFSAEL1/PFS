@@ -3,7 +3,7 @@ import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ShoppingCart, Loader2, Package } from 'lucide-react';
-import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
+import { fetchProducts, getMonthlySellingPlanAllocation, ShopifyProduct } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
 import { ProductBadges } from '@/components/ProductBadge';
@@ -166,6 +166,9 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
           const memberPrice = discountPercent > 0 ? getDiscountedPrice(originalPrice, discountPercent) : originalPrice;
           const currency = variant?.price.currencyCode || 'USD';
           const inStock = variant?.availableForSale ?? true;
+          const hasMonthlySubscription = !!getMonthlySellingPlanAllocation(
+            product.node.selectedOrFirstAvailableVariant,
+          );
 
           return (
             <div key={product.node.id} className="glow-card group">
@@ -173,7 +176,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                 <div className="product-img-wrap relative aspect-square overflow-hidden cursor-pointer">
                   <ProductBadges badges={getProductBadges(product)} />
                   {/* Subscribe & Save diagonal ribbon - non-members only */}
-                  {discountPercent === 0 && (
+                  {discountPercent === 0 && hasMonthlySubscription && (
                     <div className="pointer-events-none absolute top-0 right-0 z-10 w-[100px] h-[100px] overflow-hidden">
                       <div className="absolute w-[141px] bg-blue-600 py-[5px] text-center" style={{ top: '18px', right: '-37px', transform: 'rotate(45deg)' }}>
                         {/* Light sweep animation */}

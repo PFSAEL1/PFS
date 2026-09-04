@@ -9,12 +9,11 @@ import {
 } from '@/components/ui/sheet';
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2, Crown, RefreshCw } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
+import { getCartItemPurchaseType, getCartLineKey } from '@/lib/shopify';
 import { usePricing } from '@/hooks/usePricing';
 import { useMembership } from '@/hooks/useMembership';
 import { toast } from 'sonner';
 import { useLocation } from 'wouter';
-
-const AUTO_DELIVERY_DISCOUNT = 5; // 5% off for auto delivery
 
 export const CartDrawer = () => {
   const {
@@ -37,8 +36,10 @@ export const CartDrawer = () => {
   // Calculate item price considering auto delivery discount
   const getItemDisplayPrice = (item: typeof items[0]) => {
     const originalPrice = parseFloat(item.price.amount);
-    if (item.sellingPlanId) {
-      return originalPrice * (1 - AUTO_DELIVERY_DISCOUNT / 100);
+    if (getCartItemPurchaseType(item) === 'subscription') {
+      return item.sellingPlanPrice
+        ? parseFloat(item.sellingPlanPrice.amount)
+        : originalPrice;
     }
     return originalPrice;
   };
@@ -46,7 +47,7 @@ export const CartDrawer = () => {
   // Calculate item price with member discount applied (for display)
   const getItemMemberPrice = (item: typeof items[0]) => {
     const basePrice = getItemDisplayPrice(item);
-    if (discountPercent > 0) {
+    if (discountPercent > 0 && getCartItemPurchaseType(item) === 'one-time') {
       return basePrice * (1 - discountPercent / 100);
     }
     return basePrice;
@@ -56,11 +57,15 @@ export const CartDrawer = () => {
     (sum, item) => sum + getItemDisplayPrice(item) * item.quantity,
     0
   );
+  const hasMemberDiscountedItems = discountPercent > 0
+    && items.some((item) => getCartItemPurchaseType(item) === 'one-time');
 
-  // Calculate discounted subtotal for member discount (on top of auto delivery)
-  const discountedSubtotal = discountPercent > 0
-    ? subtotal * (1 - discountPercent / 100)
-    : subtotal;
+  // Membership discounts are separate from Subscribe & Save and are displayed
+  // only on one-time lines. Shopify remains the final authority at checkout.
+  const discountedSubtotal = items.reduce(
+    (sum, item) => sum + getItemMemberPrice(item) * item.quantity,
+    0
+  );
 
   // Code map for all tiers
   const DISCOUNT_CODE_MAP: Record<string, string> = {
@@ -104,12 +109,12 @@ export const CartDrawer = () => {
       const checkoutUrl = await createCheckout(effectiveCode);
       console.log('[Checkout] checkoutUrl:', checkoutUrl);
       if (checkoutUrl) {
-        toast.success('Redirecting to checkout with your member discount...');
+        toast.success(effectiveCode ? 'Redirecting with your member discount...' : 'Redirecting to secure Shopify checkout...');
         window.location.href = checkoutUrl;
       }
     } catch (err) {
       console.error('[Checkout] Error:', err);
-      toast.error('Failed to create checkout. Please try again.');
+      toast.error(err instanceof Error ? err.message : 'Failed to create checkout. Please try again.');
     }
   };
 
@@ -151,10 +156,15 @@ export const CartDrawer = () => {
             items.map((item) => {
               const originalPrice = parseFloat(item.price.amount);
               const itemPrice = getItemDisplayPrice(item);
-              const isSubscription = !!item.sellingPlanId;
+              const isSubscription = getCartItemPurchaseType(item) === 'subscription';
+              const lineKey = getCartLineKey(item);
+              const subscriptionDiscountPercent = item.sellingPlanDiscountPercent
+                ?? (isSubscription && originalPrice > 0
+                  ? Math.max(0, Math.round((1 - itemPrice / originalPrice) * 100))
+                  : 0);
 
               return (
-                <div key={item.variantId} className="flex gap-3 p-3 bg-white/5/30 rounded-lg">
+                <div key={lineKey} className="flex gap-3 p-3 bg-white/5/30 rounded-lg">
                   {item.image && (
                     <img
                       src={item.image}
@@ -171,15 +181,17 @@ export const CartDrawer = () => {
                     {isSubscription && (
                       <div className="flex items-center gap-1 mt-0.5">
                         <RefreshCw className="w-3 h-3 text-blue-400" />
-                        <span className="text-xs text-blue-400 font-medium">Auto Delivery</span>
-                        <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-[10px] px-1 py-0">
-                          -{AUTO_DELIVERY_DISCOUNT}%
-                        </Badge>
+                        <span className="text-xs text-blue-400 font-medium">Monthly Subscribe & Save</span>
+                        {subscriptionDiscountPercent > 0 && (
+                          <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-[10px] px-1 py-0">
+                            -{subscriptionDiscountPercent}%
+                          </Badge>
+                        )}
                       </div>
                     )}
                     {/* Price display */}
                     <div className="flex items-center gap-2 mt-1">
-                      {discountPercent > 0 ? (
+                      {discountPercent > 0 && !isSubscription ? (
                         <>
                           <span className="text-sm font-semibold text-blue-400">
                             ${(getItemMemberPrice(item) * item.quantity).toFixed(2)}
@@ -202,7 +214,7 @@ export const CartDrawer = () => {
                       )}
                     </div>
                     {/* Member discount badge per item */}
-                    {discountPercent > 0 && (
+                    {discountPercent > 0 && !isSubscription && (
                       <div className="flex items-center gap-1 mt-0.5">
                         <Crown className="w-3 h-3 text-blue-400" />
                         <span className="text-[10px] text-blue-300">{tier?.charAt(0).toUpperCase()}{tier?.slice(1)} -{discountPercent}%</span>
@@ -210,20 +222,20 @@ export const CartDrawer = () => {
                     )}
                     <div className="flex items-center gap-2 mt-2">
                       <button
-                        onClick={() => updateQuantity(item.variantId, item.quantity - 1)}
+                        onClick={() => updateQuantity(lineKey, item.quantity - 1)}
                         className="w-6 h-6 rounded border border-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
                       <span className="text-sm font-medium w-6 text-center">{item.quantity}</span>
                       <button
-                        onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
+                        onClick={() => updateQuantity(lineKey, item.quantity + 1)}
                         className="w-6 h-6 rounded border border-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                       >
                         <Plus className="w-3 h-3" />
                       </button>
                       <button
-                        onClick={() => removeItem(item.variantId)}
+                        onClick={() => removeItem(lineKey)}
                         className="ml-auto p-1 text-destructive hover:bg-destructive/10 rounded transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -239,7 +251,7 @@ export const CartDrawer = () => {
         {items.length > 0 && (
           <div className="border-t border-white/10 pt-4 space-y-3">
             {/* Member discount banner */}
-            {discountPercent > 0 && (
+            {hasMemberDiscountedItems && (
               <div className="flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2">
                 <Crown className="h-4 w-4 text-blue-400 flex-shrink-0" />
                 <span className="text-xs text-blue-300">
@@ -249,18 +261,18 @@ export const CartDrawer = () => {
             )}
 
             {/* Auto delivery savings summary */}
-            {items.some(i => i.sellingPlanId) && (
+            {items.some((item) => getCartItemPurchaseType(item) === 'subscription') && (
               <div className="flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2">
                 <RefreshCw className="h-4 w-4 text-blue-400 flex-shrink-0" />
                 <span className="text-xs text-blue-300">
-                  Auto Delivery savings ({AUTO_DELIVERY_DISCOUNT}% off) included
+                  Monthly Subscribe & Save renewal pricing included
                 </span>
               </div>
             )}
 
             <div className="flex justify-between text-sm">
               <span className="text-white/50">Subtotal</span>
-              {discountPercent > 0 ? (
+              {hasMemberDiscountedItems ? (
                 <div className="text-right">
                   <span className="text-white/40 line-through text-xs mr-2">${subtotal.toFixed(2)}</span>
                   <span className="font-semibold text-blue-400">${discountedSubtotal.toFixed(2)}</span>

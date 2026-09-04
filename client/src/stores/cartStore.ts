@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { CartItem, createStorefrontCheckout } from '@/lib/shopify';
+import { CartItem, createStorefrontCheckout, getCartLineKey } from '@/lib/shopify';
 
 interface CartState {
   items: CartItem[];
@@ -8,8 +8,8 @@ interface CartState {
   isCartOpen: boolean;
   cachedCheckoutUrl: string | null;
   addItem: (item: CartItem) => void;
-  removeItem: (variantId: string) => void;
-  updateQuantity: (variantId: string, quantity: number) => void;
+  removeItem: (lineKey: string) => void;
+  updateQuantity: (lineKey: string, quantity: number) => void;
   clearCart: () => void;
   setLoading: (loading: boolean) => void;
   setCartOpen: (open: boolean) => void;
@@ -26,11 +26,12 @@ export const useCartStore = create<CartState>()(
 
       addItem: (item) => {
         set((state) => {
-          const existing = state.items.find((i) => i.variantId === item.variantId);
+          const lineKey = getCartLineKey(item);
+          const existing = state.items.find((i) => getCartLineKey(i) === lineKey);
           if (existing) {
             return {
               items: state.items.map((i) =>
-                i.variantId === item.variantId
+                getCartLineKey(i) === lineKey
                   ? { ...i, quantity: i.quantity + item.quantity }
                   : i
               ),
@@ -41,21 +42,21 @@ export const useCartStore = create<CartState>()(
         });
       },
 
-      removeItem: (variantId) => {
+      removeItem: (lineKey) => {
         set((state) => ({
-          items: state.items.filter((i) => i.variantId !== variantId),
+          items: state.items.filter((i) => getCartLineKey(i) !== lineKey),
           cachedCheckoutUrl: null,
         }));
       },
 
-      updateQuantity: (variantId, quantity) => {
+      updateQuantity: (lineKey, quantity) => {
         if (quantity <= 0) {
-          get().removeItem(variantId);
+          get().removeItem(lineKey);
           return;
         }
         set((state) => ({
           items: state.items.map((i) =>
-            i.variantId === variantId ? { ...i, quantity } : i
+            getCartLineKey(i) === lineKey ? { ...i, quantity } : i
           ),
           cachedCheckoutUrl: null,
         }));
