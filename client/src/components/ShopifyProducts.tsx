@@ -2,8 +2,13 @@ import { useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, Loader2, Package } from 'lucide-react';
+import { ShoppingCart, Package } from 'lucide-react';
 import { fetchProducts, getMonthlySellingPlanAllocation, ShopifyProduct } from '@/lib/shopify';
+import {
+  cacheShopifyProducts,
+  filterShopifyProducts,
+  getImmediateShopifyProducts,
+} from '@/lib/productCatalog';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
 import { ProductBadges } from '@/components/ProductBadge';
@@ -20,47 +25,35 @@ interface ShopifyProductsProps {
 }
 
 export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsProps = {}) => {
-  const [products, setProducts] = useState<ShopifyProduct[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<ShopifyProduct[]>(() =>
+    filterShopifyProducts(getImmediateShopifyProducts(), categoryFilter, sizeFilter),
+  );
   const [error, setError] = useState<string | null>(null);
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
   const { discountPercent, tier } = usePricing();
 
   useEffect(() => {
-    setLoading(true);
+    let active = true;
+    const immediateProducts = getImmediateShopifyProducts();
+    setProducts(filterShopifyProducts(immediateProducts, categoryFilter, sizeFilter));
+    setError(null);
+
     fetchProducts(50)
       .then((data) => {
-        let filtered = data.filter((p) => !p.node.title.toLowerCase().includes('membership'));
-
-        if (categoryFilter) {
-          const cat = categoryFilter.toLowerCase();
-          filtered = filtered.filter((p) => {
-            const tags = (p.node.tags || []).map((t: string) => t.toLowerCase());
-            const type = (p.node.productType || '').toLowerCase();
-            const title = p.node.title.toLowerCase();
-            return tags.some(t => t.includes(cat)) || type.includes(cat) || title.includes(cat);
-          });
-        }
-
-        if (sizeFilter) {
-          const size = sizeFilter.toLowerCase().replace(/\s+/g, '');
-          filtered = filtered.filter((p) => {
-            const title = p.node.title.toLowerCase().replace(/\s+/g, '');
-            const variants = p.node.variants.edges.map(v =>
-              v.node.title.toLowerCase().replace(/\s+/g, '')
-            );
-            return title.includes(size) || variants.some(v => v.includes(size));
-          });
-        }
-
-        setProducts(filtered);
-        setLoading(false);
+        if (!active) return;
+        cacheShopifyProducts(data);
+        setProducts(filterShopifyProducts(data, categoryFilter, sizeFilter));
       })
       .catch(() => {
-        setError('Failed to load products. Please try again.');
-        setLoading(false);
+        if (active && immediateProducts.length === 0) {
+          setError('Failed to load products. Please try again.');
+        }
       });
+
+    return () => {
+      active = false;
+    };
   }, [categoryFilter, sizeFilter]);
 
   const handleAddToCart = (product: ShopifyProduct) => {
@@ -79,14 +72,6 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
     toast.success(`${product.node.title} added to cart`);
     setCartOpen(true);
   };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
-      </div>
-    );
-  }
 
   if (error) {
     return (
