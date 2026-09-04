@@ -5,17 +5,8 @@ import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Mail, ShoppingBag, Truck, Shield, Star } from 'lucide-react';
 
-const HERO_VIDEO = [
-  'https://d2xsxph8kpxj0f.cloudfront.net',
-  '/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5',
-  '/pfs-filter-hero-video_85f7d4d7.mp4',
-].join('');
-
-const HERO_POSTER = [
-  'https://d2xsxph8kpxj0f.cloudfront.net',
-  '/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5',
-  '/hero-fiberglass-arrestor_ab115b55.png',
-].join('');
+const HERO_VIDEO = '/media/pfs-filter-dust-hero-b9ccdab9.mp4';
+const HERO_POSTER = '/media/pfs-filter-dust-hero-poster-99a12d26.jpg';
 
 export const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -45,7 +36,7 @@ export const Hero = () => {
         <div className="absolute inset-0 z-0">
           <video
             ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover object-[65%_center] md:object-center"
             src={HERO_VIDEO}
             poster={HERO_POSTER}
             autoPlay
@@ -55,6 +46,8 @@ export const Hero = () => {
             controls={false}
             preload="auto"
             disablePictureInPicture
+            aria-hidden="true"
+            tabIndex={-1}
             style={{ pointerEvents: 'none' }}
           />
           {/* Left-side vignette: grounds the headline to the image, keeps filter imagery on the right fully visible */}
