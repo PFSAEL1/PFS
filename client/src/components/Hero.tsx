@@ -5,8 +5,8 @@ import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Mail, ShoppingBag, Truck, Shield, Star } from 'lucide-react';
 
-const HERO_VIDEO = '/media/pfs-filter-dust-hero-b9ccdab9.mp4';
-const HERO_POSTER = '/media/pfs-filter-dust-hero-poster-99a12d26.jpg';
+const HERO_VIDEO = '/media/pfs-realistic-filter-dust-hero-338730ad.mp4';
+const HERO_POSTER = '/media/pfs-realistic-filter-dust-hero-poster-c205dd7c.jpg';
 
 export const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
