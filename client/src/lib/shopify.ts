@@ -2,6 +2,35 @@
 // Uses environment variables for store domain and access token
 // Safari-compatible: includes retry logic and proper error handling
 
+export interface Money {
+  amount: string;
+  currencyCode: string;
+}
+
+export interface SellingPlan {
+  id: string;
+  name: string;
+  description: string | null;
+  options: Array<{ name: string; value: string }>;
+  priceAdjustments?: Array<{
+    adjustmentValue: {
+      adjustmentPercentage?: number;
+      adjustmentAmount?: Money;
+      price?: Money;
+    };
+  }>;
+  recurringDeliveries: boolean;
+}
+
+export interface SellingPlanAllocation {
+  sellingPlan: SellingPlan;
+  priceAdjustments: Array<{
+    price: Money;
+    compareAtPrice: Money;
+    perDeliveryPrice: Money;
+  }>;
+}
+
 export interface ShopifyProduct {
   node: {
     id: string;
@@ -38,15 +67,34 @@ export interface ShopifyProduct {
             name: string;
             value: string;
           }>;
+          sellingPlanAllocations?: {
+            edges: Array<{ node: SellingPlanAllocation }>;
+          };
         };
       }>;
+    };
+    selectedOrFirstAvailableVariant?: {
+      id: string;
+      sellingPlanAllocations?: {
+        edges: Array<{ node: SellingPlanAllocation }>;
+      };
     };
     options: Array<{
       name: string;
       values: string[];
     }>;
+    sellingPlanGroups?: {
+      edges: Array<{
+        node: {
+          name: string;
+          sellingPlans: { edges: Array<{ node: SellingPlan }> };
+        };
+      }>;
+    };
   };
 }
+
+export type PurchaseType = 'one-time' | 'subscription';
 
 export interface CartItem {
   variantId: string;
@@ -57,7 +105,47 @@ export interface CartItem {
   quantity: number;
   image?: string;
   handle: string;
+  purchaseType?: PurchaseType;
   sellingPlanId?: string;
+  sellingPlanName?: string;
+  sellingPlanPrice?: Money;
+  sellingPlanDiscountPercent?: number;
+}
+
+export function isMonthlySellingPlan(plan: Pick<SellingPlan, 'name' | 'options' | 'recurringDeliveries'>): boolean {
+  if (!plan.recurringDeliveries) return false;
+  const searchableText = [plan.name, ...plan.options.flatMap((option) => [option.name, option.value])]
+    .join(' ')
+    .toLowerCase();
+  if (/\b(?:bi|semi)[-\s]?monthly\b|\bevery\s+(?:2|two|3|three)\s+months?\b/.test(searchableText)) {
+    return false;
+  }
+  return /\bmonthly\b|\bevery\s+(?:(?:1|one)\s+)?month\b|\b(?:1|one)\s+month\b/.test(searchableText);
+}
+
+export function getMonthlySellingPlanAllocation(variant?: {
+  sellingPlanAllocations?: { edges: Array<{ node: SellingPlanAllocation }> };
+}): SellingPlanAllocation | undefined {
+  return variant?.sellingPlanAllocations?.edges
+    ?.map((edge) => edge.node)
+    .find((allocation) => isMonthlySellingPlan(allocation.sellingPlan));
+}
+
+export function getCartItemPurchaseType(item: CartItem): PurchaseType {
+  return item.purchaseType || (item.sellingPlanId ? 'subscription' : 'one-time');
+}
+
+export function getCartLineKey(item: Pick<CartItem, 'variantId' | 'sellingPlanId'>): string {
+  return `${item.variantId}::${item.sellingPlanId || 'one-time'}`;
+}
+
+export function validateCartItemsForCheckout(items: CartItem[]): void {
+  const invalidSubscriptions = items.filter(
+    (item) => getCartItemPurchaseType(item) === 'subscription' && !item.sellingPlanId,
+  );
+  if (invalidSubscriptions.length > 0) {
+    throw new Error('A monthly subscription could not be verified. Please remove it and add it again.');
+  }
 }
 
 // Category slug → Shopify collection handle mapping
@@ -205,6 +293,27 @@ const PRODUCT_FIELDS = `
       }
     }
   }
+  selectedOrFirstAvailableVariant {
+    id
+    sellingPlanAllocations(first: 10) {
+      edges {
+        node {
+          sellingPlan {
+            id
+            name
+            description
+            options { name value }
+            recurringDeliveries
+          }
+          priceAdjustments {
+            price { amount currencyCode }
+            compareAtPrice { amount currencyCode }
+            perDeliveryPrice { amount currencyCode }
+          }
+        }
+      }
+    }
+  }
   options {
     name
     values
@@ -276,6 +385,24 @@ const GET_PRODUCT_BY_HANDLE_QUERY = `
             selectedOptions {
               name
               value
+            }
+            sellingPlanAllocations(first: 10) {
+              edges {
+                node {
+                  sellingPlan {
+                    id
+                    name
+                    description
+                    options { name value }
+                    recurringDeliveries
+                  }
+                  priceAdjustments {
+                    price { amount currencyCode }
+                    compareAtPrice { amount currencyCode }
+                    perDeliveryPrice { amount currencyCode }
+                  }
+                }
+              }
             }
           }
         }
@@ -357,6 +484,9 @@ const CART_CREATE_MUTATION = `
                   product { title handle }
                 }
               }
+              sellingPlanAllocation {
+                sellingPlan { id name }
+              }
             }
           }
         }
@@ -435,9 +565,15 @@ const DIRECT_CHECKOUT_VARIANTS: Record<string, string> = {
 };
 
 export async function createStorefrontCheckout(items: CartItem[], discountCode?: string): Promise<string> {
+  validateCartItemsForCheckout(items);
+
   // Separate items into regular (Storefront Cart API) and direct-checkout items
   const regularItems = items.filter(item => !DIRECT_CHECKOUT_VARIANTS[item.variantId]);
   const directItems = items.filter(item => DIRECT_CHECKOUT_VARIANTS[item.variantId]);
+
+  if (directItems.length > 0 && items.some((item) => getCartItemPurchaseType(item) === 'subscription')) {
+    throw new Error('Monthly subscriptions must use the secure Shopify subscription checkout.');
+  }
 
   // For direct-checkout items (like PFS VITRA), redirect the browser directly to
   // Shopify's /cart/VARIANT:QTY URL. The browser follows the 302 redirect chain
@@ -480,11 +616,36 @@ export async function createStorefrontCheckout(items: CartItem[], discountCode?:
 
   const cartData = await storefrontApiRequest(CART_CREATE_MUTATION, { input });
 
-  if (cartData.data.cartCreate.userErrors.length > 0) {
-    throw new Error(`Cart creation failed: ${cartData.data.cartCreate.userErrors.map((e: { message: string }) => e.message).join(', ')}`);
+  const cartCreate = cartData?.data?.cartCreate;
+  if (!cartCreate) {
+    const apiErrors = cartData?.errors?.map((error: { message: string }) => error.message).join(', ');
+    throw new Error(apiErrors || 'Shopify did not create the cart.');
   }
 
-  const cart = cartData.data.cartCreate.cart;
+  if (cartCreate.userErrors.length > 0) {
+    throw new Error(`Cart creation failed: ${cartCreate.userErrors.map((e: { message: string }) => e.message).join(', ')}`);
+  }
+
+  const cart = cartCreate.cart;
+  const cartLines = cart?.lines?.edges?.map((edge: {
+    node: {
+      merchandise?: { id?: string };
+      sellingPlanAllocation?: { sellingPlan?: { id?: string } } | null;
+    };
+  }) => edge.node) || [];
+  const unverifiedSubscriptions = regularItems.filter(
+    (item) => getCartItemPurchaseType(item) === 'subscription' && !cartLines.some(
+      (line: {
+        merchandise?: { id?: string };
+        sellingPlanAllocation?: { sellingPlan?: { id?: string } } | null;
+      }) => line.merchandise?.id === item.variantId
+        && line.sellingPlanAllocation?.sellingPlan?.id === item.sellingPlanId,
+    ),
+  );
+  if (unverifiedSubscriptions.length > 0) {
+    throw new Error('Shopify did not confirm the monthly subscription. Checkout was stopped before payment.');
+  }
+
   console.log('[Shopify Cart] Discount codes in response:', JSON.stringify(cart.discountCodes));
   console.log('[Shopify Cart] Cart total:', cart.cost?.totalAmount?.amount, 'subtotal:', cart.cost?.subtotalAmount?.amount);
   if (!cart.checkoutUrl) throw new Error('No checkout URL returned from Shopify');
