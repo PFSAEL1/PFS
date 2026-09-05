@@ -103,7 +103,7 @@ export const TopMovers = () => {
               <Link key={product.node.id} href={`/product/${product.node.handle}`}>
                 <div className="group bg-[#1a1a1a] border border-white/[0.08] rounded-xl overflow-hidden hover:border-blue-500/40 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer h-full flex flex-col">
                   {/* Image area */}
-                  <div className="relative h-[190px] bg-[#f4f5f6] flex items-center justify-center p-4">
+                  <div className="product-img-wrap relative h-[190px] flex items-center justify-center p-4">
                     <ProductBadges badges={getProductBadges(product)} />
                     <img
                       src={image}
