@@ -234,7 +234,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                       <Package className="h-8 w-8 text-white/20" />
                     </div>
                     <p className="text-white/30 text-sm font-medium">Image Coming Soon</p>
-                    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo-transparent_e33888bf.png" alt="PFS Filters" className="w-20 opacity-15 mt-4" />
+                    <img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" className="w-20 opacity-15 mt-4" />
                   </div>
                 )}
               </div>

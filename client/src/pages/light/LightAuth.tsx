@@ -33,7 +33,7 @@ export default function LightAuth() {
           <div style={{ position: "relative", zIndex: 1 }}>
             <Link href="/light">
               <a style={{ display: "inline-block" }}>
-                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo-transparent-7EEBxJhXHkYHvxRNRHfJmN.png" alt="PFS Filters" style={{ height: "40px", filter: "brightness(0) invert(1)" }} />
+                <img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" style={{ height: "40px", filter: "brightness(0) invert(1)" }} />
               </a>
             </Link>
           </div>
