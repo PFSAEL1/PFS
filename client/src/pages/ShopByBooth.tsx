@@ -65,8 +65,8 @@ export default function ShopByBooth() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Shop Paint Booth Filters by Booth Brand — Find Filters for Your Booth | PFS Filters"
-        description="Find replacement filters for 40+ spray booth brands including Garmat, GFS, Col-Met, Accudraft, Blowtherm, and more. Select your booth brand and model to see compatible ceiling, intake, and exhaust filters."
+        title="Paint Booth Filter Guidance by Booth Brand | PFS Filters"
+        description="Review model and filter-stage guidance for major spray booth brands. Confirm the booth model, filter position, product record, and actual dimensions before ordering."
         canonical="https://pfsfilters.com/shop-by-booth"
         structuredData={breadcrumbSchema}
       />
@@ -82,7 +82,7 @@ export default function ShopByBooth() {
               Shop by Booth Brand
             </h1>
             <p className="text-lg text-white/70 max-w-3xl">
-              Select your spray booth manufacturer to find the exact replacement filters that fit. We stock compatible ceiling media, intake panels, exhaust arrestors, and pre-filters for <span className="text-white font-medium">{BOOTH_BRANDS.length}+ booth brands</span>.
+              Select a spray booth manufacturer to review model and filter-stage guidance. The directory covers <span className="text-white font-medium">{BOOTH_BRANDS.length} booth brands</span>; confirm the model, position, and actual dimensions before ordering.
             </p>
           </div>
         </div>
@@ -173,7 +173,7 @@ export default function ShopByBooth() {
               <p className="text-white/50 text-lg mb-2">No booths found matching your search.</p>
               <p className="text-white/40 text-sm">Try a different brand name or remove filters.</p>
               <p className="text-white/40 text-sm mt-4">
-                Don't see your booth? <Link href="/contact" className="text-[#4d9fff] hover:underline">Contact us</Link> — we can source filters for any booth.
+                Don't see your booth? <Link href="/contact" className="text-[#4d9fff] hover:underline">Contact us</Link> — we can review the product details or a custom request.
               </p>
             </div>
           )}
@@ -185,7 +185,7 @@ export default function ShopByBooth() {
       <section className="section-glow tex-lines py-14 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-white mb-3">Not sure which filters you need?</h2>
-          <p className="text-white/60 mb-6">Our team can identify the exact filters for your booth — just tell us the brand and model.</p>
+          <p className="text-white/60 mb-6">Send the booth brand and model, filter position, actual dimensions, and a clear photo so our team can review the available options.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link href="/contact">
               <button className="px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-white/90 transition-colors">

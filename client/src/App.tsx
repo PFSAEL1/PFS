@@ -3,43 +3,44 @@ import { ScrollToTop } from '@/components/ScrollToTop';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, Switch } from 'wouter';
+import { lazy, Suspense } from 'react';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeProvider } from './contexts/ThemeContext';
 
 // Pages
 import Home from './pages/Home';
-import Shop from './pages/Shop';
-import ProductDetail from './pages/ProductDetail';
-import Blog from './pages/Blog';
-import BlogPost from './pages/BlogPost';
-import Contact from './pages/Contact';
-import ThankYou from './pages/ThankYou';
-import WhyChooseUs from './pages/WhyChooseUs';
-import Memberships from './pages/Memberships';
-import Auth from './pages/Auth';
-import Dashboard from './pages/Dashboard';
-import Returns from './pages/Returns';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import FilterScanner from './pages/FilterScanner';
-import ShopBySize from './pages/ShopBySize';
-import ShopByType from './pages/ShopByType';
-// FilterCompatibility removed — redirects to FilterFinder
-import Brands from './pages/Brands';
-import SubmitReview from './pages/SubmitReview';
-import FilterDatabase from './pages/FilterDatabase';
-import CategoryPage from './pages/CategoryPage';
-import PaintBoothFilters from './pages/PaintBoothFilters';
-import NotFound from './pages/NotFound';
-import PfsVitra from './pages/PfsVitra';
-import PfsVanguard from './pages/PfsVanguard';
-import Consumables from './pages/Consumables';
-import Aerospace from './pages/Aerospace';
-import AerospaceHub from './pages/AerospaceHub';
-import ShopByBooth from './pages/ShopByBooth';
-import BrandDetail from './pages/BrandDetail';
-import ShopByBoothType from './pages/ShopByBoothType';
-import ShopByFilterType from './pages/ShopByFilterType';
-import FilterFinder from './pages/FilterFinder';
+const Shop = lazy(() => import('./pages/Shop'));
+const ProductDetail = lazy(() => import('./pages/ProductDetail'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
+const Contact = lazy(() => import('./pages/Contact'));
+const ThankYou = lazy(() => import('./pages/ThankYou'));
+const WhyChooseUs = lazy(() => import('./pages/WhyChooseUs'));
+const Memberships = lazy(() => import('./pages/Memberships'));
+const Auth = lazy(() => import('./pages/Auth'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Returns = lazy(() => import('./pages/Returns'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const FilterScanner = lazy(() => import('./pages/FilterScanner'));
+const ShopBySize = lazy(() => import('./pages/ShopBySize'));
+const ShopByType = lazy(() => import('./pages/ShopByType'));
+const Brands = lazy(() => import('./pages/Brands'));
+const SubmitReview = lazy(() => import('./pages/SubmitReview'));
+const FilterDatabase = lazy(() => import('./pages/FilterDatabase'));
+const CategoryPage = lazy(() => import('./pages/CategoryPage'));
+const PaintBoothFilters = lazy(() => import('./pages/PaintBoothFilters'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+const PfsVitra = lazy(() => import('./pages/PfsVitra'));
+const PfsVanguard = lazy(() => import('./pages/PfsVanguard'));
+const Consumables = lazy(() => import('./pages/Consumables'));
+const Aerospace = lazy(() => import('./pages/Aerospace'));
+const AerospaceHub = lazy(() => import('./pages/AerospaceHub'));
+const ShopByBooth = lazy(() => import('./pages/ShopByBooth'));
+const BrandDetail = lazy(() => import('./pages/BrandDetail'));
+const ShopByBoothType = lazy(() => import('./pages/ShopByBoothType'));
+const ShopByFilterType = lazy(() => import('./pages/ShopByFilterType'));
+const FilterFinder = lazy(() => import('./pages/FilterFinder'));
+const FAQPage = lazy(() => import('./pages/FAQPage'));
 
 // Light version pages (kept in codebase but not routed in production)
 function Router() {
@@ -47,6 +48,7 @@ function Router() {
   return (
     <>
       <ScrollToTop />
+      <Suspense fallback={<div className="min-h-screen bg-[#040404]" aria-label="Loading page" />}>
       <Switch>
       {/* Main pages */}
       <Route path="/" component={Home} />
@@ -64,6 +66,7 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/thank-you" component={ThankYou} />
       <Route path="/why-choose-us" component={WhyChooseUs} />
+      <Route path="/faq" component={FAQPage} />
       <Route path="/memberships" component={Memberships} />
       <Route path="/returns" component={Returns} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
@@ -98,6 +101,7 @@ function Router() {
       {/* 404 */}
       <Route component={NotFound} />
       </Switch>
+      </Suspense>
     </>
   );
 }

@@ -20,7 +20,7 @@ export const PfsBoothCompatibility = ({ product }: { product: any }) => {
       >
         <span className="flex items-center gap-2.5 text-lg font-semibold" style={{ color: '#ffffff' }}>
           <Filter className="h-4 w-4 shrink-0" style={{ color: 'rgba(59,130,246,0.8)' }} aria-hidden="true" />
-          Fits These PFS Booths
+          Common PFS Booth Applications
         </span>
         <ChevronDown
           className={`h-5 w-5 text-white/60 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
@@ -57,7 +57,7 @@ export const PfsBoothCompatibility = ({ product }: { product: any }) => {
             ))}
           </ul>
           <p className="px-5 py-3 text-xs text-white/55" style={{ background: '#1e1e1e' }}>
-            Not sure which configuration you have (heated vs. non-heated)?{' '}
+            This is filter-family guidance, not an exact fit guarantee. Confirm the booth version, filter position, and dimensions before ordering.{' '}
             <a href="/filter-finder" className="text-teal-400 hover:underline">
               Use the compatibility finder
             </a>{' '}
@@ -65,7 +65,7 @@ export const PfsBoothCompatibility = ({ product }: { product: any }) => {
             <a href="/contact" className="text-teal-400 hover:underline">
               contact us
             </a>{' '}
-            and we’ll confirm the exact fit.
+            for help reviewing the application.
           </p>
         </div>
       )}

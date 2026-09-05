@@ -98,7 +98,7 @@ export default function PfsVitra() {
                 </div>
                 <div className="flex items-center gap-3 text-white/60 text-sm">
                   <Truck className="h-4 w-4 text-blue-400 flex-shrink-0" />
-                  <span>Ships same day on orders before 2pm PST</span>
+                  <span>Stocked items typically process in 1–2 business days</span>
                 </div>
               </div>
 

@@ -3,10 +3,17 @@ import { Button } from '@/components/ui/button';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Filter, Home, ShoppingBag } from 'lucide-react';
+import { SEO } from '@/components/SEO';
 
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
+      <SEO
+        title="Page Not Found"
+        description="The requested page does not exist. Browse paint booth filters or contact PFS Filters for help."
+        canonical="https://www.pfsfilters.com/404"
+        noIndex
+      />
       <Navigation />
 
       {/* Content - glow */}

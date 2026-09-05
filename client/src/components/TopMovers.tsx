@@ -1,8 +1,8 @@
 // TopMovers — PFS Filters
-// 4-across discovery grid with badges, star ratings, price, and inline Add to Cart.
+// 4-across discovery grid with product badges, price, and inline Add to Cart.
 import { useEffect, useState } from 'react';
 import { Link } from 'wouter';
-import { Loader2, Star, ShoppingCart } from 'lucide-react';
+import { Loader2, ShoppingCart } from 'lucide-react';
 import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
 import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
@@ -11,16 +11,6 @@ import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
-
-// Deterministic rating (4.6–5.0) + review count from the product id/handle,
-// so it's stable across renders rather than random.
-function ratingFor(seed: string): { stars: number; count: number } {
-  let h = 0;
-  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
-  const stars = 4.6 + (h % 5) * 0.1; // 4.6 .. 5.0
-  const count = 38 + (h % 180); // 38 .. 217
-  return { stars: Math.round(stars * 10) / 10, count };
-}
 
 export const TopMovers = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -79,14 +69,14 @@ export const TopMovers = () => {
         {/* Eyebrow */}
         <div className="flex justify-center mb-3">
           <span className="eyebrow-brand border rounded-full text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
-            Top Movers
+            Featured Filters
           </span>
         </div>
         <h2 className="text-white text-2xl font-semibold text-center mt-2">
-          Most ordered this month
+          Popular filter media and booth essentials
         </h2>
         <p className="text-white/70 text-sm text-center mt-2 mb-8">
-          The filters 1,200+ shops keep coming back for.
+          Compare current products, sizes, prices, and availability.
         </p>
 
         {/* 4-card grid */}
@@ -97,8 +87,6 @@ export const TopMovers = () => {
             const originalPrice = variant?.price?.amount ? parseFloat(variant.price.amount) : 0;
             const price = originalPrice > 0 ? originalPrice.toFixed(2) : '—';
             const inStock = variant?.availableForSale ?? true;
-            const { stars, count } = ratingFor(product.node.handle || product.node.id);
-
             return (
               <Link key={product.node.id} href={`/product/${product.node.handle}`}>
                 <div className="group bg-[#1a1a1a] border border-white/[0.08] rounded-xl overflow-hidden hover:border-blue-500/40 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer h-full flex flex-col">
@@ -113,19 +101,6 @@ export const TopMovers = () => {
                   </div>
                   {/* Card body */}
                   <div className="px-4 pb-4 pt-3 flex flex-col flex-1">
-                    {/* Stars */}
-                    <div className="flex items-center gap-1.5 mb-1.5">
-                      <div className="flex">
-                        {[0, 1, 2, 3, 4].map((i) => (
-                          <Star
-                            key={i}
-                            className={`h-3.5 w-3.5 ${i < Math.round(stars) ? 'fill-amber-400 text-amber-400' : 'text-white/20'}`}
-                          />
-                        ))}
-                      </div>
-                      <span className="text-white/55 text-xs">{stars.toFixed(1)} ({count})</span>
-                    </div>
-
                     <h3 className="text-white font-medium text-sm leading-snug line-clamp-2">
                       {product.node.title}
                     </h3>

@@ -1,25 +1,49 @@
 // Hero — PFS Filters Dark Theme
 // Full-bleed looping video hero, left-aligned text, electric blue CTAs
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
-import { Mail, ShoppingBag, Truck, Shield, Star } from 'lucide-react';
+import { CircleHelp, Mail, ShoppingBag, Truck, Shield } from 'lucide-react';
 
 const HERO_VIDEO = 'https://cdn.shopify.com/videos/c/o/v/95b492e672f942f8acd0683f6053f877.mp4';
 const HERO_POSTER = 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/pfs-final-thicker-gentle-dust-hero-poster-92179f90.jpg?v=1788567595';
 
 export const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let idleId: number | undefined;
+    let timerId: number | undefined;
+    const enableVideo = () => {
+      if ('requestIdleCallback' in window) {
+        idleId = window.requestIdleCallback(() => setVideoReady(true), { timeout: 3000 });
+      } else {
+        timerId = globalThis.setTimeout(() => setVideoReady(true), 1500) as unknown as number;
+      }
+    };
+
+    if (document.readyState === 'complete') enableVideo();
+    else window.addEventListener('load', enableVideo, { once: true });
+
+    return () => {
+      window.removeEventListener('load', enableVideo);
+      if (idleId !== undefined) window.cancelIdleCallback(idleId);
+      if (timerId !== undefined) window.clearTimeout(timerId);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!videoReady) return;
     const video = videoRef.current;
     if (!video) return;
-    // Force play on mount — handles iOS Safari which may block autoplay
     video.muted = true;
     video.play().catch(() => {
       // Silently ignore if browser blocks autoplay (rare with muted + playsInline)
     });
-  }, []);
+  }, [videoReady]);
 
   const scrollToContact = () => {
     const element = document.getElementById('contact');
@@ -37,14 +61,14 @@ export const Hero = () => {
           <video
             ref={videoRef}
             className="absolute inset-0 w-full h-full object-cover object-[65%_center] md:object-center"
-            src={HERO_VIDEO}
+            src={videoReady ? HERO_VIDEO : undefined}
             poster={HERO_POSTER}
-            autoPlay
+            autoPlay={videoReady}
             muted
             loop
             playsInline
             controls={false}
-            preload="auto"
+            preload="none"
             disablePictureInPicture
             aria-hidden="true"
             tabIndex={-1}
@@ -68,8 +92,8 @@ export const Hero = () => {
               className="hero-headline mb-6 animate-slide-up"
               style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}
             >
-              <span className="hero-tier1">The Only Filter Program That</span>
-              <span className="hero-tier2">Manages Your Entire Booth</span>
+              <span className="hero-tier1">A Filter Program Built to</span>
+              <span className="hero-tier2">Manage Your Entire Booth</span>
             </h1>
 
             {/* Subheadline */}
@@ -77,7 +101,7 @@ export const Hero = () => {
               className="text-lg md:text-xl text-white/60 leading-relaxed mb-8 animate-slide-up"
               style={{ animationDelay: '0.25s', animationFillMode: 'backwards' }}
             >
-              Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Never run out of filters again.
+              Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.
             </p>
 
             {/* CTAs */}
@@ -111,9 +135,9 @@ export const Hero = () => {
               style={{ animationDelay: '0.55s', animationFillMode: 'backwards' }}
             >
               {[
-                { icon: Truck, label: 'Ships in 1-2 Business Days' },
+                { icon: Truck, label: 'Stocked Items: 1–2 Business Days' },
                 { icon: Shield, label: 'Booth-Specific Filter Tracking' },
-                { icon: Star, label: '1,200+ Shops Nationwide' },
+                { icon: CircleHelp, label: 'Sizing Help Available' },
               ].map((badge, idx) => (
                 <div key={idx} className="flex items-center gap-2 text-sm text-white/50">
                   <badge.icon className="h-4 w-4 text-blue-400" />

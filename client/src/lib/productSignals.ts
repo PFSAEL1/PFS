@@ -36,44 +36,28 @@ function variantCount(node: AnyProductNode): number {
 
 /**
  * Returns up to `max` badges for a product, highest priority first.
- * Priority: New > Most Reordered > Booth-Matched > Custom Cut > Ships Same Day.
+ * Priority: New > Most Reordered > Booth-Matched > Custom Cut.
  */
 export function getProductBadges(input: any, max = 2): ProductBadge[] {
   const node = toNode(input);
   const tags = tagsOf(node);
-  const title = lc(node.title);
-  const type = lc(node.productType);
-  const hay = `${tags.join(' ')} ${title} ${type}`;
-
   const badges: ProductBadge[] = [];
 
-  const has = (...keys: string[]) => keys.some((k) => hay.includes(k));
+  const hasTag = (...keys: string[]) => keys.some((key) => tags.some((tag) => tag.includes(key)));
 
-  if (has('new', 'just-added', 'new-arrival')) {
+  if (hasTag('new', 'just-added', 'new-arrival')) {
     badges.push({ label: 'New', tone: 'new' });
   }
-  if (has('best-seller', 'bestseller', 'top-mover', 'top-seller', 'most-reordered', 'popular')) {
+  if (hasTag('best-seller', 'bestseller', 'top-mover', 'top-seller', 'most-reordered', 'popular')) {
     badges.push({ label: 'Most Reordered', tone: 'reorder' });
   }
-  if (has('booth-matched', 'booth match', 'kit', 'compatible')) {
+  if (hasTag('booth-matched', 'booth match')) {
     badges.push({ label: 'Booth-Matched', tone: 'matched' });
   }
   // Custom cut: multiple size variants or explicit custom tag
-  if (has('custom', 'cut-to-size', 'made-to-order') || variantCount(node) > 2) {
+  if (hasTag('custom', 'cut-to-size', 'made-to-order') || variantCount(node) > 2) {
     badges.push({ label: 'View Sizes', tone: 'custom' });
   }
-  // Ships same day: default trust signal for in-stock catalog items
-  const anyInStock =
-    node.variants?.edges?.some((e) => e.node?.availableForSale ?? true) ?? true;
-  if (anyInStock && has('in-stock', 'ships-same-day', 'ready-to-ship')) {
-    badges.push({ label: 'Ships Same Day', tone: 'ship' });
-  }
-
-  // Guarantee at least one helpful badge if nothing matched
-  if (badges.length === 0 && anyInStock) {
-    badges.push({ label: 'Ships Fast', tone: 'ship' });
-  }
-
   return badges.slice(0, max);
 }
 
@@ -86,73 +70,23 @@ export type SpecRow = { label: string; value: string };
  */
 export function getProductSpecs(input: any): SpecRow[] {
   const node = toNode(input);
-  const tags = tagsOf(node);
-  const title = lc(node.title);
-  const type = lc(node.productType);
-  const hay = `${tags.join(' ')} ${title} ${type}`;
-  const has = (...keys: string[]) => keys.some((k) => hay.includes(k));
-
-  // Media type
-  let media = 'Spun fiberglass';
-  if (has('tacky', 'panel', 'pleated', 'merv')) media = 'Tacky panel / pleated media';
-  else if (has('roll')) media = 'Continuous roll fiberglass';
-  else if (has('blanket', 'ceiling', 'polyester', 'poly')) media = 'Polyester ceiling media';
-  else if (has('arrestor', 'paint pocket', 'pocket', 'fiberglass')) media = 'High-loft fiberglass';
-
-  // Gram weight
-  let gram = 'Standard weight';
-  const gramMatch = (node.title || '').match(/(\d{2,3})\s*-?\s*gram|(\d{2,3})\s*ga/i);
-  if (gramMatch) gram = `${gramMatch[1] || gramMatch[2]} gram`;
-  else if (has('22-gram', '22 gram', '22ga')) gram = '22 gram';
-
-  // Efficiency
-  let efficiency = '98%+ overspray capture';
-  const mervMatch = (node.title || '').match(/merv\s*-?\s*(\d{1,2})/i);
-  if (mervMatch) efficiency = `MERV ${mervMatch[1]}`;
-  else if (has('exhaust', 'arrestor', 'pocket')) efficiency = 'Up to 99% paint arrestance';
-  else if (has('intake', 'ceiling', 'blanket')) efficiency = 'High-efficiency intake diffusion';
-
-  // Compatible booth types
-  let compat = 'Cross-draft, semi-downdraft & downdraft booths';
-  if (has('ceiling', 'blanket', 'intake')) compat = 'Downdraft & semi-downdraft ceilings';
-  else if (has('exhaust', 'arrestor', 'pocket', 'roll')) compat = 'All exhaust plenum & filter-bank booths';
-
-  // Sizes available (from variants)
   const variantTitles = (node.variants?.edges || [])
     .map((e) => e.node?.title || '')
     .filter((t) => t && t.toLowerCase() !== 'default title');
-  let sizes = 'Standard 20x20, 20x25 & custom cuts';
+  const specs: SpecRow[] = [];
+  if (node.productType?.trim()) specs.push({ label: 'Product type', value: node.productType.trim() });
   if (variantTitles.length > 0) {
-    sizes = variantTitles.slice(0, 6).join(', ') + (variantTitles.length > 6 ? ' + more' : '');
+    specs.push({
+      label: 'Catalog options',
+      value: variantTitles.slice(0, 8).join(', ') + (variantTitles.length > 8 ? ' + more' : ''),
+    });
   }
-
-  // Change interval
-  let interval = 'Replace when airflow drops or per local code';
-  if (has('exhaust', 'arrestor', 'pocket', 'roll')) interval = 'Typically every 100–150 spray hours';
-  else if (has('intake', 'ceiling', 'blanket')) interval = 'Typically every 600–1,000 spray hours';
-
-  // Aerospace-specific specs for Swiss Flow / ceiling diffusion media
-  const isAerospace = has('swiss flow', '600g', 'ultra-premium', 'aerospace');
-  const specs: SpecRow[] = [
-    { label: 'Filter media', value: media },
-    { label: 'Media weight', value: gram },
-    { label: 'Efficiency rating', value: efficiency },
-    { label: 'Compatible booths', value: compat },
-    { label: 'Sizes available', value: sizes },
-    { label: 'Change interval', value: interval },
-  ];
-
-  if (isAerospace || has('ceiling', 'blanket', 'downdraft')) {
-    specs.push(
-      { label: 'Aerospace application', value: 'Aircraft paint booth ceiling diffusion — ensures laminar airflow for defect-free finishes' },
-      { label: 'Airflow pattern', value: 'Uniform downward laminar flow, minimizes turbulence across large aircraft surfaces' },
-    );
-  }
-  if (isAerospace) {
-    specs.push(
-      { label: 'Facility types', value: 'MRO hangars, aerospace OEM finishing, military aircraft maintenance' },
-      { label: 'Compliance relevance', value: 'Supports NESHAP-regulated environments when paired with multi-stage exhaust systems' },
-    );
+  const variantEdges = node.variants?.edges || [];
+  if (variantEdges.length > 0) {
+    specs.push({
+      label: 'Current catalog status',
+      value: variantEdges.some((edge) => edge.node?.availableForSale === true) ? 'Available to order' : 'Currently unavailable',
+    });
   }
 
   return specs;

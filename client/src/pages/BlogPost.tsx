@@ -43,7 +43,8 @@ export default function BlogPost() {
     image: post.image,
     url: `https://pfsfilters.com/blog/${post.slug}`,
     datePublished: post.date,
-    author: { '@type': 'Person', name: post.author },
+    dateModified: post.date,
+    author: { '@type': 'Organization', name: post.author },
     publisher: { '@type': 'Organization', name: 'PFS Filters', logo: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/icon_a34990c0.png' },
     keywords: post.keywords.join(', '),
   };
@@ -65,6 +66,17 @@ export default function BlogPost() {
         }
         if (line.match(/^\d+\. /)) {
           return <li key={i} className="ml-6 list-decimal text-white/70">{line.replace(/^\d+\. /, '')}</li>;
+        }
+        if (line.startsWith('Source: https://')) {
+          const sourceUrl = line.slice('Source: '.length);
+          return (
+            <p key={i} className="text-sm text-white/60 mt-3 break-words">
+              Source:{' '}
+              <a href={sourceUrl} target="_blank" rel="noreferrer" className="text-[#4d9fff] hover:underline">
+                {sourceUrl}
+              </a>
+            </p>
+          );
         }
         if (line.trim() === '') return <br key={i} />;
         return <p key={i} className="text-white/70 leading-relaxed">{line}</p>;
@@ -132,7 +144,7 @@ export default function BlogPost() {
           <div className="mt-12 p-6 bg-blue-500/5 border border-primary/20 rounded-xl">
             <h3 className="font-bold text-lg mb-2">Need Help Choosing the Right Filters?</h3>
             <p className="text-white/70 mb-4">
-              Our team of filtration experts can help you find the perfect filters for your specific spray booth and application.
+              Send the booth make and model, filter position, actual dimensions, and a clear photo so the PFS team can review available catalog or custom options.
             </p>
             <div className="flex gap-3">
               <Link href="/shop">

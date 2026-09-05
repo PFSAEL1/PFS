@@ -22,9 +22,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#040404]">
       <SEO
-        title="Buy Paint Booth Filters - Premium Spray Booth Filtration Systems"
-        description="Shop premium paint booth filters from PFS Filters. Fiberglass arrestors, tacky panels, intake/exhaust filters for automotive & industrial spray booths. Fast shipping, custom sizes available."
-        canonical="https://pfsfilters.com/"
+        title="Paint Booth Filters & Spray Booth Filtration | PFS Filters"
+        description="Shop paint booth filters backed by 30+ years of PFS Spray Booths expertise. Find fiberglass arrestors, intake panels, ceiling media, roll media, and booth-specific replacements."
+        canonical="https://www.pfsfilters.com/"
         structuredData={combinedSchema}
       />
       <Navigation />
@@ -142,13 +142,13 @@ export default function Home() {
                 num: '01',
                 icon: ClipboardList,
                 title: 'Tell us your booth',
-                body: 'Enter your booth make, model, and filter positions. We match you to the exact filters you need.',
+                body: 'Enter your booth make, model, filter position, and dimensions. We narrow the options and flag details to confirm.',
               },
               {
                 num: '02',
                 icon: Package,
-                title: 'Get your exact filters',
-                body: 'Order once or set up auto-reorder. Cut to spec, quality checked, shipped in 1-2 days.',
+                title: 'Confirm the filter',
+                body: 'Review the size and booth stage before ordering, or ask PFS for help with custom and hard-to-find items.',
               },
               {
                 num: '03',
@@ -177,7 +177,7 @@ export default function Home() {
       <section className="section-darker tex-dots py-14 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-white/25 text-xs tracking-widest font-medium uppercase">Compatible With</p>
-          <p className="text-white/60 text-sm mt-2 mb-8">Filters for every major booth brand</p>
+          <p className="text-white/60 text-sm mt-2 mb-8">Replacement guidance for many major booth brands</p>
 
           <div className="flex flex-wrap justify-center gap-3">
             {['Accudraft', 'Garmat', 'GFS', 'Blowtherm', 'Col-Met', 'Spray Systems'].map((brand) => (
@@ -214,7 +214,7 @@ export default function Home() {
               Set it up once. Never run out again.
             </h2>
             <p className="text-white/55 text-sm mt-2 max-w-sm">
-              Join 1,200+ shops on auto-reorder. Booth-specific tracking, priority support, and savings on every order.
+              Organize repeat purchasing with booth-specific tracking, priority support, and plan benefits.
             </p>
           </div>
           {/* Right */}

@@ -52,6 +52,8 @@ const trpcClient = trpc.createClient({
   ],
 });
 
+document.querySelectorAll('[data-seo-generated]').forEach((element) => element.remove());
+
 createRoot(document.getElementById("root")!).render(
   <trpc.Provider client={trpcClient} queryClient={queryClient}>
     <QueryClientProvider client={queryClient}>

@@ -1,13 +1,12 @@
-import { Users, Package, Clock, ShieldCheck, Scissors, Truck, Star } from 'lucide-react';
+import { CircleHelp, Clock, MapPin, RefreshCw, Scissors, Wind } from 'lucide-react';
 
 const ITEMS = [
-  { icon: Users, text: '1,200+ shops served nationwide' },
-  { icon: Package, text: '50,000+ filters shipped this year' },
-  { icon: Truck, text: 'Ships in 1–2 business days' },
-  { icon: Scissors, text: 'Custom sizes cut to spec' },
-  { icon: ShieldCheck, text: 'Quality guaranteed or we make it right' },
-  { icon: Star, text: '4.9/5 average customer rating' },
-  { icon: Clock, text: 'Same-day dispatch on most stock orders' },
+  { icon: Wind, text: 'Paint booth intake and exhaust media' },
+  { icon: Clock, text: 'Stocked items typically process in 1–2 business days' },
+  { icon: Scissors, text: 'Custom-size options available by quote' },
+  { icon: RefreshCw, text: 'Monthly Subscribe & Save on eligible products' },
+  { icon: CircleHelp, text: 'Sizing help by phone or email' },
+  { icon: MapPin, text: 'Santa Rosa, California' },
 ];
 
 export const SocialProofBanner = () => {

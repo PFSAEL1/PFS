@@ -41,10 +41,10 @@ const filterTypes = [
   {
     title: 'Roll Media',
     position: 'INTAKE / EXHAUST',
-    desc: 'Continuous roll filtration cut to any length for any booth configuration. Available in multiple densities for both intake and exhaust positions — ideal for bulk orders.',
+    desc: 'Roll filtration media in the widths, lengths, and constructions shown in the current catalog. Confirm the filter stage, media, and dimensions before ordering.',
     href: '/category/roll-media',
     image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-roll-blue_a1ff9192.png',
-    tags: ['Custom Cut', 'Flexible', 'Bulk'],
+    tags: ['Roll Media', 'Multiple Sizes', 'Bulk'],
   },
   {
     title: 'MERV-Rated Filters',

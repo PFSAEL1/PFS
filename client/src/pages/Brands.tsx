@@ -44,7 +44,7 @@ export default function Brands() {
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Paint Booth Filter Brands - PFS Filters, Koch, Permatron & More"
-        description="Shop paint booth filters from trusted brands including PFS Filters, Koch Filter, Permatron, and Andover Healthcare. All products quality-tested for spray booth applications."
+        description="Browse paint booth filter and media brands represented in the current PFS Filters catalog. Verify the product record, filter stage, and dimensions before ordering."
         canonical="https://pfsfilters.com/brands"
         structuredData={breadcrumbSchema}
       />
@@ -61,7 +61,7 @@ export default function Brands() {
             </div>
             <h1 className="text-5xl font-extrabold mb-4 text-white pfs-heading-animate">Filter Brands We Carry</h1>
             <p className="text-xl text-white/50 max-w-2xl">
-              We partner with industry-leading manufacturers to bring you the best paint booth filtration products available.
+              Browse manufacturers represented in the current catalog, then verify the product record, filter stage, and dimensions before ordering.
             </p>
           </div>
         </div>
