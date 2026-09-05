@@ -153,7 +153,7 @@ export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string;
   'fiberglass-arrestors': {
     collectionHandle: 'fiberglass-paint-arrestors',
     title: 'Fiberglass Paint Arrestors',
-    description: 'Progressive-density glass fiber media captures overspray before it exits the booth. The industry standard for exhaust filtration.',
+    description: 'Fiberglass paint arrestor pads and roll media for spray booth exhaust filtration. Products shown here are explicitly identified as fiberglass in the catalog.',
     position: 'EXHAUST',
   },
   'tacky-panels': {
@@ -197,7 +197,7 @@ export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string;
 // Tag-based fallback mapping when collections don't exist
 // Maps category slug → keywords to match against product tags, type, and title
 export const CATEGORY_TAG_MAP: Record<string, string[]> = {
-  'fiberglass-arrestors': ['fiberglass', 'paint arrestor', 'arrestor', 'exhaust filter'],
+  'fiberglass-arrestors': ['fiberglass'],
   'tacky-panels': ['tacky', 'tacky panel', 'panel filter'],
   'ceiling-blankets': ['ceiling', 'ceiling blanket', 'blanket'],
   'roll-media': ['roll', 'roll media', 'media roll'],
@@ -205,6 +205,31 @@ export const CATEGORY_TAG_MAP: Record<string, string[]> = {
   'polyester-media': ['polyester', 'synthetic media'],
   'pre-filters': ['pre-filter', 'prefilter', 'pre filter', 'first stage'],
 };
+
+/**
+ * Match a product to a category using explicit catalog fields.
+ * The fiberglass category is intentionally strict: "paint arrestor" alone is
+ * not evidence that the media is fiberglass (for example, paint pockets and
+ * accordion-style paper arrestors are different products).
+ */
+export function productMatchesCategory(product: ShopifyProduct, categorySlug: string): boolean {
+  const productTags = (product.node.tags || []).map((tag) => tag.toLowerCase());
+  const productType = (product.node.productType || '').toLowerCase();
+  const productTitle = product.node.title.toLowerCase();
+  const searchableFields = [...productTags, productType, productTitle];
+
+  if (categorySlug === 'fiberglass-arrestors') {
+    return searchableFields.some((field) => field.includes('fiberglass'));
+  }
+
+  const categoryTerms = CATEGORY_TAG_MAP[categorySlug] || [];
+  if (categoryTerms.length === 0) return true;
+
+  return categoryTerms.some((term) => {
+    const normalizedTerm = term.toLowerCase();
+    return searchableFields.some((field) => field.includes(normalizedTerm));
+  });
+}
 
 const SHOPIFY_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN || 'abc-filter-splash-rwyxj.myshopify.com';
 const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || '5e357a0ae8e9906edb44ef570a4ed219';
@@ -519,7 +544,12 @@ export async function fetchProductsByCategory(categorySlug: string, limit = 50):
       });
       const products = data?.data?.collectionByHandle?.products?.edges;
       if (products && products.length > 0) {
-        return products;
+        const matchingProducts = products.filter((product: ShopifyProduct) =>
+          productMatchesCategory(product, categorySlug),
+        );
+        if (matchingProducts.length > 0) {
+          return matchingProducts;
+        }
       }
     } catch {
       // Fall through to tag-based filtering
@@ -528,24 +558,7 @@ export async function fetchProductsByCategory(categorySlug: string, limit = 50):
 
   // Fallback: fetch all products and filter by tags/productType/title
   const allProducts = await fetchProducts(250);
-  const tags = CATEGORY_TAG_MAP[categorySlug] || [];
-
-  if (tags.length === 0) {
-    return allProducts;
-  }
-
-  return allProducts.filter((product) => {
-    const productTags = (product.node.tags || []).map((t: string) => t.toLowerCase());
-    const productType = (product.node.productType || '').toLowerCase();
-    const productTitle = product.node.title.toLowerCase();
-
-    return tags.some((tag) => {
-      const t = tag.toLowerCase();
-      return productTags.some(pt => pt.includes(t)) ||
-        productType.includes(t) ||
-        productTitle.includes(t);
-    });
-  });
+  return allProducts.filter((product) => productMatchesCategory(product, categorySlug));
 }
 
 export async function fetchProductByHandle(handle: string) {

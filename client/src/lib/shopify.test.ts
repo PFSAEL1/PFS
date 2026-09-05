@@ -5,7 +5,9 @@ import {
   getCartItemPurchaseType,
   getCartLineKey,
   isMonthlySellingPlan,
+  productMatchesCategory,
   SellingPlan,
+  ShopifyProduct,
   validateCartItemsForCheckout,
 } from "./shopify";
 
@@ -29,6 +31,25 @@ const cartItem = (overrides: Partial<CartItem> = {}): CartItem => ({
   handle: "filter",
   purchaseType: "one-time",
   ...overrides,
+});
+
+const categoryProduct = (
+  title: string,
+  productType = "",
+  tags: string[] = []
+): ShopifyProduct => ({
+  node: {
+    id: `gid://shopify/Product/${title}`,
+    title,
+    handle: title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+    description: "",
+    productType,
+    tags,
+    priceRange: { minVariantPrice: { amount: "1.00", currencyCode: "USD" } },
+    images: { edges: [] },
+    variants: { edges: [] },
+    options: [],
+  },
 });
 
 const shopifyCartResponse = (sellingPlanId: string | null) => ({
@@ -179,5 +200,40 @@ describe("Shopify monthly subscriptions", () => {
         }),
       ])
     ).rejects.toThrow("Shopify did not confirm the monthly subscription");
+  });
+});
+
+describe("Shopify category classification", () => {
+  it("keeps the fiberglass arrestor category strictly fiberglass-only", () => {
+    expect(
+      productMatchesCategory(
+        categoryProduct("22-Gram Fiberglass Paint Arrestor Pads", "Paint Arrestor", [
+          "fiberglass",
+          "exhaust-filters",
+        ]),
+        "fiberglass-arrestors"
+      )
+    ).toBe(true);
+    expect(
+      productMatchesCategory(
+        categoryProduct("15-Gram Fiberglass Paint Arrestor Roll"),
+        "fiberglass-arrestors"
+      )
+    ).toBe(true);
+
+    for (const nonFiberglassProduct of [
+      categoryProduct("Paint Pockets Paint Arrestor Media", "Paint Arrestor", [
+        "paint-pockets",
+        "exhaust-filters",
+      ]),
+      categoryProduct("Andreae Accordion Style Paint Arrestors", "Paint Arrestor"),
+      categoryProduct('20x20 Paint Arrestor Holding Grids', "Accessories", [
+        "holding-grids",
+      ]),
+    ]) {
+      expect(
+        productMatchesCategory(nonFiberglassProduct, "fiberglass-arrestors")
+      ).toBe(false);
+    }
   });
 });
