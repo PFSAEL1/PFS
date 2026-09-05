@@ -134,7 +134,7 @@ export default function ShopBySize() {
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Shop Paint Booth Filters by Size - 20x20, 20x25, Custom Cuts"
-        description="Find the right paint booth filter by size. We stock 20x20, 20x25, 24x24, 25x25 and many more standard sizes. Custom-cut filters available for any booth configuration."
+        description="Browse current paint booth filter variants by size. Confirm actual dimensions and request a review for custom or hard-to-find products before ordering."
         canonical="https://pfsfilters.com/shop-by-size"
         structuredData={breadcrumbSchema}
       />
@@ -299,7 +299,7 @@ export default function ShopBySize() {
           </div>
           <h2 className="text-2xl font-bold mb-2">Need a Custom Size?</h2>
           <p className="text-white/70 mb-6 leading-relaxed">
-            We cut filters to any dimension. Tell us your booth make/model or exact measurements and we'll get you a perfect fit — usually ships same day.
+            Send the booth make and model, filter position, actual measurements, and a clear photo. We will review available standard products or a custom-size request and provide timing for the specific item.
           </p>
           <Link href="/contact">
             <Button className="bg-white text-black hover:bg-white/90 font-bold gap-2">

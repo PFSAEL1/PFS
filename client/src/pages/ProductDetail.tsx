@@ -15,7 +15,7 @@ import {
 } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
 import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredData';
-import { ShoppingCart, Loader2, Package, Truck, Shield, ArrowLeft, Plus, Minus, RefreshCw } from 'lucide-react';
+import { ShoppingCart, Loader2, Package, Truck, CircleHelp, ArrowLeft, Plus, Minus, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import { ProductSpecs } from '@/components/ProductSpecs';
 import { PfsBoothCompatibility } from '@/components/PfsBoothCompatibility';
@@ -379,11 +379,19 @@ export default function ProductDetail() {
             {/* Quantity + Add to Cart */}
             <div className="flex items-center gap-4 mb-6">
               <div className="flex items-center border border-white/10 rounded-lg">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-2 hover:bg-accent transition-colors">
+                <button
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  aria-label="Decrease quantity"
+                  className="px-3 py-2 hover:bg-accent transition-colors"
+                >
                   <Minus className="h-4 w-4" />
                 </button>
                 <span className="px-4 py-2 font-medium min-w-[3rem] text-center">{quantity}</span>
-                <button onClick={() => setQuantity(quantity + 1)} className="px-3 py-2 hover:bg-accent transition-colors">
+                <button
+                  onClick={() => setQuantity(quantity + 1)}
+                  aria-label="Increase quantity"
+                  className="px-3 py-2 hover:bg-accent transition-colors"
+                >
                   <Plus className="h-4 w-4" />
                 </button>
               </div>
@@ -401,9 +409,9 @@ export default function ProductDetail() {
             {/* Trust badges */}
             <div className="grid grid-cols-3 gap-3 mt-2 pt-6">
               {[
-                { icon: Truck, label: 'Fast Shipping', sub: '1-2 day processing' },
-                { icon: Shield, label: 'Quality Guaranteed', sub: 'Or we make it right' },
-                { icon: Package, label: 'Custom Sizes', sub: 'Cut to spec' },
+                { icon: Truck, label: 'Stocked Items', sub: 'Typically process in 1–2 days' },
+                { icon: CircleHelp, label: 'Sizing Help', sub: 'Confirm before ordering' },
+                { icon: Package, label: 'Custom Requests', sub: 'Contact us for options' },
               ].map((item) => (
                 <div key={item.label} className="text-center p-3" style={{ background: '#161616', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '10px' }}>
                   <item.icon className="h-5 w-5 text-blue-400 mx-auto mb-1" />

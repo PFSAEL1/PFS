@@ -1,0 +1,97 @@
+[
+  {
+    "category": "Choosing the right filter",
+    "question": "How do I find the correct paint booth filter for my booth?",
+    "answer": "Start with the booth manufacturer and model, the filter position (intake, ceiling, prefilter, or exhaust), and the exact width, height, and thickness of the existing filter. PFS Filters can cross-reference major booth brands and help confirm the correct media and size before you order."
+  },
+  {
+    "category": "Choosing the right filter",
+    "question": "What is the difference between intake and exhaust paint booth filters?",
+    "answer": "Intake filters clean incoming air to protect finish quality, while exhaust filters capture paint overspray before air leaves the booth. Intake media is selected for clean airflow and diffusion; exhaust media is selected for paint-holding capacity, capture efficiency, and acceptable pressure drop."
+  },
+  {
+    "category": "Choosing the right filter",
+    "question": "What are fiberglass paint arrestors used for?",
+    "answer": "Fiberglass paint arrestors are commonly used on the exhaust side of spray booths. Their layered fibers capture liquid paint overspray while allowing air to move through the booth. The correct gram weight, dimensions, and replacement interval depend on the booth and coating load."
+  },
+  {
+    "category": "Choosing the right filter",
+    "question": "What are tacky intake panels used for?",
+    "answer": "Tacky intake panels contain an adhesive-treated medium that captures airborne dust before it enters the spray area. They are commonly used in booth intake or air-makeup positions where clean incoming air is important to finish quality."
+  },
+  {
+    "category": "Choosing the right filter",
+    "question": "Do you carry common paint booth filter sizes?",
+    "answer": "Yes. The catalog includes common sizes such as 20 by 20, 20 by 25, and 24 by 24 inches, along with many booth-specific panels, blankets, bags, and roll widths. Product pages list the currently available variants."
+  },
+  {
+    "category": "Choosing the right filter",
+    "question": "Can PFS Filters help with a custom or hard-to-find size?",
+    "answer": "Yes. If the needed size is not listed, contact PFS Filters with the booth make, model, filter position, and measured dimensions. The team can check available custom-cut or special-order options before you purchase."
+  },
+  {
+    "category": "Replacement and maintenance",
+    "question": "How often should paint booth filters be changed?",
+    "answer": "There is no safe universal interval. Replacement frequency depends on coating volume, filter area, booth airflow, media type, and the manufacturer's pressure-drop limits. Inspect filters regularly and replace them when loading reduces airflow, the pressure reading reaches the specified limit, or overspray begins to pass through."
+  },
+  {
+    "category": "Replacement and maintenance",
+    "question": "What are signs that a spray booth filter needs replacement?",
+    "answer": "Common signs include reduced airflow, rising differential pressure, longer flash or dry times, visible filter loading, contamination on finishes, or overspray appearing downstream of an exhaust filter. Follow the booth and filter manufacturer's limits when available."
+  },
+  {
+    "category": "Replacement and maintenance",
+    "question": "Can paint booth filters be cleaned and reused?",
+    "answer": "Most disposable fiberglass, tackified, polyester, pleated, ceiling, and bag filters sold for paint booth service are intended to be replaced rather than washed. Cleaning can damage the media or change its performance. Follow the product and booth manufacturer's instructions."
+  },
+  {
+    "category": "Replacement and maintenance",
+    "question": "How should used paint booth filters be disposed of?",
+    "answer": "Disposal requirements depend on the coatings captured and local regulations. A filter containing hazardous coating residue may require different handling than ordinary solid waste. Consult the coating safety data sheet and your local environmental or waste authority."
+  },
+  {
+    "category": "Orders and shipping",
+    "question": "How quickly do paint booth filter orders ship?",
+    "answer": "Most stocked orders are processed in one to two business days. Large roll media, freight shipments, custom sizes, and special-order products can require additional time. Contact PFS Filters when a job has a fixed deadline."
+  },
+  {
+    "category": "Orders and shipping",
+    "question": "Do you ship paint booth filters nationwide?",
+    "answer": "Yes. PFS Filters ships throughout the United States. Parcel or freight service depends on product dimensions, quantity, destination, and carrier requirements."
+  },
+  {
+    "category": "Orders and shipping",
+    "question": "What is the PFS Filters return policy?",
+    "answer": "Eligible unused standard items may be returned within 10 days of purchase and are subject to a 30 percent restocking fee. Original parts and packaging are required. Shipping charges, customized items, and special orders are not refundable. Review the Returns page or contact the team before sending anything back."
+  },
+  {
+    "category": "Orders and shipping",
+    "question": "How can I request a volume or multi-booth quote?",
+    "answer": "Send the booth models, filter positions, sizes, quantities, and expected replacement frequency to orders@pfsfilters.com or call 855-496-7969. PFS Filters can review the list and prepare a quote for the actual requirement."
+  },
+  {
+    "category": "Subscribe and Save",
+    "question": "How does Subscribe and Save work?",
+    "answer": "Eligible product variants offer a Shopify subscription that creates a recurring order every month and applies the discount shown at checkout. The product page displays Subscribe and Save only when Shopify confirms a valid recurring selling plan for that exact variant."
+  },
+  {
+    "category": "Subscribe and Save",
+    "question": "Can a customer manage or cancel a filter subscription?",
+    "answer": "Yes. Customers can use the Manage Subscriptions link in the website footer or the account link provided by Shopify to review, pause, or cancel an active subscription, subject to the controls available for that contract."
+  },
+  {
+    "category": "Aerospace and compliance",
+    "question": "Do you supply filters for aerospace paint booth applications?",
+    "answer": "Yes. PFS Filters offers aerospace-oriented panels, blankets, pocket bags, roll media, and multi-stage filtration components. Product selection depends on the booth, coating system, airflow, and facility requirements."
+  },
+  {
+    "category": "Aerospace and compliance",
+    "question": "Does buying a filter automatically make a booth EPA Method 319 or NESHAP compliant?",
+    "answer": "No. Compliance depends on the complete filtration system, installation, airflow, coating process, testing, recordkeeping, and applicable permit conditions. PFS Filters can help identify media for a system, but the facility must verify its regulatory obligations and required performance."
+  },
+  {
+    "category": "About PFS Filters",
+    "question": "Who is PFS Filters?",
+    "answer": "PFS Filters is a division of PFS Spray Booths serving automotive, industrial, woodworking, aerospace, and related finishing operations. The team is located at 1400 Airport Boulevard in Santa Rosa, California."
+  }
+]

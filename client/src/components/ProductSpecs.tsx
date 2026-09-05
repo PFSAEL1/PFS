@@ -1,4 +1,4 @@
-// ProductSpecs — collapsible technical spec table for the product detail page.
+// ProductSpecs — catalog fields sourced from the current Shopify product record.
 import { useState } from 'react';
 import { ChevronDown, List } from 'lucide-react';
 import { getProductSpecs } from '@/lib/productSignals';
@@ -18,7 +18,7 @@ export const ProductSpecs = ({ product }: { product: any }) => {
       >
         <span className="flex items-center gap-2.5 text-lg font-semibold" style={{ color: '#ffffff' }}>
           <List className="h-4 w-4 shrink-0" style={{ color: 'rgba(59,130,246,0.8)' }} aria-hidden="true" />
-          Technical Specifications
+          Catalog Details
         </span>
         <ChevronDown
           className={`h-5 w-5 text-white/60 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
@@ -43,11 +43,11 @@ export const ProductSpecs = ({ product }: { product: any }) => {
             </tbody>
           </table>
           <p className="px-5 py-3 text-xs text-white/55" style={{ background: '#1e1e1e' }}>
-            Specs are typical for this product family. Need to confirm an exact booth fit?{' '}
+            These details come from the current catalog record. Confirm actual dimensions, media, performance data, and booth fit before ordering.{' '}
             <a href="/contact" className="text-blue-400 hover:underline">
               Contact us
             </a>{' '}
-            and we’ll match it.
+            for help.
           </p>
         </div>
       )}

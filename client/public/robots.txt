@@ -1,9 +1,33 @@
 User-agent: *
 Allow: /
-
-# Disallow internal/auth pages from being indexed
+Disallow: /api/
 Disallow: /auth
+Disallow: /dashboard
 Disallow: /filter-database
-Disallow: /admin
+Disallow: /thank-you
+Disallow: /submit-review
 
-Sitemap: https://pfsfilters.com/sitemap.xml
+# AI search and assistant crawlers are welcome on the same public content users see.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.pfsfilters.com/sitemap.xml
+Host: www.pfsfilters.com

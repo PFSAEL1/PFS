@@ -60,10 +60,10 @@ const filterCategories = [
   {
     title: 'Roll Media',
     position: 'INTAKE / EXHAUST',
-    desc: 'Continuous roll filtration cut to any length for any booth configuration. Available in fiberglass, polyester, and synthetic blends.',
+    desc: 'Roll filtration media in the widths, lengths, and constructions shown in the current catalog. Verify the intended filter stage before ordering.',
     href: '/category/roll-media',
     image: '/images/filters/roll-media.jpg',
-    tags: ['Custom Cut', 'Bulk'],
+    tags: ['Roll Media', 'Bulk'],
     featured: false,
   },
   {

@@ -11,6 +11,19 @@ interface SEOProps {
 }
 
 const DEFAULT_OG_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/og-image_9075de08.jpg';
+const SITE_ORIGIN = 'https://www.pfsfilters.com';
+
+const normalizeCanonical = (value?: string) => {
+  const candidate = value || (typeof window !== 'undefined' ? window.location.pathname : '/');
+  const url = new URL(candidate, SITE_ORIGIN);
+
+  url.protocol = 'https:';
+  url.host = 'www.pfsfilters.com';
+  url.search = '';
+  url.hash = '';
+
+  return url.toString().replace(/\/$/, url.pathname === '/' ? '/' : '');
+};
 
 export const SEO = ({
   title,
@@ -22,14 +35,17 @@ export const SEO = ({
   noIndex = false,
 }: SEOProps) => {
   const fullTitle = title.includes('PFS Filters') ? title : `${title} | PFS Filters`;
-  const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : 'https://pfsfilters.com');
+  const currentUrl = normalizeCanonical(canonical);
 
   return (
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
-      {canonical && <link rel="canonical" href={canonical} />}
-      {noIndex && <meta name="robots" content="noindex,nofollow" />}
+      <link rel="canonical" href={currentUrl} />
+      <meta
+        name="robots"
+        content={noIndex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'}
+      />
 
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />

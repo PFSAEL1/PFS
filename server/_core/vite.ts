@@ -58,10 +58,20 @@ export function serveStatic(app: Express) {
     );
   }
 
-  app.use(express.static(distPath));
+  app.use((req, res, next) => {
+    if (req.method !== "GET" && req.method !== "HEAD") return next();
+    const cleanPath = decodeURIComponent(req.path).replace(/^\/+/, "");
+    if (!cleanPath || path.extname(cleanPath)) return next();
+    const htmlPath = path.resolve(distPath, `${cleanPath}.html`);
+    if (!htmlPath.startsWith(distPath) || !fs.existsSync(htmlPath)) return next();
+    return res.sendFile(htmlPath);
+  });
 
-  // fall through to index.html if the file doesn't exist
+  app.use(express.static(distPath, { extensions: ["html"], redirect: false }));
+
+  // The build emits an HTML file for every public route. Unknown paths must
+  // return a genuine 404 so crawlers do not index soft-error pages.
   app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+    res.status(404).sendFile(path.resolve(distPath, "404.html"));
   });
 }

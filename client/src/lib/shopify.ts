@@ -171,7 +171,7 @@ export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string;
   'roll-media': {
     collectionHandle: 'roll-media',
     title: 'Roll Media',
-    description: 'Continuous roll filtration cut to any length for any booth configuration. Available in multiple densities for both intake and exhaust.',
+    description: 'Roll filtration media in current catalog widths, lengths, and constructions. Confirm the intended filter stage and dimensions before ordering.',
     position: 'INTAKE / EXHAUST',
   },
   'merv-filters': {

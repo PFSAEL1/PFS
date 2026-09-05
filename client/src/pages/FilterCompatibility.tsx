@@ -218,7 +218,7 @@ export default function FilterCompatibility() {
               </div>
               <h2 className="text-2xl font-bold mb-2 text-white">We'll match it for you</h2>
               <p className="text-white/80 mb-6">
-                We don't have <strong className="text-white">{query}</strong>{boothModel ? ` ${boothModel}` : ''} in our quick-match list yet, but our team matches filters for every booth brand. Browse our filters or send us your booth details and we'll identify the exact fit — and cut custom sizes to spec.
+                We don't have <strong className="text-white">{query}</strong>{boothModel ? ` ${boothModel}` : ''} in our quick-match list yet. Browse the current catalog or send the booth make and model, filter position, actual dimensions, and a clear photo so the PFS team can review the available options.
               </p>
               <div className="flex gap-3 justify-center flex-wrap">
                 <Link href="/shop">

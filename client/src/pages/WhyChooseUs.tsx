@@ -16,20 +16,20 @@ const breadcrumbSchema = createBreadcrumbSchema([
 ]);
 
 const features = [
-  { icon: Shield, title: 'Proven Quality', description: 'Every filter meets rigorous quality standards for overspray capture efficiency, airflow resistance, and service life.' },
-  { icon: Truck, title: 'Fast Nationwide Shipping', description: 'Most orders ship within 1–2 business days with delivery in 3–5 business days anywhere in the US.' },
-  { icon: TrendingUp, title: 'Competitive Pricing', description: 'Direct-from-manufacturer pricing means you get premium quality at competitive prices, with bulk discounts available.' },
-  { icon: Star, title: 'Expert Recommendations', description: "Tell us your booth make/model and we'll recommend the exact filters you need. No guesswork required." },
+  { icon: Shield, title: 'Catalog Transparency', description: 'Product pages show current variants, pricing, availability, and catalog details without invented test figures or identifiers.' },
+  { icon: Truck, title: 'Fulfillment Clarity', description: 'Stocked items typically process in 1–2 business days; custom, freight, special-order, and backordered timing varies.' },
+  { icon: TrendingUp, title: 'Volume Quote Path', description: 'Facilities can request a documented quote for multi-booth or volume needs instead of relying on an assumed discount.' },
+  { icon: Star, title: 'Fitment Review', description: "Send the booth make and model, filter position, actual dimensions, and a clear photo so we can review the available options." },
   { icon: Award, title: 'PFS Heritage', description: 'Backed by decades of spray booth expertise from PFS, a trusted name in the industry since our founding.' },
-  { icon: Wrench, title: 'Expert Support', description: 'Comprehensive technical support and guidance to help you select the perfect filters for your specific application.' },
+  { icon: Wrench, title: 'Product Support', description: 'Get help reviewing catalog products, custom requests, order questions, and the details needed before purchase.' },
 ];
 
 const benefits = [
   'Managed booth filter database — we track every position for you',
-  'Auto-reorder scheduling tied to your actual change intervals',
-  'AI-powered filter identification — scan to reorder instantly',
-  'Membership discounts up to 5% plus free monthly filter sets',
-  'Booth-specific recommendations — we know your exact model',
+  'Monthly Shopify subscriptions with 5% off on eligible products',
+  'Photo-assisted candidate review with fitment verification',
+  'Membership and subscription programs presented separately',
+  'Booth-specific review using model, position, and dimensions',
   'PFS-backed expertise: 30+ years building the booths these filters go in',
 ];
 
@@ -38,7 +38,7 @@ export default function WhyChooseUs() {
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Why Choose PFS Filters | Premium Spray Booth Filtration Expert"
-        description="Choose PFS Filters for premium paint booth filters backed by PFS expertise. Industry-leading quality, custom filtration solutions, expert technical support, and competitive pricing on all spray booth filters."
+        description="Choose PFS Filters for paint booth filter catalog transparency, fitment review, qualified fulfillment guidance, and support backed by PFS Spray Booths experience."
         canonical="https://pfsfilters.com/why-choose-us"
         structuredData={breadcrumbSchema}
       />
@@ -54,7 +54,7 @@ export default function WhyChooseUs() {
             Why Choose PFS Filters?
           </h1>
           <p className="text-xl text-white/50 max-w-3xl mx-auto">
-            Premium <strong>spray booth filtration solutions</strong> backed by decades of PFS expertise, delivering superior air quality and finish protection.
+            Paint booth filtration products backed by decades of PFS experience, with clearer catalog data and a review path when fitment is uncertain.
           </p>
         </div>
       </section>
@@ -107,7 +107,7 @@ export default function WhyChooseUs() {
         <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold mb-4 text-white pfs-heading-animate">Ready to Upgrade Your Filtration?</h2>
           <p className="text-white/60 mb-8">
-            Join 1,000+ shops that trust PFS Filters for their spray booth filtration needs.
+            Browse current products or send the booth details for help reviewing a custom or hard-to-find request.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/shop">

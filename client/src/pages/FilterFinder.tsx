@@ -115,8 +115,8 @@ export default function FilterFinder() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Filter Finder - Find Exact Filters for Your Paint Booth | PFS Filters"
-        description="Find the exact replacement filters for your paint booth in 60 seconds. Select your booth type, brand, and model — we'll show you the ceiling media, exhaust arrestors, and pre-filters that fit."
+        title="Paint Booth Filter Finder by Booth, Stage & Size | PFS Filters"
+        description="Narrow paint booth filter options by booth type, brand, model, filter stage, and size. Verify the product record and actual dimensions before ordering."
         canonical="https://pfsfilters.com/filter-finder"
         structuredData={breadcrumbSchema}
       />
@@ -141,7 +141,7 @@ export default function FilterFinder() {
               {step === 1 && 'Pick the booth airflow type that matches yours. We use this to narrow to brands and models that fit.'}
               {step === 2 && `Booth type: ${BOOTH_TYPES[selectedType!]?.label}. ${filteredBrands.length} brands make this booth type.`}
               {step === 3 && `Booth type: ${BOOTH_TYPES[selectedType!]?.label} · Brand: ${selectedBrand?.name}. ${filteredModels.length} models catalogued.`}
-              {step === 4 && `${selectedBrand?.name} ${selectedModel?.name} — here are the filters that fit your booth.`}
+              {step === 4 && `${selectedBrand?.name} ${selectedModel?.name} — review these candidate filter options and confirm the details before ordering.`}
             </p>
           </div>
 
@@ -332,11 +332,11 @@ export default function FilterFinder() {
       <section className="pb-16 px-4">
         <div className="max-w-3xl mx-auto rounded-2xl border border-white/10 bg-gradient-to-br from-[#0c1525] to-[#0a0a0a] p-8 text-center">
           <h2 className="text-2xl font-bold text-white mb-2">Need help finding your filters?</h2>
-          <p className="text-white/70 mb-6">Our team matches filters for every booth brand and model. Call us or send your booth details — we'll identify the exact fit and ship same-week.</p>
+          <p className="text-white/70 mb-6">Call us or send the booth make and model, filter position, actual dimensions, and a clear photo. We will review the available catalog options or a custom-size request.</p>
           <div className="flex gap-3 justify-center flex-wrap">
-            <a href="tel:+18885457715">
+            <a href="tel:+18554967969">
               <Button className="bg-blue-600 hover:bg-blue-500 text-white gap-2">
-                <Phone className="w-4 h-4" /> (888) 545-7715
+                <Phone className="w-4 h-4" /> 855-496-7969
               </Button>
             </a>
             <Link href="/contact">

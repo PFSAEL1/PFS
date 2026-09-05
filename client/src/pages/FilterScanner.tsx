@@ -17,8 +17,8 @@ export default function FilterScanner() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="AI Filter Scanner - Identify & Reorder Paint Booth Filters Instantly"
-        description="Use our AI-powered filter scanner to photograph your existing paint booth filters and instantly identify them for reordering. Available with Gold and Platinum memberships."
+        title="Photo-Assisted Paint Booth Filter Review | PFS Filters"
+        description="Use a filter photo to narrow catalog candidates, then verify the booth position, label, and actual dimensions before ordering."
         canonical="https://pfsfilters.com/filter-scanner"
         structuredData={breadcrumbSchema}
       />
@@ -37,7 +37,7 @@ export default function FilterScanner() {
             Filter Scanner
           </h1>
           <p className="text-xl text-white/50 max-w-2xl mx-auto">
-            Photograph your existing filters and our AI instantly identifies them — so you can reorder the exact right product in seconds.
+            Photograph the filter and label to narrow catalog candidates. Verify the booth position and actual dimensions before ordering.
           </p>
           </div>
         </div>
@@ -54,8 +54,8 @@ export default function FilterScanner() {
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {[
             { icon: Camera, step: '1', title: 'Take a Photo', desc: 'Photograph your existing filter — front, back, or the label.' },
-            { icon: Search, step: '2', title: 'AI Identifies It', desc: 'Our AI analyzes the image and matches it to our product catalog.' },
-            { icon: ShoppingCart, step: '3', title: 'Add to Cart', desc: 'Instantly add the exact replacement to your cart and checkout.' },
+            { icon: Search, step: '2', title: 'Review Candidates', desc: 'Image analysis can narrow possible catalog matches but does not prove fitment.' },
+            { icon: ShoppingCart, step: '3', title: 'Verify and Order', desc: 'Confirm the filter stage, label, and actual dimensions before adding a product to your cart.' },
           ].map((item) => (
             <Card key={item.step} className="text-center">
               <CardContent className="pt-8 pb-6">

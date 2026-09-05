@@ -145,8 +145,8 @@ export default function ShopByBoothType() {
     <div className="min-h-screen bg-[#040404] text-white">
       <style dangerouslySetInnerHTML={{ __html: WIND_ANIMATION_CSS }} />
       <SEO
-        title="Shop Paint Booth Filters by Booth Type — Downdraft, Crossdraft, Semi-Downdraft | PFS Filters"
-        description="Find the right filters for your booth airflow type. Browse replacement filters for downdraft, crossdraft, semi-downdraft, side-downdraft, open face, and prep station spray booths."
+        title="Paint Booth Filter Guidance by Airflow Type | PFS Filters"
+        description="Compare typical filter positions for downdraft, crossdraft, semi-downdraft, side-downdraft, open-face, and prep-station booths, then verify the model and dimensions."
         canonical="https://pfsfilters.com/shop-by-booth-type"
         structuredData={breadcrumbSchema}
       />
@@ -177,7 +177,7 @@ export default function ShopByBoothType() {
               </span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-              Your booth's airflow pattern determines which filters go where. Select your configuration to find exact filter matches for your booth.
+              Your booth's airflow pattern helps determine which filter stages are used. Select the configuration to review typical positions, then confirm the model and actual dimensions.
             </p>
           </div>
         </div>
