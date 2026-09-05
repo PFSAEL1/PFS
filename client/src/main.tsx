@@ -6,9 +6,17 @@ import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
 import { getLoginUrl } from "./const";
+import { recoverFromStaleChunk } from "./lib/chunkRecovery";
 import "./index.css";
 
 const queryClient = new QueryClient();
+
+window.addEventListener('vite:preloadError', (event) => {
+  const preloadEvent = event as Event & { payload?: unknown };
+  if (recoverFromStaleChunk(preloadEvent.payload)) {
+    event.preventDefault();
+  }
+});
 
 const redirectToLoginIfUnauthorized = (error: unknown) => {
   if (!(error instanceof TRPCClientError)) return;

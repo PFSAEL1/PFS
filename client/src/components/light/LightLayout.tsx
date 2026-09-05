@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 
 // PFS Filters logo — transparent version
-const PFS_LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo-transparent_a4e4f7d6.png";
+const PFS_LOGO = "/images/brands/pfs-logo-wide.png";
 
 const navLinks = [
   { label: "Products", href: "/light/shop" },

@@ -7,7 +7,7 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Plane, Wind, Shield, Wrench, ChevronDown, Phone, ArrowRight } from 'lucide-react';
 
-const LOGO_URL = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo-transparent_e33888bf.png';
+const LOGO_URL = '/images/brands/pfs-logo-wide.png';
 
 export default function AerospaceHub() {
   const [guideOpen, setGuideOpen] = useState(false);
