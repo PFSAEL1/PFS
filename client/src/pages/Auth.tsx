@@ -8,7 +8,7 @@ import { Loader2, CheckCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 
-const LOGO_URL = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-filters-logo-transparent_e33888bf.png';
+const LOGO_URL = '/images/brands/pfs-logo-wide.png';
 
 // Synchronous mobile detection - runs before first render
 const IS_MOBILE = typeof window !== 'undefined' && (
