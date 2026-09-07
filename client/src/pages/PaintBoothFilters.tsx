@@ -92,8 +92,8 @@ export default function PaintBoothFilters() {
     <div className="min-h-screen bg-[#040404]">
       <Navigation />
       <SEO
-        title="Paint Booth Filters by Type, Size & Booth | PFS Filters"
-        description="Browse paint booth intake, ceiling, prefilter, and exhaust media by type, size, and booth brand. Get sizing help and monthly 5% Subscribe & Save on eligible products."
+        title="Paint Booth Filters — Every Brand, Every Size | PFS Filters"
+        description="Paint booth filters for every booth brand — exhaust, intake, ceiling, prefilter, and Andreae. In stock, ships fast. Save 5% on Subscribe & Save items."
         canonical="https://www.pfsfilters.com/paint-booth-filters"
         structuredData={faqSchema}
       />

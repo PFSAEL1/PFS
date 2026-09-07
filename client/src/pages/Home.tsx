@@ -22,8 +22,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#040404]">
       <SEO
-        title="Paint Booth Filters & Spray Booth Filtration | PFS Filters"
-        description="Shop paint booth filters backed by 30+ years of PFS Spray Booths expertise. Find fiberglass arrestors, intake panels, ceiling media, roll media, and booth-specific replacements."
+        title="Paint Booth Filters for Every Booth Brand | PFS Filters"
+        description="Paint booth filters for every booth brand — exhaust, intake, ceiling, prefilter, and Andreae. Backed by 30+ years of PFS Spray Booths. In stock, ships fast."
         canonical="https://www.pfsfilters.com/"
         structuredData={combinedSchema}
       />

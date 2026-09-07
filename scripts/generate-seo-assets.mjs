@@ -60,9 +60,9 @@ const categories = [
 ];
 
 const staticRoutes = [
-  { path: '/', title: 'Paint Booth Filters & Spray Booth Filtration | PFS Filters', description: 'Shop paint booth filters backed by 30+ years of PFS Spray Booths expertise. Find fiberglass arrestors, intake panels, ceiling media, roll media, and booth-specific replacements.', priority: '1.0', changefreq: 'weekly' },
+  { path: '/', title: 'Paint Booth Filters for Every Booth Brand | PFS Filters', description: 'Paint booth filters for every booth brand — exhaust, intake, ceiling, prefilter, and Andreae. Backed by 30+ years of PFS Spray Booths. In stock, ships fast.', priority: '1.0', changefreq: 'weekly' },
   { path: '/shop', title: 'Shop Paint Booth Filters, Intake & Exhaust Media | PFS Filters', description: 'Shop fiberglass paint arrestors, tacky intake panels, ceiling media, MERV filters, roll media, and booth-specific replacements.', priority: '1.0', changefreq: 'daily' },
-  { path: '/paint-booth-filters', title: 'Paint Booth Filters for Automotive & Industrial Booths | PFS', description: 'Compare intake, ceiling, prefilter, and exhaust filtration for automotive and industrial paint booths.', priority: '0.9', changefreq: 'monthly' },
+  { path: '/paint-booth-filters', title: 'Paint Booth Filters — Every Brand, Every Size | PFS Filters', description: 'Paint booth filters for every booth brand — exhaust, intake, ceiling, prefilter, and Andreae. In stock, ships fast. Save 5% on Subscribe & Save items.', priority: '0.9', changefreq: 'monthly' },
   { path: '/filter-finder', title: 'Paint Booth Filter Finder by Booth, Stage & Size | PFS Filters', description: 'Narrow paint booth filter options by booth type, brand, model, filter stage, and size. Verify the product record and actual dimensions before ordering.', priority: '0.9', changefreq: 'monthly' },
   { path: '/shop-by-size', title: 'Shop Paint Booth Filters by Size | PFS Filters', description: 'Find common paint booth filter sizes and request help with custom or hard-to-find dimensions.', priority: '0.8', changefreq: 'weekly' },
   { path: '/shop-by-type', title: 'Shop Paint Booth Filters by Type | PFS Filters', description: 'Browse fiberglass arrestors, tacky panels, ceiling blankets, roll media, MERV filters, and prefilters.', priority: '0.8', changefreq: 'weekly' },
