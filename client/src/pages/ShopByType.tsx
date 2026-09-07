@@ -9,8 +9,8 @@ import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { ArrowRight, Wind, Filter } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Shop by Type', url: 'https://pfsfilters.com/shop-by-type' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Shop by Type', url: 'https://www.pfsfilters.com/shop-by-type' },
 ]);
 
 const filterTypes = [
@@ -78,7 +78,7 @@ export default function ShopByType() {
       <SEO
         title="Shop Paint Booth Filters by Type - Intake, Exhaust, Ceiling & More"
         description="Browse paint booth filters by type: fiberglass paint arrestors (exhaust), tacky panel filters (intake), ceiling blankets, roll media, and MERV-rated filters."
-        canonical="https://pfsfilters.com/shop-by-type"
+        canonical="https://www.pfsfilters.com/shop-by-type"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

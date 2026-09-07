@@ -34,7 +34,7 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Store",
+        "@type": ["Store", "LocalBusiness"],
         "@id": "https://www.pfsfilters.com/#store",
         "name": "PFS Filters",
         "url": "https://www.pfsfilters.com/",
@@ -44,7 +44,10 @@
         "telephone": "+1-855-496-7969",
         "email": "orders@pfsfilters.com",
         "priceRange": "$$",
-        "areaServed": "US",
+        "areaServed": [
+          { "@type": "Country", "name": "United States" },
+          { "@type": "State", "name": "California" }
+        ],
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "1400 Airport Blvd",

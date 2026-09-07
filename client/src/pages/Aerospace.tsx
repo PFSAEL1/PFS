@@ -12,11 +12,11 @@ export default function Aerospace() {
     '@type': 'CollectionPage',
     name: 'Aerospace Paint Booth Filters',
     description: 'Shop aerospace-grade filtration media: HEPA-XFP multi-pocket bag filters, NESHAP 319 final-stage bags, CG100 2-pocket bags, ME/PT intake panels, SFR blankets, and CPA roll media for aircraft finishing and MRO facilities.',
-    url: 'https://pfsfilters.com/aerospace',
+    url: 'https://www.pfsfilters.com/aerospace',
     provider: {
       '@type': 'Organization',
       name: 'PFS Filters',
-      url: 'https://pfsfilters.com',
+      url: 'https://www.pfsfilters.com',
     },
   };
 
@@ -25,7 +25,7 @@ export default function Aerospace() {
       <SEO
         title="Aerospace Paint Booth Filters | HEPA-XFP, NESHAP 319 Bags & MRO Media | PFS Filters"
         description="Shop aerospace-grade paint booth filtration: HEPA-XFP multi-pocket bags, NESHAP 319 final-stage filters, CG100 2-pocket bags, ME/PT intake panels, SFR blankets & CPA roll media. Built for MRO and aircraft finishing."
-        canonical="https://pfsfilters.com/aerospace"
+        canonical="https://www.pfsfilters.com/aerospace"
         structuredData={structuredData}
       />
       <Navigation />

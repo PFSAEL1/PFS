@@ -37,7 +37,7 @@ export default function PfsVitra() {
       <SEO
         title="PFS VITRA - Glass Shield Washable Coating | PFS Filters"
         description="PFS VITRA washable glass shield coating. Protect your paint booth glass from overspray. Easy to apply, easy to wash off. Available from PFS Filters."
-        canonical="https://pfsfilters.com/consumables/pfs-vitra"
+        canonical="https://www.pfsfilters.com/consumables/pfs-vitra"
       />
       <Navigation />
 

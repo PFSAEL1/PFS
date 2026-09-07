@@ -283,7 +283,7 @@ export default function Auth() {
         <SEO
           title="Set Your Password - PFS Filters"
           description="Set your password to access your PFS Filters account."
-          canonical="https://pfsfilters.com/auth"
+          canonical="https://www.pfsfilters.com/auth"
           noIndex
         />
         <div className="w-full max-w-sm">
@@ -360,7 +360,7 @@ export default function Auth() {
         <SEO
           title="Reset Password - PFS Filters"
           description="Reset your PFS Filters account password."
-          canonical="https://pfsfilters.com/auth"
+          canonical="https://www.pfsfilters.com/auth"
           noIndex
         />
         <div className="w-full max-w-sm">
@@ -424,7 +424,7 @@ export default function Auth() {
         <SEO
           title="Sign In - PFS Filters Account"
           description="Sign in to your PFS Filters account to manage orders, track memberships, and access exclusive discounts."
-          canonical="https://pfsfilters.com/auth"
+          canonical="https://www.pfsfilters.com/auth"
           noIndex
         />
 
@@ -591,7 +591,7 @@ export default function Auth() {
       <SEO
         title="Sign In - PFS Filters Account"
         description="Sign in to your PFS Filters account to manage orders, track memberships, and access exclusive discounts."
-        canonical="https://pfsfilters.com/auth"
+        canonical="https://www.pfsfilters.com/auth"
         noIndex
       />
       <ParticleBackground />

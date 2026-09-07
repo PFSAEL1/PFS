@@ -11,8 +11,8 @@ import {
 } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Why Choose Us', url: 'https://pfsfilters.com/why-choose-us' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Why Choose Us', url: 'https://www.pfsfilters.com/why-choose-us' },
 ]);
 
 const features = [
@@ -39,7 +39,7 @@ export default function WhyChooseUs() {
       <SEO
         title="Why Choose PFS Filters | Premium Spray Booth Filtration Expert"
         description="Choose PFS Filters for paint booth filter catalog transparency, fitment review, qualified fulfillment guidance, and support backed by PFS Spray Booths experience."
-        canonical="https://pfsfilters.com/why-choose-us"
+        canonical="https://www.pfsfilters.com/why-choose-us"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

@@ -17,7 +17,7 @@ export default function AerospaceHub() {
       <SEO
         title="Aerospace Paint Booth Filters & MRO Filtration | PFS Filters"
         description="Premium aerospace paint booth filtration solutions. Shop ceiling diffusion media and request custom multi-stage exhaust systems for MRO and aircraft finishing."
-        canonical="https://pfsfilters.com/industries/aerospace-paint-booth-filters"
+        canonical="https://www.pfsfilters.com/industries/aerospace-paint-booth-filters"
       />
       <Navigation />
 

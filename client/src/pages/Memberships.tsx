@@ -13,8 +13,8 @@ import { toast } from 'sonner';
 import { TierMedal } from '@/components/TierMedal';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Memberships', url: 'https://pfsfilters.com/memberships' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Memberships', url: 'https://www.pfsfilters.com/memberships' },
 ]);
 
 const tiers = [
@@ -135,7 +135,7 @@ export default function Memberships() {
       <SEO
         title="Paint Booth Filter Memberships - Save on Every Order"
         description="Join PFS Filters membership for exclusive discounts, auto-reorder scheduling, AI filter scanner, and dedicated support. Plans from $29/month. Save 6-10% on every order."
-        canonical="https://pfsfilters.com/memberships"
+        canonical="https://www.pfsfilters.com/memberships"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

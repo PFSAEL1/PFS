@@ -5,8 +5,8 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Privacy Policy', url: 'https://pfsfilters.com/privacy-policy' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Privacy Policy', url: 'https://www.pfsfilters.com/privacy-policy' },
 ]);
 
 export default function PrivacyPolicy() {
@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
       <SEO
         title="Privacy Policy - PFS Filters"
         description="Read the PFS Filters privacy policy to understand how we collect, use, and protect your personal information."
-        canonical="https://pfsfilters.com/privacy-policy"
+        canonical="https://www.pfsfilters.com/privacy-policy"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

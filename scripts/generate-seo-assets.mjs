@@ -130,6 +130,10 @@ const productRoutes = products.map((product) => {
     ? 'https://schema.org/InStock'
     : 'https://schema.org/OutOfStock';
   const pathname = `/product/${product.handle}`;
+  // sku / vendor come from the Shopify snapshot; guarded so the schema still
+  // validates for older snapshots taken before those fields were queried.
+  const sku = product.variants?.edges?.[0]?.node?.sku || undefined;
+  const brandName = product.vendor || 'PFS Filters';
   return {
     path: pathname,
     title: `${product.title} | PFS Filters`,
@@ -146,7 +150,8 @@ const productRoutes = products.map((product) => {
       description: stripMarkdown(product.description),
       image: image ? [image] : undefined,
       url: absoluteUrl(pathname),
-      brand: { '@type': 'Brand', name: 'PFS Filters' },
+      ...(sku ? { sku } : {}),
+      brand: { '@type': 'Brand', name: brandName },
       offers: {
         '@type': 'Offer',
         price,

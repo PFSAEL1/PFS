@@ -8,8 +8,8 @@ import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { ArrowRight, Award } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Brands', url: 'https://pfsfilters.com/brands' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Brands', url: 'https://www.pfsfilters.com/brands' },
 ]);
 
 const brands = [
@@ -45,7 +45,7 @@ export default function Brands() {
       <SEO
         title="Paint Booth Filter Brands - PFS Filters, Koch, Permatron & More"
         description="Browse paint booth filter and media brands represented in the current PFS Filters catalog. Verify the product record, filter stage, and dimensions before ordering."
-        canonical="https://pfsfilters.com/brands"
+        canonical="https://www.pfsfilters.com/brands"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

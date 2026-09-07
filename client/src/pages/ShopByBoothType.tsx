@@ -16,8 +16,8 @@ import {
 } from '@/components/AirflowDiagrams';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Shop by Booth Type', url: 'https://pfsfilters.com/shop-by-booth-type' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Shop by Booth Type', url: 'https://www.pfsfilters.com/shop-by-booth-type' },
 ]);
 
 // Wind animation CSS injected once
@@ -147,7 +147,7 @@ export default function ShopByBoothType() {
       <SEO
         title="Paint Booth Filter Guidance by Airflow Type | PFS Filters"
         description="Compare typical filter positions for downdraft, crossdraft, semi-downdraft, side-downdraft, open-face, and prep-station booths, then verify the model and dimensions."
-        canonical="https://pfsfilters.com/shop-by-booth-type"
+        canonical="https://www.pfsfilters.com/shop-by-booth-type"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

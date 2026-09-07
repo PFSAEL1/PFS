@@ -6,8 +6,8 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Contact', url: 'https://pfsfilters.com/contact' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Contact', url: 'https://www.pfsfilters.com/contact' },
 ]);
 
 export default function Contact() {
@@ -16,7 +16,7 @@ export default function Contact() {
       <SEO
         title="Contact PFS Filters - Get a Custom Quote or Filter Help"
         description="Contact PFS Filters for custom filter quotes, bulk pricing, or technical support. Call 855-496-7969 or email orders@pfsfilters.com. We match any booth make/model."
-        canonical="https://pfsfilters.com/contact"
+        canonical="https://www.pfsfilters.com/contact"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

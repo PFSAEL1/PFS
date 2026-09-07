@@ -109,9 +109,9 @@ export default function ProductDetail() {
     : memberBasePrice;
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: 'https://pfsfilters.com' },
-    { name: 'Shop', url: 'https://pfsfilters.com/shop' },
-    { name: product.title, url: `https://pfsfilters.com/product/${handle}` },
+    { name: 'Home', url: 'https://www.pfsfilters.com' },
+    { name: 'Shop', url: 'https://www.pfsfilters.com/shop' },
+    { name: product.title, url: `https://www.pfsfilters.com/product/${handle}` },
   ]);
 
   const productSchema = createProductSchema({
@@ -120,7 +120,9 @@ export default function ProductDetail() {
     image: mainImage,
     price: displayPrice.toFixed(2),
     currency,
-    url: `https://pfsfilters.com/product/${handle}`,
+    sku: selectedVariant?.sku || undefined,
+    brand: product.vendor || undefined,
+    url: `https://www.pfsfilters.com/product/${handle}`,
     availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
   });
 
@@ -172,7 +174,7 @@ export default function ProductDetail() {
       <SEO
         title={`${product.title} - PFS Filters`}
         description={product.description || `Buy ${product.title} from PFS Filters. Premium paint booth filtration products with fast nationwide shipping.`}
-        canonical={`https://pfsfilters.com/product/${handle}`}
+        canonical={`https://www.pfsfilters.com/product/${handle}`}
         ogImage={mainImage}
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
       />
@@ -409,7 +411,7 @@ export default function ProductDetail() {
             {/* Trust badges */}
             <div className="grid grid-cols-3 gap-3 mt-2 pt-6">
               {[
-                { icon: Truck, label: 'Stocked Items', sub: 'Typically process in 1–2 days' },
+                { icon: Truck, label: 'Fast Shipping', sub: 'Ships fast nationwide' },
                 { icon: CircleHelp, label: 'Sizing Help', sub: 'Confirm before ordering' },
                 { icon: Package, label: 'Custom Requests', sub: 'Contact us for options' },
               ].map((item) => (

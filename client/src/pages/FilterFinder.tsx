@@ -19,8 +19,8 @@ import {
 } from '@/components/AirflowDiagrams';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Filter Finder', url: 'https://pfsfilters.com/filter-finder' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Filter Finder', url: 'https://www.pfsfilters.com/filter-finder' },
 ]);
 
 // Map booth type to diagram component
@@ -117,7 +117,7 @@ export default function FilterFinder() {
       <SEO
         title="Paint Booth Filter Finder by Booth, Stage & Size | PFS Filters"
         description="Narrow paint booth filter options by booth type, brand, model, filter stage, and size. Verify the product record and actual dimensions before ordering."
-        canonical="https://pfsfilters.com/filter-finder"
+        canonical="https://www.pfsfilters.com/filter-finder"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

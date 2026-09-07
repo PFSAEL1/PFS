@@ -1,8 +1,8 @@
-import { CircleHelp, Clock, MapPin, RefreshCw, Scissors, Wind } from 'lucide-react';
+import { CircleHelp, MapPin, RefreshCw, Scissors, Truck, Wind } from 'lucide-react';
 
 const ITEMS = [
   { icon: Wind, text: 'Paint booth intake and exhaust media' },
-  { icon: Clock, text: 'Stocked items typically process in 1–2 business days' },
+  { icon: Truck, text: 'Ships fast to every state' },
   { icon: Scissors, text: 'Custom-size options available by quote' },
   { icon: RefreshCw, text: 'Monthly Subscribe & Save on eligible products' },
   { icon: CircleHelp, text: 'Sizing help by phone or email' },

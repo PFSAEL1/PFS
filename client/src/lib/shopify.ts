@@ -38,6 +38,7 @@ export interface ShopifyProduct {
     handle: string;
     description: string;
     productType: string;
+    vendor?: string;
     tags: string[];
     priceRange: {
       minVariantPrice: {
@@ -58,6 +59,7 @@ export interface ShopifyProduct {
         node: {
           id: string;
           title: string;
+          sku?: string | null;
           price: {
             amount: string;
             currencyCode: string;
@@ -286,6 +288,7 @@ const PRODUCT_FIELDS = `
   handle
   description
   productType
+  vendor
   tags
   priceRange {
     minVariantPrice {
@@ -306,6 +309,7 @@ const PRODUCT_FIELDS = `
       node {
         id
         title
+        sku
         price {
           amount
           currencyCode
@@ -382,6 +386,7 @@ const GET_PRODUCT_BY_HANDLE_QUERY = `
       description
       handle
       productType
+      vendor
       tags
       priceRange {
         minVariantPrice {
@@ -402,6 +407,7 @@ const GET_PRODUCT_BY_HANDLE_QUERY = `
           node {
             id
             title
+            sku
             price {
               amount
               currencyCode

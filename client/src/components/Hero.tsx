@@ -135,7 +135,7 @@ export const Hero = () => {
               style={{ animationDelay: '0.55s', animationFillMode: 'backwards' }}
             >
               {[
-                { icon: Truck, label: 'Stocked Items: 1–2 Business Days' },
+                { icon: Truck, label: 'Ships Fast Nationwide' },
                 { icon: Shield, label: 'Booth-Specific Filter Tracking' },
                 { icon: CircleHelp, label: 'Sizing Help Available' },
               ].map((badge, idx) => (

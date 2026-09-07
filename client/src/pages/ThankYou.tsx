@@ -11,7 +11,7 @@ export default function ThankYou() {
       <SEO
         title="Thank You - PFS Filters"
         description="Thanks for reaching out to PFS Filters. Our team has received your message and will get back to you shortly."
-        canonical="https://pfsfilters.com/thank-you"
+        canonical="https://www.pfsfilters.com/thank-you"
       />
       <Navigation />
 

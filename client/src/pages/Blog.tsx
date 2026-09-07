@@ -10,8 +10,8 @@ import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Clock, User, ArrowRight } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Blog', url: 'https://pfsfilters.com/blog' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Blog', url: 'https://www.pfsfilters.com/blog' },
 ]);
 
 const blogListSchema = {
@@ -19,12 +19,12 @@ const blogListSchema = {
   '@type': 'Blog',
   name: 'PFS Filters Spray Booth Blog',
   description: 'Expert insights on spray booth maintenance, filter selection, and industry best practices',
-  url: 'https://pfsfilters.com/blog',
+  url: 'https://www.pfsfilters.com/blog',
   blogPost: blogPosts.map((post) => ({
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt,
-    url: `https://pfsfilters.com/blog/${post.slug}`,
+    url: `https://www.pfsfilters.com/blog/${post.slug}`,
     datePublished: post.date,
     author: { '@type': 'Person', name: post.author },
     publisher: { '@type': 'Organization', name: 'PFS Filters' },
@@ -37,7 +37,7 @@ export default function Blog() {
       <SEO
         title="Spray Booth Maintenance & Filter Guide - Expert Tips & How-To"
         description="Expert advice on paint booth filters, maintenance schedules, filter selection, and troubleshooting. Learn from industry professionals with 20+ years experience."
-        canonical="https://pfsfilters.com/blog"
+        canonical="https://www.pfsfilters.com/blog"
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, blogListSchema] }}
       />
       <Navigation />

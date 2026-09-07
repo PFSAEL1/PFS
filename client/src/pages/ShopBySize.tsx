@@ -15,8 +15,8 @@ import { getProductBadges } from '@/lib/productSignals';
 import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Shop by Size', url: 'https://pfsfilters.com/shop-by-size' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Shop by Size', url: 'https://www.pfsfilters.com/shop-by-size' },
 ]);
 
 /**
@@ -135,7 +135,7 @@ export default function ShopBySize() {
       <SEO
         title="Shop Paint Booth Filters by Size - 20x20, 20x25, Custom Cuts"
         description="Browse current paint booth filter variants by size. Confirm actual dimensions and request a review for custom or hard-to-find products before ordering."
-        canonical="https://pfsfilters.com/shop-by-size"
+        canonical="https://www.pfsfilters.com/shop-by-size"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

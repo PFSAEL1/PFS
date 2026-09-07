@@ -124,7 +124,7 @@ export default function PaintBoothFilters() {
 
           {/* Trust Badges */}
           <div className="flex flex-wrap justify-center gap-3 mb-10">
-            {["Intake and Exhaust Media", "Common Sizes and Multi-Size Products", "Stocked Items Typically Process in 1–2 Days", "Custom Requests Reviewed", "Eligible Subscriptions Save 5%"].map((badge) => (
+            {["Intake and Exhaust Media", "Common Sizes and Multi-Size Products", "Ships Fast Nationwide", "Custom Requests Reviewed", "Eligible Subscriptions Save 5%"].map((badge) => (
               <span key={badge} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/5 text-white/80 text-sm font-medium border border-white/10">
                 <span className="text-blue-400">✓</span> {badge}
               </span>
@@ -150,7 +150,7 @@ export default function PaintBoothFilters() {
       {/* SECTION 2 — URGENCY BAR | Orange background */}
       <section className="w-full bg-orange-500 py-3 px-4">
         <p className="text-center text-white font-semibold text-sm md:text-base">
-          Stocked items typically process in 1–2 business days. Custom, freight, and special-order timing varies. Questions? Call 855-496-7969.
+          In-stock standard filters ship fast nationwide. Custom, freight, and special-order timing varies. Questions? Call 855-496-7969.
         </p>
       </section>
 

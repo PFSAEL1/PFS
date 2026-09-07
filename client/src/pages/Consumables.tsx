@@ -41,7 +41,7 @@ export default function Consumables() {
       <SEO
         title="Consumables - Paint Booth Supplies | PFS Filters"
         description="Shop paint booth consumables from PFS Filters. Glass shield coatings, booth maintenance supplies, and more. Professional-grade products for your spray booth."
-        canonical="https://pfsfilters.com/consumables"
+        canonical="https://www.pfsfilters.com/consumables"
       />
       <Navigation />
 

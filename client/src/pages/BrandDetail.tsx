@@ -136,9 +136,9 @@ export default function BrandDetail({ params }: BrandDetailProps) {
   }
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: 'https://pfsfilters.com' },
-    { name: 'Shop by Booth', url: 'https://pfsfilters.com/shop-by-booth' },
-    { name: brand.name, url: `https://pfsfilters.com/shop-by-booth/${brand.slug}` },
+    { name: 'Home', url: 'https://www.pfsfilters.com' },
+    { name: 'Shop by Booth', url: 'https://www.pfsfilters.com/shop-by-booth' },
+    { name: brand.name, url: `https://www.pfsfilters.com/shop-by-booth/${brand.slug}` },
   ]);
 
   const boothTypes = [...new Set(brand.models.map(m => m.type))];
@@ -148,7 +148,7 @@ export default function BrandDetail({ params }: BrandDetailProps) {
       <SEO
         title={`${brand.name} Spray Booth Filters — Replacement Ceiling, Intake & Exhaust | PFS Filters`}
         description={`Find replacement filters for ${brand.name} spray booths. We stock ceiling media, intake panels, exhaust arrestors, and pre-filters for all ${brand.name} models including ${brand.models.slice(0, 3).map(m => m.name).join(', ')}.`}
-        canonical={`https://pfsfilters.com/shop-by-booth/${brand.slug}`}
+        canonical={`https://www.pfsfilters.com/shop-by-booth/${brand.slug}`}
         structuredData={breadcrumbSchema}
       />
       <Navigation />

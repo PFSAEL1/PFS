@@ -7,6 +7,8 @@ type Category = {
   subtitle: string;
   href: string;
   image: string;
+  /** Keyword-rich alt text for the tile image (SEO). */
+  alt: string;
   // 'product' = isolated product on light neutral tile (contain)
   // 'scene'   = full-bleed booth/photo background (cover)
   mode: 'product' | 'scene';
@@ -18,6 +20,7 @@ const categories: Category[] = [
     subtitle: 'Overhead intake filtration',
     href: '/category/ceiling-blankets',
     image: '/images/cat_ceiling_blankets.png',
+    alt: 'Paint booth ceiling blanket intake filter media for downdraft spray booths',
     mode: 'product',
   },
   {
@@ -25,6 +28,7 @@ const categories: Category[] = [
     subtitle: 'High-capacity exhaust filtration',
     href: '/category/fiberglass-arrestors',
     image: '/images/cat_fiberglass_arrestors.png',
+    alt: 'Paint booth fiberglass paint arrestor exhaust filter pad',
     mode: 'product',
   },
   {
@@ -32,6 +36,7 @@ const categories: Category[] = [
     subtitle: 'Superior particle capture',
     href: '/category/tacky-panels',
     image: '/images/cat_tacky_panels.png',
+    alt: 'Paint booth tacky panel intake filter for spray booth air inlet',
     mode: 'product',
   },
   {
@@ -39,6 +44,7 @@ const categories: Category[] = [
     subtitle: 'Continuous roll filtration',
     href: '/category/roll-media',
     image: '/images/cat_roll_media.png',
+    alt: 'Paint booth roll filter media for intake and exhaust filtration',
     mode: 'product',
   },
   {
@@ -46,6 +52,7 @@ const categories: Category[] = [
     subtitle: '20x20, 20x25, custom cuts',
     href: '/shop-by-size',
     image: '/images/cat_fiberglass_arrestors.png',
+    alt: 'Paint booth filters by size — 20x20, 20x25 and custom-cut',
     mode: 'product',
   },
   {
@@ -53,6 +60,7 @@ const categories: Category[] = [
     subtitle: 'Intake, exhaust, MERV-rated',
     href: '/shop-by-type',
     image: '/images/cat_roll_media.png',
+    alt: 'Paint booth filters by type — intake, exhaust and MERV-rated media',
     mode: 'product',
   },
 ];
@@ -92,7 +100,7 @@ export const CategoryNavigation = () => {
                     >
                       <img
                         src={cat.image}
-                        alt={cat.title}
+                        alt={cat.alt}
                         className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_10px_24px_rgba(0,0,0,0.55)]"
                         loading="lazy"
                       />
@@ -101,7 +109,7 @@ export const CategoryNavigation = () => {
                     <>
                       <img
                         src={cat.image}
-                        alt={cat.title}
+                        alt={cat.alt}
                         className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
                       />

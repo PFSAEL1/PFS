@@ -7,8 +7,8 @@ import { AlertCircle, Package, XCircle, Mail, Phone } from 'lucide-react';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Returns & Refunds', url: 'https://pfsfilters.com/returns' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Returns & Refunds', url: 'https://www.pfsfilters.com/returns' },
 ]);
 
 export default function Returns() {
@@ -17,7 +17,7 @@ export default function Returns() {
       <SEO
         title="Returns & Refunds Policy"
         description="Review our returns and refunds policy. Returns accepted within 10 days with 30% restocking fee. Learn about eligibility, non-refundable items, and refund processing."
-        canonical="https://pfsfilters.com/returns"
+        canonical="https://www.pfsfilters.com/returns"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

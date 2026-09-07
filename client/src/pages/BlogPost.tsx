@@ -30,9 +30,9 @@ export default function BlogPost() {
   }
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: 'https://pfsfilters.com' },
-    { name: 'Blog', url: 'https://pfsfilters.com/blog' },
-    { name: post.title, url: `https://pfsfilters.com/blog/${post.slug}` },
+    { name: 'Home', url: 'https://www.pfsfilters.com' },
+    { name: 'Blog', url: 'https://www.pfsfilters.com/blog' },
+    { name: post.title, url: `https://www.pfsfilters.com/blog/${post.slug}` },
   ]);
 
   const articleSchema = {
@@ -41,7 +41,7 @@ export default function BlogPost() {
     headline: post.title,
     description: post.excerpt,
     image: post.image,
-    url: `https://pfsfilters.com/blog/${post.slug}`,
+    url: `https://www.pfsfilters.com/blog/${post.slug}`,
     datePublished: post.date,
     dateModified: post.date,
     author: { '@type': 'Organization', name: post.author },
@@ -88,7 +88,7 @@ export default function BlogPost() {
       <SEO
         title={post.title}
         description={post.excerpt}
-        canonical={`https://pfsfilters.com/blog/${post.slug}`}
+        canonical={`https://www.pfsfilters.com/blog/${post.slug}`}
         ogType="article"
         ogImage={post.image}
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, articleSchema] }}

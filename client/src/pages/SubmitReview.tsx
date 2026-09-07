@@ -50,7 +50,7 @@ export default function SubmitReview() {
       <SEO
         title="Submit a Review - PFS Filters"
         description="Share your experience with PFS Filters. Leave a review to help other shops find the right paint booth filters."
-        canonical="https://pfsfilters.com/submit-review"
+        canonical="https://www.pfsfilters.com/submit-review"
         noIndex
       />
       <Navigation />

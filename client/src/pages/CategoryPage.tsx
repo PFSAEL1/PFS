@@ -104,9 +104,9 @@ export default function CategoryPage() {
   const position = categoryInfo?.position || '';
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: 'https://pfsfilters.com' },
-    { name: 'Shop by Type', url: 'https://pfsfilters.com/shop-by-type' },
-    { name: title, url: `https://pfsfilters.com/category/${slug}` },
+    { name: 'Home', url: 'https://www.pfsfilters.com' },
+    { name: 'Shop by Type', url: 'https://www.pfsfilters.com/shop-by-type' },
+    { name: title, url: `https://www.pfsfilters.com/category/${slug}` },
   ]);
 
   const positionColor = position === 'EXHAUST'
@@ -120,7 +120,7 @@ export default function CategoryPage() {
       <SEO
         title={`${title} - Paint Booth Filters | PFS Filters`}
         description={description}
-        canonical={`https://pfsfilters.com/category/${slug}`}
+        canonical={`https://www.pfsfilters.com/category/${slug}`}
         structuredData={breadcrumbSchema}
       />
       <Navigation />

@@ -9,8 +9,8 @@ import { Search, ArrowRight, MapPin, Factory, ChevronDown, X, Star } from 'lucid
 import { BOOTH_BRANDS, BOOTH_TYPES, type BoothType, type BoothBrand } from '@/data/boothBrands';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Shop by Booth', url: 'https://pfsfilters.com/shop-by-booth' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Shop by Booth', url: 'https://www.pfsfilters.com/shop-by-booth' },
 ]);
 
 // Logo mapping for brands that have logos
@@ -67,7 +67,7 @@ export default function ShopByBooth() {
       <SEO
         title="Paint Booth Filter Guidance by Booth Brand | PFS Filters"
         description="Review model and filter-stage guidance for major spray booth brands. Confirm the booth model, filter position, product record, and actual dimensions before ordering."
-        canonical="https://pfsfilters.com/shop-by-booth"
+        canonical="https://www.pfsfilters.com/shop-by-booth"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

@@ -19,8 +19,8 @@ import {
 } from '@/lib/boothCompat';
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Home', url: 'https://pfsfilters.com' },
-  { name: 'Filter Compatibility', url: 'https://pfsfilters.com/filter-compatibility' },
+  { name: 'Home', url: 'https://www.pfsfilters.com' },
+  { name: 'Filter Compatibility', url: 'https://www.pfsfilters.com/filter-compatibility' },
 ]);
 
 // Icon + accent per filter category
@@ -71,7 +71,7 @@ export default function FilterCompatibility() {
       <SEO
         title="Paint Booth Filter Compatibility Finder - Find Filters for Your Booth"
         description="Instantly find the right paint booth filters for your spray booth. Brand-matched ceiling, intake, exhaust/arrestor and pre-filter sizes for GFS, Garmat, Blowtherm, SprayBake, Accudraft, Binks and more."
-        canonical="https://pfsfilters.com/filter-compatibility"
+        canonical="https://www.pfsfilters.com/filter-compatibility"
         structuredData={breadcrumbSchema}
       />
       <Navigation />

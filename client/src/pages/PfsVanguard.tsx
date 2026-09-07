@@ -37,7 +37,7 @@ export default function PfsVanguard() {
       <SEO
         title="PFS VANGUARD™ Complete Booth Protection Kit | PFS Filters"
         description="PFS VANGUARD™ Complete Booth Protection Kit includes premium Booth Coating and Glass Shield Coating. Protect booth surfaces and viewing glass from overspray buildup."
-        canonical="https://pfsfilters.com/consumables/pfs-vanguard"
+        canonical="https://www.pfsfilters.com/consumables/pfs-vanguard"
       />
       <Navigation />
 
