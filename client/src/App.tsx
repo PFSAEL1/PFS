@@ -35,6 +35,7 @@ const CategoryPage = lazyRoute(() => import('./pages/CategoryPage'));
 const PaintBoothFilters = lazyRoute(() => import('./pages/PaintBoothFilters'));
 const AndreaePaintBoothFilters = lazyRoute(() => import('./pages/AndreaePaintBoothFilters'));
 const ExhaustFilters = lazyRoute(() => import('./pages/ExhaustFilters'));
+const IntakeFilters = lazyRoute(() => import('./pages/IntakeFilters'));
 const NotFound = lazyRoute(() => import('./pages/NotFound'));
 const PfsVitra = lazyRoute(() => import('./pages/PfsVitra'));
 const PfsVanguard = lazyRoute(() => import('./pages/PfsVanguard'));
@@ -69,6 +70,7 @@ function Router() {
       <Route path="/paint-booth-filters" component={PaintBoothFilters} />
       <Route path="/andreae-paint-booth-filters" component={AndreaePaintBoothFilters} />
       <Route path="/exhaust-filters" component={ExhaustFilters} />
+      <Route path="/intake-filters" component={IntakeFilters} />
 
       {/* Info pages */}
       <Route path="/contact" component={Contact} />
