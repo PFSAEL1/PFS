@@ -63,6 +63,7 @@ const staticRoutes = [
   { path: '/', title: 'Paint Booth Filters for Every Booth Brand | PFS Filters', description: 'Paint booth filters for every booth brand — exhaust, intake, ceiling, prefilter, and Andreae. Backed by 30+ years of PFS Spray Booths. In stock, ships fast.', priority: '1.0', changefreq: 'weekly' },
   { path: '/shop', title: 'Shop Paint Booth Filters, Intake & Exhaust Media | PFS Filters', description: 'Shop fiberglass paint arrestors, tacky intake panels, ceiling media, MERV filters, roll media, and booth-specific replacements.', priority: '1.0', changefreq: 'daily' },
   { path: '/paint-booth-filters', title: 'Paint Booth Filters — Every Brand, Every Size | PFS Filters', description: 'Paint booth filters for every booth brand — exhaust, intake, ceiling, prefilter, and Andreae. In stock, ships fast. Save 5% on Subscribe & Save items.', priority: '0.9', changefreq: 'monthly' },
+  { path: '/andreae-paint-booth-filters', title: 'Andreae Paint Booth Filters — AF223, AF423, AF813 & AF923 In Stock | PFS Filters', description: 'Andreae accordion paint booth exhaust filters in stock — AF223, AF423, AF813, AF923, in pads and rolls. Multi-stage design for long filter life. Ships fast.', priority: '0.9', changefreq: 'monthly' },
   { path: '/filter-finder', title: 'Paint Booth Filter Finder by Booth, Stage & Size | PFS Filters', description: 'Narrow paint booth filter options by booth type, brand, model, filter stage, and size. Verify the product record and actual dimensions before ordering.', priority: '0.9', changefreq: 'monthly' },
   { path: '/shop-by-size', title: 'Shop Paint Booth Filters by Size | PFS Filters', description: 'Find common paint booth filter sizes and request help with custom or hard-to-find dimensions.', priority: '0.8', changefreq: 'weekly' },
   { path: '/shop-by-type', title: 'Shop Paint Booth Filters by Type | PFS Filters', description: 'Browse fiberglass arrestors, tacky panels, ceiling blankets, roll media, MERV filters, and prefilters.', priority: '0.8', changefreq: 'weekly' },
@@ -182,6 +183,19 @@ faqRoute.schema = {
     acceptedAnswer: { '@type': 'Answer', text: faq.answer },
   })),
 };
+
+const andreaeRoute = staticRoutes.find((route) => route.path === '/andreae-paint-booth-filters');
+if (andreaeRoute) {
+  andreaeRoute.schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${origin}/` },
+      { '@type': 'ListItem', position: 2, name: 'Paint Booth Filters', item: `${origin}/paint-booth-filters` },
+      { '@type': 'ListItem', position: 3, name: 'Andreae Paint Booth Filters', item: absoluteUrl('/andreae-paint-booth-filters') },
+    ],
+  };
+}
 
 const routes = [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...blogRoutes, ...productRoutes];
 
