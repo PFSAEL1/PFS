@@ -84,9 +84,6 @@ export default function Home() {
       </div>
       <Hero />
 
-      {/* Arc transition: hero → filters in action */}
-      <div className="arc-divider arc-divider-up" />
-
       {/* 2. Trust strip is inside SocialProofBanner — bg handled there */}
 
       {/* 3. Filters in Action — three feature rectangles */}
