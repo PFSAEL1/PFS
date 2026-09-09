@@ -12,7 +12,8 @@ const faqFile = path.join(root, 'client', 'src', 'data', 'faqData.json');
 const blogFile = path.join(root, 'client', 'src', 'lib', 'blogData.ts');
 const brandsFile = path.join(root, 'client', 'src', 'data', 'boothBrands.ts');
 const origin = 'https://www.pfsfilters.com';
-const heroPoster = 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/pfs-final-thicker-gentle-dust-hero-poster-92179f90.jpg?v=1788567595';
+const heroPosterMobile = '/media/pfs-hero-poster-mobile.webp';
+const heroPosterPreload = `<link rel="preload" as="image" href="${heroPosterMobile}" type="image/webp" media="(max-width: 767px)" fetchpriority="high" />`;
 const today = new Date().toISOString().slice(0, 10);
 const mode = process.argv[2] || '--source';
 
@@ -423,7 +424,10 @@ function replaceMeta(html, route) {
     output = output.replace('</head>', `    <script data-seo-generated type="application/ld+json">${JSON.stringify(route.schema).replace(/</g, '\\u003c')}</script>\n  </head>`);
   }
   if (route.path === '/') {
-    output = output.replace('</head>', `    <link rel="preload" as="image" href="${heroPoster}" fetchpriority="high" />\n  </head>`);
+    output = output.replace(
+      /(<meta name="viewport"[^>]*>\r?\n)/i,
+      `$1    ${heroPosterPreload}\n`,
+    );
   }
 
   const detail = route.price ? `<p>Starting at $${escapeHtml(route.price)} USD. Check the live product page for current variants, pricing, and availability.</p>` : '';

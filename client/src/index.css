@@ -8,9 +8,8 @@
  * Safari-compatible: HSL fallbacks for oklch, webkit prefixes
  */
 @theme inline {
-  /* Barlow Condensed as primary font — matches PFS Filters logo style */
-  --font-sans: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -119,13 +118,12 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* Barlow Condensed — matches PFS Filters logo: condensed, geometric, industrial */
-    font-family: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, sans-serif;
+    font-family: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
     font-weight: 400;
     letter-spacing: 0.02em;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, sans-serif;
+    font-family: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
     font-weight: 700;
     letter-spacing: 0.04em;
   }
@@ -133,10 +131,10 @@
     text-transform: uppercase;
   }
   button, input, select, textarea {
-    font-family: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, sans-serif;
+    font-family: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
   }
   nav, a {
-    font-family: 'Barlow Condensed', 'Barlow', system-ui, -apple-system, sans-serif;
+    font-family: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
     letter-spacing: 0.06em;
   }
   button:not(:disabled),
@@ -414,7 +412,7 @@
 .stat-number {
   font-size: 3rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   background: linear-gradient(135deg, #ffffff 0%, rgba(0,153,255,0.9) 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -474,7 +472,7 @@
   border: 1px solid hsl(0 0% 16%);
   border-radius: 16px;
   text-align: center;
-  transition: all 0.35s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease;
   overflow: hidden;
 }
 .feature-card::after {
@@ -508,12 +506,12 @@
   line-height: 1;
   pointer-events: none;
   user-select: none;
-  letter-spacing: -0.05em;
+  letter-spacing: 0;
 }
 
 /* Add to Cart button glow states */
 .glow-add-btn {
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 .glow-add-btn.btn-active {
   background: hsl(207 100% 50%);
@@ -796,9 +794,9 @@ video::-internal-media-controls-play-button {
 
 /* ---- Hero headline: condensed, engineered, two-tier scale ---- */
 .hero-headline {
-  font-family: 'Barlow Condensed', 'Oswald', 'Inter', system-ui, sans-serif;
+  font-family: 'Barlow Condensed', system-ui, sans-serif;
   font-weight: 800;            /* ExtraBold */
-  letter-spacing: -0.02em;     /* tighten from the loose default — reads engineered */
+  letter-spacing: 0;
   line-height: 0.98;
   text-transform: uppercase;
 }
@@ -808,7 +806,7 @@ video::-internal-media-controls-play-button {
   color: #ffffff;
   font-size: clamp(1.9rem, 4.4vw, 3.4rem);   /* ~10% reduced vs old base */
   font-weight: 800;
-  letter-spacing: -0.015em;
+  letter-spacing: 0;
 }
 /* Tier 2 — the key message: ~20% larger, diagonal gradient fill */
 .hero-tier2 {
@@ -816,7 +814,7 @@ video::-internal-media-controls-play-button {
   margin-top: 0.12em;
   font-size: clamp(2.5rem, 6.2vw, 4.6rem);   /* ~20% larger than tier 1 */
   font-weight: 800;
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
   background: linear-gradient(135deg, #60a5fa 0%, #a5f3fc 50%, #ffffff 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -862,6 +860,22 @@ video::-internal-media-controls-play-button {
 .hero-headline .hero-tier2 {
   font-family: 'Barlow Condensed', sans-serif !important;
   font-weight: 800 !important;
-  letter-spacing: -0.02em !important;
+  letter-spacing: 0 !important;
+}
+
+@media (max-width: 767px) {
+  nav,
+  nav *,
+  .ticker-bar,
+  .ticker-bar *,
+  #home,
+  #home * {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    letter-spacing: 0 !important;
+  }
+
+  .hero-headline {
+    line-height: 1.02;
+  }
 }
 /* build trigger 1784242030 */

@@ -2,16 +2,15 @@
 // Pure black header, large prominent PFS logo, electric blue accents
 // All functionality preserved: cart, auth, admin, products dropdown, mobile menu
 
-import { useState, useEffect, useRef } from 'react';
+import { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ShoppingBag, Menu, X, User, ChevronDown, Sparkles } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
-import { supabase } from '@/lib/supabase';
-import { CartDrawer } from './CartDrawer';
 
 const LOGO_URL = '/images/brands/pfs-logo-wide-420.webp';
+const CartDrawer = lazy(() => import('./CartDrawer').then((module) => ({ default: module.CartDrawer })));
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +32,7 @@ export const Navigation = () => {
   }, []);
 
   const items = useCartStore((s) => s.items);
+  const isCartOpen = useCartStore((s) => s.isCartOpen);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -43,7 +43,15 @@ export const Navigation = () => {
   }, []);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
+    let cancelled = false;
+    let idleId: number | undefined;
+    let timerId: number | undefined;
+
+    const loadAuthState = async () => {
+      const { supabase } = await import('@/lib/supabase');
+      if (cancelled) return;
+      const { data } = await supabase.auth.getUser();
+      if (cancelled) return;
       setUser(data.user);
       if (data.user) {
         supabase
@@ -52,9 +60,29 @@ export const Navigation = () => {
           .eq('user_id', data.user.id)
           .eq('role', 'admin')
           .maybeSingle()
-          .then(({ data: roleData }) => setIsAdmin(!!roleData));
+          .then(({ data: roleData }) => {
+            if (!cancelled) setIsAdmin(!!roleData);
+          });
       }
-    });
+    };
+
+    const scheduleAuthLoad = () => {
+      if ('requestIdleCallback' in window) {
+        idleId = window.requestIdleCallback(loadAuthState, { timeout: 3500 });
+      } else {
+        timerId = globalThis.setTimeout(loadAuthState, 1800) as unknown as number;
+      }
+    };
+
+    if (document.readyState === 'complete') scheduleAuthLoad();
+    else window.addEventListener('load', scheduleAuthLoad, { once: true });
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener('load', scheduleAuthLoad);
+      if (idleId !== undefined) window.cancelIdleCallback(idleId);
+      if (timerId !== undefined) globalThis.clearTimeout(timerId);
+    };
   }, []);
 
   useEffect(() => { setIsOpen(false); setShopOpen(false); }, [location]);
@@ -262,7 +290,11 @@ export const Navigation = () => {
           )}
         </div>
       </nav>
-      <CartDrawer />
+      {isCartOpen && (
+        <Suspense fallback={null}>
+          <CartDrawer />
+        </Suspense>
+      )}
     </>
   );
 };

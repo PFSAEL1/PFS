@@ -85,7 +85,7 @@ export const Hero = () => {
             <img
               src={HERO_POSTER_DESKTOP}
               alt=""
-              className="absolute inset-0 h-full w-full object-cover object-[65%_center] md:object-center"
+              className="absolute inset-0 block h-full w-full object-cover object-[65%_center] md:object-center"
               width={1600}
               height={900}
               loading="eager"
@@ -120,15 +120,14 @@ export const Hero = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-32 w-full">
           <div className="max-w-2xl">
             {/* Eyebrow badge */}
-            <div className="eyebrow-brand inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm font-medium mb-6 animate-fade-in">
+            <div className="eyebrow-brand inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm font-medium mb-6">
               <Shield className="w-3.5 h-3.5" />
               A Division of PFS Spray Booths — 30+ Years of Expertise
             </div>
 
             {/* Headline — two visual tiers: white setup line, larger gradient key message */}
             <h1
-              className="hero-headline mb-6 animate-slide-up"
-              style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}
+              className="hero-headline mb-6"
             >
               <span className="hero-tier1">A Filter Program Built to</span>
               <span className="hero-tier2">Manage Your Entire Booth</span>
@@ -136,16 +135,14 @@ export const Hero = () => {
 
             {/* Subheadline */}
             <p
-              className="text-lg md:text-xl text-white/60 leading-relaxed mb-8 animate-slide-up"
-              style={{ animationDelay: '0.25s', animationFillMode: 'backwards' }}
+              className="text-lg md:text-xl text-white/60 leading-relaxed mb-8"
             >
               Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.
             </p>
 
             {/* CTAs */}
             <div
-              className="flex flex-wrap gap-4 mb-10 animate-slide-up"
-              style={{ animationDelay: '0.4s', animationFillMode: 'backwards' }}
+              className="flex flex-wrap gap-4 mb-10"
             >
               <Link href="/shop">
                 <Button
@@ -169,8 +166,7 @@ export const Hero = () => {
 
             {/* Trust Badges */}
             <div
-              className="flex flex-wrap gap-6 animate-slide-up"
-              style={{ animationDelay: '0.55s', animationFillMode: 'backwards' }}
+              className="flex flex-wrap gap-6"
             >
               {[
                 { icon: Truck, label: 'Ships Fast Nationwide' },
