@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { StickyMobileCTA } from '@/components/StickyMobileCTA';
 import { Button } from '@/components/ui/button';
-import { Phone, Truck, Package, ShieldCheck, RefreshCw, ChevronDown, ChevronUp, Shield, AlertTriangle } from 'lucide-react';
+import { Phone, Truck, Package, ShieldCheck, RefreshCw, ChevronDown, ChevronUp, Shield, AlertTriangle, ArrowRight, Building2, MapPin } from 'lucide-react';
 
 // FAQ Schema JSON-LD
 const faqSchema = {
@@ -81,8 +82,23 @@ const FAQS = [
 ];
 
 const BRANDS = [
-  "PFS — All Models", "Garmat", "Accudraft", "Global Finishing Solutions", "Col-Met",
-  "Blowtherm", "Nova Verta", "Spray Tech", "Rohner", "Marathon Finishing"
+  { label: 'PFS Spray Booths', href: '/pfs-spray-booth-filters' },
+  { label: 'Garmat', href: '/garmat-paint-booth-filters' },
+  { label: 'Accudraft', href: '/accudraft-paint-booth-filters' },
+  { label: 'Global Finishing Solutions', href: '/gfs-paint-booth-filters' },
+  { label: 'Col-Met', href: '/col-met-paint-booth-filters' },
+  { label: 'All booth brands', href: '/shop-by-booth' },
+];
+
+const CALIFORNIA_PAGES = [
+  { label: 'North Bay & Sonoma County', href: '/california/north-bay-paint-booth-filters' },
+  { label: 'Bay Area & San Jose', href: '/california/bay-area-paint-booth-filters' },
+  { label: 'Sacramento & Capital Region', href: '/california/sacramento-paint-booth-filters' },
+  { label: 'Napa Valley', href: '/california/napa-valley-paint-booth-filters' },
+  { label: 'Central Valley & Fresno', href: '/california/central-valley-paint-booth-filters' },
+  { label: 'Bakersfield & Kern County', href: '/california/bakersfield-paint-booth-filters' },
+  { label: 'San Diego County', href: '/california/san-diego-paint-booth-filters' },
+  { label: 'Los Angeles County', href: '/california/los-angeles-paint-booth-filters' },
 ];
 
 export default function PaintBoothFilters() {
@@ -92,8 +108,8 @@ export default function PaintBoothFilters() {
     <div className="min-h-screen bg-[#040404]">
       <Navigation />
       <SEO
-        title="Paint Booth Filters — Every Brand, Every Size | PFS Filters"
-        description="Paint booth filters for every booth brand — exhaust, intake, ceiling, prefilter, and Andreae. In stock, ships fast. Save 5% on Subscribe & Save items."
+        title="Paint Booth Filters by Type, Size & Booth | PFS Filters"
+        description="Browse paint booth intake, ceiling, prefilter, and exhaust media by type, size, and booth brand. Get sizing help and 5% Subscribe & Save on eligible products."
         canonical="https://www.pfsfilters.com/paint-booth-filters"
         structuredData={faqSchema}
       />
@@ -124,7 +140,7 @@ export default function PaintBoothFilters() {
 
           {/* Trust Badges */}
           <div className="flex flex-wrap justify-center gap-3 mb-10">
-            {["Intake and Exhaust Media", "Common Sizes and Multi-Size Products", "Ships Fast Nationwide", "Custom Requests Reviewed", "Eligible Subscriptions Save 5%"].map((badge) => (
+            {["Intake and Exhaust Media", "Common Sizes and Multi-Size Products", "Stocked Items Typically Process in 1–2 Business Days", "Custom Requests Reviewed", "Eligible Subscriptions Save 5%"].map((badge) => (
               <span key={badge} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/5 text-white/80 text-sm font-medium border border-white/10">
                 <span className="text-blue-400">✓</span> {badge}
               </span>
@@ -150,7 +166,7 @@ export default function PaintBoothFilters() {
       {/* SECTION 2 — URGENCY BAR | Orange background */}
       <section className="w-full bg-orange-500 py-3 px-4">
         <p className="text-center text-white font-semibold text-sm md:text-base">
-          In-stock standard filters ship fast nationwide. Custom, freight, and special-order timing varies. Questions? Call 855-496-7969.
+          Stocked items typically process in 1–2 business days. Custom, freight, backordered, and special-order timing varies. Questions? Call 855-496-7969.
         </p>
       </section>
 
@@ -309,7 +325,7 @@ export default function PaintBoothFilters() {
       <section className="w-full section-raised py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <div className="section-label"><span>Compatible Products</span></div>
+            <div className="section-label"><span>Booth Brand Guides</span></div>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
               Browse Guidance for Major Paint Booth Brands
             </h2>
@@ -319,9 +335,9 @@ export default function PaintBoothFilters() {
           </div>
           <div className="flex flex-wrap justify-center gap-3 mb-10">
             {BRANDS.map((brand) => (
-              <span key={brand} className="px-5 py-2.5 bg-white/5 text-white text-sm font-medium rounded-full border border-white/10 hover:border-blue-500/40 transition-colors">
-                {brand}
-              </span>
+              <Link key={brand.href} href={brand.href} className="px-5 py-2.5 bg-white/5 text-white text-sm font-medium rounded-full border border-white/10 hover:border-blue-500/40 hover:text-blue-300 transition-colors">
+                {brand.label}
+              </Link>
             ))}
           </div>
           {/* Green Callout Box */}
@@ -330,6 +346,43 @@ export default function PaintBoothFilters() {
             <p className="text-white/60">
               PFS Filters is backed by the PFS Spray Booths team. For a PFS booth, send the model, serial or tag information, filter position, and dimensions so the replacement can be reviewed before ordering.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full section-glow tex-lines py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+            <div>
+              <div className="section-label"><span>California coverage</span></div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Regional filter guidance from our Santa Rosa team</h2>
+              <p className="text-white/55 leading-relaxed mb-6">PFS Filters is located at 1400 Airport Blvd in Santa Rosa and supports finishing operations throughout California. Each regional page covers local industry use cases while keeping the same filter-stage, measurement, and compliance boundaries.</p>
+              <Link href="/california/carb-paint-booth-filter-compliance">
+                <Button variant="outline" className="border-white/20 text-white hover:bg-white/5 gap-2">
+                  <ShieldCheck className="w-4 h-4" /> California CARB &amp; air-district guide
+                </Button>
+              </Link>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {CALIFORNIA_PAGES.map((page) => (
+                <Link key={page.href} href={page.href}>
+                  <div className="glow-card group h-full p-5 flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <MapPin className="w-4 h-4 text-blue-400 shrink-0" />
+                      <span className="font-semibold text-white/80 group-hover:text-blue-300 transition-colors">{page.label}</span>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-white/25 group-hover:text-blue-400 transition-colors" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="mt-8 rounded-2xl border border-blue-400/20 bg-blue-400/[0.06] p-5 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3">
+              <Building2 className="w-5 h-5 text-blue-400 shrink-0" />
+              <p className="text-sm text-white/60">Need support outside California? The same catalog and fitment-review process is available for nationwide orders.</p>
+            </div>
+            <Link href="/contact" className="text-sm font-semibold text-blue-400 hover:text-blue-300 whitespace-nowrap">Contact PFS <ArrowRight className="inline w-4 h-4" /></Link>
           </div>
         </div>
       </section>

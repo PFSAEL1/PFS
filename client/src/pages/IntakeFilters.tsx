@@ -1,18 +1,20 @@
 // IntakeFilters — /intake-filters
 // Priority 4 category page from the SEO handoff (DOCX).
-// Product grid is built only from the bundled Shopify snapshot — no invented
-// products, prices, SKUs, availability, or compliance claims. The curated set
+// Product grid renders immediately from the cached/bundled Shopify catalog and
+// silently refreshes from Storefront API. The curated set
 // is tacky panels, ceiling diffusion media, MERV pleated intake, and pocket
 // bag filters (the intake-stage media families the catalog actually carries).
 
+import { useMemo } from 'react';
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Wind, Truck, Sparkles, Phone, ArrowRight } from 'lucide-react';
-import { bundledShopifyProducts } from '@/lib/productCatalog';
+import { Wind, Sparkles, Phone, ArrowRight } from 'lucide-react';
+import type { ShopifyProduct } from '@/lib/shopify';
+import { useCurrentShopifyProducts } from '@/hooks/useCurrentShopifyProducts';
 import { createBreadcrumbSchema, createItemListSchema } from '@/lib/structuredData';
 
 const SITE = 'https://www.pfsfilters.com';
@@ -23,7 +25,7 @@ const FALLBACK_IMAGE =
 const INTAKE_TITLE_HINT = /tacky|ceiling|diffusion|intake|pleated|pocket bag|\bpocket\b/i;
 const EXHAUST_TITLE_HINT = /fiberglass|paint arrestor|paint pockets|accordion/i;
 
-const intakeProducts = bundledShopifyProducts
+const getIntakeProducts = (products: ShopifyProduct[]) => products
   .filter((product) => {
     const node = product.node;
     const title = node.title.toLowerCase();
@@ -54,29 +56,27 @@ const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Paint Booth Intake Filters', url: `${SITE}${PAGE_PATH}` },
 ]);
 
-const itemListSchema = createItemListSchema(
-  intakeProducts
-    .filter((p) => p.minPrice != null)
-    .map((p) => ({
-      name: p.title,
-      url: `${SITE}/product/${p.handle}`,
-      image: p.image,
-      price: (p.minPrice as number).toFixed(2),
-      currency: p.currency,
-    })),
-);
-
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@graph': [breadcrumbSchema, itemListSchema],
-};
-
 export default function IntakeFilters() {
+  const products = useCurrentShopifyProducts();
+  const intakeProducts = useMemo(() => getIntakeProducts(products), [products]);
+  const structuredData = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@graph': [breadcrumbSchema, createItemListSchema(
+      intakeProducts.map((product) => ({
+        name: product.title,
+        url: `${SITE}/product/${product.handle}`,
+        image: product.image,
+        price: product.minPrice?.toFixed(2) ?? '',
+        currency: product.currency,
+      })),
+    )],
+  }), [intakeProducts]);
+
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Paint Booth Intake Filters — Tacky Panels & Ceiling Blankets | In Stock | PFS Filters"
-        description="Shop paint booth intake filters — tacky panels, ceiling diffusion media, MERV pleated intake, and pocket bag filters, in stock. Ships fast nationwide."
+        title="Paint Booth Intake Filters — Tacky, Pleated & Ceiling Media"
+        description="Compare tacky panels, ceiling diffusion media, MERV-rated pleated filters, and pocket bag filters. Verify the equipment stage and dimensions before ordering."
         canonical="https://www.pfsfilters.com/intake-filters"
         structuredData={structuredData}
       />
@@ -100,12 +100,12 @@ export default function IntakeFilters() {
             </h1>
             <p className="text-lg text-white/60 max-w-2xl pfs-sub-animate">
               Supply-side media that keeps dust and debris out of the spray area. Browse the tacky
-              panels, ceiling diffusion media, and pleated intake options PFS Filters stocks, then
+              panels, ceiling diffusion media, and pleated intake options shown in the PFS catalog, then
               confirm your intake frame or holding system before ordering.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm text-white/45">
               <span className="inline-flex items-center gap-1.5">
-                <Truck className="h-3.5 w-3.5 text-blue-400" /> Ships Fast Nationwide
+                <Wind className="h-3.5 w-3.5 text-blue-400" /> Availability shown by product and variant
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Sparkles className="h-3.5 w-3.5 text-blue-400" /> Panels, blankets &amp; pleated media
@@ -120,10 +120,10 @@ export default function IntakeFilters() {
       {/* Product grid */}
       <section className="section-raised tex-dots py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="sr-only">Intake filter products in stock</h2>
+          <h2 className="sr-only">Intake filter products in the current catalog</h2>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 mb-6 text-[13px] text-white/50 border-b border-white/[0.06] pb-3">
             <span>{`${intakeProducts.length} intake filter product${intakeProducts.length !== 1 ? 's' : ''}`}</span>
-            <span className="text-center">Custom cuts available on most sizes — contact us</span>
+            <span className="text-center">Custom and unusual sizes require review — contact us</span>
             <Link href="/contact" className="hover:text-white transition-colors">
               Need help choosing?
             </Link>
@@ -191,28 +191,27 @@ export default function IntakeFilters() {
             <p>
               Paint booth intake filters clean the air entering the booth so dust and debris don&apos;t
               settle into a wet finish. They sit on the supply side — most often in the ceiling of a
-              downdraft booth, or across the intake face of a crossdraft or prep station. PFS Filters
-              stocks the main intake media types.
+              downdraft booth, or across the intake face of a crossdraft or prep station. The correct
+              stage and construction depend on the equipment documentation.
             </p>
             <p>
               <Link href="/category/tacky-panels" className="text-blue-400 hover:text-blue-300">
                 Tacky panels
               </Link>{' '}
               are adhesive-coated intake panels that trap dust and debris before it reaches the spray
-              area; the 300 Series is stocked in common frame sizes.{' '}
+              area; the 300 Series product page lists the available frame-size variants.{' '}
               <Link href="/category/ceiling-blankets" className="text-blue-400 hover:text-blue-300">
                 Ceiling diffusion media
               </Link>
-              , including the Swiss Flow downdraft media, spreads incoming air evenly across the booth
-              ceiling to reduce turbulence over the part.
+              , including the Swiss Flow product family, is intended for applicable ceiling intake stages.
             </p>
             <p>
               For air-makeup units and prep stations,{' '}
               <Link href="/category/merv-filters" className="text-blue-400 hover:text-blue-300">
                 MERV-rated pleated panels
               </Link>{' '}
-              carry a defined efficiency rating, and pocket bag filters offer high dust-holding
-              capacity where intake volumes are large.
+              show a defined MERV rating in the product record, while pocket bag filters use a deeper
+              construction. Confirm the equipment requirement before substituting either format.
             </p>
             <p>
               Which media fits depends on your booth type, the intake frame or holding system, and

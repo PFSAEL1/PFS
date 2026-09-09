@@ -5,7 +5,7 @@
 //           CSV import/export, send reminder draft orders, auto-reorder members.
 
 import { useEffect, useState, useCallback } from 'react';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 import {
@@ -51,6 +51,36 @@ interface FilterPosition {
 }
 
 type TabType = 'all' | 'members' | 'non-members';
+
+const getManufacturerGuide = (manufacturer: string): { href: string; label: string } | null => {
+  const normalized = manufacturer.toLowerCase();
+  if (normalized.includes('garmat')) return { href: '/garmat-paint-booth-filters', label: 'Garmat guide' };
+  if (normalized.includes('accudraft')) return { href: '/accudraft-paint-booth-filters', label: 'Accudraft guide' };
+  if (normalized.includes('global finishing') || normalized === 'gfs') return { href: '/gfs-paint-booth-filters', label: 'GFS guide' };
+  if (normalized.includes('col-met') || normalized.includes('col met')) return { href: '/col-met-paint-booth-filters', label: 'Col-Met guide' };
+  if (normalized.includes('pfs')) return { href: '/pfs-spray-booth-filters', label: 'PFS guide' };
+  return null;
+};
+
+const getCaliforniaGuide = (city: string | null, state: string | null): { href: string; label: string } | null => {
+  const normalizedState = (state || '').trim().toLowerCase();
+  if (normalizedState !== 'ca' && normalizedState !== 'california') return null;
+
+  const normalizedCity = (city || '').trim().toLowerCase();
+  const mappings: Array<{ cities: string[]; href: string; label: string }> = [
+    { cities: ['santa rosa', 'petaluma', 'rohnert park', 'sonoma', 'novato', 'san rafael'], href: '/california/north-bay-paint-booth-filters', label: 'North Bay guide' },
+    { cities: ['san jose', 'oakland', 'san francisco', 'fremont', 'hayward', 'sunnyvale', 'santa clara'], href: '/california/bay-area-paint-booth-filters', label: 'Bay Area guide' },
+    { cities: ['sacramento', 'west sacramento', 'roseville', 'rancho cordova', 'elk grove'], href: '/california/sacramento-paint-booth-filters', label: 'Sacramento guide' },
+    { cities: ['napa', 'american canyon', 'st. helena', 'saint helena', 'calistoga'], href: '/california/napa-valley-paint-booth-filters', label: 'Napa guide' },
+    { cities: ['fresno', 'clovis', 'madera', 'visalia'], href: '/california/central-valley-paint-booth-filters', label: 'Central Valley guide' },
+    { cities: ['bakersfield', 'shafter', 'wasco', 'tehachapi'], href: '/california/bakersfield-paint-booth-filters', label: 'Bakersfield guide' },
+    { cities: ['san diego', 'chula vista', 'el cajon', 'oceanside'], href: '/california/san-diego-paint-booth-filters', label: 'San Diego guide' },
+    { cities: ['los angeles', 'long beach', 'burbank', 'glendale', 'torrance'], href: '/california/los-angeles-paint-booth-filters', label: 'Los Angeles guide' },
+  ];
+
+  return mappings.find((mapping) => mapping.cities.includes(normalizedCity))
+    ?? { href: '/california/carb-paint-booth-filter-compliance', label: 'California guide' };
+};
 
 export default function FilterDatabase() {
   const [, navigate] = useLocation();
@@ -372,6 +402,8 @@ export default function FilterDatabase() {
               const ReminderIcon = reminder.icon;
               const currentMode = booth.order_mode || 'off';
               const canSend = currentMode !== 'off';
+              const manufacturerGuide = getManufacturerGuide(booth.booth_manufacturer);
+              const californiaGuide = getCaliforniaGuide(booth.city, booth.state);
               return (
                 <div key={booth.id}
                   onClick={() => { setEditingBooth(booth); setShowNewBoothModal(true); }}
@@ -408,11 +440,33 @@ export default function FilterDatabase() {
                             <Building2 className="w-3 h-3 flex-shrink-0" />
                             {booth.booth_manufacturer}{booth.booth_model ? ` · ${booth.booth_model}` : ''}
                           </span>
+                          {manufacturerGuide && (
+                            <Link
+                              href={manufacturerGuide.href}
+                              onClick={(event) => event.stopPropagation()}
+                              className="flex items-center gap-1 whitespace-nowrap text-blue-300 hover:text-blue-200"
+                              title="Open the public manufacturer filter guide"
+                            >
+                              <Link2 className="w-3 h-3 flex-shrink-0" />
+                              {manufacturerGuide.label}
+                            </Link>
+                          )}
                           {(booth.city || booth.state) && (
                             <span className="flex items-center gap-1 whitespace-nowrap">
                               <MapPin className="w-3 h-3 flex-shrink-0" />
                               {[booth.city, booth.state].filter(Boolean).join(', ')}
                             </span>
+                          )}
+                          {californiaGuide && (
+                            <Link
+                              href={californiaGuide.href}
+                              onClick={(event) => event.stopPropagation()}
+                              className="flex items-center gap-1 whitespace-nowrap text-blue-300 hover:text-blue-200"
+                              title="Open the matching California regional guide"
+                            >
+                              <MapPin className="w-3 h-3 flex-shrink-0" />
+                              {californiaGuide.label}
+                            </Link>
                           )}
                           {booth.customer_email && (
                             <span className="flex items-center gap-1 whitespace-nowrap">

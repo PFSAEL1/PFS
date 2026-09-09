@@ -28,6 +28,8 @@ export const Footer = () => {
             <ul className="space-y-2 text-sm">
               {[
                 { href: '/shop', label: 'Shop All Filters' },
+                { href: '/shop-by-type', label: 'Shop by Filter Type' },
+                { href: '/shop-by-booth', label: 'Booth Brand Guides' },
                 { href: '/blog', label: 'Blog & Resources' },
                 { href: '/faq', label: 'Filter FAQ' },
                 { href: '/why-choose-us', label: 'Why Choose Us' },
@@ -56,7 +58,7 @@ export const Footer = () => {
                   href="https://www.pfsspraybooths.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-400/70 hover:text-blue-400 transition-colors"
+                  className="text-blue-300 hover:text-blue-200 transition-colors"
                 >
                   PFS Spray Booths ↗
                 </a>
@@ -70,6 +72,8 @@ export const Footer = () => {
               {[
                 { href: '/industries/aerospace-paint-booth-filters', label: 'Aerospace & MRO' },
                 { href: '/paint-booth-filters', label: 'Automotive' },
+                { href: '/california/north-bay-paint-booth-filters', label: 'California Service Areas' },
+                { href: '/california/carb-paint-booth-filter-compliance', label: 'California Compliance Guide' },
                 { href: '/shop', label: 'Industrial & Woodworking' },
               ].map(({ href, label }) => (
                 <li key={href}>
@@ -135,7 +139,7 @@ export const Footer = () => {
                 href={MAP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-fit items-center gap-2 rounded-lg bg-blue-500 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                className="inline-flex w-fit items-center gap-2 rounded-lg bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               >
                 Get Directions
                 <ExternalLink className="h-4 w-4" />

@@ -15,28 +15,36 @@ const breadcrumbSchema = createBreadcrumbSchema([
 const brands = [
   {
     name: 'PFS Filters',
-    description: 'Our house brand — engineered specifically for spray booth applications with decades of PFS expertise. Offers the best value for professional body shops.',
+    description: 'PFS Filters catalog products and replacement guidance, backed by the PFS Spray Booths team in Santa Rosa, California.',
     specialty: 'Spray Booth Specialists',
     href: '/shop',
   },
   {
     name: 'Andover Healthcare',
-    description: 'Premium fiberglass and synthetic filter media for industrial and automotive applications. Known for consistent quality and long service life.',
+    description: 'Fiberglass and synthetic filter-media products represented in the current PFS catalog. Verify the product record and application before ordering.',
     specialty: 'Industrial Grade Media',
     href: '/shop',
   },
   {
     name: 'Koch Filter',
-    description: 'MERV-rated air filtration products for high-efficiency applications. Ideal for shops with strict air quality requirements.',
+    description: 'MERV-rated filtration products represented in the current PFS catalog. Confirm the stage, rating, depth, and dimensions required by the equipment.',
     specialty: 'MERV-Rated Filters',
     href: '/shop',
   },
   {
     name: 'Permatron',
-    description: 'Electrostatic and synthetic filter media with excellent particle capture efficiency. Great for intake filtration in demanding environments.',
-    specialty: 'Electrostatic Media',
+    description: 'Synthetic filtration products represented in the current PFS catalog. Use the current product data rather than a brand name alone to select media.',
+    specialty: 'Synthetic Media',
     href: '/shop',
   },
+];
+
+const boothGuides = [
+  { name: 'PFS Spray Booths', href: '/pfs-spray-booth-filters', description: 'Direct model and fitment-review path through the PFS team.' },
+  { name: 'Garmat', href: '/garmat-paint-booth-filters', description: 'Model, filter-stage, and measurement guidance for Garmat booths.' },
+  { name: 'Accudraft', href: '/accudraft-paint-booth-filters', description: 'Filter-stage guidance and a documented replacement-review workflow.' },
+  { name: 'Global Finishing Solutions', href: '/gfs-paint-booth-filters', description: 'GFS booth family and filter-position guidance with fitment boundaries.' },
+  { name: 'Col-Met', href: '/col-met-paint-booth-filters', description: 'Guidance for enclosed booths, open-face booths, and prep stations.' },
 ];
 
 export default function Brands() {
@@ -94,6 +102,29 @@ export default function Brands() {
 
       {/* Arc transition */}
       <div className="arc-divider arc-divider-down" />
+
+      <section className="section-glow tex-lines py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-3xl mb-9">
+            <p className="text-[#4d9fff] text-xs font-semibold uppercase tracking-[0.2em] mb-3">Booth manufacturer guides</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Replacement guidance by booth brand</h2>
+            <p className="text-white/55 leading-relaxed">Use these pages to identify the likely filter stage and organize model information. Confirm the installed media, label, and actual dimensions before ordering.</p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {boothGuides.map((guide) => (
+              <Link key={guide.href} href={guide.href}>
+                <div className="glow-card group h-full p-5">
+                  <h3 className="font-bold text-white group-hover:text-blue-300 transition-colors mb-2">{guide.name}</h3>
+                  <p className="text-sm text-white/50 leading-relaxed mb-4">{guide.description}</p>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-400">Open guide <ArrowRight className="h-3.5 w-3.5" /></span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="arc-divider arc-divider-up" />
 
       <Footer />
     </div>

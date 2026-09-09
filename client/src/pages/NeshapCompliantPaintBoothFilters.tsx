@@ -18,7 +18,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { ShieldAlert, Plane, Phone, ArrowRight, Info } from 'lucide-react';
+import { ShieldAlert, Plane, Phone, ArrowRight, Info, ExternalLink } from 'lucide-react';
 import { bundledShopifyProducts } from '@/lib/productCatalog';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 
@@ -56,15 +56,15 @@ const exhaustArrestors = bundledShopifyProducts
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: `${SITE}/` },
   { name: 'Paint Booth Filters', url: `${SITE}/paint-booth-filters` },
-  { name: 'NESHAP Compliant Paint Booth Filters', url: `${SITE}${PAGE_PATH}` },
+  { name: 'NESHAP Paint Booth Filter Guide', url: `${SITE}${PAGE_PATH}` },
 ]);
 
 export default function NeshapCompliantPaintBoothFilters() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="NESHAP Compliant Paint Booth Filters — 6H & Method 319 | PFS Filters"
-        description="NESHAP compliant paint booth filters: how Subpart 6H and Method 319 relate to booth exhaust filtration, and what a facility is responsible for verifying."
+        title="NESHAP Paint Booth Filter Guide — Subpart 6H & Method 319"
+        description="Learn how EPA Subpart 6H and Method 319 relate to paint booth exhaust filtration, product evidence, and facility responsibilities."
         canonical="https://www.pfsfilters.com/neshap-compliant-paint-booth-filters"
         structuredData={breadcrumbSchema}
       />
@@ -84,7 +84,7 @@ export default function NeshapCompliantPaintBoothFilters() {
               <ShieldAlert className="h-3 w-3" /> EPA NESHAP
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 pfs-heading-animate leading-tight">
-              NESHAP Compliant Paint Booth Filters — Standard &amp; Aerospace Systems
+              NESHAP Paint Booth Filter Guide — Standard &amp; Aerospace Systems
             </h1>
             <p className="text-lg text-white/60 max-w-2xl pfs-sub-animate">
               How EPA NESHAP rules relate to spray booth exhaust filtration — the standard Subpart 6H
@@ -116,17 +116,15 @@ export default function NeshapCompliantPaintBoothFilters() {
           <div className="max-w-3xl mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">Standard NESHAP 6H — surface coating operations</h2>
             <p className="text-white/60 leading-relaxed">
-              Subpart 6H (40 CFR Part 63, Subpart HHHHHH) is the area-source NESHAP that covers most
-              auto body and miscellaneous surface coating shops. It calls for spray-applied coating to
-              be done in a booth or enclosure with exhaust filtration and references a filter
-              capture-efficiency requirement. The exhaust arrestor media below is the kind used on the
-              exhaust stage of these booths. It is offered as filter media only — confirm that the
-              media, size, and installation you choose meet the requirement that applies to your
-              operation.
+              Subpart 6H (40 CFR Part 63, Subpart HHHHHH) applies to defined area-source paint
+              stripping and miscellaneous surface-coating operations. Where its spray-booth filter
+              provision applies, it calls for filter technology demonstrated to capture at least 98%
+              of paint overspray through specified evidence pathways. The products below are catalog
+              media to review, not proof that a product or facility meets the rule.
             </p>
           </div>
 
-          <h3 className="sr-only">Exhaust arrestor media in stock</h3>
+          <h3 className="sr-only">Exhaust arrestor media in the current catalog</h3>
           {exhaustArrestors.length > 0 ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {exhaustArrestors.map((product) => (
@@ -180,6 +178,11 @@ export default function NeshapCompliantPaintBoothFilters() {
                 Andreae accordion filters
               </Button>
             </Link>
+            <a href="https://www.epa.gov/collision-repair-campaign/about-epas-auto-body-rule" target="_blank" rel="noopener noreferrer">
+              <Button variant="ghost" className="text-white/50 hover:text-white gap-2">
+                EPA collision-repair resources <ExternalLink className="h-3.5 w-3.5" />
+              </Button>
+            </a>
           </div>
         </div>
       </section>
@@ -196,11 +199,11 @@ export default function NeshapCompliantPaintBoothFilters() {
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Aerospace &amp; Method 319 Compliance Systems</h2>
           <div className="space-y-4 text-white/60 leading-relaxed">
             <p>
-              Aerospace manufacturing and rework facilities fall under a different NESHAP (40 CFR Part
-              63, Subpart GG) and often run multi-stage exhaust systems configured to the coatings and
-              airflow of the specific application. Product statements in this area are usually tied to
-              EPA Method 319, a laboratory test method for paint overspray arrestor filtration
-              efficiency — not a facility-wide guarantee.
+              Qualifying major-source aerospace manufacturing and rework facilities may be subject to
+              a different NESHAP (40 CFR Part 63, Subpart GG). Product or system statements in this
+              area must be tied to evidence for the exact tested media or configuration. EPA Method
+              319 is a laboratory test method for paint overspray arrestors, not a facility-wide
+              compliance guarantee.
             </p>
             <p>
               A Method 319 reference should be tied to evidence for the exact product, media, or
@@ -234,6 +237,9 @@ export default function NeshapCompliantPaintBoothFilters() {
             </Link>
             .
           </p>
+          <a href="https://www.epa.gov/emc/method-319-determination-filtration-efficiency-paint-overspray-arrestors" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300">
+            Official EPA Method 319 information <ExternalLink className="h-3.5 w-3.5" />
+          </a>
         </div>
       </section>
 
@@ -299,7 +305,7 @@ export default function NeshapCompliantPaintBoothFilters() {
           </div>
           <div className="mt-8">
             <Link href="/prefilters" className="text-sm text-blue-400 hover:text-blue-300">
-              How prefilters extend filter life &rarr;
+              Review system-specific prefilter guidance &rarr;
             </Link>
           </div>
         </div>

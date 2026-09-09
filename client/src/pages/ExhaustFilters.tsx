@@ -5,14 +5,16 @@
 // is fiberglass paint arrestors, Paint Pockets, and Andreae accordion media
 // (the exhaust-stage media families the catalog actually carries).
 
+import { useMemo } from 'react';
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Filter, Truck, Wind, Phone, ArrowRight } from 'lucide-react';
-import { bundledShopifyProducts } from '@/lib/productCatalog';
+import { Filter, Wind, Phone, ArrowRight } from 'lucide-react';
+import type { ShopifyProduct } from '@/lib/shopify';
+import { useCurrentShopifyProducts } from '@/hooks/useCurrentShopifyProducts';
 import { createBreadcrumbSchema, createItemListSchema } from '@/lib/structuredData';
 
 const SITE = 'https://www.pfsfilters.com';
@@ -22,7 +24,7 @@ const FALLBACK_IMAGE =
 
 const EXHAUST_TITLE_HINT = /fiberglass|paint arrestor|paint pockets|accordion/i;
 
-const exhaustProducts = bundledShopifyProducts
+const getExhaustProducts = (products: ShopifyProduct[]) => products
   .filter((product) => {
     const node = product.node;
     const title = node.title.toLowerCase();
@@ -52,29 +54,27 @@ const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Paint Booth Exhaust Filters', url: `${SITE}${PAGE_PATH}` },
 ]);
 
-const itemListSchema = createItemListSchema(
-  exhaustProducts
-    .filter((p) => p.minPrice != null)
-    .map((p) => ({
-      name: p.title,
-      url: `${SITE}/product/${p.handle}`,
-      image: p.image,
-      price: (p.minPrice as number).toFixed(2),
-      currency: p.currency,
-    })),
-);
-
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@graph': [breadcrumbSchema, itemListSchema],
-};
-
 export default function ExhaustFilters() {
+  const products = useCurrentShopifyProducts();
+  const exhaustProducts = useMemo(() => getExhaustProducts(products), [products]);
+  const structuredData = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@graph': [breadcrumbSchema, createItemListSchema(
+      exhaustProducts.map((product) => ({
+        name: product.title,
+        url: `${SITE}/product/${product.handle}`,
+        image: product.image,
+        price: product.minPrice?.toFixed(2) ?? '',
+        currency: product.currency,
+      })),
+    )],
+  }), [exhaustProducts]);
+
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Paint Booth Exhaust Filters — Fiberglass, Polyester & Andreae | In Stock | PFS Filters"
-        description="Shop paint booth exhaust filters — fiberglass paint arrestor pads and rolls, Paint Pockets, and Andreae accordion media, in stock. Ships fast nationwide."
+        title="Paint Booth Exhaust Filters — Fiberglass, Paint Pockets & Andreae"
+        description="Compare fiberglass paint arrestor pads and rolls, Paint Pockets, and Andreae-style accordion media. Check current options and availability on each product page."
         canonical="https://www.pfsfilters.com/exhaust-filters"
         structuredData={structuredData}
       />
@@ -94,16 +94,16 @@ export default function ExhaustFilters() {
               <Filter className="h-3 w-3" /> Exhaust stage
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 pfs-heading-animate leading-tight">
-              Paint Booth Exhaust Filters — Fiberglass, Polyester &amp; Andreae
+              Paint Booth Exhaust Filters — Fiberglass, Paint Pockets &amp; Andreae Style
             </h1>
             <p className="text-lg text-white/60 max-w-2xl pfs-sub-animate">
               Overspray arrestor media for the outlet side of the booth. Browse the fiberglass,
-              Paint Pockets, and Andreae accordion options PFS Filters stocks, then confirm your
+              Paint Pockets, and Andreae-style options shown in the PFS catalog, then confirm your
               filter frame size before ordering.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm text-white/45">
               <span className="inline-flex items-center gap-1.5">
-                <Truck className="h-3.5 w-3.5 text-blue-400" /> Ships Fast Nationwide
+                <Filter className="h-3.5 w-3.5 text-blue-400" /> Availability shown by product and variant
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Wind className="h-3.5 w-3.5 text-blue-400" /> Pads, rolls &amp; accordion media
@@ -118,10 +118,10 @@ export default function ExhaustFilters() {
       {/* Product grid */}
       <section className="section-raised tex-dots py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="sr-only">Exhaust filter products in stock</h2>
+          <h2 className="sr-only">Exhaust filter products in the current catalog</h2>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 mb-6 text-[13px] text-white/50 border-b border-white/[0.06] pb-3">
             <span>{`${exhaustProducts.length} exhaust filter product${exhaustProducts.length !== 1 ? 's' : ''}`}</span>
-            <span className="text-center">Custom cuts available on most sizes — contact us</span>
+            <span className="text-center">Custom and unusual sizes require review — contact us</span>
             <Link href="/contact" className="hover:text-white transition-colors">
               Need help choosing?
             </Link>
@@ -189,24 +189,22 @@ export default function ExhaustFilters() {
             <p>
               Paint booth exhaust filters sit on the outlet side of the booth and capture paint
               overspray before air passes into the exhaust plenum, fan, and ductwork. PFS Filters
-              stocks the media families most finishing shops use on the exhaust stage.
+              lists several media families used on paint-booth exhaust stages.
             </p>
             <p>
               <Link href="/category/fiberglass-arrestors" className="text-blue-400 hover:text-blue-300">
                 Fiberglass paint arrestor
               </Link>{' '}
               pads and rolls are the common, lower-cost option — a tapered-density glass-fiber mat
-              sold here in 15-gram and 22-gram weights, in pads and in continuous rolls for
-              cut-to-length frames. Paint Pockets is another arrestor media stocked in 20&times;20
-              and 20&times;25, used by some shops to stretch change intervals on heavier spray work.
+              sold here in 15-gram and 22-gram product variants, in pads and continuous rolls.
+              Paint Pockets is another arrestor construction represented in the current catalog.
             </p>
             <p>
               <Link href="/andreae-paint-booth-filters" className="text-blue-400 hover:text-blue-300">
                 Andreae accordion filters
               </Link>{' '}
-              use a folded, multi-stage design for a larger filtration surface and steadier airflow
-              through the change cycle, and are often chosen for higher overspray volumes. Full sizes
-              and pricing are on the dedicated Andreae page.
+              use a folded, multi-stage construction that differs from single-stage fiberglass media.
+              Full variant names, prices, and current availability are on the dedicated Andreae page.
             </p>
             <p>
               Media choice depends on your coatings, spray volume, booth airflow, and how often you
