@@ -69,6 +69,7 @@ const staticRoutes = [
   { path: '/ceiling-filters', title: 'Paint Booth Ceiling Filters — Downdraft Diffusion Media | In Stock | PFS Filters', description: 'Shop paint booth ceiling filters — downdraft diffusion media that spreads intake air evenly across the booth ceiling, in stock. Ships fast nationwide.', priority: '0.9', changefreq: 'weekly' },
   { path: '/prefilters', title: 'Paint Booth Prefilters — Extend Filter Life by 50% | PFS Filters', description: 'Paint booth prefilters catch larger particles before they load your ceiling or final filters. How prefilters fit a booth, and the media to pair with them.', priority: '0.7', changefreq: 'monthly' },
   { path: '/neshap-compliant-paint-booth-filters', title: 'NESHAP Compliant Paint Booth Filters — 6H & Method 319 | PFS Filters', description: 'NESHAP compliant paint booth filters: how Subpart 6H and Method 319 relate to booth exhaust filtration, and what a facility is responsible for verifying.', priority: '0.8', changefreq: 'monthly' },
+  { path: '/garmat-paint-booth-filters', title: 'Garmat Paint Booth Replacement Filters — In Stock, Ships Fast | PFS Filters', description: 'Replacement filter sizes for Garmat paint booths by model — 3000 Series, 700 Series, Blackhawk, Chinook II, Zephyr. Match a size to PFS booth media.', priority: '0.8', changefreq: 'monthly' },
   { path: '/filter-finder', title: 'Paint Booth Filter Finder by Booth, Stage & Size | PFS Filters', description: 'Narrow paint booth filter options by booth type, brand, model, filter stage, and size. Verify the product record and actual dimensions before ordering.', priority: '0.9', changefreq: 'monthly' },
   { path: '/shop-by-size', title: 'Shop Paint Booth Filters by Size | PFS Filters', description: 'Find common paint booth filter sizes and request help with custom or hard-to-find dimensions.', priority: '0.8', changefreq: 'weekly' },
   { path: '/shop-by-type', title: 'Shop Paint Booth Filters by Type | PFS Filters', description: 'Browse fiberglass arrestors, tacky panels, ceiling blankets, roll media, MERV filters, and prefilters.', priority: '0.8', changefreq: 'weekly' },
@@ -263,6 +264,19 @@ if (neshapRoute) {
       { '@type': 'ListItem', position: 1, name: 'Home', item: `${origin}/` },
       { '@type': 'ListItem', position: 2, name: 'Paint Booth Filters', item: `${origin}/paint-booth-filters` },
       { '@type': 'ListItem', position: 3, name: 'NESHAP Compliant Paint Booth Filters', item: absoluteUrl('/neshap-compliant-paint-booth-filters') },
+    ],
+  };
+}
+
+const garmatRoute = staticRoutes.find((route) => route.path === '/garmat-paint-booth-filters');
+if (garmatRoute) {
+  garmatRoute.schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${origin}/` },
+      { '@type': 'ListItem', position: 2, name: 'Shop by Booth', item: `${origin}/shop-by-booth` },
+      { '@type': 'ListItem', position: 3, name: 'Garmat Paint Booth Filters', item: absoluteUrl('/garmat-paint-booth-filters') },
     ],
   };
 }
