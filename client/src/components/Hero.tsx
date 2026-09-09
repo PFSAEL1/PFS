@@ -5,7 +5,7 @@ import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { CircleHelp, Mail, ShoppingBag, Truck, Shield } from 'lucide-react';
 
-const HERO_VIDEO = '/media/pfs-realistic-filter-dust-hero-338730ad.mp4';
+const HERO_VIDEO = 'https://cdn.shopify.com/videos/c/o/v/95b492e672f942f8acd0683f6053f877.mp4';
 const HERO_POSTER_MOBILE = '/media/pfs-hero-poster-mobile.webp';
 const HERO_POSTER_DESKTOP = '/media/pfs-hero-poster-desktop.webp';
 
@@ -15,21 +15,18 @@ export const Hero = () => {
   const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
-    const desktopQuery = window.matchMedia('(min-width: 768px)');
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     const updatePlaybackPreference = () => {
-      const shouldPlayVideo = desktopQuery.matches && !reducedMotionQuery.matches;
+      const shouldPlayVideo = !reducedMotionQuery.matches;
       setCanPlayVideo(shouldPlayVideo);
       if (!shouldPlayVideo) setVideoReady(false);
     };
 
     updatePlaybackPreference();
-    desktopQuery.addEventListener('change', updatePlaybackPreference);
     reducedMotionQuery.addEventListener('change', updatePlaybackPreference);
 
     return () => {
-      desktopQuery.removeEventListener('change', updatePlaybackPreference);
       reducedMotionQuery.removeEventListener('change', updatePlaybackPreference);
     };
   }, []);
