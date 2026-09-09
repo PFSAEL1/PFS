@@ -105,6 +105,37 @@ const staticRoutes = [
   { path: '/filter-scanner', title: 'Photo-Assisted Paint Booth Filter Review | PFS Filters', description: 'Use a filter photo to narrow catalog candidates, then verify the booth position, label, and actual dimensions before ordering.', priority: '0.5', changefreq: 'monthly' },
 ];
 
+const paintBoothFilterFaqs = [
+  {
+    question: 'How fast do filters ship?',
+    answer: 'Stocked items typically process in 1–2 business days. Custom, specialty, freight, and backordered items may require additional time; confirm the current product page or contact PFS Filters for an order-specific estimate.',
+  },
+  {
+    question: 'What is Subscribe & Save?',
+    answer: 'Eligible products can be purchased on a monthly Shopify subscription with 5% off. The subscription terms must be shown and confirmed at checkout, and customers can manage eligible subscriptions through the Shopify account portal.',
+  },
+  {
+    question: 'How do I know which filter fits my booth?',
+    answer: 'Confirm the booth manufacturer and model, filter position, and actual dimensions. Browse by filter type or booth brand, then contact PFS Filters when a part number or fitment detail needs review.',
+  },
+  {
+    question: 'Do you cover all booth brands or just PFS?',
+    answer: 'PFS Filters provides catalog and replacement guidance for PFS and multiple major booth brands, including Garmat, Accudraft, GFS, Col-Met, and Blowtherm. Compatibility depends on the booth model, stage, and dimensions.',
+  },
+  {
+    question: 'How often should I replace exhaust filters?',
+    answer: 'There is no universal replacement interval. Follow the booth and filter manufacturer instructions, differential-pressure or manometer readings, operating conditions, coating load, and documented visual inspections.',
+  },
+  {
+    question: 'Does buying a filter make a booth CARB or OSHA compliant?',
+    answer: 'No filter by itself makes a facility compliant. Compliance depends on the complete booth, ventilation, operating conditions, coating process, maintenance, permits, and applicable rules. Request product documentation and consult a qualified professional for your facility.',
+  },
+  {
+    question: 'Can I order in bulk?',
+    answer: 'Yes. Bulk pricing available. Call 855-496-7969 to discuss pricing for your facility\'s volume.',
+  },
+];
+
 const categoryRoutes = categories.map((category) => ({
   path: `/category/${category.slug}`,
   title: `${category.title} | PFS Filters`,
@@ -202,6 +233,19 @@ faqRoute.schema = {
     acceptedAnswer: { '@type': 'Answer', text: faq.answer },
   })),
 };
+
+const paintBoothFiltersRoute = staticRoutes.find((route) => route.path === '/paint-booth-filters');
+if (paintBoothFiltersRoute) {
+  paintBoothFiltersRoute.schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: paintBoothFilterFaqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  };
+}
 
 const andreaeRoute = staticRoutes.find((route) => route.path === '/andreae-paint-booth-filters');
 if (andreaeRoute) {
