@@ -38,6 +38,7 @@ const ExhaustFilters = lazyRoute(() => import('./pages/ExhaustFilters'));
 const IntakeFilters = lazyRoute(() => import('./pages/IntakeFilters'));
 const CeilingFilters = lazyRoute(() => import('./pages/CeilingFilters'));
 const Prefilters = lazyRoute(() => import('./pages/Prefilters'));
+const NeshapCompliantPaintBoothFilters = lazyRoute(() => import('./pages/NeshapCompliantPaintBoothFilters'));
 const NotFound = lazyRoute(() => import('./pages/NotFound'));
 const PfsVitra = lazyRoute(() => import('./pages/PfsVitra'));
 const PfsVanguard = lazyRoute(() => import('./pages/PfsVanguard'));
@@ -75,6 +76,7 @@ function Router() {
       <Route path="/intake-filters" component={IntakeFilters} />
       <Route path="/ceiling-filters" component={CeilingFilters} />
       <Route path="/prefilters" component={Prefilters} />
+      <Route path="/neshap-compliant-paint-booth-filters" component={NeshapCompliantPaintBoothFilters} />
 
       {/* Info pages */}
       <Route path="/contact" component={Contact} />
