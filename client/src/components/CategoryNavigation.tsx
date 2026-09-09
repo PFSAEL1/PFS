@@ -19,7 +19,7 @@ const categories: Category[] = [
     title: 'Ceiling Blankets',
     subtitle: 'Overhead intake filtration',
     href: '/category/ceiling-blankets',
-    image: '/images/cat_ceiling_blankets.png',
+    image: '/images/cat_ceiling_blankets-640.webp',
     alt: 'Paint booth ceiling blanket intake filter media for downdraft spray booths',
     mode: 'product',
   },
@@ -27,7 +27,7 @@ const categories: Category[] = [
     title: 'Fiberglass Arrestors',
     subtitle: 'High-capacity exhaust filtration',
     href: '/category/fiberglass-arrestors',
-    image: '/images/cat_fiberglass_arrestors.png',
+    image: '/images/cat_fiberglass_arrestors.webp',
     alt: 'Paint booth fiberglass paint arrestor exhaust filter pad',
     mode: 'product',
   },
@@ -35,7 +35,7 @@ const categories: Category[] = [
     title: 'Tacky Panel Filters',
     subtitle: 'Superior particle capture',
     href: '/category/tacky-panels',
-    image: '/images/cat_tacky_panels.png',
+    image: '/images/cat_tacky_panels-640.webp',
     alt: 'Paint booth tacky panel intake filter for spray booth air inlet',
     mode: 'product',
   },
@@ -43,7 +43,7 @@ const categories: Category[] = [
     title: 'Roll Media',
     subtitle: 'Continuous roll filtration',
     href: '/category/roll-media',
-    image: '/images/cat_roll_media.png',
+    image: '/images/cat_roll_media.webp',
     alt: 'Paint booth roll filter media for intake and exhaust filtration',
     mode: 'product',
   },
@@ -51,7 +51,7 @@ const categories: Category[] = [
     title: 'Shop by Size',
     subtitle: '20x20, 20x25, custom cuts',
     href: '/shop-by-size',
-    image: '/images/cat_fiberglass_arrestors.png',
+    image: '/images/cat_fiberglass_arrestors.webp',
     alt: 'Paint booth filters by size — 20x20, 20x25 and custom-cut',
     mode: 'product',
   },
@@ -59,7 +59,7 @@ const categories: Category[] = [
     title: 'Shop by Type',
     subtitle: 'Intake, exhaust, MERV-rated',
     href: '/shop-by-type',
-    image: '/images/cat_roll_media.png',
+    image: '/images/cat_roll_media.webp',
     alt: 'Paint booth filters by type — intake, exhaust and MERV-rated media',
     mode: 'product',
   },
@@ -87,7 +87,7 @@ export const CategoryNavigation = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {categories.map((cat) => (
             <Link key={cat.href} href={cat.href}>
-              <div className="group flex flex-col rounded-2xl overflow-hidden border border-white/[0.08] bg-[#161616] cursor-pointer transition-all duration-200 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)]">
+              <div className="group flex flex-col rounded-2xl overflow-hidden border border-white/[0.08] bg-[#161616] cursor-pointer transition-[transform,box-shadow,background-color] duration-200 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)]">
                 {/* Media area — large */}
                 <div className="relative w-full aspect-[4/3] overflow-hidden">
                   {cat.mode === 'product' ? (
@@ -103,6 +103,9 @@ export const CategoryNavigation = () => {
                         alt={cat.alt}
                         className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_10px_24px_rgba(0,0,0,0.55)]"
                         loading="lazy"
+                        decoding="async"
+                        width={640}
+                        height={640}
                       />
                     </div>
                   ) : (
@@ -112,6 +115,9 @@ export const CategoryNavigation = () => {
                         alt={cat.alt}
                         className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
+                        decoding="async"
+                        width={640}
+                        height={480}
                       />
                       <div
                         className="absolute inset-0"

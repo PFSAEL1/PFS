@@ -9,27 +9,54 @@ import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 import { toast } from 'sonner';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
+import { cacheShopifyProducts, getImmediateShopifyProducts } from '@/lib/productCatalog';
+import { shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
+const selectFeaturedProducts = (products: ShopifyProduct[]) =>
+  products
+    .filter((p) => !p.node.title.toLowerCase().includes('membership'))
+    .slice(0, 4);
+
 export const TopMovers = () => {
-  const [products, setProducts] = useState<ShopifyProduct[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<ShopifyProduct[]>(() =>
+    selectFeaturedProducts(getImmediateShopifyProducts()),
+  );
+  const [loading, setLoading] = useState(() => products.length === 0);
   const { discountPercent } = usePricing();
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
 
   useEffect(() => {
-    fetchProducts(12)
-      .then((data) => {
-        setProducts(
-          data
-            .filter((p) => !p.node.title.toLowerCase().includes('membership'))
-            .slice(0, 4)
-        );
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    let active = true;
+    let idleId: number | undefined;
+    let timerId: number | undefined;
+
+    const refreshProducts = () => {
+      fetchProducts(12)
+        .then((data) => {
+          if (!active) return;
+          cacheShopifyProducts(data);
+          setProducts(selectFeaturedProducts(data));
+          setLoading(false);
+        })
+        .catch(() => {
+          if (active) setLoading(false);
+        });
+    };
+
+    if ('requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(refreshProducts, { timeout: 4500 });
+    } else {
+      timerId = globalThis.setTimeout(refreshProducts, 2500) as unknown as number;
+    }
+
+    return () => {
+      active = false;
+      if (idleId !== undefined) window.cancelIdleCallback(idleId);
+      if (timerId !== undefined) window.clearTimeout(timerId);
+    };
   }, []);
 
   const handleAdd = (e: React.MouseEvent, product: ShopifyProduct) => {
@@ -89,14 +116,20 @@ export const TopMovers = () => {
             const inStock = variant?.availableForSale ?? true;
             return (
               <Link key={product.node.id} href={`/product/${product.node.handle}`}>
-                <div className="group bg-[#1a1a1a] border border-white/[0.08] rounded-xl overflow-hidden hover:border-blue-500/40 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer h-full flex flex-col">
+                <div className="group bg-[#1a1a1a] border border-white/[0.08] rounded-xl overflow-hidden hover:border-blue-500/40 hover:-translate-y-0.5 transition-[transform,box-shadow,background-color] duration-200 cursor-pointer h-full flex flex-col">
                   {/* Image area */}
                   <div className="product-img-wrap relative h-[190px] flex items-center justify-center p-4">
                     <ProductBadges badges={getProductBadges(product)} />
                     <img
-                      src={image}
+                      src={sizedShopifyImageUrl(image, 480)}
+                      srcSet={shopifyImageSrcSet(image)}
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                       alt={product.node.title}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                      width={480}
+                      height={480}
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   {/* Card body */}

@@ -11,7 +11,7 @@ import { useCartStore } from '@/stores/cartStore';
 import { supabase } from '@/lib/supabase';
 import { CartDrawer } from './CartDrawer';
 
-const LOGO_URL = '/images/brands/pfs-logo-wide.png';
+const LOGO_URL = '/images/brands/pfs-logo-wide-420.webp';
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,6 +77,9 @@ export const Navigation = () => {
                 src={LOGO_URL}
                 alt="PFS Filters"
                 className="h-16 w-auto"
+                width={420}
+                height={127}
+                decoding="async"
               />
             </Link>
 
@@ -160,7 +163,7 @@ export const Navigation = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="font-semibold border-white/20 text-white/80 hover:bg-white/10 hover:text-white hover:border-white/30 bg-transparent transition-all"
+                    className="font-semibold border-white/20 text-white/80 hover:bg-white/10 hover:text-white hover:border-white/30 bg-transparent transition-[background-color,box-shadow,transform,opacity]"
                   >
                     Get a Quote
                   </Button>
@@ -168,7 +171,7 @@ export const Navigation = () => {
                 <Link href="/shop">
                   <Button
                     size="sm"
-                    className="font-semibold bg-[#4d9fff] hover:bg-[#6aadff] text-white shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transition-all"
+                    className="font-semibold bg-[#4d9fff] hover:bg-[#6aadff] text-white shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transition-[background-color,box-shadow,transform,opacity]"
                   >
                     <ShoppingBag className="w-4 h-4 mr-1.5" />
                     Shop Now

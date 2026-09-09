@@ -8,6 +8,7 @@ import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
 import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 import { toast } from 'sonner';
+import { shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
@@ -72,14 +73,14 @@ export const PopularProducts = () => {
           <div className="hidden md:flex gap-2">
             <button
               onClick={() => scroll('left')}
-              className="w-9 h-9 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/25 transition-all flex items-center justify-center text-white/60 hover:text-white"
+              className="w-9 h-9 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/25 transition-[background-color,box-shadow,transform,opacity] flex items-center justify-center text-white/60 hover:text-white"
               aria-label="Scroll left"
             >
               <ArrowLeft className="h-4 w-4" />
             </button>
             <button
               onClick={() => scroll('right')}
-              className="w-9 h-9 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/25 transition-all flex items-center justify-center text-white/60 hover:text-white"
+              className="w-9 h-9 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/25 transition-[background-color,box-shadow,transform,opacity] flex items-center justify-center text-white/60 hover:text-white"
               aria-label="Scroll right"
             >
               <ArrowRight className="h-4 w-4" />
@@ -124,9 +125,15 @@ export const PopularProducts = () => {
                     <Link href={`/product/${product.node.handle}`}>
                       <div className="product-img-wrap aspect-square overflow-hidden relative cursor-pointer">
                         <img
-                          src={image}
+                          src={sizedShopifyImageUrl(image, 480)}
+                          srcSet={shopifyImageSrcSet(image)}
+                          sizes="240px"
                           alt={product.node.title}
                           className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                          width={480}
+                          height={480}
+                          loading="lazy"
+                          decoding="async"
                           style={{ filter: 'brightness(0.95) contrast(1.05)' }}
                         />
                       </div>
@@ -159,7 +166,7 @@ export const PopularProducts = () => {
                       <button
                         onClick={() => handleAddToCart(product)}
                         disabled={isAdding}
-                        className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 glow-add-btn ${isAdding ? 'btn-adding' : 'btn-active'}`}
+                        className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-semibold transition-[background-color,box-shadow,transform,opacity] duration-200 glow-add-btn ${isAdding ? 'btn-adding' : 'btn-active'}`}
                       >
                         {isAdding ? (
                           <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -178,7 +185,7 @@ export const PopularProducts = () => {
             <div className="flex-none w-[160px] snap-start flex items-center justify-center">
               <Link href="/shop">
                 <div className="flex flex-col items-center gap-3 text-white/30 hover:text-white/60 transition-colors cursor-pointer group">
-                  <div className="w-12 h-12 rounded-full border border-white/10 group-hover:border-white/25 flex items-center justify-center transition-all">
+                  <div className="w-12 h-12 rounded-full border border-white/10 group-hover:border-white/25 flex items-center justify-center transition-[background-color,box-shadow,transform,opacity]">
                     <ArrowRight className="h-5 w-5" />
                   </div>
                   <span className="text-xs font-medium text-center">View All<br />Products</span>

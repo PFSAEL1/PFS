@@ -5,15 +5,37 @@ import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { CircleHelp, Mail, ShoppingBag, Truck, Shield } from 'lucide-react';
 
-const HERO_VIDEO = 'https://cdn.shopify.com/videos/c/o/v/95b492e672f942f8acd0683f6053f877.mp4';
-const HERO_POSTER = 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/pfs-final-thicker-gentle-dust-hero-poster-92179f90.jpg?v=1788567595';
+const HERO_VIDEO = '/media/pfs-realistic-filter-dust-hero-338730ad.mp4';
+const HERO_POSTER_MOBILE = '/media/pfs-hero-poster-mobile.webp';
+const HERO_POSTER_DESKTOP = '/media/pfs-hero-poster-desktop.webp';
 
 export const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [canPlayVideo, setCanPlayVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const desktopQuery = window.matchMedia('(min-width: 768px)');
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const updatePlaybackPreference = () => {
+      const shouldPlayVideo = desktopQuery.matches && !reducedMotionQuery.matches;
+      setCanPlayVideo(shouldPlayVideo);
+      if (!shouldPlayVideo) setVideoReady(false);
+    };
+
+    updatePlaybackPreference();
+    desktopQuery.addEventListener('change', updatePlaybackPreference);
+    reducedMotionQuery.addEventListener('change', updatePlaybackPreference);
+
+    return () => {
+      desktopQuery.removeEventListener('change', updatePlaybackPreference);
+      reducedMotionQuery.removeEventListener('change', updatePlaybackPreference);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!canPlayVideo) return;
 
     let idleId: number | undefined;
     let timerId: number | undefined;
@@ -33,10 +55,10 @@ export const Hero = () => {
       if (idleId !== undefined) window.cancelIdleCallback(idleId);
       if (timerId !== undefined) window.clearTimeout(timerId);
     };
-  }, []);
+  }, [canPlayVideo]);
 
   useEffect(() => {
-    if (!videoReady) return;
+    if (!canPlayVideo || !videoReady) return;
     const video = videoRef.current;
     if (!video) return;
     video.muted = true;
@@ -58,22 +80,38 @@ export const Hero = () => {
       >
         {/* Full-bleed looping video background */}
         <div className="absolute inset-0 z-0">
-          <video
-            ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover object-[65%_center] md:object-center"
-            src={videoReady ? HERO_VIDEO : undefined}
-            poster={HERO_POSTER}
-            autoPlay={videoReady}
-            muted
-            loop
-            playsInline
-            controls={false}
-            preload="none"
-            disablePictureInPicture
-            aria-hidden="true"
-            tabIndex={-1}
-            style={{ pointerEvents: 'none' }}
-          />
+          <picture>
+            <source media="(max-width: 767px)" srcSet={HERO_POSTER_MOBILE} />
+            <img
+              src={HERO_POSTER_DESKTOP}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover object-[65%_center] md:object-center"
+              width={1600}
+              height={900}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              aria-hidden="true"
+            />
+          </picture>
+          {canPlayVideo && (
+            <video
+              ref={videoRef}
+              className={`absolute inset-0 w-full h-full object-cover object-[65%_center] md:object-center transition-opacity duration-500 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
+              src={videoReady ? HERO_VIDEO : undefined}
+              poster={HERO_POSTER_DESKTOP}
+              autoPlay={videoReady}
+              muted
+              loop
+              playsInline
+              controls={false}
+              preload="none"
+              disablePictureInPicture
+              aria-hidden="true"
+              tabIndex={-1}
+              style={{ pointerEvents: 'none' }}
+            />
+          )}
           {/* Left-side vignette: grounds the headline to the image, keeps filter imagery on the right fully visible */}
           <div className="hero-vignette" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-[1]" />
@@ -112,7 +150,7 @@ export const Hero = () => {
               <Link href="/shop">
                 <Button
                   size="lg"
-                  className="text-base px-8 py-6 font-bold bg-blue-500 hover:bg-blue-400 text-white shadow-[0_0_30px_rgba(59,130,246,0.5)] hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] transition-all duration-300 hover:scale-105"
+                  className="text-base px-8 py-6 font-bold bg-blue-500 hover:bg-blue-400 text-white shadow-[0_0_30px_rgba(59,130,246,0.5)] hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] transition-[background-color,box-shadow,transform] duration-300 hover:scale-105"
                 >
                   <ShoppingBag className="mr-2 h-5 w-5" />
                   Shop Filters Now
@@ -122,7 +160,7 @@ export const Hero = () => {
                 size="lg"
                 variant="outline"
                 onClick={scrollToContact}
-                className="text-base px-8 py-6 font-bold border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 hover:scale-105 transition-all duration-300 bg-transparent"
+                className="text-base px-8 py-6 font-bold border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 hover:scale-105 transition-[background-color,box-shadow,transform] duration-300 bg-transparent"
               >
                 <Mail className="mr-2 h-5 w-5" />
                 Get a Custom Quote

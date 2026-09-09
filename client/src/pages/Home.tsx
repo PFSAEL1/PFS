@@ -1,22 +1,71 @@
 // Home.tsx — PFS Filters Homepage
 // Redesigned per handoff spec: dark SaaS aesthetic, section rhythm, no prices on homepage
+import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { Hero } from '@/components/Hero';
-import { CategoryNavigation } from '@/components/CategoryNavigation';
-import { TopMovers } from '@/components/TopMovers';
-import { FAQ } from '@/components/FAQ';
-import { Footer } from '@/components/Footer';
 import { StickyMobileCTA } from '@/components/StickyMobileCTA';
 import { organizationSchema, websiteSchema } from '@/lib/structuredData';
 import { Link } from 'wouter';
 import { ClipboardList, Package, RefreshCw } from 'lucide-react';
 
+const CategoryNavigation = lazy(() =>
+  import('@/components/CategoryNavigation').then((module) => ({ default: module.CategoryNavigation })),
+);
+const TopMovers = lazy(() =>
+  import('@/components/TopMovers').then((module) => ({ default: module.TopMovers })),
+);
+const FAQ = lazy(() =>
+  import('@/components/FAQ').then((module) => ({ default: module.FAQ })),
+);
+const Footer = lazy(() =>
+  import('@/components/Footer').then((module) => ({ default: module.Footer })),
+);
+
 const combinedSchema = {
   '@context': 'https://schema.org',
   '@graph': [organizationSchema, websiteSchema],
 };
+
+function DeferredHomeSection({
+  children,
+  minHeight,
+}: {
+  children: ReactNode;
+  minHeight: number;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    if (!('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '700px 0px' },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  if (isVisible) {
+    return <Suspense fallback={<div style={{ minHeight }} aria-hidden="true" />}>{children}</Suspense>;
+  }
+
+  return <div ref={ref} style={{ minHeight }} aria-hidden="true" />;
+}
 
 export default function Home() {
   return (
@@ -62,7 +111,8 @@ export default function Home() {
               {
                 title: 'Intake Blankets',
                 subtitle: 'Overhead ceiling intake filtration',
-                image: '/images/home_intake_blankets.webp',
+                image: '/images/home_intake_blankets-640.webp',
+                srcSet: '/images/home_intake_blankets-640.webp 640w, /images/home_intake_blankets-960.webp 960w',
                 alt: 'Aircraft in a PFS downdraft booth with ceiling intake blankets overhead',
                 href: '/category/ceiling-blankets',
                 cta: 'Shop Intake Blankets',
@@ -70,7 +120,8 @@ export default function Home() {
               {
                 title: 'Exhaust Filters',
                 subtitle: 'High-capacity fiberglass exhaust media',
-                image: '/images/home_exhaust_filters.webp',
+                image: '/images/home_exhaust_filters-640.webp',
+                srcSet: '/images/home_exhaust_filters-640.webp 640w, /images/home_exhaust_filters-960.webp 960w',
                 alt: 'PFS booth interior with a fiberglass exhaust filter wall',
                 href: '/category/fiberglass-arrestors',
                 cta: 'Shop Exhaust Filters',
@@ -78,18 +129,25 @@ export default function Home() {
               {
                 title: 'Intake Pads',
                 subtitle: 'Diffusion pads for clean, even airflow',
-                image: '/images/home_intake_pads.webp',
+                image: '/images/home_intake_pads-640.webp',
+                srcSet: '/images/home_intake_pads-640.webp 640w, /images/home_intake_pads-960.webp 960w',
                 alt: 'PFS Zenith booth with green ceiling intake pads installed',
                 href: '/category/tacky-panels',
                 cta: 'Shop Intake Pads',
               },
             ].map((card) => (
               <Link key={card.title} href={card.href}>
-                <div className="relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-blue-500/45 transition-all duration-200 h-[360px] md:h-[520px]">
+                <div className="relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-blue-500/45 transition-[transform,box-shadow,background-color] duration-200 h-[360px] md:h-[520px]">
                   <img
                     src={card.image}
+                    srcSet={card.srcSet}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                     alt={card.alt}
                     className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
+                    width={960}
+                    height={644}
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 55%, transparent 100%)' }} />
                   <div className="absolute bottom-5 left-5 right-5 z-10">
@@ -108,13 +166,17 @@ export default function Home() {
       <div className="arc-divider arc-divider-down" />
 
       {/* 4. Shop by Category */}
-      <CategoryNavigation />
+      <DeferredHomeSection minHeight={900}>
+        <CategoryNavigation />
+      </DeferredHomeSection>
 
       {/* Arc transition: category → top movers */}
       <div className="arc-divider arc-divider-up" />
 
       {/* 5. Top Movers */}
-      <TopMovers />
+      <DeferredHomeSection minHeight={520}>
+        <TopMovers />
+      </DeferredHomeSection>
 
       {/* Arc transition: top movers → how it works */}
       <div className="arc-divider arc-divider-down" />
@@ -233,14 +295,18 @@ export default function Home() {
       <div className="arc-divider arc-divider-up" />
 
       {/* 9. FAQ */}
-      <FAQ />
+      <DeferredHomeSection minHeight={620}>
+        <FAQ />
+      </DeferredHomeSection>
 
       {/* Arc transition: FAQ → footer */}
       <div className="arc-divider arc-divider-down" />
 
       {/* 10. Footer */}
       <StickyMobileCTA />
-      <Footer />
+      <DeferredHomeSection minHeight={900}>
+        <Footer />
+      </DeferredHomeSection>
     </div>
   );
 }
