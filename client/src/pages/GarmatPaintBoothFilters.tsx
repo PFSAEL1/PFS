@@ -16,7 +16,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Info, Wind, Filter, Layers, Clock, Phone, ArrowRight } from 'lucide-react';
+import { Info, Wind, Filter, Layers, Phone, ArrowRight, ExternalLink } from 'lucide-react';
 import { getBrandBySlug } from '@/data/boothBrands';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 
@@ -41,21 +41,23 @@ const POSITION_LINKS: { key: 'ceiling' | 'exhaust' | 'intake' | 'prefilter'; lab
 
 export default function GarmatPaintBoothFilters() {
   const models = garmat?.models ?? [];
-  const cycle = garmat?.replacementCycle;
 
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Garmat Paint Booth Replacement Filters — In Stock, Ships Fast | PFS Filters"
-        description="Replacement filter sizes for Garmat paint booths by model — 3000 Series, 700 Series, Blackhawk, Chinook II, Zephyr. Match a size to PFS booth media."
+        title="Garmat Paint Booth Filter Guide | PFS Filters"
+        description="Review model and filter-stage guidance for Garmat paint booths, then verify the installed filter label, construction, position, and dimensions before ordering."
         canonical="https://www.pfsfilters.com/garmat-paint-booth-filters"
         structuredData={breadcrumbSchema}
       />
       <Navigation />
 
       {/* Header + H1 */}
-      <section className="section-darker pt-28 pb-10 px-4">
-        <div className="max-w-7xl mx-auto">
+      <section className="section-darker relative overflow-hidden pt-28 pb-10 px-4">
+        <div className="pointer-events-none absolute -right-16 top-20 hidden opacity-[0.035] lg:block">
+          <img src="/images/brands/pfs-logo-wide.png" alt="" className="w-[620px]" />
+        </div>
+        <div className="max-w-7xl mx-auto relative">
           <Breadcrumb
             items={[
               { label: 'Shop by Booth', href: '/shop-by-booth' },
@@ -67,12 +69,12 @@ export default function GarmatPaintBoothFilters() {
               <Wind className="h-3 w-3" /> Garmat USA · Downdraft
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 pfs-heading-animate leading-tight">
-              Replacement Filters for Garmat Paint Booths — In Stock
+              Replacement Filter Guidance for Garmat Paint Booths
             </h1>
             <p className="text-lg text-white/60 max-w-2xl pfs-sub-animate">
-              PFS Filters stocks the ceiling, exhaust, and prefilter media that Garmat downdraft
-              booths use, cut to common Garmat sizes. Find your model below, confirm the size on your
-              current filter, and match it to the right media.
+              Use the model reference to organize a filter review, then confirm the installed label,
+              construction, position, and actual dimensions. A model name or common size alone does
+              not prove that a catalog product fits a specific booth configuration.
             </p>
           </div>
         </div>
@@ -82,12 +84,17 @@ export default function GarmatPaintBoothFilters() {
       <section className="px-4">
         <div className="max-w-3xl mx-auto -mt-2 mb-2 rounded-xl border border-white/12 bg-white/[0.03] p-4 flex gap-3">
           <Info className="h-5 w-5 text-white/40 shrink-0 mt-0.5" />
-          <p className="text-sm text-white/60 leading-relaxed">
-            PFS Filters is not affiliated with Garmat USA. &quot;Garmat&quot; is used here to identify
-            the booth these replacement filters fit. Sizes below are a reference from public booth
-            data — booth configurations and retrofits vary, so verify the size printed on your filter
-            or measured at the frame before ordering.
-          </p>
+          <div>
+            <p className="text-sm text-white/60 leading-relaxed">
+              PFS Filters is not affiliated with Garmat USA. &quot;Garmat&quot; is used here to identify
+              the booth being serviced. Sizes below are an internal reference for organizing a review —
+              booth configurations and retrofits vary, so verify the size printed on your filter
+              or measured at the frame before ordering.
+            </p>
+            <a href="https://www.garmatspraybooths.com/3000-series" target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-blue-300 hover:text-blue-200">
+              Official Garmat 3000 Series information <ExternalLink className="h-3 w-3" />
+            </a>
+          </div>
         </div>
       </section>
 
@@ -98,7 +105,7 @@ export default function GarmatPaintBoothFilters() {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Garmat filter sizes by model</h2>
           <p className="text-white/45 text-sm mb-6 max-w-2xl">
-            {garmat?.description}
+            Recorded model and stage information is guidance only. Confirm it against the installed equipment and current manufacturer documentation.
           </p>
 
           {models.length > 0 ? (
@@ -129,17 +136,6 @@ export default function GarmatPaintBoothFilters() {
             </div>
           ) : (
             <p className="text-white/50">Garmat model data is available through the full booth guide.</p>
-          )}
-
-          {cycle && (
-            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-sm text-white/50">
-              <span className="inline-flex items-center gap-1.5">
-                <Clock className="h-3.5 w-3.5 text-blue-400" /> Typical replacement (public guidance):
-              </span>
-              {cycle.intake && <span>intake {cycle.intake}</span>}
-              {cycle.exhaust && <span>exhaust {cycle.exhaust}</span>}
-              {cycle.ceiling && <span>ceiling {cycle.ceiling}</span>}
-            </div>
           )}
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -189,11 +185,11 @@ export default function GarmatPaintBoothFilters() {
             ))}
           </div>
           <p className="text-sm text-white/40 mt-4">
-            Garmat exhaust positions are often 20&quot;×20&quot; or 20&quot;×25&quot; — see{' '}
+            If the installed filter is an accordion construction, see{' '}
             <Link href="/andreae-paint-booth-filters" className="text-blue-400 hover:text-blue-300">
               Andreae accordion filters
             </Link>{' '}
-            for a higher-efficiency option.
+            for the variants and current product information shown in the PFS catalog.
           </p>
         </div>
       </section>
@@ -206,27 +202,23 @@ export default function GarmatPaintBoothFilters() {
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-5">Garmat paint booth filters — how to order the right size</h2>
           <div className="space-y-4 text-white/60 leading-relaxed">
             <p>
-              Garmat USA builds downdraft spray booths for automotive refinish, dealership, and fleet
-              shops across North America. Its booths use three filter positions: ceiling diffusion
-              media in the roof plenum, exhaust arrestor media on the outlet, and a prefilter ahead of
-              the ceiling media on many models.
+              Garmat booth configurations may include ceiling, exhaust, intake, and prefilter stages.
+              The stage layout depends on the model, installed options, and later modifications, so
+              the equipment and current filter must be inspected before replacement.
             </p>
             <p>
-              PFS Filters does not sell a &quot;Garmat&quot; kit. It stocks the filter media that
-              downdraft booths use, cut to the sizes those models take. The table above lists the
-              ceiling, exhaust, and prefilter sizes recorded for the 3000 Series, 700 Series,
+              PFS Filters does not represent a universal &quot;Garmat&quot; kit. The table above lists
+              internal reference records for the 3000 Series, 700 Series,
               Blackhawk, Chinook II, and Zephyr. Confirm the size printed on your current filter or
               measured at the frame before ordering — the sizes here are a starting point, not a
               guaranteed fit.
             </p>
             <p>
-              To match a size to media: ceiling openings such as 38&quot;×62&quot;, 38&quot;×67&quot;,
-              and 38&quot;×107&quot; pair with{' '}
-              <Link href="/ceiling-filters" className="text-blue-400 hover:text-blue-300">ceiling diffusion media</Link>;
-              20&quot;×20&quot; and 20&quot;×25&quot; exhaust positions pair with{' '}
-              <Link href="/exhaust-filters" className="text-blue-400 hover:text-blue-300">fiberglass paint arrestors</Link>{' '}
-              or Andreae accordion filters; prefilter positions such as 24&quot;×24&quot; pair with
-              pleated MERV panels. If your model is not listed or a size is unusual, use the{' '}
+              To narrow a candidate, start with the filter stage: review{' '}
+              <Link href="/ceiling-filters" className="text-blue-400 hover:text-blue-300">ceiling diffusion media</Link>,{' '}
+              <Link href="/exhaust-filters" className="text-blue-400 hover:text-blue-300">exhaust arrestors</Link>,
+              intake filters, or prefilter guidance as appropriate. Match the media construction as
+              well as the dimensions. If your model is not listed or a size is unusual, use the{' '}
               <Link href="/filter-finder" className="text-blue-400 hover:text-blue-300">filter finder</Link>{' '}
               or{' '}
               <Link href="/contact" className="text-blue-400 hover:text-blue-300">contact PFS</Link>{' '}

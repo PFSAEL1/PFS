@@ -138,12 +138,6 @@ export const createItemListSchema = (items: Array<{
       name: item.name,
       url: item.url,
       image: item.image,
-      offers: {
-        '@type': 'Offer',
-        price: item.price,
-        priceCurrency: item.currency,
-        availability: 'https://schema.org/InStock',
-      },
     },
   })),
 });

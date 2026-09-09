@@ -6,8 +6,7 @@
 // guidance page with no product grid — it explains what a prefilter does, where
 // it sits in a booth, and links to the real filter-media pages. No products,
 // prices, availability, or efficiency percentages are invented here. The
-// "Extend Filter Life by 50%" line is kept in the H1/title for DOCX alignment
-// only; body copy uses PFS's own hedged category framing instead.
+// No percentage improvement is claimed without product- and system-specific evidence.
 
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
@@ -39,8 +38,8 @@ export default function Prefilters() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Paint Booth Prefilters — Extend Filter Life by 50% | PFS Filters"
-        description="Paint booth prefilters catch larger particles before they load your ceiling or final filters. How prefilters fit a booth, and the media to pair with them."
+        title="Paint Booth Prefilters & First-Stage Filter Guidance"
+        description="Learn where paint booth prefilters and first-stage media may be used, what details to verify, and when a multi-stage arrangement needs review."
         canonical="https://www.pfsfilters.com/prefilters"
         structuredData={breadcrumbSchema}
       />
@@ -60,12 +59,12 @@ export default function Prefilters() {
               <Layers className="h-3 w-3" /> First stage
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 pfs-heading-animate leading-tight">
-              Paint Booth Prefilters — Extend Filter Life by 50%
+              Paint Booth Prefilters &amp; First-Stage Filter Guidance
             </h1>
             <p className="text-lg text-white/60 max-w-2xl pfs-sub-animate">
-              A prefilter is a cheap first-stage filter that takes the coarse loading off a more
-              expensive filter behind it. Here is how paint booth prefilters work, where they sit in
-              a booth, and which PFS media to pair them with.
+              A prefilter is a first-stage filter used ahead of downstream media when the booth or
+              air-makeup system is designed for that arrangement. Learn what it does, where it may sit,
+              and which details must be verified before choosing media.
             </p>
           </div>
         </div>
@@ -82,10 +81,9 @@ export default function Prefilters() {
               A prefilter is a first-stage filter that sits ahead of a more expensive final filter.
               Its job is to catch the larger particles — dust, lint, insects, coarse overspray — so
               the ceiling media or exhaust arrestor downstream only has to handle the fine material.
-              Because the prefilter is cheaper and faster to change, shifting the bulk of the loading
-              onto it can stretch the service interval on the filter behind it. PFS positions its
-              pre-filter category as first-stage media that can extend the life of primary ceiling
-              media.
+              A correctly specified first stage may reduce coarse loading on downstream media. The
+              actual effect depends on the system, media, airflow, contaminants, sealing, operating
+              conditions, and maintenance practices; no universal life-extension percentage applies.
             </p>
             <p>
               Where a prefilter goes depends on the booth. In a downdraft booth it usually sits above
@@ -97,7 +95,7 @@ export default function Prefilters() {
               PFS Filters does not currently stock a product labeled specifically as a
               &quot;prefilter.&quot; If you are setting up a two-stage arrangement, tell us the booth
               and the downstream filter and we will help match a first-stage media to it. Custom
-              sizes are available on most media.
+              requests can be reviewed when the current catalog does not show a suitable option.
             </p>
           </div>
 
@@ -124,8 +122,8 @@ export default function Prefilters() {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-xl md:text-2xl font-bold text-white mb-2">Filter media by stage</h2>
           <p className="text-white/45 text-sm mb-6 max-w-2xl">
-            Browse the intake, ceiling, and exhaust media PFS Filters stocks — a lighter grade of any
-            of these can serve as the first stage ahead of a denser final filter.
+            Browse related media by booth stage. Do not substitute a lighter grade as a prefilter
+            unless the equipment documentation or a qualified system review supports that arrangement.
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {RELATED.map((card) => (

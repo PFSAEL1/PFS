@@ -40,6 +40,9 @@ const CeilingFilters = lazyRoute(() => import('./pages/CeilingFilters'));
 const Prefilters = lazyRoute(() => import('./pages/Prefilters'));
 const NeshapCompliantPaintBoothFilters = lazyRoute(() => import('./pages/NeshapCompliantPaintBoothFilters'));
 const GarmatPaintBoothFilters = lazyRoute(() => import('./pages/GarmatPaintBoothFilters'));
+const OemPaintBoothFilters = lazyRoute(() => import('./pages/OemPaintBoothFilters'));
+const CaliforniaPaintBoothFilters = lazyRoute(() => import('./pages/CaliforniaPaintBoothFilters'));
+const CaliforniaCarbCompliance = lazyRoute(() => import('./pages/CaliforniaCarbCompliance'));
 const NotFound = lazyRoute(() => import('./pages/NotFound'));
 const PfsVitra = lazyRoute(() => import('./pages/PfsVitra'));
 const PfsVanguard = lazyRoute(() => import('./pages/PfsVanguard'));
@@ -79,6 +82,12 @@ function Router() {
       <Route path="/prefilters" component={Prefilters} />
       <Route path="/neshap-compliant-paint-booth-filters" component={NeshapCompliantPaintBoothFilters} />
       <Route path="/garmat-paint-booth-filters" component={GarmatPaintBoothFilters} />
+      <Route path="/accudraft-paint-booth-filters" component={OemPaintBoothFilters} />
+      <Route path="/gfs-paint-booth-filters" component={OemPaintBoothFilters} />
+      <Route path="/col-met-paint-booth-filters" component={OemPaintBoothFilters} />
+      <Route path="/pfs-spray-booth-filters" component={OemPaintBoothFilters} />
+      <Route path="/california/carb-paint-booth-filter-compliance" component={CaliforniaCarbCompliance} />
+      <Route path="/california/:slug" component={CaliforniaPaintBoothFilters} />
 
       {/* Info pages */}
       <Route path="/contact" component={Contact} />

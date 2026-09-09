@@ -1,52 +1,34 @@
 // AndreaePaintBoothFilters — /andreae-paint-booth-filters
 // Priority 1 landing page from the SEO handoff (DOCX).
-// Product data comes only from the bundled Shopify snapshot — no invented
-// prices, SKUs, models, or spec claims. Model list is built from the real
-// variants of `accordion-style-paint-arrestors`.
+// Product data renders immediately from the cached/bundled Shopify catalog and
+// silently refreshes from Storefront API. No prices, SKUs, or specs are invented.
 
+import { useMemo } from 'react';
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Layers, Wind, ShieldCheck, Phone, ArrowRight, Truck } from 'lucide-react';
-import { bundledShopifyProducts } from '@/lib/productCatalog';
-import { createBreadcrumbSchema, createFAQSchema, createProductSchema } from '@/lib/structuredData';
+import { Layers, Wind, ShieldCheck, Phone, ArrowRight, ExternalLink } from 'lucide-react';
+import { useCurrentShopifyProducts } from '@/hooks/useCurrentShopifyProducts';
+import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
 
 const SITE = 'https://www.pfsfilters.com';
 const ANDREAE_HANDLE = 'accordion-style-paint-arrestors';
 const PRODUCT_PATH = `/product/${ANDREAE_HANDLE}`;
-const FALLBACK_IMAGE =
-  'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
-
-const andreaeProduct = bundledShopifyProducts.find(
-  (product) => product.node.handle === ANDREAE_HANDLE,
-)?.node;
-
-const models = (andreaeProduct?.variants?.edges ?? []).map((edge) => ({
-  label: edge.node.title,
-  price: edge.node.price?.amount ? parseFloat(edge.node.price.amount) : null,
-  currency: edge.node.price?.currencyCode ?? 'USD',
-  available: edge.node.availableForSale ?? true,
-}));
-
-const minPrice = andreaeProduct?.priceRange?.minVariantPrice?.amount
-  ? parseFloat(andreaeProduct.priceRange.minVariantPrice.amount)
-  : null;
-
-const productImage = andreaeProduct?.images?.edges?.[0]?.node?.url ?? FALLBACK_IMAGE;
+const FALLBACK_IMAGE = '/images/brands/pfs-logo-wide.png';
 
 const FAQS = [
   {
-    question: 'Which Andreae filters does PFS Filters stock?',
+    question: 'Which Andreae-style filter variants are shown by PFS Filters?',
     answer:
-      'We carry the Andreae Accordion Style Paint Arrestor range: AF213 and AF223 in 20"x20", AF413 and AF423 in 20"x25", and AF813, AF923, AF113 and AF123 in roll form. Current sizes and pricing are on the product page. If your size is not listed, contact PFS Filters.',
+      'The current catalog lists AF213 and AF223 in 20"x20", AF413 and AF423 in 20"x25", and AF813, AF923, AF113 and AF123 in roll form. Current pricing and availability are shown by variant on the product page. If your size is not listed, contact PFS Filters.',
   },
   {
     question: 'How is an Andreae accordion filter different from a fiberglass paint arrestor?',
     answer:
-      'A fiberglass arrestor is a single-stage pad. Andreae accordion filters use a folded, multi-stage design with a larger filtration surface, which is built for extended service life and reduced clogging. Fiberglass costs less per filter; shops often move to Andreae for higher overspray volumes or a finer catch on the exhaust side of the booth.',
+      'Fiberglass arrestor pads and folded accordion filters use different media constructions. The accordion path changes how overspray is collected across the filter. Compare manufacturer documentation, booth requirements, coatings, airflow, and current operating results rather than assuming one construction is automatically better for every process.',
   },
   {
     question: 'Does an Andreae filter make my paint booth NESHAP compliant?',
@@ -63,35 +45,30 @@ const breadcrumbSchema = createBreadcrumbSchema([
 
 const faqSchema = createFAQSchema(FAQS);
 
-const productSchema =
-  andreaeProduct && minPrice != null
-    ? createProductSchema({
-        name: andreaeProduct.title,
-        description: (andreaeProduct.description || '').replace(/\s+/g, ' ').trim().slice(0, 320),
-        image: productImage,
-        price: minPrice.toFixed(2),
-        currency: models[0]?.currency ?? 'USD',
-        brand: 'Andreae',
-        availability: models.some((m) => m.available)
-          ? 'https://schema.org/InStock'
-          : 'https://schema.org/OutOfStock',
-        url: `${SITE}${PRODUCT_PATH}`,
-      })
-    : null;
-
 const structuredData = {
   '@context': 'https://schema.org',
-  '@graph': [breadcrumbSchema, faqSchema, ...(productSchema ? [productSchema] : [])],
+  '@graph': [breadcrumbSchema, faqSchema],
 };
 
 export default function AndreaePaintBoothFilters() {
+  const products = useCurrentShopifyProducts();
+  const andreaeProduct = products.find((product) => product.node.handle === ANDREAE_HANDLE)?.node;
+  const models = useMemo(() => (andreaeProduct?.variants?.edges ?? []).map((edge) => ({
+    label: edge.node.title,
+    price: edge.node.price?.amount ? parseFloat(edge.node.price.amount) : null,
+    currency: edge.node.price?.currencyCode ?? 'USD',
+  })), [andreaeProduct]);
+  const minPrice = andreaeProduct?.priceRange?.minVariantPrice?.amount
+    ? parseFloat(andreaeProduct.priceRange.minVariantPrice.amount)
+    : null;
+  const productImage = andreaeProduct?.images?.edges?.[0]?.node?.url ?? FALLBACK_IMAGE;
   const priceLabel = minPrice != null ? `$${minPrice.toFixed(2)}` : null;
 
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Andreae Paint Booth Filters — AF223, AF423, AF813 & AF923 In Stock | PFS Filters"
-        description="Andreae accordion paint booth exhaust filters in stock — AF223, AF423, AF813, AF923, in pads and rolls. Multi-stage design for long filter life. Ships fast."
+        title="Andreae Paint Booth Filters — AF Pad & Roll Variants"
+        description="Review current Andreae-style accordion paint arrestor variants, including AF213, AF223, AF413, AF423, AF813, AF923, AF113, and AF123."
         canonical="https://www.pfsfilters.com/andreae-paint-booth-filters"
         ogType="website"
         ogImage={productImage}
@@ -117,12 +94,12 @@ export default function AndreaePaintBoothFilters() {
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-5 text-white pfs-heading-animate leading-tight">
-              Andreae Paint Booth Exhaust Filters — In Stock, Ships Fast
+              Andreae Paint Booth Filters — Current Pad &amp; Roll Variants
             </h1>
             <p className="text-lg md:text-xl text-white/50 leading-relaxed pfs-sub-animate">
-              Andreae paint booth filters use a folded, multi-stage accordion design for a large
-              filtration surface, longer service life, and steady airflow. PFS Filters stocks the
-              accordion-style range in 20&quot;x20&quot;, 20&quot;x25&quot;, and roll formats.
+              The PFS catalog includes accordion-style paint arrestor variants in 20&quot;x20&quot;,
+              20&quot;x25&quot;, and roll formats. Compare the exact variant name, dimensions, case
+              quantity, price, and current availability before ordering.
             </p>
             <div className="flex flex-col sm:flex-row items-start gap-4 mt-8">
               <Link href={PRODUCT_PATH}>
@@ -139,10 +116,13 @@ export default function AndreaePaintBoothFilters() {
                   Ask about sizing
                 </Button>
               </Link>
+              <a href="https://www.andreaefilters.com/our-technology/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-2 py-3 text-sm font-semibold text-blue-300 hover:text-blue-200">
+                Andreae technology overview <ExternalLink className="h-3.5 w-3.5" />
+              </a>
             </div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 mt-7 text-sm text-white/45">
               <span className="inline-flex items-center gap-1.5">
-                <Truck className="h-3.5 w-3.5 text-blue-400" /> Ships Fast Nationwide
+                <Layers className="h-3.5 w-3.5 text-blue-400" /> Availability shown by variant
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Wind className="h-3.5 w-3.5 text-blue-400" /> Exhaust-stage overspray media
@@ -157,14 +137,15 @@ export default function AndreaePaintBoothFilters() {
 
       <div className="arc-divider arc-divider-up" />
 
-      {/* Models we stock */}
+          {/* Current catalog variants */}
       <section className="section-raised tex-dots py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Andreae models we stock</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Andreae-style variants in the current catalog</h2>
             <p className="text-white/45 max-w-2xl">
-              Every size below is a variant of the Andreae Accordion Style Paint Arrestor. Pricing and
-              case quantities are shown on the product page — confirm booth dimensions before ordering.
+              The table renders immediately from the cached catalog and refreshes from Shopify in the
+              background. Confirm selected-variant pricing, availability, case quantity, construction,
+              and booth dimensions on the product page.
             </p>
           </div>
 
@@ -243,20 +224,18 @@ export default function AndreaePaintBoothFilters() {
       {/* Why shops choose Andreae — explanatory block */}
       <section className="py-16 px-4">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-5">Why shops choose Andreae accordion filters</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-5">How accordion filters differ from fiberglass pads</h2>
           <div className="space-y-4 text-white/60 leading-relaxed">
             <p>
-              Andreae accordion filters use a folded, multi-stage design that opens up a large
-              filtration surface to the airflow. That construction is built for extended service life
-              and reduced clogging while holding steady airflow through the change cycle — which on a
-              busy paint line can mean fewer filter swaps than single-stage fiberglass pads.
+              Andreae-style accordion filters use a folded collection path rather than a flat
+              fiberglass pad. That construction changes how overspray travels through and loads the
+              media. Product- and process-specific performance should be supported by the applicable
+              manufacturer documentation or test data.
             </p>
             <p>
-              Shops usually look at Andreae when overspray volume grows, when fiberglass filters are
-              loading up too quickly, or when they want a finer catch on the exhaust side of the
-              booth. The practical trade-off is a higher cost per filter against longer intervals
-              between changes and steadier booth pressure. Whether that math works depends on your
-              coatings, your spray volume, and how often you are changing exhaust media today —{' '}
+              A shop may compare accordion and fiberglass media when reviewing overspray loading,
+              change practices, booth pressure, disposal volume, and operating cost. The outcome
+              depends on coatings, spray volume, airflow, installation, and maintenance —{' '}
               <Link href="/contact" className="text-blue-400 hover:text-blue-300">
                 talk to us
               </Link>{' '}
@@ -271,7 +250,7 @@ export default function AndreaePaintBoothFilters() {
               overspray, but a filter by itself does not make a facility compliant with EPA Method
               319, NESHAP, or a local air permit. If your operation carries a specific testing or
               documentation requirement, contact PFS — we can help match media to your booth and
-              process, or bring in the{' '}
+              process, or involve the{' '}
               <Link
                 href="/industries/aerospace-paint-booth-filters"
                 className="text-blue-400 hover:text-blue-300"

@@ -15,28 +15,28 @@ const breadcrumbSchema = createBreadcrumbSchema([
 
 const filterTypes = [
   {
-    title: 'Fiberglass Paint Arrestors',
+    title: 'Paint Booth Exhaust Filters',
     position: 'EXHAUST',
-    desc: 'Progressive-density glass fiber media captures overspray before it exits the booth. The industry standard for exhaust filtration — cost-effective, high-capacity, and available in all standard sizes.',
-    href: '/category/fiberglass-arrestors',
+    desc: 'Browse fiberglass pads and rolls, Paint Pockets, and accordion-style arrestor media shown in the current PFS catalog.',
+    href: '/exhaust-filters',
     image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-paint-arrestor_c242c226.png',
-    tags: ['Exhaust', 'High Volume', 'Cost-Effective'],
+    tags: ['Fiberglass', 'Paint Pockets', 'Andreae Style'],
   },
   {
-    title: 'Tacky Panel Filters',
+    title: 'Paint Booth Intake Filters',
     position: 'INTAKE',
-    desc: 'Adhesive-coated panels trap dust, debris, and airborne particles at the intake. Keeps contaminants out of your booth so your finish stays flawless from the first coat.',
-    href: '/category/tacky-panels',
+    desc: 'Compare tacky panels, pleated filters, pocket bags, and ceiling media used in applicable incoming-air stages.',
+    href: '/intake-filters',
     image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/tacky-panel-green_6cd3f086.png',
-    tags: ['Intake', 'High Efficiency', 'Premium'],
+    tags: ['Tacky Panels', 'Pleated', 'Pocket Bags'],
   },
   {
-    title: 'Ceiling Blankets',
+    title: 'Paint Booth Ceiling Filters',
     position: 'INTAKE',
-    desc: 'Overhead intake filtration for downdraft and semi-downdraft booths. Ensures clean, even airflow from ceiling to floor — critical for a dust-free paint environment.',
-    href: '/category/ceiling-blankets',
+    desc: 'Review ceiling diffusion media for applicable downdraft and semi-downdraft booths, then confirm construction and dimensions.',
+    href: '/ceiling-filters',
     image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/ceiling-blanket_476417ff.webp',
-    tags: ['Intake', 'Ceiling', 'Downdraft'],
+    tags: ['Ceiling', 'Diffusion Media', 'Confirm Size'],
   },
   {
     title: 'Roll Media',
@@ -49,26 +49,26 @@ const filterTypes = [
   {
     title: 'MERV-Rated Filters',
     position: 'INTAKE',
-    desc: 'High-efficiency filters rated by MERV standard for precise particle capture. MERV-10 and MERV-13 options for industrial coating operations with strict air quality requirements.',
+    desc: 'Browse pleated filters using the MERV ratings and dimensions shown in the current product record, then confirm the required equipment stage.',
     href: '/category/merv-filters',
     image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/merv-10-filter_b09cab34.png',
     tags: ['MERV-10', 'MERV-13', 'Industrial'],
   },
   {
-    title: 'Polyester Media',
+    title: 'Andreae-Style Accordion Filters',
     position: 'EXHAUST',
-    desc: 'Durable synthetic filtration media with excellent moisture resistance. Ideal for high-humidity environments and water-based coatings in exhaust positions.',
-    href: '/category/polyester-media',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-grids_294ef927.jpg',
-    tags: ['Synthetic', 'Moisture Resistant', 'Durable'],
+    desc: 'See the current pad and roll variants for accordion-style paint arrestor media, with catalog pricing and availability.',
+    href: '/andreae-paint-booth-filters',
+    image: 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/ChatGPTImageMay8_2026_02_21_15PM.png?v=1778275424',
+    tags: ['Accordion', 'Pads', 'Rolls'],
   },
   {
     title: 'Pre-Filters',
     position: 'INTAKE',
-    desc: 'First-stage filtration that extends the life of your primary ceiling media by up to 50%. Catches large particles before they reach expensive diffusion blankets — the highest ROI maintenance upgrade.',
-    href: '/category/pre-filters',
+    desc: 'Learn how a documented first-stage filter can reduce loading on downstream media when the booth or air-makeup system is designed for it.',
+    href: '/prefilters',
     image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-roll-blue_a1ff9192.png',
-    tags: ['Cost Savings', 'Protection', 'High ROI'],
+    tags: ['First Stage', 'System-Specific', 'Verify Media'],
   },
 ];
 
@@ -173,7 +173,7 @@ export default function ShopByType() {
                 <h3 className="font-bold text-white">Exhaust Filters</h3>
                 <span className="ml-auto text-xs text-white/50 border border-white/15 bg-white/5 px-2 py-0.5 rounded-full">EXHAUST</span>
               </div>
-              <p className="text-sm text-white/70 leading-relaxed">Capture paint overspray before it exits through the exhaust plenum or pit. Protect your exhaust fan and keep your facility compliant with air quality regulations.</p>
+              <p className="text-sm text-white/70 leading-relaxed">Capture paint overspray before air passes into the exhaust plenum or pit. Filter selection is one part of a complete booth, ventilation, maintenance, and compliance program.</p>
             </div>
           </div>
         </div>

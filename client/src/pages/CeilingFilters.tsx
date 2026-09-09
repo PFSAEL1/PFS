@@ -1,17 +1,19 @@
 // CeilingFilters — /ceiling-filters
 // Priority 5 category page from the SEO handoff (DOCX).
-// Product grid is built only from the bundled Shopify snapshot — no invented
-// products, prices, SKUs, availability, or compliance claims. The catalog
+// Product grid renders immediately from the cached/bundled Shopify catalog and
+// silently refreshes from Storefront API. The catalog
 // carries two downdraft ceiling diffusion media products; both are shown.
 
+import { useMemo } from 'react';
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Wind, Truck, ArrowDown, Phone, ArrowRight } from 'lucide-react';
-import { bundledShopifyProducts } from '@/lib/productCatalog';
+import { Wind, ArrowDown, Phone, ArrowRight } from 'lucide-react';
+import type { ShopifyProduct } from '@/lib/shopify';
+import { useCurrentShopifyProducts } from '@/hooks/useCurrentShopifyProducts';
 import { createBreadcrumbSchema, createItemListSchema } from '@/lib/structuredData';
 
 const SITE = 'https://www.pfsfilters.com';
@@ -21,7 +23,7 @@ const FALLBACK_IMAGE =
 
 const CEILING_TITLE_HINT = /ceiling|downdraft|diffusion/i;
 
-const ceilingProducts = bundledShopifyProducts
+const getCeilingProducts = (products: ShopifyProduct[]) => products
   .filter((product) => {
     const node = product.node;
     const title = node.title.toLowerCase();
@@ -51,29 +53,27 @@ const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Paint Booth Ceiling Filters', url: `${SITE}${PAGE_PATH}` },
 ]);
 
-const itemListSchema = createItemListSchema(
-  ceilingProducts
-    .filter((p) => p.minPrice != null)
-    .map((p) => ({
-      name: p.title,
-      url: `${SITE}/product/${p.handle}`,
-      image: p.image,
-      price: (p.minPrice as number).toFixed(2),
-      currency: p.currency,
-    })),
-);
-
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@graph': [breadcrumbSchema, itemListSchema],
-};
-
 export default function CeilingFilters() {
+  const products = useCurrentShopifyProducts();
+  const ceilingProducts = useMemo(() => getCeilingProducts(products), [products]);
+  const structuredData = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@graph': [breadcrumbSchema, createItemListSchema(
+      ceilingProducts.map((product) => ({
+        name: product.title,
+        url: `${SITE}/product/${product.handle}`,
+        image: product.image,
+        price: product.minPrice?.toFixed(2) ?? '',
+        currency: product.currency,
+      })),
+    )],
+  }), [ceilingProducts]);
+
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Paint Booth Ceiling Filters — Downdraft Diffusion Media | In Stock | PFS Filters"
-        description="Shop paint booth ceiling filters — downdraft diffusion media that spreads intake air evenly across the booth ceiling, in stock. Ships fast nationwide."
+        title="Paint Booth Ceiling Filters — Downdraft Diffusion Media"
+        description="Compare paint booth ceiling diffusion media and current size variants for applicable downdraft and semi-downdraft systems. Verify the grid before ordering."
         canonical="https://www.pfsfilters.com/ceiling-filters"
         structuredData={structuredData}
       />
@@ -97,12 +97,12 @@ export default function CeilingFilters() {
             </h1>
             <p className="text-lg text-white/60 max-w-2xl pfs-sub-animate">
               Overhead diffusion media that spreads intake air evenly across the booth ceiling in
-              downdraft and semi-downdraft booths. Browse the options PFS Filters stocks, then
+              applicable downdraft and semi-downdraft booths. Browse the current catalog options, then
               measure your ceiling grid opening before ordering.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm text-white/45">
               <span className="inline-flex items-center gap-1.5">
-                <Truck className="h-3.5 w-3.5 text-blue-400" /> Ships Fast Nationwide
+                <Wind className="h-3.5 w-3.5 text-blue-400" /> Availability shown by product and variant
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Wind className="h-3.5 w-3.5 text-blue-400" /> Cut sizes, blankets &amp; rolls
@@ -117,10 +117,10 @@ export default function CeilingFilters() {
       {/* Product grid */}
       <section className="section-raised tex-dots py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="sr-only">Ceiling filter products in stock</h2>
+          <h2 className="sr-only">Ceiling filter products in the current catalog</h2>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 mb-6 text-[13px] text-white/50 border-b border-white/[0.06] pb-3">
             <span>{`${ceilingProducts.length} ceiling filter product${ceilingProducts.length !== 1 ? 's' : ''}`}</span>
-            <span className="text-center">Custom cuts available on most sizes — contact us</span>
+            <span className="text-center">Custom and unusual sizes require review — contact us</span>
             <Link href="/contact" className="hover:text-white transition-colors">
               Need help choosing?
             </Link>
@@ -188,16 +188,14 @@ export default function CeilingFilters() {
             <p>
               Paint booth ceiling filters are the intake stage in a downdraft or semi-downdraft
               booth. Air is drawn in through the roof, passes through a layer of diffusion media, and
-              moves down over the part toward the floor grating. The media spreads that incoming air
-              evenly across the whole ceiling so there are no fast spots or dead spots that stir up
-              dust or disturb a wet finish.
+              moves toward the booth exhaust. The installed media must match the equipment design,
+              support grid, airflow direction, and manufacturer specifications.
             </p>
             <p>
-              PFS Filters stocks two downdraft options. Ceiling Diffusion Media (L560) is the standard
-              choice — it fits directly into an existing ceiling grid and is stocked in a range of
-              cut-to-size pieces. Swiss Flow Downdraft Ceiling Diffusion Media (600G) is a
-              premium-grade media available in rolls, cut blankets, and panels, often chosen where a
-              shop wants a denser final stage or a longer interval between changes.
+              The current PFS catalog includes Ceiling Diffusion Media (L560) and Swiss Flow
+              Downdraft Ceiling Diffusion Media (600G). Review the product record for current variant
+              names, format, price, and availability; do not infer interchangeability from the word
+              “ceiling” alone.
             </p>
             <p>
               Ceiling media is sized to the ceiling grid opening, not the booth footprint, so measure
@@ -205,7 +203,7 @@ export default function CeilingFilters() {
               <Link href="/category/pre-filters" className="text-blue-400 hover:text-blue-300">
                 pre-filter
               </Link>{' '}
-              above the ceiling media to catch larger debris and extend its life.{' '}
+              prefilter stage above the ceiling media when the equipment is designed for it.{' '}
               <Link href="/contact" className="text-blue-400 hover:text-blue-300">
                 Contact PFS
               </Link>{' '}
