@@ -17,6 +17,12 @@ const heroPosterDesktop = '/media/pfs-hero-poster-desktop.webp';
 const heroPosterPreload = `<link rel="preload" as="image" href="${heroPosterMobile}" type="image/webp" media="(max-width: 767px)" fetchpriority="high" />`;
 const today = new Date().toISOString().slice(0, 10);
 const mode = process.argv[2] || '--source';
+const shopProductThumbnails = {
+  '20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs': '/images/shop-thumbnails/22-gram-fiberglass-pads.webp',
+  '20x20-paint-arrestor-holding-grids-w-tips-each': '/images/shop-thumbnails/holding-grid.webp',
+  '20x20-paint-pockets-paint-arrestor-30-cs': '/images/shop-thumbnails/paint-pockets.webp',
+  '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': '/images/shop-thumbnails/22-gram-fiberglass-roll.webp',
+};
 
 const products = JSON.parse(fs.readFileSync(productFile, 'utf8')).map((edge) => edge.node);
 const faqs = JSON.parse(fs.readFileSync(faqFile, 'utf8'));
@@ -63,8 +69,18 @@ const shopifySrcset = (src, widths = [320, 480, 640]) => {
   }
   return widths.map((width) => `${sizedImageUrl(src, width)} ${width}w`).join(', ');
 };
+const shopProductCardImage = (product, width = 480) => {
+  const localThumbnail = shopProductThumbnails[product.handle];
+  const fallback = product.images?.edges?.[0]?.node?.url;
+  return localThumbnail || sizedImageUrl(fallback, width);
+};
+const shopProductCardSrcset = (product) => {
+  const localThumbnail = shopProductThumbnails[product.handle];
+  const fallback = product.images?.edges?.[0]?.node?.url;
+  return localThumbnail ? `${localThumbnail} 480w` : shopifySrcset(fallback);
+};
 
-function deferHomeStylesheet(html) {
+function deferMainStylesheet(html) {
   return html.replace(
     /<link rel="stylesheet" crossorigin href="([^"]+)">/i,
     '<link rel="preload" as="style" crossorigin href="$1">\n    <link rel="stylesheet" crossorigin href="$1" media="print" onload="this.media=\'all\'">\n    <noscript><link rel="stylesheet" crossorigin href="$1"></noscript>',
@@ -425,10 +441,9 @@ function shopFallback(title, description) {
     .filter((product) => !product.title.toLowerCase().includes('membership'))
     .slice(0, 4);
   const cards = visibleProducts.map((product, index) => {
-    const image = product.images?.edges?.[0]?.node?.url;
     const imageNode = product.images?.edges?.[0]?.node;
-    const imageUrl = image ? sizedImageUrl(image, 480) : '';
-    const srcset = image ? shopifySrcset(image) : '';
+    const imageUrl = shopProductCardImage(product, 480);
+    const srcset = shopProductCardSrcset(product);
     const price = product.priceRange?.minVariantPrice?.amount;
     const currency = product.priceRange?.minVariantPrice?.currencyCode || 'USD';
     const alt = imageNode?.altText || product.title;
@@ -501,19 +516,19 @@ function replaceMeta(html, route) {
       /(<meta name="viewport"[^>]*>\r?\n)/i,
       `$1    ${heroPosterPreload}\n`,
     );
-    output = deferHomeStylesheet(output);
+    output = deferMainStylesheet(output);
   }
   if (route.path === '/shop') {
-    const firstProductImage = products.find((product) => product.images?.edges?.[0]?.node?.url)
-      ?.images?.edges?.[0]?.node?.url;
-    if (firstProductImage) {
-      const preloadImage = sizedImageUrl(firstProductImage, 480);
-      const preloadSrcset = shopifySrcset(firstProductImage);
+    const firstProduct = products.find((product) => product.images?.edges?.[0]?.node?.url);
+    if (firstProduct) {
+      const preloadImage = shopProductCardImage(firstProduct, 480);
+      const preloadSrcset = shopProductCardSrcset(firstProduct);
       output = output.replace(
         /(<meta name="viewport"[^>]*>\r?\n)/i,
         `$1    <link rel="preload" as="image" href="${escapeHtml(preloadImage)}"${preloadSrcset ? ` imagesrcset="${escapeHtml(preloadSrcset)}" imagesizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"` : ''} fetchpriority="high" />\n`,
       );
     }
+    output = deferMainStylesheet(output);
   }
 
   const detail = route.price ? `<p>Starting at $${escapeHtml(route.price)} USD. Check the live product page for current variants, pricing, and availability.</p>` : '';

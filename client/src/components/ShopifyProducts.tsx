@@ -16,7 +16,7 @@ import { getProductBadges } from '@/lib/productSignals';
 import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 import { TierMedal } from '@/components/TierMedal';
 import { consumableProducts } from '@/pages/Consumables';
-import { shopifyImageAltText, shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
+import { shopProductCardImageSrcSet, shopProductCardImageUrl, shopifyImageAltText } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
@@ -216,8 +216,8 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                     </div>
                   )}
                   <img
-                    src={sizedShopifyImageUrl(image, 480)}
-                    srcSet={shopifyImageSrcSet(image)}
+                    src={shopProductCardImageUrl(product.node.handle, image, 480)}
+                    srcSet={shopProductCardImageSrcSet(product.node.handle, image)}
                     sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
                     alt={shopifyImageAltText(imageNode, product.node.title)}
                     className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
