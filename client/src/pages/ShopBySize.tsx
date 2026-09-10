@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
-import { shopifyImageAltText, shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
+import { shopifyImageAltText } from '@/lib/imageUrls';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://www.pfsfilters.com' },
@@ -235,15 +235,9 @@ export default function ShopBySize() {
                             <div className="product-img-wrap relative aspect-square overflow-hidden cursor-pointer">
                               <ProductBadges badges={getProductBadges(product)} />
                               <img
-                                src={sizedShopifyImageUrl(image, 480)}
-                                srcSet={shopifyImageSrcSet(image)}
-                                sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                                src={image}
                                 alt={shopifyImageAltText(imageNode, product.node.title)}
                                 className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
-                                width={480}
-                                height={480}
-                                loading="lazy"
-                                decoding="async"
                                 style={{ filter: 'brightness(0.95) contrast(1.05)' }}
                               />
                             </div>

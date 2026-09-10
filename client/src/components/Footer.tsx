@@ -2,7 +2,7 @@
 import { Link } from 'wouter';
 import { ExternalLink, Phone, Mail, MapPin } from 'lucide-react';
 
-const LOGO_URL = '/images/brands/pfs-logo-wide-420.webp';
+const LOGO_URL = '/images/brands/pfs-logo-wide.png';
 const ADDRESS = '1400 Airport Blvd, Santa Rosa, CA 95403';
 const MAP_URL = 'https://www.google.com/maps/search/?api=1&query=1400+Airport+Blvd%2C+Santa+Rosa%2C+CA+95403';
 const MAP_EMBED_URL = 'https://www.google.com/maps?q=1400+Airport+Blvd%2C+Santa+Rosa%2C+CA+95403&output=embed';
@@ -17,10 +17,6 @@ export const Footer = () => {
               src={LOGO_URL}
               alt="PFS Filters"
               className="h-10 w-auto mb-4"
-              width={420}
-              height={127}
-              loading="lazy"
-              decoding="async"
             />
             <p className="text-white/40 text-sm leading-relaxed">
               A proud division of PFS Spray Booths, providing premium paint booth filtration solutions for automotive, industrial, and woodworking applications.

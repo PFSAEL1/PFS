@@ -16,7 +16,7 @@ import { getProductBadges } from '@/lib/productSignals';
 import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 import { TierMedal } from '@/components/TierMedal';
 import { consumableProducts } from '@/pages/Consumables';
-import { shopifyImageAltText, shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
+import { shopifyImageAltText } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
@@ -124,7 +124,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
           }} />
           <div className="relative px-8 py-5 flex flex-col items-center text-center gap-2">
             {/* Tier medal badge */}
-            <img src={`/images/badges/badge_${tier}.png`} alt={`${tier} Member Badge`} className="w-36 h-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]" width={144} height={144} loading="lazy" decoding="async" />
+            <img src={`/images/badges/badge_${tier}.png`} alt={`${tier} Member Badge`} className="w-36 h-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]" />
 
             <p className="text-white/50 text-sm max-w-md">
               Your <span className="font-bold text-white/90">{discountPercent}%</span> member discount is automatically applied to all prices below
@@ -177,15 +177,9 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                     </div>
                   )}
                   <img
-                    src={sizedShopifyImageUrl(image, 480)}
-                    srcSet={shopifyImageSrcSet(image)}
-                    sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    src={image}
                     alt={shopifyImageAltText(imageNode, product.node.title)}
                     className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
-                    width={480}
-                    height={480}
-                    loading="lazy"
-                    decoding="async"
                     style={{ filter: 'brightness(0.95) contrast(1.05)' }}
                   />
                 </div>
@@ -235,14 +229,14 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                   </span>
                 )}
                 {cp.image ? (
-                  <img src={cp.image} alt={cp.title} className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300" width={480} height={480} loading="lazy" decoding="async" />
+                  <img src={cp.image} alt={cp.title} className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300" />
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center p-6">
                     <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4">
                       <Package className="h-8 w-8 text-white/20" />
                     </div>
                     <p className="text-white/30 text-sm font-medium">Image Coming Soon</p>
-                    <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" className="w-20 opacity-15 mt-4" width={420} height={127} loading="lazy" decoding="async" />
+                    <img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" className="w-20 opacity-15 mt-4" />
                   </div>
                 )}
               </div>
