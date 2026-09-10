@@ -36,24 +36,61 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
 
   useEffect(() => {
     let active = true;
+    let started = false;
+    let fallbackTimer: number | undefined;
+    let idleId: number | undefined;
     const immediateProducts = getImmediateShopifyProducts();
     setProducts(filterShopifyProducts(immediateProducts, categoryFilter, sizeFilter));
     setError(null);
 
-    fetchProducts(50)
-      .then((data) => {
-        if (!active) return;
-        cacheShopifyProducts(data);
-        setProducts(filterShopifyProducts(data, categoryFilter, sizeFilter));
-      })
-      .catch(() => {
-        if (active && immediateProducts.length === 0) {
-          setError('Failed to load products. Please try again.');
+    const refreshProducts = () => {
+      if (started) return;
+      started = true;
+
+      fetchProducts(50)
+        .then((data) => {
+          if (!active) return;
+          cacheShopifyProducts(data);
+          setProducts(filterShopifyProducts(data, categoryFilter, sizeFilter));
+        })
+        .catch(() => {
+          if (active && immediateProducts.length === 0) {
+            setError('Failed to load products. Please try again.');
+          }
+        });
+    };
+
+    const scheduleIdleRefresh = () => {
+      fallbackTimer = window.setTimeout(() => {
+        if ('requestIdleCallback' in window) {
+          idleId = window.requestIdleCallback(refreshProducts, { timeout: 6000 });
+        } else {
+          refreshProducts();
         }
-      });
+      }, 6000);
+    };
+
+    const interactionEvents = ['scroll', 'click', 'touchstart', 'pointerdown', 'keydown'];
+    interactionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, refreshProducts, { once: true, passive: true, capture: true });
+    });
+
+    if (document.readyState === 'complete') {
+      scheduleIdleRefresh();
+    } else {
+      window.addEventListener('load', scheduleIdleRefresh, { once: true });
+    }
 
     return () => {
       active = false;
+      if (fallbackTimer) window.clearTimeout(fallbackTimer);
+      if (idleId && 'cancelIdleCallback' in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      window.removeEventListener('load', scheduleIdleRefresh);
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, refreshProducts, { capture: true });
+      });
     };
   }, [categoryFilter, sizeFilter]);
 
@@ -145,10 +182,12 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
       )}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {/* Shopify filter products first */}
-        {products.map((product) => {
+        {products.map((product, index) => {
           const variant = product.node.variants.edges[0]?.node;
           const imageNode = product.node.images.edges[0]?.node;
           const image = imageNode?.url || FALLBACK_IMAGE;
+          const shouldLoadEarly = index < 2;
+          const shouldPrioritizeImage = index === 0;
           const originalPrice = variant?.price.amount ? parseFloat(variant.price.amount) : 0;
           const memberPrice = discountPercent > 0 ? getDiscountedPrice(originalPrice, discountPercent) : originalPrice;
           const currency = variant?.price.currencyCode || 'USD';
@@ -179,12 +218,13 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                   <img
                     src={sizedShopifyImageUrl(image, 480)}
                     srcSet={shopifyImageSrcSet(image)}
-                    sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
                     alt={shopifyImageAltText(imageNode, product.node.title)}
                     className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
                     width={480}
                     height={480}
-                    loading="lazy"
+                    loading={shouldLoadEarly ? 'eager' : 'lazy'}
+                    fetchPriority={shouldPrioritizeImage ? 'high' : 'auto'}
                     decoding="async"
                     style={{ filter: 'brightness(0.95) contrast(1.05)' }}
                   />

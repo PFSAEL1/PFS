@@ -42,6 +42,27 @@ const absoluteUrl = (pathname) => pathname === '/' ? `${origin}/` : `${origin}${
 const routeFile = (pathname) => pathname === '/'
   ? path.join(distDir, 'index.html')
   : path.join(distDir, `${pathname.replace(/^\//, '')}.html`);
+const sizedImageUrl = (src, width) => {
+  if (!src || !width) return src;
+  try {
+    const url = new URL(src);
+    if (!url.hostname.includes('cdn.shopify.com')) return src;
+    url.searchParams.set('width', String(width));
+    return url.toString();
+  } catch {
+    return src;
+  }
+};
+const shopifySrcset = (src, widths = [320, 480, 640]) => {
+  if (!src) return '';
+  try {
+    const url = new URL(src);
+    if (!url.hostname.includes('cdn.shopify.com')) return '';
+  } catch {
+    return '';
+  }
+  return widths.map((width) => `${sizedImageUrl(src, width)} ${width}w`).join(', ');
+};
 
 function deferHomeStylesheet(html) {
   return html.replace(
@@ -399,6 +420,50 @@ function publicProductJson() {
   }, null, 2) + '\n';
 }
 
+function shopFallback(title, description) {
+  const visibleProducts = products
+    .filter((product) => !product.title.toLowerCase().includes('membership'))
+    .slice(0, 4);
+  const cards = visibleProducts.map((product, index) => {
+    const image = product.images?.edges?.[0]?.node?.url;
+    const imageNode = product.images?.edges?.[0]?.node;
+    const imageUrl = image ? sizedImageUrl(image, 480) : '';
+    const srcset = image ? shopifySrcset(image) : '';
+    const price = product.priceRange?.minVariantPrice?.amount;
+    const currency = product.priceRange?.minVariantPrice?.currencyCode || 'USD';
+    const alt = imageNode?.altText || product.title;
+    return `<article style="position:relative;overflow:hidden;border:1px solid #333;border-radius:12px;background:linear-gradient(135deg,#212121,#1a1a1a)">
+        <a href="/product/${escapeHtml(product.handle)}" style="color:inherit;text-decoration:none">
+          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#1f1f1f,#151515);border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
+            ${imageUrl ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)" alt="${escapeHtml(alt)}" width="480" height="480" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${index === 0 ? 'high' : 'auto'}" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box;filter:brightness(.95) contrast(1.05)" />` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#6b7280">Image Coming Soon</div>`}
+          </div>
+          <div style="padding:16px">
+            <h2 style="min-height:40px;margin:0 0 12px;font-size:15px;line-height:1.3;font-weight:700;color:#fff">${escapeHtml(product.title)}</h2>
+            <p style="margin:0 0 14px;color:#60a5fa;font-weight:800">$${escapeHtml(price || '')} <span style="font-size:12px;font-weight:400;color:rgba(255,255,255,.7)">${escapeHtml(currency)}</span></p>
+            <span style="display:flex;align-items:center;justify-content:center;min-height:36px;border-radius:8px;background:#3b82f6;color:#fff;font-size:14px;font-weight:700">View Product</span>
+          </div>
+        </a>
+      </article>`;
+  }).join('');
+
+  return `<main data-seo-fallback id="shop-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <section style="padding:112px 16px 16px;background:#050505">
+      <div style="max-width:1280px;margin:0 auto">
+        <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-size:14px">Home / Shop</p>
+        <div style="text-align:center;margin:0 auto 16px;max-width:840px">
+          <h1 style="margin:0 0 16px;font-size:clamp(3rem,12vw,4.25rem);line-height:.95;font-weight:800;letter-spacing:0;color:#fff">Shop Paint Booth Filters</h1>
+          <p style="margin:0 auto;color:rgba(255,255,255,.62);font-size:18px;line-height:1.6">${description}</p>
+        </div>
+      </div>
+    </section>
+    <div style="height:88px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
+    <section style="padding:24px 16px 56px;background:#0d0d0d">
+      <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">${cards}</div>
+      <p style="max-width:1280px;margin:24px auto 0;color:rgba(255,255,255,.55);font-size:15px;line-height:1.6">Product data is shown from the PFS Filters catalog snapshot. Confirm live variants, pricing, and availability on each product page before ordering.</p>
+    </section>
+  </main>`;
+}
+
 function writeSourceAssets() {
   fs.mkdirSync(publicDir, { recursive: true });
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml());
@@ -438,11 +503,25 @@ function replaceMeta(html, route) {
     );
     output = deferHomeStylesheet(output);
   }
+  if (route.path === '/shop') {
+    const firstProductImage = products.find((product) => product.images?.edges?.[0]?.node?.url)
+      ?.images?.edges?.[0]?.node?.url;
+    if (firstProductImage) {
+      const preloadImage = sizedImageUrl(firstProductImage, 480);
+      const preloadSrcset = shopifySrcset(firstProductImage);
+      output = output.replace(
+        /(<meta name="viewport"[^>]*>\r?\n)/i,
+        `$1    <link rel="preload" as="image" href="${escapeHtml(preloadImage)}"${preloadSrcset ? ` imagesrcset="${escapeHtml(preloadSrcset)}" imagesizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"` : ''} fetchpriority="high" />\n`,
+      );
+    }
+  }
 
   const detail = route.price ? `<p>Starting at $${escapeHtml(route.price)} USD. Check the live product page for current variants, pricing, and availability.</p>` : '';
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
   const fallback = route.path === '/'
     ? `<main data-seo-fallback><section id="home"><div><picture><source media="(max-width: 767px)" srcset="${heroPosterMobile}" /><img src="${heroPosterDesktop}" alt="" width="1600" height="900" fetchpriority="high" /></picture><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section></main>`
+    : route.path === '/shop'
+    ? shopFallback(title, description)
     : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:64px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${title}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
   return output.replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
 }
