@@ -20,13 +20,15 @@
       @media (min-width:768px){#home{min-height:80vh}#home picture img{object-position:center}#home>div:nth-child(2){padding-left:1.5rem;padding-right:1.5rem}.ticker-track{animation:pfs-ticker 32s linear infinite}}@keyframes pfs-ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
     </style>
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});function g(){var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
-    function q(){'requestIdleCallback'in w?w.requestIdleCallback(g,{timeout:2500}):w.setTimeout(g,1200)}
+    <script>(function(w,d,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime()});var loaded=false,events=['scroll','click','touchstart','pointerdown','keydown'];
+    function c(){events.forEach(function(e){w.removeEventListener(e,g,true);});}
+    function g(){if(loaded)return;loaded=true;c();w[l].push({event:'gtm.js'});var f=d.getElementsByTagName('script')[0],
+    j=d.createElement('script');j.async=true;j.src='https://www.'+'googletagmanager.com/'+'gtm.js?id='+i;f.parentNode.insertBefore(j,f);}
+    function q(){var r=function(){'requestIdleCallback'in w?w.requestIdleCallback(g,{timeout:1e4}):w.setTimeout(g,1e4);};w.setTimeout(r,15e3);}
+    events.forEach(function(e){w.addEventListener(e,g,{once:true,passive:true,capture:true});});
     d.readyState==='complete'?q():w.addEventListener('load',q,{once:true});
-    })(window,document,'script','dataLayer','GTM-MDQHN829');</script>
+    })(window,document,'dataLayer','GTM-MDQHN829');</script>
     <!-- End Google Tag Manager -->
     <title data-seo-generated>Paint Booth Filters for Every Booth Brand | PFS Filters</title>
     <meta data-seo-generated name="description" content="Paint booth filters for every booth brand — exhaust, intake, ceiling, prefilter, and Andreae. Backed by 30+ years of PFS Spray Booths. In stock, ships fast." />

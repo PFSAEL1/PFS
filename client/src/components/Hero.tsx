@@ -16,18 +16,21 @@ export const Hero = () => {
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const desktopViewportQuery = window.matchMedia('(min-width: 768px)');
 
     const updatePlaybackPreference = () => {
-      const shouldPlayVideo = !reducedMotionQuery.matches;
+      const shouldPlayVideo = desktopViewportQuery.matches && !reducedMotionQuery.matches;
       setCanPlayVideo(shouldPlayVideo);
       if (!shouldPlayVideo) setVideoReady(false);
     };
 
     updatePlaybackPreference();
     reducedMotionQuery.addEventListener('change', updatePlaybackPreference);
+    desktopViewportQuery.addEventListener('change', updatePlaybackPreference);
 
     return () => {
       reducedMotionQuery.removeEventListener('change', updatePlaybackPreference);
+      desktopViewportQuery.removeEventListener('change', updatePlaybackPreference);
     };
   }, []);
 
