@@ -251,7 +251,7 @@ export const Navigation = () => {
 
           {/* Mobile menu */}
           {isOpen && (
-            <div className="md:hidden border-t border-white/10 py-3 space-y-0.5 bg-black" style={{ height: 'fit-content', flexDirection: 'column', alignItems: 'stretch' }}>
+            <div className="md:hidden border-t border-white/10 py-3 space-y-0.5 bg-black" style={{ height: '74vh', overflow: 'scroll', flexDirection: 'column', alignItems: 'stretch' }}>
               <Link href="/paint-booth-filters" className="block px-4 py-2.5 text-sm font-semibold text-orange-500 hover:text-orange-300 hover:bg-white/5 rounded-lg transition-colors">Shop Filters</Link>
               <Link href="/shop" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">All Products</Link>
               <Link href="/shop-by-filter-type" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Filter Type</Link>
