@@ -8,7 +8,7 @@ import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
 import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 import { toast } from 'sonner';
-import { shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
+import { shopifyImageAltText, shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
@@ -109,7 +109,8 @@ export const PopularProducts = () => {
           >
             {products.map((product) => {
               const variant = product.node.variants.edges[0]?.node;
-              const image = product.node.images.edges[0]?.node.url || FALLBACK_IMAGE;
+              const imageNode = product.node.images.edges[0]?.node;
+              const image = imageNode?.url || FALLBACK_IMAGE;
               const originalPrice = variant?.price.amount ? parseFloat(variant.price.amount) : 0;
               const memberPrice = discountPercent > 0 ? getDiscountedPrice(originalPrice, discountPercent) : originalPrice;
               const price = originalPrice > 0 ? originalPrice.toFixed(2) : null;
@@ -128,7 +129,7 @@ export const PopularProducts = () => {
                           src={sizedShopifyImageUrl(image, 480)}
                           srcSet={shopifyImageSrcSet(image)}
                           sizes="240px"
-                          alt={product.node.title}
+                          alt={shopifyImageAltText(imageNode, product.node.title)}
                           className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
                           width={480}
                           height={480}

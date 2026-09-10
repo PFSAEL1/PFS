@@ -26,3 +26,11 @@ export function shopifyImageSrcSet(src: string, widths = [320, 480, 640]): strin
 
   return widths.map((width) => `${sizedShopifyImageUrl(src, width)} ${width}w`).join(', ');
 }
+
+export function shopifyImageAltText(
+  image: { altText?: string | null } | null | undefined,
+  fallback: string,
+): string {
+  const altText = image?.altText?.trim();
+  return altText || fallback;
+}

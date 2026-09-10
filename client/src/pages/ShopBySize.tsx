@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
-import { shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
+import { shopifyImageAltText, shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://www.pfsfilters.com' },
@@ -222,7 +222,8 @@ export default function ShopBySize() {
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {filteredProducts.map((product) => {
                       const variant = product.node.variants.edges[0]?.node;
-                      const image = product.node.images.edges[0]?.node.url || FALLBACK_IMAGE;
+                      const imageNode = product.node.images.edges[0]?.node;
+                      const image = imageNode?.url || FALLBACK_IMAGE;
                       const originalPrice = variant?.price.amount ? parseFloat(variant.price.amount) : 0;
                       const memberPrice = discountPercent > 0 ? getDiscountedPrice(originalPrice, discountPercent) : originalPrice;
                       const currency = variant?.price.currencyCode || 'USD';
@@ -237,7 +238,7 @@ export default function ShopBySize() {
                                 src={sizedShopifyImageUrl(image, 480)}
                                 srcSet={shopifyImageSrcSet(image)}
                                 sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                                alt={product.node.title}
+                                alt={shopifyImageAltText(imageNode, product.node.title)}
                                 className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
                                 width={480}
                                 height={480}

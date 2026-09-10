@@ -16,7 +16,7 @@ import { getProductBadges } from '@/lib/productSignals';
 import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 import { TierMedal } from '@/components/TierMedal';
 import { consumableProducts } from '@/pages/Consumables';
-import { shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
+import { shopifyImageAltText, shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
@@ -147,7 +147,8 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
         {/* Shopify filter products first */}
         {products.map((product) => {
           const variant = product.node.variants.edges[0]?.node;
-          const image = product.node.images.edges[0]?.node.url || FALLBACK_IMAGE;
+          const imageNode = product.node.images.edges[0]?.node;
+          const image = imageNode?.url || FALLBACK_IMAGE;
           const originalPrice = variant?.price.amount ? parseFloat(variant.price.amount) : 0;
           const memberPrice = discountPercent > 0 ? getDiscountedPrice(originalPrice, discountPercent) : originalPrice;
           const currency = variant?.price.currencyCode || 'USD';
@@ -179,7 +180,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
                     src={sizedShopifyImageUrl(image, 480)}
                     srcSet={shopifyImageSrcSet(image)}
                     sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    alt={product.node.title}
+                    alt={shopifyImageAltText(imageNode, product.node.title)}
                     className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
                     width={480}
                     height={480}

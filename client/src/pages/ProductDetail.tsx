@@ -22,6 +22,7 @@ import { PfsBoothCompatibility } from '@/components/PfsBoothCompatibility';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 import { usePricing } from '@/hooks/usePricing';
+import { shopifyImageAltText } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 
@@ -436,34 +437,38 @@ export default function ProductDetail() {
           <div>
             <h2 className="text-2xl font-bold mb-6">Related Products</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {relatedProducts.map((rp) => (
-                <Card key={rp.node.id} className="flex flex-col bg-[#161616] border border-white/[0.07] hover:border-blue-400/40 hover:shadow-md transition-all overflow-hidden">
-                  <Link href={`/product/${rp.node.handle}`} className="cursor-pointer">
-                    <div className="aspect-square overflow-hidden bg-[#1e1e1e]">
-                      <img
-                        src={rp.node.images.edges[0]?.node.url || FALLBACK_IMAGE}
-                        alt={rp.node.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </Link>
-                  <CardContent className="flex flex-1 flex-col p-3">
+              {relatedProducts.map((rp) => {
+                const imageNode = rp.node.images.edges[0]?.node;
+
+                return (
+                  <Card key={rp.node.id} className="flex flex-col bg-[#161616] border border-white/[0.07] hover:border-blue-400/40 hover:shadow-md transition-all overflow-hidden">
                     <Link href={`/product/${rp.node.handle}`} className="cursor-pointer">
-                      <p className="font-medium text-sm line-clamp-2">{rp.node.title}</p>
-                      <p className="text-blue-400 font-bold text-sm mt-1">
-                        ${parseFloat(rp.node.priceRange.minVariantPrice.amount).toFixed(2)}
-                      </p>
+                      <div className="aspect-square overflow-hidden bg-[#1e1e1e]">
+                        <img
+                          src={imageNode?.url || FALLBACK_IMAGE}
+                          alt={shopifyImageAltText(imageNode, rp.node.title)}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                     </Link>
-                    <button
-                      onClick={() => handleAddRelatedToCart(rp)}
-                      className="mt-3 w-full rounded-lg bg-[#2563eb] py-2.5 text-[13px] font-medium text-white transition-colors hover:bg-[#1d4ed8]"
-                      style={{ padding: '10px', borderRadius: '8px' }}
-                    >
-                      Add to Cart
-                    </button>
-                  </CardContent>
-                </Card>
-              ))}
+                    <CardContent className="flex flex-1 flex-col p-3">
+                      <Link href={`/product/${rp.node.handle}`} className="cursor-pointer">
+                        <p className="font-medium text-sm line-clamp-2">{rp.node.title}</p>
+                        <p className="text-blue-400 font-bold text-sm mt-1">
+                          ${parseFloat(rp.node.priceRange.minVariantPrice.amount).toFixed(2)}
+                        </p>
+                      </Link>
+                      <button
+                        onClick={() => handleAddRelatedToCart(rp)}
+                        className="mt-3 w-full rounded-lg bg-[#2563eb] py-2.5 text-[13px] font-medium text-white transition-colors hover:bg-[#1d4ed8]"
+                        style={{ padding: '10px', borderRadius: '8px' }}
+                      >
+                        Add to Cart
+                      </button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         )}
