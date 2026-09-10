@@ -7,6 +7,7 @@ import {
 
 function makeProduct(overrides: {
   title: string;
+  handle?: string;
   productType?: string;
   tags?: string[];
   variantTitle?: string;
@@ -15,7 +16,7 @@ function makeProduct(overrides: {
     node: {
       id: `gid://shopify/Product/${overrides.title}`,
       title: overrides.title,
-      handle: overrides.title.toLowerCase().replace(/\s+/g, '-'),
+      handle: overrides.handle || overrides.title.toLowerCase().replace(/\s+/g, '-'),
       description: '',
       productType: overrides.productType || '',
       tags: overrides.tags || [],
@@ -54,6 +55,21 @@ describe('instant Shopify product catalog', () => {
 
     expect(filterShopifyProducts(products)).toHaveLength(1);
     expect(filterShopifyProducts(products)[0].node.title).toBe('Fiberglass Paint Arrestor');
+  });
+
+  it('removes Shopify copies of consumables rendered as canonical cards', () => {
+    const products = [
+      makeProduct({ title: 'PFS VITRA', handle: 'pfs-vitra' }),
+      makeProduct({
+        title: 'PFS VANGUARD Complete Booth Protection Kit',
+        handle: 'pfs-vanguard-complete-booth-protection-kit',
+      }),
+      makeProduct({ title: 'Fiberglass Paint Arrestor' }),
+    ];
+
+    expect(filterShopifyProducts(products).map((product) => product.node.handle)).toEqual([
+      'fiberglass-paint-arrestor',
+    ]);
   });
 
   it('applies category and normalized size filters to the immediate catalog', () => {
