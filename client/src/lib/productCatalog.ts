@@ -3,6 +3,10 @@ import type { ShopifyProduct } from '@/lib/shopify';
 
 const PRODUCT_CACHE_KEY = 'pfs-shopify-products-v1';
 const PRODUCT_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
+const CONSUMABLE_HANDLES_RENDERED_SEPARATELY = new Set([
+  'pfs-vitra',
+  'pfs-vanguard-complete-booth-protection-kit',
+]);
 
 interface ProductCache {
   savedAt: number;
@@ -16,9 +20,10 @@ export function filterShopifyProducts(
   categoryFilter?: string | null,
   sizeFilter?: string | null,
 ): ShopifyProduct[] {
-  let filtered = products.filter(
-    (product) => !product.node.title.toLowerCase().includes('membership'),
-  );
+  let filtered = products.filter((product) => (
+    !product.node.title.toLowerCase().includes('membership') &&
+    !CONSUMABLE_HANDLES_RENDERED_SEPARATELY.has(product.node.handle)
+  ));
 
   if (categoryFilter) {
     const category = categoryFilter.toLowerCase();
