@@ -3,12 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="preload" as="font" href="/fonts/barlow-condensed-800-latin.woff2" type="font/woff2" crossorigin />
+    <style data-critical-home>
+      @font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/barlow-condensed-400-latin.woff2') format('woff2');ascent-override:94%;descent-override:22%;line-gap-override:0%;size-adjust:100%}
+      @font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/barlow-condensed-600-latin.woff2') format('woff2');ascent-override:94%;descent-override:22%;line-gap-override:0%;size-adjust:100%}
+      @font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/barlow-condensed-700-latin.woff2') format('woff2');ascent-override:94%;descent-override:22%;line-gap-override:0%;size-adjust:100%}
+      @font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/barlow-condensed-800-latin.woff2') format('woff2');ascent-override:94%;descent-override:22%;line-gap-override:0%;size-adjust:100%}
+      :root{--pfs-brand-font:'Barlow Condensed','Arial Narrow',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+      html{background:#040404;color:#fff}body{margin:0;background:#040404;color:#fff;font-family:var(--pfs-brand-font);font-weight:400;letter-spacing:.02em}#root{min-height:100vh;background:#040404}
+      nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.05);font-family:var(--pfs-brand-font)}
+      nav>div{max-width:80rem;margin:0 auto;padding:0 1rem}nav>div>div{height:6rem;display:flex;align-items:center;justify-content:space-between}nav img{height:4rem;width:auto;display:block}nav a,nav button{font-family:var(--pfs-brand-font);letter-spacing:.06em}
+      .ticker-bar{background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,.1);padding:.5rem 0;overflow:hidden;opacity:.75;font-family:var(--pfs-brand-font)}.ticker-track{display:flex;width:max-content;align-items:center;gap:2.5rem;white-space:nowrap}.ticker-item{display:flex;align-items:center;gap:.625rem;font-size:12px;font-weight:400;letter-spacing:.08em;color:rgba(255,255,255,.72)}
+      #home{position:relative;min-height:65vh;display:flex;align-items:center;overflow:hidden;background:#000;font-family:var(--pfs-brand-font)}#home>div:first-child{position:absolute;inset:0;z-index:0}#home picture,#home picture img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:65% center}.hero-vignette{position:absolute;inset:0;pointer-events:none;z-index:1;background:linear-gradient(to right,rgba(0,0,0,.85) 0%,rgba(0,0,0,.5) 40%,rgba(0,0,0,0) 70%)}#home>div:nth-child(2){position:relative;z-index:10;max-width:80rem;margin:0 auto;padding:8rem 1rem;width:100%}#home>div:nth-child(2)>div{max-width:42rem}
+      .eyebrow-brand{display:inline-flex;align-items:center;gap:.5rem;padding:.375rem 1rem;border-radius:9999px;border:1px solid rgba(77,159,255,.24);background:rgba(77,159,255,.08);color:rgba(255,255,255,.88);font-size:.875rem;font-weight:600;margin-bottom:1.5rem}.hero-headline{font-family:var(--pfs-brand-font);font-weight:800;letter-spacing:0;line-height:1.02;text-transform:uppercase;margin:0 0 1.5rem}.hero-tier1{display:block;color:#fff;font-size:clamp(1.9rem,4.4vw,3.4rem);font-weight:800}.hero-tier2{display:block;margin-top:.12em;font-size:clamp(2.5rem,6.2vw,4.6rem);font-weight:800;background:linear-gradient(135deg,#60a5fa 0%,#a5f3fc 50%,#fff 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}#home p{font-size:1.125rem;line-height:1.625;color:rgba(255,255,255,.6);margin:0 0 2rem}#home a button,#home button{font-family:var(--pfs-brand-font);font-weight:700}
+      #home>div:nth-child(2)>div>div:nth-of-type(2){display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem}#home button{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:3.25rem;border-radius:.5rem;padding:.875rem 2rem;font-size:1rem;font-weight:700;line-height:1;border:1px solid transparent;cursor:pointer}#home a[href="/shop"] button{background:#3b82f6;color:#fff;box-shadow:0 0 30px rgba(59,130,246,.5)}#home>div:nth-child(2)>div>div:nth-of-type(2)>button{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.32)}
+      @media (min-width:768px){#home{min-height:80vh}#home picture img{object-position:center}#home>div:nth-child(2){padding-left:1.5rem;padding-right:1.5rem}.ticker-track{animation:pfs-ticker 32s linear infinite}}@keyframes pfs-ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    </style>
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MDQHN829');</script>
+    <script>(function(w,d,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime()});var loaded=false,events=['scroll','click','touchstart','pointerdown','keydown'];
+    function c(){events.forEach(function(e){w.removeEventListener(e,g,true);});}
+    function g(){if(loaded)return;loaded=true;c();w[l].push({event:'gtm.js'});var f=d.getElementsByTagName('script')[0],
+    j=d.createElement('script');j.async=true;j.src='https://www.'+'googletagmanager.com/'+'gtm.js?id='+i;f.parentNode.insertBefore(j,f);}
+    function q(){var r=function(){'requestIdleCallback'in w?w.requestIdleCallback(g,{timeout:1e4}):w.setTimeout(g,1e4);};w.setTimeout(r,15e3);}
+    events.forEach(function(e){w.addEventListener(e,g,{once:true,passive:true,capture:true});});
+    d.readyState==='complete'?q():w.addEventListener('load',q,{once:true});
+    })(window,document,'dataLayer','GTM-MDQHN829');</script>
     <!-- End Google Tag Manager -->
     <title data-seo-generated>Paint Booth Filters for Every Booth Brand | PFS Filters</title>
     <meta data-seo-generated name="description" content="Paint booth filters for every booth brand — exhaust, intake, ceiling, prefilter, and Andreae. Backed by 30+ years of PFS Spray Booths. In stock, ships fast." />
@@ -86,9 +106,6 @@
     </script>
 
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
