@@ -8,8 +8,8 @@
  * Safari-compatible: HSL fallbacks for oklch, webkit prefixes
  */
 @theme inline {
-  --font-sans: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
+  --font-sans: var(--pfs-brand-font);
+  --font-mono: var(--pfs-brand-font);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -35,6 +35,7 @@
   --color-ring: var(--ring);
 }
 :root {
+  --pfs-brand-font: 'Barlow Condensed', 'Arial Narrow', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   /* Dark theme as default — pure black background */
   --background: hsl(0 0% 5%);
   --foreground: hsl(0 0% 98%);
@@ -118,12 +119,12 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
+    font-family: var(--pfs-brand-font);
     font-weight: 400;
     letter-spacing: 0.02em;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
+    font-family: var(--pfs-brand-font);
     font-weight: 700;
     letter-spacing: 0.04em;
   }
@@ -131,10 +132,10 @@
     text-transform: uppercase;
   }
   button, input, select, textarea {
-    font-family: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
+    font-family: var(--pfs-brand-font);
   }
   nav, a {
-    font-family: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
+    font-family: var(--pfs-brand-font);
     letter-spacing: 0.06em;
   }
   button:not(:disabled),
@@ -794,7 +795,7 @@ video::-internal-media-controls-play-button {
 
 /* ---- Hero headline: condensed, engineered, two-tier scale ---- */
 .hero-headline {
-  font-family: 'Barlow Condensed', system-ui, sans-serif;
+  font-family: var(--pfs-brand-font);
   font-weight: 800;            /* ExtraBold */
   letter-spacing: 0;
   line-height: 0.98;
@@ -858,22 +859,12 @@ video::-internal-media-controls-play-button {
 .hero-headline,
 .hero-headline .hero-tier1,
 .hero-headline .hero-tier2 {
-  font-family: 'Barlow Condensed', sans-serif !important;
+  font-family: var(--pfs-brand-font) !important;
   font-weight: 800 !important;
   letter-spacing: 0 !important;
 }
 
 @media (max-width: 767px) {
-  nav,
-  nav *,
-  .ticker-bar,
-  .ticker-bar *,
-  #home,
-  #home * {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-    letter-spacing: 0 !important;
-  }
-
   .hero-headline {
     line-height: 1.02;
   }
