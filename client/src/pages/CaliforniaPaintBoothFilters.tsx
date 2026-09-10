@@ -7,10 +7,12 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Building2, CheckCircle2, ExternalLink, Info, MapPin, Phone } from 'lucide-react';
 import { CALIFORNIA_LANDING_PAGES } from '@/data/isaacLandingPages';
 import { bundledShopifyProducts } from '@/lib/productCatalog';
+import { shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
 import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
 
 const SITE = 'https://www.pfsfilters.com';
-const FALLBACK_IMAGE = '/images/brands/pfs-logo-wide.png';
+const LOGO_URL = '/images/brands/pfs-logo-wide-420.webp';
+const FALLBACK_IMAGE = LOGO_URL;
 
 function productImage(handle: string) {
   return bundledShopifyProducts.find((product) => product.node.handle === handle)?.node.images?.edges?.[0]?.node?.url ?? FALLBACK_IMAGE;
@@ -96,7 +98,14 @@ export default function CaliforniaPaintBoothFilters() {
       <main>
         <section className="section-darker relative overflow-hidden px-4 pb-16 pt-28">
           <div className="pointer-events-none absolute right-0 top-16 opacity-[0.045]">
-            <img src="/images/brands/pfs-logo-wide.png" alt="" className="w-[540px] max-w-[60vw]" />
+            <img
+              src={LOGO_URL}
+              alt=""
+              className="w-[540px] max-w-[60vw]"
+              width={420}
+              height={127}
+              decoding="async"
+            />
           </div>
           <div className="relative mx-auto max-w-7xl">
             <Breadcrumb items={[{ label: 'Paint Booth Filters', href: '/paint-booth-filters' }, { label: config.region }]} />
@@ -155,7 +164,18 @@ export default function CaliforniaPaintBoothFilters() {
                 <Link key={item.href} href={item.href}>
                   <article className="glow-card group h-full overflow-hidden">
                     <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-white/5 to-transparent">
-                      <img src={item.image} alt={`${item.title} for paint booth applications`} className="h-full w-full object-contain p-5 transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                      <img
+                        src={sizedShopifyImageUrl(item.image, 480)}
+                        srcSet={shopifyImageSrcSet(item.image)}
+                        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
+                        alt={`${item.title} for paint booth applications`}
+                        className="h-full w-full object-contain p-5 transition-transform duration-500 group-hover:scale-105"
+                        width={480}
+                        height={360}
+                        loading="lazy"
+                        decoding="async"
+                        fetchPriority="auto"
+                      />
                     </div>
                     <div className="border-t border-white/5 p-5">
                       <h3 className="mb-2 text-lg font-bold group-hover:text-blue-300">{item.title}</h3>
@@ -185,7 +205,7 @@ export default function CaliforniaPaintBoothFilters() {
               </div>
             </div>
             <div className="rounded-2xl border border-blue-400/20 bg-blue-400/[0.07] p-7">
-              <img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" className="mb-6 h-10 w-auto" />
+              <img src={LOGO_URL} alt="PFS Filters" className="mb-6 h-10 w-auto" width={420} height={127} loading="lazy" decoding="async" />
               <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-300">Santa Rosa, California</p>
               <h2 className="mb-3 text-2xl font-bold">A California-based team with nationwide ordering</h2>
               <p className="mb-5 text-sm leading-relaxed text-white/60">PFS Filters operates from 1400 Airport Blvd, Santa Rosa, CA 95403. Contact the team for filter identification, product questions, custom requests, or multi-booth planning.</p>
