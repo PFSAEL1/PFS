@@ -107,7 +107,9 @@ export const Navigation = () => {
                 className="h-16 w-auto"
                 width={420}
                 height={127}
+                loading="eager"
                 decoding="async"
+                fetchPriority="high"
               />
             </Link>
 

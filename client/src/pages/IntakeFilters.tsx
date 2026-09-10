@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Wind, Sparkles, Phone, ArrowRight } from 'lucide-react';
 import type { ShopifyProduct } from '@/lib/shopify';
 import { useCurrentShopifyProducts } from '@/hooks/useCurrentShopifyProducts';
+import { shopProductCardImageSrcSet, shopProductCardImageUrl, shopifyImageAltText } from '@/lib/imageUrls';
 import { createBreadcrumbSchema, createItemListSchema } from '@/lib/structuredData';
 
 const SITE = 'https://www.pfsfilters.com';
@@ -38,12 +39,14 @@ const getIntakeProducts = (products: ShopifyProduct[]) => products
   })
   .map((product) => {
     const node = product.node;
+    const imageNode = node.images?.edges?.[0]?.node;
     const amount = node.priceRange?.minVariantPrice?.amount;
     return {
       id: node.id,
       handle: node.handle,
       title: node.title,
-      image: node.images?.edges?.[0]?.node?.url ?? FALLBACK_IMAGE,
+      image: imageNode?.url ?? FALLBACK_IMAGE,
+      imageAlt: shopifyImageAltText(imageNode, `${node.title} — paint booth intake filter media`),
       minPrice: amount ? parseFloat(amount) : null,
       currency: node.priceRange?.minVariantPrice?.currencyCode ?? 'USD',
       sizes: node.variants?.edges?.length ?? 0,
@@ -136,10 +139,16 @@ export default function IntakeFilters() {
                   <Link href={`/product/${product.handle}`}>
                     <div className="product-img-wrap relative aspect-square overflow-hidden cursor-pointer">
                       <img
-                        src={product.image}
-                        alt={`${product.title} — paint booth intake filter media`}
+                        src={shopProductCardImageUrl(product.handle, product.image, 480)}
+                        srcSet={shopProductCardImageSrcSet(product.handle, product.image)}
+                        sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
+                        alt={product.imageAlt}
                         className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
+                        width={480}
+                        height={480}
                         loading="lazy"
+                        decoding="async"
+                        fetchPriority="auto"
                       />
                     </div>
                   </Link>

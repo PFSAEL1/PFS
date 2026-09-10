@@ -12,9 +12,11 @@ const faqFile = path.join(root, 'client', 'src', 'data', 'faqData.json');
 const blogFile = path.join(root, 'client', 'src', 'lib', 'blogData.ts');
 const brandsFile = path.join(root, 'client', 'src', 'data', 'boothBrands.ts');
 const origin = 'https://www.pfsfilters.com';
+const logoUrl = '/images/brands/pfs-logo-wide-420.webp';
 const heroPosterMobile = '/media/pfs-hero-poster-mobile.webp';
 const heroPosterDesktop = '/media/pfs-hero-poster-desktop.webp';
 const heroPosterPreload = `<link rel="preload" as="image" href="${heroPosterMobile}" type="image/webp" media="(max-width: 767px)" fetchpriority="high" />`;
+const logoPreload = `<link rel="preload" as="image" href="${logoUrl}" type="image/webp" fetchpriority="high" />`;
 const today = new Date().toISOString().slice(0, 10);
 const mode = process.argv[2] || '--source';
 const shopProductThumbnails = {
@@ -479,6 +481,30 @@ function shopFallback(title, description) {
   </main>`;
 }
 
+function intakeFallback(title, description) {
+  return `<main data-seo-fallback id="intake-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1280px;margin:0 auto;padding:0 16px">
+        <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
+          <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+          <a href="/shop" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-weight:700;font-size:14px">Shop</a>
+        </div>
+      </div>
+    </nav>
+    <section style="padding:112px 16px 40px;background:#050505">
+      <div style="max-width:1280px;margin:0 auto">
+        <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-size:14px">Paint Booth Filters / Intake Filters</p>
+        <div style="max-width:760px">
+          <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid rgba(77,159,255,.3);background:rgba(77,159,255,.1);color:#4d9fff;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px">Intake stage</span>
+          <h1 style="margin:0 0 16px;font-size:clamp(2.6rem,10vw,4.5rem);line-height:.95;font-weight:800;letter-spacing:0;color:#fff">${escapeHtml(title)}</h1>
+          <p style="margin:0;color:rgba(255,255,255,.62);font-size:18px;line-height:1.6;max-width:720px">${escapeHtml(description)}</p>
+          <p style="margin:24px 0 0;color:rgba(255,255,255,.55);font-size:15px;line-height:1.6"><a href="/shop" style="color:#60a5fa;font-weight:700">Browse intake products</a> · <a href="/filter-finder" style="color:#60a5fa;font-weight:700">Find my filter</a> · <a href="/contact" style="color:#60a5fa;font-weight:700">Contact PFS</a></p>
+        </div>
+      </div>
+    </section>
+  </main>`;
+}
+
 function writeSourceAssets() {
   fs.mkdirSync(publicDir, { recursive: true });
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml());
@@ -530,6 +556,13 @@ function replaceMeta(html, route) {
     }
     output = deferMainStylesheet(output);
   }
+  if (route.path === '/intake-filters') {
+    output = output.replace(
+      /(<meta name="viewport"[^>]*>\r?\n)/i,
+      `$1    ${logoPreload}\n`,
+    );
+    output = deferMainStylesheet(output);
+  }
 
   const detail = route.price ? `<p>Starting at $${escapeHtml(route.price)} USD. Check the live product page for current variants, pricing, and availability.</p>` : '';
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
@@ -537,6 +570,8 @@ function replaceMeta(html, route) {
     ? `<main data-seo-fallback><section id="home"><div><picture><source media="(max-width: 767px)" srcset="${heroPosterMobile}" /><img src="${heroPosterDesktop}" alt="" width="1600" height="900" fetchpriority="high" /></picture><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section></main>`
     : route.path === '/shop'
     ? shopFallback(title, description)
+    : route.path === '/intake-filters'
+    ? intakeFallback(title, description)
     : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:64px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${title}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
   return output.replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
 }
