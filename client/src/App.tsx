@@ -7,6 +7,7 @@ import { lazy, Suspense, type ComponentType } from 'react';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { importWithChunkRecovery } from './lib/chunkRecovery';
+import { getLocalProductThumbnail } from './lib/imageUrls';
 
 // Pages
 import Home from './pages/Home';
@@ -709,8 +710,13 @@ function FiberglassVsTackyBlogLoadingFallback() {
 // before this already carries the real per-product title/price/image/description —
 // see generate-seo-assets.mjs's genericProductFallback). Deliberately has NO
 // product-data dependency: importing the product snapshot here would pull it into
-// App.tsx's always-eager bundle instead of the lazy product-page chunk.
-function ProductLoadingFallback() {
+// App.tsx's always-eager bundle instead of the lazy product-page chunk. It DOES use
+// the tiny handle -> local-thumbnail lookup (no snapshot import) so that when a
+// product has a local optimized image, the fallback and the hydrated view use the
+// exact same file — no image swap during hydration.
+function ProductLoadingFallback({ handle }: { handle: string }) {
+  const thumbnail = getLocalProductThumbnail(handle);
+
   return (
     <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }} aria-label="Loading product">
       <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
@@ -728,7 +734,22 @@ function ProductLoadingFallback() {
         <section style={{ padding: '40px 16px', background: '#0d0d0d' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gap: 48, gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))' }}>
             <div>
-              <div style={{ aspectRatio: '1/1', borderRadius: 12, background: '#161616', border: '1px solid rgba(255,255,255,.07)', marginBottom: 16 }} />
+              <div style={{ aspectRatio: '1/1', borderRadius: 12, overflow: 'hidden', background: '#161616', border: '1px solid rgba(255,255,255,.07)', marginBottom: 16 }}>
+                {thumbnail && (
+                  <img
+                    src={thumbnail.src}
+                    srcSet={`${thumbnail.src} ${thumbnail.width}w`}
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    alt=""
+                    width={thumbnail.width}
+                    height={thumbnail.width}
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                )}
+              </div>
             </div>
             <div>
               <div style={{ height: 36, maxWidth: 420, borderRadius: 4, background: 'rgba(255,255,255,.08)', marginBottom: 12 }} />
@@ -775,7 +796,7 @@ function Router() {
     : location === '/blog/fiberglass-vs-tacky-panel-filters'
     ? <FiberglassVsTackyBlogLoadingFallback />
     : location.startsWith('/product/')
-    ? <ProductLoadingFallback />
+    ? <ProductLoadingFallback handle={location.slice('/product/'.length)} />
     : <div className="min-h-screen bg-[#040404]" aria-label="Loading page" />;
 
   // make sure to consider if you need authentication for certain routes

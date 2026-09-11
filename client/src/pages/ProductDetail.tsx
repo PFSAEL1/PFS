@@ -80,16 +80,25 @@ export default function ProductDetail() {
   const { discountPercent, tier } = usePricing();
   const isMember = discountPercent > 0 && !!tier;
 
-  useEffect(() => {
-    if (!handle) return;
-    let active = true;
+  // Reset to the new handle's bundled data DURING render (not in an effect) so a
+  // client-side navigation from one product to another never paints the previous
+  // product's title/price/image for a frame before the fetch effect below catches up.
+  const [renderedHandle, setRenderedHandle] = useState(handle);
+  if (handle !== renderedHandle) {
+    setRenderedHandle(handle);
     const immediate = getBundledProductByHandle(handle);
-
     setProduct(immediate);
     setLoading(!immediate);
     setSelectedVariantId(immediate?.variants?.edges?.[0]?.node?.id ?? null);
     setSelectedImage(0);
     setPurchaseOption('one-time');
+    setRelatedProducts([]);
+  }
+
+  useEffect(() => {
+    if (!handle) return;
+    let active = true;
+    const immediate = getBundledProductByHandle(handle);
 
     fetchProductByHandle(handle).then((data) => {
       if (!active) return;

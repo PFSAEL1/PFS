@@ -6,7 +6,15 @@ const SHOP_PRODUCT_THUMBNAILS: Record<string, { src: string; width: number }> = 
   '20x20-paint-pockets-paint-arrestor-30-cs': { src: '/images/shop-thumbnails/paint-pockets.webp', width: 480 },
   '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': { src: '/images/shop-thumbnails/22-gram-fiberglass-roll.webp', width: 480 },
   'pleated-air-filters-merv-10': { src: '/images/shop-thumbnails/merv-10-pleated-filter.jpg', width: 320 },
+  '36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs': { src: '/images/shop-thumbnails/15-gram-fiberglass-roll.webp', width: 480 },
 };
+
+// Lightweight, snapshot-free lookup — safe to import anywhere (including
+// App.tsx's always-eager bundle) since this map carries no product data,
+// just a handful of handle -> local-asset entries.
+export function getLocalProductThumbnail(handle: string): { src: string; width: number } | undefined {
+  return SHOP_PRODUCT_THUMBNAILS[handle];
+}
 
 export function sizedShopifyImageUrl(src: string, width: number): string {
   if (!src || width <= 0) return src;

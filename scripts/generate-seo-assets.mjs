@@ -25,6 +25,7 @@ const shopProductThumbnails = {
   '20x20-paint-pockets-paint-arrestor-30-cs': { src: '/images/shop-thumbnails/paint-pockets.webp', width: 480 },
   '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': { src: '/images/shop-thumbnails/22-gram-fiberglass-roll.webp', width: 480 },
   'pleated-air-filters-merv-10': { src: '/images/shop-thumbnails/merv-10-pleated-filter.jpg', width: 320 },
+  '36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs': { src: '/images/shop-thumbnails/15-gram-fiberglass-roll.webp', width: 480 },
 };
 
 const products = JSON.parse(fs.readFileSync(productFile, 'utf8')).map((edge) => edge.node);
