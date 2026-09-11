@@ -289,6 +289,65 @@ function RollMediaLoadingFallback() {
   );
 }
 
+const mervFiltersProductImage =
+  'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/High-efficiencyMERV10airfilters.png?v=1775865427&width=480';
+const mervFiltersProductSrcSet =
+  'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/High-efficiencyMERV10airfilters.png?v=1775865427&width=320 320w, https://cdn.shopify.com/s/files/1/0972/9815/3604/files/High-efficiencyMERV10airfilters.png?v=1775865427&width=480 480w, https://cdn.shopify.com/s/files/1/0972/9815/3604/files/High-efficiencyMERV10airfilters.png?v=1775865427&width=640 640w';
+
+function MervFiltersLoadingFallback() {
+  return (
+    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+        <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
+          <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
+        </div>
+      </nav>
+      <main>
+        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(77,159,255,.3)', background: 'rgba(77,159,255,.1)', color: '#4d9fff', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 16 }}>
+              Intake
+            </div>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
+              MERV-Rated Filters
+            </h1>
+            <p style={{ margin: 0, maxWidth: 672, color: 'rgba(255,255,255,.7)', fontSize: 18, lineHeight: 1.55 }}>
+              High-efficiency filters rated by MERV standard for precise particle capture. MERV-10 and MERV-13 options for industrial operations.
+            </p>
+          </div>
+        </section>
+        <div style={{ height: 48, background: 'linear-gradient(180deg,#050505,#0d0d0d)' }} />
+        <section style={{ padding: '32px 16px 56px', background: '#0d0d0d' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 24 }}>
+            <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: 'linear-gradient(135deg,#212121,#1a1a1a)' }}>
+              <div style={{ aspectRatio: '1/1', background: 'linear-gradient(135deg,#1f1f1f,#151515)', borderBottom: '1px solid #292929', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                <img
+                  src={mervFiltersProductImage}
+                  srcSet={mervFiltersProductSrcSet}
+                  sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
+                  alt="Pleated Air Filters MERV 10"
+                  width="480"
+                  height="480"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 12, boxSizing: 'border-box', filter: 'brightness(.95) contrast(1.05)' }}
+                />
+              </div>
+              <div style={{ padding: 16 }}>
+                <h2 style={{ minHeight: 40, margin: '0 0 12px', fontSize: 15, lineHeight: 1.3, fontWeight: 700 }}>
+                  Pleated Air Filters MERV 10
+                </h2>
+                <p style={{ margin: 0, color: '#60a5fa', fontWeight: 800 }}>$124.75 USD</p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
 function BrandsLoadingFallback() {
   return (
     <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
@@ -447,6 +506,8 @@ function Router() {
     ? <CeilingBlanketsLoadingFallback />
     : location === '/category/roll-media'
     ? <RollMediaLoadingFallback />
+    : location === '/category/merv-filters'
+    ? <MervFiltersLoadingFallback />
     : location === '/brands'
     ? <BrandsLoadingFallback />
     : location === '/consumables/pfs-vitra'
