@@ -12,7 +12,7 @@ import {
   getMonthlySellingPlanAllocation,
   ShopifyProduct,
 } from '@/lib/shopify';
-import { bundledShopifyProducts } from '@/lib/productCatalog';
+import { getBundledProductByHandle } from '@/lib/productCatalog';
 import { useCartStore } from '@/stores/cartStore';
 import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredData';
 import { ShoppingCart, Loader2, Package, Truck, CircleHelp, ArrowLeft, Plus, Minus, RefreshCw } from 'lucide-react';
@@ -58,11 +58,6 @@ function DeferredFooter() {
       <Footer />
     </Suspense>
   );
-}
-
-function getBundledProductByHandle(handle?: string) {
-  if (!handle) return null;
-  return bundledShopifyProducts.find((p) => p.node.handle === handle)?.node ?? null;
 }
 
 type PurchaseOption = 'one-time' | 'subscription';

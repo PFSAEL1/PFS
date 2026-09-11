@@ -15,6 +15,11 @@ interface ProductCache {
 
 export const bundledShopifyProducts = productSnapshot as unknown as ShopifyProduct[];
 
+export function getBundledProductByHandle(handle?: string) {
+  if (!handle) return null;
+  return bundledShopifyProducts.find((p) => p.node.handle === handle)?.node ?? null;
+}
+
 export function filterShopifyProducts(
   products: ShopifyProduct[],
   categoryFilter?: string | null,
