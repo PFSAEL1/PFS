@@ -65,6 +65,13 @@ const finderFallbackTypes = [
   'Prep Station',
 ];
 
+const brandsFallback = [
+  ['PFS Filters', 'Spray Booth Specialists'],
+  ['Andover Healthcare', 'Industrial Grade Media'],
+  ['Koch Filter', 'MERV-Rated Filters'],
+  ['Permatron', 'Synthetic Media'],
+];
+
 function FilterFinderLoadingFallback() {
   return (
     <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
@@ -112,11 +119,53 @@ function FilterFinderLoadingFallback() {
   );
 }
 
+function BrandsLoadingFallback() {
+  return (
+    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+        <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
+          <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
+        </div>
+      </nav>
+      <main>
+        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, border: '1px solid rgba(255,255,255,.15)', background: 'rgba(255,255,255,.05)', color: 'rgba(255,255,255,.6)', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>
+              Trusted Brands
+            </div>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .92, fontWeight: 800, letterSpacing: 0, textTransform: 'uppercase' }}>
+              Filter Brands We Carry
+            </h1>
+            <p style={{ margin: 0, maxWidth: 672, color: 'rgba(255,255,255,.5)', fontSize: 20, lineHeight: 1.55 }}>
+              Browse manufacturers represented in the current catalog, then verify the product record, filter stage, and dimensions before ordering.
+            </p>
+          </div>
+        </section>
+        <section style={{ padding: '56px 16px', background: '#0d0d0d' }}>
+          <div style={{ maxWidth: 896, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 24 }}>
+            {brandsFallback.map(([name, specialty]) => (
+              <article key={name} style={{ minHeight: 190, border: '1px solid rgba(255,255,255,.08)', borderRadius: 16, background: 'rgba(255,255,255,.03)', padding: 24 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginBottom: 12 }}>
+                  <h2 style={{ margin: 0, fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 26, lineHeight: 1, fontWeight: 800 }}>{name}</h2>
+                  <span style={{ height: 26, borderRadius: 999, border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.05)', color: 'rgba(255,255,255,.55)', padding: '5px 8px', fontSize: 12, whiteSpace: 'nowrap' }}>{specialty}</span>
+                </div>
+                <p style={{ margin: 0, color: 'rgba(255,255,255,.7)', fontSize: 14, lineHeight: 1.6 }}>Catalog products and replacement guidance represented in the current PFS Filters catalog.</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
 // Light version pages (kept in codebase but not routed in production)
 function Router() {
   const [location] = useLocation();
   const routeFallback = location === '/filter-finder' || location === '/filter-compatibility'
     ? <FilterFinderLoadingFallback />
+    : location === '/brands'
+    ? <BrandsLoadingFallback />
     : <div className="min-h-screen bg-[#040404]" aria-label="Loading page" />;
 
   // make sure to consider if you need authentication for certain routes

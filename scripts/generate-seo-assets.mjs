@@ -604,6 +604,46 @@ function filterFinderFallback() {
   </main>`;
 }
 
+function brandsFallback() {
+  const brandCards = [
+    ['PFS Filters', 'PFS Filters catalog products and replacement guidance, backed by the PFS Spray Booths team in Santa Rosa, California.', 'Spray Booth Specialists'],
+    ['Andover Healthcare', 'Fiberglass and synthetic filter-media products represented in the current PFS catalog. Verify the product record and application before ordering.', 'Industrial Grade Media'],
+    ['Koch Filter', 'MERV-rated filtration products represented in the current PFS catalog. Confirm the stage, rating, depth, and dimensions required by the equipment.', 'MERV-Rated Filters'],
+    ['Permatron', 'Synthetic filtration products represented in the current PFS catalog. Use the current product data rather than a brand name alone to select media.', 'Synthetic Media'],
+  ];
+  const cards = brandCards.map(([name, copy, specialty]) => `<article style="border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);border-radius:16px;padding:24px;min-height:190px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px">
+        <h2 style="margin:0;color:#fff;font-size:26px;line-height:1;font-weight:800">${name}</h2>
+        <span style="display:inline-flex;align-items:center;min-height:26px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:rgba(255,255,255,.55);padding:4px 8px;font-family:Arial,sans-serif;font-size:12px;white-space:nowrap">${specialty}</span>
+      </div>
+      <p style="margin:0 0 18px;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:14px;line-height:1.6">${copy}</p>
+      <a href="/shop" style="display:inline-flex;align-items:center;min-height:34px;border:1px solid rgba(255,255,255,.2);border-radius:8px;color:rgba(255,255,255,.75);text-decoration:none;padding:7px 12px;font-family:Arial,sans-serif;font-size:13px;font-weight:700">Shop Products</a>
+    </article>`).join('');
+
+  return `<main data-seo-fallback id="brands-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1280px;margin:0 auto;padding:0 16px">
+        <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
+          <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+          <a href="/shop" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-weight:700;font-size:14px">Shop</a>
+        </div>
+      </div>
+    </nav>
+    <section style="padding:112px 16px 40px;background:#050505">
+      <div style="max-width:1280px;margin:0 auto">
+        <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Home / Brands</p>
+        <span style="display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.6);font-family:Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">Trusted Brands</span>
+        <h1 style="margin:0 0 16px;font-size:clamp(3rem,12vw,4.5rem);line-height:.92;font-weight:800;letter-spacing:0;text-transform:uppercase;color:#fff">Filter Brands We Carry</h1>
+        <p style="max-width:672px;margin:0;color:rgba(255,255,255,.5);font-family:Arial,sans-serif;font-size:20px;line-height:1.55">Browse manufacturers represented in the current catalog, then verify the product record, filter stage, and dimensions before ordering.</p>
+      </div>
+    </section>
+    <div style="height:48px;background:linear-gradient(180deg,#050505,#0d0d0d)"></div>
+    <section style="padding:56px 16px;background:#0d0d0d">
+      <div style="max-width:896px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px">${cards}</div>
+    </section>
+  </main>`;
+}
+
 function writeSourceAssets() {
   fs.mkdirSync(publicDir, { recursive: true });
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml());
@@ -679,6 +719,9 @@ function replaceMeta(html, route) {
   if (route.path === '/filter-finder') {
     output = deferMainStylesheet(output);
   }
+  if (route.path === '/brands') {
+    output = deferMainStylesheet(output);
+  }
 
   const detail = route.price ? `<p>Starting at $${escapeHtml(route.price)} USD. Check the live product page for current variants, pricing, and availability.</p>` : '';
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
@@ -694,6 +737,8 @@ function replaceMeta(html, route) {
     ? losAngelesFallback()
     : route.path === '/filter-finder'
     ? filterFinderFallback()
+    : route.path === '/brands'
+    ? brandsFallback()
     : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:64px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${title}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
   return output.replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
 }
