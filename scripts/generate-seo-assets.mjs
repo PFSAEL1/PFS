@@ -644,6 +644,51 @@ function brandsFallback() {
   </main>`;
 }
 
+function vitraFallback() {
+  return `<main data-seo-fallback id="vitra-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1280px;margin:0 auto;padding:0 16px">
+        <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
+          <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+          <a href="/shop" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-weight:700;font-size:14px">Shop</a>
+        </div>
+      </div>
+    </nav>
+    <section style="padding:112px 16px 40px;background:#050505">
+      <div style="max-width:1280px;margin:0 auto">
+        <p style="margin:0;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Home / Consumables / PFS VITRA</p>
+      </div>
+    </section>
+    <div style="height:48px;background:linear-gradient(180deg,#050505,#0d0d0d)"></div>
+    <section style="padding:56px 16px;background:#0d0d0d">
+      <div style="max-width:1024px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;align-items:start">
+        <div style="aspect-ratio:1/1;min-height:320px;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:rgba(255,255,255,.03);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px">
+          <div style="width:80px;height:80px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);margin-bottom:24px"></div>
+          <p style="margin:0 0 4px;color:rgba(255,255,255,.4);font-family:Arial,sans-serif;font-size:18px;font-weight:700">Image Coming Soon</p>
+          <p style="margin:0;color:rgba(255,255,255,.25);font-family:Arial,sans-serif;font-size:14px">Product design in progress</p>
+          <img src="${logoUrl}" alt="PFS Filters" width="420" height="127" decoding="async" style="width:128px;height:auto;opacity:.2;margin-top:32px" />
+        </div>
+        <div style="min-height:520px">
+          <span style="display:inline-flex;align-items:center;min-height:26px;padding:4px 12px;border-radius:999px;border:1px solid rgba(59,130,246,.22);background:rgba(59,130,246,.1);color:#60a5fa;font-family:Arial,sans-serif;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px">Consumables</span>
+          <h1 style="margin:8px 0 8px;color:#fff;font-size:clamp(3rem,12vw,4.25rem);line-height:.95;font-weight:800;letter-spacing:0">PFS VITRA</h1>
+          <p style="margin:0 0 24px;color:rgba(255,255,255,.5);font-family:Arial,sans-serif;font-size:20px">Glass Shield Washable Coating</p>
+          <div style="display:flex;align-items:baseline;gap:12px;min-height:52px;margin-bottom:24px">
+            <span style="color:#60a5fa;font-size:44px;font-weight:800">$80.00</span>
+            <span style="color:rgba(255,255,255,.4);font-family:Arial,sans-serif;font-size:14px">USD</span>
+          </div>
+          <p style="min-height:112px;margin:0;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:16px;line-height:1.7">PFS VITRA is a professional-grade washable glass shield coating designed to protect your paint booth windows and glass surfaces from overspray buildup. Easy to apply, easy to remove — keeps your booth visibility crystal clear.</p>
+          <div style="min-height:72px;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:16px">
+            <span style="color:rgba(255,255,255,.6);font-family:Arial,sans-serif;font-size:14px">Quantity:</span>
+            <div style="width:116px;height:42px;border:1px solid rgba(255,255,255,.2);border-radius:8px"></div>
+          </div>
+          <div style="min-height:56px;margin-top:16px;border-radius:10px;background:#3b82f6;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Arial,sans-serif;font-size:16px;font-weight:800">Add to Cart — $80.00</div>
+          <div style="min-height:86px;margin-top:24px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.03);padding:16px;color:rgba(255,255,255,.5);font-family:Arial,sans-serif;font-size:12px;line-height:1.6">PFS VITRA is currently being rebranded under the PFS Filters label. Product packaging and imagery will be updated soon.</div>
+        </div>
+      </div>
+    </section>
+  </main>`;
+}
+
 function writeSourceAssets() {
   fs.mkdirSync(publicDir, { recursive: true });
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml());
@@ -722,6 +767,13 @@ function replaceMeta(html, route) {
   if (route.path === '/brands') {
     output = deferMainStylesheet(output);
   }
+  if (route.path === '/consumables/pfs-vitra') {
+    output = output.replace(
+      /(<meta name="viewport"[^>]*>\r?\n)/i,
+      `$1    ${logoPreload}\n`,
+    );
+    output = deferMainStylesheet(output);
+  }
 
   const detail = route.price ? `<p>Starting at $${escapeHtml(route.price)} USD. Check the live product page for current variants, pricing, and availability.</p>` : '';
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
@@ -739,6 +791,8 @@ function replaceMeta(html, route) {
     ? filterFinderFallback()
     : route.path === '/brands'
     ? brandsFallback()
+    : route.path === '/consumables/pfs-vitra'
+    ? vitraFallback()
     : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:64px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${title}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
   return output.replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
 }

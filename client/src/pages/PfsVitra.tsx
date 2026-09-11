@@ -1,35 +1,88 @@
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Package, ShieldCheck, Truck, ShoppingCart } from 'lucide-react';
-import { useState } from 'react';
-import { useCartStore } from '@/stores/cartStore';
-import { toast } from 'sonner';
 
 // PFS VITRA variant info — same format as Shopify products
 const PFS_VITRA_VARIANT_ID = 'gid://shopify/ProductVariant/52571232206980';
 const PFS_VITRA_PRODUCT_ID = 'gid://shopify/Product/10419370885252';
+const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
+
+function DeferredFooter() {
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+  const [showFooter, setShowFooter] = useState(false);
+
+  useEffect(() => {
+    if (showFooter) return;
+    const interactionEvents = ['scroll', 'click', 'touchstart', 'pointerdown', 'keydown'] as const;
+    let observer: IntersectionObserver | undefined;
+
+    const revealFooter = () => setShowFooter(true);
+    const removeInteractionListeners = () => {
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, revealFooter);
+      });
+    };
+
+    if ('IntersectionObserver' in window && sentinelRef.current) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) revealFooter();
+        },
+        { rootMargin: '900px 0px' },
+      );
+      observer.observe(sentinelRef.current);
+    }
+
+    interactionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, revealFooter, { once: true, passive: true });
+    });
+
+    return () => {
+      observer?.disconnect();
+      removeInteractionListeners();
+    };
+  }, [showFooter]);
+
+  if (!showFooter) return <div ref={sentinelRef} style={{ minHeight: 420 }} aria-hidden="true" />;
+
+  return (
+    <Suspense fallback={null}>
+      <Footer />
+    </Suspense>
+  );
+}
 
 export default function PfsVitra() {
   const [quantity, setQuantity] = useState(1);
-  const addItem = useCartStore((s) => s.addItem);
-  const setCartOpen = useCartStore((s) => s.setCartOpen);
+  const [isAdding, setIsAdding] = useState(false);
 
-  const handleAddToCart = () => {
-    addItem({
-      variantId: PFS_VITRA_VARIANT_ID,
-      productId: PFS_VITRA_PRODUCT_ID,
-      title: 'PFS VITRA',
-      variantTitle: 'Default',
-      price: { amount: '80.00', currencyCode: 'USD' },
-      quantity,
-      image: undefined,
-      handle: 'pfs-vitra',
-    });
-    toast.success('PFS VITRA added to cart');
-    setCartOpen(true);
+  const handleAddToCart = async () => {
+    if (isAdding) return;
+    setIsAdding(true);
+    try {
+      const [{ useCartStore }, { toast }] = await Promise.all([
+        import('@/stores/cartStore'),
+        import('sonner'),
+      ]);
+      const { addItem, setCartOpen } = useCartStore.getState();
+      addItem({
+        variantId: PFS_VITRA_VARIANT_ID,
+        productId: PFS_VITRA_PRODUCT_ID,
+        title: 'PFS VITRA',
+        variantTitle: 'Default',
+        price: { amount: '80.00', currencyCode: 'USD' },
+        quantity,
+        image: undefined,
+        handle: 'pfs-vitra',
+      });
+      toast.success('PFS VITRA added to cart');
+      setCartOpen(true);
+    } finally {
+      setIsAdding(false);
+    }
   };
 
   return (
@@ -56,7 +109,7 @@ export default function PfsVitra() {
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* Image placeholder */}
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] aspect-square flex flex-col items-center justify-center p-8">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] aspect-square min-h-[320px] flex flex-col items-center justify-center p-8">
               <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6">
                 <Package className="h-10 w-10 text-white/30" />
               </div>
@@ -64,9 +117,13 @@ export default function PfsVitra() {
               <p className="text-white/25 text-sm">Product design in progress</p>
               {/* PFS Logo watermark */}
               <img
-                src="/images/brands/pfs-logo-wide.png"
+                src="/images/brands/pfs-logo-wide-420.webp"
                 alt="PFS Filters"
                 className="w-32 opacity-20 mt-8"
+                width={420}
+                height={127}
+                loading="eager"
+                decoding="async"
               />
             </div>
 
@@ -125,10 +182,11 @@ export default function PfsVitra() {
               <div className="pt-4 space-y-3">
                 <Button
                   onClick={handleAddToCart}
+                  disabled={isAdding}
                   className="w-full bg-blue-500 text-white hover:bg-blue-500/90 font-bold text-base py-6 gap-2"
                 >
                   <ShoppingCart className="h-5 w-5" />
-                  Add to Cart — ${(80 * quantity).toFixed(2)}
+                  {isAdding ? 'Adding...' : `Add to Cart — $${(80 * quantity).toFixed(2)}`}
                 </Button>
               </div>
 
@@ -145,7 +203,7 @@ export default function PfsVitra() {
       {/* Arc transition */}
       <div className="arc-divider arc-divider-down" />
 
-      <Footer />
+      <DeferredFooter />
     </div>
   );
 }

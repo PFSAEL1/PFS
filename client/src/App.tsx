@@ -159,6 +159,54 @@ function BrandsLoadingFallback() {
   );
 }
 
+function VitraLoadingFallback() {
+  return (
+    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+        <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
+          <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
+        </div>
+      </nav>
+      <main>
+        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto', color: 'rgba(255,255,255,.55)', fontSize: 14 }}>
+            Home / Consumables / PFS VITRA
+          </div>
+        </section>
+        <section style={{ padding: '56px 16px', background: '#0d0d0d' }}>
+          <div style={{ maxWidth: 1024, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 40, alignItems: 'start' }}>
+            <div style={{ aspectRatio: '1/1', minHeight: 320, borderRadius: 16, border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.03)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 32 }}>
+              <div style={{ width: 80, height: 80, borderRadius: 999, border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.05)', marginBottom: 24 }} />
+              <p style={{ margin: '0 0 4px', color: 'rgba(255,255,255,.4)', fontSize: 18, fontWeight: 700 }}>Image Coming Soon</p>
+              <p style={{ margin: 0, color: 'rgba(255,255,255,.25)', fontSize: 14 }}>Product design in progress</p>
+              <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 128, height: 'auto', opacity: .2, marginTop: 32 }} decoding="async" />
+            </div>
+            <div style={{ minHeight: 520 }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', minHeight: 26, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(59,130,246,.22)', background: 'rgba(59,130,246,.1)', color: '#60a5fa', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 12 }}>Consumables</span>
+              <h1 style={{ margin: '8px 0 8px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.25rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>PFS VITRA</h1>
+              <p style={{ margin: '0 0 24px', color: 'rgba(255,255,255,.5)', fontSize: 20 }}>Glass Shield Washable Coating</p>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, minHeight: 52, marginBottom: 24 }}>
+                <span style={{ color: '#60a5fa', fontSize: 44, fontWeight: 800 }}>$80.00</span>
+                <span style={{ color: 'rgba(255,255,255,.4)', fontSize: 14 }}>USD</span>
+              </div>
+              <p style={{ minHeight: 112, margin: 0, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,.1)', color: 'rgba(255,255,255,.7)', fontSize: 16, lineHeight: 1.7 }}>
+                PFS VITRA is a professional-grade washable glass shield coating designed to protect your paint booth windows and glass surfaces from overspray buildup.
+              </p>
+              <div style={{ minHeight: 72, marginTop: 20, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,.1)', display: 'flex', alignItems: 'center', gap: 16 }}>
+                <span style={{ color: 'rgba(255,255,255,.6)', fontSize: 14 }}>Quantity:</span>
+                <div style={{ width: 116, height: 42, border: '1px solid rgba(255,255,255,.2)', borderRadius: 8 }} />
+              </div>
+              <div style={{ minHeight: 56, marginTop: 16, borderRadius: 10, background: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 16, fontWeight: 800 }}>
+                Add to Cart — $80.00
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
 // Light version pages (kept in codebase but not routed in production)
 function Router() {
   const [location] = useLocation();
@@ -166,6 +214,8 @@ function Router() {
     ? <FilterFinderLoadingFallback />
     : location === '/brands'
     ? <BrandsLoadingFallback />
+    : location === '/consumables/pfs-vitra'
+    ? <VitraLoadingFallback />
     : <div className="min-h-screen bg-[#040404]" aria-label="Loading page" />;
 
   // make sure to consider if you need authentication for certain routes
