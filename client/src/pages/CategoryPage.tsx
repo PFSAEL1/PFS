@@ -2,11 +2,10 @@
 // Shows products filtered by category slug (e.g., /category/fiberglass-arrestors)
 // Uses Shopify collection-based fetch with tag-based fallback
 
-import { useEffect, useState, useRef } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { useParams, Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,8 +14,10 @@ import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 import {
   fetchProductsByCategory,
   CATEGORY_COLLECTION_MAP,
+  productMatchesCategory,
   ShopifyProduct,
 } from '@/lib/shopify';
+import { bundledShopifyProducts } from '@/lib/productCatalog';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
 import { ProductBadges } from '@/components/ProductBadge';
@@ -25,62 +26,128 @@ import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { shopifyImageAltText, shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
+const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
 
-// CSS animation keyframes injected once
-const ANIMATION_STYLE = `
-@keyframes pfs-fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+function getBundledCategoryProducts(categorySlug?: string) {
+  if (!categorySlug) return [];
+  return bundledShopifyProducts
+    .filter((product) => !product.node.title.toLowerCase().includes('membership'))
+    .filter((product) => productMatchesCategory(product, categorySlug));
 }
-@keyframes pfs-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+
+function DeferredFooter() {
+  const [showFooter, setShowFooter] = useState(false);
+
+  useEffect(() => {
+    if (showFooter) return;
+    const interactionEvents = ['scroll', 'click', 'touchstart', 'pointerdown', 'keydown'] as const;
+
+    const revealFooter = () => setShowFooter(true);
+    const removeInteractionListeners = () => {
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, revealFooter);
+      });
+    };
+
+    interactionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, revealFooter, { once: true, passive: true });
+    });
+
+    return () => {
+      removeInteractionListeners();
+    };
+  }, [showFooter]);
+
+  if (!showFooter) return <div style={{ minHeight: 420 }} aria-hidden="true" />;
+
+  return (
+    <Suspense fallback={null}>
+      <Footer />
+    </Suspense>
+  );
 }
-.pfs-heading-animate {
-  animation: pfs-fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.pfs-sub-animate {
-  animation: pfs-fade-up 0.65s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.pfs-grid-animate {
-  animation: pfs-fade-in 0.5s 0.25s ease both;
-}
-`;
 
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
-  const [products, setProducts] = useState<ShopifyProduct[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<ShopifyProduct[]>(() => getBundledCategoryProducts(slug));
+  const [loading, setLoading] = useState(() => getBundledCategoryProducts(slug).length === 0);
   const [error, setError] = useState<string | null>(null);
   const { discountPercent } = usePricing();
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
-  const styleInjected = useRef(false);
 
   const categoryInfo = slug ? CATEGORY_COLLECTION_MAP[slug] : null;
 
-  // Inject animation styles once
-  useEffect(() => {
-    if (styleInjected.current) return;
-    styleInjected.current = true;
-    const style = document.createElement('style');
-    style.textContent = ANIMATION_STYLE;
-    document.head.appendChild(style);
-  }, []);
-
   useEffect(() => {
     if (!slug) return;
-    setLoading(true);
+    let active = true;
+    let started = false;
+    let fallbackTimer: number | undefined;
+    let idleId: number | undefined;
+    const immediateProducts = getBundledCategoryProducts(slug);
+
+    setProducts(immediateProducts);
+    setLoading(immediateProducts.length === 0);
     setError(null);
-    fetchProductsByCategory(slug)
+
+    const refreshProducts = () => {
+      if (started) return;
+      started = true;
+      if (immediateProducts.length === 0) setLoading(true);
+
+      fetchProductsByCategory(slug)
       .then((data) => {
+        if (!active) return;
         setProducts(data.filter((p) => !p.node.title.toLowerCase().includes('membership')));
         setLoading(false);
       })
       .catch(() => {
-        setError('Failed to load products. Please try again.');
-        setLoading(false);
+        if (!active) return;
+        if (immediateProducts.length === 0) {
+          setError('Failed to load products. Please try again.');
+          setLoading(false);
+        }
       });
+    };
+
+    if (immediateProducts.length === 0) {
+      refreshProducts();
+    } else {
+      const scheduleIdleRefresh = () => {
+        fallbackTimer = window.setTimeout(() => {
+          if ('requestIdleCallback' in window) {
+            idleId = window.requestIdleCallback(refreshProducts, { timeout: 6000 });
+          } else {
+            refreshProducts();
+          }
+        }, 6000);
+      };
+      const interactionEvents = ['scroll', 'click', 'touchstart', 'pointerdown', 'keydown'] as const;
+      interactionEvents.forEach((eventName) => {
+        window.addEventListener(eventName, refreshProducts, { once: true, passive: true, capture: true });
+      });
+      if (document.readyState === 'complete') {
+        scheduleIdleRefresh();
+      } else {
+        window.addEventListener('load', scheduleIdleRefresh, { once: true });
+      }
+
+      return () => {
+        active = false;
+        if (fallbackTimer) window.clearTimeout(fallbackTimer);
+        if (idleId && 'cancelIdleCallback' in window) {
+          window.cancelIdleCallback(idleId);
+        }
+        window.removeEventListener('load', scheduleIdleRefresh);
+        interactionEvents.forEach((eventName) => {
+          window.removeEventListener(eventName, refreshProducts, { capture: true });
+        });
+      };
+    }
+
+    return () => {
+      active = false;
+    };
   }, [slug]);
 
   const handleAddToCart = (product: ShopifyProduct) => {
@@ -148,10 +215,10 @@ export default function CategoryPage() {
               )}
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-4 pfs-heading-animate">
+            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-4">
               {title}
             </h1>
-            <p className="text-lg text-white/70 max-w-2xl pfs-sub-animate">
+            <p className="text-lg text-white/70 max-w-2xl">
               {description}
             </p>
           </div>
@@ -237,16 +304,18 @@ export default function CategoryPage() {
         {/* Product grid */}
         {!loading && !error && products.length > 0 && (
           <div
-            className={`grid gap-6 pfs-grid-animate ${
+            className={`grid gap-6 ${
               products.length < 4
                 ? 'sm:grid-cols-2 lg:grid-cols-3'
                 : 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
             }`}
           >
-            {products.map((product) => {
+            {products.map((product, index) => {
               const variant = product.node.variants.edges[0]?.node;
               const imageNode = product.node.images.edges[0]?.node;
               const image = imageNode?.url || FALLBACK_IMAGE;
+              const shouldLoadEarly = index < 2;
+              const shouldPrioritizeImage = index === 0;
               const originalPrice = variant?.price.amount ? parseFloat(variant.price.amount) : 0;
               const price = originalPrice > 0 ? originalPrice.toFixed(2) : '—';
               const currency = variant?.price.currencyCode || 'USD';
@@ -260,12 +329,13 @@ export default function CategoryPage() {
                       <img
                         src={sizedShopifyImageUrl(image, 480)}
                         srcSet={shopifyImageSrcSet(image)}
-                        sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
                         alt={shopifyImageAltText(imageNode, product.node.title)}
                         className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
                         width={480}
                         height={480}
-                        loading="lazy"
+                        loading={shouldLoadEarly ? 'eager' : 'lazy'}
+                        fetchPriority={shouldPrioritizeImage ? 'high' : 'auto'}
                         decoding="async"
                         style={{ filter: 'brightness(0.95) contrast(1.05)' }}
                       />
@@ -326,7 +396,7 @@ export default function CategoryPage() {
       {/* Arc transition */}
       <div className="arc-divider arc-divider-down" />
 
-      <Footer />
+      <DeferredFooter />
     </div>
   );
 }
