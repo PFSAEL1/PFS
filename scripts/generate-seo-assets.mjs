@@ -859,6 +859,65 @@ function polyesterMediaFallback(title, description) {
   </main>`;
 }
 
+function novaVertaFallback() {
+  return `<main data-seo-fallback id="nova-verta-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1280px;margin:0 auto;padding:0 16px">
+        <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
+          <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+          <a href="/shop-by-booth" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-family:Arial,sans-serif;font-weight:700;font-size:14px">Booth Brands</a>
+        </div>
+      </div>
+    </nav>
+    <section style="padding:112px 16px 40px;background:#050505">
+      <div style="max-width:1280px;margin:0 auto">
+        <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Shop by Booth / Nova Verta</p>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+          <span style="font-family:Arial,sans-serif;font-size:12px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1)">Italy</span>
+          <span style="font-family:Arial,sans-serif;font-size:12px;padding:4px 10px;border-radius:999px;background:rgba(77,159,255,.1);color:#4d9fff;border:1px solid rgba(77,159,255,.2)">Downdraft</span>
+        </div>
+        <h1 style="margin:0 0 16px;font-size:clamp(2.6rem,10vw,3.5rem);line-height:1.05;font-weight:800;letter-spacing:0;color:#fff">Nova Verta Booth Filters</h1>
+        <p style="max-width:768px;margin:0;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:18px;line-height:1.55">Premium Italian booth manufacturer specializing in high-efficiency downdraft systems. Known for their advanced curing technology and energy-saving designs favored by luxury and exotic vehicle shops.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:24px;font-family:Arial,sans-serif">
+          <span style="font-size:14px;color:rgba(255,255,255,.5)">Ceiling: <span style="color:rgba(255,255,255,.7)">6–12 months</span></span>
+          <span style="font-size:14px;color:rgba(255,255,255,.5)">Intake: <span style="color:rgba(255,255,255,.7)">30–45 days</span></span>
+          <span style="font-size:14px;color:rgba(255,255,255,.5)">Exhaust: <span style="color:rgba(255,255,255,.7)">70–100 days</span></span>
+        </div>
+      </div>
+    </section>
+    <div style="height:100px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
+    <section style="padding:56px 16px;background:#0d0d0d">
+      <div style="max-width:1280px;margin:0 auto">
+        <h2 style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:24px;font-weight:700;color:#fff">Nova Verta Models</h2>
+        <p style="margin:0 0 32px;color:rgba(255,255,255,.5);font-family:Arial,sans-serif;font-size:14px">Click any filter size to go directly to that product. Sizes marked with a call icon require a quote.</p>
+        <div style="border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);border-radius:16px;padding:24px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+            <div>
+              <h3 style="margin:0;font-family:Arial,sans-serif;font-size:18px;font-weight:700;color:#fff">Nova Verta Verto</h3>
+              <span style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.4)">Downdraft Booth</span>
+            </div>
+            <span style="font-family:Arial,sans-serif;font-size:12px;padding:4px 10px;border-radius:999px;background:rgba(77,159,255,.1);color:#4d9fff;border:1px solid rgba(77,159,255,.2)">Downdraft</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+            <div style="border:1px solid rgba(56,189,248,.2);background:rgba(56,189,248,.1);border-radius:12px;padding:12px">
+              <span style="font-family:Arial,sans-serif;font-size:12px;font-weight:600;color:#7dd3fc">Ceiling / Diffusion Media</span>
+              <div style="margin-top:8px;font-family:Arial,sans-serif;font-size:14px;color:rgba(255,255,255,.8)">38"×107"<br />38"×67"</div>
+            </div>
+            <div style="border:1px solid rgba(59,130,246,.2);background:rgba(59,130,246,.1);border-radius:12px;padding:12px">
+              <span style="font-family:Arial,sans-serif;font-size:12px;font-weight:600;color:#93c5fd">Exhaust Arrestors</span>
+              <div style="margin-top:8px;font-family:Arial,sans-serif;font-size:14px;color:rgba(255,255,255,.8)">20"×20"<br />20"×25"</div>
+            </div>
+            <div style="border:1px solid rgba(16,185,129,.2);background:rgba(16,185,129,.1);border-radius:12px;padding:12px">
+              <span style="font-family:Arial,sans-serif;font-size:12px;font-weight:600;color:#6ee7b7">Pre-Filters</span>
+              <div style="margin-top:8px;font-family:Arial,sans-serif;font-size:14px;color:rgba(255,255,255,.8)">24"×24"×2"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>`;
+}
+
 function brandsFallback() {
   const brandCards = [
     ['PFS Filters', 'PFS Filters catalog products and replacement guidance, backed by the PFS Spray Booths team in Santa Rosa, California.', 'Spray Booth Specialists'],
@@ -1081,6 +1140,13 @@ function replaceMeta(html, route) {
     }
     output = deferMainStylesheet(output);
   }
+  if (route.path === '/shop-by-booth/nova-verta') {
+    output = output.replace(
+      /(<meta name="viewport"[^>]*>\r?\n)/i,
+      `$1    ${logoPreload}\n`,
+    );
+    output = deferMainStylesheet(output);
+  }
   if (route.path === '/category/polyester-media') {
     output = output.replace(
       /(<meta name="viewport"[^>]*>\r?\n)/i,
@@ -1160,6 +1226,8 @@ function replaceMeta(html, route) {
     ? vitraFallback()
     : route.path === '/aerospace'
     ? aerospaceFallback()
+    : route.path === '/shop-by-booth/nova-verta'
+    ? novaVertaFallback()
     : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:64px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${title}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
   return output.replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
 }

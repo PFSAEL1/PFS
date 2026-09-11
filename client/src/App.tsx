@@ -557,6 +557,81 @@ function AerospaceLoadingFallback() {
   );
 }
 
+function NovaVertaLoadingFallback() {
+  return (
+    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+        <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
+          <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
+        </div>
+      </nav>
+      <main>
+        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 999, background: 'rgba(255,255,255,.05)', color: 'rgba(255,255,255,.5)', border: '1px solid rgba(255,255,255,.1)' }}>Italy</span>
+              <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 999, background: 'rgba(77,159,255,.1)', color: '#4d9fff', border: '1px solid rgba(77,159,255,.2)', textTransform: 'capitalize' }}>Downdraft</span>
+            </div>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(2.6rem,10vw,3.5rem)', lineHeight: 1.05, fontWeight: 800, letterSpacing: 0 }}>
+              Nova Verta Booth Filters
+            </h1>
+            <p style={{ margin: 0, maxWidth: 768, color: 'rgba(255,255,255,.7)', fontSize: 18, lineHeight: 1.55 }}>
+              Premium Italian booth manufacturer specializing in high-efficiency downdraft systems. Known for their advanced curing technology and energy-saving designs favored by luxury and exotic vehicle shops.
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 24 }}>
+              {[
+                ['Ceiling', '6–12 months'],
+                ['Intake', '30–45 days'],
+                ['Exhaust', '70–100 days'],
+              ].map(([label, cycle]) => (
+                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: 'rgba(255,255,255,.5)' }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                  <span>{label}: <span style={{ color: 'rgba(255,255,255,.7)' }}>{cycle}</span></span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        <div style={{ height: 100, background: 'linear-gradient(to bottom,#050505,#0d0d0d)' }} />
+        <section style={{ padding: '56px 16px', background: '#0d0d0d' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+            <h2 style={{ margin: '0 0 8px', fontSize: 24, fontWeight: 700 }}>Nova Verta Models</h2>
+            <p style={{ margin: '0 0 32px', color: 'rgba(255,255,255,.5)', fontSize: 14 }}>
+              Click any filter size to go directly to that product. Sizes marked with a call icon require a quote.
+            </p>
+            <div style={{ border: '1px solid rgba(255,255,255,.08)', background: 'rgba(255,255,255,.03)', borderRadius: 16, padding: 24, minHeight: 140 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, flexWrap: 'wrap', gap: 8 }}>
+                <div>
+                  <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Nova Verta Verto</h3>
+                  <span style={{ fontSize: 12, color: 'rgba(255,255,255,.4)', textTransform: 'capitalize' }}>Downdraft Booth</span>
+                </div>
+                <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 999, background: 'rgba(77,159,255,.1)', color: '#4d9fff', border: '1px solid rgba(77,159,255,.2)' }}>Downdraft</span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
+                <div style={{ border: '1px solid rgba(56,189,248,.2)', background: 'rgba(56,189,248,.1)', borderRadius: 12, padding: 12 }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: '#7dd3fc' }}>Ceiling / Diffusion Media</span>
+                  <div style={{ marginTop: 8, fontSize: 14, color: 'rgba(255,255,255,.8)' }}>38"×107"<br />38"×67"</div>
+                </div>
+                <div style={{ border: '1px solid rgba(59,130,246,.2)', background: 'rgba(59,130,246,.1)', borderRadius: 12, padding: 12 }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: '#93c5fd' }}>Exhaust Arrestors</span>
+                  <div style={{ marginTop: 8, fontSize: 14, color: 'rgba(255,255,255,.8)' }}>20"×20"<br />20"×25"</div>
+                </div>
+                <div style={{ border: '1px solid rgba(16,185,129,.2)', background: 'rgba(16,185,129,.1)', borderRadius: 12, padding: 12 }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: '#6ee7b7' }}>Pre-Filters</span>
+                  <div style={{ marginTop: 8, fontSize: 14, color: 'rgba(255,255,255,.8)' }}>24"×24"×2"</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
 // Light version pages (kept in codebase but not routed in production)
 function Router() {
   const [location] = useLocation();
@@ -578,6 +653,8 @@ function Router() {
     ? <VitraLoadingFallback />
     : location === '/aerospace'
     ? <AerospaceLoadingFallback />
+    : location === '/shop-by-booth/nova-verta'
+    ? <NovaVertaLoadingFallback />
     : <div className="min-h-screen bg-[#040404]" aria-label="Loading page" />;
 
   // make sure to consider if you need authentication for certain routes
