@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { useParams, Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -13,6 +12,7 @@ import {
   getMonthlySellingPlanAllocation,
   ShopifyProduct,
 } from '@/lib/shopify';
+import { bundledShopifyProducts } from '@/lib/productCatalog';
 import { useCartStore } from '@/stores/cartStore';
 import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredData';
 import { ShoppingCart, Loader2, Package, Truck, CircleHelp, ArrowLeft, Plus, Minus, RefreshCw } from 'lucide-react';
@@ -22,18 +22,60 @@ import { PfsBoothCompatibility } from '@/components/PfsBoothCompatibility';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 import { usePricing } from '@/hooks/usePricing';
-import { shopifyImageAltText } from '@/lib/imageUrls';
+import { shopifyImageAltText, shopProductCardImageUrl, shopProductCardImageSrcSet, sizedShopifyImageUrl, shopifyImageSrcSet } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
+
+const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
+
+function DeferredFooter() {
+  const [showFooter, setShowFooter] = useState(false);
+
+  useEffect(() => {
+    if (showFooter) return;
+    const interactionEvents = ['scroll', 'click', 'touchstart', 'pointerdown', 'keydown'] as const;
+
+    const revealFooter = () => setShowFooter(true);
+    const removeInteractionListeners = () => {
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, revealFooter);
+      });
+    };
+
+    interactionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, revealFooter, { once: true, passive: true });
+    });
+
+    return () => {
+      removeInteractionListeners();
+    };
+  }, [showFooter]);
+
+  if (!showFooter) return <div style={{ minHeight: 420 }} aria-hidden="true" />;
+
+  return (
+    <Suspense fallback={null}>
+      <Footer />
+    </Suspense>
+  );
+}
+
+function getBundledProductByHandle(handle?: string) {
+  if (!handle) return null;
+  return bundledShopifyProducts.find((p) => p.node.handle === handle)?.node ?? null;
+}
 
 type PurchaseOption = 'one-time' | 'subscription';
 
 export default function ProductDetail() {
   const { handle } = useParams<{ handle: string }>();
-  const [product, setProduct] = useState<ReturnType<typeof Object.create> | null>(null);
+  const [product, setProduct] = useState<ReturnType<typeof Object.create> | null>(() => getBundledProductByHandle(handle));
   const [relatedProducts, setRelatedProducts] = useState<ShopifyProduct[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(() => !getBundledProductByHandle(handle));
+  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(() => {
+    const bundled = getBundledProductByHandle(handle);
+    return bundled?.variants?.edges?.[0]?.node?.id ?? null;
+  });
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [zoom, setZoom] = useState<{ x: number; y: number; show: boolean }>({ x: 50, y: 50, show: false });
@@ -45,16 +87,33 @@ export default function ProductDetail() {
 
   useEffect(() => {
     if (!handle) return;
-    setLoading(true);
+    let active = true;
+    const immediate = getBundledProductByHandle(handle);
+
+    setProduct(immediate);
+    setLoading(!immediate);
+    setSelectedVariantId(immediate?.variants?.edges?.[0]?.node?.id ?? null);
+    setSelectedImage(0);
+    setPurchaseOption('one-time');
+
     fetchProductByHandle(handle).then((data) => {
+      if (!active) return;
       setProduct(data);
       if (data?.variants?.edges?.[0]) {
         setSelectedVariantId(data.variants.edges[0].node.id);
       }
       setPurchaseOption('one-time');
-      fetchRelatedProducts(data?.id || '', 4).then(setRelatedProducts);
       setLoading(false);
-    }).catch(() => setLoading(false));
+      fetchRelatedProducts(data?.id || immediate?.id || '', 4).then((rp) => {
+        if (active) setRelatedProducts(rp);
+      });
+    }).catch(() => {
+      if (active && !immediate) setLoading(false);
+    });
+
+    return () => {
+      active = false;
+    };
   }, [handle]);
 
   if (loading) {
@@ -64,7 +123,7 @@ export default function ProductDetail() {
         <div className="flex items-center justify-center min-h-[60vh]">
           <Loader2 className="h-10 w-10 animate-spin text-blue-400" />
         </div>
-        <Footer />
+        <DeferredFooter />
       </div>
     );
   }
@@ -78,7 +137,7 @@ export default function ProductDetail() {
           <h1 className="text-3xl font-bold mb-4 text-white pfs-heading-animate">Product Not Found</h1>
           <Link href="/shop"><Button>Browse All Products</Button></Link>
         </div>
-        <Footer />
+        <DeferredFooter />
       </div>
     );
   }
@@ -90,6 +149,14 @@ export default function ProductDetail() {
   const currency = selectedVariant?.price?.currencyCode || 'USD';
   const inStock = selectedVariant?.availableForSale ?? true;
   const mainImage = images[selectedImage]?.node?.url || FALLBACK_IMAGE;
+  // The default (first) image gets the locally hosted, pre-optimized override when one
+  // exists for this handle — cuts LCP image weight vs. the raw Shopify CDN original.
+  const mainImageDisplayUrl = selectedImage === 0
+    ? shopProductCardImageUrl(handle || '', mainImage, 800)
+    : sizedShopifyImageUrl(mainImage, 800);
+  const mainImageSrcSet = selectedImage === 0
+    ? shopProductCardImageSrcSet(handle || '', mainImage)
+    : shopifyImageSrcSet(mainImage, [320, 480, 640, 800]);
 
   // Offer Subscribe & Save only when this exact variant has Shopify's
   // recurring monthly selling-plan allocation. Never fabricate an option.
@@ -219,7 +286,18 @@ export default function ProductDetail() {
               onMouseLeave={() => setZoom((z) => ({ ...z, show: false }))}
             >
               <ProductBadges badges={getProductBadges(product)} />
-              <img src={mainImage} alt={product.title} className="relative z-[1] w-full h-full object-cover" />
+              <img
+                src={mainImageDisplayUrl}
+                srcSet={mainImageSrcSet}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                alt={product.title}
+                width={800}
+                height={800}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className="relative z-[1] w-full h-full object-cover"
+              />
               {/* Zoom-detail circle (desktop) */}
               <div
                 className={`pointer-events-none absolute hidden md:block h-44 w-44 rounded-full border-2 border-white/70 shadow-2xl ring-1 ring-black/30 transition-opacity duration-150 ${zoom.show ? 'opacity-100' : 'opacity-0'}`}
@@ -242,7 +320,15 @@ export default function ProductDetail() {
                     onClick={() => setSelectedImage(i)}
                     className={`w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-colors ${selectedImage === i ? 'border-primary' : 'border-white/10'}`}
                   >
-                    <img src={img.node.url} alt={img.node.altText || product.title} className="w-full h-full object-cover" />
+                    <img
+                      src={sizedShopifyImageUrl(img.node.url, 80)}
+                      alt={img.node.altText || product.title}
+                      width={64}
+                      height={64}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover"
+                    />
                   </button>
                 ))}
               </div>
@@ -445,8 +531,14 @@ export default function ProductDetail() {
                     <Link href={`/product/${rp.node.handle}`} className="cursor-pointer">
                       <div className="aspect-square overflow-hidden bg-[#1e1e1e]">
                         <img
-                          src={imageNode?.url || FALLBACK_IMAGE}
+                          src={shopProductCardImageUrl(rp.node.handle, imageNode?.url || FALLBACK_IMAGE, 320)}
+                          srcSet={shopProductCardImageSrcSet(rp.node.handle, imageNode?.url || FALLBACK_IMAGE)}
+                          sizes="(min-width: 768px) 25vw, 50vw"
                           alt={shopifyImageAltText(imageNode, rp.node.title)}
+                          width={320}
+                          height={320}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -478,7 +570,7 @@ export default function ProductDetail() {
       {/* Arc transition */}
       <div className="arc-divider arc-divider-down" />
 
-      <Footer />
+      <DeferredFooter />
     </div>
   );
 }

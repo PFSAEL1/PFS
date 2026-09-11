@@ -1084,6 +1084,47 @@ function aerospaceFallback() {
   </main>`;
 }
 
+function fiberglassPadsProductFallback() {
+  return `<main data-seo-fallback id="fiberglass-pads-product-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1280px;margin:0 auto;padding:0 16px">
+        <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
+          <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+          <a href="/shop" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-family:Arial,sans-serif;font-weight:700;font-size:14px">Shop</a>
+        </div>
+      </div>
+    </nav>
+    <section style="padding:112px 16px 16px;background:#050505">
+      <div style="max-width:1280px;margin:0 auto;font-family:Arial,sans-serif;font-size:14px;color:rgba(255,255,255,.5)">
+        Home › Shop › <span style="color:rgba(255,255,255,.8)">22-Gram Fiberglass Paint Arrestor Pads</span>
+      </div>
+    </section>
+    <div style="height:100px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
+    <section style="padding:40px 16px;background:#0d0d0d">
+      <div style="max-width:1280px;margin:0 auto;display:grid;gap:48px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+        <div>
+          <div style="aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#161616;border:1px solid rgba(255,255,255,.07);margin-bottom:16px">
+            <img src="/images/shop-thumbnails/22-gram-fiberglass-pads.webp" srcset="/images/shop-thumbnails/22-gram-fiberglass-pads.webp 480w" sizes="(min-width: 1024px) 50vw, 100vw" alt="22-Gram Fiberglass Paint Arrestor Pads" width="800" height="800" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block" />
+          </div>
+        </div>
+        <div style="font-family:Arial,sans-serif">
+          <h1 style="margin:0 0 12px;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;font-size:clamp(1.75rem,6vw,2.25rem);line-height:1.15;font-weight:800;color:#fff">22-Gram Fiberglass Paint Arrestor Pads</h1>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+            <span style="font-size:28px;font-weight:700;color:#60a5fa">$111.36</span>
+            <span style="color:rgba(255,255,255,.5)">USD</span>
+            <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:rgba(34,197,94,.15);color:#4ade80">In Stock</span>
+          </div>
+          <p style="margin:0 0 24px;max-width:560px;color:rgba(255,255,255,.7);font-size:16px;line-height:1.6">Premium 22-gram fiberglass paint arrestor pads designed for superior overspray capture. Perfect for spray booth exhaust filtration.</p>
+          <div style="min-height:48px;max-width:420px;border-radius:8px;background:#3b82f6;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:800">Add to Cart</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;max-width:420px">
+            ${['Fast Shipping', 'Sizing Help', 'Custom Requests'].map((label) => `<div style="min-height:76px;text-align:center;padding:12px;background:#161616;border:1px solid rgba(255,255,255,.07);border-radius:10px"><p style="margin:0;font-size:12px;font-weight:600;color:rgba(255,255,255,.9)">${label}</p></div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>`;
+}
+
 function writeSourceAssets() {
   fs.mkdirSync(publicDir, { recursive: true });
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml());
@@ -1173,6 +1214,13 @@ function replaceMeta(html, route) {
         `$1    <link rel="preload" as="image" href="${escapeHtml(preloadImage)}"${preloadImage.endsWith('.jpg') || preloadImage.endsWith('.jpeg') ? ' type="image/jpeg"' : ''}${preloadSrcset ? ` imagesrcset="${escapeHtml(preloadSrcset)}" imagesizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"` : ''} fetchpriority="high" />\n`,
       );
     }
+    output = deferMainStylesheet(output);
+  }
+  if (route.path === '/product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs') {
+    output = output.replace(
+      /(<meta name="viewport"[^>]*>\r?\n)/i,
+      `$1    <link rel="preload" as="image" href="/images/shop-thumbnails/22-gram-fiberglass-pads.webp" type="image/webp" fetchpriority="high" />\n    ${logoPreload}\n`,
+    );
     output = deferMainStylesheet(output);
   }
   if (route.path === '/blog/fiberglass-vs-tacky-panel-filters') {
@@ -1272,6 +1320,8 @@ function replaceMeta(html, route) {
     ? novaVertaFallback()
     : route.path === '/blog/fiberglass-vs-tacky-panel-filters'
     ? fiberglassVsTackyBlogFallback()
+    : route.path === '/product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs'
+    ? fiberglassPadsProductFallback()
     : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:64px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${title}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
   return output.replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
 }

@@ -704,6 +704,70 @@ function FiberglassVsTackyBlogLoadingFallback() {
   );
 }
 
+function FiberglassPadsProductLoadingFallback() {
+  return (
+    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+        <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
+          <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
+        </div>
+      </nav>
+      <main>
+        <section style={{ padding: '112px 16px 16px', background: '#050505' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto', fontSize: 14, color: 'rgba(255,255,255,.5)' }}>
+            Home › Shop › <span style={{ color: 'rgba(255,255,255,.8)' }}>22-Gram Fiberglass Paint Arrestor Pads</span>
+          </div>
+        </section>
+        <div style={{ height: 100, background: 'linear-gradient(to bottom,#050505,#0d0d0d)' }} />
+        <section style={{ padding: '40px 16px', background: '#0d0d0d' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gap: 48, gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))' }}>
+            <div>
+              <div style={{ aspectRatio: '1/1', borderRadius: 12, overflow: 'hidden', background: '#161616', border: '1px solid rgba(255,255,255,.07)', marginBottom: 16 }}>
+                <img
+                  src="/images/shop-thumbnails/22-gram-fiberglass-pads.webp"
+                  srcSet="/images/shop-thumbnails/22-gram-fiberglass-pads.webp 480w"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  alt="22-Gram Fiberglass Paint Arrestor Pads"
+                  width="800"
+                  height="800"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
+              </div>
+            </div>
+            <div>
+              <h1 style={{ margin: '0 0 12px', fontSize: 'clamp(1.75rem,6vw,2.25rem)', lineHeight: 1.15, fontWeight: 800, fontFamily: 'inherit' }}>
+                22-Gram Fiberglass Paint Arrestor Pads
+              </h1>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+                <span style={{ fontSize: 28, fontWeight: 700, color: '#60a5fa' }}>$111.36</span>
+                <span style={{ color: 'rgba(255,255,255,.5)' }}>USD</span>
+                <span style={{ fontSize: 12, fontWeight: 600, padding: '3px 10px', borderRadius: 999, background: 'rgba(34,197,94,.15)', color: '#4ade80' }}>In Stock</span>
+              </div>
+              <p style={{ margin: '0 0 24px', maxWidth: 560, color: 'rgba(255,255,255,.7)', fontSize: 16, lineHeight: 1.6 }}>
+                Premium 22-gram fiberglass paint arrestor pads designed for superior overspray capture. Perfect for spray booth exhaust filtration.
+              </p>
+              <div style={{ display: 'flex', gap: 16, marginBottom: 24 }}>
+                <div style={{ minHeight: 40, minWidth: 120, border: '1px solid rgba(255,255,255,.1)', borderRadius: 8 }} />
+              </div>
+              <div style={{ minHeight: 48, maxWidth: 420, borderRadius: 8, background: '#3b82f6' }} />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 12, marginTop: 32, maxWidth: 420 }}>
+                {['Fast Shipping', 'Sizing Help', 'Custom Requests'].map((label) => (
+                  <div key={label} style={{ minHeight: 76, textAlign: 'center', padding: 12, background: '#161616', border: '1px solid rgba(255,255,255,.07)', borderRadius: 10 }}>
+                    <p style={{ margin: '0 0 4px', fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,.9)' }}>{label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
 // Light version pages (kept in codebase but not routed in production)
 function Router() {
   const [location] = useLocation();
@@ -729,6 +793,8 @@ function Router() {
     ? <NovaVertaLoadingFallback />
     : location === '/blog/fiberglass-vs-tacky-panel-filters'
     ? <FiberglassVsTackyBlogLoadingFallback />
+    : location === '/product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs'
+    ? <FiberglassPadsProductLoadingFallback />
     : <div className="min-h-screen bg-[#040404]" aria-label="Loading page" />;
 
   // make sure to consider if you need authentication for certain routes
