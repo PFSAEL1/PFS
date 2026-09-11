@@ -1,13 +1,47 @@
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { useParams, Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { blogPosts } from '@/lib/blogData';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { Clock, User, ArrowLeft, Calendar } from 'lucide-react';
+
+const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
+
+function DeferredFooter() {
+  const [showFooter, setShowFooter] = useState(false);
+
+  useEffect(() => {
+    if (showFooter) return;
+    const interactionEvents = ['scroll', 'click', 'touchstart', 'pointerdown', 'keydown'] as const;
+
+    const revealFooter = () => setShowFooter(true);
+    const removeInteractionListeners = () => {
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, revealFooter);
+      });
+    };
+
+    interactionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, revealFooter, { once: true, passive: true });
+    });
+
+    return () => {
+      removeInteractionListeners();
+    };
+  }, [showFooter]);
+
+  if (!showFooter) return <div style={{ minHeight: 420 }} aria-hidden="true" />;
+
+  return (
+    <Suspense fallback={null}>
+      <Footer />
+    </Suspense>
+  );
+}
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -24,7 +58,7 @@ export default function BlogPost() {
             <Button>Back to Blog</Button>
           </Link>
         </div>
-        <Footer />
+        <DeferredFooter />
       </div>
     );
   }
@@ -162,7 +196,7 @@ export default function BlogPost() {
       {/* Arc transition */}
       <div className="arc-divider arc-divider-down" />
 
-      <Footer />
+      <DeferredFooter />
     </div>
   );
 }

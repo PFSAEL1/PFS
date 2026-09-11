@@ -918,6 +918,41 @@ function novaVertaFallback() {
   </main>`;
 }
 
+function fiberglassVsTackyBlogFallback() {
+  return `<main data-seo-fallback id="fiberglass-vs-tacky-blog-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1280px;margin:0 auto;padding:0 16px">
+        <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
+          <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+          <a href="/blog" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-family:Arial,sans-serif;font-weight:700;font-size:14px">Blog</a>
+        </div>
+      </div>
+    </nav>
+    <section style="padding:96px 16px 24px;background:#050505">
+      <div style="max-width:896px;margin:0 auto;font-family:Arial,sans-serif">
+        <p style="margin:0 0 8px;font-size:14px;color:rgba(255,255,255,.5)">Home › Blog › <span style="color:rgba(255,255,255,.8)">Fiberglass vs. Tacky Panel Filters</span></p>
+        <span style="display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.6);font-size:14px;font-weight:600">← Back to Blog</span>
+      </div>
+    </section>
+    <div style="height:100px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
+    <section style="padding:48px 16px;background:#0d0d0d">
+      <div style="max-width:896px;margin:0 auto">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:16px;font-family:Arial,sans-serif">
+          <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.85)">Product Guide</span>
+          <span style="font-size:14px;color:rgba(255,255,255,.7)">5 min read</span>
+          <span style="font-size:14px;color:rgba(255,255,255,.7)">September 5, 2026</span>
+        </div>
+        <h1 style="margin:0 0 16px;font-size:clamp(2.25rem,7vw,3rem);line-height:1.15;font-weight:800;color:#fff">Fiberglass vs. Tacky Panel Filters: How to Compare the Application</h1>
+        <p style="max-width:768px;margin:0 0 24px;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:20px;line-height:1.5">Fiberglass paint arrestors and tackified panel media are not automatically interchangeable. Compare the documented filter stage, dimensions, media, airflow direction, and equipment requirements before ordering.</p>
+        <p style="margin:0 0 40px;font-family:Arial,sans-serif;font-size:14px;color:rgba(255,255,255,.7)">By <strong style="color:#fff">PFS Filters Editorial Team</strong></p>
+        <div style="aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#151515">
+          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-paint-arrestor_c242c226.png" alt="Fiberglass vs. Tacky Panel Filters: How to Compare the Application" width="1280" height="720" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block" />
+        </div>
+      </div>
+    </section>
+  </main>`;
+}
+
 function brandsFallback() {
   const brandCards = [
     ['PFS Filters', 'PFS Filters catalog products and replacement guidance, backed by the PFS Spray Booths team in Santa Rosa, California.', 'Spray Booth Specialists'],
@@ -1140,6 +1175,13 @@ function replaceMeta(html, route) {
     }
     output = deferMainStylesheet(output);
   }
+  if (route.path === '/blog/fiberglass-vs-tacky-panel-filters') {
+    output = output.replace(
+      /(<meta name="viewport"[^>]*>\r?\n)/i,
+      `$1    ${logoPreload}\n`,
+    );
+    output = deferMainStylesheet(output);
+  }
   if (route.path === '/shop-by-booth/nova-verta') {
     output = output.replace(
       /(<meta name="viewport"[^>]*>\r?\n)/i,
@@ -1228,6 +1270,8 @@ function replaceMeta(html, route) {
     ? aerospaceFallback()
     : route.path === '/shop-by-booth/nova-verta'
     ? novaVertaFallback()
+    : route.path === '/blog/fiberglass-vs-tacky-panel-filters'
+    ? fiberglassVsTackyBlogFallback()
     : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:64px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${title}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
   return output.replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
 }

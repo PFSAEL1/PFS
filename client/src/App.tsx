@@ -632,6 +632,78 @@ function NovaVertaLoadingFallback() {
   );
 }
 
+function FiberglassVsTackyBlogLoadingFallback() {
+  return (
+    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+        <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
+          <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
+        </div>
+      </nav>
+      <main>
+        <section style={{ padding: '96px 16px 24px', background: '#050505' }}>
+          <div style={{ maxWidth: 896, margin: '0 auto' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, color: 'rgba(255,255,255,.5)', marginBottom: 8 }}>
+              <span>Home</span><span>›</span><span>Blog</span><span>›</span><span style={{ color: 'rgba(255,255,255,.8)' }}>Fiberglass vs. Tacky Panel Filters</span>
+            </div>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'rgba(255,255,255,.6)', fontSize: 14, fontWeight: 600 }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                <path d="m12 19-7-7 7-7" />
+                <path d="M19 12H5" />
+              </svg>
+              Back to Blog
+            </div>
+          </div>
+        </section>
+        <div style={{ height: 100, background: 'linear-gradient(to bottom,#050505,#0d0d0d)' }} />
+        <section style={{ padding: '48px 16px', background: '#0d0d0d' }}>
+          <div style={{ maxWidth: 896, margin: '0 auto' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+              <span style={{ fontSize: 12, fontWeight: 600, padding: '3px 10px', borderRadius: 6, background: 'rgba(255,255,255,.1)', color: 'rgba(255,255,255,.85)' }}>Product Guide</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 14, color: 'rgba(255,255,255,.7)' }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+                </svg>
+                5 min read
+              </span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 14, color: 'rgba(255,255,255,.7)' }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M8 2v4" /><path d="M16 2v4" /><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M3 10h18" />
+                </svg>
+                September 5, 2026
+              </span>
+            </div>
+            <h1 style={{ margin: '0 0 16px', fontSize: 'clamp(2.25rem,7vw,3rem)', lineHeight: 1.15, fontWeight: 800, fontFamily: 'inherit' }}>
+              Fiberglass vs. Tacky Panel Filters: How to Compare the Application
+            </h1>
+            <p style={{ margin: '0 0 24px', maxWidth: 768, color: 'rgba(255,255,255,.7)', fontSize: 20, lineHeight: 1.5 }}>
+              Fiberglass paint arrestors and tackified panel media are not automatically interchangeable. Compare the documented filter stage, dimensions, media, airflow direction, and equipment requirements before ordering.
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: 'rgba(255,255,255,.7)', marginBottom: 40 }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+              </svg>
+              <span>By <strong style={{ color: '#fff' }}>PFS Filters Editorial Team</strong></span>
+            </div>
+            <div style={{ aspectRatio: '16/9', borderRadius: 16, overflow: 'hidden', background: '#151515' }}>
+              <img
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-paint-arrestor_c242c226.png"
+                alt="Fiberglass vs. Tacky Panel Filters: How to Compare the Application"
+                width="1280"
+                height="720"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
 // Light version pages (kept in codebase but not routed in production)
 function Router() {
   const [location] = useLocation();
@@ -655,6 +727,8 @@ function Router() {
     ? <AerospaceLoadingFallback />
     : location === '/shop-by-booth/nova-verta'
     ? <NovaVertaLoadingFallback />
+    : location === '/blog/fiberglass-vs-tacky-panel-filters'
+    ? <FiberglassVsTackyBlogLoadingFallback />
     : <div className="min-h-screen bg-[#040404]" aria-label="Loading page" />;
 
   // make sure to consider if you need authentication for certain routes
