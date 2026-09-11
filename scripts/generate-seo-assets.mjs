@@ -530,6 +530,32 @@ function northBayFallback(description) {
   </main>`;
 }
 
+function losAngelesFallback() {
+  return `<main data-seo-fallback id="los-angeles-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1280px;margin:0 auto;padding:0 16px">
+        <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
+          <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+          <a href="/paint-booth-filters" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-weight:700;font-size:14px">Filters</a>
+        </div>
+      </div>
+    </nav>
+    <section style="position:relative;overflow:hidden;padding:112px 16px 64px;background:#050505">
+      <img src="${logoUrl}" alt="" width="420" height="127" decoding="async" style="position:absolute;right:0;top:64px;width:min(540px,60vw);height:auto;opacity:.045" />
+      <div style="position:relative;max-width:1280px;margin:0 auto">
+        <p style="margin:0 0 20px;color:rgba(255,255,255,.55);font-size:14px">Paint Booth Filters / Los Angeles County</p>
+        <div style="max-width:880px">
+          <span style="display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid rgba(96,165,250,.25);background:rgba(96,165,250,.1);color:#93c5fd;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px">Southern California support</span>
+          <h1 style="margin:0 0 20px;font-size:clamp(2.6rem,10vw,4.5rem);line-height:.95;font-weight:800;letter-spacing:0;color:#fff">Paint Booth Filters for Los Angeles County</h1>
+          <p style="margin:0;color:rgba(255,255,255,.65);font-size:20px;line-height:1.65;max-width:780px">Los Angeles County supports a wide range of spray-finishing work, from collision and fleet operations to fabrication, aerospace supply, and specialty entertainment projects. High variety makes accurate filter records more useful than broad brand-only assumptions.</p>
+          <p style="margin:28px 0 0;color:rgba(255,255,255,.55);font-size:15px;line-height:1.6"><a href="/paint-booth-filters" style="color:#60a5fa;font-weight:700">Browse filter categories</a> · <a href="/contact" style="color:#60a5fa;font-weight:700">Request help</a></p>
+          <p style="margin:28px 0 0;color:rgba(255,255,255,.52);font-size:13px;line-height:1.4">Los Angeles · Long Beach · South Bay · San Fernando Valley · Los Angeles County</p>
+        </div>
+      </div>
+    </section>
+  </main>`;
+}
+
 function writeSourceAssets() {
   fs.mkdirSync(publicDir, { recursive: true });
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml());
@@ -595,6 +621,13 @@ function replaceMeta(html, route) {
     );
     output = deferMainStylesheet(output);
   }
+  if (route.path === '/california/los-angeles-paint-booth-filters') {
+    output = output.replace(
+      /(<meta name="viewport"[^>]*>\r?\n)/i,
+      `$1    ${logoPreload}\n`,
+    );
+    output = deferMainStylesheet(output);
+  }
 
   const detail = route.price ? `<p>Starting at $${escapeHtml(route.price)} USD. Check the live product page for current variants, pricing, and availability.</p>` : '';
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
@@ -606,6 +639,8 @@ function replaceMeta(html, route) {
     ? intakeFallback(title, description)
     : route.path === '/california/north-bay-paint-booth-filters'
     ? northBayFallback(description)
+    : route.path === '/california/los-angeles-paint-booth-filters'
+    ? losAngelesFallback()
     : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:64px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${title}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
   return output.replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
 }

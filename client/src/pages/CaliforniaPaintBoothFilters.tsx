@@ -1,21 +1,58 @@
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link, useParams } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Building2, CheckCircle2, ExternalLink, Info, MapPin, Phone } from 'lucide-react';
 import { CALIFORNIA_LANDING_PAGES } from '@/data/isaacLandingPages';
-import { bundledShopifyProducts } from '@/lib/productCatalog';
 import { shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
 import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
 
 const SITE = 'https://www.pfsfilters.com';
 const LOGO_URL = '/images/brands/pfs-logo-wide-420.webp';
-const FALLBACK_IMAGE = LOGO_URL;
+const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
 
-function productImage(handle: string) {
-  return bundledShopifyProducts.find((product) => product.node.handle === handle)?.node.images?.edges?.[0]?.node?.url ?? FALLBACK_IMAGE;
+function DeferredFooter() {
+  const [showFooter, setShowFooter] = useState(false);
+
+  useEffect(() => {
+    let idleId: number | undefined;
+    let timerId: number | undefined;
+
+    const revealFooter = () => setShowFooter(true);
+    const scheduleFooter = () => {
+      timerId = window.setTimeout(() => {
+        if ('requestIdleCallback' in window) {
+          idleId = window.requestIdleCallback(revealFooter, { timeout: 3000 });
+        } else {
+          revealFooter();
+        }
+      }, 2500);
+    };
+
+    if (document.readyState === 'complete') {
+      scheduleFooter();
+    } else {
+      window.addEventListener('load', scheduleFooter, { once: true });
+    }
+
+    return () => {
+      window.removeEventListener('load', scheduleFooter);
+      if (timerId !== undefined) window.clearTimeout(timerId);
+      if (idleId !== undefined && 'cancelIdleCallback' in window) {
+        window.cancelIdleCallback(idleId);
+      }
+    };
+  }, []);
+
+  if (!showFooter) return null;
+
+  return (
+    <Suspense fallback={null}>
+      <Footer />
+    </Suspense>
+  );
 }
 
 const FILTER_PATHS = [
@@ -23,25 +60,25 @@ const FILTER_PATHS = [
     href: '/exhaust-filters',
     title: 'Exhaust Filters',
     description: 'Fiberglass pads and rolls, Paint Pockets, and accordion-style arrestor media.',
-    image: productImage('20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs'),
+    image: 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/Turquoiseairfilterpadoncheckeredbackground.png?v=1775866495',
   },
   {
     href: '/intake-filters',
     title: 'Intake Filters',
     description: 'Tacky panels, pleated filters, and other catalog media for incoming-air stages.',
-    image: productImage('300-series-tacky-filter-panel'),
+    image: 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/tacky-panel-green_7675d2dd-699a-43c3-995e-43de1e536727.png?v=1775862087',
   },
   {
     href: '/ceiling-filters',
     title: 'Ceiling Filters',
     description: 'Diffusion media for applicable downdraft and semi-downdraft booth configurations.',
-    image: productImage('ceiling-diffusion-media'),
+    image: 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/cotton_roll_transparent.png?v=1778259131',
   },
   {
     href: '/andreae-paint-booth-filters',
     title: 'Accordion Filters',
     description: 'Andreae-style pad and roll variants shown in the current PFS catalog.',
-    image: productImage('accordion-style-paint-arrestors'),
+    image: 'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/ChatGPTImageMay8_2026_02_21_15PM.png?v=1778275424',
   },
 ];
 
@@ -58,7 +95,7 @@ export default function CaliforniaPaintBoothFilters() {
           <h1 className="mb-4 text-4xl font-bold">California service page not found</h1>
           <Link href="/paint-booth-filters" className="text-blue-400 hover:text-blue-300">Browse paint booth filters</Link>
         </main>
-        <Footer />
+        <DeferredFooter />
       </div>
     );
   }
@@ -233,7 +270,7 @@ export default function CaliforniaPaintBoothFilters() {
       </main>
 
       <div className="arc-divider arc-divider-up" />
-      <Footer />
+      <DeferredFooter />
     </div>
   );
 }
