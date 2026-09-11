@@ -1,7 +1,7 @@
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -12,6 +12,40 @@ const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://www.pfsfilters.com' },
   { name: 'AI Filter Scanner', url: 'https://www.pfsfilters.com/filter-scanner' },
 ]);
+
+const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
+
+function DeferredFooter() {
+  const [showFooter, setShowFooter] = useState(false);
+
+  useEffect(() => {
+    if (showFooter) return;
+    const interactionEvents = ['scroll', 'click', 'touchstart', 'pointerdown', 'keydown'] as const;
+
+    const revealFooter = () => setShowFooter(true);
+    const removeInteractionListeners = () => {
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, revealFooter);
+      });
+    };
+
+    interactionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, revealFooter, { once: true, passive: true });
+    });
+
+    return () => {
+      removeInteractionListeners();
+    };
+  }, [showFooter]);
+
+  if (!showFooter) return <div style={{ minHeight: 420 }} aria-hidden="true" />;
+
+  return (
+    <Suspense fallback={null}>
+      <Footer />
+    </Suspense>
+  );
+}
 
 export default function FilterScanner() {
   return (
@@ -33,7 +67,7 @@ export default function FilterScanner() {
             <Sparkles className="h-4 w-4 text-blue-400" />
             <span className="text-sm font-semibold text-blue-400">AI-Powered</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-white pfs-heading-animate">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-white">
             Filter Scanner
           </h1>
           <p className="text-xl text-white/50 max-w-2xl mx-auto">
@@ -100,7 +134,7 @@ export default function FilterScanner() {
       {/* Arc transition */}
       <div className="arc-divider arc-divider-down" />
 
-      <Footer />
+      <DeferredFooter />
     </div>
   );
 }

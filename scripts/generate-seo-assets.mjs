@@ -616,6 +616,49 @@ function filterFinderFallback() {
   </main>`;
 }
 
+function filterScannerFallback() {
+  const steps = [
+    ['1', 'Take a Photo', 'Photograph your existing filter — front, back, or the label.'],
+    ['2', 'Review Candidates', 'Image analysis can narrow possible catalog matches but does not prove fitment.'],
+    ['3', 'Verify and Order', 'Confirm the filter stage, label, and actual dimensions before adding a product to your cart.'],
+  ];
+  const cards = steps.map(([step, title, copy]) => `<article style="min-height:210px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.03);padding:24px;text-align:center">
+      <div style="width:64px;height:64px;margin:0 auto 16px;border-radius:16px;background:rgba(59,130,246,.1);display:flex;align-items:center;justify-content:center;color:#60a5fa;font-size:20px;font-weight:800">${step}</div>
+      <h2 style="margin:0 0 8px;color:#fff;font-size:22px;line-height:1;font-weight:800">${title}</h2>
+      <p style="margin:0;color:rgba(255,255,255,.58);font-family:Arial,sans-serif;font-size:14px;line-height:1.45">${copy}</p>
+    </article>`).join('');
+
+  return `<main data-seo-fallback id="filter-scanner-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1280px;margin:0 auto;padding:0 16px">
+        <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
+          <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+          <a href="/memberships" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-family:Arial,sans-serif;font-weight:700;font-size:14px">Memberships</a>
+        </div>
+      </div>
+    </nav>
+    <section style="padding:112px 16px 40px;background:#050505">
+      <div style="max-width:896px;margin:0 auto;text-align:center">
+        <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Home / AI Filter Scanner</p>
+        <span style="display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid rgba(59,130,246,.22);background:rgba(59,130,246,.1);color:#60a5fa;font-family:Arial,sans-serif;font-size:14px;font-weight:700;margin-bottom:16px">AI-Powered</span>
+        <h1 style="margin:0 0 16px;font-size:clamp(3rem,12vw,4.5rem);line-height:.95;font-weight:800;letter-spacing:0;color:#fff">Filter Scanner</h1>
+        <p style="max-width:672px;margin:0 auto;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:20px;line-height:1.55">Photograph the filter and label to narrow catalog candidates. Verify the booth position and actual dimensions before ordering.</p>
+      </div>
+    </section>
+    <div style="height:48px;background:linear-gradient(180deg,#050505,#0d0d0d)"></div>
+    <section style="padding:32px 16px 56px;background:#0d0d0d">
+      <div style="max-width:896px;margin:0 auto">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:24px">${cards}</div>
+        <article style="min-height:260px;border-radius:14px;border:1px solid rgba(59,130,246,.22);background:linear-gradient(135deg,rgba(59,130,246,.07),rgba(59,130,246,.12));padding:32px;text-align:center">
+          <h2 style="margin:0 0 10px;color:#fff;font-size:28px;line-height:1;font-weight:800">Available on Gold & Platinum Plans</h2>
+          <p style="max-width:448px;margin:0 auto 22px;color:rgba(255,255,255,.58);font-family:Arial,sans-serif;font-size:16px;line-height:1.55">The AI Filter Scanner is included with Gold and Platinum memberships. Upgrade today to unlock instant filter identification, plus discounts on every order.</p>
+          <p style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:0"><a href="/memberships" style="min-height:40px;min-width:184px;border-radius:8px;background:#3b82f6;display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:800">View Membership Plans</a><a href="/auth" style="min-height:40px;min-width:152px;border-radius:8px;border:1px solid rgba(255,255,255,.22);display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:800">Sign In to Your Account</a></p>
+        </article>
+      </div>
+    </section>
+  </main>`;
+}
+
 function brandsFallback() {
   const brandCards = [
     ['PFS Filters', 'PFS Filters catalog products and replacement guidance, backed by the PFS Spray Booths team in Santa Rosa, California.', 'Spray Booth Specialists'],
@@ -822,6 +865,9 @@ function replaceMeta(html, route) {
   if (route.path === '/filter-finder') {
     output = deferMainStylesheet(output);
   }
+  if (route.path === '/filter-scanner') {
+    output = deferMainStylesheet(output);
+  }
   if (route.path === '/brands') {
     output = deferMainStylesheet(output);
   }
@@ -858,6 +904,8 @@ function replaceMeta(html, route) {
     ? losAngelesFallback()
     : route.path === '/filter-finder'
     ? filterFinderFallback()
+    : route.path === '/filter-scanner'
+    ? filterScannerFallback()
     : route.path === '/brands'
     ? brandsFallback()
     : route.path === '/consumables/pfs-vitra'

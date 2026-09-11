@@ -119,6 +119,61 @@ function FilterFinderLoadingFallback() {
   );
 }
 
+function FilterScannerLoadingFallback() {
+  return (
+    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+        <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
+          <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
+        </div>
+      </nav>
+      <main>
+        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+          <div style={{ maxWidth: 896, margin: '0 auto', textAlign: 'center' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, border: '1px solid rgba(59,130,246,.22)', background: 'rgba(59,130,246,.1)', color: '#60a5fa', fontSize: 14, fontWeight: 700, marginBottom: 16 }}>
+              AI-Powered
+            </div>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
+              Filter Scanner
+            </h1>
+            <p style={{ margin: '0 auto', maxWidth: 672, color: 'rgba(255,255,255,.55)', fontSize: 20, lineHeight: 1.55 }}>
+              Photograph the filter and label to narrow catalog candidates. Verify the booth position and actual dimensions before ordering.
+            </p>
+          </div>
+        </section>
+        <div style={{ height: 48, background: 'linear-gradient(180deg,#050505,#0d0d0d)' }} />
+        <section style={{ padding: '32px 16px 56px', background: '#0d0d0d' }}>
+          <div style={{ maxWidth: 896, margin: '0 auto' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 16, marginBottom: 24 }}>
+              {[
+                ['1', 'Take a Photo', 'Photograph your existing filter — front, back, or the label.'],
+                ['2', 'Review Candidates', 'Image analysis can narrow possible catalog matches but does not prove fitment.'],
+                ['3', 'Verify and Order', 'Confirm the filter stage, label, and actual dimensions before adding a product to your cart.'],
+              ].map(([step, title, copy]) => (
+                <article key={step} style={{ minHeight: 210, border: '1px solid rgba(255,255,255,.1)', borderRadius: 14, background: 'rgba(255,255,255,.03)', padding: 24, textAlign: 'center' }}>
+                  <div style={{ width: 64, height: 64, margin: '0 auto 16px', borderRadius: 16, background: 'rgba(59,130,246,.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#60a5fa', fontWeight: 800 }}>{step}</div>
+                  <h2 style={{ margin: '0 0 8px', fontSize: 22, lineHeight: 1, fontWeight: 800 }}>{title}</h2>
+                  <p style={{ margin: 0, color: 'rgba(255,255,255,.58)', fontSize: 14, lineHeight: 1.45 }}>{copy}</p>
+                </article>
+              ))}
+            </div>
+            <article style={{ minHeight: 260, borderRadius: 14, border: '1px solid rgba(59,130,246,.22)', background: 'linear-gradient(135deg,rgba(59,130,246,.07),rgba(59,130,246,.12))', padding: 32, textAlign: 'center' }}>
+              <h2 style={{ margin: '0 0 10px', fontSize: 28, lineHeight: 1, fontWeight: 800 }}>Available on Gold & Platinum Plans</h2>
+              <p style={{ maxWidth: 448, margin: '0 auto 22px', color: 'rgba(255,255,255,.58)', fontSize: 16, lineHeight: 1.55 }}>
+                The AI Filter Scanner is included with Gold and Platinum memberships. Upgrade today to unlock instant filter identification, plus discounts on every order.
+              </p>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
+                <span style={{ minHeight: 40, minWidth: 184, borderRadius: 8, background: '#3b82f6', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14, fontWeight: 800 }}>View Membership Plans</span>
+                <span style={{ minHeight: 40, minWidth: 152, borderRadius: 8, border: '1px solid rgba(255,255,255,.22)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14, fontWeight: 800 }}>Sign In to Your Account</span>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
 function BrandsLoadingFallback() {
   return (
     <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
@@ -271,6 +326,8 @@ function Router() {
   const [location] = useLocation();
   const routeFallback = location === '/filter-finder' || location === '/filter-compatibility'
     ? <FilterFinderLoadingFallback />
+    : location === '/filter-scanner'
+    ? <FilterScannerLoadingFallback />
     : location === '/brands'
     ? <BrandsLoadingFallback />
     : location === '/consumables/pfs-vitra'
