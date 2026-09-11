@@ -821,6 +821,44 @@ function filterScannerFallback() {
   </main>`;
 }
 
+function polyesterMediaFallback(title, description) {
+  return `<main data-seo-fallback id="polyester-media-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1280px;margin:0 auto;padding:0 16px">
+        <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
+          <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+          <a href="/shop-by-type" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-family:Arial,sans-serif;font-weight:700;font-size:14px">Categories</a>
+        </div>
+      </div>
+    </nav>
+    <section style="padding:112px 16px 40px;background:#050505">
+      <div style="max-width:1280px;margin:0 auto">
+        <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Shop by Type / ${escapeHtml(title)}</p>
+        <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px">Exhaust</span>
+        <h1 style="margin:0 0 16px;font-size:clamp(3rem,12vw,4.5rem);line-height:.95;font-weight:800;letter-spacing:0;color:#fff">${escapeHtml(title)}</h1>
+        <p style="max-width:672px;margin:0;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:18px;line-height:1.55">${escapeHtml(description)}</p>
+      </div>
+    </section>
+    <div style="height:100px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
+    <section style="padding:48px 16px 56px;background:#0d0d0d">
+      <div style="max-width:1280px;margin:0 auto;text-align:center;padding:64px 0">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 16px;display:block">
+          <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
+          <path d="M12 22V12" />
+          <path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7" />
+          <path d="m7.5 4.27 9 5.15" />
+        </svg>
+        <h2 style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:20px;font-weight:600;color:rgba(255,255,255,.6)">No products found</h2>
+        <p style="margin:0 auto 24px;max-width:448px;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:16px;line-height:1.5">We couldn't find any products in this category right now. Browse all products or check back soon.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="/shop" style="display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border-radius:8px;background:#3b82f6;color:#fff;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:700">Browse All Products</a>
+          <a href="/shop-by-type" style="display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border-radius:8px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:700">All Categories</a>
+        </div>
+      </div>
+    </section>
+  </main>`;
+}
+
 function brandsFallback() {
   const brandCards = [
     ['PFS Filters', 'PFS Filters catalog products and replacement guidance, backed by the PFS Spray Booths team in Santa Rosa, California.', 'Spray Booth Specialists'],
@@ -1043,6 +1081,13 @@ function replaceMeta(html, route) {
     }
     output = deferMainStylesheet(output);
   }
+  if (route.path === '/category/polyester-media') {
+    output = output.replace(
+      /(<meta name="viewport"[^>]*>\r?\n)/i,
+      `$1    ${logoPreload}\n`,
+    );
+    output = deferMainStylesheet(output);
+  }
   if (route.path === '/california/north-bay-paint-booth-filters') {
     output = output.replace(
       /(<meta name="viewport"[^>]*>\r?\n)/i,
@@ -1099,6 +1144,8 @@ function replaceMeta(html, route) {
     ? rollMediaFallback('Roll Media', 'Roll filtration media in current catalog widths, lengths, and constructions. Confirm the intended filter stage and dimensions before ordering.')
     : route.path === '/category/merv-filters'
     ? mervFiltersFallback('MERV-Rated Filters', 'High-efficiency filters rated by MERV standard for precise particle capture. MERV-10 and MERV-13 options for industrial operations.')
+    : route.path === '/category/polyester-media'
+    ? polyesterMediaFallback('Polyester Media', 'Durable synthetic filtration media with excellent moisture resistance. Ideal for high-humidity environments and water-based coatings.')
     : route.path === '/california/north-bay-paint-booth-filters'
     ? northBayFallback(description)
     : route.path === '/california/los-angeles-paint-booth-filters'

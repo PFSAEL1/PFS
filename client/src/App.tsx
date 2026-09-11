@@ -346,6 +346,70 @@ function MervFiltersLoadingFallback() {
   );
 }
 
+function PolyesterMediaLoadingFallback() {
+  return (
+    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+        <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
+          <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
+        </div>
+      </nav>
+      <main>
+        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(255,255,255,.2)', background: 'rgba(255,255,255,.08)', color: 'rgba(255,255,255,.7)', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 16 }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 6 }}>
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+              </svg>
+              EXHAUST
+            </div>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
+              Polyester Media
+            </h1>
+            <p style={{ margin: 0, maxWidth: 672, color: 'rgba(255,255,255,.7)', fontSize: 18, lineHeight: 1.55 }}>
+              Durable synthetic filtration media with excellent moisture resistance. Ideal for high-humidity environments and water-based coatings.
+            </p>
+          </div>
+        </section>
+        <div style={{ height: 100, background: 'linear-gradient(to bottom,#050505,#0d0d0d)' }} />
+        <section style={{ padding: '48px 16px 56px', background: '#0d0d0d' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto', textAlign: 'center', padding: '64px 0' }}>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.2)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 16px', display: 'block' }}>
+              <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
+              <path d="M12 22V12" />
+              <path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7" />
+              <path d="m7.5 4.27 9 5.15" />
+            </svg>
+            <h2 style={{ margin: '0 0 8px', fontSize: 20, fontWeight: 600, color: 'rgba(255,255,255,.6)' }}>
+              No products found
+            </h2>
+            <p style={{ margin: '0 auto 24px', maxWidth: 448, color: 'rgba(255,255,255,.7)', fontSize: 16, lineHeight: 1.5 }}>
+              We couldn't find any products in this category right now. Browse all products or check back soon.
+            </p>
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minHeight: 40, padding: '0 16px', borderRadius: 8, background: '#3b82f6', color: '#fff', fontSize: 14, fontWeight: 500 }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 8 }}>
+                  <circle cx="8" cy="21" r="1" />
+                  <circle cx="19" cy="21" r="1" />
+                  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                </svg>
+                Browse All Products
+              </span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minHeight: 40, padding: '0 16px', borderRadius: 8, border: '1px solid rgba(255,255,255,.2)', color: 'rgba(255,255,255,.6)', fontSize: 14, fontWeight: 500 }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 8 }}>
+                  <path d="m12 19-7-7 7-7" />
+                  <path d="M19 12H5" />
+                </svg>
+                All Categories
+              </span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
 function BrandsLoadingFallback() {
   return (
     <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
@@ -506,6 +570,8 @@ function Router() {
     ? <RollMediaLoadingFallback />
     : location === '/category/merv-filters'
     ? <MervFiltersLoadingFallback />
+    : location === '/category/polyester-media'
+    ? <PolyesterMediaLoadingFallback />
     : location === '/brands'
     ? <BrandsLoadingFallback />
     : location === '/consumables/pfs-vitra'
