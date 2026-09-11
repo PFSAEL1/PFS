@@ -20,10 +20,11 @@ const logoPreload = `<link rel="preload" as="image" href="${logoUrl}" type="imag
 const today = new Date().toISOString().slice(0, 10);
 const mode = process.argv[2] || '--source';
 const shopProductThumbnails = {
-  '20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs': '/images/shop-thumbnails/22-gram-fiberglass-pads.webp',
-  '20x20-paint-arrestor-holding-grids-w-tips-each': '/images/shop-thumbnails/holding-grid.webp',
-  '20x20-paint-pockets-paint-arrestor-30-cs': '/images/shop-thumbnails/paint-pockets.webp',
-  '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': '/images/shop-thumbnails/22-gram-fiberglass-roll.webp',
+  '20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs': { src: '/images/shop-thumbnails/22-gram-fiberglass-pads.webp', width: 480 },
+  '20x20-paint-arrestor-holding-grids-w-tips-each': { src: '/images/shop-thumbnails/holding-grid.webp', width: 480 },
+  '20x20-paint-pockets-paint-arrestor-30-cs': { src: '/images/shop-thumbnails/paint-pockets.webp', width: 480 },
+  '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': { src: '/images/shop-thumbnails/22-gram-fiberglass-roll.webp', width: 480 },
+  'pleated-air-filters-merv-10': { src: '/images/shop-thumbnails/merv-10-pleated-filter.jpg', width: 320 },
 };
 
 const products = JSON.parse(fs.readFileSync(productFile, 'utf8')).map((edge) => edge.node);
@@ -74,12 +75,12 @@ const shopifySrcset = (src, widths = [320, 480, 640]) => {
 const shopProductCardImage = (product, width = 480) => {
   const localThumbnail = shopProductThumbnails[product.handle];
   const fallback = product.images?.edges?.[0]?.node?.url;
-  return localThumbnail || sizedImageUrl(fallback, width);
+  return localThumbnail?.src || sizedImageUrl(fallback, width);
 };
 const shopProductCardSrcset = (product) => {
   const localThumbnail = shopProductThumbnails[product.handle];
   const fallback = product.images?.edges?.[0]?.node?.url;
-  return localThumbnail ? `${localThumbnail} 480w` : shopifySrcset(fallback);
+  return localThumbnail ? `${localThumbnail.src} ${localThumbnail.width}w` : shopifySrcset(fallback);
 };
 const productMatchesCategory = (product, category) => {
   const normalizedCategory = category.toLowerCase();
@@ -1037,7 +1038,7 @@ function replaceMeta(html, route) {
       const preloadSrcset = shopProductCardSrcset(firstMervFilterProduct);
       output = output.replace(
         /(<meta name="viewport"[^>]*>\r?\n)/i,
-        `$1    <link rel="preload" as="image" href="${escapeHtml(preloadImage)}"${preloadSrcset ? ` imagesrcset="${escapeHtml(preloadSrcset)}" imagesizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"` : ''} fetchpriority="high" />\n`,
+        `$1    <link rel="preload" as="image" href="${escapeHtml(preloadImage)}"${preloadImage.endsWith('.jpg') || preloadImage.endsWith('.jpeg') ? ' type="image/jpeg"' : ''}${preloadSrcset ? ` imagesrcset="${escapeHtml(preloadSrcset)}" imagesizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"` : ''} fetchpriority="high" />\n`,
       );
     }
     output = deferMainStylesheet(output);

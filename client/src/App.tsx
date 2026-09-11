@@ -289,10 +289,8 @@ function RollMediaLoadingFallback() {
   );
 }
 
-const mervFiltersProductImage =
-  'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/High-efficiencyMERV10airfilters.png?v=1775865427&width=480';
-const mervFiltersProductSrcSet =
-  'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/High-efficiencyMERV10airfilters.png?v=1775865427&width=320 320w, https://cdn.shopify.com/s/files/1/0972/9815/3604/files/High-efficiencyMERV10airfilters.png?v=1775865427&width=480 480w, https://cdn.shopify.com/s/files/1/0972/9815/3604/files/High-efficiencyMERV10airfilters.png?v=1775865427&width=640 640w';
+const mervFiltersProductImage = '/images/shop-thumbnails/merv-10-pleated-filter.jpg';
+const mervFiltersProductSrcSet = '/images/shop-thumbnails/merv-10-pleated-filter.jpg 320w';
 
 function MervFiltersLoadingFallback() {
   return (

@@ -1,10 +1,11 @@
 const SHOPIFY_IMAGE_HOST = 'cdn.shopify.com';
 
-const SHOP_PRODUCT_THUMBNAILS: Record<string, string> = {
-  '20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs': '/images/shop-thumbnails/22-gram-fiberglass-pads.webp',
-  '20x20-paint-arrestor-holding-grids-w-tips-each': '/images/shop-thumbnails/holding-grid.webp',
-  '20x20-paint-pockets-paint-arrestor-30-cs': '/images/shop-thumbnails/paint-pockets.webp',
-  '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': '/images/shop-thumbnails/22-gram-fiberglass-roll.webp',
+const SHOP_PRODUCT_THUMBNAILS: Record<string, { src: string; width: number }> = {
+  '20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs': { src: '/images/shop-thumbnails/22-gram-fiberglass-pads.webp', width: 480 },
+  '20x20-paint-arrestor-holding-grids-w-tips-each': { src: '/images/shop-thumbnails/holding-grid.webp', width: 480 },
+  '20x20-paint-pockets-paint-arrestor-30-cs': { src: '/images/shop-thumbnails/paint-pockets.webp', width: 480 },
+  '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': { src: '/images/shop-thumbnails/22-gram-fiberglass-roll.webp', width: 480 },
+  'pleated-air-filters-merv-10': { src: '/images/shop-thumbnails/merv-10-pleated-filter.jpg', width: 320 },
 };
 
 export function sizedShopifyImageUrl(src: string, width: number): string {
@@ -22,7 +23,7 @@ export function sizedShopifyImageUrl(src: string, width: number): string {
 }
 
 export function shopProductCardImageUrl(handle: string, fallbackSrc: string, width = 480): string {
-  return SHOP_PRODUCT_THUMBNAILS[handle] || sizedShopifyImageUrl(fallbackSrc, width);
+  return SHOP_PRODUCT_THUMBNAILS[handle]?.src || sizedShopifyImageUrl(fallbackSrc, width);
 }
 
 export function shopifyImageSrcSet(src: string, widths = [320, 480, 640]): string | undefined {
@@ -40,7 +41,7 @@ export function shopifyImageSrcSet(src: string, widths = [320, 480, 640]): strin
 
 export function shopProductCardImageSrcSet(handle: string, fallbackSrc: string): string | undefined {
   const localThumbnail = SHOP_PRODUCT_THUMBNAILS[handle];
-  if (localThumbnail) return `${localThumbnail} 480w`;
+  if (localThumbnail) return `${localThumbnail.src} ${localThumbnail.width}w`;
 
   return shopifyImageSrcSet(fallbackSrc);
 }
