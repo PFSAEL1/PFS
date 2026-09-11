@@ -207,6 +207,65 @@ function VitraLoadingFallback() {
   );
 }
 
+const aerospaceProductImage =
+  'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/ChatGPTImageMay7_2026_02_56_20PM_afa7fd40-2842-48f1-a421-981fe1201b0d.png?v=1778191017&width=480';
+const aerospaceProductSrcSet =
+  'https://cdn.shopify.com/s/files/1/0972/9815/3604/files/ChatGPTImageMay7_2026_02_56_20PM_afa7fd40-2842-48f1-a421-981fe1201b0d.png?v=1778191017&width=320 320w, https://cdn.shopify.com/s/files/1/0972/9815/3604/files/ChatGPTImageMay7_2026_02_56_20PM_afa7fd40-2842-48f1-a421-981fe1201b0d.png?v=1778191017&width=480 480w, https://cdn.shopify.com/s/files/1/0972/9815/3604/files/ChatGPTImageMay7_2026_02_56_20PM_afa7fd40-2842-48f1-a421-981fe1201b0d.png?v=1778191017&width=640 640w';
+
+function AerospaceLoadingFallback() {
+  return (
+    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+        <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
+          <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
+        </div>
+      </nav>
+      <main>
+        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto', textAlign: 'center' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, border: '1px solid rgba(59,130,246,.22)', background: 'rgba(59,130,246,.1)', color: 'rgba(255,255,255,.8)', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>
+              Aerospace & MRO Filtration
+            </div>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.25rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
+              Aerospace Paint Booth Filters
+            </h1>
+            <p style={{ margin: '0 auto', maxWidth: 768, color: 'rgba(255,255,255,.62)', fontSize: 20, lineHeight: 1.55 }}>
+              High-efficiency filtration media engineered for aircraft finishing, MRO hangars, and NESHAP-regulated aerospace environments. From ceiling diffusion to multi-stage exhaust capture.
+            </p>
+          </div>
+        </section>
+        <div style={{ height: 48, background: 'linear-gradient(180deg,#050505,#0d0d0d)' }} />
+        <section style={{ padding: '32px 16px 56px', background: '#0d0d0d' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 24 }}>
+            <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: 'linear-gradient(135deg,#212121,#1a1a1a)' }}>
+              <div style={{ aspectRatio: '1/1', background: 'linear-gradient(135deg,#1f1f1f,#151515)', borderBottom: '1px solid #292929', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                <img
+                  src={aerospaceProductImage}
+                  srcSet={aerospaceProductSrcSet}
+                  sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
+                  alt="Aerospace-Grade Filtration Bags & Panels"
+                  width="480"
+                  height="480"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 12, boxSizing: 'border-box', filter: 'brightness(.95) contrast(1.05)' }}
+                />
+              </div>
+              <div style={{ padding: 16 }}>
+                <h2 style={{ minHeight: 40, margin: '0 0 12px', fontSize: 15, lineHeight: 1.3, fontWeight: 700 }}>
+                  Aerospace-Grade Filtration Bags & Panels
+                </h2>
+                <p style={{ margin: 0, color: '#60a5fa', fontWeight: 800 }}>Aerospace filtration media</p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
 // Light version pages (kept in codebase but not routed in production)
 function Router() {
   const [location] = useLocation();
@@ -216,6 +275,8 @@ function Router() {
     ? <BrandsLoadingFallback />
     : location === '/consumables/pfs-vitra'
     ? <VitraLoadingFallback />
+    : location === '/aerospace'
+    ? <AerospaceLoadingFallback />
     : <div className="min-h-screen bg-[#040404]" aria-label="Loading page" />;
 
   // make sure to consider if you need authentication for certain routes

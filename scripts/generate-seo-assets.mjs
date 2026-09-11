@@ -81,6 +81,18 @@ const shopProductCardSrcset = (product) => {
   const fallback = product.images?.edges?.[0]?.node?.url;
   return localThumbnail ? `${localThumbnail} 480w` : shopifySrcset(fallback);
 };
+const productMatchesCategory = (product, category) => {
+  const normalizedCategory = category.toLowerCase();
+  const tags = (product.tags || []).map((tag) => tag.toLowerCase());
+  const type = (product.productType || '').toLowerCase();
+  const title = product.title.toLowerCase();
+  return (
+    tags.some((tag) => tag.includes(normalizedCategory)) ||
+    type.includes(normalizedCategory) ||
+    title.includes(normalizedCategory)
+  );
+};
+const firstAerospaceProduct = products.find((product) => productMatchesCategory(product, 'aerospace'));
 
 function deferMainStylesheet(html) {
   return html.replace(
@@ -689,6 +701,52 @@ function vitraFallback() {
   </main>`;
 }
 
+function aerospaceFallback() {
+  const product = firstAerospaceProduct;
+  const imageNode = product?.images?.edges?.[0]?.node;
+  const imageUrl = product ? shopProductCardImage(product, 480) : '';
+  const srcset = product ? shopProductCardSrcset(product) : '';
+  const price = product?.priceRange?.minVariantPrice?.amount;
+  const currency = product?.priceRange?.minVariantPrice?.currencyCode || 'USD';
+  const alt = imageNode?.altText || product?.title || 'Aerospace-grade filtration media';
+  const card = product ? `<article style="overflow:hidden;border:1px solid #333;border-radius:12px;background:linear-gradient(135deg,#212121,#1a1a1a)">
+        <a href="/product/${escapeHtml(product.handle)}" style="color:inherit;text-decoration:none">
+          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#1f1f1f,#151515);border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
+            ${imageUrl ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)" alt="${escapeHtml(alt)}" width="480" height="480" loading="eager" decoding="async" fetchpriority="high" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box;filter:brightness(.95) contrast(1.05)" />` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#6b7280">Image Coming Soon</div>'}
+          </div>
+          <div style="padding:16px">
+            <h2 style="min-height:40px;margin:0 0 12px;font-family:Arial,sans-serif;font-size:15px;line-height:1.3;font-weight:700;color:#fff">${escapeHtml(product.title)}</h2>
+            <p style="margin:0 0 14px;color:#60a5fa;font-family:Arial,sans-serif;font-weight:800">${price ? `$${escapeHtml(price)} <span style="font-size:12px;font-weight:400;color:rgba(255,255,255,.7)">${escapeHtml(currency)}</span>` : 'Aerospace filtration media'}</p>
+            <span style="display:flex;align-items:center;justify-content:center;min-height:36px;border-radius:8px;background:#3b82f6;color:#fff;font-family:Arial,sans-serif;font-size:14px;font-weight:700">View Product</span>
+          </div>
+        </a>
+      </article>` : '';
+
+  return `<main data-seo-fallback id="aerospace-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1280px;margin:0 auto;padding:0 16px">
+        <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
+          <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+          <a href="/shop" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-family:Arial,sans-serif;font-weight:700;font-size:14px">Shop</a>
+        </div>
+      </div>
+    </nav>
+    <section style="padding:112px 16px 40px;background:#050505">
+      <div style="max-width:1280px;margin:0 auto;text-align:center">
+        <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Industries / Aerospace Filters</p>
+        <span style="display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid rgba(59,130,246,.22);background:rgba(59,130,246,.1);color:rgba(255,255,255,.8);font-family:Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">Aerospace & MRO Filtration</span>
+        <h1 style="margin:0 0 16px;font-size:clamp(3rem,12vw,4.25rem);line-height:.95;font-weight:800;letter-spacing:0;color:#fff">Aerospace Paint Booth Filters</h1>
+        <p style="max-width:768px;margin:0 auto;color:rgba(255,255,255,.62);font-family:Arial,sans-serif;font-size:20px;line-height:1.55">High-efficiency filtration media engineered for aircraft finishing, MRO hangars, and NESHAP-regulated aerospace environments. From ceiling diffusion to multi-stage exhaust capture.</p>
+        <p style="max-width:672px;margin:12px auto 0;color:rgba(255,255,255,.36);font-family:Arial,sans-serif;font-size:14px;line-height:1.5">HEPA-XFP™ multi-pocket bags · NESHAP 319 final-stage bags · CG100 2-pocket bags · ME/PT intake panels · SFR blankets · CPA roll media</p>
+      </div>
+    </section>
+    <div style="height:48px;background:linear-gradient(180deg,#050505,#0d0d0d)"></div>
+    <section style="padding:32px 16px 56px;background:#0d0d0d">
+      <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">${card}</div>
+    </section>
+  </main>`;
+}
+
 function writeSourceAssets() {
   fs.mkdirSync(publicDir, { recursive: true });
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml());
@@ -774,6 +832,17 @@ function replaceMeta(html, route) {
     );
     output = deferMainStylesheet(output);
   }
+  if (route.path === '/aerospace') {
+    if (firstAerospaceProduct) {
+      const preloadImage = shopProductCardImage(firstAerospaceProduct, 480);
+      const preloadSrcset = shopProductCardSrcset(firstAerospaceProduct);
+      output = output.replace(
+        /(<meta name="viewport"[^>]*>\r?\n)/i,
+        `$1    <link rel="preload" as="image" href="${escapeHtml(preloadImage)}"${preloadSrcset ? ` imagesrcset="${escapeHtml(preloadSrcset)}" imagesizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"` : ''} fetchpriority="high" />\n`,
+      );
+    }
+    output = deferMainStylesheet(output);
+  }
 
   const detail = route.price ? `<p>Starting at $${escapeHtml(route.price)} USD. Check the live product page for current variants, pricing, and availability.</p>` : '';
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
@@ -793,6 +862,8 @@ function replaceMeta(html, route) {
     ? brandsFallback()
     : route.path === '/consumables/pfs-vitra'
     ? vitraFallback()
+    : route.path === '/aerospace'
+    ? aerospaceFallback()
     : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:64px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${title}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
   return output.replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
 }

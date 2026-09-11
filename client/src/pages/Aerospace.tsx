@@ -1,10 +1,44 @@
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Plane, ArrowRight } from 'lucide-react';
 import { ShopifyProducts } from '@/components/ShopifyProducts';
 import { Link } from 'wouter';
+
+const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
+
+function DeferredFooter() {
+  const [showFooter, setShowFooter] = useState(false);
+
+  useEffect(() => {
+    if (showFooter) return;
+    const interactionEvents = ['scroll', 'click', 'touchstart', 'pointerdown', 'keydown'] as const;
+
+    const revealFooter = () => setShowFooter(true);
+    const removeInteractionListeners = () => {
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, revealFooter);
+      });
+    };
+
+    interactionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, revealFooter, { once: true, passive: true });
+    });
+
+    return () => {
+      removeInteractionListeners();
+    };
+  }, [showFooter]);
+
+  if (!showFooter) return <div style={{ minHeight: 420 }} aria-hidden="true" />;
+
+  return (
+    <Suspense fallback={null}>
+      <Footer />
+    </Suspense>
+  );
+}
 
 export default function Aerospace() {
   const structuredData = {
@@ -85,7 +119,7 @@ export default function Aerospace() {
       {/* Arc transition */}
       <div className="arc-divider arc-divider-down" />
 
-      <Footer />
+      <DeferredFooter />
     </div>
   );
 }
