@@ -1,8 +1,7 @@
-import { useState, useMemo } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -18,10 +17,56 @@ import {
   PrepStationDiagram,
 } from '@/components/AirflowDiagrams';
 
+const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
+
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://www.pfsfilters.com' },
   { name: 'Filter Finder', url: 'https://www.pfsfilters.com/filter-finder' },
 ]);
+
+function DeferredFooter() {
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+  const [showFooter, setShowFooter] = useState(false);
+
+  useEffect(() => {
+    if (showFooter) return;
+    const interactionEvents = ['scroll', 'click', 'touchstart', 'pointerdown', 'keydown'] as const;
+    let observer: IntersectionObserver | undefined;
+
+    const revealFooter = () => setShowFooter(true);
+    const removeInteractionListeners = () => {
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, revealFooter);
+      });
+    };
+
+    if ('IntersectionObserver' in window && sentinelRef.current) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) revealFooter();
+        },
+        { rootMargin: '900px 0px' },
+      );
+      observer.observe(sentinelRef.current);
+    }
+    interactionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, revealFooter, { once: true, passive: true });
+    });
+
+    return () => {
+      observer?.disconnect();
+      removeInteractionListeners();
+    };
+  }, [showFooter]);
+
+  if (!showFooter) return <div ref={sentinelRef} style={{ minHeight: 420 }} aria-hidden="true" />;
+
+  return (
+    <Suspense fallback={null}>
+      <Footer />
+    </Suspense>
+  );
+}
 
 // Map booth type to diagram component
 const DIAGRAMS: Record<BoothType, React.FC> = {
@@ -348,7 +393,7 @@ export default function FilterFinder() {
         </div>
       </section>
 
-      <Footer />
+      <DeferredFooter />
     </div>
   );
 }

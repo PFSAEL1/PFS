@@ -45,7 +45,9 @@ export const Navigation = () => {
   useEffect(() => {
     let cancelled = false;
     let idleId: number | undefined;
-    let timerId: number | undefined;
+    let authTimerId: number | undefined;
+    let fallbackTimerId: number | undefined;
+    const interactionEvents = ['scroll', 'click', 'touchstart', 'pointerdown', 'keydown'] as const;
 
     const loadAuthState = async () => {
       const { supabase } = await import('@/lib/supabase');
@@ -62,26 +64,58 @@ export const Navigation = () => {
           .maybeSingle()
           .then(({ data: roleData }) => {
             if (!cancelled) setIsAdmin(!!roleData);
-          });
+        });
       }
+    };
+
+    const removeInteractionListeners = () => {
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, triggerAuthLoad);
+      });
     };
 
     const scheduleAuthLoad = () => {
+      removeInteractionListeners();
+      if (fallbackTimerId !== undefined) {
+        globalThis.clearTimeout(fallbackTimerId);
+        fallbackTimerId = undefined;
+      }
       if ('requestIdleCallback' in window) {
         idleId = window.requestIdleCallback(loadAuthState, { timeout: 3500 });
       } else {
-        timerId = globalThis.setTimeout(loadAuthState, 1800) as unknown as number;
+        authTimerId = globalThis.setTimeout(loadAuthState, 1800) as unknown as number;
       }
     };
 
-    if (document.readyState === 'complete') scheduleAuthLoad();
-    else window.addEventListener('load', scheduleAuthLoad, { once: true });
+    const triggerAuthLoad = () => {
+      if (cancelled || idleId !== undefined || authTimerId !== undefined) return;
+      scheduleAuthLoad();
+    };
+
+    const scheduleFallback = () => {
+      fallbackTimerId = globalThis.setTimeout(() => {
+        fallbackTimerId = undefined;
+        triggerAuthLoad();
+      }, 15000) as unknown as number;
+    };
+
+    const waitForInteraction = () => {
+      interactionEvents.forEach((eventName) => {
+        window.addEventListener(eventName, triggerAuthLoad, { once: true, passive: true });
+      });
+      scheduleFallback();
+    };
+
+    if (document.readyState === 'complete') waitForInteraction();
+    else window.addEventListener('load', waitForInteraction, { once: true });
 
     return () => {
       cancelled = true;
-      window.removeEventListener('load', scheduleAuthLoad);
+      window.removeEventListener('load', waitForInteraction);
+      removeInteractionListeners();
       if (idleId !== undefined) window.cancelIdleCallback(idleId);
-      if (timerId !== undefined) globalThis.clearTimeout(timerId);
+      if (authTimerId !== undefined) globalThis.clearTimeout(authTimerId);
+      if (fallbackTimerId !== undefined) globalThis.clearTimeout(fallbackTimerId);
     };
   }, []);
 

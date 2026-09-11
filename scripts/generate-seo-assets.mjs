@@ -556,6 +556,54 @@ function losAngelesFallback() {
   </main>`;
 }
 
+function filterFinderFallback() {
+  const boothTypes = [
+    ['Downdraft', 'Air enters from the ceiling plenum and exits through floor grates or a pit.'],
+    ['Crossdraft', 'Air flows horizontally from intake doors or a front wall to exhaust filters.'],
+    ['Semi-Downdraft', 'Air enters from the front ceiling area and exits low in the rear wall.'],
+    ['Side-Downdraft', 'Air enters from the ceiling and exits through side-wall exhaust plenums.'],
+    ['Open Face', 'Open front with filtered exhaust through the rear wall for smaller parts.'],
+    ['Prep Station', 'Open work area for sanding, masking, and prep work with filtered airflow.'],
+  ];
+  const cards = boothTypes.map(([label, copy]) => `<article style="overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#0a0a0a">
+      <div style="height:176px;padding:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,.025),transparent)">
+        <div style="position:relative;width:100%;max-width:280px;height:100%;border:2px solid rgba(255,255,255,.45);border-radius:4px">
+          <div style="position:absolute;left:12%;right:12%;top:18%;height:2px;background:rgba(96,165,250,.72)"></div>
+          <div style="position:absolute;left:12%;right:12%;top:48%;height:2px;background:rgba(96,165,250,.72)"></div>
+          <div style="position:absolute;left:12%;right:12%;top:78%;height:2px;background:rgba(96,165,250,.72)"></div>
+          <div style="position:absolute;right:-10px;top:20%;bottom:20%;width:12px;border:1px solid rgba(251,146,60,.55);background:rgba(251,146,60,.12)"></div>
+        </div>
+      </div>
+      <div style="padding:20px;border-top:1px solid rgba(255,255,255,.05)">
+        <h2 style="margin:0 0 6px;color:#fff;font-size:24px;line-height:1;font-weight:800">${label}</h2>
+        <p style="min-height:40px;margin:0 0 12px;color:rgba(255,255,255,.6);font-family:Arial,sans-serif;font-size:14px;line-height:1.45">${copy}</p>
+        <p style="margin:0;color:rgba(147,197,253,.88);font-family:Arial,sans-serif;font-size:12px">Select booth type</p>
+      </div>
+    </article>`).join('');
+
+  return `<main data-seo-fallback id="filter-finder-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1280px;margin:0 auto;padding:0 16px">
+        <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
+          <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+          <a href="/shop" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-weight:700;font-size:14px">Shop</a>
+        </div>
+      </div>
+    </nav>
+    <section style="padding:112px 16px 32px;background:linear-gradient(180deg,#0a1628,#040404)">
+      <div style="max-width:1024px;margin:0 auto;text-align:center">
+        <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Home / Filter Finder</p>
+        <span style="display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid rgba(59,130,246,.24);background:rgba(59,130,246,.1);color:#93c5fd;font-family:Arial,sans-serif;font-size:12px;font-weight:700;margin-bottom:16px">FILTER FINDER · STEP 1 OF 4</span>
+        <h1 style="margin:0 0 12px;font-size:clamp(2.6rem,11vw,4.5rem);line-height:.92;font-weight:800;letter-spacing:0;text-transform:uppercase;color:#fff">What kind of booth do you have?</h1>
+        <p style="max-width:672px;margin:0 auto;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:18px;line-height:1.55">Pick the booth airflow type that matches yours. We use this to narrow to brands and models that fit.</p>
+      </div>
+    </section>
+    <section style="padding:0 16px 64px">
+      <div style="max-width:1152px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">${cards}</div>
+    </section>
+  </main>`;
+}
+
 function writeSourceAssets() {
   fs.mkdirSync(publicDir, { recursive: true });
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml());
@@ -628,6 +676,9 @@ function replaceMeta(html, route) {
     );
     output = deferMainStylesheet(output);
   }
+  if (route.path === '/filter-finder') {
+    output = deferMainStylesheet(output);
+  }
 
   const detail = route.price ? `<p>Starting at $${escapeHtml(route.price)} USD. Check the live product page for current variants, pricing, and availability.</p>` : '';
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
@@ -641,6 +692,8 @@ function replaceMeta(html, route) {
     ? northBayFallback(description)
     : route.path === '/california/los-angeles-paint-booth-filters'
     ? losAngelesFallback()
+    : route.path === '/filter-finder'
+    ? filterFinderFallback()
     : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:64px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${title}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
   return output.replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
 }
