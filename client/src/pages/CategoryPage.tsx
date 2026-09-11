@@ -23,7 +23,7 @@ import { toast } from 'sonner';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
-import { shopifyImageAltText, shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
+import { shopifyImageAltText, shopProductCardImageSrcSet, shopProductCardImageUrl } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
 const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
@@ -314,7 +314,7 @@ export default function CategoryPage() {
               const variant = product.node.variants.edges[0]?.node;
               const imageNode = product.node.images.edges[0]?.node;
               const image = imageNode?.url || FALLBACK_IMAGE;
-              const shouldLoadEarly = index < 2;
+              const shouldLoadEarly = index === 0;
               const shouldPrioritizeImage = index === 0;
               const originalPrice = variant?.price.amount ? parseFloat(variant.price.amount) : 0;
               const price = originalPrice > 0 ? originalPrice.toFixed(2) : '—';
@@ -327,8 +327,8 @@ export default function CategoryPage() {
                     <div className="product-img-wrap relative aspect-square overflow-hidden cursor-pointer">
                       <ProductBadges badges={getProductBadges(product)} />
                       <img
-                        src={sizedShopifyImageUrl(image, 480)}
-                        srcSet={shopifyImageSrcSet(image)}
+                        src={shopProductCardImageUrl(product.node.handle, image, 480)}
+                        srcSet={shopProductCardImageSrcSet(product.node.handle, image)}
                         sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
                         alt={shopifyImageAltText(imageNode, product.node.title)}
                         className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"

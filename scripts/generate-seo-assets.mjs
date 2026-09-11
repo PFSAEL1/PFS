@@ -95,6 +95,7 @@ const productMatchesCategory = (product, category) => {
 const firstAerospaceProduct = products.find((product) => productMatchesCategory(product, 'aerospace'));
 const categoryTagMap = {
   'ceiling-blankets': ['ceiling', 'ceiling blanket', 'blanket'],
+  'roll-media': ['roll', 'roll media', 'media roll'],
 };
 const productMatchesCategorySlug = (product, categorySlug) => {
   const tags = (product.tags || []).map((tag) => tag.toLowerCase());
@@ -106,6 +107,8 @@ const productMatchesCategorySlug = (product, categorySlug) => {
 };
 const ceilingBlanketsProducts = products.filter((product) => productMatchesCategorySlug(product, 'ceiling-blankets'));
 const firstCeilingBlanketsProduct = ceilingBlanketsProducts.find((product) => product.images?.edges?.[0]?.node?.url);
+const rollMediaProducts = products.filter((product) => productMatchesCategorySlug(product, 'roll-media'));
+const firstRollMediaProduct = rollMediaProducts.find((product) => product.images?.edges?.[0]?.node?.url);
 
 function deferMainStylesheet(html) {
   return html.replace(
@@ -578,6 +581,53 @@ function ceilingBlanketsFallback(title, description) {
   </main>`;
 }
 
+function rollMediaFallback(title, description) {
+  const cards = rollMediaProducts.slice(0, 2).map((product, index) => {
+    const imageNode = product.images?.edges?.[0]?.node;
+    const imageUrl = shopProductCardImage(product, 480);
+    const srcset = shopProductCardSrcset(product);
+    const firstVariant = product.variants?.edges?.[0]?.node;
+    const price = firstVariant?.price?.amount || product.priceRange?.minVariantPrice?.amount;
+    const currency = firstVariant?.price?.currencyCode || product.priceRange?.minVariantPrice?.currencyCode || 'USD';
+    const alt = imageNode?.altText || product.title;
+    return `<article style="overflow:hidden;border:1px solid #333;border-radius:12px;background:linear-gradient(135deg,#212121,#1a1a1a)">
+        <a href="/product/${escapeHtml(product.handle)}" style="color:inherit;text-decoration:none">
+          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#1f1f1f,#151515);border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
+            ${imageUrl ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)" alt="${escapeHtml(alt)}" width="480" height="480" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${index === 0 ? 'high' : 'auto'}" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box;filter:brightness(.95) contrast(1.05)" />` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#6b7280">Image Coming Soon</div>'}
+          </div>
+          <div style="padding:16px">
+            <h2 style="min-height:40px;margin:0 0 12px;font-family:Arial,sans-serif;font-size:15px;line-height:1.3;font-weight:700;color:#fff">${escapeHtml(product.title)}</h2>
+            <p style="margin:0 0 14px;color:#60a5fa;font-family:Arial,sans-serif;font-weight:800">${price ? `$${escapeHtml(price)} <span style="font-size:12px;font-weight:400;color:rgba(255,255,255,.7)">${escapeHtml(currency)}</span>` : 'Current catalog item'}</p>
+            <span style="display:flex;align-items:center;justify-content:center;min-height:36px;border-radius:8px;background:#3b82f6;color:#fff;font-family:Arial,sans-serif;font-size:14px;font-weight:700">View Product</span>
+          </div>
+        </a>
+      </article>`;
+  }).join('');
+
+  return `<main data-seo-fallback id="roll-media-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1280px;margin:0 auto;padding:0 16px">
+        <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
+          <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+          <a href="/shop-by-type" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-family:Arial,sans-serif;font-weight:700;font-size:14px">Categories</a>
+        </div>
+      </div>
+    </nav>
+    <section style="padding:112px 16px 40px;background:#050505">
+      <div style="max-width:1280px;margin:0 auto">
+        <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Shop by Type / ${escapeHtml(title)}</p>
+        <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid rgba(77,159,255,.3);background:rgba(77,159,255,.1);color:#4d9fff;font-family:Arial,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px">Intake / Exhaust</span>
+        <h1 style="margin:0 0 16px;font-size:clamp(3rem,12vw,4.5rem);line-height:.95;font-weight:800;letter-spacing:0;color:#fff">${escapeHtml(title)}</h1>
+        <p style="max-width:672px;margin:0;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:18px;line-height:1.55">${escapeHtml(description)}</p>
+      </div>
+    </section>
+    <div style="height:48px;background:linear-gradient(180deg,#050505,#0d0d0d)"></div>
+    <section style="padding:32px 16px 56px;background:#0d0d0d">
+      <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">${cards}</div>
+    </section>
+  </main>`;
+}
+
 function northBayFallback(description) {
   return `<main data-seo-fallback id="north-bay-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
@@ -920,6 +970,17 @@ function replaceMeta(html, route) {
     }
     output = deferMainStylesheet(output);
   }
+  if (route.path === '/category/roll-media') {
+    if (firstRollMediaProduct) {
+      const preloadImage = shopProductCardImage(firstRollMediaProduct, 480);
+      const preloadSrcset = shopProductCardSrcset(firstRollMediaProduct);
+      output = output.replace(
+        /(<meta name="viewport"[^>]*>\r?\n)/i,
+        `$1    <link rel="preload" as="image" href="${escapeHtml(preloadImage)}"${preloadImage.endsWith('.webp') ? ' type="image/webp"' : ''}${preloadSrcset ? ` imagesrcset="${escapeHtml(preloadSrcset)}" imagesizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"` : ''} fetchpriority="high" />\n`,
+      );
+    }
+    output = deferMainStylesheet(output);
+  }
   if (route.path === '/california/north-bay-paint-booth-filters') {
     output = output.replace(
       /(<meta name="viewport"[^>]*>\r?\n)/i,
@@ -972,6 +1033,8 @@ function replaceMeta(html, route) {
     ? intakeFallback(title, description)
     : route.path === '/category/ceiling-blankets'
     ? ceilingBlanketsFallback('Ceiling Blankets', 'Overhead intake filtration for downdraft and semi-downdraft booths. Ensures clean, even airflow from ceiling to floor.')
+    : route.path === '/category/roll-media'
+    ? rollMediaFallback('Roll Media', 'Roll filtration media in current catalog widths, lengths, and constructions. Confirm the intended filter stage and dimensions before ordering.')
     : route.path === '/california/north-bay-paint-booth-filters'
     ? northBayFallback(description)
     : route.path === '/california/los-angeles-paint-booth-filters'
