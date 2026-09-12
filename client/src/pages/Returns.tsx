@@ -16,7 +16,7 @@ export default function Returns() {
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Returns & Refunds Policy"
-        description="Review our returns and refunds policy. Returns accepted within 10 days with 30% restocking fee. Learn about eligibility, non-refundable items, and refund processing."
+        description="Review the PFS Filters return policy for unopened packages, the five-business-day return window, shipping-cost deductions, and the 25% restocking fee."
         canonical="https://www.pfsfilters.com/returns"
         structuredData={breadcrumbSchema}
       />
@@ -47,12 +47,11 @@ export default function Returns() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p>Returns are accepted within <strong>10 days of purchase</strong>, subject to the following conditions:</p>
+                <p><strong>Unopened packages</strong> may be returned within <strong>five business days</strong>, subject to the following conditions:</p>
                 <ul className="list-disc pl-6 space-y-2 text-white/50">
-                  <li>A <strong className="text-foreground">30% restocking fee</strong> will be applied to all returns</li>
-                  <li>Items must be <strong className="text-foreground">unused</strong> and in original condition</li>
-                  <li>All <strong className="text-foreground">original parts and packaging materials</strong> must be included</li>
-                  <li>Custom orders are <strong className="text-foreground">non-returnable</strong></li>
+                  <li>The package must remain <strong className="text-foreground">unopened</strong></li>
+                  <li>A <strong className="text-foreground">25% restocking fee</strong> is deducted from the refund</li>
+                  <li><strong className="text-foreground">Shipping costs</strong> are deducted from the refund</li>
                 </ul>
               </CardContent>
             </Card>
@@ -64,11 +63,10 @@ export default function Returns() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p>The following are non-refundable:</p>
+                <p>The following are not eligible for return or refund:</p>
                 <ul className="list-disc pl-6 space-y-2 text-white/50">
+                  <li><strong className="text-foreground">Opened packages</strong></li>
                   <li><strong className="text-foreground">Shipping and handling fees</strong></li>
-                  <li><strong className="text-foreground">Customized items</strong> or special orders</li>
-                  <li>Items damaged due to improper use or storage</li>
                 </ul>
               </CardContent>
             </Card>
@@ -83,8 +81,8 @@ export default function Returns() {
                 <p>Once your return is received and inspected:</p>
                 <ul className="list-disc pl-6 space-y-2 text-white/50">
                   <li>We will notify you of the approval or rejection of your refund</li>
-                  <li>If approved, your refund will be processed within <strong className="text-foreground">5–7 business days</strong></li>
-                  <li>Refunds are issued to the original payment method</li>
+                  <li>If approved, the refund is reduced by shipping costs and the <strong className="text-foreground">25% restocking fee</strong></li>
+                  <li>Approved refunds are issued to the original payment method</li>
                 </ul>
               </CardContent>
             </Card>
@@ -96,7 +94,7 @@ export default function Returns() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p>To start a return, contact us within 10 days of your purchase:</p>
+                <p>To start a return within the five-business-day window, contact us before sending the package:</p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a href="mailto:orders@pfsfilters.com" className="flex items-center gap-2 text-blue-400 hover:underline">
                     <Mail className="h-4 w-4" /> orders@pfsfilters.com
@@ -105,7 +103,7 @@ export default function Returns() {
                     <Phone className="h-4 w-4" /> 855-496-7969
                   </a>
                 </div>
-                <p className="text-sm text-white/50">Please include your order number and reason for return in your message.</p>
+                <p className="text-sm text-white/50">Please include your order number, reason for return, and confirmation that the package is unopened.</p>
               </CardContent>
             </Card>
           </div>

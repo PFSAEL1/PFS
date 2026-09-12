@@ -98,8 +98,7 @@ export const createProductSchema = (product: {
         '@type': 'MerchantReturnPolicy',
         applicableCountry: 'US',
         returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-        merchantReturnDays: 10,
-        returnMethod: 'https://schema.org/ReturnByMail',
+        merchantReturnDays: 5,
       },
     },
   };
