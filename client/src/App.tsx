@@ -26,6 +26,7 @@ const Auth = lazyRoute(() => import('./pages/Auth'));
 const Dashboard = lazyRoute(() => import('./pages/Dashboard'));
 const Returns = lazyRoute(() => import('./pages/Returns'));
 const PrivacyPolicy = lazyRoute(() => import('./pages/PrivacyPolicy'));
+const TermsOfService = lazyRoute(() => import('./pages/TermsOfService'));
 const FilterScanner = lazyRoute(() => import('./pages/FilterScanner'));
 const ShopBySize = lazyRoute(() => import('./pages/ShopBySize'));
 const ShopByType = lazyRoute(() => import('./pages/ShopByType'));
@@ -838,6 +839,7 @@ function Router() {
       <Route path="/memberships" component={Memberships} />
       <Route path="/returns" component={Returns} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
+      <Route path="/terms-of-service" component={TermsOfService} />
 
       {/* Shop navigation */}
       <Route path="/shop-by-size" component={ShopBySize} />

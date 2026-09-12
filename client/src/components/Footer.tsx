@@ -40,6 +40,7 @@ export const Footer = () => {
                 { href: '/memberships', label: 'Memberships' },
                 { href: '/returns', label: 'Returns & Refunds' },
                 { href: '/privacy-policy', label: 'Privacy Policy' },
+                { href: '/terms-of-service', label: 'Terms of Service' },
               ].map(({ href, label }) => (
                 <li key={href}>
                   <Link href={href} className="text-white/40 hover:text-white transition-colors">
@@ -168,6 +169,7 @@ export const Footer = () => {
           <div className="flex gap-4">
             <Link href="/privacy-policy" className="hover:text-white/60 transition-colors">Privacy Policy</Link>
             <Link href="/returns" className="hover:text-white/60 transition-colors">Returns</Link>
+            <Link href="/terms-of-service" className="hover:text-white/60 transition-colors">Terms</Link>
             <Link href="/contact" className="hover:text-white/60 transition-colors">Contact</Link>
           </div>
         </div>
