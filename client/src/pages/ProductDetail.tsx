@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { useParams, Link } from 'wouter';
+import { useParams, useSearch, useLocation, Link } from 'wouter';
+import { resolveProductVariantId, productVariantSearch } from '@/lib/productVariant';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Breadcrumb } from '@/components/Breadcrumb';
@@ -64,13 +65,13 @@ type PurchaseOption = 'one-time' | 'subscription';
 
 export default function ProductDetail() {
   const { handle } = useParams<{ handle: string }>();
+  const search = useSearch();
+  const [, navigate] = useLocation();
+  const requestedVariant = new URLSearchParams(search).get('variant');
   const [product, setProduct] = useState<ReturnType<typeof Object.create> | null>(() => getBundledProductByHandle(handle));
   const [relatedProducts, setRelatedProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(() => !getBundledProductByHandle(handle));
-  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(() => {
-    const bundled = getBundledProductByHandle(handle);
-    return bundled?.variants?.edges?.[0]?.node?.id ?? null;
-  });
+  const selectedVariantId = resolveProductVariantId(product, requestedVariant);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [zoom, setZoom] = useState<{ x: number; y: number; show: boolean }>({ x: 50, y: 50, show: false });
@@ -89,7 +90,6 @@ export default function ProductDetail() {
     const immediate = getBundledProductByHandle(handle);
     setProduct(immediate);
     setLoading(!immediate);
-    setSelectedVariantId(immediate?.variants?.edges?.[0]?.node?.id ?? null);
     setSelectedImage(0);
     setPurchaseOption('one-time');
     setRelatedProducts([]);
@@ -103,10 +103,6 @@ export default function ProductDetail() {
     fetchProductByHandle(handle).then((data) => {
       if (!active) return;
       setProduct(data);
-      if (data?.variants?.edges?.[0]) {
-        setSelectedVariantId(data.variants.edges[0].node.id);
-      }
-      setPurchaseOption('one-time');
       setLoading(false);
       fetchRelatedProducts(data?.id || immediate?.id || '', 4).then((rp) => {
         if (active) setRelatedProducts(rp);
@@ -119,6 +115,10 @@ export default function ProductDetail() {
       active = false;
     };
   }, [handle]);
+
+  useEffect(() => {
+    setPurchaseOption('one-time');
+  }, [handle, requestedVariant]);
 
   if (loading) {
     return (
@@ -194,7 +194,7 @@ export default function ProductDetail() {
     currency,
     sku: selectedVariant?.sku || undefined,
     brand: product.vendor || undefined,
-    url: `https://www.pfsfilters.com/product/${handle}`,
+    url: `https://www.pfsfilters.com/product/${handle}${selectedVariantId ? productVariantSearch('', selectedVariantId) : ''}`,
     availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
   });
 
@@ -452,7 +452,7 @@ export default function ProductDetail() {
                       <button
                         key={edge.node.id}
                         onClick={() => {
-                          setSelectedVariantId(edge.node.id);
+                          navigate(`${window.location.pathname}${productVariantSearch(search, edge.node.id)}${window.location.hash}`, { replace: true });
                           setPurchaseOption('one-time');
                         }}
                         className={`px-3 py-1.5 text-sm rounded-lg border-2 transition-colors ${
