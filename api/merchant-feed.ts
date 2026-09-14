@@ -8,6 +8,8 @@ export const MERCHANT_HANDLES = [
   '300-series-tacky-filter-panel',
 ] as const;
 const SITE = 'https://www.pfsfilters.com';
+// This new single-frame option has no reviewed ShipX shipping rule yet.
+const HELD_VARIANT_IDS = new Set(['52580764909700']);
 
 type FeedVariant = {
   id: string;
@@ -40,6 +42,7 @@ export function buildMerchantFeed(products: FeedProduct[]) {
     }
     for (const variant of product.variants.nodes) {
       const id = variant.id.split('/').pop() || '';
+      if (HELD_VARIANT_IDS.has(id)) continue;
       const image = variant.image?.url || product.featuredImage?.url;
       // PFS fulfills through suppliers; Shopify quantities are not physical stock.
       // Owner confirmed typical total delivery of 3–5 business days (2026-09-14).
@@ -62,6 +65,7 @@ export function buildMerchantFeed(products: FeedProduct[]) {
         tag('price', `${Number(variant.price.amount).toFixed(2)} USD`),
         tag('availability', variant.availableForSale ? 'in_stock' : 'out_of_stock'),
         tag('condition', 'new'),
+        tag('shipping_label', 'pfs_core_supplier'),
         tag('custom_label_0', handle === '300-series-tacky-filter-panel' ? 'tacky_intake' : 'fiberglass_pads'),
       ].join('')}</item>`);
     }
