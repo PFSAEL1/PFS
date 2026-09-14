@@ -119,41 +119,25 @@ const ZOHO_FORM_HTML = `<!DOCTYPE html>
       <div class='zcwf_col_fld'><input type='text' id='Phone' aria-required='false' aria-label='Phone' name='Phone' maxlength='30' placeholder='(555) 000-0000'></input><div class='zcwf_col_help'></div></div>
     </div>
     <div class='zcwf_row'>
-      <div class='zcwf_col_lab'><label for='Email'>Email</label></div>
-      <div class='zcwf_col_fld'><input type='text' ftype='email' autocomplete='false' id='Email' aria-required='false' aria-label='Email' name='Email' maxlength='100' placeholder='your@email.com'></input><div class='zcwf_col_help'></div></div>
+      <div class='zcwf_col_lab'><label for='Email'>Email <span style='color:#ef4444;'>*</span></label></div>
+      <div class='zcwf_col_fld'><input type='text' ftype='email' autocomplete='false' id='Email' required aria-required='true' aria-label='Email' name='Email' maxlength='100' placeholder='your@email.com'></input><div class='zcwf_col_help'></div></div>
     </div>
     <div class='zcwf_row'>
       <div class='zcwf_col_lab'><label for='Company'>Company</label></div>
       <div class='zcwf_col_fld'><input type='text' id='Company' aria-required='false' aria-label='Company' name='Company' maxlength='200' placeholder='Your shop name'></input><div class='zcwf_col_help'></div></div>
     </div>
+    <input type='hidden' id='Lead_Source' name='Lead Source' value='Web Research'>
     <div class='zcwf_row'>
-      <div class='zcwf_col_lab'><label for='Lead_Source'>Lead Source</label></div>
+      <div class='zcwf_col_lab'><label for='Description'>How can we help? <span style='color:#ef4444;'>*</span></label></div>
       <div class='zcwf_col_fld'>
-        <select class='zcwf_col_fld_slt' id='Lead_Source' aria-required='false' aria-label='Lead Source' name='Lead Source'>
-          <option value='-None-'>-None-</option>
-          <option value='Advertisement'>Advertisement</option>
-          <option value='Cold Call'>Cold Call</option>
-          <option value='Employee Referral'>Employee Referral</option>
-          <option value='External Referral'>External Referral</option>
-          <option value='Online Store'>Online Store</option>
-          <option value='X (Twitter)'>X (Twitter)</option>
-          <option value='Facebook'>Facebook</option>
-          <option value='Partner'>Partner</option>
-          <option value='Public Relations'>Public Relations</option>
-          <option value='Sales Email Alias'>Sales Email Alias</option>
-          <option value='Internal Seminar'>Internal Seminar</option>
-          <option value='Trade Show'>Trade Show</option>
-          <option value='Web Download'>Web Download</option>
-          <option value='Web Research'>Web Research</option>
-          <option value='Chat'>Chat</option>
-        </select>
-        <div class='zcwf_col_help'></div>
+        <textarea id='Description' name='Description' required aria-required='true' aria-label='How can we help?' rows='5' maxlength='2000' placeholder='For a quote, include your booth make/model, filter dimensions, intake or exhaust stage, and quantity. For order help, include your order number.'></textarea>
       </div>
     </div>
+    <p style='font-size:12px;color:#c9ccd1;line-height:1.5;'>We use these details to respond to your request. <a href='https://www.pfsfilters.com/privacy-policy' target='_blank' rel='noopener' style='color:#93c5fd;'>Privacy policy</a></p>
     <input type='text' style='display: none;' name='aG9uZXlwb3Q' value=''/>
     <div class='zcwf_row'>
       <div class='zcwf_col_fld'>
-        <input type='submit' id='formsubmit' role='button' class='formsubmit zcwf_button' value='Submit' aria-label='Submit' title='Submit'>
+        <input type='submit' id='formsubmit' role='button' class='formsubmit zcwf_button' value='Send Request' aria-label='Send Request' title='Send Request'>
         <input type='reset' class='zcwf_button' role='button' name='reset' value='Reset' aria-label='Reset' title='Reset'>
       </div>
     </div>
@@ -176,8 +160,8 @@ const ZOHO_FORM_HTML = `<!DOCTYPE html>
         return true;
       }
       function checkMandatory7365078000001463008(){
-        var mndFileds = ['First Name','Last Name'];
-        var fldLangVal = ['First Name','Last Name'];
+        var mndFileds = ['First Name','Last Name','Email','Description'];
+        var fldLangVal = ['First Name','Last Name','Email','How can we help?'];
         for(var i = 0; i < mndFileds.length; i++){
           var fieldObj = document.forms['WebToLeads7365078000001463008'][mndFileds[i]];
           if(fieldObj){
@@ -307,14 +291,14 @@ export const ContactForm = () => {
             <div className="p-6 bg-blue-500/5 border border-blue-500/20 rounded-xl">
               <h4 className="font-bold mb-2">Need a Custom Quote?</h4>
               <p className="text-sm text-white/70 leading-relaxed">
-                Tell us your booth make/model and filter dimensions. We'll match your current filters or recommend better alternatives — often at a lower price.
+                Share your booth make/model, filter stage, dimensions and quantity. Our team will review the details and help you find suitable options.
               </p>
             </div>
           </div>
 
           {/* Zoho Web-to-Lead form (dark-themed, isolated in iframe) */}
           <div className="rounded-2xl border border-[#2a2a2a] bg-[#111111] p-6 md:p-8">
-            <h3 className="text-xl font-bold mb-5">Send Us a Message</h3>
+            <h3 className="text-xl font-bold mb-5">Request a Quote or Get Help</h3>
             <iframe
               ref={iframeRef}
               title="PFS Filters Contact Form"
