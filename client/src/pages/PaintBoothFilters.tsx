@@ -150,12 +150,12 @@ export default function PaintBoothFilters() {
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="https://www.pfsfilters.com/shop" className="inline-block">
-              <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold text-lg px-8 py-6 rounded-lg shadow-[0_0_30px_rgba(59,130,246,0.4)]">
+              <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold text-lg px-8 py-6 rounded-lg">
                 Shop All Filters
               </Button>
             </a>
             <a href="tel:+18554967969" className="inline-block">
-              <Button size="lg" variant="outline" className="border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 font-semibold text-lg px-8 py-6 rounded-lg bg-transparent">
+              <Button size="lg" variant="outline" className="border-2 border-white/30 text-white hover:bg-white/10 font-semibold text-lg px-8 py-6 rounded-lg bg-transparent">
                 <Phone className="w-5 h-5 mr-2" /> Call 855-496-7969
               </Button>
             </a>
@@ -270,7 +270,7 @@ export default function PaintBoothFilters() {
           </div>
           <div className="text-center">
             <a href="https://www.pfsfilters.com/shop">
-              <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-6 rounded-lg shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+              <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-6 rounded-lg">
                 Shop All Filters
               </Button>
             </a>
@@ -314,7 +314,7 @@ export default function PaintBoothFilters() {
             ))}
           </div>
           <a href="https://www.pfsfilters.com/shop">
-            <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold text-lg px-8 py-6 rounded-lg shadow-[0_0_30px_rgba(59,130,246,0.4)]">
+            <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold text-lg px-8 py-6 rounded-lg">
               Set Up Subscribe & Save →
             </Button>
           </a>
@@ -426,7 +426,7 @@ export default function PaintBoothFilters() {
           </div>
           <div className="text-center">
             <a href="https://www.pfsfilters.com/shop">
-              <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-6 rounded-lg shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+              <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-6 rounded-lg">
                 Shop Replacement Filters
               </Button>
             </a>
@@ -445,7 +445,7 @@ export default function PaintBoothFilters() {
             Browse current products, verify dimensions and booth position, or ask PFS to review a custom or hard-to-find request.
           </p>
           <a href="https://www.pfsfilters.com/shop" className="inline-block mb-4">
-            <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold text-lg px-8 py-6 rounded-lg shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+            <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold text-lg px-8 py-6 rounded-lg">
               Shop All Filters at pfsfilters.com
             </Button>
           </a>

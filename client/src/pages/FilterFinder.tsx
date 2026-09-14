@@ -308,7 +308,7 @@ export default function FilterFinder() {
               <div className="mt-8 rounded-xl border border-white/10 bg-[#0a0a0a] p-6 text-center">
                 <p className="text-sm text-white/70 mb-3">Don't see your brand? We carry filters for booths beyond what's listed here.</p>
                 <Link href="/contact">
-                  <Button variant="outline" className="border-white/20 text-white/90 hover:bg-blue-500/10 hover:border-blue-500/30 gap-2">
+                  <Button variant="outline" className="border-white/20 text-white/90 hover:bg-blue-500/10 gap-2">
                     <Phone className="w-3.5 h-3.5" /> Tell us about your booth
                   </Button>
                 </Link>
@@ -353,7 +353,7 @@ export default function FilterFinder() {
               <div className="mt-8 rounded-xl border border-white/10 bg-[#0a0a0a] p-6 text-center">
                 <p className="text-sm text-white/70 mb-3">Don't see your {selectedBrand.name} model? We can still match filters for it.</p>
                 <Link href="/contact">
-                  <Button variant="outline" className="border-white/20 text-white/90 hover:bg-blue-500/10 hover:border-blue-500/30 gap-2">
+                  <Button variant="outline" className="border-white/20 text-white/90 hover:bg-blue-500/10 gap-2">
                     <Phone className="w-3.5 h-3.5" /> Tell us your model
                   </Button>
                 </Link>

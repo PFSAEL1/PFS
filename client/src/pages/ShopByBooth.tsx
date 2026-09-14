@@ -93,7 +93,7 @@ export default function ShopByBooth() {
       <section className="section-raised tex-dots pt-8 pb-4 px-4">
         <div className="max-w-7xl mx-auto">
           <Link href="/shop-by-booth/pfs-spray-booths">
-            <div className="group relative overflow-hidden border-2 border-[#4d9fff]/40 bg-gradient-to-r from-[#4d9fff]/10 via-[#4d9fff]/5 to-transparent rounded-2xl p-6 mb-8 cursor-pointer transition-all duration-300 hover:border-[#4d9fff]/60 hover:shadow-[0_0_40px_rgba(77,159,255,0.15)]">
+            <div className="group relative overflow-hidden border-2 border-[#4d9fff]/40 bg-gradient-to-r from-[#4d9fff]/10 via-[#4d9fff]/5 to-transparent rounded-2xl p-6 mb-8 cursor-pointer transition-[transform,box-shadow,background-color] duration-200 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)]">
               {/* Glow effect */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#4d9fff]/5 rounded-full blur-3xl" />
               <div className="relative flex items-center gap-6">

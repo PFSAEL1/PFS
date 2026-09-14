@@ -227,7 +227,7 @@ export const Navigation = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="font-semibold border-white/20 text-white/80 hover:bg-white/10 hover:text-white hover:border-white/30 bg-transparent transition-[background-color,box-shadow,transform,opacity]"
+                    className="font-semibold border-white/20 text-white/80 hover:bg-white/10 hover:text-white bg-transparent transition-[background-color,box-shadow,transform,opacity]"
                   >
                     Get a Quote
                   </Button>
@@ -235,7 +235,7 @@ export const Navigation = () => {
                 <Link href="/shop">
                   <Button
                     size="sm"
-                    className="font-semibold bg-[#4d9fff] hover:bg-[#6aadff] text-white shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] transition-[background-color,box-shadow,transform,opacity]"
+                    className="font-semibold bg-[#4d9fff] hover:bg-[#6aadff] text-white transition-[background-color,box-shadow,transform,opacity]"
                   >
                     <ShoppingBag className="w-4 h-4 mr-1.5" />
                     Shop Now

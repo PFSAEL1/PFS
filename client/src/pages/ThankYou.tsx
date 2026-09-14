@@ -60,7 +60,7 @@ export default function ThankYou() {
             <Link href="/">
               <Button
                 variant="outline"
-                className="border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 bg-transparent font-bold px-8 py-6 text-base w-full sm:w-auto"
+                className="border-2 border-white/30 text-white hover:bg-white/10 bg-transparent font-bold px-8 py-6 text-base w-full sm:w-auto"
               >
                 Back to Home
               </Button>

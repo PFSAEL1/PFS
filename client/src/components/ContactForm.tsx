@@ -87,8 +87,15 @@ const ZOHO_FORM_HTML = `<!DOCTYPE html>
     color: #ffffff !important;
     background: #3b82f6 !important;
     margin-right: 10px !important;
+    border: 1px solid transparent !important;
+    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease !important;
   }
-  #crmWebToEntityForm .formsubmit.zcwf_button:hover { background: #2f74e0 !important; }
+  #crmWebToEntityForm .formsubmit.zcwf_button:hover {
+    background: #2f74e0 !important;
+    border-color: rgba(59,130,246,.5) !important;
+    box-shadow: 0 12px 40px -12px rgba(59,130,246,.35) !important;
+    transform: translateY(-4px) !important;
+  }
   #crmWebToEntityForm input[type=reset].zcwf_button {
     background: transparent !important;
     color: #c9ccd1 !important;

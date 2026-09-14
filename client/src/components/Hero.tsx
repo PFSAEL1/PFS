@@ -151,7 +151,7 @@ export const Hero = () => {
               <Link href="/shop">
                 <Button
                   size="lg"
-                  className="text-base px-8 py-6 font-bold bg-blue-500 hover:bg-blue-400 text-white shadow-[0_0_30px_rgba(59,130,246,0.5)] hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] transition-[background-color,box-shadow,transform] duration-300 hover:scale-105"
+                  className="text-base px-8 py-6 font-bold bg-blue-500 hover:bg-blue-400 text-white transition-[background-color,box-shadow,transform]"
                 >
                   <ShoppingBag className="mr-2 h-5 w-5" />
                   Shop Filters Now
@@ -161,7 +161,7 @@ export const Hero = () => {
                 size="lg"
                 variant="outline"
                 onClick={scrollToContact}
-                className="text-base px-8 py-6 font-bold border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 hover:scale-105 transition-[background-color,box-shadow,transform] duration-300 bg-transparent"
+                className="text-base px-8 py-6 font-bold border-2 border-white/30 text-white hover:bg-white/10 transition-[background-color,box-shadow,transform] bg-transparent"
               >
                 <Mail className="mr-2 h-5 w-5" />
                 Get a Custom Quote
