@@ -154,7 +154,7 @@ export const TopMovers = () => {
                       <button
                         onClick={(e) => handleAdd(e, product)}
                         disabled={!inStock}
-                        className="w-full flex items-center justify-center gap-2 rounded-lg border border-transparent bg-blue-500 hover:bg-blue-400 hover:border-blue-500/50 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold py-2 transition-[transform,box-shadow,background-color,border-color] duration-200"
+                        className="w-full flex items-center justify-center gap-2 rounded-lg border border-transparent bg-blue-500 hover:bg-blue-400 hover:border-blue-500/50 hover:shadow-[0_24px_80px_-24px_rgba(59,130,246,0.70)] disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold py-2 transition-[transform,box-shadow,background-color,border-color] duration-200"
                       >
                         <ShoppingCart className="h-4 w-4" />
                         {inStock ? 'Add to Cart' : 'Out of Stock'}

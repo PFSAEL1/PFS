@@ -43,13 +43,13 @@ const buttonVariants = cva(
         class: "border border-transparent",
       },
       // Real, text-bearing CTA buttons (not icon-only controls, not
-      // destructive/ghost/link) get the exact same blue hover glow + lift
-      // already used on cards.
+      // destructive/ghost/link) get a doubled-intensity version of the
+      // blue hover glow used on cards.
       {
         variant: ["default", "outline", "secondary"],
         size: ["default", "sm", "lg"],
         class:
-          "hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] duration-200",
+          "hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_24px_80px_-24px_rgba(59,130,246,0.70)] duration-200",
       },
     ],
   }

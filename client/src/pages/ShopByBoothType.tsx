@@ -243,7 +243,7 @@ export default function ShopByBoothType() {
 
                     {/* CTA Button */}
                     <Link href={`/shop-by-booth?type=${card.type}`}>
-                      <button className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-3.5 bg-white/[0.05] border border-white/12 text-white/90 font-semibold rounded-xl group-hover:bg-[#4d9fff]/10 group-hover:border-[#4d9fff]/30 group-hover:text-white hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color,border-color,color] duration-200 text-sm sm:text-base">
+                      <button className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-3.5 bg-white/[0.05] border border-white/12 text-white/90 font-semibold rounded-xl group-hover:bg-[#4d9fff]/10 group-hover:border-[#4d9fff]/30 group-hover:text-white hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_24px_80px_-24px_rgba(59,130,246,0.70)] transition-[transform,box-shadow,background-color,border-color,color] duration-200 text-sm sm:text-base">
                         Browse Filters <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </button>
                     </Link>
