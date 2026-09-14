@@ -9,15 +9,20 @@ import { Button } from '@/components/ui/button';
 
 export default function ThankYou() {
   useEffect(() => {
-    const google = window as typeof window & { gtag?: (...args: unknown[]) => void };
-    if (typeof google.gtag !== 'function') return;
     try {
       const reference = consumeQuoteReturn(window.sessionStorage, window.location.href);
       if (!reference) return;
-      google.gtag('event', 'conversion', {
+
+      const trackingWindow = window as typeof window & {
+        dataLayer?: Array<Record<string, unknown> | IArguments>;
+      };
+      trackingWindow.dataLayer = trackingWindow.dataLayer || [];
+      trackingWindow.dataLayer.push({
+        event: 'google_ads_quote_conversion',
         send_to: QUOTE_CONVERSION_DESTINATION,
         transaction_id: reference,
       });
+
       const cleanUrl = new URL(window.location.href);
       cleanUrl.searchParams.delete('submission');
       window.history.replaceState(window.history.state, '', cleanUrl);
