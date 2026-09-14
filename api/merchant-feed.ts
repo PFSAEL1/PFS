@@ -32,7 +32,6 @@ const tag = (name: string, value: string) => `<g:${name}>${xml(value)}</g:${name
 
 export function buildMerchantFeed(products: FeedProduct[]) {
   const items: string[] = [];
-  const held: string[] = [];
   const seen = new Set<string>();
   for (const handle of MERCHANT_HANDLES) {
     const product = products.find((p) => p.handle === handle);
@@ -42,12 +41,10 @@ export function buildMerchantFeed(products: FeedProduct[]) {
     for (const variant of product.variants.nodes) {
       const id = variant.id.split('/').pop() || '';
       const image = variant.image?.url || product.featuredImage?.url;
-      // A backorder needs an honest dispatch date on both the page and feed.
-      // Do not turn "continue selling" inventory into an in-stock claim.
-      if (variant.currentlyNotInStock) {
-        held.push(id);
-        continue;
-      }
+      // PFS fulfills through suppliers; Shopify quantities are not physical stock.
+      // Owner confirmed typical total delivery of 3–5 business days (2026-09-14).
+      // Orderability governs these reviewed core offers; actual supplier shortages
+      // must be reflected by disabling the affected offer before advertising it.
       if (!/^\d+$/.test(id) || seen.has(id) || !image?.startsWith('https://') ||
           !product.title.trim() || !product.description.trim() ||
           !/^\d+(\.\d{1,2})?$/.test(variant.price.amount) ||
@@ -69,9 +66,9 @@ export function buildMerchantFeed(products: FeedProduct[]) {
       ].join('')}</item>`);
     }
   }
-  if (!items.length) throw new Error('No eligible offers; review inventory and dispatch dates');
+  if (!items.length) throw new Error('No eligible offers; review product data');
   return {
-    count: items.length, held,
+    count: items.length,
     xml: `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0"><channel><title>PFS Filters Products</title><link>${SITE}</link><description>Current US fiberglass pad and tacky intake offers</description>${items.join('\n')}</channel></rss>`,
   };
 }
@@ -115,7 +112,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     res.setHeader('Content-Type', 'application/xml; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300');
     res.setHeader('X-PFS-Offer-Count', String(feed.count));
-    res.setHeader('X-PFS-Held-Offer-Count', String(feed.held.length));
     return req.method === 'HEAD' ? res.status(200).end() : res.status(200).send(feed.xml);
   } catch {
     // Never publish stale snapshot prices or an empty successful feed on errors.
