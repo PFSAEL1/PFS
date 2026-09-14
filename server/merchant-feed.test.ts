@@ -23,14 +23,14 @@ describe('Merchant Center feed', () => {
     expect(feed.xml).not.toContain('<g:gtin>');
     expect(feed.xml).not.toContain('<g:shipping>');
   });
-  it('does not mislabel continue-selling stock as in stock', () => {
+  it('uses supplier orderability rather than unmaintained Shopify quantities', () => {
     const input = products();
     input[0].variants.nodes[0].currentlyNotInStock = true;
     input[1].variants.nodes[0].availableForSale = false;
     const feed = buildMerchantFeed(input);
-    expect(feed.held).toEqual(['1']);
-    expect(feed.count).toBe(2);
-    expect(feed.xml).not.toContain('<g:id>pfs_1</g:id>');
+    expect(feed.count).toBe(3);
+    expect(feed.xml).toContain('<g:id>pfs_1</g:id>');
+    expect(feed.xml).toContain('<g:availability>in_stock</g:availability>');
     expect(feed.xml).toContain('<g:availability>out_of_stock</g:availability>');
   });
   it('fails instead of publishing incomplete data or wrong currency', () => {
@@ -42,9 +42,9 @@ describe('Merchant Center feed', () => {
     paged[0].variants.pageInfo.hasNextPage = true;
     expect(() => buildMerchantFeed(paged)).toThrow();
   });
-  it('fails if every variant is held', () => {
+  it('fails if no variants are returned', () => {
     const input = products();
-    input.forEach(p => p.variants.nodes[0].currentlyNotInStock = true);
+    input.forEach(p => p.variants.nodes = []);
     expect(() => buildMerchantFeed(input)).toThrow('No eligible offers');
   });
   it('returns an uncached 503 on Shopify errors without leaking credentials', async () => {
