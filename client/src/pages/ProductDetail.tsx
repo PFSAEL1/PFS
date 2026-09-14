@@ -351,7 +351,7 @@ export default function ProductDetail() {
               )}
               <span className="text-white/50">{currency}</span>
               {inStock ? (
-                <Badge className="bg-green-100 text-green-800">In Stock</Badge>
+                <Badge className="bg-green-100 text-green-800">Available to Order</Badge>
               ) : (
                 <Badge variant="secondary">Out of Stock</Badge>
               )}
@@ -502,7 +502,7 @@ export default function ProductDetail() {
             {/* Trust badges */}
             <div className="grid grid-cols-3 gap-3 mt-2 pt-6">
               {[
-                { icon: Truck, label: 'Fast Shipping', sub: 'Ships fast nationwide' },
+                { icon: Truck, label: 'Supplier Fulfilled', sub: 'Typical delivery: 3–5 business days total' },
                 { icon: CircleHelp, label: 'Sizing Help', sub: 'Confirm before ordering' },
                 { icon: Package, label: 'Custom Requests', sub: 'Contact us for options' },
               ].map((item) => (
