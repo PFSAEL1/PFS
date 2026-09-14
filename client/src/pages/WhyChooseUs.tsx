@@ -65,7 +65,7 @@ export default function WhyChooseUs() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
-              <Card key={f.title} className="hover:shadow-md transition-shadow">
+              <Card key={f.title} className="hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,border-color] duration-200">
                 <CardContent className="pt-6">
                   <div className="p-3 bg-white/5 rounded-xl w-fit mb-4">
                     <f.icon className="h-6 w-6 text-white/60" />

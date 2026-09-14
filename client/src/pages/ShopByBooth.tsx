@@ -214,7 +214,7 @@ function BrandCard({ brand, typeFilter }: { brand: BoothBrand; typeFilter: Booth
 
   return (
     <Link href={`/shop-by-booth/${brand.slug}`}>
-      <div className="group border border-white/8 bg-white/[0.03] rounded-2xl overflow-hidden h-full cursor-pointer transition-all duration-300 hover:border-white/20 hover:bg-white/[0.06] hover:shadow-[0_8px_32px_rgba(255,255,255,0.04)]">
+      <div className="group border border-white/8 bg-white/[0.03] rounded-2xl overflow-hidden h-full cursor-pointer transition-all duration-300 hover:border-blue-500/50 hover:bg-white/[0.06] hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)]">
         {/* Logo area */}
         <div className="h-44 bg-white rounded-t-2xl flex items-center justify-center p-6 relative overflow-hidden">
           {logoSrc ? (

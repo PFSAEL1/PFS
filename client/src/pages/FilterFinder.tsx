@@ -244,7 +244,7 @@ export default function FilterFinder() {
                   <button
                     key={type}
                     onClick={() => selectType(type)}
-                    className="group text-left rounded-2xl border border-white/10 bg-[#0a0a0a] hover:border-blue-500/40 hover:bg-[#0c1525] transition-all duration-300 overflow-hidden"
+                    className="group text-left rounded-2xl border border-white/10 bg-[#0a0a0a] hover:border-blue-500/50 hover:bg-[#0c1525] hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-all duration-300 overflow-hidden"
                   >
                     <div className="h-44 md:h-52 p-4 flex items-center justify-center bg-gradient-to-b from-white/[0.02] to-transparent">
                       <div className="w-full max-w-[280px] h-full opacity-80 group-hover:opacity-100 transition-opacity">
@@ -266,7 +266,7 @@ export default function FilterFinder() {
 
               {/* Not sure card */}
               <Link href="/shop-by-booth">
-                <div className="h-full rounded-2xl border border-dashed border-white/20 bg-[#0a0a0a] hover:border-blue-500/40 hover:bg-[#0c1525] transition-all duration-300 flex flex-col items-center justify-center p-8 text-center cursor-pointer min-h-[280px]">
+                <div className="h-full rounded-2xl border border-dashed border-white/20 bg-[#0a0a0a] hover:border-blue-500/50 hover:bg-[#0c1525] hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-all duration-300 flex flex-col items-center justify-center p-8 text-center cursor-pointer min-h-[280px]">
                   <HelpCircle className="w-10 h-10 text-white/30 mb-4" />
                   <h3 className="text-lg font-bold text-white mb-2">Not sure?</h3>
                   <p className="text-sm text-white/60">Browse by brand instead — jump straight to the full brand directory.</p>
@@ -285,7 +285,7 @@ export default function FilterFinder() {
                     <button
                       key={brand.slug}
                       onClick={() => selectBrand(brand)}
-                      className="group text-left rounded-xl border border-white/10 bg-[#0a0a0a] hover:border-blue-500/40 hover:bg-[#0c1525] transition-all duration-300 p-4 md:p-5"
+                      className="group text-left rounded-xl border border-white/10 bg-[#0a0a0a] hover:border-blue-500/50 hover:bg-[#0c1525] hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-all duration-300 p-4 md:p-5"
                     >
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-lg font-bold text-white/60 group-hover:text-blue-300 transition-colors">
@@ -327,7 +327,7 @@ export default function FilterFinder() {
                     <button
                       key={model.name}
                       onClick={() => selectModel(model)}
-                      className="group text-left rounded-xl border border-white/10 bg-[#0a0a0a] hover:border-blue-500/40 hover:bg-[#0c1525] transition-all duration-300 overflow-hidden"
+                      className="group text-left rounded-xl border border-white/10 bg-[#0a0a0a] hover:border-blue-500/50 hover:bg-[#0c1525] hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-all duration-300 overflow-hidden"
                     >
                       <div className="h-36 p-3 flex items-center justify-center bg-gradient-to-b from-white/[0.02] to-transparent relative">
                         <div className="w-full max-w-[200px] h-full opacity-60 group-hover:opacity-90 transition-opacity">
@@ -588,7 +588,7 @@ function FilterCard({ filter }: { filter: { key: string; label: string; sizes: s
   };
 
   return (
-    <Card className={`bg-[#0a0a0a] border-white/10 hover:border-white/20 transition-colors overflow-hidden`}>
+    <Card className={`bg-[#0a0a0a] border-white/10 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,border-color] duration-200 overflow-hidden`}>
       <CardContent className="p-5">
         <div className={`w-10 h-10 rounded-lg border flex items-center justify-center mb-3 ${colorMap[filter.color]}`}>
           <ShoppingCart className={`w-4.5 h-4.5 ${iconColorMap[filter.color]}`} />

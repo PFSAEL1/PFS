@@ -266,7 +266,7 @@ export default function ShopByBoothType() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            <div className="border border-white/[0.08] bg-white/[0.03] rounded-2xl p-5 sm:p-6 hover:border-white/12 transition-colors">
+            <div className="border border-white/[0.08] bg-white/[0.03] rounded-2xl p-5 sm:p-6 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,border-color] duration-200">
               <div className="w-10 h-10 rounded-xl bg-[#4d9fff]/10 flex items-center justify-center mb-4">
                 <Wind className="h-5 w-5 text-[#4d9fff]" />
               </div>
@@ -275,7 +275,7 @@ export default function ShopByBoothType() {
                 Airflow direction determines where contaminants travel and where filters must be placed. Wrong placement leads to poor finish quality.
               </p>
             </div>
-            <div className="border border-white/[0.08] bg-white/[0.03] rounded-2xl p-5 sm:p-6 hover:border-white/12 transition-colors">
+            <div className="border border-white/[0.08] bg-white/[0.03] rounded-2xl p-5 sm:p-6 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,border-color] duration-200">
               <div className="w-10 h-10 rounded-xl bg-[#4d9fff]/10 flex items-center justify-center mb-4">
                 <Layers className="h-5 w-5 text-[#4d9fff]" />
               </div>
@@ -284,7 +284,7 @@ export default function ShopByBoothType() {
                 <span className="text-white/85">Intake filters</span> clean incoming air before it reaches the vehicle. <span className="text-white/85">Exhaust filters</span> capture overspray before air exits.
               </p>
             </div>
-            <div className="border border-white/[0.08] bg-white/[0.03] rounded-2xl p-5 sm:p-6 hover:border-white/12 transition-colors sm:col-span-2 md:col-span-1">
+            <div className="border border-white/[0.08] bg-white/[0.03] rounded-2xl p-5 sm:p-6 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,border-color] duration-200 sm:col-span-2 md:col-span-1">
               <div className="w-10 h-10 rounded-xl bg-[#4d9fff]/10 flex items-center justify-center mb-4">
                 <ArrowDown className="h-5 w-5 text-[#4d9fff]" />
               </div>

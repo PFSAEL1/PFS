@@ -529,7 +529,7 @@ export default function ProductDetail() {
                 const imageNode = rp.node.images.edges[0]?.node;
 
                 return (
-                  <Card key={rp.node.id} className="flex flex-col bg-[#161616] border border-white/[0.07] hover:border-blue-400/40 hover:shadow-md transition-all overflow-hidden">
+                  <Card key={rp.node.id} className="flex flex-col bg-[#161616] border border-white/[0.07] hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-all overflow-hidden">
                     <Link href={`/product/${rp.node.handle}`} className="cursor-pointer">
                       <div className="aspect-square overflow-hidden bg-[#1e1e1e]">
                         <img

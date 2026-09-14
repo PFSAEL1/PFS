@@ -117,7 +117,7 @@ export const TopMovers = () => {
             const inStock = variant?.availableForSale ?? true;
             return (
               <Link key={product.node.id} href={`/product/${product.node.handle}`}>
-                <div className="group bg-[#1a1a1a] border border-white/[0.08] rounded-xl overflow-hidden hover:border-blue-500/40 hover:-translate-y-0.5 transition-[transform,box-shadow,background-color] duration-200 cursor-pointer h-full flex flex-col">
+                <div className="group bg-[#1a1a1a] border border-white/[0.08] rounded-xl overflow-hidden hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color] duration-200 cursor-pointer h-full flex flex-col">
                   {/* Image area */}
                   <div className="product-img-wrap relative h-[190px] flex items-center justify-center p-4">
                     <ProductBadges badges={getProductBadges(product)} />

@@ -134,7 +134,7 @@ export default function Home() {
               },
             ].map((card) => (
               <Link key={card.title} href={card.href}>
-                <div className="relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-blue-500/45 transition-[transform,box-shadow,background-color] duration-200 h-[360px] md:h-[520px]">
+                <div className="relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color] duration-200 h-[360px] md:h-[520px]">
                   <img
                     src={card.image}
                     srcSet={card.srcSet}

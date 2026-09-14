@@ -128,7 +128,7 @@ export default function Brands() {
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
             {brands.map((brand) => (
-              <div key={brand.name} className="border border-white/8 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300 rounded-2xl p-6">
+              <div key={brand.name} className="border border-white/8 bg-white/[0.03] hover:border-blue-500/50 hover:bg-white/[0.06] hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-all duration-300 rounded-2xl p-6">
                 <div className="flex items-start justify-between mb-3">
                   <h2 className="font-bold text-xl text-white">{brand.name}</h2>
                   <span className="text-xs bg-white/5 text-white/50 border border-white/10 px-2 py-1 rounded-full">{brand.specialty}</span>

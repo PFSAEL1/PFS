@@ -294,7 +294,7 @@ function ModelCard({ model, brandName }: { model: BoothModel; brandName: string 
   ];
 
   return (
-    <div className="border border-white/8 bg-white/[0.03] rounded-2xl p-6 hover:border-white/15 transition-all">
+    <div className="border border-white/8 bg-white/[0.03] rounded-2xl p-6 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-all">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="font-bold text-lg text-white">{brandName} {model.name}</h3>
