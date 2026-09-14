@@ -93,7 +93,7 @@ const ZOHO_FORM_HTML = `<!DOCTYPE html>
   #crmWebToEntityForm .formsubmit.zcwf_button:hover {
     background: #2f74e0 !important;
     border-color: rgba(59,130,246,.5) !important;
-    box-shadow: 0 24px 80px -24px rgba(59,130,246,.70) !important;
+    box-shadow: 0 20px 70px -12px rgba(59,130,246,.75) !important;
     transform: translateY(-4px) !important;
   }
   #crmWebToEntityForm input[type=reset].zcwf_button {

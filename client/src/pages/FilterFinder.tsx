@@ -244,7 +244,7 @@ export default function FilterFinder() {
                   <button
                     key={type}
                     onClick={() => selectType(type)}
-                    className="group text-left rounded-2xl border border-white/10 bg-[#0a0a0a] hover:border-blue-500/50 hover:bg-[#0c1525] hover:-translate-y-1 hover:shadow-[0_24px_80px_-24px_rgba(59,130,246,0.70)] transition-all duration-300 overflow-hidden"
+                    className="group text-left rounded-2xl border border-white/10 bg-[#0a0a0a] hover:border-blue-500/50 hover:bg-[#0c1525] hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] transition-all duration-300 overflow-hidden"
                   >
                     <div className="h-44 md:h-52 p-4 flex items-center justify-center bg-gradient-to-b from-white/[0.02] to-transparent">
                       <div className="w-full max-w-[280px] h-full opacity-80 group-hover:opacity-100 transition-opacity">
@@ -285,7 +285,7 @@ export default function FilterFinder() {
                     <button
                       key={brand.slug}
                       onClick={() => selectBrand(brand)}
-                      className="group text-left rounded-xl border border-white/10 bg-[#0a0a0a] hover:border-blue-500/50 hover:bg-[#0c1525] hover:-translate-y-1 hover:shadow-[0_24px_80px_-24px_rgba(59,130,246,0.70)] transition-all duration-300 p-4 md:p-5"
+                      className="group text-left rounded-xl border border-white/10 bg-[#0a0a0a] hover:border-blue-500/50 hover:bg-[#0c1525] hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] transition-all duration-300 p-4 md:p-5"
                     >
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-lg font-bold text-white/60 group-hover:text-blue-300 transition-colors">
@@ -327,7 +327,7 @@ export default function FilterFinder() {
                     <button
                       key={model.name}
                       onClick={() => selectModel(model)}
-                      className="group text-left rounded-xl border border-white/10 bg-[#0a0a0a] hover:border-blue-500/50 hover:bg-[#0c1525] hover:-translate-y-1 hover:shadow-[0_24px_80px_-24px_rgba(59,130,246,0.70)] transition-all duration-300 overflow-hidden"
+                      className="group text-left rounded-xl border border-white/10 bg-[#0a0a0a] hover:border-blue-500/50 hover:bg-[#0c1525] hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] transition-all duration-300 overflow-hidden"
                     >
                       <div className="h-36 p-3 flex items-center justify-center bg-gradient-to-b from-white/[0.02] to-transparent relative">
                         <div className="w-full max-w-[200px] h-full opacity-60 group-hover:opacity-90 transition-opacity">

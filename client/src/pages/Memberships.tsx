@@ -193,7 +193,7 @@ export default function Memberships() {
                 <button
                   onClick={() => handleAddToCart(tier)}
                   disabled={loadingTier === tier.name}
-                  className="w-full mt-4 flex items-center justify-center gap-2 border border-transparent bg-[#4d9fff] text-black hover:bg-[#6aadff] hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_24px_80px_-24px_rgba(59,130,246,0.70)] py-3 rounded-lg text-sm font-medium transition-[transform,box-shadow,background-color,border-color] duration-200 disabled:opacity-50"
+                  className="w-full mt-4 flex items-center justify-center gap-2 border border-transparent bg-[#4d9fff] text-black hover:bg-[#6aadff] hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] py-3 rounded-lg text-sm font-medium transition-[transform,box-shadow,background-color,border-color] duration-200 disabled:opacity-50"
                 >
                   {loadingTier === tier.name ? (
                     <Loader2 className="h-4 w-4 animate-spin" />

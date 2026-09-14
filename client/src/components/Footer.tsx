@@ -144,7 +144,7 @@ export const Footer = () => {
                 href={MAP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-fit items-center gap-2 rounded-lg border border-transparent bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white transition-[transform,box-shadow,background-color,border-color] duration-200 hover:bg-blue-600 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_24px_80px_-24px_rgba(59,130,246,0.70)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                className="inline-flex w-fit items-center gap-2 rounded-lg border border-transparent bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white transition-[transform,box-shadow,background-color,border-color] duration-200 hover:bg-blue-600 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               >
                 Get Directions
                 <ExternalLink className="h-4 w-4" />

@@ -554,7 +554,7 @@ export default function ProductDetail() {
                       </Link>
                       <button
                         onClick={() => handleAddRelatedToCart(rp)}
-                        className="mt-3 w-full rounded-lg border border-transparent bg-[#2563eb] py-2.5 text-[13px] font-medium text-white transition-[transform,box-shadow,background-color,border-color] duration-200 hover:bg-[#1d4ed8] hover:border-blue-500/50 hover:shadow-[0_24px_80px_-24px_rgba(59,130,246,0.70)]"
+                        className="mt-3 w-full rounded-lg border border-transparent bg-[#2563eb] py-2.5 text-[13px] font-medium text-white transition-[transform,box-shadow,background-color,border-color] duration-200 hover:bg-[#1d4ed8] hover:border-blue-500/50 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)]"
                         style={{ padding: '10px', borderRadius: '8px' }}
                       >
                         Add to Cart

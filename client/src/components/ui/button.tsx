@@ -49,7 +49,7 @@ const buttonVariants = cva(
         variant: ["default", "outline", "secondary"],
         size: ["default", "sm", "lg"],
         class:
-          "hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_24px_80px_-24px_rgba(59,130,246,0.70)] duration-200",
+          "hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] duration-200",
       },
     ],
   }
