@@ -602,7 +602,7 @@ function FilterCard({ filter }: { filter: { key: string; label: string; sizes: s
           <div className="flex flex-wrap gap-1.5">
             {filter.sizes.map(size => (
               <Link key={size} href={`/shop?category=${encodeURIComponent(filter.shopSlug)}&size=${encodeURIComponent(size.replace(/[""]/g, '').replace(/×/g, 'x'))}`}>
-                <span className="inline-block px-2.5 py-1 rounded-md text-xs bg-white/[0.06] border border-white/10 text-white/85 hover:bg-blue-500/20 hover:border-blue-400/40 hover:text-white transition-colors cursor-pointer">
+                <span className="inline-block px-2.5 py-1 rounded-md text-xs bg-white/[0.06] border border-white/10 text-white/85 hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-white hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color,border-color,color] duration-200 cursor-pointer">
                   {size}
                 </span>
               </Link>

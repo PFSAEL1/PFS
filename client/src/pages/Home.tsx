@@ -150,7 +150,7 @@ export default function Home() {
                   <div className="absolute bottom-5 left-5 right-5 z-10">
                     <p className="text-white font-bold text-xl leading-tight">{card.title}</p>
                     <p className="text-white/75 text-sm mt-1">{card.subtitle}</p>
-                    <span className="inline-flex items-center gap-2 mt-3 bg-[#4d9fff] text-black text-sm font-semibold px-5 py-2.5 rounded-lg group-hover:bg-[#6aadff] transition-colors duration-150">{card.cta} <span className="text-base">→</span></span>
+                    <span className="inline-flex items-center gap-2 mt-3 border border-transparent bg-[#4d9fff] text-black text-sm font-semibold px-5 py-2.5 rounded-lg group-hover:bg-[#6aadff] group-hover:border-blue-500/50 group-hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color,border-color] duration-200">{card.cta} <span className="text-base">→</span></span>
                   </div>
                 </div>
               </Link>
