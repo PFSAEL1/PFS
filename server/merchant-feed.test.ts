@@ -42,6 +42,14 @@ describe('Merchant Center feed', () => {
     paged[0].variants.pageInfo.hasNextPage = true;
     expect(() => buildMerchantFeed(paged)).toThrow();
   });
+  it('holds the new single-frame option until its shipping rule is reviewed', () => {
+    const input = products();
+    input[2].variants.nodes.push({ ...input[2].variants.nodes[0], id: 'gid://shopify/ProductVariant/52580764909700' });
+    const feed = buildMerchantFeed(input);
+    expect(feed.count).toBe(3);
+    expect(feed.xml).not.toContain('52580764909700');
+    expect(feed.xml).toContain('<g:shipping_label>pfs_core_supplier</g:shipping_label>');
+  });
   it('fails if no variants are returned', () => {
     const input = products();
     input.forEach(p => p.variants.nodes = []);
