@@ -30,7 +30,7 @@ export default function Contact() {
 
 
       {/* Contact form - raised */}
-      <section className="section-raised tex-grain py-10 px-4">
+      <section className="section-raised tex-grain !py-0 px-0 contact-page">
         <ContactForm />
       </section>
 
