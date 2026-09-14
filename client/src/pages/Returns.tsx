@@ -33,8 +33,6 @@ export default function Returns() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Policy cards - raised */}
       <section className="section-raised tex-grain py-14 px-4">

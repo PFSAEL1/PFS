@@ -122,8 +122,6 @@ export default function Brands() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Brand cards - raised */}
       <section className="section-raised tex-dots py-14 px-4">
@@ -171,7 +169,6 @@ export default function Brands() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       <DeferredFooter />
     </div>

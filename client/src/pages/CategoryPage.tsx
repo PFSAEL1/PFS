@@ -225,8 +225,6 @@ export default function CategoryPage() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Products - raised */}
       <section className="section-raised tex-dots py-12 px-4">

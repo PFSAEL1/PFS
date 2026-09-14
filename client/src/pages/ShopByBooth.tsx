@@ -88,8 +88,6 @@ export default function ShopByBooth() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* PFS Featured Card */}
       <section className="section-raised tex-dots pt-8 pb-4 px-4">
@@ -201,7 +199,6 @@ export default function ShopByBooth() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
       <Footer />
     </div>
   );

@@ -63,7 +63,6 @@ export default function FAQPage() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       <section className="section-raised tex-dots px-4 py-16">
         <div className="mx-auto max-w-5xl space-y-12">

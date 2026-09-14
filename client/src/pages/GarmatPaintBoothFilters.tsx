@@ -98,7 +98,6 @@ export default function GarmatPaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       {/* Filter sizes by Garmat model */}
       <section className="section-raised tex-dots py-14 px-4">
@@ -194,7 +193,6 @@ export default function GarmatPaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       {/* SEO copy block */}
       <section className="section-raised tex-dots py-16 px-4">
@@ -268,7 +266,6 @@ export default function GarmatPaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       <Footer />
     </div>

@@ -28,8 +28,6 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Contact form - raised */}
       <section className="section-raised tex-grain py-10 px-4">

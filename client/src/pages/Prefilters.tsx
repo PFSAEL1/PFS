@@ -70,7 +70,6 @@ export default function Prefilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       {/* Main content — SEO copy block (this page has no product grid) */}
       <section className="section-raised tex-dots py-16 px-4">
@@ -151,7 +150,6 @@ export default function Prefilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       <Footer />
     </div>

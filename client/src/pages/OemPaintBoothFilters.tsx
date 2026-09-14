@@ -115,7 +115,6 @@ export default function OemPaintBoothFilters() {
           </div>
         </section>
 
-        <div className="arc-divider arc-divider-up" />
 
         <section className="section-raised tex-dots px-4 py-16">
           <div className="mx-auto max-w-6xl">
@@ -167,7 +166,6 @@ export default function OemPaintBoothFilters() {
           </section>
         )}
 
-        <div className="arc-divider arc-divider-up" />
 
         <section className="section-raised tex-lines px-4 py-16">
           <div className="mx-auto max-w-6xl">
@@ -218,7 +216,6 @@ export default function OemPaintBoothFilters() {
         </section>
       </main>
 
-      <div className="arc-divider arc-divider-up" />
       <Footer />
     </div>
   );

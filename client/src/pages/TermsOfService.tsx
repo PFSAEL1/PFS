@@ -39,7 +39,6 @@ export default function TermsOfService() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       <section className="section-raised tex-grain py-12 px-4">
         <div className="container mx-auto max-w-4xl">

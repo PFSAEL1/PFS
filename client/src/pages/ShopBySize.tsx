@@ -158,8 +158,6 @@ export default function ShopBySize() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Size grid - raised */}
       <section className="section-raised tex-dots py-14 px-4">
@@ -317,8 +315,6 @@ export default function ShopBySize() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       <Footer />
     </div>

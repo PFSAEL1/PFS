@@ -163,7 +163,6 @@ export default function CaliforniaPaintBoothFilters() {
           </div>
         </section>
 
-        <div className="arc-divider arc-divider-up" />
 
         <section className="section-raised tex-dots px-4 py-16">
           <div className="mx-auto max-w-6xl">
@@ -225,7 +224,6 @@ export default function CaliforniaPaintBoothFilters() {
           </div>
         </section>
 
-        <div className="arc-divider arc-divider-up" />
 
         <section className="section-raised tex-lines px-4 py-16">
           <div className="mx-auto grid max-w-6xl gap-7 lg:grid-cols-[1fr_0.95fr]">
@@ -269,7 +267,6 @@ export default function CaliforniaPaintBoothFilters() {
         </section>
       </main>
 
-      <div className="arc-divider arc-divider-up" />
       <DeferredFooter />
     </div>
   );

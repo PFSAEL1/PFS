@@ -266,8 +266,6 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Product content - raised */}
       <section className="section-raised py-10 px-4">

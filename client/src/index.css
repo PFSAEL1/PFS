@@ -869,4 +869,22 @@ video::-internal-media-controls-play-button {
     line-height: 1.02;
   }
 }
+
+/* ---- Mobile nav dropdown: larger menu-item text (30px icons handled via
+   Tailwind classes directly on the toggle icon) ---- */
+.mobile-nav-menu a {
+  font-size: 18px;
+}
+
+/* ---- Normal section spacing — tighter rhythm between content sections.
+   Excludes any section carrying a pt-20/24/28/32 utility, since those mark
+   a page's top header/hero section that reserves space under the fixed nav
+   (shrinking that would push content under the nav bar) — see Navigation.tsx
+   (h-24 fixed nav) and the many "section-darker pt-28 ..." page headers. ---- */
+.section-raised,
+.section-darker:not(.pt-20):not(.pt-24):not(.pt-28):not(.pt-32),
+.section-glow:not(.pt-20):not(.pt-24):not(.pt-28):not(.pt-32) {
+  padding-top: 50px !important;
+  padding-bottom: 50px !important;
+}
 /* build trigger 1784242030 */

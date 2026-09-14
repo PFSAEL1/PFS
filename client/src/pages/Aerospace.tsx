@@ -84,8 +84,6 @@ export default function Aerospace() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Products grid - filtered by "aerospace" */}
       <section className="section-raised tex-dots py-14 px-4">

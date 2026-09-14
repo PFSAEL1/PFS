@@ -13,13 +13,17 @@ export const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [canPlayVideo, setCanPlayVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  const [isDesktopViewport, setIsDesktopViewport] = useState(false);
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const desktopViewportQuery = window.matchMedia('(min-width: 768px)');
 
     const updatePlaybackPreference = () => {
-      const shouldPlayVideo = desktopViewportQuery.matches && !reducedMotionQuery.matches;
+      // Same video now plays on mobile too — only reduced-motion opts out.
+      // Viewport is tracked separately just to pick the matching poster.
+      setIsDesktopViewport(desktopViewportQuery.matches);
+      const shouldPlayVideo = !reducedMotionQuery.matches;
       setCanPlayVideo(shouldPlayVideo);
       if (!shouldPlayVideo) setVideoReady(false);
     };
@@ -99,7 +103,7 @@ export const Hero = () => {
               ref={videoRef}
               className={`absolute inset-0 w-full h-full object-cover object-[65%_center] md:object-center transition-opacity duration-500 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
               src={videoReady ? HERO_VIDEO : undefined}
-              poster={HERO_POSTER_DESKTOP}
+              poster={isDesktopViewport ? HERO_POSTER_DESKTOP : HERO_POSTER_MOBILE}
               autoPlay={videoReady}
               muted
               loop

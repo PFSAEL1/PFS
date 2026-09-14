@@ -101,8 +101,6 @@ export default function PfsVitra() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Product section */}
       <section className="section-raised tex-dots py-14 px-4">

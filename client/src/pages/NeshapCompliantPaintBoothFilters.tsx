@@ -108,7 +108,6 @@ export default function NeshapCompliantPaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       {/* Section 1 — NESHAP 6H (surface coating) */}
       <section className="section-raised tex-dots py-14 px-4">
@@ -243,7 +242,6 @@ export default function NeshapCompliantPaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       {/* SEO copy block */}
       <section className="section-raised tex-dots py-16 px-4">
@@ -311,7 +309,6 @@ export default function NeshapCompliantPaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       <Footer />
     </div>

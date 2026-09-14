@@ -168,8 +168,6 @@ export default function Memberships() {
         </div>
       </section>
 
-      {/* Arc divider */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Pricing cards */}
       <section className="section-glow tex-dots pt-24 pb-12 px-4">

@@ -62,8 +62,6 @@ export default function Consumables() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Products grid */}
       <section className="section-raised tex-dots py-14 px-4">

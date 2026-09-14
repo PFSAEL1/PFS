@@ -55,8 +55,6 @@ export default function AerospaceHub() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Shop by Position — 3 Category Cards */}
       <section className="section-raised tex-dots py-16 px-4">

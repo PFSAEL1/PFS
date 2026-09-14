@@ -235,8 +235,6 @@ export default function BrandDetail({ params }: BrandDetailProps) {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Models */}
       <section className="section-raised tex-dots py-14 px-4">
@@ -282,7 +280,6 @@ export default function BrandDetail({ params }: BrandDetailProps) {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
       <DeferredFooter />
     </div>
   );

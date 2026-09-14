@@ -167,8 +167,6 @@ export default function Home() {
         <CategoryNavigation />
       </DeferredHomeSection>
 
-      {/* Arc transition: category → top movers */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* 5. Top Movers */}
       <DeferredHomeSection minHeight={520}>
@@ -229,8 +227,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Arc transition: how it works → brands */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* 7. Booth Brand Compatibility Strip */}
       <section className="section-darker tex-dots py-14 px-4">
@@ -288,8 +284,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Arc transition: membership → FAQ */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* 9. FAQ */}
       <DeferredHomeSection minHeight={620}>

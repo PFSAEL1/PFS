@@ -55,8 +55,6 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Blog grid - raised */}
       <section className="section-raised tex-dots py-12 px-4">

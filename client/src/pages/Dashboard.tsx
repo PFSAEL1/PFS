@@ -195,8 +195,6 @@ function DashboardContent() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Main content - raised */}
       <section className="section-raised tex-grain py-10 px-4">

@@ -135,7 +135,6 @@ export default function AndreaePaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
           {/* Current catalog variants */}
       <section className="section-raised tex-dots py-16 px-4">
@@ -276,7 +275,6 @@ export default function AndreaePaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       {/* FAQ */}
       <section className="section-raised tex-dots py-16 px-4">

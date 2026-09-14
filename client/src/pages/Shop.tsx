@@ -66,8 +66,6 @@ export default function Shop() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Products grid - raised section */}
       <section className="section-raised tex-dots py-6 px-4">

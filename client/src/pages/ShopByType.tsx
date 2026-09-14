@@ -99,8 +99,6 @@ export default function ShopByType() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Filter type grid - raised */}
       <section className="section-raised tex-dots py-14 px-4">
@@ -179,8 +177,6 @@ export default function ShopByType() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       <Footer />
     </div>

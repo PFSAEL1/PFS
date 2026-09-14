@@ -141,8 +141,6 @@ export default function BlogPost() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Content - raised */}
       <section className="section-raised tex-grain py-12 px-4">

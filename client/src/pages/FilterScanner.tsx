@@ -77,8 +77,6 @@ export default function FilterScanner() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Content - raised */}
       <section className="section-raised tex-dots py-14 px-4">

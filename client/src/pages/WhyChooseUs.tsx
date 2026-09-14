@@ -59,8 +59,6 @@ export default function WhyChooseUs() {
         </div>
       </section>
 
-      {/* Arc divider */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Features grid */}
       <section className="section-glow tex-dots py-16 px-4">
@@ -99,8 +97,6 @@ export default function WhyChooseUs() {
         </div>
       </section>
 
-      {/* Arc divider */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* CTA */}
       <section className="section-raised py-16 px-4 text-center">

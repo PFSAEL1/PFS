@@ -118,7 +118,6 @@ export default function IntakeFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       {/* Product grid */}
       <section className="section-raised tex-dots py-12 px-4">
@@ -235,7 +234,6 @@ export default function IntakeFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-up" />
 
       {/* Related filter types */}
       <section className="section-raised tex-dots py-14 px-4">

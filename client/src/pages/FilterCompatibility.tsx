@@ -89,8 +89,6 @@ export default function FilterCompatibility() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-up" />
 
       {/* Content - raised */}
       <section className="section-raised tex-dots py-12 px-4">
