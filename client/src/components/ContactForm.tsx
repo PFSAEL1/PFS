@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import { prepareQuoteReturn } from '@/lib/quoteConversion';
 
 // PFS Filters Contact — Zoho CRM Web-to-Lead form.
 // The Zoho form ships with its own CSS + a mandatory-check script that expect
@@ -202,6 +203,24 @@ export const ContactForm = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [iframeHeight, setIframeHeight] = useState(560);
 
+  const attachQuoteTracking = () => {
+    const form = iframeRef.current?.contentDocument?.querySelector('form');
+    if (!form || form.dataset.quoteTracking === 'attached') return;
+    form.dataset.quoteTracking = 'attached';
+    // The generated Zoho onsubmit validator runs before this listener.
+    form.addEventListener('submit', (event) => {
+      if (event.defaultPrevented) return;
+      const returnField = form.elements.namedItem('returnURL') as HTMLInputElement | null;
+      if (!returnField) return;
+      try {
+        returnField.value = prepareQuoteReturn(window.sessionStorage, window.crypto.randomUUID());
+      } catch {
+        // Storage restrictions must never prevent a customer sending a lead.
+        returnField.value = 'https://www.pfsfilters.com/thank-you';
+      }
+    });
+  };
+
   // Auto-size the iframe to the FORM's real content height. We measure the form
   // element itself (not body/documentElement) because the iframe body height can
   // echo the iframe's own height, creating a feedback loop that grows forever on
@@ -300,6 +319,7 @@ export const ContactForm = () => {
               ref={iframeRef}
               title="PFS Filters Contact Form"
               srcDoc={ZOHO_FORM_HTML}
+              onLoad={attachQuoteTracking}
               sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-top-navigation-by-user-activation"
               style={{ width: '100%', height: iframeHeight, border: 'none', background: 'transparent' }}
             />

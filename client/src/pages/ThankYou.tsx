@@ -1,4 +1,6 @@
 import { Link } from 'wouter';
+import { useEffect } from 'react';
+import { consumeQuoteReturn, QUOTE_CONVERSION_DESTINATION } from '@/lib/quoteConversion';
 import { CheckCircle2, Phone, Mail } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
@@ -6,6 +8,23 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 
 export default function ThankYou() {
+  useEffect(() => {
+    const google = window as typeof window & { gtag?: (...args: unknown[]) => void };
+    if (typeof google.gtag !== 'function') return;
+    try {
+      const reference = consumeQuoteReturn(window.sessionStorage, window.location.href);
+      if (!reference) return;
+      google.gtag('event', 'conversion', {
+        send_to: QUOTE_CONVERSION_DESTINATION,
+        transaction_id: reference,
+      });
+      const cleanUrl = new URL(window.location.href);
+      cleanUrl.searchParams.delete('submission');
+      window.history.replaceState(window.history.state, '', cleanUrl);
+    } catch {
+      // Do not disrupt the confirmation page if browser storage is unavailable.
+    }
+  }, []);
   return (
     <div className="min-h-screen bg-[#040404] text-white flex flex-col">
       <SEO
