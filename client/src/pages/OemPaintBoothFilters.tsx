@@ -134,7 +134,6 @@ export default function OemPaintBoothFilters() {
           </div>
         </section>
 
-        <div className="arc-divider arc-divider-down" />
 
         {brand && brand.models.length > 0 && (
           <section className="px-4 py-16">
@@ -188,7 +187,6 @@ export default function OemPaintBoothFilters() {
           </div>
         </section>
 
-        <div className="arc-divider arc-divider-down" />
 
         <section className="px-4 py-16">
           <div className="mx-auto grid max-w-6xl gap-7 lg:grid-cols-[1.15fr_0.85fr]">

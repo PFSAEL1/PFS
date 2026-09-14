@@ -146,8 +146,6 @@ export default function ShopByType() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-down" />
 
       {/* Intake vs Exhaust explainer - glow */}
       <section className="section-glow tex-lines py-14 px-4">

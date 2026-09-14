@@ -191,8 +191,6 @@ export default function BlogPost() {
       </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-down" />
 
       <DeferredFooter />
     </div>

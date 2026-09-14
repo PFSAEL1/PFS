@@ -520,8 +520,6 @@ function DashboardContent() {
       </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-down" />
 
       <Footer />
 

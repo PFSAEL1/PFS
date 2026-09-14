@@ -250,7 +250,6 @@ export default function BrandDetail({ params }: BrandDetailProps) {
       </section>
 
       {/* CTA */}
-      <div className="arc-divider arc-divider-down" />
       <section className="section-glow tex-lines py-14 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">

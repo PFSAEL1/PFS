@@ -207,8 +207,6 @@ export default function Memberships() {
         </div>
       </section>
 
-      {/* Arc divider */}
-      <div className="arc-divider arc-divider-down" />
 
       {/* FAQ */}
       <section className="section-darker tex-lines py-16 px-4">

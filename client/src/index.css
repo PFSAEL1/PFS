@@ -702,27 +702,6 @@ video::-internal-media-controls-play-button {
 }
 .section-glow > * { position: relative; z-index: 1; }
 
-/* Smooth gradient divider between sections — pure full-width fade */
-.arc-divider {
-  position: relative;
-  height: 100px;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.arc-divider::before {
-  content: none;
-}
-/* Dark-to-raised: #050505 → #0d0d0d */
-.arc-divider-up {
-  background: linear-gradient(to bottom, #050505, #0d0d0d);
-}
-.arc-divider-up::before { content: none; }
-/* Raised-to-dark: #0d0d0d → #050505 */
-.arc-divider-down {
-  background: linear-gradient(to bottom, #0d0d0d, #050505);
-}
-.arc-divider-down::before { content: none; }
-
 /* Dotted grid texture — visible dot pattern */
 .tex-dots {
   position: relative;

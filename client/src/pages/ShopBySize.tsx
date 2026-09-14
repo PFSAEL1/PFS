@@ -294,8 +294,6 @@ export default function ShopBySize() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-down" />
 
       {/* Custom size CTA - glow */}
       <section className="section-glow py-14 px-4">

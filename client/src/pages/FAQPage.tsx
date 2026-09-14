@@ -97,7 +97,6 @@ export default function FAQPage() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-down" />
 
       <section className="section-glow px-4 py-16">
         <div className="mx-auto max-w-4xl rounded-2xl border border-white/10 bg-white/[0.035] p-8 text-center sm:p-10">

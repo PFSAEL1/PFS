@@ -159,8 +159,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Arc transition: filters → category nav */}
-      <div className="arc-divider arc-divider-down" />
 
       {/* 4. Shop by Category */}
       <DeferredHomeSection minHeight={900}>
@@ -173,8 +171,6 @@ export default function Home() {
         <TopMovers />
       </DeferredHomeSection>
 
-      {/* Arc transition: top movers → how it works */}
-      <div className="arc-divider arc-divider-down" />
 
       {/* 6. How It Works — raised, lined texture */}
       <section className="section-raised tex-lines tex-grain py-20 px-4">
@@ -254,8 +250,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Arc transition: brands → membership */}
-      <div className="arc-divider arc-divider-down" />
 
       {/* 8. Membership Banner — raised */}
       <section className="section-raised tex-grain py-16 px-4">
@@ -290,8 +284,6 @@ export default function Home() {
         <FAQ />
       </DeferredHomeSection>
 
-      {/* Arc transition: FAQ → footer */}
-      <div className="arc-divider arc-divider-down" />
 
       {/* 10. Footer */}
       <StickyMobileCTA />

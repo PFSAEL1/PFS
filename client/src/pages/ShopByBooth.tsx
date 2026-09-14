@@ -179,7 +179,6 @@ export default function ShopByBooth() {
       </section>
 
       {/* CTA */}
-      <div className="arc-divider arc-divider-down" />
       <section className="section-glow tex-lines py-14 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-white mb-3">Not sure which filters you need?</h2>

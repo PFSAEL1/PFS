@@ -178,7 +178,6 @@ export default function ExhaustFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-down" />
 
       {/* SEO copy block — BELOW the product grid */}
       <section className="py-16 px-4">
@@ -256,7 +255,6 @@ export default function ExhaustFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-down" />
 
       <Footer />
     </div>

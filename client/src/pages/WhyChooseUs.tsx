@@ -79,8 +79,6 @@ export default function WhyChooseUs() {
         </div>
       </section>
 
-      {/* Arc divider */}
-      <div className="arc-divider arc-divider-down" />
 
       {/* Benefits list */}
       <section className="section-darker tex-lines py-16 px-4">

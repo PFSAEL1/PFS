@@ -198,8 +198,6 @@ export default function PfsVitra() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-down" />
 
       <DeferredFooter />
     </div>

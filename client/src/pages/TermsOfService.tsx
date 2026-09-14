@@ -148,7 +148,6 @@ export default function TermsOfService() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-down" />
       <Footer />
     </div>
   );

@@ -218,7 +218,6 @@ export default function AndreaePaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-down" />
 
       {/* Why shops choose Andreae — explanatory block */}
       <section className="py-16 px-4">
@@ -304,7 +303,6 @@ export default function AndreaePaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-down" />
 
       <Footer />
     </div>

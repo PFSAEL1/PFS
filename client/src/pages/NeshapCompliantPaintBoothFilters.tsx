@@ -186,7 +186,6 @@ export default function NeshapCompliantPaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-down" />
 
       {/* Section 2 — Aerospace & Method 319 (no grid, no prices, no buy button) */}
       <section className="py-14 px-4">
@@ -278,7 +277,6 @@ export default function NeshapCompliantPaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-down" />
 
       {/* Related pages */}
       <section className="py-14 px-4">

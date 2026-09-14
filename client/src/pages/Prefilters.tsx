@@ -114,7 +114,6 @@ export default function Prefilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-down" />
 
       {/* Related filter media */}
       <section className="py-14 px-4">

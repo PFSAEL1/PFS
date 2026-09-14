@@ -391,8 +391,6 @@ export default function CategoryPage() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-down" />
 
       <DeferredFooter />
     </div>

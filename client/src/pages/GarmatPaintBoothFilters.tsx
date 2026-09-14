@@ -152,7 +152,6 @@ export default function GarmatPaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-down" />
 
       {/* Match a size to media */}
       <section className="py-14 px-4">
@@ -240,7 +239,6 @@ export default function GarmatPaintBoothFilters() {
         </div>
       </section>
 
-      <div className="arc-divider arc-divider-down" />
 
       {/* Related pages */}
       <section className="py-14 px-4">

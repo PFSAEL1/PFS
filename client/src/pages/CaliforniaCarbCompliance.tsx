@@ -141,7 +141,6 @@ export default function CaliforniaCarbCompliance() {
           </div>
         </section>
 
-        <div className="arc-divider arc-divider-down" />
 
         <section className="px-4 py-16">
           <div className="mx-auto grid max-w-6xl gap-9 lg:grid-cols-[0.95fr_1.05fr]">
@@ -196,7 +195,6 @@ export default function CaliforniaCarbCompliance() {
           </div>
         </section>
 
-        <div className="arc-divider arc-divider-down" />
 
         <section className="px-4 py-16">
           <div className="mx-auto max-w-4xl">

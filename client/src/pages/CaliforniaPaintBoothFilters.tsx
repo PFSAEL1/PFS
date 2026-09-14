@@ -186,7 +186,6 @@ export default function CaliforniaPaintBoothFilters() {
           </div>
         </section>
 
-        <div className="arc-divider arc-divider-down" />
 
         <section className="px-4 py-16">
           <div className="mx-auto max-w-7xl">
@@ -249,7 +248,6 @@ export default function CaliforniaPaintBoothFilters() {
           </div>
         </section>
 
-        <div className="arc-divider arc-divider-down" />
 
         <section className="px-4 py-16">
           <div className="mx-auto max-w-4xl">

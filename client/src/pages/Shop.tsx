@@ -74,8 +74,6 @@ export default function Shop() {
         </div>
       </section>
 
-      {/* Arc transition */}
-      <div className="arc-divider arc-divider-down" />
 
       <Suspense fallback={<div className="section-glow min-h-[520px]" aria-label="Loading shop guidance" />}>
         <ShopBelowFold />
