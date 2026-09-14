@@ -275,7 +275,7 @@ export default function Home() {
           {/* Right */}
           <div className="flex-shrink-0 flex flex-col items-center gap-2">
             <Link href="/memberships">
-              <span className="inline-block bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg font-medium text-sm transition-colors duration-150 whitespace-nowrap cursor-pointer">
+              <span className="inline-block border border-transparent bg-blue-600 hover:bg-blue-500 hover:border-blue-500/50 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] text-white px-6 py-3 rounded-lg font-medium text-sm transition-[transform,box-shadow,background-color,border-color] duration-200 whitespace-nowrap cursor-pointer">
                 See Membership Plans →
               </span>
             </Link>

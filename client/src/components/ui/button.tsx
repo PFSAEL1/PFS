@@ -33,6 +33,25 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
+    compoundVariants: [
+      // Reserve an always-present (default-transparent) border on the solid
+      // variants so the hover border-color swap below never shifts layout.
+      // "outline" already carries a visible border, so it's excluded here.
+      {
+        variant: ["default", "secondary"],
+        size: ["default", "sm", "lg"],
+        class: "border border-transparent",
+      },
+      // Real, text-bearing CTA buttons (not icon-only controls, not
+      // destructive/ghost/link) get the site's blue hover glow — same
+      // reference pattern already used on cards.
+      {
+        variant: ["default", "outline", "secondary"],
+        size: ["default", "sm", "lg"],
+        class:
+          "hover:border-blue-500/50 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] duration-200",
+      },
+    ],
   }
 );
 
