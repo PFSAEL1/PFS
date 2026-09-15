@@ -468,11 +468,8 @@ function VitraLoadingFallback() {
         </section>
         <section style={{ padding: '56px 16px', background: '#0d0d0d' }}>
           <div style={{ maxWidth: 1024, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 40, alignItems: 'start' }}>
-            <div style={{ aspectRatio: '1/1', minHeight: 320, borderRadius: 16, border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.03)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 32 }}>
-              <div style={{ width: 80, height: 80, borderRadius: 999, border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.05)', marginBottom: 24 }} />
-              <p style={{ margin: '0 0 4px', color: 'rgba(255,255,255,.4)', fontSize: 18, fontWeight: 700 }}>Image Coming Soon</p>
-              <p style={{ margin: 0, color: 'rgba(255,255,255,.25)', fontSize: 14 }}>Product design in progress</p>
-              <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 128, height: 'auto', opacity: .2, marginTop: 32 }} decoding="async" />
+            <div style={{ aspectRatio: '1/1', minHeight: 320, borderRadius: 16, border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.03)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 16 }}>
+              <img src="/images/products/pfs-vitra-booth-coating.webp" alt="PFS VITRA Booth Coating one-gallon container" width="1365" height="2048" style={{ width: '100%', height: '100%', objectFit: 'contain' }} fetchPriority="high" decoding="async" />
             </div>
             <div style={{ minHeight: 520 }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', minHeight: 26, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(59,130,246,.22)', background: 'rgba(59,130,246,.1)', color: '#60a5fa', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 12 }}>Consumables</span>

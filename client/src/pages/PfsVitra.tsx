@@ -3,11 +3,12 @@ import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Package, ShieldCheck, Truck, ShoppingCart } from 'lucide-react';
+import { ShieldCheck, Truck, ShoppingCart } from 'lucide-react';
 
 // PFS VITRA variant info — same format as Shopify products
 const PFS_VITRA_VARIANT_ID = 'gid://shopify/ProductVariant/52571232206980';
 const PFS_VITRA_PRODUCT_ID = 'gid://shopify/Product/10419370885252';
+const PFS_VITRA_IMAGE = '/images/products/pfs-vitra-booth-coating.webp';
 const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
 
 function DeferredFooter() {
@@ -75,7 +76,7 @@ export default function PfsVitra() {
         variantTitle: 'Default',
         price: { amount: '80.00', currencyCode: 'USD' },
         quantity,
-        image: undefined,
+        image: PFS_VITRA_IMAGE,
         handle: 'pfs-vitra',
       });
       toast.success('PFS VITRA added to cart');
@@ -106,22 +107,17 @@ export default function PfsVitra() {
       <section className="section-raised tex-dots py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-10 items-start">
-            {/* Image placeholder */}
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] aspect-square min-h-[320px] flex flex-col items-center justify-center p-8">
-              <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6">
-                <Package className="h-10 w-10 text-white/30" />
-              </div>
-              <p className="text-white/40 text-lg font-medium mb-1">Image Coming Soon</p>
-              <p className="text-white/25 text-sm">Product design in progress</p>
-              {/* PFS Logo watermark */}
+            {/* Product image */}
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] aspect-square min-h-[320px] flex items-center justify-center overflow-hidden p-4">
               <img
-                src="/images/brands/pfs-logo-wide-420.webp"
-                alt="PFS Filters"
-                className="w-32 opacity-20 mt-8"
-                width={420}
-                height={127}
+                src={PFS_VITRA_IMAGE}
+                alt="PFS VITRA Booth Coating one-gallon container"
+                className="w-full h-full object-contain"
+                width={1365}
+                height={2048}
                 loading="eager"
                 decoding="async"
+                fetchPriority="high"
               />
             </div>
 
@@ -163,6 +159,7 @@ export default function PfsVitra() {
                 <div className="flex items-center border border-white/20 rounded-lg overflow-hidden">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    aria-label="Decrease PFS VITRA quantity"
                     className="px-3 py-2 text-white/60 hover:bg-white/10 transition-colors"
                   >
                     -
@@ -170,6 +167,7 @@ export default function PfsVitra() {
                   <span className="px-4 py-2 text-white font-medium min-w-[40px] text-center">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
+                    aria-label="Increase PFS VITRA quantity"
                     className="px-3 py-2 text-white/60 hover:bg-white/10 transition-colors"
                   >
                     +
@@ -186,12 +184,6 @@ export default function PfsVitra() {
                   <ShoppingCart className="h-5 w-5" />
                   {isAdding ? 'Adding...' : `Add to Cart — $${(80 * quantity).toFixed(2)}`}
                 </Button>
-              </div>
-
-              <div className="bg-white/[0.03] border border-white/10 rounded-xl p-4 mt-6">
-                <p className="text-white/50 text-xs leading-relaxed">
-                  <strong className="text-white/70">Note:</strong> PFS VITRA is currently being rebranded under the PFS Filters label. Product packaging and imagery will be updated soon. The product formulation remains the same premium quality you expect.
-                </p>
               </div>
             </div>
           </div>
