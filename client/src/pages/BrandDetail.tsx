@@ -159,7 +159,7 @@ export default function BrandDetail({ params }: BrandDetailProps) {
           <h1 className="text-4xl font-bold mb-4">Booth Brand Not Found</h1>
           <p className="text-white/60 mb-6">We couldn't find that booth brand. Try browsing all brands.</p>
           <Link href="/shop-by-booth">
-            <button className="px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-white/90 transition-colors">
+            <button className="px-6 py-3 bg-white text-black font-semibold rounded-xl border border-transparent hover:bg-white/90 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] transition-[transform,box-shadow,background-color,border-color] duration-200">
               Browse All Brands
             </button>
           </Link>
@@ -259,7 +259,7 @@ export default function BrandDetail({ params }: BrandDetailProps) {
               </h3>
               <p className="text-sm text-white/60 mb-4">Browse our full catalog of filters compatible with your {brand.name} booth.</p>
               <Link href="/shop">
-                <button className="w-full px-5 py-2.5 bg-white text-black font-semibold rounded-xl hover:bg-white/90 transition-colors flex items-center justify-center gap-2">
+                <button className="w-full px-5 py-2.5 bg-white text-black font-semibold rounded-xl border border-transparent hover:bg-white/90 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] transition-[transform,box-shadow,background-color,border-color] duration-200 flex items-center justify-center gap-2">
                   Shop All Filters <ArrowRight className="h-4 w-4" />
                 </button>
               </Link>
@@ -270,7 +270,7 @@ export default function BrandDetail({ params }: BrandDetailProps) {
               </h3>
               <p className="text-sm text-white/60 mb-4">Not sure which size fits your specific {brand.name} configuration? We'll identify it for you.</p>
               <Link href="/contact">
-                <button className="w-full px-5 py-2.5 border border-white/20 text-white font-semibold rounded-xl hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
+                <button className="w-full px-5 py-2.5 border border-white/20 text-white font-semibold rounded-xl hover:bg-white/5 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] transition-[transform,box-shadow,background-color,border-color] duration-200 flex items-center justify-center gap-2">
                   Contact Us <ArrowRight className="h-4 w-4" />
                 </button>
               </Link>

@@ -194,7 +194,7 @@ export default function ShopBySize() {
                 ))}
                 {/* Custom size card */}
                 <Link href="/contact">
-                  <div className="group cursor-pointer rounded-2xl p-5 text-center transition-all duration-300 border border-dashed border-white/20 bg-white/[0.03] hover:border-white/40 hover:bg-white/[0.06] h-[120px] flex flex-col items-center justify-center">
+                  <div className="group cursor-pointer rounded-2xl p-5 text-center transition-[transform,box-shadow,background-color,border-color] duration-200 border border-dashed border-white/20 bg-white/[0.03] hover:border-blue-500/50 hover:bg-white/[0.06] hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] h-[120px] flex flex-col items-center justify-center">
                     <p className="text-2xl font-bold mb-1 text-white/60">Custom</p>
                     <p className="text-xs text-white/50">Cut to your specs</p>
                     <span className="text-[10px] bg-white/8 text-white/50 border border-white/10 px-2 py-0.5 rounded-full mt-1.5">Request Quote</span>

@@ -185,12 +185,12 @@ export default function ShopByBooth() {
           <p className="text-white/60 mb-6">Send the booth brand and model, filter position, actual dimensions, and a clear photo so our team can review the available options.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link href="/contact">
-              <button className="px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-white/90 transition-colors">
+              <button className="px-6 py-3 bg-white text-black font-semibold rounded-xl border border-transparent hover:bg-white/90 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] transition-[transform,box-shadow,background-color,border-color] duration-200">
                 Get Help Choosing
               </button>
             </Link>
             <Link href="/filter-finder">
-              <button className="px-6 py-3 border border-white/20 text-white font-semibold rounded-xl hover:bg-white/5 transition-colors">
+              <button className="px-6 py-3 border border-white/20 text-white font-semibold rounded-xl hover:bg-white/5 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] transition-[transform,box-shadow,background-color,border-color] duration-200">
                 Use Filter Finder Tool
               </button>
             </Link>

@@ -50,9 +50,9 @@ class ErrorBoundary extends Component<Props, State> {
             <button
               onClick={() => window.location.reload()}
               className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-lg",
+                "flex items-center gap-2 px-4 py-2 rounded-lg border border-transparent",
                 "bg-primary text-primary-foreground",
-                "hover:opacity-90 cursor-pointer"
+                "hover:opacity-90 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] cursor-pointer transition-[transform,box-shadow,background-color,border-color] duration-200"
               )}
             >
               <RotateCcw size={16} />

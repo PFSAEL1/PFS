@@ -305,10 +305,10 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
             />
             <button
               onClick={handleCopyLink}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium border border-transparent transition-[transform,box-shadow,background-color,border-color] duration-200 hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] ${
                 linkCopied
-                  ? 'bg-green-600/20 text-green-400 border border-green-500/30'
-                  : 'bg-blue-600 hover:bg-blue-500 text-white'
+                  ? 'bg-green-600/20 text-green-400 border-green-500/30'
+                  : 'bg-blue-600 hover:bg-blue-500 hover:border-blue-500/50 text-white'
               }`}
             >
               {linkCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
@@ -370,7 +370,7 @@ export default function NewBoothModal({ booth, onClose, onSaved }: Props) {
                   }
                 }}
                 disabled={generatingLink}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 text-blue-300 text-xs font-medium transition-all disabled:opacity-50"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] text-blue-300 text-xs font-medium transition-[transform,box-shadow,background-color,border-color] duration-200 disabled:opacity-50"
               >
                 {generatingLink ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Link2 className="w-3.5 h-3.5" />}
                 Share Invite Link

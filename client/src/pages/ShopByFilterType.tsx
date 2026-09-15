@@ -136,7 +136,7 @@ export default function ShopByFilterType() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {featured.map((cat) => (
               <Link key={cat.title} href={cat.href}>
-                <div className="group relative overflow-hidden rounded-2xl border border-white/10 hover:border-[#4d9fff]/40 transition-all duration-300 cursor-pointer h-[420px]">
+                <div className="group relative overflow-hidden rounded-2xl border border-white/10 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color] duration-200 cursor-pointer h-[420px]">
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
                   {/* Image */}
@@ -179,7 +179,7 @@ export default function ShopByFilterType() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {rest.map((cat) => (
               <Link key={cat.title} href={cat.href}>
-                <div className="group relative overflow-hidden rounded-2xl border border-white/10 hover:border-[#4d9fff]/40 transition-all duration-300 cursor-pointer h-[340px]">
+                <div className="group relative overflow-hidden rounded-2xl border border-white/10 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color] duration-200 cursor-pointer h-[340px]">
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20 z-10" />
                   {/* Image */}

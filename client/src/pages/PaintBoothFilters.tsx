@@ -335,7 +335,7 @@ export default function PaintBoothFilters() {
           </div>
           <div className="flex flex-wrap justify-center gap-3 mb-10">
             {BRANDS.map((brand) => (
-              <Link key={brand.href} href={brand.href} className="px-5 py-2.5 bg-white/5 text-white text-sm font-medium rounded-full border border-white/10 hover:border-blue-500/40 hover:text-blue-300 transition-colors">
+              <Link key={brand.href} href={brand.href} className="px-5 py-2.5 bg-white/5 text-white text-sm font-medium rounded-full border border-white/10 hover:border-blue-500/50 hover:text-blue-300 hover:-translate-y-1 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] transition-[transform,box-shadow,background-color,border-color,color] duration-200">
                 {brand.label}
               </Link>
             ))}
