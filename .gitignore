@@ -4,6 +4,7 @@
 
 # Build outputs
 dist/
+.claude/
 build/
 *.dist
 
