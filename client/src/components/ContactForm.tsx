@@ -143,7 +143,7 @@ const ZOHO_FORM_HTML = `<!DOCTYPE html>
     <p style='font-size:12px;color:#c9ccd1;line-height:1.5;'>We use these details to respond to your request. <a href='https://www.pfsfilters.com/privacy-policy' target='_blank' rel='noopener' style='color:#93c5fd;'>Privacy policy</a></p>
     <input type='text' style='display: none;' name='aG9uZXlwb3Q' value=''/>
     <div class='zcwf_row'>
-      <div class='zcwf_col_fld'>
+      <div class='zcwf_col_fld' style='min-height:50px;'>
         <input type='submit' id='formsubmit' role='button' class='formsubmit zcwf_button' value='Send Request' aria-label='Send Request' title='Send Request'>
         <input type='reset' class='zcwf_button' role='button' name='reset' value='Reset' aria-label='Reset' title='Reset'>
       </div>
