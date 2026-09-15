@@ -100,8 +100,14 @@ const ZOHO_FORM_HTML = `<!DOCTYPE html>
     background: transparent !important;
     color: #c9ccd1 !important;
     border: 1px solid #3a3a3a !important;
+    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease !important;
   }
-  #crmWebToEntityForm input[type=reset].zcwf_button:hover { background: rgba(255,255,255,0.06) !important; }
+  #crmWebToEntityForm input[type=reset].zcwf_button:hover {
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(255,255,255,.45) !important;
+    box-shadow: 0 20px 70px -12px rgba(255,255,255,.45) !important;
+    transform: translateY(-4px) !important;
+  }
 </style>
 </head>
 <body>
