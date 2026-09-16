@@ -1108,7 +1108,8 @@ function genericProductFallback(route) {
   const description = product?.description || route.description;
   const variant = product?.variants?.edges?.[0]?.node;
   const priceAmount = variant?.price?.amount ?? product?.priceRange?.minVariantPrice?.amount;
-  const price = priceAmount ? escapeHtml(priceAmount) : null;
+  const numericPrice = Number(priceAmount);
+  const price = Number.isFinite(numericPrice) ? numericPrice.toFixed(2) : null;
   const currency = variant?.price?.currencyCode || product?.priceRange?.minVariantPrice?.currencyCode || 'USD';
   const inStock = variant ? variant.availableForSale : true;
   const imageUrl = product ? shopProductCardImage(product, 800) : '';
@@ -1118,7 +1119,7 @@ function genericProductFallback(route) {
     ? `<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
             <span style="font-size:28px;font-weight:700;color:#60a5fa">$${price}</span>
             <span style="color:rgba(255,255,255,.5)">${escapeHtml(currency)}</span>
-            <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:${inStock ? 'rgba(34,197,94,.15)' : 'rgba(255,255,255,.1)'};color:${inStock ? '#4ade80' : 'rgba(255,255,255,.6)'}">${inStock ? 'In Stock' : 'Out of Stock'}</span>
+            <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:${inStock ? 'rgba(34,197,94,.15)' : 'rgba(255,255,255,.1)'};color:${inStock ? '#4ade80' : 'rgba(255,255,255,.6)'}">${inStock ? 'Available to Order' : 'Currently Unavailable'}</span>
           </div>`
     : '';
   const descriptionMarkup = description
@@ -1156,7 +1157,7 @@ function genericProductFallback(route) {
           ${descriptionMarkup}
           <div style="min-height:48px;max-width:420px;border-radius:8px;background:#3b82f6;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:800">Add to Cart</div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;max-width:420px">
-            ${['Fast Shipping', 'Sizing Help', 'Custom Requests'].map((label) => `<div style="min-height:76px;text-align:center;padding:12px;background:#161616;border:1px solid rgba(255,255,255,.07);border-radius:10px"><p style="margin:0;font-size:12px;font-weight:600;color:rgba(255,255,255,.9)">${label}</p></div>`).join('')}
+            ${['Fulfillment Timing', 'Sizing Help', 'Custom Requests'].map((label) => `<div style="min-height:76px;text-align:center;padding:12px;background:#161616;border:1px solid rgba(255,255,255,.07);border-radius:10px"><p style="margin:0;font-size:12px;font-weight:600;color:rgba(255,255,255,.9)">${label}</p></div>`).join('')}
           </div>
         </div>
       </div>
