@@ -97,7 +97,7 @@ export default function OemPaintBoothFilters() {
           </div>
         </section>
 
-        <section className="px-4">
+        <section className="p-4">
           <div className="mx-auto -mt-3 mb-3 flex max-w-4xl gap-3 rounded-xl border border-amber-300/20 bg-amber-300/[0.055] p-4">
             <Info className="mt-0.5 h-5 w-5 shrink-0 text-amber-200" />
             <div>
