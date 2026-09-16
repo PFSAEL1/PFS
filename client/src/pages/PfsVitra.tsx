@@ -8,7 +8,7 @@ import { ShieldCheck, Truck, ShoppingCart } from 'lucide-react';
 // PFS VITRA variant info — same format as Shopify products
 const PFS_VITRA_VARIANT_ID = 'gid://shopify/ProductVariant/52571232206980';
 const PFS_VITRA_PRODUCT_ID = 'gid://shopify/Product/10419370885252';
-const PFS_VITRA_IMAGE = '/images/products/pfs-vitra-booth-coating.webp';
+const PFS_VITRA_IMAGE = '/images/products/pfs-vitra-booth-coating-transparent.webp';
 const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
 
 function DeferredFooter() {
