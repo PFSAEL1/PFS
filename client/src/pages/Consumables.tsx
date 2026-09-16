@@ -9,6 +9,18 @@ import { Package, ShoppingCart, ArrowRight } from 'lucide-react';
 // Consumable products data — add new products here as they become available
 export const consumableProducts = [
   {
+    id: 'pfs-paint-booth-absorbent-mat-roll-32x50',
+    title: 'PFS Paint Booth Absorbent Mat Roll',
+    subtitle: '32 in × 50 ft Universal Blue Mat',
+    description: 'Cut-to-length polyester and polypropylene absorbent matting for paint-booth work areas, maintenance zones, and general shop spill control.',
+    price: 191.70,
+    currency: 'USD',
+    image: '/images/products/pfs-paint-booth-absorbent-mat-32x50.webp',
+    href: '/product/pfs-paint-booth-absorbent-mat-roll-32x50',
+    inStock: true,
+    badge: 'New',
+  },
+  {
     id: 'pfs-vitra',
     title: 'PFS VITRA',
     subtitle: 'Glass Shield Washable Coating',
@@ -40,7 +52,7 @@ export default function Consumables() {
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Consumables - Paint Booth Supplies | PFS Filters"
-        description="Shop paint booth consumables from PFS Filters. Glass shield coatings, booth maintenance supplies, and more. Professional-grade products for your spray booth."
+        description="Shop paint booth consumables from PFS Filters, including absorbent mat rolls, glass shield coatings, and booth maintenance supplies."
         canonical="https://www.pfsfilters.com/consumables"
       />
       <Navigation />
