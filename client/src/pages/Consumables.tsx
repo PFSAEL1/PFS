@@ -15,7 +15,7 @@ export const consumableProducts = [
     description: 'Professional-grade washable glass shield coating. Protects paint booth windows from overspray buildup. Easy to apply, easy to remove.',
     price: 80.00,
     currency: 'USD',
-    image: '/images/products/pfs-vitra-booth-coating.webp',
+    image: '/images/products/pfs-vitra-booth-coating-transparent.webp',
     href: '/consumables/pfs-vitra',
 
     inStock: true,
