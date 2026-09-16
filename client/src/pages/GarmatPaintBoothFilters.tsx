@@ -81,7 +81,7 @@ export default function GarmatPaintBoothFilters() {
       </section>
 
       {/* Not-affiliated note */}
-      <section className="px-4">
+      <section className="p-4">
         <div className="max-w-3xl mx-auto -mt-2 mb-2 rounded-xl border border-white/12 bg-white/[0.03] p-4 flex gap-3">
           <Info className="h-5 w-5 text-white/40 shrink-0 mt-0.5" />
           <div>
