@@ -877,3 +877,9 @@ video::-internal-media-controls-play-button {
   padding-top: 50px !important;
   padding-bottom: 50px !important;
 }
+
+@media(max-width: 767px){
+  nav>div{
+    padding: 1.6rem 1rem 0 1rem;
+  }
+}
