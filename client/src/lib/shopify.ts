@@ -2,6 +2,8 @@
 // Uses environment variables for store domain and access token
 // Safari-compatible: includes retry logic and proper error handling
 
+import { removePublicEmail, sanitizeProductContact } from '@/lib/publicContactText';
+
 export interface Money {
   amount: string;
   currencyCode: string;
@@ -529,7 +531,7 @@ const CART_CREATE_MUTATION = `
 
 export async function fetchProducts(limit = 50): Promise<ShopifyProduct[]> {
   const data = await storefrontApiRequest(GET_PRODUCTS_QUERY, { first: limit });
-  return data?.data?.products?.edges || [];
+  return (data?.data?.products?.edges || []).map(sanitizeProductContact);
 }
 
 /**
@@ -554,7 +556,7 @@ export async function fetchProductsByCategory(categorySlug: string, limit = 50):
           productMatchesCategory(product, categorySlug),
         );
         if (matchingProducts.length > 0) {
-          return matchingProducts;
+          return matchingProducts.map(sanitizeProductContact);
         }
       }
     } catch {
@@ -569,13 +571,17 @@ export async function fetchProductsByCategory(categorySlug: string, limit = 50):
 
 export async function fetchProductByHandle(handle: string) {
   const data = await storefrontApiRequest(GET_PRODUCT_BY_HANDLE_QUERY, { handle });
-  return data?.data?.productByHandle;
+  const product = data?.data?.productByHandle;
+  return product ? { ...product, description: removePublicEmail(product.description || '') } : product;
 }
 
 export async function fetchRelatedProducts(currentProductId: string, limit = 4): Promise<ShopifyProduct[]> {
   const data = await storefrontApiRequest(GET_PRODUCTS_QUERY, { first: limit + 5 });
   const products = data?.data?.products?.edges || [];
-  return products.filter((p: ShopifyProduct) => p.node.id !== currentProductId).slice(0, limit);
+  return products
+    .filter((p: ShopifyProduct) => p.node.id !== currentProductId)
+    .slice(0, limit)
+    .map(sanitizeProductContact);
 }
 
 // Variant IDs that need direct checkout URL (bypasses Storefront Cart API issues)

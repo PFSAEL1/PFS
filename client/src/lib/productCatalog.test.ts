@@ -3,6 +3,7 @@ import {
   bundledShopifyProducts,
   filterShopifyProducts,
   getImmediateShopifyProducts,
+  searchShopifyProducts,
 } from './productCatalog';
 
 function makeProduct(overrides: {
@@ -11,13 +12,15 @@ function makeProduct(overrides: {
   productType?: string;
   tags?: string[];
   variantTitle?: string;
+  sku?: string;
+  description?: string;
 }) {
   return {
     node: {
       id: `gid://shopify/Product/${overrides.title}`,
       title: overrides.title,
       handle: overrides.handle || overrides.title.toLowerCase().replace(/\s+/g, '-'),
-      description: '',
+      description: overrides.description || '',
       productType: overrides.productType || '',
       tags: overrides.tags || [],
       priceRange: { minVariantPrice: { amount: '10.00', currencyCode: 'USD' } },
@@ -28,6 +31,7 @@ function makeProduct(overrides: {
             node: {
               id: 'gid://shopify/ProductVariant/1',
               title: overrides.variantTitle || 'Default Title',
+              sku: overrides.sku || null,
               price: { amount: '10.00', currencyCode: 'USD' },
               availableForSale: true,
               selectedOptions: [],
@@ -85,5 +89,53 @@ describe('instant Shopify product catalog', () => {
 
     expect(filterShopifyProducts(products, 'fiberglass', '20x20')).toHaveLength(1);
     expect(filterShopifyProducts(products, 'tacky', '20x20')).toHaveLength(0);
+  });
+
+  it('searches titles, keywords, compact dimensions, and variant SKUs', () => {
+    const products = [
+      makeProduct({
+        title: 'Fiberglass Paint Arrestor Pads',
+        productType: 'Exhaust Filter',
+        tags: ['fiberglass', 'paint booth'],
+        variantTitle: '20" x 20" x 2" 50/CS',
+        sku: 'PFS-FG-2020',
+      }),
+      makeProduct({
+        title: 'Tacky Intake Panel',
+        productType: 'Intake Filter',
+        tags: ['tacky'],
+        variantTitle: '24 x 24',
+      }),
+    ];
+
+    expect(searchShopifyProducts(products, 'fiberglass 20x20')[0].node.title).toBe(
+      'Fiberglass Paint Arrestor Pads',
+    );
+    expect(searchShopifyProducts(products, 'PFS-FG-2020')[0].node.title).toBe(
+      'Fiberglass Paint Arrestor Pads',
+    );
+    expect(searchShopifyProducts(products, 'intake')[0].node.title).toBe('Tacky Intake Panel');
+  });
+
+  it('requires every search term and excludes membership products', () => {
+    const products = [
+      makeProduct({ title: 'Gold Membership' }),
+      makeProduct({ title: 'Fiberglass Paint Arrestor', variantTitle: '20 x 20' }),
+      makeProduct({ title: 'Fiberglass Paint Arrestor', variantTitle: '24 x 24' }),
+    ];
+
+    expect(searchShopifyProducts(products, 'fiberglass 20x20')).toHaveLength(1);
+    expect(searchShopifyProducts(products, 'membership')).toHaveLength(0);
+  });
+
+  it('does not treat a numeric keyword as a partial number match', () => {
+    const products = [
+      makeProduct({ title: 'Pleated Air Filter MERV 10' }),
+      makeProduct({ title: 'Aerospace Bag Filter MERV 14', description: 'CG100 media' }),
+    ];
+
+    expect(searchShopifyProducts(products, 'MERV 10').map((product) => product.node.title)).toEqual([
+      'Pleated Air Filter MERV 10',
+    ]);
   });
 });

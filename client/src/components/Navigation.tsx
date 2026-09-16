@@ -6,11 +6,12 @@ import { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingBag, Menu, X, User, ChevronDown, Sparkles } from 'lucide-react';
+import { ShoppingBag, Menu, X, User, ChevronDown, Sparkles, Search } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 
 const LOGO_URL = '/images/brands/pfs-logo-wide-420.webp';
 const CartDrawer = lazy(() => import('./CartDrawer').then((module) => ({ default: module.CartDrawer })));
+const ProductSearchDialog = lazy(() => import('./ProductSearchDialog'));
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,7 @@ export const Navigation = () => {
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const shopDropdownRef = useRef<HTMLDivElement>(null);
   const [location] = useLocation();
 
@@ -119,7 +121,24 @@ export const Navigation = () => {
     };
   }, []);
 
-  useEffect(() => { setIsOpen(false); setShopOpen(false); }, [location]);
+  useEffect(() => { setIsOpen(false); setShopOpen(false); setIsSearchOpen(false); }, [location]);
+
+  useEffect(() => {
+    const openSearch = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      const isTyping = target?.matches('input, textarea, select, [contenteditable="true"]');
+      if (isTyping) return;
+
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setIsOpen(false);
+        setIsSearchOpen(true);
+      }
+    };
+
+    window.addEventListener('keydown', openSearch);
+    return () => window.removeEventListener('keydown', openSearch);
+  }, []);
 
   return (
     <>
@@ -203,7 +222,7 @@ export const Navigation = () => {
                 )}
               </div>
 
-              <Link href="/paint-booth-filters" className="px-3 py-2 text-sm font-semibold text-orange-500 hover:text-orange-300 transition-colors rounded-md hover:bg-white/5">Filters</Link>
+              <Link href="/shop" className="px-3 py-2 text-sm font-semibold text-orange-500 hover:text-orange-300 transition-colors rounded-md hover:bg-white/5">Filters</Link>
               <Link href="/memberships" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
                 Memberships
               </Link>
@@ -242,6 +261,21 @@ export const Navigation = () => {
                   </Button>
                 </Link>
               </div>
+
+              {/* Product search */}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsOpen(false);
+                  setShopOpen(false);
+                  setIsSearchOpen(true);
+                }}
+                className="relative p-2.5 rounded-lg hover:bg-white/10 transition-colors text-white/70 hover:text-white"
+                aria-label="Search products"
+                title="Search products (Ctrl+K)"
+              >
+                <Search className="w-5 h-5" />
+              </button>
 
               {/* Cart */}
               <button
@@ -288,7 +322,7 @@ export const Navigation = () => {
           {/* Mobile menu */}
           {isOpen && (
             <div className="mobile-nav-menu md:hidden border-t border-white/10 py-3 space-y-0.5 bg-black" style={{ height: '74vh', overflow: 'scroll', flexDirection: 'column', alignItems: 'stretch' }}>
-              <Link href="/paint-booth-filters" className="block px-4 py-2.5 text-sm font-semibold text-orange-500 hover:text-orange-300 hover:bg-white/5 rounded-lg transition-colors">Shop Filters</Link>
+              <Link href="/shop" className="block px-4 py-2.5 text-sm font-semibold text-orange-500 hover:text-orange-300 hover:bg-white/5 rounded-lg transition-colors">Shop Filters</Link>
               <Link href="/shop" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">All Products</Link>
               <Link href="/shop-by-filter-type" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Filter Type</Link>
               <Link href="/shop-by-booth" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Booth Brand</Link>
@@ -329,6 +363,11 @@ export const Navigation = () => {
       {isCartOpen && (
         <Suspense fallback={null}>
           <CartDrawer />
+        </Suspense>
+      )}
+      {isSearchOpen && (
+        <Suspense fallback={null}>
+          <ProductSearchDialog open={isSearchOpen} onOpenChange={setIsSearchOpen} />
         </Suspense>
       )}
     </>

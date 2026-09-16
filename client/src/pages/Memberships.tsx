@@ -32,7 +32,7 @@ const tiers = [
     badgeImage: '/images/badges/badge_bronze.png',
     features: [
       '6% discount on all orders',
-      'Priority email support',
+      'Priority phone support',
       'Filter change reminders',
       'Order history tracking',
     ],
@@ -51,7 +51,7 @@ const tiers = [
     badgeImage: '/images/badges/badge_silver.png',
     features: [
       '8% discount on all orders',
-      'Priority phone & email support',
+      'Priority phone support',
       'Filter change reminders',
       'Booth filter database',
       'Auto-reorder scheduling',

@@ -78,7 +78,7 @@ export default function TermsOfService() {
             </PolicySection>
 
             <PolicySection title="7. Returns and Refunds">
-              <p>Opened packages are not eligible for return. Unopened packages may be returned within five business days for a refund, less shipping costs and a 25% restocking fee. Contact PFS Filters at <a href="mailto:orders@pfsfilters.com" className="text-blue-400 hover:underline">orders@pfsfilters.com</a> before sending a return. Additional instructions are available in our <Link href="/returns" className="text-blue-400 hover:underline">Returns &amp; Refunds Policy</Link>.</p>
+              <p>Opened packages are not eligible for return. Unopened packages may be returned within five business days for a refund, less shipping costs and a 25% restocking fee. Call PFS Filters at <a href="tel:855-496-7969" className="text-blue-400 hover:underline">855-496-7969</a> before sending a return. Additional instructions are available in our <Link href="/returns" className="text-blue-400 hover:underline">Returns &amp; Refunds Policy</Link>.</p>
             </PolicySection>
 
             <PolicySection title="8. Acceptable Use">
@@ -140,7 +140,6 @@ export default function TermsOfService() {
                 1400 Airport Blvd<br />
                 Santa Rosa, CA 95403<br />
                 United States<br />
-                Email: <a href="mailto:orders@pfsfilters.com" className="text-blue-400 hover:underline">orders@pfsfilters.com</a><br />
                 Phone: <a href="tel:855-496-7969" className="text-blue-400 hover:underline">855-496-7969</a>
               </address>
             </PolicySection>

@@ -5,7 +5,7 @@ const ITEMS = [
   { icon: Truck, text: 'Ships fast to every state' },
   { icon: Scissors, text: 'Custom-size options available by quote' },
   { icon: RefreshCw, text: 'Monthly Subscribe & Save on eligible products' },
-  { icon: CircleHelp, text: 'Sizing help by phone or email' },
+  { icon: CircleHelp, text: 'Sizing help by phone' },
   { icon: MapPin, text: 'Santa Rosa, California' },
 ];
 

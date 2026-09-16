@@ -44,8 +44,7 @@ export default function LightContact() {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             {[
-              { label: "Email", value: "orders@pfsfilters.com" },
-              { label: "Phone", value: "(800) 555-0199" },
+              { label: "Phone", value: "855-496-7969" },
               { label: "Hours", value: "Mon–Fri, 8am–5pm CST" },
               { label: "Shipping", value: "Ships in 1–2 Business Days" },
             ].map(item => (

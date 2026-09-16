@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, MapPin } from 'lucide-react';
 import { prepareQuoteReturn } from '@/lib/quoteConversion';
 
 // PFS Filters Contact — Zoho CRM Web-to-Lead form.
@@ -282,7 +282,6 @@ export const ContactForm = () => {
               <div className="space-y-4">
                 {[
                   { icon: Phone, label: 'Phone', value: '855-496-7969', href: 'tel:855-496-7969' },
-                  { icon: Mail, label: 'Email', value: 'orders@pfsfilters.com', href: 'mailto:orders@pfsfilters.com' },
                   { icon: MapPin, label: 'Location', value: 'Santa Rosa, CA', href: null },
                 ].map(({ icon: Icon, label, value, href }) => (
                   <div key={label} className="flex items-center gap-4 p-4 bg-[#161616] border border-[#2a2a2a] rounded-lg">

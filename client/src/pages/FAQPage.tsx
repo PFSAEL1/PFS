@@ -1,5 +1,5 @@
 import { Link } from 'wouter';
-import { HelpCircle, Mail, Phone, Search, ShieldCheck } from 'lucide-react';
+import { HelpCircle, Phone, Search, ShieldCheck } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
@@ -53,9 +53,9 @@ export default function FAQPage() {
                   <Search className="h-4 w-4" /> Find My Filter
                 </Button>
               </Link>
-              <a href="mailto:orders@pfsfilters.com">
+              <a href="tel:855-496-7969">
                 <Button variant="outline" className="gap-2 border-white/20 bg-transparent text-white hover:bg-white/10">
-                  <Mail className="h-4 w-4" /> Ask an Expert
+                  <Phone className="h-4 w-4" /> Call an Expert
                 </Button>
               </a>
             </div>
@@ -102,17 +102,12 @@ export default function FAQPage() {
         <div className="mx-auto max-w-4xl rounded-2xl border border-white/10 bg-white/[0.035] p-8 text-center sm:p-10">
           <h2 className="text-2xl font-bold sm:text-3xl">Still need help matching a filter?</h2>
           <p className="mx-auto mt-3 max-w-2xl leading-relaxed text-white/60">
-            Send the booth make and model, filter position, dimensions, and a clear photo. We will help identify the closest available option or review a custom-size request.
+            Have the booth make and model, filter position, dimensions, and a clear photo ready when you call. We will help identify the closest available option or review a custom-size request.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <a href="tel:855-496-7969">
               <Button className="gap-2 bg-blue-500 text-white hover:bg-blue-400">
                 <Phone className="h-4 w-4" /> 855-496-7969
-              </Button>
-            </a>
-            <a href="mailto:orders@pfsfilters.com">
-              <Button variant="outline" className="gap-2 border-white/20 bg-transparent text-white hover:bg-white/10">
-                <Mail className="h-4 w-4" /> orders@pfsfilters.com
               </Button>
             </a>
           </div>

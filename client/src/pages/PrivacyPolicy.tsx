@@ -57,7 +57,7 @@ export default function PrivacyPolicy() {
 
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-3">Your Rights</h2>
-            <p>You have the right to access, correct, or delete your personal information. You may also opt out of marketing communications at any time. To exercise these rights, contact us at <a href="mailto:orders@pfsfilters.com" className="text-blue-400 hover:underline">orders@pfsfilters.com</a>.</p>
+            <p>You have the right to access, correct, or delete your personal information. You may also opt out of marketing communications at any time. To exercise these rights, call <a href="tel:855-496-7969" className="text-blue-400 hover:underline">855-496-7969</a>.</p>
           </section>
 
           <section>
@@ -67,7 +67,7 @@ export default function PrivacyPolicy() {
 
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-3">Contact Us</h2>
-            <p>If you have questions about this privacy policy, contact us at <a href="mailto:orders@pfsfilters.com" className="text-blue-400 hover:underline">orders@pfsfilters.com</a> or call <a href="tel:855-496-7969" className="text-blue-400 hover:underline">855-496-7969</a>.</p>
+            <p>If you have questions about this privacy policy, call <a href="tel:855-496-7969" className="text-blue-400 hover:underline">855-496-7969</a>.</p>
           </section>
         </div>
       </div>

@@ -1,6 +1,6 @@
 // Footer — PFS Filters Dark Theme
 import { Link } from 'wouter';
-import { ExternalLink, Phone, Mail, MapPin } from 'lucide-react';
+import { ExternalLink, Phone, MapPin } from 'lucide-react';
 
 const LOGO_URL = '/images/brands/pfs-logo-wide-420.webp';
 const ADDRESS = '1400 Airport Blvd, Santa Rosa, CA 95403';
@@ -97,12 +97,6 @@ export const Footer = () => {
                 <Phone className="h-4 w-4 flex-shrink-0 text-blue-400" />
                 <a href="tel:855-496-7969" className="hover:text-white transition-colors">
                   855-496-7969
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 flex-shrink-0 text-blue-400" />
-                <a href="mailto:orders@pfsfilters.com" className="hover:text-white transition-colors">
-                  orders@pfsfilters.com
                 </a>
               </li>
               <li className="flex items-start gap-2">

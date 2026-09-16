@@ -1,7 +1,7 @@
 import { Link } from 'wouter';
 import { useEffect } from 'react';
 import { consumeQuoteReturn, QUOTE_CONVERSION_DESTINATION } from '@/lib/quoteConversion';
-import { CheckCircle2, Phone, Mail } from 'lucide-react';
+import { CheckCircle2, Phone } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
@@ -75,12 +75,6 @@ export default function ThankYou() {
                 className="inline-flex items-center justify-center gap-2 text-white hover:text-blue-400 transition-colors font-semibold"
               >
                 <Phone className="h-4 w-4 text-blue-400" /> 855-496-7969
-              </a>
-              <a
-                href="mailto:orders@pfsfilters.com"
-                className="inline-flex items-center justify-center gap-2 text-white hover:text-blue-400 transition-colors font-semibold"
-              >
-                <Mail className="h-4 w-4 text-blue-400" /> orders@pfsfilters.com
               </a>
             </div>
           </div>
