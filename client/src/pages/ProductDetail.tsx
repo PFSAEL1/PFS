@@ -245,7 +245,7 @@ export default function ProductDetail() {
     <div className="min-h-screen text-white bg-[#040404]">
       <SEO
         title={`${product.title} - PFS Filters`}
-        description={product.description || `Buy ${product.title} from PFS Filters. Premium paint booth filtration products with fast nationwide shipping.`}
+        description={product.description || `View ${product.title} from PFS Filters with current catalog details and ordering support.`}
         canonical={`https://www.pfsfilters.com/product/${handle}`}
         ogImage={mainImage}
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
@@ -500,7 +500,7 @@ export default function ProductDetail() {
             {/* Trust badges */}
             <div className="grid grid-cols-3 gap-3 mt-2 pt-6">
               {[
-                { icon: Truck, label: 'Supplier Fulfilled', sub: 'Typical delivery: 3–5 business days total' },
+                { icon: Truck, label: 'Fulfillment Timing', sub: 'Varies by product and destination' },
                 { icon: CircleHelp, label: 'Sizing Help', sub: 'Confirm before ordering' },
                 { icon: Package, label: 'Custom Requests', sub: 'Contact us for options' },
               ].map((item) => (
