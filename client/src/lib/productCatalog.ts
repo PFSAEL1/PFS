@@ -5,6 +5,7 @@ import { removePublicEmail, sanitizeProductContact } from '@/lib/publicContactTe
 const PRODUCT_CACHE_KEY = 'pfs-shopify-products-v1';
 const PRODUCT_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 const CONSUMABLE_HANDLES_RENDERED_SEPARATELY = new Set([
+  'pfs-paint-booth-absorbent-mat-roll-32x50',
   'pfs-vitra',
   'pfs-vanguard-complete-booth-protection-kit',
 ]);

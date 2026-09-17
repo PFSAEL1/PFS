@@ -63,6 +63,10 @@ describe('instant Shopify product catalog', () => {
 
   it('removes Shopify copies of consumables rendered as canonical cards', () => {
     const products = [
+      makeProduct({
+        title: 'PFS Paint Booth Absorbent Mat Roll — 32 in × 50 ft',
+        handle: 'pfs-paint-booth-absorbent-mat-roll-32x50',
+      }),
       makeProduct({ title: 'PFS VITRA', handle: 'pfs-vitra' }),
       makeProduct({
         title: 'PFS VANGUARD Complete Booth Protection Kit',
