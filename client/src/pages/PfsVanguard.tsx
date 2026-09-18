@@ -3,7 +3,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Package, ShieldCheck, Truck, ShoppingCart, Sparkles } from 'lucide-react';
+import { ShieldCheck, Truck, ShoppingCart, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 // PFS VANGUARD variant info
 const PFS_VANGUARD_VARIANT_ID = 'gid://shopify/ProductVariant/52571260452996';
 const PFS_VANGUARD_PRODUCT_ID = 'gid://shopify/Product/10419381207172';
+const PFS_VANGUARD_IMAGE = '/images/products/pfs-vanguard-kit-transparent.webp';
 
 export default function PfsVanguard() {
   const [quantity, setQuantity] = useState(1);
@@ -25,7 +26,7 @@ export default function PfsVanguard() {
       variantTitle: 'Default',
       price: { amount: '595.00', currencyCode: 'USD' },
       quantity,
-      image: undefined,
+      image: PFS_VANGUARD_IMAGE,
       handle: 'pfs-vanguard-complete-booth-protection-kit',
     });
     toast.success('PFS VANGUARD™ Kit added to cart');
@@ -53,18 +54,16 @@ export default function PfsVanguard() {
       <section className="section-raised tex-dots py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-10 items-start">
-            {/* Image placeholder */}
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] aspect-square flex flex-col items-center justify-center p-8">
-              <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6">
-                <Package className="h-10 w-10 text-white/30" />
-              </div>
-              <p className="text-white/40 text-lg font-medium mb-1">Image Coming Soon</p>
-              <p className="text-white/25 text-sm">Product photography in progress</p>
-              {/* PFS Logo watermark */}
+            {/* Product image */}
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] aspect-square flex items-center justify-center overflow-hidden p-4">
               <img
-                src="/images/brands/pfs-logo-wide.png"
-                alt="PFS Filters"
-                className="w-32 opacity-20 mt-8"
+                src={PFS_VANGUARD_IMAGE}
+                alt="PFS VANGUARD booth coating and PFS VITRA glass coating kit"
+                className="w-full h-full object-contain"
+                width={1442}
+                height={1213}
+                fetchPriority="high"
+                decoding="async"
               />
             </div>
 
@@ -141,7 +140,7 @@ export default function PfsVanguard() {
 
               <div className="bg-white/[0.03] border border-white/10 rounded-xl p-4 mt-6">
                 <p className="text-white/50 text-xs leading-relaxed">
-                  <strong className="text-white/70">Professional Use:</strong> PFS VANGUARD™ is designed for professional paint booth operators. For best results, follow the included application instructions. Product imagery coming soon.
+                  <strong className="text-white/70">Professional Use:</strong> PFS VANGUARD™ is designed for professional paint booth operators. For best results, follow the included application instructions.
                 </p>
               </div>
             </div>
