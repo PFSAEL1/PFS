@@ -262,21 +262,6 @@ export const Navigation = () => {
                 </Link>
               </div>
 
-              {/* Product search */}
-              <button
-                type="button"
-                onClick={() => {
-                  setIsOpen(false);
-                  setShopOpen(false);
-                  setIsSearchOpen(true);
-                }}
-                className="relative p-2.5 rounded-lg hover:bg-white/10 transition-colors text-white/70 hover:text-white"
-                aria-label="Search products"
-                title="Search products (Ctrl+K)"
-              >
-                <Search className="w-5 h-5" />
-              </button>
-
               {/* Cart */}
               <button
                 onClick={() => setCartOpen(true)}
@@ -360,6 +345,20 @@ export const Navigation = () => {
           )}
         </div>
       </nav>
+      <button
+        type="button"
+        onClick={() => {
+          setIsOpen(false);
+          setShopOpen(false);
+          setIsSearchOpen(true);
+        }}
+        className="search-fab-pulse fixed bottom-20 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full text-white transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8bc0ff] focus-visible:ring-offset-2 focus-visible:ring-offset-black md:bottom-6 md:right-6 md:h-[84px] md:w-[84px]"
+        aria-label="Search products"
+        title="Search products (Ctrl+K)"
+      >
+        <span className="search-fab-pulse-surface" aria-hidden="true" />
+        <Search className="search-fab-pulse-icon h-7 w-7 md:h-[42px] md:w-[42px]" aria-hidden="true" />
+      </button>
       {isCartOpen && (
         <Suspense fallback={null}>
           <CartDrawer />
