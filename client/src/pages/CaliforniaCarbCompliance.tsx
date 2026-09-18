@@ -68,7 +68,7 @@ export default function CaliforniaCarbCompliance() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="California Paint Booth Filter Compliance: CARB & Air Districts"
+        title="California Paint Booth Filter Guide | PFS Filters"
         description="Understand how CARB, California air districts, facility permits, and product documentation relate to paint booth filter selection and maintenance."
         canonical={`${SITE}${PATH}`}
         structuredData={structuredData}
@@ -78,7 +78,7 @@ export default function CaliforniaCarbCompliance() {
       <main>
         <section className="section-darker relative overflow-hidden px-4 pb-16 pt-28">
           <div className="pointer-events-none absolute right-0 top-14 opacity-[0.045]">
-            <img src="/images/brands/pfs-logo-wide.png" alt="" className="w-[560px] max-w-[60vw]" />
+            <img src="/images/brands/pfs-logo-wide.png" alt="" aria-hidden="true" className="w-[560px] max-w-[60vw]" />
           </div>
           <div className="relative mx-auto max-w-7xl">
             <Breadcrumb items={[{ label: 'Paint Booth Filters', href: '/paint-booth-filters' }, { label: 'California Compliance Guide' }]} />

@@ -309,6 +309,18 @@ export default function FilterDatabase() {
               </div>
             </div>
             <div className="flex items-center gap-2 flex-wrap">
+              <Button asChild variant="outline" size="sm"
+                className="border-white/10 bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 text-white/70 text-xs gap-1.5">
+                <Link href="/industries/automotive-paint-booth-filters">
+                  <Link2 className="w-3.5 h-3.5" /> Automotive Guide
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="sm"
+                className="border-white/10 bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 text-white/70 text-xs gap-1.5">
+                <Link href="/industries/aerospace-paint-booth-filters">
+                  <Link2 className="w-3.5 h-3.5" /> Aerospace Guide
+                </Link>
+              </Button>
               <Button variant="outline" size="sm" onClick={handleExportCSV}
                 className="border-white/10 bg-[#0d0d0d]/5 hover:bg-[#0d0d0d]/10 text-white/70 text-xs gap-1.5">
                 <Download className="w-3.5 h-3.5" /> CSV Template

@@ -73,7 +73,7 @@ export default function ExhaustFilters() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Paint Booth Exhaust Filters — Fiberglass, Paint Pockets & Andreae"
+        title="Paint Booth Exhaust Filters | PFS Filters"
         description="Compare fiberglass paint arrestor pads and rolls, Paint Pockets, and Andreae-style accordion media. Check current options and availability on each product page."
         canonical="https://www.pfsfilters.com/exhaust-filters"
         structuredData={structuredData}

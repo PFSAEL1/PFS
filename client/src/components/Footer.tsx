@@ -76,7 +76,7 @@ export const Footer = () => {
             <ul className="space-y-2 text-sm">
               {[
                 { href: '/industries/aerospace-paint-booth-filters', label: 'Aerospace & MRO' },
-                { href: '/paint-booth-filters', label: 'Automotive' },
+                { href: '/industries/automotive-paint-booth-filters', label: 'Automotive' },
                 { href: '/california/north-bay-paint-booth-filters', label: 'California Service Areas' },
                 { href: '/california/carb-paint-booth-filter-compliance', label: 'California Compliance Guide' },
                 { href: '/shop', label: 'Industrial & Woodworking' },

@@ -176,12 +176,13 @@ export default function BrandDetail({ params }: BrandDetailProps) {
   ]);
 
   const boothTypes = [...new Set(brand.models.map(m => m.type))];
+  const seoBrandName = brand.slug === 'global-finishing-solutions' ? 'GFS' : brand.name;
 
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title={`${brand.name} Spray Booth Filters — Replacement Ceiling, Intake & Exhaust | PFS Filters`}
-        description={`Find replacement filters for ${brand.name} spray booths. We stock ceiling media, intake panels, exhaust arrestors, and pre-filters for all ${brand.name} models including ${brand.models.slice(0, 3).map(m => m.name).join(', ')}.`}
+        title={`${seoBrandName} Paint Booth Filter Guide | PFS Filters`}
+        description={`Review filter positions and replacement guidance for ${brand.name} spray booths. Confirm the installed model, stage, and dimensions before ordering.`}
         canonical={`https://www.pfsfilters.com/shop-by-booth/${brand.slug}`}
         structuredData={breadcrumbSchema}
       />

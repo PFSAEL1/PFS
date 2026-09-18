@@ -138,6 +138,7 @@ export default function CaliforniaPaintBoothFilters() {
             <img
               src={LOGO_URL}
               alt=""
+              aria-hidden="true"
               className="w-[540px] max-w-[60vw]"
               width={420}
               height={127}
