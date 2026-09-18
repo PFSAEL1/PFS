@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2, CheckCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import { getAuthErrorMessage } from '@/lib/authError';
 import { toast } from 'sonner';
 
 const LOGO_URL = '/images/brands/pfs-logo-wide.png';
@@ -175,7 +176,7 @@ export default function Auth() {
       window.history.replaceState(null, '', '/auth');
       setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : 'Failed to set password');
+      toast.error(getAuthErrorMessage(err, 'Failed to set password'));
     } finally {
       setLoading(false);
     }
@@ -205,7 +206,7 @@ export default function Auth() {
       }
       navigate('/dashboard');
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : 'Sign in failed');
+      toast.error(getAuthErrorMessage(err, 'Sign in failed'));
     } finally {
       setLoading(false);
     }
@@ -244,7 +245,7 @@ export default function Auth() {
         }
       }
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : 'Sign up failed');
+      toast.error(getAuthErrorMessage(err, 'Sign up failed'));
     } finally {
       setLoading(false);
     }
@@ -261,7 +262,7 @@ export default function Auth() {
       toast.success('Password reset email sent! Check your inbox.');
       setForgotPassword(false);
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : 'Failed to send reset email');
+      toast.error(getAuthErrorMessage(err, 'Failed to send reset email'));
     } finally {
       setLoading(false);
     }
