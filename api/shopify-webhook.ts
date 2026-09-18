@@ -36,7 +36,7 @@ function normalizeEmail(email: string): string {
 }
 
 /**
- * Fuzzy match: try to find a site account that matches the order's customer.
+ * Fuzzy  match: try to find a site account that matches the order's customer.
  * Strategies:
  *   1. Normalized email match (fix missing .com etc.)
  *   2. Name-based: "Ryan Fevold" → search for emails containing "ryan.fevold"
