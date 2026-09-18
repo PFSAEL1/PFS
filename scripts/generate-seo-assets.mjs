@@ -156,6 +156,7 @@ const categories = [
 
 const staticRoutes = [
   { path: '/', title: 'Paint Booth Filters, Media & Fitment Help | PFS Filters', description: 'Shop paint booth exhaust, intake, ceiling, prefilter, and accordion-style media with product data and fitment-review support from PFS Filters.', priority: '1.0', changefreq: 'weekly' },
+  { path: '/auth', title: 'Sign In | PFS Filters', description: 'Sign in to your PFS Filters customer account.', noindex: true },
   { path: '/shop', title: 'Shop Paint Booth Filters, Intake & Exhaust Media | PFS Filters', description: 'Shop fiberglass paint arrestors, tacky intake panels, ceiling media, MERV filters, roll media, and booth-specific replacements.', priority: '1.0', changefreq: 'daily' },
   { path: '/paint-booth-filters', title: 'Paint Booth Filters by Type, Size & Booth | PFS Filters', description: 'Browse paint booth intake, ceiling, prefilter, and exhaust media by type, size, and booth brand. Get sizing help and 5% Subscribe & Save on eligible products.', priority: '0.9', changefreq: 'monthly' },
   { path: '/andreae-paint-booth-filters', title: 'Andreae Paint Booth Filters — AF Pad & Roll Variants | PFS', description: 'Review current Andreae-style accordion paint arrestor variants, including AF213, AF223, AF413, AF423, AF813, AF923, AF113, and AF123.', priority: '0.9', changefreq: 'monthly' },
@@ -436,7 +437,7 @@ if (garmatRoute) {
 const routes = [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...blogRoutes, ...productRoutes];
 
 function sitemapXml() {
-  const entries = routes.map((route) => {
+  const entries = routes.filter((route) => !route.noindex).map((route) => {
     const image = route.image ? `\n    <image:image><image:loc>${escapeXml(route.image)}</image:loc><image:title>${escapeXml(route.title)}</image:title></image:image>` : '';
     return `  <url>\n    <loc>${escapeXml(absoluteUrl(route.path))}</loc>\n    <lastmod>${route.lastmod || today}</lastmod>\n    <changefreq>${route.changefreq}</changefreq>\n    <priority>${route.priority}</priority>${image}\n  </url>`;
   }).join('\n');
@@ -1172,7 +1173,8 @@ function writeSourceAssets() {
   fs.writeFileSync(path.join(publicDir, 'llms.txt'), llmsText(false));
   fs.writeFileSync(path.join(publicDir, 'llms-full.txt'), llmsText(true));
   fs.writeFileSync(path.join(publicDir, 'products.json'), publicProductJson());
-  console.log(`Generated source SEO assets for ${routes.length} indexable routes.`);
+  const indexableRouteCount = routes.filter((route) => !route.noindex).length;
+  console.log(`Generated source SEO assets for ${indexableRouteCount} indexable routes.`);
 }
 
 function replaceMeta(html, route) {
@@ -1180,10 +1182,13 @@ function replaceMeta(html, route) {
   const image = route.image || 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/og-preview-f5HJPTtYv8nuyE689iUjcf.png';
   const title = escapeHtml(route.title);
   const description = escapeHtml(truncate(route.description));
+  const robots = route.noindex
+    ? 'noindex,nofollow'
+    : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
   let output = html
     .replace(/<title[^>]*>[\s\S]*?<\/title>/i, `<title data-seo-generated>${title}</title>`)
     .replace(/<meta[^>]+name="description"[^>]*>/i, `<meta data-seo-generated name="description" content="${description}" />`)
-    .replace(/<meta[^>]+name="robots"[^>]*>/i, '<meta data-seo-generated name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />')
+    .replace(/<meta[^>]+name="robots"[^>]*>/i, `<meta data-seo-generated name="robots" content="${robots}" />`)
     .replace(/<link[^>]+rel="canonical"[^>]*>/i, `<link data-seo-generated rel="canonical" href="${escapeHtml(url)}" />`)
     .replace(/<meta[^>]+property="og:title"[^>]*>/i, `<meta data-seo-generated property="og:title" content="${title}" />`)
     .replace(/<meta[^>]+property="og:description"[^>]*>/i, `<meta data-seo-generated property="og:description" content="${description}" />`)
@@ -1341,6 +1346,8 @@ function replaceMeta(html, route) {
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
   const fallback = route.path === '/'
     ? `<main data-seo-fallback><section id="home"><div><picture><source media="(max-width: 767px)" srcset="${heroPosterMobile}" /><img src="${heroPosterDesktop}" alt="" width="1600" height="900" fetchpriority="high" /></picture><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section></main>`
+    : route.path === '/auth'
+    ? `<main data-seo-fallback id="auth-fallback" style="min-height:100vh;background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif"><div style="width:min(384px,calc(100% - 32px));border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#111;padding:32px;text-align:center;box-sizing:border-box"><img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" width="250" height="76" fetchpriority="high" style="display:block;width:250px;max-width:100%;height:auto;margin:0 auto 24px;filter:brightness(1.4) drop-shadow(0 0 20px rgba(59,130,246,.3))" /><p style="margin:0;color:rgba(255,255,255,.7);font-size:14px">Loading secure sign-in…</p></div></main>`
     : route.path === '/shop'
     ? shopFallback(title, description)
     : route.path === '/intake-filters'
