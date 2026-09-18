@@ -103,9 +103,6 @@ import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/pagination";
 import {
   Popover,
@@ -164,6 +161,8 @@ import {
   AlertCircle,
   CalendarIcon,
   Check,
+  ChevronLeft,
+  ChevronRight,
   Clock,
   Moon,
   Sun,
@@ -738,36 +737,46 @@ export default function ComponentsShowcase() {
                   <Pagination>
                     <PaginationContent>
                       <PaginationItem>
-                        <PaginationPrevious
-                          href="#"
-                          onClick={e => {
-                            e.preventDefault();
-                            setCurrentPage(Math.max(1, currentPage - 1));
-                          }}
-                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          className="gap-1 px-2.5"
+                          aria-label="Go to previous page"
+                          disabled={currentPage === 1}
+                          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                        >
+                          <ChevronLeft className="size-4" aria-hidden="true" />
+                          <span className="hidden sm:block">Previous</span>
+                        </Button>
                       </PaginationItem>
                       {[1, 2, 3, 4, 5].map(page => (
                         <PaginationItem key={page}>
-                          <PaginationLink
-                            href="#"
-                            isActive={currentPage === page}
-                            onClick={e => {
-                              e.preventDefault();
-                              setCurrentPage(page);
-                            }}
+                          <Button
+                            type="button"
+                            variant={currentPage === page ? "outline" : "ghost"}
+                            size="icon"
+                            aria-current={currentPage === page ? "page" : undefined}
+                            aria-label={`Go to page ${page}`}
+                            onClick={() => setCurrentPage(page)}
                           >
                             {page}
-                          </PaginationLink>
+                          </Button>
                         </PaginationItem>
                       ))}
                       <PaginationItem>
-                        <PaginationNext
-                          href="#"
-                          onClick={e => {
-                            e.preventDefault();
-                            setCurrentPage(Math.min(5, currentPage + 1));
-                          }}
-                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          className="gap-1 px-2.5"
+                          aria-label="Go to next page"
+                          disabled={currentPage === 5}
+                          onClick={() => setCurrentPage(Math.min(5, currentPage + 1))}
+                        >
+                          <span className="hidden sm:block">Next</span>
+                          <ChevronRight className="size-4" aria-hidden="true" />
+                        </Button>
                       </PaginationItem>
                     </PaginationContent>
                   </Pagination>
