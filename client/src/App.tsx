@@ -51,6 +51,7 @@ const PfsVanguard = lazyRoute(() => import('./pages/PfsVanguard'));
 const Consumables = lazyRoute(() => import('./pages/Consumables'));
 const Aerospace = lazyRoute(() => import('./pages/Aerospace'));
 const AerospaceHub = lazyRoute(() => import('./pages/AerospaceHub'));
+const AutomotivePaintBoothFilters = lazyRoute(() => import('./pages/AutomotivePaintBoothFilters'));
 const ShopByBooth = lazyRoute(() => import('./pages/ShopByBooth'));
 const BrandDetail = lazyRoute(() => import('./pages/BrandDetail'));
 const ShopByBoothType = lazyRoute(() => import('./pages/ShopByBoothType'));
@@ -673,7 +674,7 @@ function FiberglassVsTackyBlogLoadingFallback() {
               </span>
             </div>
             <h1 style={{ margin: '0 0 16px', fontSize: 'clamp(2.25rem,7vw,3rem)', lineHeight: 1.15, fontWeight: 800, fontFamily: 'inherit' }}>
-              Fiberglass vs. Tacky Panel Filters: How to Compare the Application
+              Fiberglass vs. Tacky Panel Filters
             </h1>
             <p style={{ margin: '0 0 24px', maxWidth: 768, color: 'rgba(255,255,255,.7)', fontSize: 20, lineHeight: 1.5 }}>
               Fiberglass paint arrestors and tackified panel media are not automatically interchangeable. Compare the documented filter stage, dimensions, media, airflow direction, and equipment requirements before ordering.
@@ -687,7 +688,7 @@ function FiberglassVsTackyBlogLoadingFallback() {
             <div style={{ aspectRatio: '16/9', borderRadius: 16, overflow: 'hidden', background: '#151515' }}>
               <img
                 src="https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-paint-arrestor_c242c226.png"
-                alt="Fiberglass vs. Tacky Panel Filters: How to Compare the Application"
+                alt="Fiberglass and tacky panel filter media comparison"
                 width="1280"
                 height="720"
                 loading="eager"
@@ -739,6 +740,7 @@ function ProductLoadingFallback({ handle }: { handle: string }) {
                     srcSet={`${thumbnail.src} ${thumbnail.width}w`}
                     sizes="(min-width: 1024px) 50vw, 100vw"
                     alt=""
+                    aria-hidden="true"
                     width={thumbnail.width}
                     height={thumbnail.width}
                     loading="eager"
@@ -856,6 +858,7 @@ function Router() {
       <Route path="/consumables/pfs-vanguard" component={PfsVanguard} />
       <Route path="/aerospace" component={Aerospace} />
       <Route path="/industries/aerospace-paint-booth-filters" component={AerospaceHub} />
+      <Route path="/industries/automotive-paint-booth-filters" component={AutomotivePaintBoothFilters} />
 
       {/* Features */}
       <Route path="/filter-scanner" component={FilterScanner} />

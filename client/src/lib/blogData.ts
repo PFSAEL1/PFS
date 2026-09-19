@@ -57,7 +57,7 @@ Source: https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.107
   },
   {
     slug: "fiberglass-vs-tacky-panel-filters",
-    title: "Fiberglass vs. Tacky Panel Filters: How to Compare the Application",
+    title: "Fiberglass vs. Tacky Panel Filters",
     excerpt: "Fiberglass paint arrestors and tackified panel media are not automatically interchangeable. Compare the documented filter stage, dimensions, media, airflow direction, and equipment requirements before ordering.",
     author: "PFS Filters Editorial Team",
     date: "2026-09-05",
@@ -101,7 +101,7 @@ Source: https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.107
   },
   {
     slug: "paint-booth-maintenance-checklist",
-    title: "Paint Booth Filter Maintenance Checklist: A Documentation-First Approach",
+    title: "Paint Booth Filter Maintenance Checklist",
     excerpt: "Use this general checklist to organize filter inspections and records, then apply the spray booth manual, filter instructions, permit conditions, and facility procedures that control your installation.",
     author: "PFS Filters Editorial Team",
     date: "2026-09-05",
@@ -148,7 +148,7 @@ Source: https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.107
   },
   {
     slug: "aerospace-paint-booth-compliance-method-319",
-    title: "EPA Method 319 and Aerospace Paint Overspray Arrestors: What the Test Does",
+    title: "EPA Method 319 for Aerospace Paint Booth Filters",
     excerpt: "EPA Method 319 is a test method for determining paint overspray arrestor filtration efficiency. It is not a blanket certification for every installation, coating, operating condition, or facility obligation.",
     author: "PFS Filters Editorial Team",
     date: "2026-09-05",

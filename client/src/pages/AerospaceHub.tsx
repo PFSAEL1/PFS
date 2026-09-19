@@ -8,6 +8,37 @@ import { Button } from '@/components/ui/button';
 import { Plane, Wind, Shield, Wrench, ChevronDown, Phone, ArrowRight } from 'lucide-react';
 
 const LOGO_URL = '/images/brands/pfs-logo-wide.png';
+const PAGE_URL = 'https://www.pfsfilters.com/industries/aerospace-paint-booth-filters';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.pfsfilters.com/#website',
+      name: 'PFS Filters',
+      url: 'https://www.pfsfilters.com/',
+      publisher: { '@id': 'https://www.pfsfilters.com/#store' },
+    },
+    {
+      '@type': 'CollectionPage',
+      '@id': `${PAGE_URL}#webpage`,
+      name: 'Aerospace Paint Booth Filters & Multi-Stage Filtration',
+      description: 'Aerospace paint booth filtration guidance for intake, ceiling diffusion, overspray capture, and multi-stage filter review.',
+      url: PAGE_URL,
+      isPartOf: { '@id': 'https://www.pfsfilters.com/#website' },
+      provider: { '@id': 'https://www.pfsfilters.com/#store' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pfsfilters.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Aerospace Filters', item: 'https://www.pfsfilters.com/aerospace' },
+        { '@type': 'ListItem', position: 3, name: 'Aerospace Paint Booth Filtration', item: PAGE_URL },
+      ],
+    },
+  ],
+};
 
 export default function AerospaceHub() {
   const [guideOpen, setGuideOpen] = useState(false);
@@ -17,7 +48,8 @@ export default function AerospaceHub() {
       <SEO
         title="Aerospace Paint Booth Filters & MRO Filtration | PFS Filters"
         description="Premium aerospace paint booth filtration solutions. Shop ceiling diffusion media and request custom multi-stage exhaust systems for MRO and aircraft finishing."
-        canonical="https://www.pfsfilters.com/industries/aerospace-paint-booth-filters"
+        canonical={PAGE_URL}
+        structuredData={structuredData}
       />
       <Navigation />
 

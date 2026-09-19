@@ -55,7 +55,7 @@ export default function GarmatPaintBoothFilters() {
       {/* Header + H1 */}
       <section className="section-darker relative overflow-hidden pt-28 pb-10 px-4">
         <div className="pointer-events-none absolute -right-16 top-20 hidden opacity-[0.035] lg:block">
-          <img src="/images/brands/pfs-logo-wide.png" alt="" className="w-[620px]" />
+          <img src="/images/brands/pfs-logo-wide.png" alt="" aria-hidden="true" className="w-[620px]" />
         </div>
         <div className="max-w-7xl mx-auto relative">
           <Breadcrumb

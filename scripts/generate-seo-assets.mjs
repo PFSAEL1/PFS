@@ -160,7 +160,7 @@ const staticRoutes = [
   { path: '/shop', title: 'Shop Paint Booth Filters, Intake & Exhaust Media | PFS Filters', description: 'Shop fiberglass paint arrestors, tacky intake panels, ceiling media, MERV filters, roll media, and booth-specific replacements.', priority: '1.0', changefreq: 'daily' },
   { path: '/paint-booth-filters', title: 'Paint Booth Filters by Type, Size & Booth | PFS Filters', description: 'Browse paint booth intake, ceiling, prefilter, and exhaust media by type, size, and booth brand. Get sizing help and 5% Subscribe & Save on eligible products.', priority: '0.9', changefreq: 'monthly' },
   { path: '/andreae-paint-booth-filters', title: 'Andreae Paint Booth Filters — AF Pad & Roll Variants | PFS', description: 'Review current Andreae-style accordion paint arrestor variants, including AF213, AF223, AF413, AF423, AF813, AF923, AF113, and AF123.', priority: '0.9', changefreq: 'monthly' },
-  { path: '/exhaust-filters', title: 'Paint Booth Exhaust Filters — Fiberglass, Paint Pockets & Andreae | PFS', description: 'Compare fiberglass paint arrestor pads and rolls, Paint Pockets, and Andreae-style accordion media. Check options and availability on each product page.', priority: '0.9', changefreq: 'weekly' },
+  { path: '/exhaust-filters', title: 'Paint Booth Exhaust Filters | PFS Filters', description: 'Compare fiberglass paint arrestor pads and rolls, Paint Pockets, and Andreae-style accordion media. Check options and availability on each product page.', priority: '0.9', changefreq: 'weekly' },
   { path: '/intake-filters', title: 'Paint Booth Intake Filters — Tacky, Pleated & Ceiling Media | PFS', description: 'Compare tacky panels, ceiling diffusion media, MERV-rated pleated filters, and pocket bag filters. Verify the equipment stage and dimensions before ordering.', priority: '0.9', changefreq: 'weekly' },
   { path: '/ceiling-filters', title: 'Paint Booth Ceiling Filters — Downdraft Diffusion Media | PFS', description: 'Compare paint booth ceiling diffusion media and current size variants for applicable downdraft and semi-downdraft systems. Verify the grid before ordering.', priority: '0.9', changefreq: 'weekly' },
   { path: '/prefilters', title: 'Paint Booth Prefilters & First-Stage Filter Guidance | PFS', description: 'Learn where paint booth prefilters and first-stage media may be used, what details to verify, and when a multi-stage arrangement needs review.', priority: '0.7', changefreq: 'monthly' },
@@ -173,7 +173,7 @@ const staticRoutes = [
   { path: '/california/north-bay-paint-booth-filters', title: 'North Bay Paint Booth Filters | PFS Filters Santa Rosa', description: 'Paint booth filter ordering and fitment support for Santa Rosa, Petaluma, Sonoma County, Marin County, and the North Bay from PFS Filters.', priority: '0.8', changefreq: 'monthly' },
   { path: '/california/bay-area-paint-booth-filters', title: 'Bay Area Paint Booth Filters | San Jose & Peninsula', description: 'Paint booth filter selection and ordering support for San Jose, the Peninsula, East Bay, and greater San Francisco Bay Area finishing operations.', priority: '0.8', changefreq: 'monthly' },
   { path: '/california/sacramento-paint-booth-filters', title: 'Sacramento Paint Booth Filters | PFS Filters', description: 'Paint booth filter ordering and selection support for Sacramento, West Sacramento, Roseville, and Capital Region fleet and finishing operations.', priority: '0.8', changefreq: 'monthly' },
-  { path: '/california/carb-paint-booth-filter-compliance', title: 'California Paint Booth Filter Compliance: CARB & Air Districts | PFS', description: 'Understand how CARB, California air districts, facility permits, and product documentation relate to paint booth filter selection and maintenance.', priority: '0.8', changefreq: 'monthly' },
+  { path: '/california/carb-paint-booth-filter-compliance', title: 'California Paint Booth Filter Guide | PFS Filters', description: 'Understand how CARB, California air districts, facility permits, and product documentation relate to paint booth filter selection and maintenance.', priority: '0.8', changefreq: 'monthly' },
   { path: '/california/napa-valley-paint-booth-filters', title: 'Napa Valley Paint Booth Filters | PFS Filters', description: 'Paint booth filter guidance for Napa Valley winery equipment, agricultural, collision, and facility refinishing operations.', priority: '0.7', changefreq: 'monthly' },
   { path: '/california/central-valley-paint-booth-filters', title: 'Central Valley Paint Booth Filters | Fresno & PFS', description: 'Paint booth filter support for Fresno and Central Valley agricultural, trucking, construction-equipment, and industrial finishing operations.', priority: '0.8', changefreq: 'monthly' },
   { path: '/california/bakersfield-paint-booth-filters', title: 'Bakersfield Paint Booth Filters | PFS Filters', description: 'Paint booth filter selection support for Bakersfield and Kern County energy-service, agricultural, fleet, truck, and collision operations.', priority: '0.7', changefreq: 'monthly' },
@@ -199,6 +199,7 @@ const staticRoutes = [
   { path: '/consumables/pfs-vanguard', title: 'PFS Vanguard Paint Booth Consumables', description: 'Review PFS Vanguard consumables for professional paint booth and finishing operations.', priority: '0.5', changefreq: 'monthly' },
   { path: '/aerospace', title: 'Aerospace Paint Booth Filtration Products | PFS Filters', description: 'Browse filtration panels, blankets, pocket bags, and roll media for aerospace finishing operations.', priority: '0.8', changefreq: 'monthly' },
   { path: '/industries/aerospace-paint-booth-filters', title: 'Aerospace Paint Booth Filters & Multi-Stage Filtration | PFS', description: 'Learn about multi-stage aerospace paint booth filtration, NESHAP considerations, and available PFS filter media.', priority: '0.9', changefreq: 'monthly' },
+  { path: '/industries/automotive-paint-booth-filters', title: 'Automotive Paint Booth Filters | PFS Filters', description: 'Compare automotive paint booth intake, ceiling, prefilter, and exhaust filters. Verify booth configuration, stage, dimensions, and fit with PFS guidance.', priority: '0.9', changefreq: 'monthly' },
   { path: '/filter-scanner', title: 'Photo-Assisted Paint Booth Filter Review | PFS Filters', description: 'Use a filter photo to narrow catalog candidates, then verify the booth position, label, and actual dimensions before ordering.', priority: '0.5', changefreq: 'monthly' },
 ];
 
@@ -233,6 +234,29 @@ const paintBoothFilterFaqs = [
   },
 ];
 
+const automotiveFilterFaqs = [
+  {
+    question: 'How do I identify the correct automotive paint booth filter?',
+    answer: 'Start with the booth manufacturer and model, the exact filter position, the existing filter or opening dimensions, airflow direction, and any label or part number. A clear photo can help narrow candidates, but appearance alone does not prove fitment.',
+  },
+  {
+    question: 'What is the difference between intake and exhaust filters?',
+    answer: 'Intake filters are used in documented incoming-air stages, while exhaust filters or paint arrestors are used in documented overspray-capture stages. The correct media depends on the installed booth design and product requirements; the two stages are not automatically interchangeable.',
+  },
+  {
+    question: 'How often should automotive booth filters be replaced?',
+    answer: 'There is no universal interval. Use the booth and filter manufacturer instructions, applicable pressure or manometer readings, operating hours, coating load, inspection results, permit conditions, and facility procedures.',
+  },
+  {
+    question: 'Does a replacement filter make a paint booth compliant?',
+    answer: 'No filter by itself establishes facility compliance. Compliance depends on the complete booth, ventilation, coating process, installation, maintenance, permits, and applicable rules. Obtain qualified site-specific guidance when compliance is in question.',
+  },
+  {
+    question: 'Can PFS help with an uncertain or custom filter request?',
+    answer: 'Yes. Send the booth make and model, filter position, actual dimensions, current part number when available, quantity, and clear photos. PFS can review the request against the current catalog and available product information.',
+  },
+];
+
 const categoryRoutes = categories.map((category) => ({
   path: `/category/${category.slug}`,
   title: `${category.title} | PFS Filters`,
@@ -243,7 +267,7 @@ const categoryRoutes = categories.map((category) => ({
 
 const brandRoutes = brandSlugs.map((slug) => ({
   path: `/shop-by-booth/${slug}`,
-  title: `${titleCase(slug)} Paint Booth Filters & Replacements | PFS`,
+  title: `${slug === 'global-finishing-solutions' ? 'GFS' : titleCase(slug)} Paint Booth Filter Guide | PFS Filters`,
   description: `Find replacement filter positions, common sizes, and filter guidance for ${titleCase(slug)} paint booths. Verify the model and dimensions before ordering.`,
   priority: '0.7',
   changefreq: 'monthly',
@@ -284,7 +308,9 @@ const productRoutes = products.map((product) => {
   const brandName = product.vendor || 'PFS Filters';
   return {
     path: pathname,
-    title: `${product.title} | PFS Filters`,
+    title: product.handle === 'swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium'
+      ? 'Swiss Flow 600G Ceiling Media | PFS Filters'
+      : `${product.title} | PFS Filters`,
     description: truncate(product.description || `Shop ${product.title} from PFS Filters.`),
     priority: '0.9',
     changefreq: 'weekly',
@@ -340,6 +366,80 @@ if (paintBoothFiltersRoute) {
       name: faq.question,
       acceptedAnswer: { '@type': 'Answer', text: faq.answer },
     })),
+  };
+}
+
+const automotiveRoute = staticRoutes.find((route) => route.path === '/industries/automotive-paint-booth-filters');
+if (automotiveRoute) {
+  automotiveRoute.schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${origin}/#website`,
+        name: 'PFS Filters',
+        url: `${origin}/`,
+        publisher: { '@id': `${origin}/#store` },
+      },
+      {
+        '@type': 'CollectionPage',
+        '@id': `${origin}/industries/automotive-paint-booth-filters#webpage`,
+        name: 'Automotive Paint Booth Filters',
+        description: automotiveRoute.description,
+        url: absoluteUrl(automotiveRoute.path),
+        isPartOf: { '@id': `${origin}/#website` },
+        provider: { '@id': `${origin}/#store` },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${origin}/` },
+          { '@type': 'ListItem', position: 2, name: 'Paint Booth Filters', item: `${origin}/paint-booth-filters` },
+          { '@type': 'ListItem', position: 3, name: 'Automotive Paint Booth Filters', item: absoluteUrl(automotiveRoute.path) },
+        ],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: automotiveFilterFaqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+        })),
+      },
+    ],
+  };
+}
+
+const aerospaceIndustryRoute = staticRoutes.find((route) => route.path === '/industries/aerospace-paint-booth-filters');
+if (aerospaceIndustryRoute) {
+  aerospaceIndustryRoute.schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${origin}/#website`,
+        name: 'PFS Filters',
+        url: `${origin}/`,
+        publisher: { '@id': `${origin}/#store` },
+      },
+      {
+        '@type': 'CollectionPage',
+        '@id': `${origin}/industries/aerospace-paint-booth-filters#webpage`,
+        name: 'Aerospace Paint Booth Filters & Multi-Stage Filtration',
+        description: aerospaceIndustryRoute.description,
+        url: absoluteUrl(aerospaceIndustryRoute.path),
+        isPartOf: { '@id': `${origin}/#website` },
+        provider: { '@id': `${origin}/#store` },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${origin}/` },
+          { '@type': 'ListItem', position: 2, name: 'Aerospace Filters', item: `${origin}/aerospace` },
+          { '@type': 'ListItem', position: 3, name: 'Aerospace Paint Booth Filtration', item: absoluteUrl(aerospaceIndustryRoute.path) },
+        ],
+      },
+    ],
   };
 }
 
@@ -706,7 +806,7 @@ function northBayFallback(description) {
       </div>
     </nav>
     <section style="position:relative;overflow:hidden;padding:112px 16px 64px;background:#050505">
-      <img src="${logoUrl}" alt="" width="420" height="127" decoding="async" style="position:absolute;right:0;top:64px;width:min(540px,60vw);height:auto;opacity:.045" />
+      <img src="${logoUrl}" alt="" aria-hidden="true" width="420" height="127" decoding="async" style="position:absolute;right:0;top:64px;width:min(540px,60vw);height:auto;opacity:.045" />
       <div style="position:relative;max-width:1280px;margin:0 auto">
         <p style="margin:0 0 20px;color:rgba(255,255,255,.55);font-size:14px">Paint Booth Filters / North Bay and Sonoma County</p>
         <div style="max-width:880px">
@@ -731,7 +831,7 @@ function losAngelesFallback() {
       </div>
     </nav>
     <section style="position:relative;overflow:hidden;padding:112px 16px 64px;background:#050505">
-      <img src="${logoUrl}" alt="" width="420" height="127" decoding="async" style="position:absolute;right:0;top:64px;width:min(540px,60vw);height:auto;opacity:.045" />
+      <img src="${logoUrl}" alt="" aria-hidden="true" width="420" height="127" decoding="async" style="position:absolute;right:0;top:64px;width:min(540px,60vw);height:auto;opacity:.045" />
       <div style="position:relative;max-width:1280px;margin:0 auto">
         <p style="margin:0 0 20px;color:rgba(255,255,255,.55);font-size:14px">Paint Booth Filters / Los Angeles County</p>
         <div style="max-width:880px">
@@ -958,11 +1058,11 @@ function fiberglassVsTackyBlogFallback() {
           <span style="font-size:14px;color:rgba(255,255,255,.7)">5 min read</span>
           <span style="font-size:14px;color:rgba(255,255,255,.7)">September 5, 2026</span>
         </div>
-        <h1 style="margin:0 0 16px;font-size:clamp(2.25rem,7vw,3rem);line-height:1.15;font-weight:800;color:#fff">Fiberglass vs. Tacky Panel Filters: How to Compare the Application</h1>
+        <h1 style="margin:0 0 16px;font-size:clamp(2.25rem,7vw,3rem);line-height:1.15;font-weight:800;color:#fff">Fiberglass vs. Tacky Panel Filters</h1>
         <p style="max-width:768px;margin:0 0 24px;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:20px;line-height:1.5">Fiberglass paint arrestors and tackified panel media are not automatically interchangeable. Compare the documented filter stage, dimensions, media, airflow direction, and equipment requirements before ordering.</p>
         <p style="margin:0 0 40px;font-family:Arial,sans-serif;font-size:14px;color:rgba(255,255,255,.7)">By <strong style="color:#fff">PFS Filters Editorial Team</strong></p>
         <div style="aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#151515">
-          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-paint-arrestor_c242c226.png" alt="Fiberglass vs. Tacky Panel Filters: How to Compare the Application" width="1280" height="720" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block" />
+          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-paint-arrestor_c242c226.png" alt="Fiberglass and tacky panel filter media comparison" width="1280" height="720" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block" />
         </div>
       </div>
     </section>
@@ -1049,6 +1149,68 @@ function vitraFallback() {
           <div style="min-height:56px;margin-top:16px;border-radius:10px;background:#3b82f6;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Arial,sans-serif;font-size:16px;font-weight:800">Add to Cart — $80.00</div>
           <div style="min-height:86px;margin-top:24px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.03);padding:16px;color:rgba(255,255,255,.5);font-family:Arial,sans-serif;font-size:12px;line-height:1.6">PFS VITRA is currently being rebranded under the PFS Filters label. Product packaging and imagery will be updated soon.</div>
         </div>
+      </div>
+    </section>
+  </main>`;
+}
+
+function automotiveIndustryFallback() {
+  const stages = [
+    ['Intake & Prefilter Media', '/intake-filters', 'Review documented incoming-air stages, airflow direction, depth, and actual dimensions.'],
+    ['Ceiling & Diffusion Media', '/ceiling-filters', 'Compare media for the installed ceiling or supply-air stage in applicable booth configurations.'],
+    ['Exhaust & Overspray Arrestors', '/exhaust-filters', 'Review fiberglass, pocket, and accordion-style media for documented overspray-capture stages.'],
+    ['Filter Finder', '/filter-finder', 'Start with the booth type, manufacturer, model, stage, dimensions, and existing product information.'],
+  ];
+  const cards = stages.map(([name, href, copy]) => `<article style="border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.035);padding:24px">
+      <h2 style="margin:0 0 10px;color:#fff;font-size:22px;line-height:1.2">${name}</h2>
+      <p style="margin:0 0 16px;color:rgba(255,255,255,.62);font-family:Arial,sans-serif;font-size:15px;line-height:1.6">${copy}</p>
+      <a href="${href}" style="color:#60a5fa;font-family:Arial,sans-serif;font-size:14px;font-weight:700;text-decoration:none">Review this stage →</a>
+    </article>`).join('');
+  const faqItems = automotiveFilterFaqs.map((faq) => `<article style="border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.025);padding:20px">
+      <h3 style="margin:0 0 8px;color:#fff;font-size:18px;line-height:1.3">${escapeHtml(faq.question)}</h3>
+      <p style="margin:0;color:rgba(255,255,255,.62);font-family:Arial,sans-serif;font-size:15px;line-height:1.65">${escapeHtml(faq.answer)}</p>
+    </article>`).join('');
+
+  return `<main data-seo-fallback id="automotive-industry-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <nav style="border-bottom:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.95)">
+      <div style="height:96px;max-width:1280px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between">
+        <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
+        <a href="/shop" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-family:Arial,sans-serif;font-weight:700;font-size:14px">Shop Filters</a>
+      </div>
+    </nav>
+    <section style="padding:64px 16px;background:radial-gradient(circle at 50% 20%,rgba(59,130,246,.14),transparent 55%),#050505">
+      <div style="max-width:960px;margin:0 auto;text-align:center">
+        <p style="margin:0 0 16px;color:#60a5fa;font-family:Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Automotive Finishing</p>
+        <h1 style="margin:0 0 18px;font-size:clamp(3rem,10vw,4.5rem);line-height:.98;font-weight:800;color:#fff">Automotive Paint Booth Filters</h1>
+        <p style="max-width:800px;margin:0 auto;color:rgba(255,255,255,.65);font-family:Arial,sans-serif;font-size:19px;line-height:1.65">Compare intake, ceiling, prefilter, and exhaust media for automotive paint booths. Start with the booth configuration and filter stage, then verify dimensions and product requirements before ordering.</p>
+        <p style="margin:28px 0 0;font-family:Arial,sans-serif"><a href="/shop" style="display:inline-flex;min-height:44px;align-items:center;border-radius:8px;background:#3b82f6;padding:0 20px;color:#fff;font-weight:700;text-decoration:none">Shop Current Filters</a> <a href="/contact" style="display:inline-flex;min-height:44px;align-items:center;margin-left:10px;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:0 20px;color:#fff;font-weight:700;text-decoration:none">Request Fitment Review</a></p>
+      </div>
+    </section>
+    <section style="padding:56px 16px;background:#0d0d0d">
+      <div style="max-width:1120px;margin:0 auto">
+        <h2 style="margin:0 0 10px;text-align:center;color:#fff;font-size:32px">Compare the Installed Filter Stage First</h2>
+        <p style="max-width:720px;margin:0 auto 32px;text-align:center;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;line-height:1.6">A size match alone does not establish fit or suitability. Use the current booth documentation and product record for the stage being replaced.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px">${cards}</div>
+      </div>
+    </section>
+    <section style="padding:56px 16px;background:#050505">
+      <div style="max-width:880px;margin:0 auto">
+        <h2 style="margin:0 0 18px;color:#fff;font-size:30px">Information to Gather Before Ordering</h2>
+        <ul style="margin:0;padding-left:22px;color:rgba(255,255,255,.65);font-family:Arial,sans-serif;font-size:16px;line-height:1.9">
+          <li>Booth manufacturer, model, serial or equipment-tag information</li>
+          <li>Booth configuration and exact filter position</li>
+          <li>Installed opening and existing filter width, height, and depth</li>
+          <li>Frame style, media format, airflow direction, labels, and part numbers</li>
+          <li>Clear photos and the quantity required</li>
+        </ul>
+        <p style="margin:24px 0 0;border:1px solid rgba(251,146,60,.25);border-radius:12px;background:rgba(251,146,60,.06);padding:18px;color:rgba(255,255,255,.65);font-family:Arial,sans-serif;line-height:1.65">There is no universal replacement interval, and a replacement filter does not by itself establish facility compliance. Follow the booth and filter instructions and obtain site-specific review when needed.</p>
+      </div>
+    </section>
+    <section style="padding:56px 16px;background:#0d0d0d">
+      <div style="max-width:880px;margin:0 auto">
+        <h2 style="margin:0 0 10px;text-align:center;color:#fff;font-size:32px">Automotive Filter Questions</h2>
+        <p style="margin:0 auto 28px;text-align:center;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;line-height:1.6">Practical answers for identifying, measuring, and replacing paint booth filter media.</p>
+        <div style="display:grid;gap:12px">${faqItems}</div>
       </div>
     </section>
   </main>`;
@@ -1345,7 +1507,7 @@ function replaceMeta(html, route) {
   const detail = route.price ? `<p>Starting at $${escapeHtml(route.price)} USD. Check the live product page for current variants, pricing, and availability.</p>` : '';
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
   const fallback = route.path === '/'
-    ? `<main data-seo-fallback><section id="home"><div><picture><source media="(max-width: 767px)" srcset="${heroPosterMobile}" /><img src="${heroPosterDesktop}" alt="" width="1600" height="900" fetchpriority="high" /></picture><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section></main>`
+    ? `<main data-seo-fallback><section id="home"><div><picture><source media="(max-width: 767px)" srcset="${heroPosterMobile}" /><img src="${heroPosterDesktop}" alt="" aria-hidden="true" width="1600" height="900" fetchpriority="high" /></picture><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section></main>`
     : route.path === '/auth'
     ? `<main data-seo-fallback id="auth-fallback" style="min-height:100vh;background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif"><div style="width:min(384px,calc(100% - 32px));border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#111;padding:32px;text-align:center;box-sizing:border-box"><img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" width="250" height="76" fetchpriority="high" style="display:block;width:250px;max-width:100%;height:auto;margin:0 auto 24px;filter:brightness(1.4) drop-shadow(0 0 20px rgba(59,130,246,.3))" /><p style="margin:0;color:rgba(255,255,255,.7);font-size:14px">Loading secure sign-in…</p></div></main>`
     : route.path === '/shop'
@@ -1372,6 +1534,8 @@ function replaceMeta(html, route) {
     ? brandsFallback()
     : route.path === '/consumables/pfs-vitra'
     ? vitraFallback()
+    : route.path === '/industries/automotive-paint-booth-filters'
+    ? automotiveIndustryFallback()
     : route.path === '/aerospace'
     ? aerospaceFallback()
     : route.path === '/shop-by-booth/nova-verta'

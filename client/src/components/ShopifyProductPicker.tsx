@@ -201,7 +201,7 @@ export default function ShopifyProductPicker({ value, onChange, placeholder = 'S
                       className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-[#0d0d0d]/5 transition-colors text-left"
                     >
                       {product.featuredImage ? (
-                        <img src={product.featuredImage} alt="" className="w-8 h-8 rounded-md object-cover flex-shrink-0 bg-[#0d0d0d]/5" />
+                        <img src={product.featuredImage} alt="" aria-hidden="true" className="w-8 h-8 rounded-md object-cover flex-shrink-0 bg-[#0d0d0d]/5" />
                       ) : (
                         <div className="w-8 h-8 rounded-md bg-[#0d0d0d]/5 flex items-center justify-center flex-shrink-0">
                           <Package className="w-4 h-4 text-white/20" />
@@ -217,7 +217,7 @@ export default function ShopifyProductPicker({ value, onChange, placeholder = 'S
                       {/* Product header */}
                       <div className="flex items-center gap-2 px-3 pt-2 pb-1">
                         {product.featuredImage ? (
-                          <img src={product.featuredImage} alt="" className="w-5 h-5 rounded object-cover flex-shrink-0 bg-[#0d0d0d]/5" />
+                          <img src={product.featuredImage} alt="" aria-hidden="true" className="w-5 h-5 rounded object-cover flex-shrink-0 bg-[#0d0d0d]/5" />
                         ) : (
                           <Package className="w-4 h-4 text-white/20 flex-shrink-0" />
                         )}

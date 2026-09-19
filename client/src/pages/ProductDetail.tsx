@@ -244,7 +244,9 @@ export default function ProductDetail() {
   return (
     <div className="min-h-screen text-white bg-[#040404]">
       <SEO
-        title={`${product.title} - PFS Filters`}
+        title={handle === 'swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium'
+          ? 'Swiss Flow 600G Ceiling Media | PFS Filters'
+          : `${product.title} | PFS Filters`}
         description={product.description || `View ${product.title} from PFS Filters with current catalog details and ordering support.`}
         canonical={`https://www.pfsfilters.com/product/${handle}`}
         ogImage={mainImage}
