@@ -71,11 +71,6 @@ export const Hero = () => {
     });
   }, [videoReady]);
 
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    element?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <header>
       <section
@@ -158,13 +153,15 @@ export const Hero = () => {
                 </Button>
               </Link>
               <Button
+                asChild
                 size="lg"
                 variant="outline"
-                onClick={scrollToContact}
                 className="text-base px-8 py-6 font-bold border-2 border-white/30 text-white hover:bg-white/10 transition-[background-color,box-shadow,transform] bg-transparent"
               >
-                <Mail className="mr-2 h-5 w-5" />
-                Get a Custom Quote
+                <Link href="/contact">
+                  <Mail className="mr-2 h-5 w-5" />
+                  Get a Custom Quote
+                </Link>
               </Button>
             </div>
 

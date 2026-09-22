@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 // PFS VANGUARD variant info
 const PFS_VANGUARD_VARIANT_ID = 'gid://shopify/ProductVariant/52571260452996';
 const PFS_VANGUARD_PRODUCT_ID = 'gid://shopify/Product/10419381207172';
-const PFS_VANGUARD_IMAGE = '/images/products/pfs-vanguard-kit-transparent.webp';
+const PFS_VANGUARD_IMAGE = '/images/products/pfs-vanguard-kit-user-2026-09.png';
 
 export default function PfsVanguard() {
   const [quantity, setQuantity] = useState(1);
@@ -60,8 +60,8 @@ export default function PfsVanguard() {
                 src={PFS_VANGUARD_IMAGE}
                 alt="PFS VANGUARD booth coating and PFS VITRA glass coating kit"
                 className="w-full h-full object-contain"
-                width={1442}
-                height={1213}
+                width={1374}
+                height={1145}
                 fetchPriority="high"
                 decoding="async"
               />
