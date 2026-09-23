@@ -300,7 +300,7 @@ export default function ProductDetail() {
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                className="relative z-[1] w-full h-full object-cover"
+                className="relative w-full h-full object-cover"
               />
               {/* Zoom-detail circle (desktop) */}
               <div

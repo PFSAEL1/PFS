@@ -181,7 +181,7 @@ export const Navigation = () => {
                   Products <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${shopOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {shopOpen && (
-                  <div className="absolute top-full left-0 mt-1 w-64 bg-[#111] border border-white/10 rounded-xl shadow-2xl py-2 z-50">
+                  <div className="absolute top-full left-0 mt-1 max-h-[86vh] w-64 overflow-y-auto overscroll-contain bg-[#111] border border-white/10 rounded-xl shadow-2xl py-2 z-50">
                     <div className="px-3 py-1.5 text-xs font-semibold text-white/30 uppercase tracking-wider">Shop</div>
                     <Link href="/shop" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
                       All Products

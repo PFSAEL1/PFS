@@ -63,7 +63,7 @@ Source: https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.107
     date: "2026-09-05",
     readTime: "5 min read",
     category: "Product Guide",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-paint-arrestor_c242c226.png",
+    image: "/images/blog-featured-pfs.jpg",
     keywords: ["fiberglass paint arrestor", "tacky panel filter", "spray booth filter comparison"],
     content: `
 Fiberglass paint arrestors and tackified panel filters describe different media constructions. The correct choice depends on the filter stage and the requirements documented for the booth or air-handling system.
@@ -107,7 +107,7 @@ Source: https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.107
     date: "2026-09-05",
     readTime: "7 min read",
     category: "Maintenance",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/spray-booth-interior_89dd33c3.jpg",
+    image: "/images/blog-featured-pfs.jpg",
     keywords: ["paint booth maintenance", "spray booth checklist", "filter inspection log"],
     content: `
 This checklist is general educational guidance, not a substitute for the booth manual, filter manufacturer's instructions, permit conditions, fire-code requirements, or a qualified inspection. Assign responsibilities and frequencies using the documents that apply to the facility.
