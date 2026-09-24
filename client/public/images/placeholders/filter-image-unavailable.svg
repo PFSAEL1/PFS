@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">PFS Filters product image unavailable</title>
+  <desc id="desc">Neutral placeholder used only when an accurate product photograph is unavailable.</desc>
+  <rect width="1200" height="900" fill="#f4f2ee"/>
+  <rect x="330" y="210" width="540" height="360" rx="24" fill="none" stroke="#a9a49b" stroke-width="12"/>
+  <path d="M390 285h420M390 360h420M390 435h420M470 235v310M600 235v310M730 235v310" fill="none" stroke="#bcb7ae" stroke-width="8"/>
+  <text x="600" y="680" text-anchor="middle" fill="#222" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700" letter-spacing="8">PFS FILTERS</text>
+  <text x="600" y="744" text-anchor="middle" fill="#6d6962" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="3">PRODUCT IMAGE UNAVAILABLE</text>
+</svg>

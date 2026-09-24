@@ -10,16 +10,15 @@ import { Link } from "wouter";
 import LightLayout from "../../components/light/LightLayout";
 import LightProductSlider from "../../components/light/LightProductSlider";
 
-// CDN assets
-// Hero: AI-generated filter render (colorful fiberglass panels on black) — same as dark version
-const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/hero-fiberglass-arrestor-dark_93744cb6.png";
-const FIBER_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/light-section-bg-VTxWUA4VtWMjNC6nzGnGZi.webp";
-const INTAKE_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/light-hero-intake-94LkqhxUxvR3HFm89bFfTv.webp";
-const EXHAUST_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/light-category-exhaust-gDMxxE2KsfEFXMAmwc89Mn.webp";
-// PFS-branded product images (Rensa text replaced with PFS FILTERS)
-const PFS_PARTICULATE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-particulate-filter-v2_b6a86e6c.png";
-const PFS_WASHABLE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-washable-filter-v2_9f09a7ec.png";
-const PFS_ODOR_GAS = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/pfs-odor-gas-filter-v2_bd631ebc.png";
+// First-party storefront assets
+const HERO_IMG = "/media/pfs-hero-poster-desktop.webp";
+const FIBER_BG = "/media/pfs-hero-poster-desktop.webp";
+const INTAKE_IMG = "/images/home_intake_pads-960.webp";
+const EXHAUST_IMG = "/images/home_exhaust_filters-960.webp";
+const PFS_PARTICULATE = "/images/filters/aerospace-hepa.png";
+const PRODUCT_IMAGE_UNAVAILABLE = "/images/placeholders/filter-image-unavailable.svg";
+const PFS_WASHABLE = PRODUCT_IMAGE_UNAVAILABLE;
+const PFS_ODOR_GAS = PRODUCT_IMAGE_UNAVAILABLE;
 
 // Scroll reveal hook
 function useReveal() {
@@ -283,7 +282,7 @@ export default function LightHome() {
                     onMouseEnter={e => { const img = e.currentTarget.querySelector("img") as HTMLImageElement; if (img) img.style.transform = "scale(1.06)"; }}
                     onMouseLeave={e => { const img = e.currentTarget.querySelector("img") as HTMLImageElement; if (img) img.style.transform = "scale(1)"; }}
                   >
-                    <img src={cat.img} alt={cat.label} style={{ width: "100%", height: "100%", objectFit: cat.img.includes('pfs-') ? 'contain' : 'cover', objectPosition: "center", background: "#E8E5DF", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
+                    <img src={cat.img} alt={cat.img === PRODUCT_IMAGE_UNAVAILABLE ? `${cat.label} product image unavailable` : cat.label} style={{ width: "100%", height: "100%", objectFit: cat.img.includes('pfs-') || cat.img === PRODUCT_IMAGE_UNAVAILABLE ? 'contain' : 'cover', objectPosition: "center", background: "#E8E5DF", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)" }} />
                     <div style={{ position: "absolute", bottom: "1.75rem", left: "1.75rem" }}>
                       <span style={{ display: "inline-block", background: "#1B4FD8", color: "#fff", fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.25rem 0.6rem", marginBottom: "0.6rem" }}>
@@ -379,7 +378,7 @@ export default function LightHome() {
                       onMouseEnter={e => { const img = e.currentTarget.querySelector("img") as HTMLImageElement; if (img) img.style.transform = "scale(1.05)"; }}
                       onMouseLeave={e => { const img = e.currentTarget.querySelector("img") as HTMLImageElement; if (img) img.style.transform = "scale(1)"; }}
                     >
-                      <img src={item.img} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", background: "#F4F2EE", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
+                      <img src={item.img} alt={item.img === PRODUCT_IMAGE_UNAVAILABLE ? `${item.title} product image unavailable` : item.title} style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", background: "#F4F2EE", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
                     </div>
                     <span style={{ display: "inline-block", background: "#F4F2EE", color: "#1B4FD8", fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.25rem 0.6rem", marginBottom: "0.75rem" }}>
                       {item.tag}

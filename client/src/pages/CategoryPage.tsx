@@ -25,7 +25,7 @@ import { getProductBadges } from '@/lib/productSignals';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { shopifyImageAltText, shopProductCardImageSrcSet, shopProductCardImageUrl } from '@/lib/imageUrls';
 
-const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
+const FALLBACK_IMAGE = '/images/filters/fiberglass-arrestors.png';
 const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
 
 function getBundledCategoryProducts(categorySlug?: string) {

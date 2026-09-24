@@ -29,7 +29,7 @@ export default function LightAuth() {
       <section style={{ background: "#fff", minHeight: "100vh", display: "grid", gridTemplateColumns: "1fr 1fr" }}>
         {/* Left — visual panel */}
         <div style={{ background: "#111", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "4rem", position: "relative", overflow: "hidden" }}>
-          <div style={{ position: "absolute", inset: 0, backgroundImage: `url(https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/light-hero-main-QzxXJMEJhKnwRKJmJJjXWi.webp)`, backgroundSize: "cover", backgroundPosition: "center", opacity: 0.3 }} />
+          <div style={{ position: "absolute", inset: 0, backgroundImage: `url(/media/pfs-hero-poster-desktop.webp)`, backgroundSize: "cover", backgroundPosition: "center", opacity: 0.3 }} />
           <div style={{ position: "relative", zIndex: 1 }}>
             <Link href="/light">
               <a style={{ display: "inline-block" }}>

@@ -1,5 +1,7 @@
 const SHOPIFY_IMAGE_HOST = 'cdn.shopify.com';
 
+export const DEFAULT_PRODUCT_IMAGE = '/images/filters/fiberglass-arrestors.png';
+
 const SHOP_PRODUCT_THUMBNAILS: Record<string, { src: string; width: number }> = {
   '20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs': { src: '/images/shop-thumbnails/22-gram-fiberglass-pads.webp', width: 480 },
   '20x20-paint-arrestor-holding-grids-w-tips-each': { src: '/images/shop-thumbnails/holding-grid.webp', width: 480 },
@@ -7,6 +9,10 @@ const SHOP_PRODUCT_THUMBNAILS: Record<string, { src: string; width: number }> = 
   '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': { src: '/images/shop-thumbnails/22-gram-fiberglass-roll.webp', width: 480 },
   'pleated-air-filters-merv-10': { src: '/images/shop-thumbnails/merv-10-pleated-filter.jpg', width: 320 },
   '36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs': { src: '/images/shop-thumbnails/15-gram-fiberglass-roll.webp', width: 480 },
+  'bronze-membership': { src: '/images/products/membership-bronze-720.png', width: 720 },
+  'silver-membership': { src: '/images/products/membership-silver-720.png', width: 720 },
+  'gold-membership': { src: '/images/products/membership-gold-720.png', width: 720 },
+  'platinum-membership': { src: '/images/products/membership-platinum-720.png', width: 720 },
 };
 
 // Lightweight, snapshot-free lookup — safe to import anywhere (including
@@ -14,6 +20,10 @@ const SHOP_PRODUCT_THUMBNAILS: Record<string, { src: string; width: number }> = 
 // just a handful of handle -> local-asset entries.
 export function getLocalProductThumbnail(handle: string): { src: string; width: number } | undefined {
   return SHOP_PRODUCT_THUMBNAILS[handle];
+}
+
+export function getProductFallbackImage(handle: string): string {
+  return SHOP_PRODUCT_THUMBNAILS[handle]?.src || DEFAULT_PRODUCT_IMAGE;
 }
 
 export function sizedShopifyImageUrl(src: string, width: number): string {
