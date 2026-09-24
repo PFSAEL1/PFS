@@ -10,7 +10,7 @@ interface SEOProps {
   noIndex?: boolean;
 }
 
-const DEFAULT_OG_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/og-image_9075de08.jpg';
+const DEFAULT_OG_IMAGE = 'https://www.pfsfilters.com/media/pfs-hero-poster-desktop.webp';
 const SITE_ORIGIN = 'https://www.pfsfilters.com';
 
 const normalizeCanonical = (value?: string) => {

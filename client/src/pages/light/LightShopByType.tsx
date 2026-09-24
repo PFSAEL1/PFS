@@ -5,12 +5,11 @@
 import { Link } from "wouter";
 import LightLayout from "../../components/light/LightLayout";
 
-const INTAKE_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/light-hero-intake-94LkqhxUxvR3HFm89bFfTv.webp";
-const EXHAUST_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/light-category-exhaust-gDMxxE2KsfEFXMAmwc89Mn.webp";
-const RENSA_AIR = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/air-intake_85d5b21f.png";
-const RENSA_PARTICULATE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/particulate-filter_e78e2e2c.png";
-const RENSA_WASHABLE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/washable-filter_5f68ab88.png";
-const RENSA_ODOR = "https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/odor-gas-filter_b9b1c6c7.png";
+const INTAKE_IMG = "/images/home_intake_pads-960.webp";
+const EXHAUST_IMG = "/images/home_exhaust_filters-960.webp";
+const CEILING_IMG = "/images/cat_ceiling_blankets.png";
+const ROLL_MEDIA_IMG = "/images/cat_roll_media.png";
+const PRODUCT_IMAGE_UNAVAILABLE = "/images/placeholders/filter-image-unavailable.svg";
 
 const types = [
   {
@@ -37,7 +36,7 @@ const types = [
     positionColor: "#1B4FD8",
     desc: "Full-coverage ceiling plenum filtration for uniform airflow distribution. Prevents contamination from above.",
     specs: ["Full booth coverage", "Easy roll installation", "Fiberglass media", "Cut to size"],
-    img: RENSA_AIR,
+    img: CEILING_IMG,
     href: "/light/shop",
   },
   {
@@ -46,7 +45,7 @@ const types = [
     positionColor: "#059669",
     desc: "Continuous roll media for custom-cut applications. Ideal for non-standard booth sizes or high-volume operations.",
     specs: ["Sold by the roll", "Multiple widths available", "Fiberglass & polyester", "Easy field cutting"],
-    img: RENSA_PARTICULATE,
+    img: ROLL_MEDIA_IMG,
     href: "/light/shop",
   },
   {
@@ -55,7 +54,7 @@ const types = [
     positionColor: "#1B4FD8",
     desc: "Reusable intake filters that can be washed and reinstalled. Cost-effective for high-frequency filter changes.",
     specs: ["Washable & reusable", "Aluminum frame", "Polyester media", "Long service life"],
-    img: RENSA_WASHABLE,
+    img: PRODUCT_IMAGE_UNAVAILABLE,
     href: "/light/shop",
   },
   {
@@ -64,7 +63,7 @@ const types = [
     positionColor: "#D97706",
     desc: "Activated carbon filtration for VOC and odor control. Meets environmental compliance requirements for spray operations.",
     specs: ["Activated carbon media", "VOC capture", "Compliance-ready", "Custom configurations"],
-    img: RENSA_ODOR,
+    img: PRODUCT_IMAGE_UNAVAILABLE,
     href: "/light/shop",
   },
 ];
@@ -102,7 +101,7 @@ export default function LightShopByType() {
                 onMouseEnter={e => { const img = e.currentTarget.querySelector("img") as HTMLImageElement; if (img) img.style.transform = "scale(1.05)"; }}
                 onMouseLeave={e => { const img = e.currentTarget.querySelector("img") as HTMLImageElement; if (img) img.style.transform = "scale(1)"; }}
               >
-                <img src={type.img} alt={type.title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
+                <img src={type.img} alt={type.img === PRODUCT_IMAGE_UNAVAILABLE ? `${type.title} product image unavailable` : type.title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
               </div>
 
               {/* Content */}

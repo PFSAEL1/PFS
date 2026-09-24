@@ -10,7 +10,7 @@ export const organizationSchema = {
   description: 'Paint booth filters and spray booth filtration products for automotive, industrial, aerospace, and woodworking applications',
   url: 'https://www.pfsfilters.com/',
   logo: 'https://www.pfsfilters.com/images/brands/pfs-logo-wide.png',
-  image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/og-image_9075de08.jpg',
+  image: 'https://www.pfsfilters.com/media/pfs-hero-poster-desktop.webp',
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'Customer Service',

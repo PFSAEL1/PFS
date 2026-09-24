@@ -79,7 +79,7 @@ export default function BlogPost() {
     datePublished: post.date,
     dateModified: post.date,
     author: { '@type': 'Organization', name: post.author },
-    publisher: { '@type': 'Organization', name: 'PFS Filters', logo: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/icon_a34990c0.png' },
+    publisher: { '@type': 'Organization', name: 'PFS Filters', logo: 'https://www.pfsfilters.com/images/brands/pfs-logo-wide.png' },
     keywords: post.keywords.join(', '),
   };
 

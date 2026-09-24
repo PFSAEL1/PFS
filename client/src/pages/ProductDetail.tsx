@@ -23,9 +23,15 @@ import { PfsBoothCompatibility } from '@/components/PfsBoothCompatibility';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 import { usePricing } from '@/hooks/usePricing';
-import { shopifyImageAltText, shopProductCardImageUrl, shopProductCardImageSrcSet, sizedShopifyImageUrl, shopifyImageSrcSet } from '@/lib/imageUrls';
-
-const FALLBACK_IMAGE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/filter-product_42a81f27.jpg';
+import {
+  DEFAULT_PRODUCT_IMAGE,
+  getProductFallbackImage,
+  shopifyImageAltText,
+  shopProductCardImageUrl,
+  shopProductCardImageSrcSet,
+  sizedShopifyImageUrl,
+  shopifyImageSrcSet,
+} from '@/lib/imageUrls';
 
 const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
 
@@ -152,7 +158,8 @@ export default function ProductDetail() {
   const basePrice = selectedVariant?.price?.amount ? parseFloat(selectedVariant.price.amount) : 0;
   const currency = selectedVariant?.price?.currencyCode || 'USD';
   const inStock = selectedVariant?.availableForSale ?? true;
-  const mainImage = images[selectedImage]?.node?.url || FALLBACK_IMAGE;
+  const isMembershipProduct = !!handle && handle.endsWith('-membership');
+  const mainImage = images[selectedImage]?.node?.url || getProductFallbackImage(handle || '');
   // The default (first) image gets the locally hosted, pre-optimized override when one
   // exists for this handle — cuts LCP image weight vs. the raw Shopify CDN original.
   const mainImageDisplayUrl = selectedImage === 0
@@ -161,6 +168,9 @@ export default function ProductDetail() {
   const mainImageSrcSet = selectedImage === 0
     ? shopProductCardImageSrcSet(handle || '', mainImage)
     : shopifyImageSrcSet(mainImage, [320, 480, 640, 800]);
+  const mainImageSeoUrl = mainImage.startsWith('/')
+    ? `https://www.pfsfilters.com${mainImage}`
+    : mainImage;
 
   // Offer Subscribe & Save only when this exact variant has Shopify's
   // recurring monthly selling-plan allocation. Never fabricate an option.
@@ -189,7 +199,7 @@ export default function ProductDetail() {
   const productSchema = createProductSchema({
     name: product.title,
     description: product.description,
-    image: mainImage,
+    image: mainImageSeoUrl,
     price: displayPrice.toFixed(2),
     currency,
     sku: selectedVariant?.sku || undefined,
@@ -234,7 +244,7 @@ export default function ProductDetail() {
       variantTitle: variant.title,
       price: variant.price,
       quantity: 1,
-      image: rp.node.images?.edges?.[0]?.node?.url || FALLBACK_IMAGE,
+      image: rp.node.images?.edges?.[0]?.node?.url || getProductFallbackImage(rp.node.handle),
       handle: rp.node.handle,
     });
     toast.success(`${rp.node.title} added to cart`);
@@ -249,7 +259,7 @@ export default function ProductDetail() {
           : `${product.title} | PFS Filters`}
         description={product.description || `View ${product.title} from PFS Filters with current catalog details and ordering support.`}
         canonical={`https://www.pfsfilters.com/product/${handle}`}
-        ogImage={mainImage}
+        ogImage={mainImageSeoUrl}
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
       />
       <Navigation />
@@ -294,13 +304,13 @@ export default function ProductDetail() {
                 src={mainImageDisplayUrl}
                 srcSet={mainImageSrcSet}
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                alt={product.title}
-                width={800}
-                height={800}
+                alt={isMembershipProduct ? `${product.title} membership badge` : product.title}
+                width={isMembershipProduct ? 720 : 800}
+                height={isMembershipProduct ? 960 : 800}
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                className="relative w-full h-full object-cover"
+                className={`relative w-full h-full ${isMembershipProduct ? 'object-contain p-6 md:p-10' : 'object-cover'}`}
               />
               {/* Zoom-detail circle (desktop) */}
               <div
@@ -535,8 +545,8 @@ export default function ProductDetail() {
                     <Link href={`/product/${rp.node.handle}`} className="cursor-pointer">
                       <div className="aspect-square overflow-hidden bg-[#1e1e1e]">
                         <img
-                          src={shopProductCardImageUrl(rp.node.handle, imageNode?.url || FALLBACK_IMAGE, 320)}
-                          srcSet={shopProductCardImageSrcSet(rp.node.handle, imageNode?.url || FALLBACK_IMAGE)}
+                          src={shopProductCardImageUrl(rp.node.handle, imageNode?.url || DEFAULT_PRODUCT_IMAGE, 320)}
+                          srcSet={shopProductCardImageSrcSet(rp.node.handle, imageNode?.url || DEFAULT_PRODUCT_IMAGE)}
                           sizes="(min-width: 768px) 25vw, 50vw"
                           alt={shopifyImageAltText(imageNode, rp.node.title)}
                           width={320}

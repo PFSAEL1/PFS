@@ -17,6 +17,7 @@ const heroPosterMobile = '/media/pfs-hero-poster-mobile.webp';
 const heroPosterDesktop = '/media/pfs-hero-poster-desktop.webp';
 const heroPosterPreload = `<link rel="preload" as="image" href="${heroPosterMobile}" type="image/webp" media="(max-width: 767px)" fetchpriority="high" />`;
 const logoPreload = `<link rel="preload" as="image" href="${logoUrl}" type="image/webp" fetchpriority="high" />`;
+const defaultProductImage = '/images/filters/fiberglass-arrestors.png';
 const today = new Date().toISOString().slice(0, 10);
 const mode = process.argv[2] || '--source';
 const shopProductThumbnails = {
@@ -26,6 +27,10 @@ const shopProductThumbnails = {
   '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': { src: '/images/shop-thumbnails/22-gram-fiberglass-roll.webp', width: 480 },
   'pleated-air-filters-merv-10': { src: '/images/shop-thumbnails/merv-10-pleated-filter.jpg', width: 320 },
   '36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs': { src: '/images/shop-thumbnails/15-gram-fiberglass-roll.webp', width: 480 },
+  'bronze-membership': { src: '/images/products/membership-bronze-720.png', width: 720 },
+  'silver-membership': { src: '/images/products/membership-silver-720.png', width: 720 },
+  'gold-membership': { src: '/images/products/membership-gold-720.png', width: 720 },
+  'platinum-membership': { src: '/images/products/membership-platinum-720.png', width: 720 },
 };
 
 const removePublicEmail = (value = '') => String(value)
@@ -90,12 +95,14 @@ const shopifySrcset = (src, widths = [320, 480, 640]) => {
 const shopProductCardImage = (product, width = 480) => {
   const localThumbnail = shopProductThumbnails[product.handle];
   const fallback = product.images?.edges?.[0]?.node?.url;
-  return localThumbnail?.src || sizedImageUrl(fallback, width);
+  return localThumbnail?.src || sizedImageUrl(fallback, width) || defaultProductImage;
 };
 const shopProductCardSrcset = (product) => {
   const localThumbnail = shopProductThumbnails[product.handle];
   const fallback = product.images?.edges?.[0]?.node?.url;
-  return localThumbnail ? `${localThumbnail.src} ${localThumbnail.width}w` : shopifySrcset(fallback);
+  return localThumbnail
+    ? `${localThumbnail.src} ${localThumbnail.width}w`
+    : shopifySrcset(fallback) || `${defaultProductImage} 800w`;
 };
 const productMatchesCategory = (product, category) => {
   const normalizedCategory = category.toLowerCase();
@@ -295,7 +302,8 @@ const blogRoutes = blogPosts.map((post) => ({
 }));
 
 const productRoutes = products.map((product) => {
-  const image = product.images?.edges?.[0]?.node?.url;
+  const imagePath = shopProductCardImage(product, 800);
+  const image = imagePath.startsWith('/') ? absoluteUrl(imagePath) : imagePath;
   const price = product.priceRange?.minVariantPrice?.amount;
   const currency = product.priceRange?.minVariantPrice?.currencyCode || 'USD';
   const availability = product.variants?.edges?.some((edge) => edge.node.availableForSale)
@@ -1062,7 +1070,7 @@ function fiberglassVsTackyBlogFallback() {
         <p style="max-width:768px;margin:0 0 24px;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:20px;line-height:1.5">Fiberglass paint arrestors and tackified panel media are not automatically interchangeable. Compare the documented filter stage, dimensions, media, airflow direction, and equipment requirements before ordering.</p>
         <p style="margin:0 0 40px;font-family:Arial,sans-serif;font-size:14px;color:rgba(255,255,255,.7)">By <strong style="color:#fff">PFS Filters Editorial Team</strong></p>
         <div style="aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#151515">
-          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-paint-arrestor_c242c226.png" alt="Fiberglass and tacky panel filter media comparison" width="1280" height="720" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block" />
+          <img src="/images/cat_fiberglass_arrestors.png" alt="Fiberglass and tacky panel filter media comparison" width="1280" height="720" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block" />
         </div>
       </div>
     </section>
@@ -1277,6 +1285,7 @@ function genericProductFallback(route) {
   const inStock = variant ? variant.availableForSale : true;
   const imageUrl = product ? shopProductCardImage(product, 800) : '';
   const srcset = product ? shopProductCardSrcset(product) : '';
+  const isMembershipProduct = handle.endsWith('-membership');
 
   const priceMarkup = price
     ? `<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
@@ -1289,7 +1298,7 @@ function genericProductFallback(route) {
     ? `<p style="margin:0 0 24px;max-width:560px;color:rgba(255,255,255,.7);font-size:16px;line-height:1.6">${escapeHtml(truncate(description, 400))}</p>`
     : '';
   const imageMarkup = imageUrl
-    ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1024px) 50vw, 100vw" alt="${escapeHtml(title)}" width="800" height="800" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block" />`
+    ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1024px) 50vw, 100vw" alt="${escapeHtml(isMembershipProduct ? `${title} membership badge` : title)}" width="${isMembershipProduct ? 720 : 800}" height="${isMembershipProduct ? 960 : 800}" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:${isMembershipProduct ? 'contain' : 'cover'};${isMembershipProduct ? 'padding:24px;box-sizing:border-box;' : ''}display:block" />`
     : '';
 
   return `<main data-seo-fallback id="product-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
@@ -1341,7 +1350,7 @@ function writeSourceAssets() {
 
 function replaceMeta(html, route) {
   const url = absoluteUrl(route.path);
-  const image = route.image || 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/og-preview-f5HJPTtYv8nuyE689iUjcf.png';
+  const image = route.image || 'https://www.pfsfilters.com/media/pfs-hero-poster-desktop.webp';
   const title = escapeHtml(route.title);
   const description = escapeHtml(truncate(route.description));
   const robots = route.noindex

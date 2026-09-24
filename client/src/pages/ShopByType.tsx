@@ -6,6 +6,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
+import { DEFAULT_PRODUCT_IMAGE } from '@/lib/imageUrls';
 import { ArrowRight, Wind, Filter } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
@@ -19,7 +20,7 @@ const filterTypes = [
     position: 'EXHAUST',
     desc: 'Browse fiberglass pads and rolls, Paint Pockets, and accordion-style arrestor media shown in the current PFS catalog.',
     href: '/exhaust-filters',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-paint-arrestor_c242c226.png',
+    image: '/images/cat_fiberglass_arrestors.png',
     tags: ['Fiberglass', 'Paint Pockets', 'Andreae Style'],
   },
   {
@@ -27,7 +28,7 @@ const filterTypes = [
     position: 'INTAKE',
     desc: 'Compare tacky panels, pleated filters, pocket bags, and ceiling media used in applicable incoming-air stages.',
     href: '/intake-filters',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/tacky-panel-green_6cd3f086.png',
+    image: '/images/cat_tacky_panels.png',
     tags: ['Tacky Panels', 'Pleated', 'Pocket Bags'],
   },
   {
@@ -35,7 +36,7 @@ const filterTypes = [
     position: 'INTAKE',
     desc: 'Review ceiling diffusion media for applicable downdraft and semi-downdraft booths, then confirm construction and dimensions.',
     href: '/ceiling-filters',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/ceiling-blanket_476417ff.webp',
+    image: '/images/cat_ceiling_blankets.png',
     tags: ['Ceiling', 'Diffusion Media', 'Confirm Size'],
   },
   {
@@ -43,7 +44,7 @@ const filterTypes = [
     position: 'INTAKE / EXHAUST',
     desc: 'Roll filtration media in the widths, lengths, and constructions shown in the current catalog. Confirm the filter stage, media, and dimensions before ordering.',
     href: '/category/roll-media',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-roll-blue_a1ff9192.png',
+    image: '/images/cat_roll_media.png',
     tags: ['Roll Media', 'Multiple Sizes', 'Bulk'],
   },
   {
@@ -51,7 +52,7 @@ const filterTypes = [
     position: 'INTAKE',
     desc: 'Browse pleated filters using the MERV ratings and dimensions shown in the current product record, then confirm the required equipment stage.',
     href: '/category/merv-filters',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/merv-10-filter_b09cab34.png',
+    image: '/images/filters/merv-pleated.jpg',
     tags: ['MERV-10', 'MERV-13', 'Industrial'],
   },
   {
@@ -67,7 +68,7 @@ const filterTypes = [
     position: 'INTAKE',
     desc: 'Learn how a documented first-stage filter can reduce loading on downstream media when the booth or air-makeup system is designed for it.',
     href: '/prefilters',
-    image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-roll-blue_a1ff9192.png',
+    image: '/images/cat_roll_media.png',
     tags: ['First Stage', 'System-Specific', 'Verify Media'],
   },
 ];
@@ -104,7 +105,7 @@ export default function ShopByType() {
       <section className="section-raised tex-dots py-14 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filterTypes.map((type) => (
+            {filterTypes.map((type, index) => (
               <Link key={type.title} href={type.href}>
                 <div className="group border border-white/8 bg-white/[0.03] rounded-2xl overflow-hidden h-full cursor-pointer transition-all duration-300 hover:border-blue-500/50 hover:bg-white/[0.06] hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)]">
                   {/* Product image */}
@@ -112,6 +113,17 @@ export default function ShopByType() {
                     <img
                       src={type.image}
                       alt={type.title}
+                      width={900}
+                      height={900}
+                      loading={index < 2 ? 'eager' : 'lazy'}
+                      fetchPriority={index === 0 ? 'high' : 'auto'}
+                      decoding="async"
+                      onError={(event) => {
+                        const image = event.currentTarget;
+                        if (image.dataset.fallbackApplied) return;
+                        image.dataset.fallbackApplied = 'true';
+                        image.src = DEFAULT_PRODUCT_IMAGE;
+                      }}
                       className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
                       style={{ filter: 'brightness(0.95) contrast(1.05)' }}
                     />

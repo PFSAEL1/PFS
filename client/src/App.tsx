@@ -687,7 +687,7 @@ function FiberglassVsTackyBlogLoadingFallback() {
             </div>
             <div style={{ aspectRatio: '16/9', borderRadius: 16, overflow: 'hidden', background: '#151515' }}>
               <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663495713150/2Fs3wEPvUrA42rxo2jyuw5/fiberglass-paint-arrestor_c242c226.png"
+                src="/images/cat_fiberglass_arrestors.png"
                 alt="Fiberglass and tacky panel filter media comparison"
                 width="1280"
                 height="720"
