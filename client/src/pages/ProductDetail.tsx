@@ -19,6 +19,7 @@ import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredDat
 import { ShoppingCart, Loader2, Package, Truck, CircleHelp, ArrowLeft, Plus, Minus, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import { ProductSpecs } from '@/components/ProductSpecs';
+import { getKochProductDetails, KochProductDetails } from '@/components/KochProductDetails';
 import { PfsBoothCompatibility } from '@/components/PfsBoothCompatibility';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
@@ -108,7 +109,7 @@ export default function ProductDetail() {
 
     fetchProductByHandle(handle).then((data) => {
       if (!active) return;
-      setProduct(data);
+      setProduct(data || immediate);
       setLoading(false);
       fetchRelatedProducts(data?.id || immediate?.id || '', 4).then((rp) => {
         if (active) setRelatedProducts(rp);
@@ -159,6 +160,8 @@ export default function ProductDetail() {
   const currency = selectedVariant?.price?.currencyCode || 'USD';
   const inStock = selectedVariant?.availableForSale ?? true;
   const isMembershipProduct = !!handle && handle.endsWith('-membership');
+  const kochDetails = getKochProductDetails(handle);
+  const isKochProduct = !!kochDetails;
   const mainImage = images[selectedImage]?.node?.url || getProductFallbackImage(handle || '');
   // The default (first) image gets the locally hosted, pre-optimized override when one
   // exists for this handle — cuts LCP image weight vs. the raw Shopify CDN original.
@@ -168,9 +171,15 @@ export default function ProductDetail() {
   const mainImageSrcSet = selectedImage === 0
     ? shopProductCardImageSrcSet(handle || '', mainImage)
     : shopifyImageSrcSet(mainImage, [320, 480, 640, 800]);
-  const mainImageSeoUrl = mainImage.startsWith('/')
-    ? `https://www.pfsfilters.com${mainImage}`
+  const mainImageSeoSource = isKochProduct && selectedImage === 0
+    ? shopProductCardImageUrl(handle || '', mainImage, 800)
     : mainImage;
+  const mainImageSeoUrl = mainImageSeoSource.startsWith('/')
+    ? `https://www.pfsfilters.com${mainImageSeoSource}`
+    : mainImageSeoSource;
+  const mainImageAlt = isMembershipProduct
+    ? `${product.title} membership badge`
+    : shopifyImageAltText(images[selectedImage]?.node, product.title);
 
   // Offer Subscribe & Save only when this exact variant has Shopify's
   // recurring monthly selling-plan allocation. Never fabricate an option.
@@ -254,12 +263,15 @@ export default function ProductDetail() {
   return (
     <div className="min-h-screen text-white bg-[#040404]">
       <SEO
-        title={handle === 'swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium'
+        title={kochDetails?.seoTitle || (handle === 'swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium'
           ? 'Swiss Flow 600G Ceiling Media | PFS Filters'
-          : `${product.title} | PFS Filters`}
-        description={product.description || `View ${product.title} from PFS Filters with current catalog details and ordering support.`}
+          : `${product.title} | PFS Filters`)}
+        description={kochDetails?.seoDescription || product.description || `View ${product.title} from PFS Filters with current catalog details and ordering support.`}
         canonical={`https://www.pfsfilters.com/product/${handle}`}
         ogImage={mainImageSeoUrl}
+        ogImageAlt={mainImageAlt}
+        ogImageWidth={isKochProduct ? 400 : undefined}
+        ogImageHeight={isKochProduct ? 400 : undefined}
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
       />
       <Navigation />
@@ -287,7 +299,7 @@ export default function ProductDetail() {
           {/* Images */}
           <div>
             <div
-              className="group/zoom relative aspect-square overflow-hidden shadow-xl mb-4 cursor-zoom-in"
+              className={`group/zoom relative aspect-square overflow-hidden shadow-xl mb-4 cursor-zoom-in ${isKochProduct ? 'flex items-center justify-center' : ''}`}
               style={{ backgroundColor: '#161616', backgroundImage: 'radial-gradient(circle at 50% 42%, rgba(80,90,110,0.18), rgba(13,13,13,0) 62%)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}
               onMouseMove={(e) => {
                 const r = e.currentTarget.getBoundingClientRect();
@@ -304,13 +316,13 @@ export default function ProductDetail() {
                 src={mainImageDisplayUrl}
                 srcSet={mainImageSrcSet}
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                alt={isMembershipProduct ? `${product.title} membership badge` : product.title}
-                width={isMembershipProduct ? 720 : 800}
-                height={isMembershipProduct ? 960 : 800}
+                alt={mainImageAlt}
+                width={isMembershipProduct ? 720 : isKochProduct ? 400 : 800}
+                height={isMembershipProduct ? 960 : isKochProduct ? 400 : 800}
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                className={`relative w-full h-full ${isMembershipProduct ? 'object-contain p-6 md:p-10' : 'object-cover'}`}
+                className={`relative w-full h-full ${isMembershipProduct ? 'object-contain p-6 md:p-10' : isKochProduct ? 'max-h-[400px] max-w-[400px] object-contain' : 'object-cover'}`}
               />
               {/* Zoom-detail circle (desktop) */}
               <div
@@ -318,7 +330,7 @@ export default function ProductDetail() {
                 style={{
                   left: `calc(${zoom.x}% - 88px)`,
                   top: `calc(${zoom.y}% - 88px)`,
-                  backgroundImage: `url(${mainImage})`,
+                  backgroundImage: `url(${mainImageDisplayUrl})`,
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: '250%',
                   backgroundPosition: `${zoom.x}% ${zoom.y}%`,
@@ -370,6 +382,8 @@ export default function ProductDetail() {
             {product.description && (
               <p className="text-white/70 leading-relaxed mb-6">{product.description}</p>
             )}
+
+            <KochProductDetails handle={handle} />
 
             {/* Subscribe & Save is separate from membership and appears only when
                 Shopify confirms a monthly recurring plan for this exact variant. */}

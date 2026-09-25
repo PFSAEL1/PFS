@@ -6,6 +6,9 @@ interface SEOProps {
   canonical?: string;
   ogType?: string;
   ogImage?: string;
+  ogImageAlt?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
   structuredData?: object | null;
   noIndex?: boolean;
 }
@@ -31,6 +34,9 @@ export const SEO = ({
   canonical,
   ogType = 'website',
   ogImage = DEFAULT_OG_IMAGE,
+  ogImageAlt,
+  ogImageWidth,
+  ogImageHeight,
   structuredData,
   noIndex = false,
 }: SEOProps) => {
@@ -53,6 +59,9 @@ export const SEO = ({
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:image" content={ogImage} />
+      {ogImageWidth && <meta property="og:image:width" content={String(ogImageWidth)} />}
+      {ogImageHeight && <meta property="og:image:height" content={String(ogImageHeight)} />}
+      <meta property="og:image:alt" content={ogImageAlt || fullTitle} />
       <meta property="og:site_name" content="PFS Filters" />
 
       {/* Twitter Card */}
@@ -60,6 +69,7 @@ export const SEO = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
+      <meta name="twitter:image:alt" content={ogImageAlt || fullTitle} />
 
       {/* Structured Data */}
       {structuredData && (

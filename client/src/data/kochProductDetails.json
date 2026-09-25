@@ -1,0 +1,111 @@
+{
+  "koch-biomax-hepa-9999-23-375x23-375x11-5": {
+    "title": "BioMAX product information & supplied specification",
+    "summary": "Review the configured item and the supplied BioMAX HEPA 99.99% specification before ordering.",
+    "seoTitle": "Koch BioMAX HEPA 99.99% Filter | PFS Filters",
+    "seoDescription": "Shop Koch BioMAX HEPA 99.99%, 23.375 × 23.375 × 11.5 in., with an 18-gauge galvanized DTF frame and polyurethane foam sealant.",
+    "highlights": [
+      { "label": "PFS SKU", "value": "PFS-HBM232311" },
+      { "label": "Efficiency", "value": "99.99% on 0.3 µm particles" },
+      { "label": "Actual size", "value": "23.375 × 23.375 × 11.5 in" },
+      { "label": "Frame", "value": "Double-turned flange, 18-gauge galvanized steel" },
+      { "label": "Sealant", "value": "Polyurethane foam" },
+      { "label": "Package", "value": "1 filter per carton" }
+    ],
+    "sections": [
+      {
+        "heading": "BioMAX HEPA 99.99%",
+        "paragraphs": [
+          "Koch BioMAX HEPA filters are manufactured for high-efficiency commercial and industrial air-filtration systems. Koch identifies hospitals, clean rooms, pharmaceutical plants, and other systems where clean air protects people, processes, and equipment as common product-family applications.",
+          "The configured item is a 99.99% filter with actual dimensions of 23.375 × 23.375 × 11.5 inches, a double-turned-flange 18-gauge galvanized-steel frame, polyurethane foam sealant, and one filter per carton."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "Construction described by Koch",
+        "paragraphs": [],
+        "bullets": [
+          "High-efficiency media produced from submicron glass fibers formed into a water-resistant, high-density paper mat.",
+          "Precision corrugated aluminum separators maintain pleat spacing and airflow through the media pack.",
+          "The media pack is sealed to the cell-side frame with a polyurethane foam bond.",
+          "Koch literature lists a downstream neoprene gasket as the standard BioMAX arrangement; confirm the gasket arrangement required by your housing before ordering."
+        ]
+      },
+      {
+        "heading": "Supplied suggested specification",
+        "paragraphs": [
+          "The supplied BioMAX specification calls for a minimum overall efficiency of 99.99% PAO on 0.3 micrometer particles. It describes ultrafine fiberglass media formed into a high-density, water-repellent paper; pleated construction; adhesive-bead pleat spacing; a sealed media pack; UL classification; and a label recording manufacturer, airflow direction, penetration, initial resistance, and test airflow capacity.",
+          "Important item-specific note: the generic supplied specification references 26-gauge galvanized cell sides, while the requested PFS-HBM232311 configuration is listed as 18-gauge galvanized DTF. This product page uses the requested 18-gauge item configuration. Confirm any project specification or submittal requirement before purchase."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "Ordering check",
+        "paragraphs": [
+          "Confirm the installed filter’s actual dimensions, airflow direction, frame style, gasket arrangement, efficiency requirement, and system airflow before ordering. Contact PFS Filters if the housing or required construction is uncertain."
+        ],
+        "bullets": []
+      }
+    ],
+    "sourceLabel": "Manufacturer reference: Koch Filter BioMAX HEPA 99.99% and BioMAX brochure"
+  },
+  "koch-spraystop-stk10-61x90-roll": {
+    "title": "SprayStop STK-10 product information",
+    "summary": "Review the roll construction, installation direction, and manufacturer performance data before ordering.",
+    "seoTitle": "Koch SprayStop STK-10 61 in × 90 ft Roll | PFS Filters",
+    "seoDescription": "Shop Koch SprayStop STK-10 red/purple synthetic paint-arrestor media in a 61 in × 90 ft master roll, one per carton.",
+    "highlights": [
+      { "label": "PFS SKU", "value": "PFS-STKM6190" },
+      { "label": "Koch part", "value": "543-061-90M" },
+      { "label": "Roll size", "value": "61 in × 90 ft" },
+      { "label": "Nominal thickness", "value": "0.5 in" },
+      { "label": "Media", "value": "100% multi-denier synthetic" },
+      { "label": "Airflow direction", "value": "Red upstream; purple downstream" },
+      { "label": "Package", "value": "1 master roll per carton" }
+    ],
+    "sections": [
+      {
+        "heading": "SprayStop STK-10",
+        "paragraphs": [
+          "Koch SprayStop STK-10 is a synthetic paint-arrestor medium for air-dry coating materials, including lacquers and enamels. This item is one 61-inch × 90-foot master roll per carton."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "Media and loading",
+        "paragraphs": [],
+        "bullets": [
+          "Durable 100% multi-denier synthetic media.",
+          "Progressive-density construction is coarse on the entering-air side and becomes finer toward the exiting-air side for full-depth loading.",
+          "Koch describes the media as vacuumable and reusable when condition and facility procedures permit.",
+          "The manufacturer states that the media contains no harmful halogens."
+        ]
+      },
+      {
+        "heading": "Installation",
+        "paragraphs": [
+          "Install the red side upstream and the purple side downstream. Confirm the booth stage, airflow direction, holding method, and cut dimensions before installation."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "Manufacturer performance data",
+        "paragraphs": [],
+        "bullets": [
+          "Up to 96% removal efficiency in the manufacturer’s STK-10 data.",
+          "Initial pressure drop: 0.14 in. w.g.",
+          "Recommended final resistance: 1.0 in. w.g.",
+          "Average fractional efficiency: 79.5% at 3 microns and 96% at 5 microns and larger."
+        ]
+      },
+      {
+        "heading": "Ordering check",
+        "paragraphs": [
+          "Confirm that STK-10 synthetic media, a 61-inch roll width, and a 90-foot roll length match the installed application. Contact PFS Filters if the existing media or booth stage is uncertain."
+        ],
+        "bullets": []
+      }
+    ],
+    "sourceLabel": "Manufacturer reference: Koch Filter SprayStop STK-10"
+  }
+}
