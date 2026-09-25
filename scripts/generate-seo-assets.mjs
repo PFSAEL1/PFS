@@ -8,6 +8,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const publicDir = path.join(root, 'client', 'public');
 const distDir = path.join(root, 'dist', 'public');
 const productFile = path.join(root, 'client', 'src', 'data', 'shopifyProductSnapshot.json');
+const kochProductDetailsFile = path.join(root, 'client', 'src', 'data', 'kochProductDetails.json');
 const faqFile = path.join(root, 'client', 'src', 'data', 'faqData.json');
 const blogFile = path.join(root, 'client', 'src', 'lib', 'blogData.ts');
 const brandsFile = path.join(root, 'client', 'src', 'data', 'boothBrands.ts');
@@ -31,6 +32,8 @@ const shopProductThumbnails = {
   'silver-membership': { src: '/images/products/membership-silver-720.png', width: 720 },
   'gold-membership': { src: '/images/products/membership-gold-720.png', width: 720 },
   'platinum-membership': { src: '/images/products/membership-platinum-720.png', width: 720 },
+  'koch-biomax-hepa-9999-23-375x23-375x11-5': { src: '/images/products/koch/koch-biomax-hepa-9999-galvanized.png', width: 400 },
+  'koch-spraystop-stk10-61x90-roll': { src: '/images/products/koch/koch-spraystop-stk10-roll.png', width: 400 },
 };
 
 const removePublicEmail = (value = '') => String(value)
@@ -48,6 +51,7 @@ const products = JSON.parse(fs.readFileSync(productFile, 'utf8')).map((edge) => 
   ...edge.node,
   description: removePublicEmail(edge.node.description || ''),
 }));
+const kochProductDetails = JSON.parse(fs.readFileSync(kochProductDetailsFile, 'utf8'));
 const faqs = JSON.parse(fs.readFileSync(faqFile, 'utf8'));
 const blogSource = fs.readFileSync(blogFile, 'utf8');
 const brandsSource = fs.readFileSync(brandsFile, 'utf8');
@@ -302,6 +306,7 @@ const blogRoutes = blogPosts.map((post) => ({
 }));
 
 const productRoutes = products.map((product) => {
+  const kochDetails = kochProductDetails[product.handle];
   const imagePath = shopProductCardImage(product, 800);
   const image = imagePath.startsWith('/') ? absoluteUrl(imagePath) : imagePath;
   const price = product.priceRange?.minVariantPrice?.amount;
@@ -314,16 +319,20 @@ const productRoutes = products.map((product) => {
   // validates for older snapshots taken before those fields were queried.
   const sku = product.variants?.edges?.[0]?.node?.sku || undefined;
   const brandName = product.vendor || 'PFS Filters';
+  const imageNode = product.images?.edges?.[0]?.node;
   return {
     path: pathname,
-    title: product.handle === 'swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium'
+    title: kochDetails?.seoTitle || (product.handle === 'swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium'
       ? 'Swiss Flow 600G Ceiling Media | PFS Filters'
-      : `${product.title} | PFS Filters`,
-    description: truncate(product.description || `Shop ${product.title} from PFS Filters.`),
+      : `${product.title} | PFS Filters`),
+    description: kochDetails?.seoDescription || truncate(product.description || `Shop ${product.title} from PFS Filters.`),
     priority: '0.9',
     changefreq: 'weekly',
     ogType: 'product',
     image,
+    imageWidth: kochDetails ? 400 : undefined,
+    imageHeight: kochDetails ? 400 : undefined,
+    imageAlt: imageNode?.altText || product.title,
     price,
     schema: {
       '@context': 'https://schema.org',
@@ -584,9 +593,13 @@ function publicProductJson() {
       productType: product.productType || null,
       tags: product.tags || [],
       startingPrice: product.priceRange?.minVariantPrice || null,
-      image: product.images?.edges?.[0]?.node?.url || null,
+      image: (() => {
+        const image = shopProductCardImage(product, 800);
+        return image?.startsWith('/') ? absoluteUrl(image) : image || null;
+      })(),
       variants: product.variants?.edges?.map((edge) => ({
         name: edge.node.title,
+        sku: edge.node.sku || null,
         price: edge.node.price,
         availableForSale: edge.node.availableForSale,
       })) || [],
@@ -1270,6 +1283,33 @@ function aerospaceFallback() {
   </main>`;
 }
 
+function kochProductDetailsFallback(handle) {
+  const details = kochProductDetails[handle];
+  if (!details) return '';
+
+  const highlights = details.highlights.map((item) => `
+    <div style="padding:12px;border:1px solid rgba(255,255,255,.07);border-radius:10px;background:rgba(255,255,255,.025)">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)">${escapeHtml(item.label)}</div>
+      <div style="margin-top:4px;font-size:14px;line-height:1.5;color:rgba(255,255,255,.9)">${escapeHtml(item.value)}</div>
+    </div>`).join('');
+  const sections = details.sections.map((section) => {
+    const paragraphs = section.paragraphs.map((paragraph) => `<p style="margin:8px 0 0;color:rgba(255,255,255,.7);font-size:14px;line-height:1.65">${escapeHtml(paragraph)}</p>`).join('');
+    const bullets = section.bullets.length
+      ? `<ul style="margin:8px 0 0;padding-left:20px;color:rgba(255,255,255,.7);font-size:14px;line-height:1.65">${section.bullets.map((bullet) => `<li style="margin-top:6px">${escapeHtml(bullet)}</li>`).join('')}</ul>`
+      : '';
+    return `<section style="margin-top:20px"><h2 style="margin:0;color:#fff;font-size:16px">${escapeHtml(section.heading)}</h2>${paragraphs}${bullets}</section>`;
+  }).join('');
+
+  return `<details style="margin:0 0 24px;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#111;overflow:hidden">
+    <summary style="cursor:pointer;padding:16px 20px;color:#fff;font-weight:700">${escapeHtml(details.title)}<span style="display:block;margin-top:5px;color:rgba(255,255,255,.6);font-size:14px;font-weight:400;line-height:1.5">${escapeHtml(details.summary)}</span></summary>
+    <div style="padding:4px 20px 20px;border-top:1px solid rgba(255,255,255,.1)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-top:16px">${highlights}</div>
+      ${sections}
+      <p style="margin:20px 0 0;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5);font-size:12px;line-height:1.5">${escapeHtml(details.sourceLabel)} · <a href="/contact" style="color:#60a5fa">Contact PFS Filters</a> for fit or submittal help.</p>
+    </div>
+  </details>`;
+}
+
 // Generic, data-driven fallback for ANY /product/:handle route — looks the
 // handle up in the parsed snapshot instead of hardcoding per-product markup.
 function genericProductFallback(route) {
@@ -1286,6 +1326,11 @@ function genericProductFallback(route) {
   const imageUrl = product ? shopProductCardImage(product, 800) : '';
   const srcset = product ? shopProductCardSrcset(product) : '';
   const isMembershipProduct = handle.endsWith('-membership');
+  const isKochProduct = !!kochProductDetails[handle];
+  const productDetailsMarkup = kochProductDetailsFallback(handle);
+  const imageAlt = isMembershipProduct
+    ? `${title} membership badge`
+    : product?.images?.edges?.[0]?.node?.altText || title;
 
   const priceMarkup = price
     ? `<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
@@ -1298,7 +1343,7 @@ function genericProductFallback(route) {
     ? `<p style="margin:0 0 24px;max-width:560px;color:rgba(255,255,255,.7);font-size:16px;line-height:1.6">${escapeHtml(truncate(description, 400))}</p>`
     : '';
   const imageMarkup = imageUrl
-    ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1024px) 50vw, 100vw" alt="${escapeHtml(isMembershipProduct ? `${title} membership badge` : title)}" width="${isMembershipProduct ? 720 : 800}" height="${isMembershipProduct ? 960 : 800}" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:${isMembershipProduct ? 'contain' : 'cover'};${isMembershipProduct ? 'padding:24px;box-sizing:border-box;' : ''}display:block" />`
+    ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1024px) 50vw, 100vw" alt="${escapeHtml(imageAlt)}" width="${isMembershipProduct ? 720 : isKochProduct ? 400 : 800}" height="${isMembershipProduct ? 960 : isKochProduct ? 400 : 800}" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;max-width:${isKochProduct ? '400px' : 'none'};max-height:${isKochProduct ? '400px' : 'none'};object-fit:${isMembershipProduct || isKochProduct ? 'contain' : 'cover'};${isMembershipProduct ? 'padding:24px;box-sizing:border-box;' : ''}display:block" />`
     : '';
 
   return `<main data-seo-fallback id="product-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
@@ -1319,7 +1364,7 @@ function genericProductFallback(route) {
     <section style="padding:40px 16px;background:#0d0d0d">
       <div style="max-width:1280px;margin:0 auto;display:grid;gap:48px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
         <div>
-          <div style="aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#161616;border:1px solid rgba(255,255,255,.07);margin-bottom:16px">
+          <div style="aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#161616;border:1px solid rgba(255,255,255,.07);margin-bottom:16px;${isKochProduct ? 'display:flex;align-items:center;justify-content:center;' : ''}">
             ${imageMarkup}
           </div>
         </div>
@@ -1327,6 +1372,7 @@ function genericProductFallback(route) {
           <h1 style="margin:0 0 12px;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;font-size:clamp(1.75rem,6vw,2.25rem);line-height:1.15;font-weight:800;color:#fff">${escapeHtml(title)}</h1>
           ${priceMarkup}
           ${descriptionMarkup}
+          ${productDetailsMarkup}
           <div style="min-height:48px;max-width:420px;border-radius:8px;background:#3b82f6;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:800">Add to Cart</div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;max-width:420px">
             ${['Fulfillment Timing', 'Sizing Help', 'Custom Requests'].map((label) => `<div style="min-height:76px;text-align:center;padding:12px;background:#161616;border:1px solid rgba(255,255,255,.07);border-radius:10px"><p style="margin:0;font-size:12px;font-weight:600;color:rgba(255,255,255,.9)">${label}</p></div>`).join('')}
@@ -1351,6 +1397,9 @@ function writeSourceAssets() {
 function replaceMeta(html, route) {
   const url = absoluteUrl(route.path);
   const image = route.image || 'https://www.pfsfilters.com/media/pfs-hero-poster-desktop.webp';
+  const imageWidth = route.imageWidth || 1600;
+  const imageHeight = route.imageHeight || 900;
+  const imageAlt = escapeHtml(route.imageAlt || route.title);
   const title = escapeHtml(route.title);
   const description = escapeHtml(truncate(route.description));
   const robots = route.noindex
@@ -1366,9 +1415,13 @@ function replaceMeta(html, route) {
     .replace(/<meta[^>]+property="og:type"[^>]*>/i, `<meta data-seo-generated property="og:type" content="${route.ogType || 'website'}" />`)
     .replace(/<meta[^>]+property="og:url"[^>]*>/i, `<meta data-seo-generated property="og:url" content="${escapeHtml(url)}" />`)
     .replace(/<meta[^>]+property="og:image"[^>]*>/i, `<meta data-seo-generated property="og:image" content="${escapeHtml(image)}" />`)
+    .replace(/<meta[^>]+property="og:image:width"[^>]*>/i, `<meta data-seo-generated property="og:image:width" content="${imageWidth}" />`)
+    .replace(/<meta[^>]+property="og:image:height"[^>]*>/i, `<meta data-seo-generated property="og:image:height" content="${imageHeight}" />`)
+    .replace(/<meta[^>]+property="og:image:alt"[^>]*>/i, `<meta data-seo-generated property="og:image:alt" content="${imageAlt}" />`)
     .replace(/<meta[^>]+name="twitter:title"[^>]*>/i, `<meta data-seo-generated name="twitter:title" content="${title}" />`)
     .replace(/<meta[^>]+name="twitter:description"[^>]*>/i, `<meta data-seo-generated name="twitter:description" content="${description}" />`)
-    .replace(/<meta[^>]+name="twitter:image"[^>]*>/i, `<meta data-seo-generated name="twitter:image" content="${escapeHtml(image)}" />`);
+    .replace(/<meta[^>]+name="twitter:image"[^>]*>/i, `<meta data-seo-generated name="twitter:image" content="${escapeHtml(image)}" />`)
+    .replace(/<meta[^>]+name="twitter:image:alt"[^>]*>/i, `<meta data-seo-generated name="twitter:image:alt" content="${imageAlt}" />`);
 
   if (route.schema) {
     output = output.replace('</head>', `    <script data-seo-generated type="application/ld+json">${JSON.stringify(route.schema).replace(/</g, '\\u003c')}</script>\n  </head>`);
