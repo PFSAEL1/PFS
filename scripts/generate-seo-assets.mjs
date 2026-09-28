@@ -32,8 +32,8 @@ const shopProductThumbnails = {
   'silver-membership': { src: '/images/products/membership-silver-720.png', width: 720 },
   'gold-membership': { src: '/images/products/membership-gold-720.png', width: 720 },
   'platinum-membership': { src: '/images/products/membership-platinum-720.png', width: 720 },
-  'koch-biomax-hepa-9999-23-375x23-375x11-5': { src: '/images/products/koch/koch-biomax-hepa-9999-galvanized.png', width: 400 },
-  'koch-spraystop-stk10-61x90-roll': { src: '/images/products/koch/koch-spraystop-stk10-roll.png', width: 400 },
+  'koch-biomax-hepa-9999-23-375x23-375x11-5': { src: '/images/products/koch/koch-biomax-hepa-9999-transparent.png', width: 960 },
+  'koch-spraystop-stk10-61x90-roll': { src: '/images/products/koch/koch-spraystop-stk10-transparent.png', width: 960 },
 };
 
 const removePublicEmail = (value = '') => String(value)
@@ -330,8 +330,8 @@ const productRoutes = products.map((product) => {
     changefreq: 'weekly',
     ogType: 'product',
     image,
-    imageWidth: kochDetails ? 400 : undefined,
-    imageHeight: kochDetails ? 400 : undefined,
+    imageWidth: kochDetails ? 960 : undefined,
+    imageHeight: kochDetails ? 960 : undefined,
     imageAlt: imageNode?.altText || product.title,
     price,
     schema: {
@@ -1343,7 +1343,7 @@ function genericProductFallback(route) {
     ? `<p style="margin:0 0 24px;max-width:560px;color:rgba(255,255,255,.7);font-size:16px;line-height:1.6">${escapeHtml(truncate(description, 400))}</p>`
     : '';
   const imageMarkup = imageUrl
-    ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1024px) 50vw, 100vw" alt="${escapeHtml(imageAlt)}" width="${isMembershipProduct ? 720 : isKochProduct ? 400 : 800}" height="${isMembershipProduct ? 960 : isKochProduct ? 400 : 800}" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;max-width:${isKochProduct ? '400px' : 'none'};max-height:${isKochProduct ? '400px' : 'none'};object-fit:${isMembershipProduct || isKochProduct ? 'contain' : 'cover'};${isMembershipProduct ? 'padding:24px;box-sizing:border-box;' : ''}display:block" />`
+    ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1024px) 50vw, 100vw" alt="${escapeHtml(imageAlt)}" width="${isMembershipProduct ? 720 : isKochProduct ? 960 : 800}" height="${isMembershipProduct ? 960 : isKochProduct ? 960 : 800}" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;max-width:${isKochProduct ? '400px' : 'none'};max-height:${isKochProduct ? '400px' : 'none'};object-fit:${isMembershipProduct || isKochProduct ? 'contain' : 'cover'};${isMembershipProduct ? 'padding:24px;box-sizing:border-box;' : ''}display:block" />`
     : '';
 
   return `<main data-seo-fallback id="product-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">

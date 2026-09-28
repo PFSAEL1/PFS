@@ -270,8 +270,8 @@ export default function ProductDetail() {
         canonical={`https://www.pfsfilters.com/product/${handle}`}
         ogImage={mainImageSeoUrl}
         ogImageAlt={mainImageAlt}
-        ogImageWidth={isKochProduct ? 400 : undefined}
-        ogImageHeight={isKochProduct ? 400 : undefined}
+        ogImageWidth={isKochProduct ? 960 : undefined}
+        ogImageHeight={isKochProduct ? 960 : undefined}
         structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
       />
       <Navigation />
@@ -317,8 +317,8 @@ export default function ProductDetail() {
                 srcSet={mainImageSrcSet}
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 alt={mainImageAlt}
-                width={isMembershipProduct ? 720 : isKochProduct ? 400 : 800}
-                height={isMembershipProduct ? 960 : isKochProduct ? 400 : 800}
+                width={isMembershipProduct ? 720 : isKochProduct ? 960 : 800}
+                height={isMembershipProduct ? 960 : isKochProduct ? 960 : 800}
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"

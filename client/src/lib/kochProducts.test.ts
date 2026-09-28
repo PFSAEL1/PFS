@@ -21,9 +21,9 @@ const expectedProducts = [
     variantId: 'gid://shopify/ProductVariant/52904722890884',
     sku: 'PFS-HBM232311',
     price: '280.63',
-    image: '/images/products/koch/koch-biomax-hepa-9999-galvanized.png',
-    dimensions: [400, 400],
-    sha256: '9717d4da5d8d6efdeb8174abbc668fea7bd486b997dc6c69635232c4b34357e1',
+    image: '/images/products/koch/koch-biomax-hepa-9999-transparent.png',
+    dimensions: [960, 960],
+    sha256: 'be8564fd5893b95d07fe40b1637c9a711a19ea1f40cccefd146e148b33e2212b',
   },
   {
     handle: 'koch-spraystop-stk10-61x90-roll',
@@ -31,9 +31,9 @@ const expectedProducts = [
     variantId: 'gid://shopify/ProductVariant/52904722923652',
     sku: 'PFS-STKM6190',
     price: '242.37',
-    image: '/images/products/koch/koch-spraystop-stk10-roll.png',
-    dimensions: [400, 400],
-    sha256: 'a2f5787a06181c9481574152a491fbd77ca74d2860334f4ced82fc690193b84c',
+    image: '/images/products/koch/koch-spraystop-stk10-transparent.png',
+    dimensions: [960, 960],
+    sha256: '3b96bfe20f906a6881b46428557b139786df88a18734ee9a94d022d1b6ef9996',
   },
 ] as const;
 
@@ -41,6 +41,10 @@ function pngDimensions(pathname: string): [number, number] {
   const buffer = readFileSync(new URL(`client/public${pathname}`, repoRoot));
   expect(buffer.subarray(1, 4).toString()).toBe('PNG');
   return [buffer.readUInt32BE(16), buffer.readUInt32BE(20)];
+}
+
+function pngColorType(pathname: string): number {
+  return readFileSync(new URL(`client/public${pathname}`, repoRoot)).readUInt8(25);
 }
 
 describe('Koch catalog products', () => {
@@ -59,10 +63,11 @@ describe('Koch catalog products', () => {
     expect(variant?.sellingPlanAllocations?.edges).toEqual([]);
   });
 
-  it.each(expectedProducts)('ships a real square PNG for $handle', (expected) => {
+  it.each(expectedProducts)('ships a real square RGBA PNG for $handle', (expected) => {
     const publicPath = new URL(`client/public${expected.image}`, repoRoot);
     expect(existsSync(publicPath)).toBe(true);
     expect(pngDimensions(expected.image)).toEqual(expected.dimensions);
+    expect(pngColorType(expected.image)).toBe(6);
     expect(createHash('sha256').update(readFileSync(publicPath)).digest('hex')).toBe(expected.sha256);
   });
 
@@ -94,8 +99,8 @@ describe('Koch catalog products', () => {
     );
     expect(productDetailSource).toContain('const isKochProduct = !!kochDetails');
     expect(productDetailSource).toContain('setProduct(data || immediate)');
-    expect(productDetailSource).toContain('ogImageWidth={isKochProduct ? 400 : undefined}');
-    expect(productDetailSource).toContain('ogImageHeight={isKochProduct ? 400 : undefined}');
+    expect(productDetailSource).toContain('ogImageWidth={isKochProduct ? 960 : undefined}');
+    expect(productDetailSource).toContain('ogImageHeight={isKochProduct ? 960 : undefined}');
     expect(productDetailSource).toContain('ogImageAlt={mainImageAlt}');
     expect(seoSource).toContain('property="og:image:width"');
     expect(seoSource).toContain('name="twitter:image:alt"');
@@ -108,8 +113,8 @@ describe('Koch catalog products', () => {
     }
     expect(generatorSource).toContain('function kochProductDetailsFallback(handle)');
     expect(generatorSource).toContain('<details style=');
-    expect(generatorSource).toContain('imageWidth: kochDetails ? 400 : undefined');
-    expect(generatorSource).toContain('imageHeight: kochDetails ? 400 : undefined');
+    expect(generatorSource).toContain('imageWidth: kochDetails ? 960 : undefined');
+    expect(generatorSource).toContain('imageHeight: kochDetails ? 960 : undefined');
     expect(generatorSource).toContain('imageAlt: imageNode?.altText || product.title');
     expect(generatorSource).toContain('property="og:image:width" content="${imageWidth}"');
     expect(generatorSource).toContain('name="twitter:image:alt" content="${imageAlt}"');
