@@ -547,7 +547,7 @@ export default function ProductDetail() {
         <ProductSpecs product={product} />
 
         {/* PFS booth compatibility */}
-        <PfsBoothCompatibility product={product} />
+        {!isParkerCase && <PfsBoothCompatibility product={product} />}
 
         {/* Related products */}
         {relatedProducts.length > 0 && (
