@@ -14,6 +14,8 @@ import { usePricing } from '@/hooks/usePricing';
 import { useMembership } from '@/hooks/useMembership';
 import { toast } from 'sonner';
 import { useLocation } from 'wouter';
+import { useState } from 'react';
+import { CART_REMINDERS_ENABLED, newReminderToken, postReminder } from '@/lib/cartReminderClient';
 
 export const CartDrawer = () => {
   const {
@@ -25,7 +27,15 @@ export const CartDrawer = () => {
     createCheckout,
     clearCart,
     setCartOpen,
+    reminderToken,
+    reminderOptIn,
+    setReminderOptIn,
+    disableReminder,
   } = useCartStore();
+  const [emailInput, setEmailInput] = useState('');
+  const [reminderBusy, setReminderBusy] = useState(false);
+  const [pendingChecked, setPendingChecked] = useState<boolean | null>(null);
+  const [companyWebsite, setCompanyWebsite] = useState('');
 
   const [, navigate] = useLocation();
   const { discountPercent, discountCode, tier, loading: pricingLoading } = usePricing();
@@ -116,6 +126,50 @@ export const CartDrawer = () => {
       console.error('[Checkout] Error:', err);
       toast.error(err instanceof Error ? err.message : 'Failed to create checkout. Please try again.');
     }
+  };
+
+  const handleReminderChange = async (checked: boolean) => {
+    if (reminderBusy) return;
+    if (checked && !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(emailInput.trim())) {
+      toast.error('Enter a valid email address to opt in.');
+      return;
+    }
+    setReminderBusy(true);
+    setPendingChecked(checked);
+    try {
+      if (checked) {
+        const token = newReminderToken();
+        await postReminder('opt_in', token, items, {
+          email: emailInput.trim(), consent: true, companyWebsite,
+        });
+        setReminderOptIn(token);
+        setEmailInput('');
+        toast.success('If eligible, we’ll send one reminder after at least a day of inactivity.');
+      } else if (reminderToken) {
+        await postReminder('cancel', reminderToken, items);
+        disableReminder();
+        toast.success('Cart reminder turned off.');
+      }
+    } catch {
+      toast.error('Could not save your reminder preference. Please try again.');
+    } finally {
+      setReminderBusy(false);
+      setPendingChecked(null);
+    }
+  };
+
+  const handleClearCart = async () => {
+    try {
+      await clearCart();
+      toast.success('Cart cleared');
+    } catch {
+      toast.error('Could not clear the cart while its reminder is active. Please try again.');
+    }
+  };
+
+  const handleCartEdit = async (operation: () => Promise<void>) => {
+    try { await operation(); }
+    catch { toast.error('Could not update the cart reminder. Please try again.'); }
   };
 
   return (
@@ -222,20 +276,20 @@ export const CartDrawer = () => {
                     )}
                     <div className="flex items-center gap-2 mt-2">
                       <button
-                        onClick={() => updateQuantity(lineKey, item.quantity - 1)}
+                        onClick={() => void handleCartEdit(() => updateQuantity(lineKey, item.quantity - 1))}
                         className="w-6 h-6 rounded border border-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
                       <span className="text-sm font-medium w-6 text-center">{item.quantity}</span>
                       <button
-                        onClick={() => updateQuantity(lineKey, item.quantity + 1)}
+                        onClick={() => void handleCartEdit(() => updateQuantity(lineKey, item.quantity + 1))}
                         className="w-6 h-6 rounded border border-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                       >
                         <Plus className="w-3 h-3" />
                       </button>
                       <button
-                        onClick={() => removeItem(lineKey)}
+                        onClick={() => void handleCartEdit(() => removeItem(lineKey))}
                         className="ml-auto p-1 text-destructive hover:bg-destructive/10 rounded transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -282,10 +336,30 @@ export const CartDrawer = () => {
               )}
             </div>
             <p className="text-xs text-white/50">Shipping calculated at checkout</p>
+            {CART_REMINDERS_ENABLED && (
+              <div className="rounded-lg border border-white/15 bg-white/5 p-3 space-y-2">
+                <label htmlFor="cart-reminder-email" className="block text-sm font-medium">Optional cart reminder</label>
+                <input id="cart-reminder-email" type="email" autoComplete="email" inputMode="email"
+                  value={emailInput} onChange={(event) => setEmailInput(event.target.value)}
+                  disabled={reminderOptIn || reminderBusy}
+                  placeholder="Your email address" maxLength={254}
+                  className="w-full rounded border border-white/20 bg-black px-3 py-2 text-sm text-white" />
+                <input type="text" name="companyWebsite" value={companyWebsite}
+                  onChange={(event) => setCompanyWebsite(event.target.value)}
+                  autoComplete="off" tabIndex={-1} aria-hidden="true" style={{ display: 'none' }} />
+                <label className="flex items-start gap-2 text-xs leading-relaxed text-white/70 cursor-pointer">
+                  <input type="checkbox" checked={pendingChecked ?? reminderOptIn} disabled={reminderBusy}
+                    onChange={(event) => void handleReminderChange(event.target.checked)}
+                    className="mt-0.5 accent-blue-500" />
+                  <span>Email me <strong>one</strong> reminder about this cart after at least a day of inactivity. I can unsubscribe at any time.</span>
+                </label>
+                <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-xs text-blue-300 underline">Privacy policy</a>
+              </div>
+            )}
             <Button
               className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2"
               onClick={handleCheckout}
-              disabled={isLoading || pricingLoading || membershipLoading}
+              disabled={isLoading || pricingLoading || membershipLoading || reminderBusy}
             >
               {isLoading || pricingLoading || membershipLoading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -298,7 +372,7 @@ export const CartDrawer = () => {
               variant="ghost"
               size="sm"
               className="w-full text-white/50 hover:text-destructive"
-              onClick={() => { clearCart(); toast.success('Cart cleared'); }}
+              onClick={() => void handleClearCart()}
             >
               Clear Cart
             </Button>

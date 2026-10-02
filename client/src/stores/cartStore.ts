@@ -1,16 +1,21 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { CartItem, createStorefrontCheckout, getCartLineKey } from '@/lib/shopify';
+import { CART_REMINDERS_ENABLED, postReminder } from '@/lib/cartReminderClient';
 
 interface CartState {
   items: CartItem[];
   isLoading: boolean;
   isCartOpen: boolean;
   cachedCheckoutUrl: string | null;
+  reminderToken: string | null;
+  reminderOptIn: boolean;
   addItem: (item: CartItem) => void;
-  removeItem: (lineKey: string) => void;
-  updateQuantity: (lineKey: string, quantity: number) => void;
-  clearCart: () => void;
+  removeItem: (lineKey: string) => Promise<void>;
+  updateQuantity: (lineKey: string, quantity: number) => Promise<void>;
+  clearCart: () => Promise<void>;
+  setReminderOptIn: (token: string) => void;
+  disableReminder: () => void;
   setLoading: (loading: boolean) => void;
   setCartOpen: (open: boolean) => void;
   createCheckout: (discountCode?: string) => Promise<string | null>;
@@ -23,6 +28,11 @@ export const useCartStore = create<CartState>()(
       isLoading: false,
       isCartOpen: false,
       cachedCheckoutUrl: null,
+      reminderToken: null,
+      reminderOptIn: false,
+
+      setReminderOptIn: (token) => set({ reminderToken: token, reminderOptIn: true }),
+      disableReminder: () => set({ reminderToken: null, reminderOptIn: false }),
 
       addItem: (item) => {
         set((state) => {
@@ -42,16 +52,22 @@ export const useCartStore = create<CartState>()(
         });
       },
 
-      removeItem: (lineKey) => {
+      removeItem: async (lineKey) => {
+        const state = get();
+        const remaining = state.items.filter((item) => getCartLineKey(item) !== lineKey);
+        if (!remaining.length && state.reminderOptIn && state.reminderToken && CART_REMINDERS_ENABLED) {
+          await postReminder('cancel', state.reminderToken, []);
+          get().disableReminder();
+        }
         set((state) => ({
           items: state.items.filter((i) => getCartLineKey(i) !== lineKey),
           cachedCheckoutUrl: null,
         }));
       },
 
-      updateQuantity: (lineKey, quantity) => {
+      updateQuantity: async (lineKey, quantity) => {
         if (quantity <= 0) {
-          get().removeItem(lineKey);
+          await get().removeItem(lineKey);
           return;
         }
         set((state) => ({
@@ -62,16 +78,27 @@ export const useCartStore = create<CartState>()(
         }));
       },
 
-      clearCart: () => set({ items: [], cachedCheckoutUrl: null }),
+      clearCart: async () => {
+        const state = get();
+        if (CART_REMINDERS_ENABLED && state.reminderOptIn && state.reminderToken) {
+          await postReminder('cancel', state.reminderToken, []);
+        }
+        set({ items: [], cachedCheckoutUrl: null, reminderOptIn: false, reminderToken: null });
+      },
 
       setLoading: (loading) => set({ isLoading: loading }),
 
       setCartOpen: (open) => set({ isCartOpen: open }),
 
       createCheckout: async (discountCode?: string) => {
-        const { items } = get();
+        const { items, reminderOptIn, reminderToken } = get();
         if (items.length === 0) return null;
 
+        // Shopify's checkout recovery takes over here. Fail closed to avoid two emails.
+        if (CART_REMINDERS_ENABLED && reminderOptIn && reminderToken) {
+          await postReminder('checkout', reminderToken, items);
+          get().disableReminder();
+        }
         // Always create a fresh checkout to ensure discount code is applied
         set({ isLoading: true });
         try {

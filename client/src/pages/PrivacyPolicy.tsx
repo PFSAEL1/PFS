@@ -46,6 +46,11 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
+            <h2 className="text-2xl font-bold text-foreground mb-3">Optional Cart Reminder</h2>
+            <p>If you enter an email address in your cart and separately choose the cart-reminder option, we use that address and the items in your cart to send at most one reminder after your cart has been inactive for at least a day. This is optional and is separate from checkout and other marketing consent. We stop the reminder if you clear your cart, turn it off, or begin checkout. An email delivery provider processes the message on our behalf. You can unsubscribe using the link in the reminder; we keep a limited suppression record to honor your choice. We delete completed, cancelled, and failed cart-reminder details after 60 days.</p>
+          </section>
+
+          <section>
             <h2 className="text-2xl font-bold text-foreground mb-3">Information Sharing</h2>
             <p>We do not sell, trade, or rent your personal information to third parties. We may share your information with trusted service providers who assist us in operating our website and conducting our business, subject to confidentiality agreements.</p>
           </section>

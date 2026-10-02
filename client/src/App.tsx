@@ -8,6 +8,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { importWithChunkRecovery } from './lib/chunkRecovery';
 import { getLocalProductThumbnail } from './lib/imageUrls';
+import { CartReminderActivity } from './components/CartReminderActivity';
 
 // Pages
 import Home from './pages/Home';
@@ -803,6 +804,7 @@ function Router() {
   return (
     <>
       <ScrollToTop />
+      <CartReminderActivity />
       <Suspense fallback={routeFallback}>
       <Switch>
       {/* Main pages */}
