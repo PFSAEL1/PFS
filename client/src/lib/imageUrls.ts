@@ -16,6 +16,7 @@ const SHOP_PRODUCT_THUMBNAILS: Record<string, { src: string; width: number }> = 
   'koch-biomax-hepa-9999-23-375x23-375x11-5': { src: '/images/products/koch/koch-biomax-hepa-9999-transparent.png', width: 960 },
   'koch-spraystop-stk10-61x90-roll': { src: '/images/products/koch/koch-spraystop-stk10-transparent.png', width: 960 },
   'parker-loadtech-merv14-20x20x4-single-header-case-3': { src: '/images/products/parker/loadtech-merv14-manufacturer-cutout.png', width: 531 },
+  'afc-2-pocket-blue-poly-exhaust-cube-20x20x15-no-header-case-6': { src: '/images/products/afc/afc-blue-poly-cube-2-pocket-20x20x15-6cs.png', width: 223 },
 };
 
 // Lightweight, snapshot-free lookup — safe to import anywhere (including

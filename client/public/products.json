@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T23:02:17.928Z",
+  "generatedAt": "2026-10-02T23:12:24.774Z",
   "source": "https://www.pfsfilters.com/shop",
   "notice": "Prices and availability can change. Confirm the current product page before purchasing.",
   "products": [
@@ -1454,6 +1454,39 @@
           "sku": "PFS-PLT4-M14-13-PH-3PK",
           "price": {
             "amount": "280.68",
+            "currencyCode": "USD"
+          },
+          "availableForSale": true
+        }
+      ]
+    },
+    {
+      "name": "AFC 2-Pocket Blue Poly Exhaust Cube — 20 × 20 × 15 in, No Header (Case of 6)",
+      "url": "https://www.pfsfilters.com/product/afc-2-pocket-blue-poly-exhaust-cube-20x20x15-no-header-case-6",
+      "description": "AFC two-pocket blue polyester exhaust cube with no galvanized steel header for paint booth exhaust filtration. AFC filter number C2PPEB202015-6; PFS ordering SKU PFS-C2PPEB202015-6. Nominal 20 × 20 × 15 in per filter, MERV 11 per supplied product specifications. One case contains six filters; cart quantity one is one case. Confirm dimensions and no-header configuration. Available to order; no on-hand stock or fulfillment time is promised. Shipping calculated separately at checkout.",
+      "productType": "Paint Booth Exhaust Filter",
+      "tags": [
+        "AFC",
+        "AFC Filters",
+        "Exhaust Filter",
+        "Pocket Cube",
+        "Blue Polyester",
+        "No Header",
+        "20x20x15",
+        "MERV 11",
+        "Case of 6"
+      ],
+      "startingPrice": {
+        "amount": "194.92",
+        "currencyCode": "USD"
+      },
+      "image": "https://www.pfsfilters.com/images/products/afc/afc-blue-poly-cube-2-pocket-20x20x15-6cs.png",
+      "variants": [
+        {
+          "name": "Default Title",
+          "sku": "PFS-C2PPEB202015-6",
+          "price": {
+            "amount": "194.92",
             "currencyCode": "USD"
           },
           "availableForSale": true

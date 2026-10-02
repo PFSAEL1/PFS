@@ -189,6 +189,13 @@ Intake filters clean incoming air. Exhaust filters capture paint overspray. Corr
 - Starting price in snapshot: $280.68 USD
 - Summary: Parker LoadTECH MERV 14 rigid-cell air filters with synthetic E-Pleat media and a 3/4-in single header on the air-entering side. Model PLT4-M14-13-PH, Parker part 1136513. Sold as one case of three filters; quantity one is one case. Each filter is nominal 20…
 
+### AFC 2-Pocket Blue Poly Exhaust Cube — 20 × 20 × 15 in, No Header (Case of 6)
+
+- URL: https://www.pfsfilters.com/product/afc-2-pocket-blue-poly-exhaust-cube-20x20x15-no-header-case-6
+- Type: Paint Booth Exhaust Filter
+- Starting price in snapshot: $194.92 USD
+- Summary: AFC two-pocket blue polyester exhaust cube with no galvanized steel header for paint booth exhaust filtration. AFC filter number C2PPEB202015-6; PFS ordering SKU PFS-C2PPEB202015-6. Nominal 20 × 20 × 15 in per filter, MERV 11 per supplied product…
+
 # Frequently asked questions
 
 ### How do I find the correct paint booth filter for my booth?

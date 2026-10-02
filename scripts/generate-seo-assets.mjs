@@ -35,6 +35,7 @@ const shopProductThumbnails = {
   'koch-biomax-hepa-9999-23-375x23-375x11-5': { src: '/images/products/koch/koch-biomax-hepa-9999-transparent.png', width: 960 },
   'koch-spraystop-stk10-61x90-roll': { src: '/images/products/koch/koch-spraystop-stk10-transparent.png', width: 960 },
   'parker-loadtech-merv14-20x20x4-single-header-case-3': { src: '/images/products/parker/loadtech-merv14-manufacturer-cutout.png', width: 531 },
+  'afc-2-pocket-blue-poly-exhaust-cube-20x20x15-no-header-case-6': { src: '/images/products/afc/afc-blue-poly-cube-2-pocket-20x20x15-6cs.png', width: 223 },
 };
 
 const removePublicEmail = (value = '') => String(value)
@@ -309,11 +310,12 @@ const blogRoutes = blogPosts.map((post) => ({
 const productRoutes = products.map((product) => {
   const kochDetails = kochProductDetails[product.handle];
   const isParkerCase = product.handle === 'parker-loadtech-merv14-20x20x4-single-header-case-3';
+  const isAfcCase = product.handle === 'afc-2-pocket-blue-poly-exhaust-cube-20x20x15-no-header-case-6';
   const imagePath = shopProductCardImage(product, 800);
   const image = imagePath.startsWith('/') ? absoluteUrl(imagePath) : imagePath;
   const price = product.priceRange?.minVariantPrice?.amount;
   const currency = product.priceRange?.minVariantPrice?.currencyCode || 'USD';
-  const availability = isParkerCase
+  const availability = (isParkerCase || isAfcCase)
     ? 'https://schema.org/BackOrder'
     : product.variants?.edges?.some((edge) => edge.node.availableForSale)
       ? 'https://schema.org/InStock'
