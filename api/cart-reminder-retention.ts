@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { adminDb } from '../server/cartReminder';
+import { adminDb } from '../server/cartReminder.js';
 
 const DAY = 24 * 60 * 60 * 1000;
 export default async function handler(req: VercelRequest, res: VercelResponse) {

@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { adminDb, configured, decryptEmail, emailContent } from '../server/cartReminder';
+import { adminDb, configured, decryptEmail, emailContent } from '../server/cartReminder.js';
 
 export const config = { maxDuration: 60 };
 const DAY = 24 * 60 * 60 * 1000;

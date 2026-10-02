@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { adminDb, configured, encryptEmail, hash, normalizeEmail, parseLines, secretHash, validBrowserToken, verifiedShopifyItems } from '../server/cartReminder';
+import { adminDb, configured, encryptEmail, hash, normalizeEmail, parseLines, secretHash, validBrowserToken, verifiedShopifyItems } from '../server/cartReminder.js';
 
 const ALLOWED_ORIGINS = new Set(['https://www.pfsfilters.com', 'https://pfsfilters.com']);
 

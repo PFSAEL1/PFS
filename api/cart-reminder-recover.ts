@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { adminDb, databaseReady, verifyLink } from '../server/cartReminder';
+import { adminDb, databaseReady, verifyLink } from '../server/cartReminder.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Cache-Control', 'no-store');
