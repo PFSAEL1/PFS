@@ -9,7 +9,7 @@ import { getLocalProductThumbnail, shopProductCardImageUrl } from '@/lib/imageUr
 const root = new URL('../../../', import.meta.url);
 const product = snapshot.find(({ node }) => node.handle === PARKER_CASE_HANDLE)?.node;
 const variant = product?.variants.edges[0]?.node;
-const imagePath = '/images/products/parker/loadtech-merv14-manufacturer-photo.jpg';
+const imagePath = '/images/products/parker/loadtech-merv14-manufacturer-cutout.png';
 
 function source(path: string) {
   return readFileSync(new URL(path, root), 'utf8');
@@ -37,15 +37,18 @@ describe('Parker LoadTECH case listing', () => {
     expect(variant?.sellingPlanAllocations?.edges).toEqual([]);
   });
 
-  it('shows only a genuine Parker-issued brochure photo with representative-series alt text', () => {
+  it('shows only a real Parker brochure photo with a transparent background', () => {
     expect(product?.images.edges).toHaveLength(1);
-    expect(product?.images.edges[0].node.url).toContain('cdn.shopify.com');
-    expect(product?.images.edges[0].node.altText).toContain('manufacturer product photograph representative of the series');
+    expect(product?.images.edges[0].node.url).toContain('NdUyWKXQJVnKztze.png');
+    expect(product?.images.edges[0].node.altText).toContain('representative manufacturer series photograph on a transparent background');
     expect(getLocalProductThumbnail(PARKER_CASE_HANDLE)?.src).toBe(imagePath);
-    expect(shopProductCardImageUrl(PARKER_CASE_HANDLE, 'https://cdn.shopify.com/example.jpg')).toBe(imagePath);
+    expect(shopProductCardImageUrl(PARKER_CASE_HANDLE, 'https://cdn.shopify.com/example.png')).toBe(imagePath);
     const photo = readFileSync(new URL(`client/public${imagePath}`, root));
-    expect([...photo.subarray(0, 3)]).toEqual([0xff, 0xd8, 0xff]);
+    expect([...photo.subarray(0, 8)]).toEqual([137, 80, 78, 71, 13, 10, 26, 10]);
+    expect([photo.readUInt32BE(16), photo.readUInt32BE(20)]).toEqual([531, 406]);
+    expect(photo[25]).toBe(6); // PNG truecolor with alpha, not an opaque JPEG wrapper.
     expect(photo.length).toBeGreaterThan(10_000);
+    expect(existsSync(new URL('client/public/images/products/parker/loadtech-merv14-manufacturer-photo.jpg', root))).toBe(false);
     expect(existsSync(new URL('client/public/images/products/parker/loadtech-single-header-schematic.png', root))).toBe(false);
     expect(existsSync(new URL('client/public/images/products/parker/loadtech-single-header-schematic.svg', root))).toBe(false);
   });
