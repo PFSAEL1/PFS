@@ -15,6 +15,7 @@ const SHOP_PRODUCT_THUMBNAILS: Record<string, { src: string; width: number }> = 
   'platinum-membership': { src: '/images/products/membership-platinum-720.png', width: 720 },
   'koch-biomax-hepa-9999-23-375x23-375x11-5': { src: '/images/products/koch/koch-biomax-hepa-9999-transparent.png', width: 960 },
   'koch-spraystop-stk10-61x90-roll': { src: '/images/products/koch/koch-spraystop-stk10-transparent.png', width: 960 },
+  'parker-loadtech-merv14-20x20x4-single-header-case-3': { src: '/images/products/parker/loadtech-single-header-schematic.png', width: 960 },
 };
 
 // Lightweight, snapshot-free lookup — safe to import anywhere (including

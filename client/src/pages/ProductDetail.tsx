@@ -160,6 +160,7 @@ export default function ProductDetail() {
   const currency = selectedVariant?.price?.currencyCode || 'USD';
   const inStock = selectedVariant?.availableForSale ?? true;
   const isMembershipProduct = !!handle && handle.endsWith('-membership');
+  const isParkerCase = handle === 'parker-loadtech-merv14-20x20x4-single-header-case-3';
   const kochDetails = getKochProductDetails(handle);
   const isKochProduct = !!kochDetails;
   const mainImage = images[selectedImage]?.node?.url || getProductFallbackImage(handle || '');
@@ -214,7 +215,7 @@ export default function ProductDetail() {
     sku: selectedVariant?.sku || undefined,
     brand: product.vendor || undefined,
     url: `https://www.pfsfilters.com/product/${handle}${selectedVariantId ? productVariantSearch('', selectedVariantId) : ''}`,
-    availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+    availability: isParkerCase ? 'https://schema.org/BackOrder' : inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
   });
 
   const handleAddToCart = () => {
@@ -372,7 +373,9 @@ export default function ProductDetail() {
                 <span className="text-lg line-through text-white/40">${basePrice.toFixed(2)}</span>
               )}
               <span className="text-white/50">{currency}</span>
-              {inStock ? (
+              {isParkerCase && inStock ? (
+                <Badge className="bg-blue-100 text-blue-900">Available to order · not on hand</Badge>
+              ) : inStock ? (
                 <Badge className="bg-green-100 text-green-800">Available to Order</Badge>
               ) : (
                 <Badge variant="secondary">Out of Stock</Badge>
