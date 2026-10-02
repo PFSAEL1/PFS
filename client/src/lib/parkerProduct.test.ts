@@ -59,6 +59,7 @@ describe('Parker LoadTECH case listing', () => {
     expect(page).toContain('Available to order · not on hand');
     expect(page).toContain("isParkerCase ? 'https://schema.org/BackOrder'");
     expect(page).toContain('!isParkerCase && <PfsBoothCompatibility product={product} />');
+    expect(page).toContain("isParkerCase ? 'pr-16 md:pr-0' : ''");
     expect(generator).toContain("isParkerCase\n    ? 'https://schema.org/BackOrder'");
   });
 });

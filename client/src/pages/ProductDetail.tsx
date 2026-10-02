@@ -364,7 +364,7 @@ export default function ProductDetail() {
 
           {/* Details */}
           <div>
-            <h1 className="text-3xl md:text-4xl font-extrabold mb-3">{product.title}</h1>
+            <h1 className={`text-3xl md:text-4xl font-extrabold mb-3 ${isParkerCase ? 'pr-16 md:pr-0' : ''}`}>{product.title}</h1>
 
             {/* Price display */}
             <div className="flex items-center gap-3 mb-4">
