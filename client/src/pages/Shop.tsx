@@ -6,6 +6,9 @@ import { ShopifyProducts } from '@/components/ShopifyProducts';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
 import faqData from '@/data/faqData.json';
+import { fetchProductByHandle } from '@/lib/shopify';
+import { useCartStore } from '@/stores/cartStore';
+import { toast } from 'sonner';
 
 const ShopBelowFold = lazy(() =>
   import('@/components/ShopBelowFold').then((module) => ({ default: module.ShopBelowFold })),
@@ -40,6 +43,47 @@ export default function Shop() {
     setCategoryFilter(params.get('category'));
     setSizeFilter(params.get('size'));
   }, [location]);
+
+  useEffect(() => {
+    if (!window.location.hash.startsWith('#recover=')) return;
+    const token = window.location.hash.slice('#recover='.length);
+    window.history.replaceState(window.history.state, '', window.location.pathname + window.location.search);
+    let active = true;
+    const restore = async () => {
+      try {
+        const response = await fetch(`/api/cart-reminder-recover?token=${encodeURIComponent(decodeURIComponent(token))}`, { cache: 'no-store' });
+        if (!response.ok) throw new Error('This cart link is unavailable or has expired.');
+        const payload = await response.json() as { lines: Array<{ variantId: string; handle: string; quantity: number; sellingPlanId?: string }> };
+        if (!Array.isArray(payload.lines) || payload.lines.length > 40) throw new Error('Invalid cart link');
+        const restored = await Promise.all(payload.lines.map(async line => {
+          const product = await fetchProductByHandle(line.handle);
+          const variant = product?.variants?.edges?.find((edge: { node: { id: string } }) => edge.node.id === line.variantId)?.node;
+          if (!variant?.availableForSale || !Number.isSafeInteger(line.quantity) || line.quantity < 1 || line.quantity > 100) return null;
+          const allocation = line.sellingPlanId ? variant.sellingPlanAllocations?.edges?.find((edge: { node: { sellingPlan: { id: string } } }) => edge.node.sellingPlan.id === line.sellingPlanId)?.node : null;
+          if (line.sellingPlanId && !allocation) return null;
+          return {
+            variantId: variant.id, productId: product.id, title: product.title,
+            variantTitle: variant.title, price: variant.price, quantity: line.quantity,
+            image: product.images?.edges?.[0]?.node?.url, handle: product.handle,
+            ...(allocation ? { purchaseType: 'subscription' as const, sellingPlanId: allocation.sellingPlan.id,
+              sellingPlanName: allocation.sellingPlan.name, sellingPlanPrice: allocation.priceAdjustments?.[0]?.price } : {}),
+          };
+        }));
+        if (!active) return;
+        const items = restored.filter((item): item is NonNullable<typeof item> => !!item);
+        if (!items.length) throw new Error('These cart items are no longer available.');
+        const store = useCartStore.getState();
+        for (const item of items) store.addItem(item);
+        store.setCartOpen(true);
+        toast.success(`Restored ${items.length} item${items.length === 1 ? '' : 's'} at current catalog prices. Review before checkout.`);
+        if (items.length < payload.lines.length) toast.info('Some items were no longer available and were not restored.');
+      } catch (error) {
+        if (active) toast.error(error instanceof Error ? error.message : 'Unable to restore the cart.');
+      }
+    };
+    void restore();
+    return () => { active = false; };
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#040404] text-white">

@@ -6,6 +6,10 @@
   "installCommand": "pnpm install --frozen-lockfile",
   "framework": null,
   "cleanUrls": true,
+  "crons": [
+    { "path": "/api/cart-reminder-send", "schedule": "0 18 * * *" },
+    { "path": "/api/cart-reminder-retention", "schedule": "0 19 * * *" }
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
