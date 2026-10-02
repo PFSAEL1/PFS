@@ -189,7 +189,7 @@ Intake filters clean incoming air. Exhaust filters capture paint overspray. Corr
 - Starting price in snapshot: $280.68 USD
 - Summary: Parker LoadTECH MERV 14 rigid-cell air filters with synthetic E-Pleat media and a 3/4-in single header on the air-entering side. Model PLT4-M14-13-PH, Parker part 1136513. Sold as one case of three filters; quantity one is one case. Each filter is nominal 20…
 
-### AFC 2-Pocket Blue Poly Exhaust Cube — 20 × 20 × 15 in, No Header (Case of 6)
+### AFC 2-Pocket Blue Poly Exhaust Cube — 20 × 20 × 15 in (Case of 6)
 
 - URL: https://www.pfsfilters.com/product/afc-2-pocket-blue-poly-exhaust-cube-20x20x15-no-header-case-6
 - Type: Paint Booth Exhaust Filter
