@@ -21,6 +21,7 @@ import { toast } from 'sonner';
 import { ProductSpecs } from '@/components/ProductSpecs';
 import { getKochProductDetails, KochProductDetails } from '@/components/KochProductDetails';
 import { PARKER_CASE_HANDLE, PARKER_SHORT_DESCRIPTION, ParkerProductDetails } from '@/components/ParkerProductDetails';
+import { AFC_CASE_HANDLE, AFC_SHORT_DESCRIPTION, AfcProductDetails } from '@/components/AfcProductDetails';
 import { PfsBoothCompatibility } from '@/components/PfsBoothCompatibility';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
@@ -162,6 +163,7 @@ export default function ProductDetail() {
   const inStock = selectedVariant?.availableForSale ?? true;
   const isMembershipProduct = !!handle && handle.endsWith('-membership');
   const isParkerCase = handle === PARKER_CASE_HANDLE;
+  const isAfcCase = handle === AFC_CASE_HANDLE;
   const kochDetails = getKochProductDetails(handle);
   const isKochProduct = !!kochDetails;
   const mainImage = images[selectedImage]?.node?.url || getProductFallbackImage(handle || '');
@@ -173,7 +175,7 @@ export default function ProductDetail() {
   const mainImageSrcSet = selectedImage === 0
     ? shopProductCardImageSrcSet(handle || '', mainImage)
     : shopifyImageSrcSet(mainImage, [320, 480, 640, 800]);
-  const mainImageSeoSource = (isKochProduct || isParkerCase) && selectedImage === 0
+  const mainImageSeoSource = (isKochProduct || isParkerCase || isAfcCase) && selectedImage === 0
     ? shopProductCardImageUrl(handle || '', mainImage, 800)
     : mainImage;
   const mainImageSeoUrl = mainImageSeoSource.startsWith('/')
@@ -216,7 +218,7 @@ export default function ProductDetail() {
     sku: selectedVariant?.sku || undefined,
     brand: product.vendor || undefined,
     url: `https://www.pfsfilters.com/product/${handle}${selectedVariantId ? productVariantSearch('', selectedVariantId) : ''}`,
-    availability: isParkerCase ? 'https://schema.org/BackOrder' : inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+    availability: isParkerCase || isAfcCase ? 'https://schema.org/BackOrder' : inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
   });
 
   const handleAddToCart = () => {
@@ -324,7 +326,7 @@ export default function ProductDetail() {
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                className={`relative w-full h-full ${isMembershipProduct ? 'object-contain p-6 md:p-10' : isKochProduct ? 'max-h-[400px] max-w-[400px] object-contain' : 'object-cover'}`}
+                className={`relative w-full h-full ${isMembershipProduct ? 'object-contain p-6 md:p-10' : isKochProduct ? 'max-h-[400px] max-w-[400px] object-contain' : isAfcCase ? 'object-contain p-4 md:p-6' : 'object-cover'}`}
               />
               {/* Zoom-detail circle (desktop) */}
               <div
@@ -365,7 +367,7 @@ export default function ProductDetail() {
 
           {/* Details */}
           <div>
-            <h1 className={`text-3xl md:text-4xl font-extrabold mb-3 ${isParkerCase ? 'pr-16 md:pr-0' : ''}`}>{product.title}</h1>
+            <h1 className={`text-3xl md:text-4xl font-extrabold mb-3 ${isParkerCase || isAfcCase ? 'pr-16 md:pr-0' : ''}`}>{product.title}</h1>
 
             {/* Price display */}
             <div className="flex items-center gap-3 mb-4">
@@ -374,7 +376,7 @@ export default function ProductDetail() {
                 <span className="text-lg line-through text-white/40">${basePrice.toFixed(2)}</span>
               )}
               <span className="text-white/50">{currency}</span>
-              {isParkerCase && inStock ? (
+              {(isParkerCase || isAfcCase) && inStock ? (
                 <Badge className="bg-green-100 text-green-800">Available to order</Badge>
               ) : inStock ? (
                 <Badge className="bg-green-100 text-green-800">Available to Order</Badge>
@@ -385,11 +387,14 @@ export default function ProductDetail() {
 
             {isParkerCase ? (
               <p className="text-white/70 leading-relaxed mb-6">{PARKER_SHORT_DESCRIPTION}</p>
+            ) : isAfcCase ? (
+              <p className="text-white/70 leading-relaxed mb-6">{AFC_SHORT_DESCRIPTION}</p>
             ) : product.description && (
               <p className="text-white/70 leading-relaxed mb-6">{product.description}</p>
             )}
 
             {isParkerCase && <ParkerProductDetails />}
+            {isAfcCase && <AfcProductDetails />}
             <KochProductDetails handle={handle} />
 
             {/* Subscribe & Save is separate from membership and appears only when
@@ -551,7 +556,7 @@ export default function ProductDetail() {
         <ProductSpecs product={product} />
 
         {/* PFS booth compatibility */}
-        {!isParkerCase && <PfsBoothCompatibility product={product} />}
+        {!isParkerCase && !isAfcCase && <PfsBoothCompatibility product={product} />}
 
         {/* Related products */}
         {relatedProducts.length > 0 && (
