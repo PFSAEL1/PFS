@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
@@ -9,7 +9,7 @@ import { getLocalProductThumbnail, shopProductCardImageUrl } from '@/lib/imageUr
 const root = new URL('../../../', import.meta.url);
 const product = snapshot.find(({ node }) => node.handle === AFC_CASE_HANDLE)?.node;
 const variant = product?.variants.edges[0]?.node;
-const imagePath = '/images/products/afc/afc-blue-poly-cube-2-pocket-20x20x15-6cs.png';
+const imagePath = '/images/products/afc/afc-blue-poly-cube-2-pocket-restored.webp';
 const source = (path: string) => readFileSync(new URL(path, root), 'utf8');
 
 describe('AFC blue polyester two-pocket case-of-six listing', () => {
@@ -17,7 +17,9 @@ describe('AFC blue polyester two-pocket case-of-six listing', () => {
     expect(snapshot.filter(({ node }) => node.handle === AFC_CASE_HANDLE)).toHaveLength(1);
     expect(product?.id).toBe('gid://shopify/Product/15400364802180');
     expect(product?.vendor).toBe('AFC Filters');
-    expect(product?.title).toContain('No Header (Case of 6)');
+    expect(product?.title).toBe('AFC 2-Pocket Blue Poly Exhaust Cube — 20 × 20 × 15 in (Case of 6)');
+    expect(product?.title).not.toContain('No Header');
+    expect(product?.description).toContain('no galvanized steel header');
     expect(product?.description).toContain('C2PPEB202015-6');
     expect(product?.description).toContain('MERV 11 per supplied product specifications');
     expect(product?.description).toContain('20 × 20 × 15 in');
@@ -33,16 +35,18 @@ describe('AFC blue polyester two-pocket case-of-six listing', () => {
     expect(variant?.sellingPlanAllocations?.edges).toEqual([]);
   });
 
-  it('serves the authentic owner-supplied AFC photo on a true alpha background', () => {
+  it('serves the enhanced owner-supplied AFC photo on a true alpha background', () => {
     expect(product?.images.edges).toHaveLength(1);
-    expect(product?.images.edges[0].node.url).toContain('MyOUGWdVFAGESXdG.png');
-    expect(product?.images.edges[0].node.altText).toContain('Owner-supplied product photo');
+    expect(product?.images.edges[0].node.url).toContain('xvKEWYmcRnYaDWJv.png');
+    expect(product?.images.edges[0].node.altText).toContain('Enhanced owner-supplied photograph');
     expect(getLocalProductThumbnail(AFC_CASE_HANDLE)?.src).toBe(imagePath);
+    expect(getLocalProductThumbnail(AFC_CASE_HANDLE)?.width).toBe(960);
     expect(shopProductCardImageUrl(AFC_CASE_HANDLE, 'https://cdn.shopify.com/example.png')).toBe(imagePath);
-    const png = readFileSync(new URL(`client/public${imagePath}`, root));
-    expect([...png.subarray(0, 8)]).toEqual([137, 80, 78, 71, 13, 10, 26, 10]);
-    expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([223, 255]);
-    expect(png[25]).toBe(6);
+    const photo = readFileSync(new URL(`client/public${imagePath}`, root));
+    expect(photo.toString('ascii', 0, 4)).toBe('RIFF');
+    expect(photo.toString('ascii', 8, 12)).toBe('WEBP');
+    expect(photo.length).toBeGreaterThan(80_000);
+    expect(existsSync(new URL('client/public/images/products/afc/afc-blue-poly-cube-2-pocket-20x20x15-6cs.png', root))).toBe(false);
   });
 
   it('keeps the PFS summary short and the longer details collapsed by default', () => {

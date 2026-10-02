@@ -56,7 +56,7 @@ export function AfcProductDetails() {
           </p>
           <p className="mt-4 border-t border-white/10 pt-4 text-xs leading-5 text-white/50">
             Product identity, configuration, MERV rating and case quantity are from the product information supplied
-            by PFS. The photo was supplied by the owner and its white background was removed without altering the filter.
+            by PFS. The image was enhanced for clarity from the owner's actual product photo, not a photo of a different model.
           </p>
         </div>
       )}
