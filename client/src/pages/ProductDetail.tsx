@@ -20,6 +20,7 @@ import { ShoppingCart, Loader2, Package, Truck, CircleHelp, ArrowLeft, Plus, Min
 import { toast } from 'sonner';
 import { ProductSpecs } from '@/components/ProductSpecs';
 import { getKochProductDetails, KochProductDetails } from '@/components/KochProductDetails';
+import { PARKER_CASE_HANDLE, PARKER_SHORT_DESCRIPTION, ParkerProductDetails } from '@/components/ParkerProductDetails';
 import { PfsBoothCompatibility } from '@/components/PfsBoothCompatibility';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
@@ -160,7 +161,7 @@ export default function ProductDetail() {
   const currency = selectedVariant?.price?.currencyCode || 'USD';
   const inStock = selectedVariant?.availableForSale ?? true;
   const isMembershipProduct = !!handle && handle.endsWith('-membership');
-  const isParkerCase = handle === 'parker-loadtech-merv14-20x20x4-single-header-case-3';
+  const isParkerCase = handle === PARKER_CASE_HANDLE;
   const kochDetails = getKochProductDetails(handle);
   const isKochProduct = !!kochDetails;
   const mainImage = images[selectedImage]?.node?.url || getProductFallbackImage(handle || '');
@@ -172,7 +173,7 @@ export default function ProductDetail() {
   const mainImageSrcSet = selectedImage === 0
     ? shopProductCardImageSrcSet(handle || '', mainImage)
     : shopifyImageSrcSet(mainImage, [320, 480, 640, 800]);
-  const mainImageSeoSource = isKochProduct && selectedImage === 0
+  const mainImageSeoSource = (isKochProduct || isParkerCase) && selectedImage === 0
     ? shopProductCardImageUrl(handle || '', mainImage, 800)
     : mainImage;
   const mainImageSeoUrl = mainImageSeoSource.startsWith('/')
@@ -374,7 +375,7 @@ export default function ProductDetail() {
               )}
               <span className="text-white/50">{currency}</span>
               {isParkerCase && inStock ? (
-                <Badge className="bg-blue-100 text-blue-900">Available to order · not on hand</Badge>
+                <Badge className="bg-green-100 text-green-800">Available to order</Badge>
               ) : inStock ? (
                 <Badge className="bg-green-100 text-green-800">Available to Order</Badge>
               ) : (
@@ -382,10 +383,13 @@ export default function ProductDetail() {
               )}
             </div>
 
-            {product.description && (
+            {isParkerCase ? (
+              <p className="text-white/70 leading-relaxed mb-6">{PARKER_SHORT_DESCRIPTION}</p>
+            ) : product.description && (
               <p className="text-white/70 leading-relaxed mb-6">{product.description}</p>
             )}
 
+            {isParkerCase && <ParkerProductDetails />}
             <KochProductDetails handle={handle} />
 
             {/* Subscribe & Save is separate from membership and appears only when
