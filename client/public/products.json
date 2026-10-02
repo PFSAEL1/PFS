@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T17:26:26.936Z",
+  "generatedAt": "2026-10-02T22:20:25.147Z",
   "source": "https://www.pfsfilters.com/shop",
   "notice": "Prices and availability can change. Confirm the current product page before purchasing.",
   "products": [
@@ -18,10 +18,11 @@
         "amount": "111.36",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/Turquoiseairfilterpadoncheckeredbackground.png?v=1775866495",
+      "image": "https://www.pfsfilters.com/images/shop-thumbnails/22-gram-fiberglass-pads.webp",
       "variants": [
         {
           "name": "20\"x25\"x2\" 50/CS",
+          "sku": null,
           "price": {
             "amount": "111.36",
             "currencyCode": "USD"
@@ -30,6 +31,7 @@
         },
         {
           "name": "20\"x20\"x2\" 100/CS",
+          "sku": null,
           "price": {
             "amount": "175.82",
             "currencyCode": "USD"
@@ -38,6 +40,7 @@
         },
         {
           "name": "24\"x24\"x2\" 50/CS",
+          "sku": null,
           "price": {
             "amount": "154.11",
             "currencyCode": "USD"
@@ -60,10 +63,11 @@
         "amount": "7.06",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/Metalgridwithblackrubbercaps.png?v=1775866380",
+      "image": "https://www.pfsfilters.com/images/shop-thumbnails/holding-grid.webp",
       "variants": [
         {
           "name": "Default Title",
+          "sku": null,
           "price": {
             "amount": "7.06",
             "currencyCode": "USD"
@@ -87,10 +91,11 @@
         "amount": "181.84",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/ChatGPTImageMay14_2026_04_14_56PM.png?v=1778800510",
+      "image": "https://www.pfsfilters.com/images/shop-thumbnails/paint-pockets.webp",
       "variants": [
         {
           "name": "20\"x20\" Paint Pockets Paint Arrestor 30/CS",
+          "sku": null,
           "price": {
             "amount": "181.84",
             "currencyCode": "USD"
@@ -99,6 +104,7 @@
         },
         {
           "name": "20\"X25\" Paint Pockets Paint Arrestor 30/CS",
+          "sku": null,
           "price": {
             "amount": "227.38",
             "currencyCode": "USD"
@@ -107,6 +113,7 @@
         },
         {
           "name": "24\"X24\" Paint Pockets Paint Arrestor, 20/CS",
+          "sku": null,
           "price": {
             "amount": "192.74",
             "currencyCode": "USD"
@@ -115,6 +122,7 @@
         },
         {
           "name": "45\"x50' Paint Pockets Paint Arrestor, 1/CS",
+          "sku": null,
           "price": {
             "amount": "400.69",
             "currencyCode": "USD"
@@ -137,10 +145,11 @@
         "amount": "92.39",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/yellow_filter_roll_22ga_transparent.png?v=1778267904",
+      "image": "https://www.pfsfilters.com/images/shop-thumbnails/22-gram-fiberglass-roll.webp",
       "variants": [
         {
           "name": "20\"x100\"x2\"",
+          "sku": null,
           "price": {
             "amount": "92.39",
             "currencyCode": "USD"
@@ -149,6 +158,7 @@
         },
         {
           "name": "20\"x300\"x2\"",
+          "sku": null,
           "price": {
             "amount": "220.87",
             "currencyCode": "USD"
@@ -157,6 +167,7 @@
         },
         {
           "name": "25\"x100\"x2\"",
+          "sku": null,
           "price": {
             "amount": "117.77",
             "currencyCode": "USD"
@@ -165,6 +176,7 @@
         },
         {
           "name": "25\"x300\"x2\"",
+          "sku": null,
           "price": {
             "amount": "276.09",
             "currencyCode": "USD"
@@ -173,6 +185,7 @@
         },
         {
           "name": "28\"x300\"x2\"",
+          "sku": null,
           "price": {
             "amount": "311.75",
             "currencyCode": "USD"
@@ -181,6 +194,7 @@
         },
         {
           "name": "30\"x100\"x2\"",
+          "sku": null,
           "price": {
             "amount": "137.08",
             "currencyCode": "USD"
@@ -189,6 +203,7 @@
         },
         {
           "name": "30\"x300\"x2\"",
+          "sku": null,
           "price": {
             "amount": "331.31",
             "currencyCode": "USD"
@@ -197,6 +212,7 @@
         },
         {
           "name": "32\"x300\"x2\"",
+          "sku": null,
           "price": {
             "amount": "353.4",
             "currencyCode": "USD"
@@ -205,6 +221,7 @@
         },
         {
           "name": "36\"x100'x2\"",
+          "sku": null,
           "price": {
             "amount": "173.55",
             "currencyCode": "USD"
@@ -213,6 +230,7 @@
         },
         {
           "name": "36\"x300\"x2\"",
+          "sku": null,
           "price": {
             "amount": "409.53",
             "currencyCode": "USD"
@@ -221,6 +239,7 @@
         },
         {
           "name": "41\"x100\"x2\"",
+          "sku": null,
           "price": {
             "amount": "189.23",
             "currencyCode": "USD"
@@ -229,6 +248,7 @@
         },
         {
           "name": "41\"x300\"x2\"",
+          "sku": null,
           "price": {
             "amount": "454.39",
             "currencyCode": "USD"
@@ -252,10 +272,11 @@
         "amount": "124.75",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/High-efficiencyMERV10airfilters.png?v=1775865427",
+      "image": "https://www.pfsfilters.com/images/shop-thumbnails/merv-10-pleated-filter.jpg",
       "variants": [
         {
           "name": "16x20x2 12/cs",
+          "sku": null,
           "price": {
             "amount": "124.75",
             "currencyCode": "USD"
@@ -264,6 +285,7 @@
         },
         {
           "name": "16x25x2 12/cs",
+          "sku": null,
           "price": {
             "amount": "141.98",
             "currencyCode": "USD"
@@ -272,6 +294,7 @@
         },
         {
           "name": "20x20x2 12/cs",
+          "sku": null,
           "price": {
             "amount": "154.93",
             "currencyCode": "USD"
@@ -280,6 +303,7 @@
         },
         {
           "name": "24x20x4 6/cs",
+          "sku": null,
           "price": {
             "amount": "150.68",
             "currencyCode": "USD"
@@ -288,6 +312,7 @@
         },
         {
           "name": "20x25x2 12/cs",
+          "sku": null,
           "price": {
             "amount": "175.44",
             "currencyCode": "USD"
@@ -296,6 +321,7 @@
         },
         {
           "name": "24x24x2 12/cs",
+          "sku": null,
           "price": {
             "amount": "197.27",
             "currencyCode": "USD"
@@ -304,6 +330,7 @@
         },
         {
           "name": "24x24x4 6/cs",
+          "sku": null,
           "price": {
             "amount": "158.24",
             "currencyCode": "USD"
@@ -322,10 +349,11 @@
         "amount": "57.81",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/Turquoise-greenfibrousairfilterpad_1_53146543-90dd-4e84-9855-a9008daf6604.png?v=1775866347",
+      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/Turquoise-greenfibrousairfilterpad_1_53146543-90dd-4e84-9855-a9008daf6604.png?v=1775866347&width=800",
       "variants": [
         {
           "name": "20\"x20\"x2\" 50/CS",
+          "sku": null,
           "price": {
             "amount": "70.9",
             "currencyCode": "USD"
@@ -334,6 +362,7 @@
         },
         {
           "name": "20\"x20\"x2\" 100/CS",
+          "sku": null,
           "price": {
             "amount": "131.08",
             "currencyCode": "USD"
@@ -342,6 +371,7 @@
         },
         {
           "name": "20\"x25\"x2\" 50/CS",
+          "sku": null,
           "price": {
             "amount": "85.52",
             "currencyCode": "USD"
@@ -350,6 +380,7 @@
         },
         {
           "name": "20\"x25\"x2\" 100/CS",
+          "sku": null,
           "price": {
             "amount": "158.09",
             "currencyCode": "USD"
@@ -358,6 +389,7 @@
         },
         {
           "name": "24\"x24\"x2\" 50/CS",
+          "sku": null,
           "price": {
             "amount": "106.6",
             "currencyCode": "USD"
@@ -366,6 +398,7 @@
         },
         {
           "name": "24\"x24\"x2\" 100/CS",
+          "sku": null,
           "price": {
             "amount": "197.05",
             "currencyCode": "USD"
@@ -374,6 +407,7 @@
         },
         {
           "name": "26\"x48\"x2\" 8/CS",
+          "sku": null,
           "price": {
             "amount": "57.81",
             "currencyCode": "USD"
@@ -392,10 +426,11 @@
         "amount": "72.88",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/Fiberglassairfilterrollclose-up_0f450543-fc87-4ac4-b7c8-aa75a1f22909.png?v=1775866089",
+      "image": "https://www.pfsfilters.com/images/shop-thumbnails/15-gram-fiberglass-roll.webp",
       "variants": [
         {
           "name": "20\"x100'",
+          "sku": null,
           "price": {
             "amount": "72.88",
             "currencyCode": "USD"
@@ -404,6 +439,7 @@
         },
         {
           "name": "20\"x300'",
+          "sku": null,
           "price": {
             "amount": "180.55",
             "currencyCode": "USD"
@@ -412,6 +448,7 @@
         },
         {
           "name": "22\"x300'",
+          "sku": null,
           "price": {
             "amount": "198.61",
             "currencyCode": "USD"
@@ -420,6 +457,7 @@
         },
         {
           "name": "25\"x100'",
+          "sku": null,
           "price": {
             "amount": "86.11",
             "currencyCode": "USD"
@@ -428,6 +466,7 @@
         },
         {
           "name": "25\"x300'",
+          "sku": null,
           "price": {
             "amount": "225.64",
             "currencyCode": "USD"
@@ -436,6 +475,7 @@
         },
         {
           "name": "28\"x300'",
+          "sku": null,
           "price": {
             "amount": "252.73",
             "currencyCode": "USD"
@@ -444,6 +484,7 @@
         },
         {
           "name": "30\"x100'",
+          "sku": null,
           "price": {
             "amount": "102.03",
             "currencyCode": "USD"
@@ -452,6 +493,7 @@
         },
         {
           "name": "30\"x300'",
+          "sku": null,
           "price": {
             "amount": "270.73",
             "currencyCode": "USD"
@@ -460,6 +502,7 @@
         },
         {
           "name": "32\"x300'",
+          "sku": null,
           "price": {
             "amount": "288.8",
             "currencyCode": "USD"
@@ -468,6 +511,7 @@
         },
         {
           "name": "36\"x300'",
+          "sku": null,
           "price": {
             "amount": "324.92",
             "currencyCode": "USD"
@@ -486,10 +530,11 @@
         "amount": "139.75",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/tacky-panel-green_7675d2dd-699a-43c3-995e-43de1e536727.png?v=1775862087",
+      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/tacky-panel-green_7675d2dd-699a-43c3-995e-43de1e536727.png?v=1775862087&width=800",
       "variants": [
         {
           "name": "20\"x20\" 300 Series Tacky Filter Panel, 20/CS",
+          "sku": null,
           "price": {
             "amount": "139.75",
             "currencyCode": "USD"
@@ -498,6 +543,7 @@
         },
         {
           "name": "20\"x25\" 300 Series Tacky Filter Panel, 20/CS",
+          "sku": null,
           "price": {
             "amount": "156.97",
             "currencyCode": "USD"
@@ -506,6 +552,7 @@
         },
         {
           "name": "24\"x24\" 300 Series Tacky Filter Panel, 20/CS",
+          "sku": null,
           "price": {
             "amount": "186.93",
             "currencyCode": "USD"
@@ -514,6 +561,7 @@
         },
         {
           "name": "20\"x50\" 300 Series Tacky Filter Panel - Link, 10/CS",
+          "sku": null,
           "price": {
             "amount": "167.71",
             "currencyCode": "USD"
@@ -522,6 +570,7 @@
         },
         {
           "name": "20\"x72\" 300 Series Tacky Filter Panel - Link, 6/CS",
+          "sku": null,
           "price": {
             "amount": "162.41",
             "currencyCode": "USD"
@@ -530,6 +579,7 @@
         },
         {
           "name": "20\"x48\" 300 Series Tacky Filter Panel - Single Frame, 10/CS",
+          "sku": null,
           "price": {
             "amount": "192.87",
             "currencyCode": "USD"
@@ -548,10 +598,11 @@
         "amount": "239.55",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/SKR1filterpanelclose-up.png?v=1775865964",
+      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/SKR1filterpanelclose-up.png?v=1775865964&width=800",
       "variants": [
         {
           "name": "20\"x20\" 20/CS",
+          "sku": null,
           "price": {
             "amount": "239.55",
             "currencyCode": "USD"
@@ -560,6 +611,7 @@
         },
         {
           "name": "20\"x20\" 24/CS",
+          "sku": null,
           "price": {
             "amount": "284.83",
             "currencyCode": "USD"
@@ -568,6 +620,7 @@
         },
         {
           "name": "20\"x25\" 20/CS",
+          "sku": null,
           "price": {
             "amount": "259.23",
             "currencyCode": "USD"
@@ -576,6 +629,7 @@
         },
         {
           "name": "24\"x24\" 20/CS",
+          "sku": null,
           "price": {
             "amount": "297.44",
             "currencyCode": "USD"
@@ -584,6 +638,7 @@
         },
         {
           "name": "20\"x50\" 12/CS",
+          "sku": null,
           "price": {
             "amount": "360.62",
             "currencyCode": "USD"
@@ -592,6 +647,7 @@
         },
         {
           "name": "20\"x50\" 10/CS",
+          "sku": null,
           "price": {
             "amount": "264.22",
             "currencyCode": "USD"
@@ -610,10 +666,11 @@
         "amount": "159.0",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/ChatGPTImageMay7_2026_02_56_20PM_afa7fd40-2842-48f1-a421-981fe1201b0d.png?v=1778191017",
+      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/ChatGPTImageMay7_2026_02_56_20PM_afa7fd40-2842-48f1-a421-981fe1201b0d.png?v=1778191017&width=800",
       "variants": [
         {
           "name": "20\"x20\" NESHAP 319 Final Stage Panel 20/CS",
+          "sku": null,
           "price": {
             "amount": "159.0",
             "currencyCode": "USD"
@@ -622,6 +679,7 @@
         },
         {
           "name": "20\"X25\" NESHAP 319 Final Stage Panel 20/CS",
+          "sku": null,
           "price": {
             "amount": "193.48",
             "currencyCode": "USD"
@@ -630,6 +688,7 @@
         },
         {
           "name": "20\"x20\"x12\" NESHAP 319 Final Stage Bag 5pkt  6/CS",
+          "sku": null,
           "price": {
             "amount": "413.77",
             "currencyCode": "USD"
@@ -638,6 +697,7 @@
         },
         {
           "name": "20\"x25\"x12\" NESHAP 319 Final Stage Bag 5pkt, 6/CS",
+          "sku": null,
           "price": {
             "amount": "591.1",
             "currencyCode": "USD"
@@ -646,6 +706,7 @@
         },
         {
           "name": "24\"x24\"x12\" NESHAP 319 Final Stage Bag 6pkt, 6/CS",
+          "sku": null,
           "price": {
             "amount": "528.71",
             "currencyCode": "USD"
@@ -654,6 +715,7 @@
         },
         {
           "name": "20\"x20\"x15\" NESHAP 319 Final Stage Bag 2pkt 6/CS",
+          "sku": null,
           "price": {
             "amount": "206.88",
             "currencyCode": "USD"
@@ -662,6 +724,7 @@
         },
         {
           "name": "20\"x25\"x15\" NESHAP 319 Final Stage Bag 2pkt 6/CS",
+          "sku": null,
           "price": {
             "amount": "241.37",
             "currencyCode": "USD"
@@ -670,6 +733,7 @@
         },
         {
           "name": "53\"x112\" SFR Blanket, 4/Bag",
+          "sku": null,
           "price": {
             "amount": "485.42",
             "currencyCode": "USD"
@@ -678,6 +742,7 @@
         },
         {
           "name": "20\"x20\"x15\" CG100 2-Pocket Bag, 8/CS",
+          "sku": null,
           "price": {
             "amount": "340.87",
             "currencyCode": "USD"
@@ -686,6 +751,7 @@
         },
         {
           "name": "24\"x24\"x12\" HEPA-XFP™ 6000 6-Pocket Bag, 5/CS",
+          "sku": null,
           "price": {
             "amount": "1002.62",
             "currencyCode": "USD"
@@ -694,6 +760,7 @@
         },
         {
           "name": "20\"x20\" ME/PT Intake Panel, 24/CS",
+          "sku": null,
           "price": {
             "amount": "218.09",
             "currencyCode": "USD"
@@ -702,6 +769,7 @@
         },
         {
           "name": "20\"x20\"x12\" HEPA-XFP 6-Pocket Bag, 5/CS",
+          "sku": null,
           "price": {
             "amount": "858.51",
             "currencyCode": "USD"
@@ -710,6 +778,7 @@
         },
         {
           "name": "96\"x50' CPA Roll, 1/CS",
+          "sku": null,
           "price": {
             "amount": "291.15",
             "currencyCode": "USD"
@@ -728,10 +797,11 @@
         "amount": "61.29",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/cotton_roll_transparent.png?v=1778259131",
+      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/cotton_roll_transparent.png?v=1778259131&width=800",
       "variants": [
         {
           "name": "58\"x58\" L560 Ceiling Diffusion Media, 3/CS",
+          "sku": null,
           "price": {
             "amount": "255.57",
             "currencyCode": "USD"
@@ -740,6 +810,7 @@
         },
         {
           "name": "37\"x64\" L560 Ceiling Diffusion Media 8/CS",
+          "sku": null,
           "price": {
             "amount": "479.73",
             "currencyCode": "USD"
@@ -748,6 +819,7 @@
         },
         {
           "name": "36.75\"x54\" L560 Ceiling Diffusion Media 12/CS",
+          "sku": null,
           "price": {
             "amount": "603.05",
             "currencyCode": "USD"
@@ -756,6 +828,7 @@
         },
         {
           "name": "48\"x66\" L560 Ceiling Diffusion Media 6/CS",
+          "sku": null,
           "price": {
             "amount": "481.36",
             "currencyCode": "USD"
@@ -764,6 +837,7 @@
         },
         {
           "name": "26\"x120\" L560 Ceiling Diffusion Media, 9/CS",
+          "sku": null,
           "price": {
             "amount": "711.08",
             "currencyCode": "USD"
@@ -772,6 +846,7 @@
         },
         {
           "name": "51\"x128\" L560 Ceiling Diffusion Media, 6/CS",
+          "sku": null,
           "price": {
             "amount": "991.87",
             "currencyCode": "USD"
@@ -780,6 +855,7 @@
         },
         {
           "name": "60\"x120\" L560 Ceiling Diffusion Media, 2/CS",
+          "sku": null,
           "price": {
             "amount": "364.66",
             "currencyCode": "USD"
@@ -788,6 +864,7 @@
         },
         {
           "name": "38\"x102\" L560 Ceiling Diffusion Media, 7/CS",
+          "sku": null,
           "price": {
             "amount": "687.08",
             "currencyCode": "USD"
@@ -796,6 +873,7 @@
         },
         {
           "name": "59\"x149\" L560 Ceiling Diffusion Media, 4/CS",
+          "sku": null,
           "price": {
             "amount": "890.48",
             "currencyCode": "USD"
@@ -804,6 +882,7 @@
         },
         {
           "name": "36\"x144\" L560 Ceiling Diffusion Media, 8/CS",
+          "sku": null,
           "price": {
             "amount": "1050.21",
             "currencyCode": "USD"
@@ -812,6 +891,7 @@
         },
         {
           "name": "38\"x62\" L560 Ceiling Diffusion Media 1/CS",
+          "sku": null,
           "price": {
             "amount": "61.29",
             "currencyCode": "USD"
@@ -820,6 +900,7 @@
         },
         {
           "name": "38\"x107\" L560 Ceiling Diffusion Media 1/CS",
+          "sku": null,
           "price": {
             "amount": "105.78",
             "currencyCode": "USD"
@@ -828,6 +909,7 @@
         },
         {
           "name": "48\"x108\" L560 Ceiling Diffusion Media 1/CS",
+          "sku": null,
           "price": {
             "amount": "131.39",
             "currencyCode": "USD"
@@ -836,6 +918,7 @@
         },
         {
           "name": "38\"x67\" L560 Ceiling Diffusion Media 1/CS",
+          "sku": null,
           "price": {
             "amount": "64.96",
             "currencyCode": "USD"
@@ -854,10 +937,11 @@
         "amount": "68.19",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/cotton_product_2_transparent_0bc0cb10-b042-4cbb-82c2-13e07785d0f3.png?v=1778265908",
+      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/cotton_product_2_transparent_0bc0cb10-b042-4cbb-82c2-13e07785d0f3.png?v=1778265908&width=800",
       "variants": [
         {
           "name": "36\"x108\" Swiss Flow Ceiling Diffusion Media, 1/CS",
+          "sku": null,
           "price": {
             "amount": "109.12",
             "currencyCode": "USD"
@@ -866,6 +950,7 @@
         },
         {
           "name": "36\"x109\" Swiss Flow Ceiling Diffusion Media, 2/CS",
+          "sku": null,
           "price": {
             "amount": "227.46",
             "currencyCode": "USD"
@@ -874,6 +959,7 @@
         },
         {
           "name": "24\"x66' Swiss Flow Diffusion Media Master Roll 1/CS",
+          "sku": null,
           "price": {
             "amount": "404.25",
             "currencyCode": "USD"
@@ -882,6 +968,7 @@
         },
         {
           "name": "26\"x66' Swiss Flow Diffusion Media Master Roll 1/CS",
+          "sku": null,
           "price": {
             "amount": "437.94",
             "currencyCode": "USD"
@@ -890,6 +977,7 @@
         },
         {
           "name": "48\"x66' Swiss Flow Diffusion Media Master Roll 1/CS",
+          "sku": null,
           "price": {
             "amount": "808.5",
             "currencyCode": "USD"
@@ -898,6 +986,7 @@
         },
         {
           "name": "33\"x45.5\" Swiss Flow Ceiling Diffusion Media 18/CS",
+          "sku": null,
           "price": {
             "amount": "753.46",
             "currencyCode": "USD"
@@ -906,6 +995,7 @@
         },
         {
           "name": "36.75\"x54\" Swiss Flow Ceiling Diffusion Media, 12/CS",
+          "sku": null,
           "price": {
             "amount": "672.21",
             "currencyCode": "USD"
@@ -914,6 +1004,7 @@
         },
         {
           "name": "37\"x64\" Swiss Flow Ceiling Diffusion Media, 8/CS",
+          "sku": null,
           "price": {
             "amount": "537.82",
             "currencyCode": "USD"
@@ -922,6 +1013,7 @@
         },
         {
           "name": "39\"x59\" Swiss Flow Ceiling Diffusion Media, 3/CS",
+          "sku": null,
           "price": {
             "amount": "192.52",
             "currencyCode": "USD"
@@ -930,6 +1022,7 @@
         },
         {
           "name": "40\"x100\" Swiss Flow Ceiling Diffusion Media, 4/CS",
+          "sku": null,
           "price": {
             "amount": "446.36",
             "currencyCode": "USD"
@@ -938,6 +1031,7 @@
         },
         {
           "name": "44\"x50\" Swiss Flow Ceiling Diffusion Media, 10/CS",
+          "sku": null,
           "price": {
             "amount": "613.76",
             "currencyCode": "USD"
@@ -946,6 +1040,7 @@
         },
         {
           "name": "81\"x144\" Swiss Flow Ceiling Diffusion Media, 4/CS",
+          "sku": null,
           "price": {
             "amount": "1301.49",
             "currencyCode": "USD"
@@ -954,6 +1049,7 @@
         },
         {
           "name": "38\"x102\" Swiss Flow Ceiling Diffusion Media, 7/CS",
+          "sku": null,
           "price": {
             "amount": "756.9",
             "currencyCode": "USD"
@@ -962,6 +1058,7 @@
         },
         {
           "name": "59\"x149\" Swiss Flow Ceiling Diffusion Media, 4/CS",
+          "sku": null,
           "price": {
             "amount": "997.6",
             "currencyCode": "USD"
@@ -970,6 +1067,7 @@
         },
         {
           "name": "36\"x144\" Swiss Flow Ceiling Diffusion Media, 8/CS",
+          "sku": null,
           "price": {
             "amount": "1149.61",
             "currencyCode": "USD"
@@ -978,6 +1076,7 @@
         },
         {
           "name": "38\"x62\" Swiss Flow Ceiling Diffusion Media, 1/CS",
+          "sku": null,
           "price": {
             "amount": "68.19",
             "currencyCode": "USD"
@@ -986,6 +1085,7 @@
         },
         {
           "name": "38\"x107\" Swiss Flow Ceiling Diffusion Media, 1/CS",
+          "sku": null,
           "price": {
             "amount": "117.67",
             "currencyCode": "USD"
@@ -994,6 +1094,7 @@
         },
         {
           "name": "48\"x108\" Swiss Flow Ceiling Diffusion Media, 1/CS",
+          "sku": null,
           "price": {
             "amount": "146.2",
             "currencyCode": "USD"
@@ -1002,6 +1103,7 @@
         },
         {
           "name": "38\"x67\" Swiss Flow Ceiling Diffusion Media, 1/CS",
+          "sku": null,
           "price": {
             "amount": "73.69",
             "currencyCode": "USD"
@@ -1020,10 +1122,11 @@
         "amount": "107.9",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/ChatGPTImageMay8_2026_02_21_15PM.png?v=1778275424",
+      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/ChatGPTImageMay8_2026_02_21_15PM.png?v=1778275424&width=800",
       "variants": [
         {
           "name": "20\"x20\" AF213 Accordion Paint Arrestor 40/CS",
+          "sku": null,
           "price": {
             "amount": "107.9",
             "currencyCode": "USD"
@@ -1032,6 +1135,7 @@
         },
         {
           "name": "20\"x25\" AF413 Accordion Paint Arrestor 36/CS",
+          "sku": null,
           "price": {
             "amount": "121.27",
             "currencyCode": "USD"
@@ -1040,6 +1144,7 @@
         },
         {
           "name": "36\"x30' AF813 Roll Accordion Paint Arrestor 1/CS",
+          "sku": null,
           "price": {
             "amount": "120.84",
             "currencyCode": "USD"
@@ -1048,6 +1153,7 @@
         },
         {
           "name": "40\"x32'10\" AF113 Roll Accordion Paint Arrestor 1/CS",
+          "sku": null,
           "price": {
             "amount": "144.84",
             "currencyCode": "USD"
@@ -1056,6 +1162,7 @@
         },
         {
           "name": "20\"x20\" AF223 High Efficiency Filter 28/CS",
+          "sku": null,
           "price": {
             "amount": "141.56",
             "currencyCode": "USD"
@@ -1064,6 +1171,7 @@
         },
         {
           "name": "20\"x25\" AF423 High Efficiency Filter 24/CS",
+          "sku": null,
           "price": {
             "amount": "151.57",
             "currencyCode": "USD"
@@ -1072,6 +1180,7 @@
         },
         {
           "name": "36\"x30' AF923 Roll High Efficiency Filter 1/CS",
+          "sku": null,
           "price": {
             "amount": "168.8",
             "currencyCode": "USD"
@@ -1080,6 +1189,7 @@
         },
         {
           "name": "40\"x26'3\" AF123 Roll High Efficiency Filter 1/CS",
+          "sku": null,
           "price": {
             "amount": "161.64",
             "currencyCode": "USD"
@@ -1098,10 +1208,11 @@
         "amount": "368.29",
         "currencyCode": "USD"
       },
-      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/enhanced_realistic_bag_filter_true_transparent.png?v=1780074632",
+      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/enhanced_realistic_bag_filter_true_transparent.png?v=1780074632&width=800",
       "variants": [
         {
           "name": "Default Title",
+          "sku": null,
           "price": {
             "amount": "368.29",
             "currencyCode": "USD"
@@ -1120,10 +1231,11 @@
         "amount": "49.0",
         "currencyCode": "USD"
       },
-      "image": null,
+      "image": "https://www.pfsfilters.com/images/products/membership-silver-720.png",
       "variants": [
         {
           "name": "Default Title",
+          "sku": null,
           "price": {
             "amount": "49.0",
             "currencyCode": "USD"
@@ -1142,10 +1254,11 @@
         "amount": "79.0",
         "currencyCode": "USD"
       },
-      "image": null,
+      "image": "https://www.pfsfilters.com/images/products/membership-gold-720.png",
       "variants": [
         {
           "name": "Default Title",
+          "sku": null,
           "price": {
             "amount": "79.0",
             "currencyCode": "USD"
@@ -1164,10 +1277,11 @@
         "amount": "29.0",
         "currencyCode": "USD"
       },
-      "image": null,
+      "image": "https://www.pfsfilters.com/images/products/membership-bronze-720.png",
       "variants": [
         {
           "name": "Default Title",
+          "sku": null,
           "price": {
             "amount": "29.0",
             "currencyCode": "USD"
@@ -1186,10 +1300,11 @@
         "amount": "80.0",
         "currencyCode": "USD"
       },
-      "image": null,
+      "image": "https://www.pfsfilters.com/images/filters/fiberglass-arrestors.png",
       "variants": [
         {
           "name": "Default Title",
+          "sku": null,
           "price": {
             "amount": "80.0",
             "currencyCode": "USD"
@@ -1208,12 +1323,137 @@
         "amount": "595.0",
         "currencyCode": "USD"
       },
-      "image": null,
+      "image": "https://www.pfsfilters.com/images/filters/fiberglass-arrestors.png",
       "variants": [
         {
           "name": "Default Title",
+          "sku": null,
           "price": {
             "amount": "595.0",
+            "currencyCode": "USD"
+          },
+          "availableForSale": true
+        }
+      ]
+    },
+    {
+      "name": "PFS Paint Booth Absorbent Mat Roll — 32 in × 50 ft",
+      "url": "https://www.pfsfilters.com/product/pfs-paint-booth-absorbent-mat-roll-32x50",
+      "description": "A blue universal absorbent mat roll for paint-booth work areas, maintenance zones, and general shop spill control. The 32-inch by 50-foot roll can be cut to suit the work area. Size: 32 in × 50 ft Color: Blue Material: Polyester and polypropylene Listed absorbency capacity: 5 gallons per roll Package: One roll Use note: Confirm compatibility with the liquids handled at your facility. Follow the product safety information, your facility procedures, and applicable fire-safety and disposal requirements. This product does not by itself establish regulatory compliance.",
+      "productType": "Paint Booth Consumables",
+      "tags": [
+        "32 x 50",
+        "absorbent mat",
+        "blue",
+        "booth consumables",
+        "paint booth mat",
+        "PFS Filters",
+        "shop maintenance",
+        "sorbent roll"
+      ],
+      "startingPrice": {
+        "amount": "191.7",
+        "currencyCode": "USD"
+      },
+      "image": "https://cdn.shopify.com/s/files/1/0972/9815/3604/files/wvNztYQVlQKcdskc.png?v=1789601546&width=800",
+      "variants": [
+        {
+          "name": "32 in × 50 ft",
+          "sku": "PFS-PBM-3250",
+          "price": {
+            "amount": "191.7",
+            "currencyCode": "USD"
+          },
+          "availableForSale": true
+        }
+      ]
+    },
+    {
+      "name": "Koch BioMAX HEPA 99.99% — 23.375 in × 23.375 in × 11.5 in",
+      "url": "https://www.pfsfilters.com/product/koch-biomax-hepa-9999-23-375x23-375x11-5",
+      "description": "Koch BioMAX HEPA 99.99% filter, actual size 23.375 in × 23.375 in × 11.5 in, with a double-turned-flange 18-gauge galvanized-steel frame and polyurethane foam sealant. Sold one filter per carton. Review the BioMAX specification dropdown on the product page and confirm system airflow, gasket arrangement, and fit before ordering.",
+      "productType": "HEPA Filter",
+      "tags": [
+        "99.99%",
+        "BioMAX",
+        "commercial air filter",
+        "HEPA",
+        "industrial air filter",
+        "Koch Filter"
+      ],
+      "startingPrice": {
+        "amount": "280.63",
+        "currencyCode": "USD"
+      },
+      "image": "https://www.pfsfilters.com/images/products/koch/koch-biomax-hepa-9999-transparent.png",
+      "variants": [
+        {
+          "name": "Default Title",
+          "sku": "PFS-HBM232311",
+          "price": {
+            "amount": "280.63",
+            "currencyCode": "USD"
+          },
+          "availableForSale": true
+        }
+      ]
+    },
+    {
+      "name": "Koch SprayStop STK-10 Roll — 61 in × 90 ft",
+      "url": "https://www.pfsfilters.com/product/koch-spraystop-stk10-61x90-roll",
+      "description": "Koch SprayStop STK-10 is a durable red/purple synthetic paint-arrestor roll for paint-booth exhaust and related blanket applications. Its progressive-density media is coarse on the incoming-air side and becomes finer toward the exiting-air side for full-depth loading. Sold as one 61 in × 90 ft master roll per carton. Install the red side upstream and the purple side downstream. Confirm the media style, dimensions, and application before ordering.",
+      "productType": "Paint Arrestor",
+      "tags": [
+        "Koch Filter",
+        "paint arrestor",
+        "paint booth exhaust",
+        "roll media",
+        "SprayStop",
+        "STK-10",
+        "synthetic media"
+      ],
+      "startingPrice": {
+        "amount": "242.37",
+        "currencyCode": "USD"
+      },
+      "image": "https://www.pfsfilters.com/images/products/koch/koch-spraystop-stk10-transparent.png",
+      "variants": [
+        {
+          "name": "Default Title",
+          "sku": "PFS-STKM6190",
+          "price": {
+            "amount": "242.37",
+            "currencyCode": "USD"
+          },
+          "availableForSale": true
+        }
+      ]
+    },
+    {
+      "name": "Parker LoadTECH MERV 14 Rigid Cell Filter — 20 × 20 × 4 in, Single Header (Case of 3)",
+      "url": "https://www.pfsfilters.com/product/parker-loadtech-merv14-20x20x4-single-header-case-3",
+      "description": "Parker LoadTECH MERV 14 rigid-cell air filters with synthetic E-Pleat media and a 3/4-in single header on the air-entering side. Model PLT4-M14-13-PH, Parker part 1136513. Sold as one case of three filters; quantity one is one case. Each filter is nominal 20 × 20 × 4 in and actual 19-3/8 × 19-3/8 × 3-3/4 in. Rated airflow 1,400 CFM per filter. Verify the header, fit and equipment requirements before ordering. Not on-hand stock; fulfillment timing varies. Shipping calculated separately at checkout.",
+      "productType": "Rigid Cell Filter",
+      "tags": [
+        "20x20x4",
+        "Case of 3",
+        "LoadTECH",
+        "MERV 14",
+        "Parker",
+        "Rigid Cell",
+        "Single Header"
+      ],
+      "startingPrice": {
+        "amount": "280.68",
+        "currencyCode": "USD"
+      },
+      "image": "https://www.pfsfilters.com/images/products/parker/loadtech-single-header-schematic.png",
+      "variants": [
+        {
+          "name": "Default Title",
+          "sku": "PFS-PLT4-M14-13-PH-3PK",
+          "price": {
+            "amount": "280.68",
             "currencyCode": "USD"
           },
           "availableForSale": true

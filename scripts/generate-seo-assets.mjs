@@ -307,13 +307,16 @@ const blogRoutes = blogPosts.map((post) => ({
 
 const productRoutes = products.map((product) => {
   const kochDetails = kochProductDetails[product.handle];
+  const isParkerCase = product.handle === 'parker-loadtech-merv14-20x20x4-single-header-case-3';
   const imagePath = shopProductCardImage(product, 800);
   const image = imagePath.startsWith('/') ? absoluteUrl(imagePath) : imagePath;
   const price = product.priceRange?.minVariantPrice?.amount;
   const currency = product.priceRange?.minVariantPrice?.currencyCode || 'USD';
-  const availability = product.variants?.edges?.some((edge) => edge.node.availableForSale)
-    ? 'https://schema.org/InStock'
-    : 'https://schema.org/OutOfStock';
+  const availability = isParkerCase
+    ? 'https://schema.org/BackOrder'
+    : product.variants?.edges?.some((edge) => edge.node.availableForSale)
+      ? 'https://schema.org/InStock'
+      : 'https://schema.org/OutOfStock';
   const pathname = `/product/${product.handle}`;
   // sku / vendor come from the Shopify snapshot; guarded so the schema still
   // validates for older snapshots taken before those fields were queried.

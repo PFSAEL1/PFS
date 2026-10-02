@@ -161,6 +161,34 @@ Intake filters clean incoming air. Exhaust filters capture paint overspray. Corr
 - Starting price in snapshot: $595.0 USD
 - Summary: Includes two professional-grade products designed to help keep your spray booth in peak condition. This kit contains our premium Booth Coating and Glass Shield Coating, giving you everything needed to protect both booth surfaces and viewing glass.Together,…
 
+### PFS Paint Booth Absorbent Mat Roll — 32 in × 50 ft
+
+- URL: https://www.pfsfilters.com/product/pfs-paint-booth-absorbent-mat-roll-32x50
+- Type: Paint Booth Consumables
+- Starting price in snapshot: $191.7 USD
+- Summary: A blue universal absorbent mat roll for paint-booth work areas, maintenance zones, and general shop spill control. The 32-inch by 50-foot roll can be cut to suit the work area. Size: 32 in × 50 ft Color: Blue Material: Polyester and polypropylene Listed…
+
+### Koch BioMAX HEPA 99.99% — 23.375 in × 23.375 in × 11.5 in
+
+- URL: https://www.pfsfilters.com/product/koch-biomax-hepa-9999-23-375x23-375x11-5
+- Type: HEPA Filter
+- Starting price in snapshot: $280.63 USD
+- Summary: Koch BioMAX HEPA 99.99% filter, actual size 23.375 in × 23.375 in × 11.5 in, with a double-turned-flange 18-gauge galvanized-steel frame and polyurethane foam sealant. Sold one filter per carton. Review the BioMAX specification dropdown on the product page…
+
+### Koch SprayStop STK-10 Roll — 61 in × 90 ft
+
+- URL: https://www.pfsfilters.com/product/koch-spraystop-stk10-61x90-roll
+- Type: Paint Arrestor
+- Starting price in snapshot: $242.37 USD
+- Summary: Koch SprayStop STK-10 is a durable red/purple synthetic paint-arrestor roll for paint-booth exhaust and related blanket applications. Its progressive-density media is coarse on the incoming-air side and becomes finer toward the exiting-air side for…
+
+### Parker LoadTECH MERV 14 Rigid Cell Filter — 20 × 20 × 4 in, Single Header (Case of 3)
+
+- URL: https://www.pfsfilters.com/product/parker-loadtech-merv14-20x20x4-single-header-case-3
+- Type: Rigid Cell Filter
+- Starting price in snapshot: $280.68 USD
+- Summary: Parker LoadTECH MERV 14 rigid-cell air filters with synthetic E-Pleat media and a 3/4-in single header on the air-entering side. Model PLT4-M14-13-PH, Parker part 1136513. Sold as one case of three filters; quantity one is one case. Each filter is nominal 20…
+
 # Frequently asked questions
 
 ### How do I find the correct paint booth filter for my booth?
@@ -242,9 +270,9 @@ PFS Filters is a division of PFS Spray Booths serving automotive, industrial, wo
 # Published guides
 
 - [How Often Should You Change Paint Booth Filters?](https://www.pfsfilters.com/blog/how-often-change-paint-booth-filters): There is no universal replacement interval. Use booth and filter manufacturer limits, filter-stage inspections, pressure readings, operating conditions, and documented trends to set a defensible schedule.
-- [Fiberglass vs. Tacky Panel Filters: How to Compare the Application](https://www.pfsfilters.com/blog/fiberglass-vs-tacky-panel-filters): Fiberglass paint arrestors and tackified panel media are not automatically interchangeable. Compare the documented filter stage, dimensions, media, airflow direction, and equipment requirements before ordering.
-- [Paint Booth Filter Maintenance Checklist: A Documentation-First Approach](https://www.pfsfilters.com/blog/paint-booth-maintenance-checklist): Use this general checklist to organize filter inspections and records, then apply the spray booth manual, filter instructions, permit conditions, and facility procedures that control your installation.
-- [EPA Method 319 and Aerospace Paint Overspray Arrestors: What the Test Does](https://www.pfsfilters.com/blog/aerospace-paint-booth-compliance-method-319): EPA Method 319 is a test method for determining paint overspray arrestor filtration efficiency. It is not a blanket certification for every installation, coating, operating condition, or facility obligation.
+- [Fiberglass vs. Tacky Panel Filters](https://www.pfsfilters.com/blog/fiberglass-vs-tacky-panel-filters): Fiberglass paint arrestors and tackified panel media are not automatically interchangeable. Compare the documented filter stage, dimensions, media, airflow direction, and equipment requirements before ordering.
+- [Paint Booth Filter Maintenance Checklist](https://www.pfsfilters.com/blog/paint-booth-maintenance-checklist): Use this general checklist to organize filter inspections and records, then apply the spray booth manual, filter instructions, permit conditions, and facility procedures that control your installation.
+- [EPA Method 319 for Aerospace Paint Booth Filters](https://www.pfsfilters.com/blog/aerospace-paint-booth-compliance-method-319): EPA Method 319 is a test method for determining paint overspray arrestor filtration efficiency. It is not a blanket certification for every installation, coating, operating condition, or facility obligation.
 
 # Booth manufacturer compatibility guides
 
