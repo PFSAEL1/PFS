@@ -466,7 +466,7 @@ if (aerospaceIndustryRoute) {
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: `${origin}/` },
-          { '@type': 'ListItem', position: 2, name: 'Aerospace Filters', item: `${origin}/aerospace` },
+          { '@type': 'ListItem', position: 2, name: 'Paint Booth Filters', item: `${origin}/paint-booth-filters` },
           { '@type': 'ListItem', position: 3, name: 'Aerospace Paint Booth Filtration', item: absoluteUrl(aerospaceIndustryRoute.path) },
         ],
       },

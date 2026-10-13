@@ -33,7 +33,7 @@ const structuredData = {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pfsfilters.com/' },
-        { '@type': 'ListItem', position: 2, name: 'Aerospace Filters', item: 'https://www.pfsfilters.com/aerospace' },
+        { '@type': 'ListItem', position: 2, name: 'Paint Booth Filters', item: 'https://www.pfsfilters.com/paint-booth-filters' },
         { '@type': 'ListItem', position: 3, name: 'Aerospace Paint Booth Filtration', item: PAGE_URL },
       ],
     },
@@ -58,7 +58,7 @@ export default function AerospaceHub() {
         {/* Subtle background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-blue-500/3 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
-          <Breadcrumb items={[{ label: 'Industries', href: '#' }, { label: 'Aerospace Paint Booth Filters' }]} />
+          <Breadcrumb items={[{ label: 'Paint Booth Filters', href: '/paint-booth-filters' }, { label: 'Aerospace Paint Booth Filters' }]} />
           <div className="text-center mt-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-5">
               <Plane className="h-3.5 w-3.5 text-blue-400" />
