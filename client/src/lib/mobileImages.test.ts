@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { extname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_PRODUCT_IMAGE, getProductFallbackImage } from './imageUrls';
 
@@ -23,9 +24,9 @@ function sourceFiles(directory: string): string[] {
 describe('mobile-safe storefront images', () => {
   it('contains no references to the expired CloudFront image host', () => {
     const roots = [
-      new URL('../', import.meta.url).pathname,
-      new URL('../../index.html', import.meta.url).pathname,
-      new URL('../../../scripts/generate-seo-assets.mjs', import.meta.url).pathname,
+      fileURLToPath(new URL('../', import.meta.url)),
+      fileURLToPath(new URL('../../index.html', import.meta.url)),
+      fileURLToPath(new URL('../../../scripts/generate-seo-assets.mjs', import.meta.url)),
     ];
     const files = roots.flatMap((path) => (extname(path) ? [path] : sourceFiles(path)));
 

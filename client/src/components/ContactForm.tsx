@@ -269,7 +269,7 @@ export const ContactForm = () => {
     <section id="contact" className="py-20 px-4 bg-gradient-to-b from-background to-muted/30">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-3">Get In Touch</h2>
+          <h1 className="text-4xl font-bold mb-3">Get In Touch</h1>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
             Have questions about our filters? Need a custom size or bulk pricing? Our team is ready to help.
           </p>
