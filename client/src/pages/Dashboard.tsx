@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
@@ -7,7 +7,18 @@ import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { supabase } from '@/lib/supabase';
+import { getAuthErrorMessage } from '@/lib/authError';
 import { trpc } from '@/lib/trpc';
 import { useMembership } from '@/hooks/useMembership';
 import { TierMedal } from '@/components/TierMedal';
@@ -62,6 +73,10 @@ function DashboardContent() {
   const [, navigate] = useLocation();
   const [userEmail, setUserEmail] = useState('');
   const [userName, setUserName] = useState('');
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [profileName, setProfileName] = useState('');
+  const [profileEmail, setProfileEmail] = useState('');
+  const [profileSaving, setProfileSaving] = useState(false);
   const { membership, loading: membershipLoading } = useMembership();
   const [booths, setBooths] = useState<BoothSetup[]>([]);
   const [boothPositions, setBoothPositions] = useState<Record<string, FilterPosition[]>>({});
@@ -153,6 +168,48 @@ function DashboardContent() {
     navigate('/');
   };
 
+  const openProfileEditor = () => {
+    setProfileName(userName);
+    setProfileEmail(userEmail);
+    setProfileOpen(true);
+  };
+
+  const handleProfileSave = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const fullName = profileName.trim();
+    const email = profileEmail.trim();
+    if (!fullName) {
+      toast.error('Please enter your full name');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
+    setProfileSaving(true);
+    try {
+      const emailChanged = email.toLowerCase() !== userEmail.toLowerCase();
+      const { data, error } = await supabase.auth.updateUser({
+        data: { full_name: fullName },
+        ...(emailChanged ? { email } : {}),
+      });
+      if (error) throw error;
+
+      setUserName(data.user.user_metadata?.full_name || fullName);
+      setUserEmail(data.user.email || userEmail);
+      setProfileOpen(false);
+      toast.success(emailChanged
+        ? 'Profile saved. Check your new email address to confirm the change.'
+        : 'Profile updated successfully');
+    } catch (error: unknown) {
+      toast.error(getAuthErrorMessage(error, 'Failed to update profile'));
+    } finally {
+      setProfileSaving(false);
+    }
+  };
+
   const handleBoothSaved = () => {
     setShowBoothModal(false);
     setEditingBooth(null);
@@ -212,7 +269,12 @@ function DashboardContent() {
             <CardContent>
               <p className="font-semibold text-white">{userName || 'No name set'}</p>
               <p className="text-sm text-white/50">{userEmail}</p>
-              <Button variant="outline" size="sm" className="mt-3 gap-2 w-full border-white/10 text-white/70 hover:text-white">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={openProfileEditor}
+                className="mt-3 gap-2 w-full border-white/10 text-white/70 hover:text-white"
+              >
                 <Settings className="h-3.5 w-3.5" /> Edit Profile
               </Button>
             </CardContent>
@@ -522,6 +584,74 @@ function DashboardContent() {
 
 
       <Footer />
+
+      <Dialog
+        open={profileOpen}
+        onOpenChange={(open) => {
+          if (!profileSaving) setProfileOpen(open);
+        }}
+      >
+        <DialogContent className="border-white/10 bg-[#111] text-white shadow-2xl">
+          <DialogHeader>
+            <DialogTitle className="font-['Barlow_Condensed'] text-2xl font-bold uppercase tracking-normal">
+              Edit Profile
+            </DialogTitle>
+            <DialogDescription className="text-white/50">
+              Update the account details used on your PFS Filters profile.
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleProfileSave} className="space-y-5">
+            <div className="space-y-2">
+              <Label htmlFor="profile-name" className="text-white/80">Full Name</Label>
+              <Input
+                id="profile-name"
+                value={profileName}
+                onChange={(event) => setProfileName(event.target.value)}
+                autoComplete="name"
+                maxLength={100}
+                disabled={profileSaving}
+                className="border-white/15 bg-black/30 text-white placeholder:text-white/30"
+                autoFocus
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="profile-email" className="text-white/80">Email Address</Label>
+              <Input
+                id="profile-email"
+                type="email"
+                value={profileEmail}
+                onChange={(event) => setProfileEmail(event.target.value)}
+                autoComplete="email"
+                maxLength={254}
+                disabled={profileSaving}
+                className="border-white/15 bg-black/30 text-white placeholder:text-white/30"
+              />
+            </div>
+
+            <DialogFooter>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setProfileOpen(false)}
+                disabled={profileSaving}
+                className="border-white/15 text-white/80 hover:text-white"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                disabled={profileSaving}
+                className="bg-blue-500 text-white hover:bg-blue-600"
+              >
+                {profileSaving && <Loader2 className="h-4 w-4 animate-spin" />}
+                Save Changes
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       {/* Booth Modal */}
       {showBoothModal && (
