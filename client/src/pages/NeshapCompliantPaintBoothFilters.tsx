@@ -21,7 +21,6 @@ import { Button } from '@/components/ui/button';
 import { ShieldAlert, Plane, Phone, ArrowRight, Info, ExternalLink } from 'lucide-react';
 import { bundledShopifyProducts } from '@/lib/productCatalog';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
-import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 
 const SITE = 'https://www.pfsfilters.com';
 const PAGE_PATH = '/neshap-compliant-paint-booth-filters';
@@ -213,7 +212,7 @@ export default function NeshapCompliantPaintBoothFilters() {
             </p>
           </div>
           <div className="mt-7 flex flex-col sm:flex-row gap-3">
-            <a href={PHONE_TEL}>
+            <a href="tel:+18554967969">
               <Button className="bg-blue-500 text-white hover:bg-blue-600 gap-2">
                 <Phone className="h-4 w-4" />
                 Call (855) 496-7969

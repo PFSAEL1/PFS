@@ -5,7 +5,6 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
-import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://www.pfsfilters.com' },
@@ -79,7 +78,7 @@ export default function TermsOfService() {
             </PolicySection>
 
             <PolicySection title="7. Returns and Refunds">
-              <p>Opened packages are not eligible for return. Unopened packages may be returned within five business days for a refund, less shipping costs and a 25% restocking fee. Call PFS Filters at <a href={PHONE_TEL} className="text-blue-400 hover:underline">{PHONE_DISPLAY}</a> before sending a return. Additional instructions are available in our <Link href="/returns" className="text-blue-400 hover:underline">Returns &amp; Refunds Policy</Link>.</p>
+              <p>Opened packages are not eligible for return. Unopened packages may be returned within five business days for a refund, less shipping costs and a 25% restocking fee. Call PFS Filters at <a href="tel:855-496-7969" className="text-blue-400 hover:underline">855-496-7969</a> before sending a return. Additional instructions are available in our <Link href="/returns" className="text-blue-400 hover:underline">Returns &amp; Refunds Policy</Link>.</p>
             </PolicySection>
 
             <PolicySection title="8. Acceptable Use">
@@ -141,7 +140,7 @@ export default function TermsOfService() {
                 1400 Airport Blvd<br />
                 Santa Rosa, CA 95403<br />
                 United States<br />
-                Phone: <a href={PHONE_TEL} className="text-blue-400 hover:underline">{PHONE_DISPLAY}</a>
+                Phone: <a href="tel:855-496-7969" className="text-blue-400 hover:underline">855-496-7969</a>
               </address>
             </PolicySection>
           </div>

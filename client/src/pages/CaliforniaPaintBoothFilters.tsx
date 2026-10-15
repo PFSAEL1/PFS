@@ -8,7 +8,6 @@ import { ArrowRight, Building2, CheckCircle2, ExternalLink, Info, MapPin, Phone 
 import { CALIFORNIA_LANDING_PAGES } from '@/data/isaacLandingPages';
 import { shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
 import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
-import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 
 const SITE = 'https://www.pfsfilters.com';
 const LOGO_URL = '/images/brands/pfs-logo-wide-420.webp';
@@ -154,20 +153,6 @@ export default function CaliforniaPaintBoothFilters() {
               </span>
               <h1 className="pfs-heading-animate mb-5 text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl">{config.h1}</h1>
               <p className="pfs-sub-animate max-w-3xl text-lg leading-relaxed text-white/65 md:text-xl">{config.introduction}</p>
-              <dl className="mt-8 grid gap-3 sm:grid-cols-3">
-                <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-                  <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">Places covered</dt>
-                  <dd className="mt-1 text-sm font-semibold leading-snug">{config.cities.join(' · ')}</dd>
-                </div>
-                <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-                  <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">Work we see here</dt>
-                  <dd className="mt-1 text-sm font-semibold leading-snug">{config.industries[0]}</dd>
-                </div>
-                <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-                  <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">Regulator to confirm</dt>
-                  <dd className="mt-1 text-sm font-semibold leading-snug">{config.regulatorySource.label}</dd>
-                </div>
-              </dl>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link href="/paint-booth-filters"><Button className="gap-2 bg-blue-700 px-7 py-6 text-white hover:bg-blue-600">Browse filter categories <ArrowRight className="h-4 w-4" /></Button></Link>
                 <Link href="/contact"><Button variant="outline" className="gap-2 border-white/20 px-7 py-6 text-white hover:bg-white/5"><Phone className="h-4 w-4" /> Request help</Button></Link>
@@ -259,7 +244,7 @@ export default function CaliforniaPaintBoothFilters() {
               <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-300">Santa Rosa, California</p>
               <h2 className="mb-3 text-2xl font-bold">A California-based team with nationwide ordering</h2>
               <p className="mb-5 text-sm leading-relaxed text-white/60">PFS Filters operates from 1400 Airport Blvd, Santa Rosa, CA 95403. Contact the team for filter identification, product questions, custom requests, or multi-booth planning.</p>
-              <a href={PHONE_TEL}><Button className="min-h-11 w-full bg-[#0081f2] text-white hover:bg-[#1a91ff]">Call {PHONE_DISPLAY}</Button></a>
+              <a href="tel:+18554967969"><Button className="w-full bg-blue-700 text-white hover:bg-blue-600">Call 855-496-7969</Button></a>
             </div>
           </div>
         </section>

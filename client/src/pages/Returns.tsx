@@ -5,7 +5,6 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertCircle, Package, XCircle, Phone } from 'lucide-react';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
-import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://www.pfsfilters.com' },
@@ -95,8 +94,8 @@ export default function Returns() {
               <CardContent className="space-y-4">
                 <p>To start a return within the five-business-day window, contact us before sending the package:</p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <a href={PHONE_TEL} className="flex items-center gap-2 text-blue-400 hover:underline">
-                    <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
+                  <a href="tel:855-496-7969" className="flex items-center gap-2 text-blue-400 hover:underline">
+                    <Phone className="h-4 w-4" /> 855-496-7969
                   </a>
                 </div>
                 <p className="text-sm text-white/50">Please include your order number, reason for return, and confirmation that the package is unopened.</p>

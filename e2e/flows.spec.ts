@@ -2,17 +2,13 @@ import { expect, test } from '@playwright/test';
 
 test.describe('storefront flows', () => {
   test('filter finder narrows booth, brand, and model', async ({ page }) => {
-    await page.goto('/');
-    await page.getByRole('button', { name: 'Downdraft', exact: true }).click();
-    const brand = page.locator('#home-finder-brand');
-    await expect(brand).toBeEnabled();
-    const brandValue = await brand.locator('option').nth(1).getAttribute('value');
-    await brand.selectOption(brandValue || '');
-    const model = page.locator('#home-finder-model');
-    await expect(model).toBeEnabled();
-    const modelValue = await model.locator('option').nth(1).getAttribute('value');
-    await model.selectOption(modelValue || '');
-    await expect(page.locator('#filter-finder')).toContainText(/Ceiling|Intake|Exhaust|Prefilter/);
+    await page.goto('/filter-finder');
+    await page.getByRole('button', { name: /Downdraft/ }).first().click();
+    await page.getByRole('button', { name: /Accudraft/ }).click();
+    await page.getByRole('button', { name: /Titan/ }).first().click();
+    await expect(page.getByText('Ceiling Diffusion Media').first()).toBeVisible();
+    await expect(page.getByText(/Replace every 6–12 months/)).toBeVisible();
+    await expect(page.getByText('Intake', { exact: true }).first()).toBeVisible();
   });
 
   test('shop search and stage filter update the catalog', async ({ page }) => {

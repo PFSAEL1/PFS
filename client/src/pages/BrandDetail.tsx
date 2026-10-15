@@ -196,7 +196,7 @@ export default function BrandDetail({ params }: BrandDetailProps) {
             { label: brand.name },
           ]} />
           <div className="mb-4">
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex flex-wrap items-center gap-3 mb-4">
               {brand.country && (
                 <span className="text-xs bg-white/5 text-white/50 border border-white/10 px-2.5 py-1 rounded-full">{brand.country}</span>
               )}

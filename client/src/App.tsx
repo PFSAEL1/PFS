@@ -7,8 +7,8 @@ import { lazy, Suspense, useEffect, type ComponentType } from 'react';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { importWithChunkRecovery } from './lib/chunkRecovery';
-import { installRoutePrefetch } from './lib/routePrefetch';
 import { getLocalProductThumbnail } from './lib/imageUrls';
+import { installRoutePrefetch } from './lib/routePrefetch';
 
 // Pages
 import Home from './pages/Home';
@@ -90,7 +90,7 @@ function FilterFinderLoadingFallback() {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, border: '1px solid rgba(59,130,246,.24)', background: 'rgba(59,130,246,.1)', color: '#93c5fd', fontSize: 12, fontWeight: 700, marginBottom: 16 }}>
               FILTER FINDER · STEP 1 OF 4
             </div>
-            <h1 style={{ margin: '0 0 12px', fontFamily: '"Montserrat", "Inter", system-ui, sans-serif', fontSize: 'clamp(2.4rem,11vw,4.25rem)', lineHeight: .92, fontWeight: 800, letterSpacing: 0, textTransform: 'uppercase' }}>
+            <h1 style={{ margin: '0 0 12px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(2.4rem,11vw,4.25rem)', lineHeight: .92, fontWeight: 800, letterSpacing: 0, textTransform: 'uppercase' }}>
               What kind of booth do you have?
             </h1>
             <p style={{ margin: '0 auto', maxWidth: 672, color: 'rgba(255,255,255,.7)', fontSize: 18, lineHeight: 1.55 }}>
@@ -111,8 +111,8 @@ function FilterFinderLoadingFallback() {
                   </div>
                 </div>
                 <div style={{ padding: 20, borderTop: '1px solid rgba(255,255,255,.05)' }}>
-                  <h2 style={{ margin: '0 0 6px', fontFamily: '"Montserrat", "Inter", system-ui, sans-serif', fontSize: 24, lineHeight: 1, fontWeight: 800 }}>{type}</h2>
-                  <p style={{ margin: 0, color: '#ececec', fontSize: 14, lineHeight: 1.45 }}>Booth airflow and filter position guidance.</p>
+                  <h2 style={{ margin: '0 0 6px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 24, lineHeight: 1, fontWeight: 800 }}>{type}</h2>
+                  <p style={{ margin: 0, color: 'rgba(255,255,255,.6)', fontSize: 14, lineHeight: 1.45 }}>Booth airflow and filter position guidance.</p>
                 </div>
               </div>
             ))}
@@ -137,10 +137,10 @@ function FilterScannerLoadingFallback() {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, border: '1px solid rgba(59,130,246,.22)', background: 'rgba(59,130,246,.1)', color: '#60a5fa', fontSize: 14, fontWeight: 700, marginBottom: 16 }}>
               AI-Powered
             </div>
-            <h1 style={{ margin: '0 0 16px', fontFamily: '"Montserrat", "Inter", system-ui, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
               Filter Scanner
             </h1>
-            <p style={{ margin: '0 auto', maxWidth: 672, color: '#e8e8e8', fontSize: 20, lineHeight: 1.55 }}>
+            <p style={{ margin: '0 auto', maxWidth: 672, color: 'rgba(255,255,255,.55)', fontSize: 20, lineHeight: 1.55 }}>
               Photograph the filter and label to narrow catalog candidates. Verify the booth position and actual dimensions before ordering.
             </p>
           </div>
@@ -157,17 +157,17 @@ function FilterScannerLoadingFallback() {
                 <article key={step} style={{ minHeight: 210, border: '1px solid rgba(255,255,255,.1)', borderRadius: 14, background: 'rgba(255,255,255,.03)', padding: 24, textAlign: 'center' }}>
                   <div style={{ width: 64, height: 64, margin: '0 auto 16px', borderRadius: 16, background: 'rgba(59,130,246,.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#60a5fa', fontWeight: 800 }}>{step}</div>
                   <h2 style={{ margin: '0 0 8px', fontSize: 22, lineHeight: 1, fontWeight: 800 }}>{title}</h2>
-                  <p style={{ margin: 0, color: '#e8e8e8', fontSize: 14, lineHeight: 1.45 }}>{copy}</p>
+                  <p style={{ margin: 0, color: 'rgba(255,255,255,.58)', fontSize: 14, lineHeight: 1.45 }}>{copy}</p>
                 </article>
               ))}
             </div>
             <article style={{ minHeight: 260, borderRadius: 14, border: '1px solid rgba(59,130,246,.22)', background: 'linear-gradient(135deg,rgba(59,130,246,.07),rgba(59,130,246,.12))', padding: 32, textAlign: 'center' }}>
               <h2 style={{ margin: '0 0 10px', fontSize: 28, lineHeight: 1, fontWeight: 800 }}>Available on Gold & Platinum Plans</h2>
-              <p style={{ maxWidth: 448, margin: '0 auto 22px', color: '#e8e8e8', fontSize: 16, lineHeight: 1.55 }}>
+              <p style={{ maxWidth: 448, margin: '0 auto 22px', color: 'rgba(255,255,255,.58)', fontSize: 16, lineHeight: 1.55 }}>
                 The AI Filter Scanner is included with Gold and Platinum memberships. Upgrade today to unlock instant filter identification, plus discounts on every order.
               </p>
               <div style={{ display: 'flex', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
-                <span style={{ minHeight: 40, minWidth: 184, borderRadius: 8, background: '#0066cc', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14, fontWeight: 800 }}>View Membership Plans</span>
+                <span style={{ minHeight: 40, minWidth: 184, borderRadius: 8, background: '#3b82f6', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14, fontWeight: 800 }}>View Membership Plans</span>
                 <span style={{ minHeight: 40, minWidth: 152, borderRadius: 8, border: '1px solid rgba(255,255,255,.22)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14, fontWeight: 800 }}>Sign In to Your Account</span>
               </div>
             </article>
@@ -197,7 +197,7 @@ function CeilingBlanketsLoadingFallback() {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(77,159,255,.3)', background: 'rgba(77,159,255,.1)', color: '#4d9fff', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 16 }}>
               Intake
             </div>
-            <h1 style={{ margin: '0 0 16px', fontFamily: '"Montserrat", "Inter", system-ui, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
               Ceiling Blankets
             </h1>
             <p style={{ margin: 0, maxWidth: 672, color: 'rgba(255,255,255,.7)', fontSize: 18, lineHeight: 1.55 }}>
@@ -253,7 +253,7 @@ function RollMediaLoadingFallback() {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(77,159,255,.3)', background: 'rgba(77,159,255,.1)', color: '#4d9fff', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 16 }}>
               Intake / Exhaust
             </div>
-            <h1 style={{ margin: '0 0 16px', fontFamily: '"Montserrat", "Inter", system-ui, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
               Roll Media
             </h1>
             <p style={{ margin: 0, maxWidth: 672, color: 'rgba(255,255,255,.7)', fontSize: 18, lineHeight: 1.55 }}>
@@ -310,7 +310,7 @@ function MervFiltersLoadingFallback() {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(77,159,255,.3)', background: 'rgba(77,159,255,.1)', color: '#4d9fff', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 16 }}>
               Intake
             </div>
-            <h1 style={{ margin: '0 0 16px', fontFamily: '"Montserrat", "Inter", system-ui, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
               MERV-Rated Filters
             </h1>
             <p style={{ margin: 0, maxWidth: 672, color: 'rgba(255,255,255,.7)', fontSize: 18, lineHeight: 1.55 }}>
@@ -367,7 +367,7 @@ function PolyesterMediaLoadingFallback() {
               </svg>
               EXHAUST
             </div>
-            <h1 style={{ margin: '0 0 16px', fontFamily: '"Montserrat", "Inter", system-ui, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
               Polyester Media
             </h1>
             <p style={{ margin: 0, maxWidth: 672, color: 'rgba(255,255,255,.7)', fontSize: 18, lineHeight: 1.55 }}>
@@ -384,14 +384,14 @@ function PolyesterMediaLoadingFallback() {
               <path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7" />
               <path d="m7.5 4.27 9 5.15" />
             </svg>
-            <h2 style={{ margin: '0 0 8px', fontSize: 20, fontWeight: 600, color: '#ececec' }}>
+            <h2 style={{ margin: '0 0 8px', fontSize: 20, fontWeight: 600, color: 'rgba(255,255,255,.6)' }}>
               No products found
             </h2>
             <p style={{ margin: '0 auto 24px', maxWidth: 448, color: 'rgba(255,255,255,.7)', fontSize: 16, lineHeight: 1.5 }}>
               We couldn't find any products in this category right now. Browse all products or check back soon.
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minHeight: 40, padding: '0 16px', borderRadius: 8, background: '#0066cc', color: '#fff', fontSize: 14, fontWeight: 500 }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minHeight: 40, padding: '0 16px', borderRadius: 8, background: '#3b82f6', color: '#fff', fontSize: 14, fontWeight: 500 }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 8 }}>
                   <circle cx="8" cy="21" r="1" />
                   <circle cx="19" cy="21" r="1" />
@@ -399,7 +399,7 @@ function PolyesterMediaLoadingFallback() {
                 </svg>
                 Browse All Products
               </span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minHeight: 40, padding: '0 16px', borderRadius: 8, border: '1px solid rgba(255,255,255,.2)', color: '#ececec', fontSize: 14, fontWeight: 500 }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minHeight: 40, padding: '0 16px', borderRadius: 8, border: '1px solid rgba(255,255,255,.2)', color: 'rgba(255,255,255,.6)', fontSize: 14, fontWeight: 500 }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 8 }}>
                   <path d="m12 19-7-7 7-7" />
                   <path d="M19 12H5" />
@@ -425,13 +425,13 @@ function BrandsLoadingFallback() {
       <main>
         <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, border: '1px solid rgba(255,255,255,.15)', background: 'rgba(255,255,255,.05)', color: '#ececec', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, border: '1px solid rgba(255,255,255,.15)', background: 'rgba(255,255,255,.05)', color: 'rgba(255,255,255,.6)', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>
               Trusted Brands
             </div>
-            <h1 style={{ margin: '0 0 16px', fontFamily: '"Montserrat", "Inter", system-ui, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .92, fontWeight: 800, letterSpacing: 0, textTransform: 'uppercase' }}>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .92, fontWeight: 800, letterSpacing: 0, textTransform: 'uppercase' }}>
               Filter Brands We Carry
             </h1>
-            <p style={{ margin: 0, maxWidth: 672, color: '#e8e8e8', fontSize: 20, lineHeight: 1.55 }}>
+            <p style={{ margin: 0, maxWidth: 672, color: 'rgba(255,255,255,.5)', fontSize: 20, lineHeight: 1.55 }}>
               Browse manufacturers represented in the current catalog, then verify the product record, filter stage, and dimensions before ordering.
             </p>
           </div>
@@ -441,8 +441,8 @@ function BrandsLoadingFallback() {
             {brandsFallback.map(([name, specialty]) => (
               <article key={name} style={{ minHeight: 190, border: '1px solid rgba(255,255,255,.08)', borderRadius: 16, background: 'rgba(255,255,255,.03)', padding: 24 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginBottom: 12 }}>
-                  <h2 style={{ margin: 0, fontFamily: '"Montserrat", "Inter", system-ui, sans-serif', fontSize: 26, lineHeight: 1, fontWeight: 800 }}>{name}</h2>
-                  <span style={{ height: 26, borderRadius: 999, border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.05)', color: '#e8e8e8', padding: '5px 8px', fontSize: 12, whiteSpace: 'nowrap' }}>{specialty}</span>
+                  <h2 style={{ margin: 0, fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 26, lineHeight: 1, fontWeight: 800 }}>{name}</h2>
+                  <span style={{ height: 26, borderRadius: 999, border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.05)', color: 'rgba(255,255,255,.55)', padding: '5px 8px', fontSize: 12, whiteSpace: 'nowrap' }}>{specialty}</span>
                 </div>
                 <p style={{ margin: 0, color: 'rgba(255,255,255,.7)', fontSize: 14, lineHeight: 1.6 }}>Catalog products and replacement guidance represented in the current PFS Filters catalog.</p>
               </article>
@@ -464,7 +464,7 @@ function VitraLoadingFallback() {
       </nav>
       <main>
         <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
-          <div style={{ maxWidth: 1280, margin: '0 auto', color: '#e8e8e8', fontSize: 14 }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto', color: 'rgba(255,255,255,.55)', fontSize: 14 }}>
             Home / Consumables / PFS VITRA
           </div>
         </section>
@@ -475,20 +475,20 @@ function VitraLoadingFallback() {
             </div>
             <div style={{ minHeight: 520 }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', minHeight: 26, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(59,130,246,.22)', background: 'rgba(59,130,246,.1)', color: '#60a5fa', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 12 }}>Consumables</span>
-              <h1 style={{ margin: '8px 0 8px', fontFamily: '"Montserrat", "Inter", system-ui, sans-serif', fontSize: 'clamp(3rem,12vw,4.25rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>PFS VITRA</h1>
-              <p style={{ margin: '0 0 24px', color: '#e8e8e8', fontSize: 20 }}>Glass Shield Washable Coating</p>
+              <h1 style={{ margin: '8px 0 8px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.25rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>PFS VITRA</h1>
+              <p style={{ margin: '0 0 24px', color: 'rgba(255,255,255,.5)', fontSize: 20 }}>Glass Shield Washable Coating</p>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, minHeight: 52, marginBottom: 24 }}>
                 <span style={{ color: '#60a5fa', fontSize: 44, fontWeight: 800 }}>$80.00</span>
-                <span style={{ color: '#e8e8e8', fontSize: 14 }}>USD</span>
+                <span style={{ color: 'rgba(255,255,255,.4)', fontSize: 14 }}>USD</span>
               </div>
               <p style={{ minHeight: 112, margin: 0, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,.1)', color: 'rgba(255,255,255,.7)', fontSize: 16, lineHeight: 1.7 }}>
                 PFS VITRA is a professional-grade washable glass shield coating designed to protect your paint booth windows and glass surfaces from overspray buildup.
               </p>
               <div style={{ minHeight: 72, marginTop: 20, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,.1)', display: 'flex', alignItems: 'center', gap: 16 }}>
-                <span style={{ color: '#ececec', fontSize: 14 }}>Quantity:</span>
+                <span style={{ color: 'rgba(255,255,255,.6)', fontSize: 14 }}>Quantity:</span>
                 <div style={{ width: 116, height: 42, border: '1px solid rgba(255,255,255,.2)', borderRadius: 8 }} />
               </div>
-              <div style={{ minHeight: 56, marginTop: 16, borderRadius: 10, background: '#0066cc', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 16, fontWeight: 800 }}>
+              <div style={{ minHeight: 56, marginTop: 16, borderRadius: 10, background: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 16, fontWeight: 800 }}>
                 Add to Cart — $80.00
               </div>
             </div>
@@ -518,7 +518,7 @@ function AerospaceLoadingFallback() {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, border: '1px solid rgba(59,130,246,.22)', background: 'rgba(59,130,246,.1)', color: 'rgba(255,255,255,.8)', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>
               Aerospace & MRO Filtration
             </div>
-            <h1 style={{ margin: '0 0 16px', fontFamily: '"Montserrat", "Inter", system-ui, sans-serif', fontSize: 'clamp(3rem,12vw,4.25rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.25rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
               Aerospace Paint Booth Filters
             </h1>
             <p style={{ margin: '0 auto', maxWidth: 768, color: 'rgba(255,255,255,.62)', fontSize: 20, lineHeight: 1.55 }}>
@@ -570,10 +570,10 @@ function NovaVertaLoadingFallback() {
         <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 999, background: 'rgba(255,255,255,.05)', color: '#e8e8e8', border: '1px solid rgba(255,255,255,.1)' }}>Italy</span>
+              <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 999, background: 'rgba(255,255,255,.05)', color: 'rgba(255,255,255,.5)', border: '1px solid rgba(255,255,255,.1)' }}>Italy</span>
               <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 999, background: 'rgba(77,159,255,.1)', color: '#4d9fff', border: '1px solid rgba(77,159,255,.2)', textTransform: 'capitalize' }}>Downdraft</span>
             </div>
-            <h1 style={{ margin: '0 0 16px', fontFamily: '"Montserrat", "Inter", system-ui, sans-serif', fontSize: 'clamp(2.6rem,10vw,3.5rem)', lineHeight: 1.05, fontWeight: 800, letterSpacing: 0 }}>
+            <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(2.6rem,10vw,3.5rem)', lineHeight: 1.05, fontWeight: 800, letterSpacing: 0 }}>
               Nova Verta Booth Filters
             </h1>
             <p style={{ margin: 0, maxWidth: 768, color: 'rgba(255,255,255,.7)', fontSize: 18, lineHeight: 1.55 }}>
@@ -585,7 +585,7 @@ function NovaVertaLoadingFallback() {
                 ['Intake', '30–45 days'],
                 ['Exhaust', '70–100 days'],
               ].map(([label, cycle]) => (
-                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: '#e8e8e8' }}>
+                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: 'rgba(255,255,255,.5)' }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10" />
                     <polyline points="12 6 12 12 16 14" />
@@ -600,14 +600,14 @@ function NovaVertaLoadingFallback() {
         <section style={{ padding: '56px 16px', background: '#0d0d0d' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto' }}>
             <h2 style={{ margin: '0 0 8px', fontSize: 24, fontWeight: 700 }}>Nova Verta Models</h2>
-            <p style={{ margin: '0 0 32px', color: '#e8e8e8', fontSize: 14 }}>
+            <p style={{ margin: '0 0 32px', color: 'rgba(255,255,255,.5)', fontSize: 14 }}>
               Click any filter size to go directly to that product. Sizes marked with a call icon require a quote.
             </p>
             <div style={{ border: '1px solid rgba(255,255,255,.08)', background: 'rgba(255,255,255,.03)', borderRadius: 16, padding: 24, minHeight: 140 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, flexWrap: 'wrap', gap: 8 }}>
                 <div>
                   <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Nova Verta Verto</h3>
-                  <span style={{ fontSize: 12, color: '#e8e8e8', textTransform: 'capitalize' }}>Downdraft Booth</span>
+                  <span style={{ fontSize: 12, color: 'rgba(255,255,255,.4)', textTransform: 'capitalize' }}>Downdraft Booth</span>
                 </div>
                 <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 999, background: 'rgba(77,159,255,.1)', color: '#4d9fff', border: '1px solid rgba(77,159,255,.2)' }}>Downdraft</span>
               </div>
@@ -644,10 +644,10 @@ function FiberglassVsTackyBlogLoadingFallback() {
       <main>
         <section style={{ padding: '96px 16px 24px', background: '#050505' }}>
           <div style={{ maxWidth: 896, margin: '0 auto' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, color: '#e8e8e8', marginBottom: 8 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, color: 'rgba(255,255,255,.5)', marginBottom: 8 }}>
               <span>Home</span><span>›</span><span>Blog</span><span>›</span><span style={{ color: 'rgba(255,255,255,.8)' }}>Fiberglass vs. Tacky Panel Filters</span>
             </div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#ececec', fontSize: 14, fontWeight: 600 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'rgba(255,255,255,.6)', fontSize: 14, fontWeight: 600 }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                 <path d="m12 19-7-7 7-7" />
                 <path d="M19 12H5" />

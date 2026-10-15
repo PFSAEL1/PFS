@@ -5,9 +5,8 @@ import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { Hero } from '@/components/Hero';
-import { HomeFilterFinder } from '@/components/HomeFilterFinder';
 import { StickyMobileCTA } from '@/components/StickyMobileCTA';
-import { organizationSchema, storeSchema, websiteSchema } from '@/lib/structuredData';
+import { organizationSchema, websiteSchema } from '@/lib/structuredData';
 import { Link } from 'wouter';
 import { ClipboardList, Package, RefreshCw } from 'lucide-react';
 
@@ -26,7 +25,7 @@ const Footer = lazy(() =>
 
 const combinedSchema = {
   '@context': 'https://schema.org',
-  '@graph': [storeSchema, organizationSchema, websiteSchema],
+  '@graph': [organizationSchema, websiteSchema],
 };
 
 function DeferredHomeSection({
@@ -84,11 +83,6 @@ export default function Home() {
         <SocialProofBanner />
       </div>
       <Hero />
-      <section className="relative z-10 px-4 pb-16 pt-8">
-        <div className="mx-auto max-w-7xl">
-          <HomeFilterFinder />
-        </div>
-      </section>
 
       {/* 2. Trust strip is inside SocialProofBanner — bg handled there */}
 
@@ -108,47 +102,45 @@ export default function Home() {
             Every filter ships from the same team that builds the booths.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {/* Three large rectangles: Intake Blankets · Exhaust Filters · Intake Pads */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
               {
-                title: 'Exhaust',
-                subtitle: 'Fiberglass arrestors and exhaust rolls',
-                image: '/images/home_exhaust_filters-640.webp',
-                srcSet: '/images/home_exhaust_filters-640.webp 640w, /images/home_exhaust_filters-960.webp 960w',
-                alt: 'PFS booth interior with a fiberglass exhaust filter wall',
-                href: '/exhaust-filters',
-                cta: 'Shop exhaust',
-              },
-              {
-                title: 'Intake',
-                subtitle: 'Tacky panels and intake pads',
-                image: '/images/home_intake_pads-640.webp',
-                srcSet: '/images/home_intake_pads-640.webp 640w, /images/home_intake_pads-960.webp 960w',
-                alt: 'PFS Zenith booth with green ceiling intake pads installed',
-                href: '/intake-filters',
-                cta: 'Shop intake',
-              },
-              {
-                title: 'Ceiling',
-                subtitle: 'Diffusion blankets for downdraft booths',
+                title: 'Intake Blankets',
+                subtitle: 'Overhead ceiling intake filtration',
                 image: '/images/home_intake_blankets-640.webp',
                 srcSet: '/images/home_intake_blankets-640.webp 640w, /images/home_intake_blankets-960.webp 960w',
                 alt: 'Aircraft in a PFS downdraft booth with ceiling intake blankets overhead',
-                href: '/ceiling-filters',
-                cta: 'Shop ceiling',
+                href: '/category/ceiling-blankets',
+                cta: 'Shop Intake Blankets',
               },
               {
-                title: 'Prefilters',
-                subtitle: 'First-stage media ahead of the primary filter',
-                image: '/images/filters/pre-filters.webp',
-                srcSet: '/images/filters/pre-filters.webp 800w',
-                alt: 'Paint booth prefilter media',
-                href: '/shop?category=pre-filters',
-                cta: 'Shop prefilters',
+                title: 'Exhaust Filters',
+                subtitle: 'High-capacity fiberglass exhaust media',
+                image: '/images/home_exhaust_filters-640.webp',
+                srcSet: '/images/home_exhaust_filters-640.webp 640w, /images/home_exhaust_filters-960.webp 960w',
+                alt: 'PFS booth interior with a fiberglass exhaust filter wall',
+                href: '/category/fiberglass-arrestors',
+                cta: 'Shop Exhaust Filters',
+              },
+              {
+                title: 'Intake Pads',
+                subtitle: 'Diffusion pads for clean, even airflow',
+                image: '/images/home_intake_pads-640.webp',
+                srcSet: '/images/home_intake_pads-640.webp 640w, /images/home_intake_pads-960.webp 960w',
+                alt: 'PFS Zenith booth with green ceiling intake pads installed',
+                href: '/category/tacky-panels',
+                cta: 'Shop Intake Pads',
               },
             ].map((card) => (
               <Link key={card.title} href={card.href}>
-                <div className="relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-[#0081f2]/70 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(0,129,242,0.35)] transition-[transform,box-shadow,border-color] duration-200 h-[320px] md:h-[420px]">
+                <div className="relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color] duration-200 h-[360px] md:h-[520px]">
+                  <picture className="contents">
+                  <source
+                    type="image/avif"
+                    srcSet={card.srcSet.replaceAll('.webp', '.avif')}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  />
                   <img
                     src={card.image}
                     srcSet={card.srcSet}
@@ -160,6 +152,7 @@ export default function Home() {
                     loading="lazy"
                     decoding="async"
                   />
+                  </picture>
                   <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 55%, transparent 100%)' }} />
                   <div className="absolute bottom-5 left-5 right-5 z-10">
                     <p className="text-white font-bold text-xl leading-tight">{card.title}</p>
@@ -174,12 +167,15 @@ export default function Home() {
       </section>
 
 
-      <DeferredHomeSection minHeight={520}>
-        <TopMovers />
-      </DeferredHomeSection>
-
+      {/* 4. Shop by Category */}
       <DeferredHomeSection minHeight={900}>
         <CategoryNavigation />
+      </DeferredHomeSection>
+
+
+      {/* 5. Top Movers */}
+      <DeferredHomeSection minHeight={520}>
+        <TopMovers />
       </DeferredHomeSection>
 
 
@@ -262,22 +258,29 @@ export default function Home() {
       </section>
 
 
+      {/* 8. Membership Banner — raised */}
       <section className="section-raised tex-grain py-16 px-4">
-        <div className="max-w-5xl mx-auto rounded-2xl border border-white/[0.08] bg-white/[0.02] p-8 md:p-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8ec5ff]">Subscribe &amp; Save</p>
-          <h2 className="mt-3 max-w-2xl text-2xl font-semibold text-white md:text-3xl">
-            Monthly reorders on eligible products, confirmed at checkout.
-          </h2>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/65">
-            Eligible products can be purchased on a monthly Shopify subscription with 5% off. The subscription terms are shown and confirmed at checkout, one-time purchase stays available, and eligible subscriptions are managed through the Shopify account portal.
-          </p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link href="/shop" className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[#0081f2] px-5 text-sm font-semibold text-white hover:bg-[#1a91ff]">
-              Shop eligible filters
+        <div className="max-w-4xl mx-auto px-6 bg-white/[0.02] border border-white/[0.08] rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+          {/* Left */}
+          <div>
+            <span className="eyebrow-brand border rounded-full text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
+              Filter Membership
+            </span>
+            <h2 className="text-white text-xl font-semibold mt-3 leading-snug">
+              Set it up once. Never run out again.
+            </h2>
+            <p className="text-white/55 text-sm mt-2 max-w-sm">
+              Organize repeat purchasing with booth-specific tracking, priority support, and plan benefits.
+            </p>
+          </div>
+          {/* Right */}
+          <div className="flex-shrink-0 flex flex-col items-center gap-2">
+            <Link href="/memberships">
+              <span className="inline-block border border-transparent bg-blue-600 hover:bg-blue-500 hover:border-blue-500/50 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] text-white px-6 py-3 rounded-lg font-medium text-sm transition-[transform,box-shadow,background-color,border-color] duration-200 whitespace-nowrap cursor-pointer">
+                See Membership Plans →
+              </span>
             </Link>
-            <Link href="/paint-booth-filters" className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/20 px-5 text-sm font-semibold text-white hover:bg-white/10">
-              Read how Subscribe &amp; Save works
-            </Link>
+            <span className="text-white/30 text-xs text-center">Starting at $29/mo</span>
           </div>
         </div>
       </section>

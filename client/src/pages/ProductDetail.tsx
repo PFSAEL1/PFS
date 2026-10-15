@@ -29,6 +29,7 @@ import { usePricing } from '@/hooks/usePricing';
 import {
   DEFAULT_PRODUCT_IMAGE,
   getProductFallbackImage,
+  localAvifSrcSet,
   shopifyImageAltText,
   shopProductCardImageUrl,
   shopProductCardImageSrcSet,
@@ -131,7 +132,7 @@ export default function ProductDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#040404] pb-28 text-white md:pb-0">
+      <div className="min-h-screen bg-[#040404] text-white">
         <Navigation />
         <div className="flex items-center justify-center min-h-[60vh]">
           <Loader2 className="h-10 w-10 animate-spin text-blue-400" />
@@ -143,7 +144,7 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-[#040404] pb-28 text-white md:pb-0">
+      <div className="min-h-screen bg-[#040404] text-white">
         <Navigation />
         <div className="container mx-auto px-4 pt-32 pb-16 text-center">
           <Package className="h-16 w-16 mx-auto mb-4 text-white/50 opacity-30" />
@@ -175,6 +176,7 @@ export default function ProductDetail() {
   const mainImageSrcSet = selectedImage === 0
     ? shopProductCardImageSrcSet(handle || '', mainImage)
     : shopifyImageSrcSet(mainImage, [320, 480, 640, 800]);
+  const mainImageAvif = localAvifSrcSet(mainImageDisplayUrl, mainImageSrcSet);
   const mainImageSeoSource = (isKochProduct || isParkerCase || isAfcCase) && selectedImage === 0
     ? shopProductCardImageUrl(handle || '', mainImage, 800)
     : mainImage;
@@ -316,6 +318,10 @@ export default function ProductDetail() {
               onMouseLeave={() => setZoom((z) => ({ ...z, show: false }))}
             >
               <ProductBadges badges={getProductBadges(product)} />
+              <picture className="block h-full w-full">
+              {mainImageAvif && (
+                <source type="image/avif" srcSet={mainImageAvif} sizes="(min-width: 1024px) 50vw, 100vw" />
+              )}
               <img
                 src={mainImageDisplayUrl}
                 srcSet={mainImageSrcSet}
@@ -328,6 +334,7 @@ export default function ProductDetail() {
                 decoding="async"
                 className={`relative w-full h-full ${isMembershipProduct ? 'object-contain p-6 md:p-10' : isKochProduct ? 'max-h-[400px] max-w-[400px] object-contain' : isAfcCase ? 'object-contain p-4 md:p-6' : 'object-cover'}`}
               />
+              </picture>
               {/* Zoom-detail circle (desktop) */}
               <div
                 className={`pointer-events-none absolute hidden md:block h-44 w-44 rounded-full border-2 border-white/70 shadow-2xl ring-1 ring-black/30 transition-opacity duration-150 ${zoom.show ? 'opacity-100' : 'opacity-0'}`}
@@ -369,8 +376,9 @@ export default function ProductDetail() {
           <div>
             <h1 className={`text-3xl md:text-4xl font-extrabold mb-3 ${isParkerCase || isAfcCase ? 'pr-16 md:pr-0' : ''}`}>{product.title}</h1>
 
-            <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="text-3xl font-bold text-[#0081f2]">${displayPrice.toFixed(2)}</span>
+            {/* Price display */}
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-3xl font-bold text-blue-400">${displayPrice.toFixed(2)}</span>
               {(purchaseOption === 'subscription' || (purchaseOption === 'one-time' && isMember)) && (
                 <span className="text-lg line-through text-white/40">${basePrice.toFixed(2)}</span>
               )}
@@ -383,8 +391,6 @@ export default function ProductDetail() {
                 <Badge variant="secondary">Out of Stock</Badge>
               )}
             </div>
-
-            <ProductFacts title={product.title} variantTitle={selectedVariant?.title || ''} description={product.description || ''} />
 
             {isParkerCase ? (
               <p className="text-white/70 leading-relaxed mb-6">{PARKER_SHORT_DESCRIPTION}</p>
@@ -507,26 +513,26 @@ export default function ProductDetail() {
             )}
 
             {/* Quantity + Add to Cart */}
-            <div className="mb-6 flex items-center gap-4">
-              <div className="flex items-center rounded-lg border border-white/10">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center border border-white/10 rounded-lg">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   aria-label="Decrease quantity"
-                  className="flex min-h-11 min-w-11 items-center justify-center hover:bg-white/5"
+                  className="px-3 py-2 hover:bg-accent transition-colors"
                 >
                   <Minus className="h-4 w-4" />
                 </button>
-                <span className="min-w-[3rem] px-4 text-center font-medium">{quantity}</span>
+                <span className="px-4 py-2 font-medium min-w-[3rem] text-center">{quantity}</span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
                   aria-label="Increase quantity"
-                  className="flex min-h-11 min-w-11 items-center justify-center hover:bg-white/5"
+                  className="px-3 py-2 hover:bg-accent transition-colors"
                 >
                   <Plus className="h-4 w-4" />
                 </button>
               </div>
               <Button
-                className="min-h-11 flex-1 gap-2 bg-[#0081f2] text-white hover:bg-[#1a91ff]"
+                className={`flex-1 gap-2 bg-blue-500 hover:bg-blue-500/90 text-white`}
                 size="lg"
                 onClick={handleAddToCart}
                 disabled={!inStock}
@@ -609,48 +615,7 @@ export default function ProductDetail() {
       </section>
 
 
-      <div className="pfs-mobile-atc fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-black/95 px-4 py-3 md:hidden" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
-        <div className="mx-auto flex max-w-7xl items-center gap-3">
-          <div className="min-w-0">
-            <p className="text-lg font-bold leading-none text-[#0081f2]">${displayPrice.toFixed(2)}</p>
-            <p className="mt-1 truncate text-xs text-white/55">{quantity} × {selectedVariant?.title && selectedVariant.title !== 'Default Title' ? selectedVariant.title : 'case'}</p>
-          </div>
-          <Button
-            className="min-h-11 flex-1 bg-[#0081f2] text-white hover:bg-[#1a91ff]"
-            onClick={handleAddToCart}
-            disabled={!inStock}
-          >
-            {!inStock ? 'Out of Stock' : purchaseOption === 'subscription' ? 'Subscribe' : 'Add to Cart'}
-          </Button>
-        </div>
-      </div>
-
       <DeferredFooter />
     </div>
-  );
-}
-
-function ProductFacts({ title, variantTitle, description }: { title: string; variantTitle: string; description: string }) {
-  const source = `${variantTitle} ${title} ${description}`;
-  const dimension = source.match(/\d+(?:\.\d+)?\s*[x×]\s*\d+(?:\.\d+)?(?:\s*[x×]\s*\d+(?:\.\d+)?)?/i)?.[0];
-  const caseMatch = source.match(/case of\s*(\d+)/i) || source.match(/(\d+)\s*\/\s*cs/i);
-  const caseQty = caseMatch?.[1];
-  if (!dimension && !caseQty) return null;
-
-  return (
-    <dl className="mb-6 grid grid-cols-2 gap-3">
-      {dimension && (
-        <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-          <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">Dimensions</dt>
-          <dd className="mt-1 text-sm font-semibold text-white">{dimension}</dd>
-        </div>
-      )}
-      {caseQty && (
-        <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-          <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">Case quantity</dt>
-          <dd className="mt-1 text-sm font-semibold text-white">{caseQty} / case</dd>
-        </div>
-      )}
-    </dl>
   );
 }

@@ -81,7 +81,7 @@ export default function Shop() {
             <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-white">
               Shop Paint Booth Filters
             </h1>
-            <p className="mx-auto max-w-[68ch] text-base leading-[1.6] text-white md:text-lg">
+            <p className="text-lg text-white/50 max-w-3xl mx-auto">
               Browse <strong>spray booth filters</strong> and <strong>paint arrestors</strong> for intake, ceiling, prefilter, and exhaust stages. Confirm the booth position and exact dimensions before ordering.
             </p>
           </div>
@@ -94,18 +94,18 @@ export default function Shop() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-6 flex flex-col gap-4">
             <div>
-              <label htmlFor="shop-search" className="mb-2 block text-sm font-medium uppercase tracking-[0.14em] text-[#e8e8e8]">Search</label>
+              <label htmlFor="shop-search" className="mb-2 block text-sm text-white/70">Search</label>
               <input
                 id="shop-search"
                 type="search"
                 value={textQuery}
                 onChange={(event) => setTextQuery(event.target.value)}
                 placeholder="Search by size, material, or name"
-                className="min-h-11 w-full rounded-lg border border-white/30 bg-black/40 px-4 text-base text-white outline-none placeholder:text-[#cfcfcf] focus:border-[#8ec5ff]"
+                className="min-h-11 w-full rounded-lg border border-white/15 bg-black/40 px-4 text-base text-white outline-none placeholder:text-white/40 focus:border-blue-500"
               />
             </div>
             <div>
-              <p id="shop-type-label" className="mb-2 text-sm font-medium uppercase tracking-[0.14em] text-[#e8e8e8]">Type</p>
+              <p id="shop-type-label" className="mb-2 text-sm text-white/70">Type</p>
               <div className="flex flex-wrap gap-2" role="group" aria-labelledby="shop-type-label">
                 {SHOP_FILTERS.map((filter) => {
                   const active = (categoryFilter || '') === filter.value || (filter.value === 'pre-filters' && (categoryFilter === 'prefilter' || categoryFilter === 'prefilters'));
@@ -115,7 +115,7 @@ export default function Shop() {
                       type="button"
                       aria-pressed={active}
                       onClick={() => writeFilters(filter.value || null, sizeFilter)}
-                      className={`min-h-11 rounded-full border px-4 text-base font-medium ${active ? 'border-[#0066cc] bg-[#0066cc] text-white' : 'border-white/40 text-white hover:border-white'}`}
+                      className={`min-h-11 rounded-full border px-4 text-sm font-medium ${active ? 'border-blue-600 bg-blue-600 text-white' : 'border-white/15 bg-black/40 text-white/80 hover:border-white/40'}`}
                     >
                       {filter.label}
                     </button>
@@ -124,12 +124,12 @@ export default function Shop() {
               </div>
             </div>
             <div>
-              <label htmlFor="shop-size" className="mb-2 block text-sm font-medium uppercase tracking-[0.14em] text-[#e8e8e8]">Size</label>
+              <label htmlFor="shop-size" className="mb-2 block text-sm text-white/70">Size</label>
               <select
                 id="shop-size"
                 value={sizeFilter || ''}
                 onChange={(event) => writeFilters(categoryFilter, event.target.value || null)}
-                className="min-h-11 w-full rounded-lg border border-white/30 bg-[#111] px-3 text-base text-white sm:max-w-xs"
+                className="min-h-11 w-full rounded-lg border border-white/15 bg-black/40 px-3 text-base text-white sm:max-w-xs"
               >
                 <option value="">All sizes</option>
                 {sizeOptions.map((size) => (

@@ -1,7 +1,6 @@
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { ShoppingBag, Phone } from 'lucide-react';
-import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 
 export const StickyMobileCTA = () => {
   return (
@@ -12,7 +11,7 @@ export const StickyMobileCTA = () => {
           Shop Now
         </Button>
       </Link>
-      <a href={PHONE_TEL} className="flex-1">
+      <a href="tel:855-496-7969" className="flex-1">
         <Button variant="outline" className="w-full gap-2" size="sm">
           <Phone className="h-4 w-4" />
           Call Us

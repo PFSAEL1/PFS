@@ -1,5 +1,4 @@
 const loaders: Record<string, () => Promise<unknown>> = {
-  '/': () => import('@/pages/Home'),
   '/shop': () => import('@/pages/Shop'),
   '/blog': () => import('@/pages/Blog'),
   '/contact': () => import('@/pages/Contact'),
@@ -81,23 +80,6 @@ export function installRoutePrefetch() {
   document.addEventListener('pointerover', fromEvent, { passive: true });
   document.addEventListener('focusin', fromEvent);
   document.addEventListener('touchstart', fromEvent, { passive: true });
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const anchor = entry.target;
-      if (anchor instanceof HTMLAnchorElement) prefetchRoute(anchor.getAttribute('href'));
-      observer.unobserve(entry.target);
-    });
-  }, { rootMargin: '200px' });
-
-  const scan = () => {
-    document.querySelectorAll('a[href^="/"]').forEach((anchor) => observer.observe(anchor));
-  };
-
-  scan();
-  const mutations = new MutationObserver(scan);
-  mutations.observe(document.body, { childList: true, subtree: true });
 }
 
 declare global {

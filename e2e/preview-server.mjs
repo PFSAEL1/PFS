@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
+import zlib from 'node:zlib';
 
 const root = path.resolve('dist/public');
 const port = Number(process.env.PORT || 4173);
@@ -13,6 +14,7 @@ const types = {
   '.xml': 'application/xml; charset=utf-8',
   '.txt': 'text/plain; charset=utf-8',
   '.webp': 'image/webp',
+  '.avif': 'image/avif',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
@@ -31,12 +33,24 @@ function safeFile(pathname) {
   return file;
 }
 
-function sendFile(res, status, file) {
+const compressible = new Set(['.html', '.js', '.css', '.json', '.xml', '.txt', '.svg']);
+
+function sendFile(req, res, status, file) {
   const body = fs.readFileSync(file);
-  res.writeHead(status, {
-    'Content-Type': types[path.extname(file)] || 'application/octet-stream',
+  const type = types[path.extname(file)] || 'application/octet-stream';
+  const headers = {
+    'Content-Type': type,
     'Cache-Control': 'no-cache',
-  });
+  };
+  const accept = req.headers['accept-encoding'] || '';
+  if (compressible.has(path.extname(file)) && accept.includes('gzip') && body.length > 1024) {
+    headers['Content-Encoding'] = 'gzip';
+    headers.Vary = 'Accept-Encoding';
+    res.writeHead(status, headers);
+    res.end(zlib.gzipSync(body));
+    return;
+  }
+  res.writeHead(status, headers);
   res.end(body);
 }
 
@@ -57,13 +71,13 @@ const server = http.createServer((req, res) => {
 
   for (const candidate of candidates) {
     if (candidate.startsWith(root) && fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
-      sendFile(res, 200, candidate);
+      sendFile(req, res, 200, candidate);
       return;
     }
   }
 
   const notFound = path.join(root, '404.html');
-  if (fs.existsSync(notFound)) sendFile(res, 404, notFound);
+  if (fs.existsSync(notFound)) sendFile(req, res, 404, notFound);
   else {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not found');

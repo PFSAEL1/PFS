@@ -448,7 +448,7 @@ export default function Auth() {
             {/* Spacer for the logo above */}
             <div className="flex justify-center mb-6" style={{ height: '80px' }} />
 
-            <h1 className="text-white text-center text-2xl font-semibold mb-4">
+            <h1 className="text-white/70 text-sm text-center mb-4 font-normal normal-case tracking-[0.02em]">
               {activeTab === 'signin' ? 'Sign in to your account' : 'Create your PFS Filters account'}
             </h1>
 
@@ -676,7 +676,7 @@ export default function Auth() {
 
           {/* Form content with staggered fade-in */}
           <div className={animState !== 'intro' ? 'form-fade-in' : ''} style={{ opacity: animState === 'intro' ? 0 : undefined }}>
-            <h1 className="text-white text-center text-2xl font-semibold mb-4">
+            <h1 className="text-white/50 text-sm text-center mb-4 font-normal normal-case tracking-[0.02em]">
               {activeTab === 'signin' ? 'Sign in to your account' : 'Create your PFS Filters account'}
             </h1>
 

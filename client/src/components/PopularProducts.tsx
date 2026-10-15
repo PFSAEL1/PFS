@@ -66,7 +66,7 @@ export const PopularProducts = () => {
           <h2 className="text-2xl md:text-3xl font-extrabold text-white pfs-heading-animate">
             Popular Products
           </h2>
-          <p className="text-white/30 text-sm mt-1">Current catalog, with prices on each product</p>
+          <p className="text-white/30 text-sm mt-1">Intake, exhaust, ceiling, and prefilter media</p>
         </div>
         <div className="flex items-center gap-3">
           {/* Desktop arrow controls */}

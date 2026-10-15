@@ -17,7 +17,7 @@ import { getProductBadges } from '@/lib/productSignals';
 import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
 import { TierMedal } from '@/components/TierMedal';
 import { consumableProducts } from '@/pages/Consumables';
-import { shopProductCardImageSrcSet, shopProductCardImageUrl, shopifyImageAltText } from '@/lib/imageUrls';
+import { localAvifSrcSet, shopProductCardImageSrcSet, shopProductCardImageUrl, shopifyImageAltText } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = '/images/filters/fiberglass-arrestors.png';
 
@@ -192,6 +192,9 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter, textQuery }: Shopi
           const variant = product.node.variants.edges[0]?.node;
           const imageNode = product.node.images.edges[0]?.node;
           const image = imageNode?.url || FALLBACK_IMAGE;
+          const cardSrc = shopProductCardImageUrl(product.node.handle, image, 480);
+          const cardSrcSet = shopProductCardImageSrcSet(product.node.handle, image);
+          const cardAvif = localAvifSrcSet(cardSrc, cardSrcSet);
           const shouldLoadEarly = index < 2;
           const shouldPrioritizeImage = index === 0;
           const originalPrice = variant?.price.amount ? parseFloat(variant.price.amount) : 0;
@@ -221,19 +224,28 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter, textQuery }: Shopi
                       </div>
                     </div>
                   )}
-                  <img
-                    src={shopProductCardImageUrl(product.node.handle, image, 480)}
-                    srcSet={shopProductCardImageSrcSet(product.node.handle, image)}
-                    sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
-                    alt={shopifyImageAltText(imageNode, product.node.title)}
-                    className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
-                    width={480}
-                    height={480}
-                    loading={shouldLoadEarly ? 'eager' : 'lazy'}
-                    fetchPriority={shouldPrioritizeImage ? 'high' : 'auto'}
-                    decoding="async"
-                    style={{ filter: 'brightness(0.95) contrast(1.05)' }}
-                  />
+                  <picture className="block h-full w-full">
+                    {cardAvif && (
+                      <source
+                        type="image/avif"
+                        srcSet={cardAvif}
+                        sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
+                      />
+                    )}
+                    <img
+                      src={cardSrc}
+                      srcSet={cardSrcSet}
+                      sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
+                      alt={shopifyImageAltText(imageNode, product.node.title)}
+                      className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
+                      width={480}
+                      height={480}
+                      loading={shouldLoadEarly ? 'eager' : 'lazy'}
+                      fetchPriority={shouldPrioritizeImage ? 'high' : 'auto'}
+                      decoding="async"
+                      style={{ filter: 'brightness(0.95) contrast(1.05)' }}
+                    />
+                  </picture>
                 </div>
               </Link>
               <div className="p-4">

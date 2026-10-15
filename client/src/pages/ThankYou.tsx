@@ -6,7 +6,6 @@ import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 
 export default function ThankYou() {
   useEffect(() => {
@@ -72,10 +71,10 @@ export default function ThankYou() {
             <p className="text-sm text-white/50 mb-4">Need to reach us right away?</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href={PHONE_TEL}
+                href="tel:855-496-7969"
                 className="inline-flex items-center justify-center gap-2 text-white hover:text-blue-400 transition-colors font-semibold"
               >
-                <Phone className="h-4 w-4 text-blue-400" /> {PHONE_DISPLAY}
+                <Phone className="h-4 w-4 text-blue-400" /> 855-496-7969
               </a>
             </div>
           </div>
