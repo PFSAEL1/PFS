@@ -3,7 +3,6 @@
 import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
-import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { Hero } from '@/components/Hero';
 import { StickyMobileCTA } from '@/components/StickyMobileCTA';
 import { organizationSchema, websiteSchema } from '@/lib/structuredData';
@@ -78,13 +77,7 @@ export default function Home() {
       />
       <Navigation />
 
-      {/* 1. Hero — untouched */}
-      <div className="pt-24">
-        <SocialProofBanner />
-      </div>
       <Hero />
-
-      {/* 2. Trust strip is inside SocialProofBanner — bg handled there */}
 
       {/* 3. Filters in Action — three feature rectangles */}
       <section className="section-glow py-20 px-4">

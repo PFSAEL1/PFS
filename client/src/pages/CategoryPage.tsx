@@ -22,7 +22,9 @@ import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
-import { createBreadcrumbSchema } from '@/lib/structuredData';
+import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
+import { KeywordGuide } from '@/components/KeywordGuide';
+import { categoryKeywords } from '@/data/keywordPages';
 import { shopifyImageAltText, shopProductCardImageSrcSet, shopProductCardImageUrl } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = '/images/filters/fiberglass-arrestors.png';
@@ -167,6 +169,7 @@ export default function CategoryPage() {
     setCartOpen(true);
   };
 
+  const guide = slug ? categoryKeywords[slug] : undefined;
   const title = categoryInfo?.title || (slug ? slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Category');
   const description = categoryInfo?.description || 'Browse our selection of premium paint booth filters.';
   const position = categoryInfo?.position || '';
@@ -189,7 +192,7 @@ export default function CategoryPage() {
         title={`${title} - Paint Booth Filters | PFS Filters`}
         description={description}
         canonical={`https://www.pfsfilters.com/category/${slug}`}
-        structuredData={breadcrumbSchema}
+        structuredData={guide ? { '@context': 'https://schema.org', '@graph': [breadcrumbSchema, createFAQSchema(guide.faqs)] } : breadcrumbSchema}
       />
       <Navigation />
 
@@ -221,6 +224,7 @@ export default function CategoryPage() {
             <p className="text-lg text-white/70 max-w-2xl">
               {description}
             </p>
+            {guide ? <KeywordGuide paragraphs={guide.paragraphs} faqs={guide.faqs} links={guide.links} /> : null}
           </div>
         </div>
       </section>

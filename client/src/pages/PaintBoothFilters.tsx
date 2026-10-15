@@ -3,73 +3,19 @@ import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { Breadcrumb } from '@/components/Breadcrumb';
 import { StickyMobileCTA } from '@/components/StickyMobileCTA';
+import { KeywordGuide } from '@/components/KeywordGuide';
+import { sprayKeyword } from '@/data/keywordPages';
+import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
 import { Button } from '@/components/ui/button';
 import { Phone, Truck, Package, ShieldCheck, RefreshCw, ChevronDown, ChevronUp, Shield, AlertTriangle, ArrowRight, Building2, MapPin } from 'lucide-react';
 
 // FAQ Schema JSON-LD
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How fast do filters ship?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Stocked items typically process in 1–2 business days. Custom, specialty, freight, and backordered items may require additional time; confirm the current product page or contact PFS Filters for an order-specific estimate."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is Subscribe & Save?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Eligible products can be purchased on a monthly Shopify subscription with 5% off. The subscription terms must be shown and confirmed at checkout, and customers can manage eligible subscriptions through the Shopify account portal."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I know which filter fits my booth?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Confirm the booth manufacturer and model, filter position, and actual dimensions. Browse by filter type or booth brand, then contact PFS Filters when a part number or fitment detail needs review."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you cover all booth brands or just PFS?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "PFS Filters provides catalog and replacement guidance for PFS and multiple major booth brands, including Garmat, Accudraft, GFS, Col-Met, and Blowtherm. Compatibility depends on the booth model, stage, and dimensions."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How often should I replace exhaust filters?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "There is no universal replacement interval. Follow the booth and filter manufacturer instructions, differential-pressure or manometer readings, operating conditions, coating load, and documented visual inspections."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does buying a filter make a booth CARB or OSHA compliant?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No filter by itself makes a facility compliant. Compliance depends on the complete booth, ventilation, operating conditions, coating process, maintenance, permits, and applicable rules. Request product documentation and consult a qualified professional for your facility."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I order in bulk?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Bulk pricing available. Call 855-496-7969 to discuss pricing for your facility's volume."
-      }
-    }
-  ]
-};
+const breadcrumbSchema = createBreadcrumbSchema([
+  { name: 'Home', url: 'https://www.pfsfilters.com/' },
+  { name: 'Spray Booth Filters', url: 'https://www.pfsfilters.com/paint-booth-filters' },
+]);
 
 const FAQS = [
   { q: "How fast do filters ship?", a: "Stocked items typically process in 1–2 business days. Custom, specialty, freight, and backordered items may require additional time; confirm the current product page or contact PFS Filters for an order-specific estimate." },
@@ -80,6 +26,17 @@ const FAQS = [
   { q: "Does buying a filter make a booth CARB or OSHA compliant?", a: "No filter by itself makes a facility compliant. Compliance depends on the complete booth, ventilation, operating conditions, coating process, maintenance, permits, and applicable rules. Request product documentation and consult a qualified professional for your facility." },
   { q: "Can I order in bulk?", a: "Yes. Bulk pricing available. Call 855-496-7969 to discuss pricing for your facility's volume." },
 ];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    breadcrumbSchema,
+    createFAQSchema([
+      ...FAQS.map((faq) => ({ question: faq.q, answer: faq.a })),
+      ...sprayKeyword.faqs,
+    ]),
+  ],
+};
 
 const BRANDS = [
   { label: 'PFS Spray Booths', href: '/pfs-spray-booth-filters' },
@@ -108,8 +65,8 @@ export default function PaintBoothFilters() {
     <div className="min-h-screen bg-[#040404]">
       <Navigation />
       <SEO
-        title="Paint Booth Filters by Type, Size & Booth | PFS Filters"
-        description="Browse paint booth intake, ceiling, prefilter, and exhaust media by type, size, and booth brand. Get sizing help and 5% Subscribe & Save on eligible products."
+        title="Spray Booth Filters | Paint Booth Filtration by Stage"
+        description="Spray booth filters for intake, ceiling, prefilter, and exhaust. Compare arrestor pads, rolls, tacky panels, and ceiling media, then confirm the measured opening."
         canonical="https://www.pfsfilters.com/paint-booth-filters"
         structuredData={faqSchema}
       />
@@ -122,7 +79,8 @@ export default function PaintBoothFilters() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,153,255,0.08)_0%,transparent_70%)]" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24 w-full text-center">
+        <div className="relative z-10 mx-auto w-full max-w-3xl px-4 py-16 text-left sm:px-6 md:py-24">
+          <Breadcrumb items={[{ label: 'Spray Booth Filters' }]} />
           {/* Eyebrow badge */}
           <div className="eyebrow-brand inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm font-medium mb-6">
             <Shield className="w-3.5 h-3.5" />
@@ -130,8 +88,7 @@ export default function PaintBoothFilters() {
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
-            Paint Booth Filters for Intake, Ceiling,{' '}
-            <span className="text-blue-400">Prefilter & Exhaust Stages</span>
+            Spray Booth Filters for Intake, Ceiling, Prefilter and Exhaust
           </h1>
 
           <p className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto mb-8 leading-relaxed">
@@ -160,6 +117,12 @@ export default function PaintBoothFilters() {
               </Button>
             </a>
           </div>
+        </div>
+      </section>
+
+      <section className="section-raised px-4 py-12">
+        <div className="mx-auto max-w-3xl">
+          <KeywordGuide paragraphs={sprayKeyword.paragraphs} faqs={sprayKeyword.faqs} links={sprayKeyword.links} />
         </div>
       </section>
 

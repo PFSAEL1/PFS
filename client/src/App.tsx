@@ -58,6 +58,7 @@ const BrandDetail = lazyRoute(() => import('./pages/BrandDetail'));
 const ShopByBoothType = lazyRoute(() => import('./pages/ShopByBoothType'));
 const ShopByFilterType = lazyRoute(() => import('./pages/ShopByFilterType'));
 const FilterFinder = lazyRoute(() => import('./pages/FilterFinder'));
+const FilterSizingGuide = lazyRoute(() => import('./pages/FilterSizingGuide'));
 const FAQPage = lazyRoute(() => import('./pages/FAQPage'));
 
 const finderFallbackTypes = [
@@ -164,7 +165,7 @@ function FilterScannerLoadingFallback() {
             <article style={{ minHeight: 260, borderRadius: 14, border: '1px solid rgba(59,130,246,.22)', background: 'linear-gradient(135deg,rgba(59,130,246,.07),rgba(59,130,246,.12))', padding: 32, textAlign: 'center' }}>
               <h2 style={{ margin: '0 0 10px', fontSize: 28, lineHeight: 1, fontWeight: 800 }}>Available on Gold & Platinum Plans</h2>
               <p style={{ maxWidth: 448, margin: '0 auto 22px', color: 'rgba(255,255,255,.58)', fontSize: 16, lineHeight: 1.55 }}>
-                The AI Filter Scanner is included with Gold and Platinum memberships. Upgrade today to unlock instant filter identification, plus discounts on every order.
+                Filter Scanner is included with Gold and Platinum memberships. It narrows catalog matches from a photo. Confirm the stage, label, and size before you order.
               </p>
               <div style={{ display: 'flex', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
                 <span style={{ minHeight: 40, minWidth: 184, borderRadius: 8, background: '#3b82f6', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14, fontWeight: 800 }}>View Membership Plans</span>
@@ -849,6 +850,7 @@ function Router() {
       <Route path="/shop-by-type" component={ShopByType} />
       <Route path="/filter-compatibility" component={FilterFinder} />
       <Route path="/filter-finder" component={FilterFinder} />
+      <Route path="/how-to-size-paint-booth-filters" component={FilterSizingGuide} />
       <Route path="/brands" component={Brands} />
       <Route path="/shop-by-booth" component={ShopByBooth} />
       <Route path="/shop-by-booth/:slug" component={BrandDetail} />

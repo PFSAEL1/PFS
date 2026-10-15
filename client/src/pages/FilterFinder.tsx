@@ -183,6 +183,9 @@ export default function FilterFinder() {
               {step === 3 && `Pick your ${selectedBrand?.name} model`}
               {step === 4 && 'Your Filter Kit'}
             </h1>
+            <p className="mb-3 text-sm text-white/70">
+              Measure first. <Link href="/how-to-size-paint-booth-filters" className="text-[#0081f2] underline">How to size paint booth filters</Link>
+            </p>
             <p className="text-base md:text-lg text-white/70 max-w-2xl mx-auto">
               {step === 1 && 'Pick the booth airflow type that matches yours. We use this to narrow to brands and models that fit.'}
               {step === 2 && `Booth type: ${BOOTH_TYPES[selectedType!]?.label}. ${filteredBrands.length} brands make this booth type.`}

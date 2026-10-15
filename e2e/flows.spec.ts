@@ -54,6 +54,20 @@ test.describe('storefront flows', () => {
     expect(page.url()).toMatch(/checkout|shopify|myshopify/i);
   });
 
+  test('sizing guide and shop keyword copy are present', async ({ page }) => {
+    await page.goto('/how-to-size-paint-booth-filters');
+    await expect(page.getByRole('heading', { level: 1, name: 'How to Size Paint Booth Filters' })).toBeVisible();
+    await expect(page.getByRole('table')).toBeVisible();
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://www.pfsfilters.com/how-to-size-paint-booth-filters');
+    await page.goto('/shop');
+    await expect(page.getByRole('heading', { level: 1, name: 'Shop Paint Booth Filters' })).toBeVisible();
+    await expect(page.getByText(/20×20×2 22-gram/)).toBeVisible();
+    await page.goto('/category/fiberglass-arrestors');
+    await expect(page.getByRole('heading', { level: 1, name: 'Paint Arrestor Pads' })).toBeVisible();
+    await page.goto('/category/roll-media');
+    await expect(page.getByRole('heading', { level: 1, name: 'Paint Booth Filter Rolls' })).toBeVisible();
+  });
+
   test('contact quote form validates and submits', async ({ page }) => {
     await page.route('**/api/quote', async (route) => {
       const body = route.request().postDataJSON() as { email?: string; website?: string };

@@ -31,6 +31,7 @@ const loaders: Record<string, () => Promise<unknown>> = {
   '/california/carb-paint-booth-filter-compliance': () => import('@/pages/CaliforniaCarbCompliance'),
   '/faq': () => import('@/pages/FAQPage'),
   '/filter-finder': () => import('@/pages/FilterFinder'),
+  '/how-to-size-paint-booth-filters': () => import('@/pages/FilterSizingGuide'),
   '/filter-compatibility': () => import('@/pages/FilterFinder'),
   '/shop-by-booth': () => import('@/pages/ShopByBooth'),
   '/shop-by-booth-type': () => import('@/pages/ShopByBoothType'),

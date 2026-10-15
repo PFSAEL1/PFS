@@ -7,6 +7,8 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
 import { getImmediateShopifyProducts, listShopSizes } from '@/lib/productCatalog';
 import { LineupHeader } from '@/components/Lineup';
+import { KeywordGuide } from '@/components/KeywordGuide';
+import { shopKeyword } from '@/data/keywordPages';
 import faqData from '@/data/faqData.json';
 
 const ShopBelowFold = lazy(() =>
@@ -29,7 +31,7 @@ const shopFaqs = faqData.filter((item) => [
 
 const shopSchema = {
   '@context': 'https://schema.org',
-  '@graph': [breadcrumbSchema, createFAQSchema(shopFaqs)],
+  '@graph': [breadcrumbSchema, createFAQSchema([...shopFaqs, ...shopKeyword.faqs])],
 };
 
 const SHOP_FILTERS = [
@@ -67,8 +69,8 @@ export default function Shop() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Shop Paint Booth Filters, Intake & Exhaust Media"
-        description="Shop fiberglass paint arrestors, tacky intake panels, ceiling media, MERV filters, roll media, and booth-specific replacements. Stocked items typically process in 1–2 business days."
+        title="Paint Booth Filters | Arrestor Pads, Rolls, Intake and Ceiling"
+        description="Shop paint booth filters: 20×20×2 22-gram arrestor pads, 20×100 and 36×100 exhaust rolls, Paint Pockets, tacky panels, ceiling media, and MERV 10 prefilters."
         canonical="https://www.pfsfilters.com/shop"
         structuredData={shopSchema}
       />
@@ -83,9 +85,10 @@ export default function Shop() {
               Shop Paint Booth Filters
             </h1>
             <p className="text-lg text-white/50 max-w-3xl mx-auto">
-              Browse <strong>spray booth filters</strong> and <strong>paint arrestors</strong> for intake, ceiling, prefilter, and exhaust stages. Confirm the booth position and exact dimensions before ordering.
+              Browse spray booth filters and paint arrestors for intake, ceiling, prefilter, and exhaust stages. Confirm the booth position and exact dimensions before ordering.
             </p>
           </div>
+          <KeywordGuide paragraphs={shopKeyword.paragraphs} faqs={shopKeyword.faqs} links={shopKeyword.links} />
         </div>
       </section>
 
@@ -105,7 +108,7 @@ export default function Shop() {
                 className="min-h-11 w-full rounded-lg border border-white/15 bg-black/40 px-4 text-base text-white outline-none placeholder:text-white/40 focus:border-blue-500"
               />
             </div>
-            <div>
+            <div className="shop-chip-bar">
               <p id="shop-type-label" className="mb-2 text-sm text-white/70">Type</p>
               <div className="flex flex-wrap gap-2" role="group" aria-labelledby="shop-type-label">
                 {SHOP_FILTERS.map((filter) => {

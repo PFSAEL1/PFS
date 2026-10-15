@@ -15,7 +15,7 @@ import {
 } from '@/lib/shopify';
 import { getBundledProductByHandle } from '@/lib/productCatalog';
 import { useCartStore } from '@/stores/cartStore';
-import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredData';
+import { createProductSchema, createBreadcrumbSchema, organizationSchema } from '@/lib/structuredData';
 import { ShoppingCart, Loader2, Package, Truck, CircleHelp, ArrowLeft, Plus, Minus, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import { ProductSpecs } from '@/components/ProductSpecs';
@@ -278,7 +278,7 @@ export default function ProductDetail() {
         ogImageAlt={mainImageAlt}
         ogImageWidth={isKochProduct ? 960 : undefined}
         ogImageHeight={isKochProduct ? 960 : undefined}
-        structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, productSchema] }}
+        structuredData={{ '@context': 'https://schema.org', '@graph': [organizationSchema, breadcrumbSchema, productSchema] }}
       />
       <Navigation />
 

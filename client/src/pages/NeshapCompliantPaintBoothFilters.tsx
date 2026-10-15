@@ -20,7 +20,9 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { ShieldAlert, Plane, Phone, ArrowRight, Info, ExternalLink } from 'lucide-react';
 import { bundledShopifyProducts } from '@/lib/productCatalog';
-import { createBreadcrumbSchema } from '@/lib/structuredData';
+import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
+import { KeywordGuide } from '@/components/KeywordGuide';
+import { neshapKeyword } from '@/data/keywordPages';
 
 const SITE = 'https://www.pfsfilters.com';
 const PAGE_PATH = '/neshap-compliant-paint-booth-filters';
@@ -63,10 +65,10 @@ export default function NeshapCompliantPaintBoothFilters() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="NESHAP Paint Booth Filter Guide — Subpart 6H & Method 319"
-        description="Learn how EPA Subpart 6H and Method 319 relate to paint booth exhaust filtration, product evidence, and facility responsibilities."
+        title="NESHAP Filters for Paint Booth Exhaust"
+        description="NESHAP filters in shop language mean exhaust arrestors used with Subpart 6H and aerospace Method 319. A filter alone does not make a facility compliant."
         canonical="https://www.pfsfilters.com/neshap-compliant-paint-booth-filters"
-        structuredData={breadcrumbSchema}
+        structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, createFAQSchema(neshapKeyword.faqs)] }}
       />
       <Navigation />
 
@@ -84,13 +86,14 @@ export default function NeshapCompliantPaintBoothFilters() {
               <ShieldAlert className="h-3 w-3" /> EPA NESHAP
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 pfs-heading-animate leading-tight">
-              NESHAP Paint Booth Filter Guide — Standard &amp; Aerospace Systems
+              NESHAP Filters for Paint Booth Exhaust
             </h1>
             <p className="text-lg text-white/60 max-w-2xl pfs-sub-animate">
               How EPA NESHAP rules relate to spray booth exhaust filtration — the standard Subpart 6H
               surface-coating rule, the aerospace Method 319 test method, and the arrestor media PFS
               Filters stocks.
             </p>
+            <KeywordGuide paragraphs={neshapKeyword.paragraphs} faqs={neshapKeyword.faqs} links={neshapKeyword.links} />
           </div>
         </div>
       </section>

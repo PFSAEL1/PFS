@@ -6,7 +6,7 @@ import { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingBag, Menu, X, User, ChevronDown, Sparkles, Search } from 'lucide-react';
+import { ShoppingBag, Menu, X, User, ChevronDown, Search } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 
 const LOGO_URL = '/images/brands/pfs-logo-wide-420.webp';
@@ -204,6 +204,9 @@ export const Navigation = () => {
                     <Link href="/filter-finder" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
                       Filter Finder Tool
                     </Link>
+                    <Link href="/how-to-size-paint-booth-filters" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+                      How to Size a Filter
+                    </Link>
                     <Link href="/consumables" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
                       Consumables
                     </Link>
@@ -229,8 +232,8 @@ export const Navigation = () => {
               <Link href="/memberships" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
                 Memberships
               </Link>
-              <Link href="/filter-scanner" className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
-                <Sparkles className="w-4 h-4 text-[#4d9fff]" /> AI Scanner
+              <Link href="/filter-scanner" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
+                Filter Scanner
               </Link>
               <Link href="/contact" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
                 Contact
@@ -318,6 +321,7 @@ export const Navigation = () => {
               <Link href="/shop-by-size" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Size</Link>
               <Link href="/brands" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Brands</Link>
               <Link href="/filter-finder" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Filter Finder Tool</Link>
+              <Link href="/how-to-size-paint-booth-filters" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">How to Size a Filter</Link>
               <Link href="/consumables" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Consumables</Link>
               <Link href="/industries/automotive-paint-booth-filters" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Automotive Filters</Link>
               <Link href="/industries/aerospace-paint-booth-filters" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Aerospace & MRO Filters</Link>
@@ -325,7 +329,7 @@ export const Navigation = () => {
               <Link href="/memberships" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Memberships</Link>
               <Link href="/blog" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Blog</Link>
               <Link href="/filter-scanner" className="flex items-center gap-2 px-4 py-[20px] text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                <Sparkles className="w-4 h-4 text-[#4d9fff]" /> AI Scanner
+                Filter Scanner
               </Link>
               <Link href="/contact" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Contact</Link>
               {isAdmin && (
