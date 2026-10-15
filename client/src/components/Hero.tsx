@@ -87,6 +87,7 @@ export const Hero = () => {
               src={HERO_POSTER_DESKTOP}
               alt=""
               className="absolute inset-0 block h-full w-full object-cover object-[65%_center] md:object-center"
+              data-fit="cover"
               width={1600}
               height={900}
               loading="eager"

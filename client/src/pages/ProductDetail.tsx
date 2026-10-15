@@ -305,7 +305,7 @@ export default function ProductDetail() {
           {/* Images */}
           <div>
             <div
-              className={`group/zoom relative aspect-square overflow-hidden mb-4 cursor-zoom-in ${isKochProduct ? 'flex items-center justify-center' : ''}`}
+              className="product-frame group/zoom relative mb-4 aspect-square cursor-zoom-in"
               style={{ backgroundColor: '#111111', backgroundImage: 'radial-gradient(circle at 50% 42%, rgba(255,255,255,0.08), rgba(0,0,0,0) 62%)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px' }}
               onMouseMove={(e) => {
                 const r = e.currentTarget.getBoundingClientRect();
@@ -318,7 +318,7 @@ export default function ProductDetail() {
               onMouseLeave={() => setZoom((z) => ({ ...z, show: false }))}
             >
               <ProductBadges badges={getProductBadges(product)} />
-              <picture className="block h-full w-full">
+              <picture>
               {mainImageAvif && (
                 <source type="image/avif" srcSet={mainImageAvif} sizes="(min-width: 1024px) 50vw, 100vw" />
               )}
@@ -332,7 +332,7 @@ export default function ProductDetail() {
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                className={`relative w-full h-full ${isMembershipProduct ? 'object-contain p-6 md:p-10' : isKochProduct ? 'max-h-[400px] max-w-[400px] object-contain' : isAfcCase ? 'object-contain p-4 md:p-6' : 'object-cover'}`}
+                className="relative"
               />
               </picture>
               {/* Zoom-detail circle (desktop) */}
@@ -355,16 +355,13 @@ export default function ProductDetail() {
                   <button
                     key={i}
                     onClick={() => setSelectedImage(i)}
-                    className={`w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-colors ${selectedImage === i ? 'border-primary' : 'border-white/10'}`}
+                    className={`product-frame h-16 w-16 flex-shrink-0 rounded-lg border-2 transition-colors ${selectedImage === i ? 'border-primary' : 'border-white/10'}`}
                   >
                     <img
-                      src={sizedShopifyImageUrl(img.node.url, 80)}
+                      src={sizedShopifyImageUrl(img.node.url, 160)}
                       alt={img.node.altText || product.title}
-                      width={64}
-                      height={64}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-cover"
                     />
                   </button>
                 ))}
@@ -576,7 +573,7 @@ export default function ProductDetail() {
                 return (
                   <Card key={rp.node.id} className="flex flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-[#161617] shadow-none transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-white/25">
                     <Link href={`/product/${rp.node.handle}`} className="cursor-pointer">
-                      <div className="aspect-square overflow-hidden bg-[#1e1e1e]">
+                      <div className="product-frame aspect-square bg-[#111]">
                         <img
                           src={shopProductCardImageUrl(rp.node.handle, imageNode?.url || DEFAULT_PRODUCT_IMAGE, 320)}
                           srcSet={shopProductCardImageSrcSet(rp.node.handle, imageNode?.url || DEFAULT_PRODUCT_IMAGE)}
@@ -586,7 +583,7 @@ export default function ProductDetail() {
                           height={320}
                           loading="lazy"
                           decoding="async"
-                          className="w-full h-full object-cover"
+                          className=""
                         />
                       </div>
                     </Link>

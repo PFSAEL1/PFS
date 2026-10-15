@@ -136,21 +136,14 @@ export default function ShopByFilterType() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {featured.map((cat) => (
               <Link key={cat.title} href={cat.href}>
-                <div className="group relative overflow-hidden rounded-2xl border border-white/10 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color] duration-200 cursor-pointer h-[420px]">
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
-                  {/* Image */}
-                  <img
-                    src={cat.image}
-                    alt={cat.title}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  {/* Position badge */}
-                  <div className="absolute top-5 right-5 z-20">
-                    <PositionBadge position={cat.position} />
+                <div className="group cursor-pointer overflow-hidden rounded-2xl border border-white/10 transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)]">
+                  <div className="media-fit relative aspect-[4/3] bg-[#111]">
+                    <img src={cat.image} alt={cat.title} />
+                    <div className="absolute top-5 right-5 z-20">
+                      <PositionBadge position={cat.position} />
+                    </div>
                   </div>
-                  {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-7 z-20">
+                  <div className="p-7">
                     <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-[#4d9fff] transition-colors">
                       {cat.title}
                     </h2>
@@ -179,21 +172,14 @@ export default function ShopByFilterType() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {rest.map((cat) => (
               <Link key={cat.title} href={cat.href}>
-                <div className="group relative overflow-hidden rounded-2xl border border-white/10 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color] duration-200 cursor-pointer h-[340px]">
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20 z-10" />
-                  {/* Image */}
-                  <img
-                    src={cat.image}
-                    alt={cat.title}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  {/* Position badge */}
-                  <div className="absolute top-4 right-4 z-20">
-                    <PositionBadge position={cat.position} />
+                <div className="group cursor-pointer overflow-hidden rounded-2xl border border-white/10 transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)]">
+                  <div className="media-fit relative aspect-[4/3] bg-[#111]">
+                    <img src={cat.image} alt={cat.title} />
+                    <div className="absolute top-4 right-4 z-20">
+                      <PositionBadge position={cat.position} />
+                    </div>
                   </div>
-                  {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5 z-20">
+                  <div className="p-5">
                     <h2 className="text-xl font-bold text-white mb-2 group-hover:text-[#4d9fff] transition-colors">
                       {cat.title}
                     </h2>

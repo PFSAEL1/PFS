@@ -97,8 +97,8 @@ export default function ShopByBooth() {
               {/* Glow effect */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#4d9fff]/5 rounded-full blur-3xl" />
               <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
-                <div className="h-40 w-full flex-shrink-0 bg-gray-100 rounded-xl flex items-center justify-center p-4 sm:w-64">
-                  <img src="/images/brands/pfs-logo-tight.png" alt="PFS Spray Booths" className="w-full h-full object-contain" />
+                <div className="media-fit h-40 w-full flex-shrink-0 rounded-xl bg-gray-100 p-4 sm:w-64">
+                  <img src="/images/brands/pfs-logo-tight.png" alt="PFS Spray Booths" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 mb-1">

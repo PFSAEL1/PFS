@@ -220,7 +220,7 @@ function CeilingBlanketsLoadingFallback() {
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
-                  style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 12, boxSizing: 'border-box', filter: 'brightness(.95) contrast(1.05)' }}
+                  style={{ width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }}
                 />
               </div>
               <div style={{ padding: 16 }}>
@@ -276,7 +276,7 @@ function RollMediaLoadingFallback() {
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
-                  style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 12, boxSizing: 'border-box', filter: 'brightness(.95) contrast(1.05)' }}
+                  style={{ width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }}
                 />
               </div>
               <div style={{ padding: 16 }}>
@@ -333,7 +333,7 @@ function MervFiltersLoadingFallback() {
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
-                  style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 12, boxSizing: 'border-box', filter: 'brightness(.95) contrast(1.05)' }}
+                  style={{ width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }}
                 />
               </div>
               <div style={{ padding: 16 }}>
@@ -471,7 +471,7 @@ function VitraLoadingFallback() {
         <section style={{ padding: '56px 16px', background: '#0d0d0d' }}>
           <div style={{ maxWidth: 1024, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 40, alignItems: 'start' }}>
             <div style={{ aspectRatio: '1/1', minHeight: 320, borderRadius: 16, border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.03)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 16 }}>
-              <img src="/images/products/pfs-vitra-booth-coating-transparent.webp" alt="PFS VITRA Booth Coating one-gallon container" width="1365" height="2048" style={{ width: '100%', height: '100%', objectFit: 'contain' }} fetchPriority="high" decoding="async" />
+              <img src="/images/products/pfs-vitra-booth-coating-transparent.webp" alt="PFS VITRA Booth Coating one-gallon container" width="1365" height="2048" style={{ width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }} fetchPriority="high" decoding="async" />
             </div>
             <div style={{ minHeight: 520 }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', minHeight: 26, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(59,130,246,.22)', background: 'rgba(59,130,246,.1)', color: '#60a5fa', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 12 }}>Consumables</span>
@@ -541,7 +541,7 @@ function AerospaceLoadingFallback() {
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
-                  style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 12, boxSizing: 'border-box', filter: 'brightness(.95) contrast(1.05)' }}
+                  style={{ width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }}
                 />
               </div>
               <div style={{ padding: 16 }}>
@@ -695,7 +695,7 @@ function FiberglassVsTackyBlogLoadingFallback() {
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                style={{ width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }}
               />
             </div>
           </div>
@@ -747,7 +747,7 @@ function ProductLoadingFallback({ handle }: { handle: string }) {
                     loading="eager"
                     fetchPriority="high"
                     decoding="async"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    style={{ width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }}
                   />
                 )}
               </div>

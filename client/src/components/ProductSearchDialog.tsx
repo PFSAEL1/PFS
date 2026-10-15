@@ -121,16 +121,13 @@ export default function ProductSearchDialog({ open, onOpenChange }: ProductSearc
                       onClick={() => onOpenChange(false)}
                       className="group flex min-h-20 items-center gap-3 rounded-md border border-transparent px-3 py-2.5 hover:border-white/10 hover:bg-white/[0.06] focus-visible:border-[#4d9fff] focus-visible:bg-white/[0.06] focus-visible:outline-none"
                     >
-                      <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md bg-white/[0.05]">
+                      <div className="media-fit h-16 w-16 shrink-0 overflow-hidden rounded-md bg-white/[0.05]">
                         {image ? (
                           <img
                             src={shopProductCardImageUrl(node.handle, image, 128)}
                             alt={shopifyImageAltText(imageNode, node.title)}
-                            width={64}
-                            height={64}
                             loading="lazy"
                             decoding="async"
-                            className="h-full w-full object-contain p-1.5"
                           />
                         ) : (
                           <Package className="h-6 w-6 text-white/20" />

@@ -134,8 +134,8 @@ export default function Home() {
               },
             ].map((card) => (
               <Link key={card.title} href={card.href}>
-                <div className="group relative h-[360px] cursor-pointer overflow-hidden rounded-3xl border border-white/[0.08] transition-[border-color] duration-300 hover:border-white/25 md:h-[520px]">
-                  <picture className="contents">
+                <div className="group relative cursor-pointer overflow-hidden rounded-3xl border border-white/[0.08] transition-[border-color] duration-300 hover:border-white/25">
+                  <picture className="block w-full">
                   <source
                     type="image/avif"
                     srcSet={card.srcSet.replaceAll('.webp', '.avif')}
@@ -146,7 +146,7 @@ export default function Home() {
                     srcSet={card.srcSet}
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                     alt={card.alt}
-                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
+                    className="block h-auto w-full"
                     width={960}
                     height={644}
                     loading="lazy"

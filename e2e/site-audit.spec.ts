@@ -74,11 +74,46 @@ test.describe('sitemap and navigation pages', () => {
 
       const h1 = await page.locator('h1').first().isVisible().catch(() => false);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
-      const brokenImages = await page.evaluate(() =>
-        [...document.images]
-          .filter((image) => image.complete && image.naturalWidth === 0 && image.src && !image.src.startsWith('data:'))
-          .map((image) => image.currentSrc || image.src),
-      );
+      const brokenImages = await page.evaluate(async () => {
+        const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+        const scrollers = [...document.querySelectorAll<HTMLElement>('.lineup-scroll, .lineup-grid')];
+        for (const scroller of scrollers) {
+          if (scroller.scrollWidth <= scroller.clientWidth + 2) continue;
+          const step = Math.max(scroller.clientWidth * 0.8, 180);
+          for (let x = 0; x <= scroller.scrollWidth; x += step) {
+            scroller.scrollLeft = x;
+            await delay(30);
+          }
+          scroller.scrollLeft = 0;
+        }
+
+        const problems: string[] = [];
+        for (const image of [...document.images]) {
+          if (image.dataset.fit === 'cover') continue;
+          const style = getComputedStyle(image);
+          if (style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0') continue;
+          const src = image.currentSrc || image.src;
+          if (!src || src.startsWith('data:')) continue;
+          await Promise.race([
+            image.decode().catch(() => {}),
+            delay(2000),
+          ]);
+          const rect = image.getBoundingClientRect();
+          if (rect.width < 2 || rect.height < 2) continue;
+          if (image.naturalWidth === 0) {
+            problems.push(`naturalWidth 0 ${src}`);
+            continue;
+          }
+          const rendered = rect.width / rect.height;
+          const natural = image.naturalWidth / image.naturalHeight;
+          if (Math.abs(rendered / natural - 1) > 0.02) {
+            problems.push(
+              `aspect ${rendered.toFixed(3)} vs ${natural.toFixed(3)} (${Math.round(rect.width)}x${Math.round(rect.height)} box, ${image.naturalWidth}x${image.naturalHeight} file) ${src}`,
+            );
+          }
+        }
+        return problems.slice(0, 8);
+      });
       const links = await page.locator('a[href^="/"], a[href^="http://127.0.0.1"]').evaluateAll((anchors) =>
         anchors.map((anchor) => (anchor as HTMLAnchorElement).getAttribute('href') || ''),
       );

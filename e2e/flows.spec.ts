@@ -37,6 +37,16 @@ test.describe('storefront flows', () => {
     await page.getByRole('button', { name: 'Increase quantity' }).first().click();
     await page.getByRole('button', { name: /Add to Cart|Subscribe/ }).first().click();
     await expect(page.getByRole('dialog')).toBeVisible();
+    const cartImage = page.getByRole('dialog').locator('img').first();
+    await expect(cartImage).toBeVisible();
+    const cartRatio = await cartImage.evaluate(async (image) => {
+      const img = image as HTMLImageElement;
+      try { await img.decode(); } catch { /* reported by naturalWidth */ }
+      const rect = img.getBoundingClientRect();
+      if (img.naturalWidth === 0 || rect.height < 2) return 1;
+      return Math.abs((rect.width / rect.height) / (img.naturalWidth / img.naturalHeight) - 1);
+    });
+    expect(cartRatio).toBeLessThanOrEqual(0.02);
     const checkout = page.getByRole('button', { name: 'Checkout' });
     await expect(checkout).toBeVisible();
     await checkout.click();

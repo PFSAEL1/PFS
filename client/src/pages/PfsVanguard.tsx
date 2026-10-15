@@ -55,11 +55,10 @@ export default function PfsVanguard() {
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* Product image */}
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] aspect-square flex items-center justify-center overflow-hidden p-4">
+            <div className="media-fit aspect-square overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-4">
               <img
                 src={PFS_VANGUARD_IMAGE}
                 alt="PFS VANGUARD booth coating and PFS VITRA glass coating kit"
-                className="w-full h-full object-contain"
                 width={1374}
                 height={1145}
                 fetchPriority="high"

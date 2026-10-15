@@ -132,9 +132,10 @@ export function LineupCard({
         const failed = event.currentTarget;
         if (!fallbackSrc || failed.dataset.fallbackApplied) return;
         failed.dataset.fallbackApplied = 'true';
+        failed.removeAttribute('srcset');
         failed.src = fallbackSrc;
       }}
-      className="relative z-[1] h-full w-full object-contain"
+      className="relative z-[1]"
     />
   );
 
@@ -143,7 +144,7 @@ export function LineupCard({
       <Link href={href} className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0081f2]">
         <div className="lineup-tile" style={{ background: tint }}>
           {avifSrcSet ? (
-            <picture className="relative z-[1] block h-full w-full">
+            <picture>
               <source type="image/avif" srcSet={avifSrcSet} sizes={sizes} />
               {imageEl}
             </picture>
