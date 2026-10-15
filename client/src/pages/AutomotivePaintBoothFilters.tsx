@@ -163,7 +163,7 @@ export default function AutomotivePaintBoothFilters() {
         </div>
       </section>
 
-      <section className="section-raised tex-dots px-4 py-16">
+      <section className="section-raised px-4 py-16">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">Filter-stage pathway</p>

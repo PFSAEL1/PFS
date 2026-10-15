@@ -72,7 +72,7 @@ export default function Prefilters() {
 
 
       {/* Main content — SEO copy block (this page has no product grid) */}
-      <section className="section-raised tex-dots py-16 px-4">
+      <section className="section-raised py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-5">How paint booth prefilters work</h2>
           <div className="space-y-4 text-white/60 leading-relaxed">

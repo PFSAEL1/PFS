@@ -64,7 +64,7 @@ export default function FAQPage() {
       </section>
 
 
-      <section className="section-raised tex-dots px-4 py-16">
+      <section className="section-raised px-4 py-16">
         <div className="mx-auto max-w-5xl space-y-12">
           {groupedFaqs.map(([category, questions]) => (
             <section key={category} aria-labelledby={`faq-${category.replace(/\s+/g, '-').toLowerCase()}`}>

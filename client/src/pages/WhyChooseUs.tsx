@@ -61,7 +61,7 @@ export default function WhyChooseUs() {
 
 
       {/* Features grid */}
-      <section className="section-glow tex-dots py-16 px-4">
+      <section className="section-glow py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (

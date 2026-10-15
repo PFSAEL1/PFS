@@ -90,7 +90,7 @@ export default function ShopByBooth() {
 
 
       {/* PFS Featured Card */}
-      <section className="section-raised tex-dots pt-8 pb-4 px-4">
+      <section className="section-raised pt-8 pb-4 px-4">
         <div className="max-w-7xl mx-auto">
           <Link href="/shop-by-booth/pfs-spray-booths">
             <div className="group relative overflow-hidden border-2 border-[#4d9fff]/40 bg-gradient-to-r from-[#4d9fff]/10 via-[#4d9fff]/5 to-transparent rounded-2xl p-6 mb-8 cursor-pointer transition-[transform,box-shadow,background-color] duration-200 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)]">
@@ -118,7 +118,7 @@ export default function ShopByBooth() {
       </section>
 
       {/* Search & Filter bar */}
-      <section className="section-raised tex-dots py-4 px-4">
+      <section className="section-raised py-4 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row gap-4 mb-8">
             {/* Search */}

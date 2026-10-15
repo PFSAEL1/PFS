@@ -87,7 +87,7 @@ export default function Home() {
       {/* 2. Trust strip is inside SocialProofBanner — bg handled there */}
 
       {/* 3. Filters in Action — three feature rectangles */}
-      <section className="section-glow tex-dots py-20 px-4">
+      <section className="section-glow py-20 px-4">
         <div className="max-w-7xl mx-auto">
           {/* Eyebrow */}
           <div className="flex justify-center mb-3">
@@ -134,7 +134,7 @@ export default function Home() {
               },
             ].map((card) => (
               <Link key={card.title} href={card.href}>
-                <div className="relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color] duration-200 h-[360px] md:h-[520px]">
+                <div className="group relative h-[360px] cursor-pointer overflow-hidden rounded-3xl border border-white/[0.08] transition-[border-color] duration-300 hover:border-white/25 md:h-[520px]">
                   <picture className="contents">
                   <source
                     type="image/avif"
@@ -232,7 +232,7 @@ export default function Home() {
 
 
       {/* 7. Booth Brand Compatibility Strip */}
-      <section className="section-darker tex-dots py-14 px-4">
+      <section className="section-darker py-14 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-white/25 text-xs tracking-widest font-medium uppercase">Compatible With</p>
           <p className="text-white/60 text-sm mt-2 mb-8">Replacement guidance for many major booth brands</p>

@@ -89,7 +89,7 @@ export default function AerospaceHub() {
 
 
       {/* Shop by Position — 3 Category Cards */}
-      <section className="section-raised tex-dots py-16 px-4">
+      <section className="section-raised py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">Shop by Filtration Position</h2>

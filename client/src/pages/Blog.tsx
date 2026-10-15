@@ -57,7 +57,7 @@ export default function Blog() {
 
 
       {/* Blog grid - raised */}
-      <section className="section-raised tex-dots py-12 px-4">
+      <section className="section-raised py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map((post) => (

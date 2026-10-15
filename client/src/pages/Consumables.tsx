@@ -76,7 +76,7 @@ export default function Consumables() {
 
 
       {/* Products grid */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {consumableProducts.map((product) => (

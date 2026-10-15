@@ -1,23 +1,21 @@
-// TopMovers — PFS Filters
-// 4-across discovery grid with product badges, price, and inline Add to Cart.
+// TopMovers — home featured row in the dark lineup layout.
 import { useEffect, useState } from 'react';
-import { Link } from 'wouter';
-import { Loader2, ShoppingCart } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
 import { useCartStore } from '@/stores/cartStore';
-import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
+import { usePricing } from '@/hooks/usePricing';
 import { toast } from 'sonner';
-import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 import { cacheShopifyProducts, getImmediateShopifyProducts } from '@/lib/productCatalog';
-import { shopifyImageAltText, shopifyImageSrcSet, sizedShopifyImageUrl } from '@/lib/imageUrls';
+import { localAvifSrcSet, shopProductCardImageSrcSet, shopProductCardImageUrl, shopifyImageAltText } from '@/lib/imageUrls';
+import { LineupCard, LineupCarousel, LineupHeader, formatFromPrice, plainText, tintFor } from '@/components/Lineup';
 
 const FALLBACK_IMAGE = '/images/filters/fiberglass-arrestors.png';
 
 const selectFeaturedProducts = (products: ShopifyProduct[]) =>
   products
     .filter((p) => !p.node.title.toLowerCase().includes('membership'))
-    .slice(0, 4);
+    .slice(0, 8);
 
 export const TopMovers = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>(() =>
@@ -59,9 +57,7 @@ export const TopMovers = () => {
     };
   }, []);
 
-  const handleAdd = (e: React.MouseEvent, product: ShopifyProduct) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleAdd = (product: ShopifyProduct) => {
     const variant = product.node.variants.edges[0]?.node;
     if (!variant) return;
     addItem({
@@ -91,81 +87,49 @@ export const TopMovers = () => {
   if (products.length === 0) return null;
 
   return (
-    <section className="section-darker tex-lines py-16 px-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Eyebrow */}
-        <div className="flex justify-center mb-3">
-          <span className="eyebrow-brand border rounded-full text-xs tracking-widest font-medium px-4 py-1.5 inline-flex items-center gap-2 uppercase">
-            Featured Filters
-          </span>
-        </div>
-        <h2 className="text-white text-2xl font-semibold text-center mt-2">
-          Popular filter media and booth essentials
-        </h2>
-        <p className="text-white/70 text-sm text-center mt-2 mb-8">
-          Compare current products, sizes, prices, and availability.
-        </p>
-
-        {/* 4-card grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {products.map((product) => {
+    <section className="section-darker px-4 py-16">
+      <div className="mx-auto max-w-7xl">
+        <LineupHeader title="Popular filters." href="/shop" linkLabel="Shop all" />
+        <LineupCarousel label="Popular filters">
+          {products.map((product, index) => {
             const imageNode = product.node.images.edges[0]?.node;
             const image = imageNode?.url || FALLBACK_IMAGE;
+            const cardSrc = shopProductCardImageUrl(product.node.handle, image, 480);
+            const cardSrcSet = shopProductCardImageSrcSet(product.node.handle, image);
             const variant = product.node.variants.edges[0]?.node;
-            const originalPrice = variant?.price?.amount ? parseFloat(variant.price.amount) : 0;
-            const price = originalPrice > 0 ? originalPrice.toFixed(2) : '—';
-            const inStock = variant?.availableForSale ?? true;
+            const amounts = product.node.variants.edges
+              .map((edge) => parseFloat(edge.node.price?.amount || ''))
+              .filter((amount) => amount > 0);
+            const priced = formatFromPrice(amounts, discountPercent);
+            const inStock = Boolean(variant) && (variant?.availableForSale ?? true);
+            const badges = getProductBadges(product);
+            const badge = badges.some((item) => item.tone === 'new')
+              ? 'New'
+              : badges.some((item) => item.tone === 'reorder')
+                ? 'Popular'
+                : null;
             return (
-              <Link key={product.node.id} href={`/product/${product.node.handle}`}>
-                <div className="group bg-[#1a1a1a] border border-white/[0.08] rounded-xl overflow-hidden hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color] duration-200 cursor-pointer h-full flex flex-col">
-                  {/* Image area */}
-                  <div className="product-img-wrap relative h-[190px] flex items-center justify-center p-4">
-                    <ProductBadges badges={getProductBadges(product)} />
-                    <img
-                      src={sizedShopifyImageUrl(image, 480)}
-                      srcSet={shopifyImageSrcSet(image)}
-                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                      alt={shopifyImageAltText(imageNode, product.node.title)}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                      width={480}
-                      height={480}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  {/* Card body */}
-                  <div className="px-4 pb-4 pt-3 flex flex-col flex-1">
-                    <h3 className="text-white font-medium text-sm leading-snug line-clamp-2">
-                      {product.node.title}
-                    </h3>
-
-                    <div className="mt-auto pt-3">
-                      <div className="flex items-center justify-between mb-2.5">
-                        {discountPercent > 0 && originalPrice > 0 ? (
-                          <div className="flex items-center gap-2">
-                            <span className="text-blue-400 font-bold text-base">${getDiscountedPrice(originalPrice, discountPercent).toFixed(2)}</span>
-                            <span className="text-xs line-through text-white/40">${price}</span>
-                          </div>
-                        ) : (
-                          <span className="text-blue-400 font-bold text-base">${price}</span>
-                        )}
-                        {!inStock && <span className="text-white/40 text-xs">Out of stock</span>}
-                      </div>
-                      <button
-                        onClick={(e) => handleAdd(e, product)}
-                        disabled={!inStock}
-                        className="w-full flex items-center justify-center gap-2 rounded-lg border border-transparent bg-blue-500 hover:bg-blue-400 hover:border-blue-500/50 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold py-2 transition-[transform,box-shadow,background-color,border-color] duration-200"
-                      >
-                        <ShoppingCart className="h-4 w-4" />
-                        {inStock ? 'Add to Cart' : 'Out of Stock'}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </Link>
+              <LineupCard
+                key={product.node.id}
+                href={`/product/${product.node.handle}`}
+                title={product.node.title}
+                description={plainText(product.node.description)}
+                image={cardSrc}
+                imageSrcSet={cardSrcSet}
+                avifSrcSet={localAvifSrcSet(cardSrc, cardSrcSet)}
+                alt={shopifyImageAltText(imageNode, product.node.title)}
+                tint={tintFor(`${product.node.productType} ${product.node.title}`, index)}
+                sizes="300px"
+                badge={badge}
+                price={priced?.price}
+                comparePrice={priced?.compare}
+                buyLabel={inStock ? 'Buy' : 'Sold out'}
+                buyDisabled={!inStock}
+                onBuy={() => handleAdd(product)}
+              />
             );
           })}
-        </div>
+        </LineupCarousel>
       </div>
     </section>
   );

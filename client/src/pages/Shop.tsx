@@ -6,6 +6,7 @@ import { ShopifyProducts } from '@/components/ShopifyProducts';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
 import { getImmediateShopifyProducts, listShopSizes } from '@/lib/productCatalog';
+import { LineupHeader } from '@/components/Lineup';
 import faqData from '@/data/faqData.json';
 
 const ShopBelowFold = lazy(() =>
@@ -90,7 +91,7 @@ export default function Shop() {
 
 
       {/* Products grid - raised section */}
-      <section className="section-raised tex-dots py-6 px-4">
+      <section className="section-raised py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="mb-6 flex flex-col gap-4">
             <div>
@@ -138,6 +139,7 @@ export default function Shop() {
               </select>
             </div>
           </div>
+          <LineupHeader title="Find your filter." href="/shop-by-type" linkLabel="Shop by type" />
           <ShopifyProducts categoryFilter={categoryFilter} sizeFilter={sizeFilter} textQuery={textQuery} />
         </div>
       </section>

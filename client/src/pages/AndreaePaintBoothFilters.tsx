@@ -137,7 +137,7 @@ export default function AndreaePaintBoothFilters() {
 
 
           {/* Current catalog variants */}
-      <section className="section-raised tex-dots py-16 px-4">
+      <section className="section-raised py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Andreae-style variants in the current catalog</h2>
@@ -276,7 +276,7 @@ export default function AndreaePaintBoothFilters() {
 
 
       {/* FAQ */}
-      <section className="section-raised tex-dots py-16 px-4">
+      <section className="section-raised py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">Andreae filter questions</h2>
           <div className="space-y-6">

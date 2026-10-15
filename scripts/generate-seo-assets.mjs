@@ -672,7 +672,7 @@ function breadcrumbsFallback(route) {
     const current = index === items.length - 1;
     return `<li style="display:inline">${current ? `<span aria-current="page">${escapeHtml(label)}</span>` : `<a href="${href}" style="color:#93c5fd">${escapeHtml(label)}</a>`}${current ? '' : ' <span aria-hidden="true">›</span> '}</li>`;
   }).join('');
-  return `<nav data-seo-breadcrumbs aria-label="Breadcrumb" style="position:static;background:#050505;border:0;padding:112px 24px 16px;color:#c4c8d0;font-family:Arial,sans-serif;font-size:14px"><ol style="max-width:1280px;margin:0 auto;padding:0;list-style:none">${list}</ol></nav>`;
+  return `<nav data-seo-breadcrumbs aria-label="Breadcrumb" style="position:static;background:#000;border:0;padding:112px 24px 16px;color:#c4c8d0;font-family:Arial,sans-serif;font-size:14px"><ol style="max-width:1280px;margin:0 auto;padding:0;list-style:none">${list}</ol></nav>`;
 }
 
 function footerFallback() {
@@ -779,8 +779,8 @@ function shopFallback(title, description) {
       </article>`;
   }).join('');
 
-  return `<main data-seo-fallback id="shop-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
-    <section style="padding:112px 16px 16px;background:#050505">
+  return `<main data-seo-fallback id="shop-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <section style="padding:112px 16px 16px;background:#000">
       <div style="max-width:1280px;margin:0 auto">
         <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-size:14px">Home / Shop</p>
         <div style="text-align:center;margin:0 auto 16px;max-width:840px">
@@ -789,8 +789,8 @@ function shopFallback(title, description) {
         </div>
       </div>
     </section>
-    <div style="height:88px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
-    <section style="padding:24px 16px 56px;background:#0d0d0d">
+    <div style="height:88px;background:#000"></div>
+    <section style="padding:24px 16px 56px;background:#000">
       <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">${cards}</div>
       <p style="max-width:1280px;margin:24px auto 0;color:rgba(255,255,255,.55);font-size:15px;line-height:1.6">Product data is shown from the PFS Filters catalog snapshot. Confirm live variants, pricing, and availability on each product page before ordering.</p>
     </section>
@@ -798,7 +798,7 @@ function shopFallback(title, description) {
 }
 
 function intakeFallback(title, description) {
-  return `<main data-seo-fallback id="intake-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="intake-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -807,7 +807,7 @@ function intakeFallback(title, description) {
         </div>
       </div>
     </nav>
-    <section style="padding:112px 16px 40px;background:#050505">
+    <section style="padding:112px 16px 40px;background:#000">
       <div style="max-width:1280px;margin:0 auto">
         <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-size:14px">Paint Booth Filters / Intake Filters</p>
         <div style="max-width:760px">
@@ -844,7 +844,7 @@ function ceilingBlanketsFallback(title, description) {
       </article>`;
   }).join('');
 
-  return `<main data-seo-fallback id="ceiling-blankets-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="ceiling-blankets-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -853,7 +853,7 @@ function ceilingBlanketsFallback(title, description) {
         </div>
       </div>
     </nav>
-    <section style="padding:112px 16px 40px;background:#050505">
+    <section style="padding:112px 16px 40px;background:#000">
       <div style="max-width:1280px;margin:0 auto">
         <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Shop by Type / ${escapeHtml(title)}</p>
         <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid rgba(77,159,255,.3);background:rgba(77,159,255,.1);color:#4d9fff;font-family:Arial,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px">Intake</span>
@@ -861,8 +861,8 @@ function ceilingBlanketsFallback(title, description) {
         <p style="max-width:672px;margin:0;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:18px;line-height:1.55">${escapeHtml(description)}</p>
       </div>
     </section>
-    <div style="height:48px;background:linear-gradient(180deg,#050505,#0d0d0d)"></div>
-    <section style="padding:32px 16px 56px;background:#0d0d0d">
+    <div style="height:48px;background:#000"></div>
+    <section style="padding:32px 16px 56px;background:#000">
       <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">${cards}</div>
     </section>
   </main>`;
@@ -891,7 +891,7 @@ function rollMediaFallback(title, description) {
       </article>`;
   }).join('');
 
-  return `<main data-seo-fallback id="roll-media-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="roll-media-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -900,7 +900,7 @@ function rollMediaFallback(title, description) {
         </div>
       </div>
     </nav>
-    <section style="padding:112px 16px 40px;background:#050505">
+    <section style="padding:112px 16px 40px;background:#000">
       <div style="max-width:1280px;margin:0 auto">
         <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Shop by Type / ${escapeHtml(title)}</p>
         <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid rgba(77,159,255,.3);background:rgba(77,159,255,.1);color:#4d9fff;font-family:Arial,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px">Intake / Exhaust</span>
@@ -908,8 +908,8 @@ function rollMediaFallback(title, description) {
         <p style="max-width:672px;margin:0;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:18px;line-height:1.55">${escapeHtml(description)}</p>
       </div>
     </section>
-    <div style="height:48px;background:linear-gradient(180deg,#050505,#0d0d0d)"></div>
-    <section style="padding:32px 16px 56px;background:#0d0d0d">
+    <div style="height:48px;background:#000"></div>
+    <section style="padding:32px 16px 56px;background:#000">
       <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">${cards}</div>
     </section>
   </main>`;
@@ -938,7 +938,7 @@ function mervFiltersFallback(title, description) {
       </article>`;
   }).join('');
 
-  return `<main data-seo-fallback id="merv-filters-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="merv-filters-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -947,7 +947,7 @@ function mervFiltersFallback(title, description) {
         </div>
       </div>
     </nav>
-    <section style="padding:112px 16px 40px;background:#050505">
+    <section style="padding:112px 16px 40px;background:#000">
       <div style="max-width:1280px;margin:0 auto">
         <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Shop by Type / ${escapeHtml(title)}</p>
         <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid rgba(77,159,255,.3);background:rgba(77,159,255,.1);color:#4d9fff;font-family:Arial,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px">Intake</span>
@@ -955,15 +955,15 @@ function mervFiltersFallback(title, description) {
         <p style="max-width:672px;margin:0;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:18px;line-height:1.55">${escapeHtml(description)}</p>
       </div>
     </section>
-    <div style="height:48px;background:linear-gradient(180deg,#050505,#0d0d0d)"></div>
-    <section style="padding:32px 16px 56px;background:#0d0d0d">
+    <div style="height:48px;background:#000"></div>
+    <section style="padding:32px 16px 56px;background:#000">
       <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">${cards}</div>
     </section>
   </main>`;
 }
 
 function northBayFallback(description) {
-  return `<main data-seo-fallback id="north-bay-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="north-bay-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -972,7 +972,7 @@ function northBayFallback(description) {
         </div>
       </div>
     </nav>
-    <section style="position:relative;overflow:hidden;padding:112px 16px 64px;background:#050505">
+    <section style="position:relative;overflow:hidden;padding:112px 16px 64px;background:#000">
       <img src="${logoUrl}" alt="" aria-hidden="true" width="420" height="127" decoding="async" style="position:absolute;right:0;top:64px;width:min(540px,60vw);height:auto;opacity:.045" />
       <div style="position:relative;max-width:1280px;margin:0 auto">
         <p style="margin:0 0 20px;color:rgba(255,255,255,.55);font-size:14px">Paint Booth Filters / North Bay and Sonoma County</p>
@@ -988,7 +988,7 @@ function northBayFallback(description) {
 }
 
 function losAngelesFallback() {
-  return `<main data-seo-fallback id="los-angeles-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="los-angeles-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -997,7 +997,7 @@ function losAngelesFallback() {
         </div>
       </div>
     </nav>
-    <section style="position:relative;overflow:hidden;padding:112px 16px 64px;background:#050505">
+    <section style="position:relative;overflow:hidden;padding:112px 16px 64px;background:#000">
       <img src="${logoUrl}" alt="" aria-hidden="true" width="420" height="127" decoding="async" style="position:absolute;right:0;top:64px;width:min(540px,60vw);height:auto;opacity:.045" />
       <div style="position:relative;max-width:1280px;margin:0 auto">
         <p style="margin:0 0 20px;color:rgba(255,255,255,.55);font-size:14px">Paint Booth Filters / Los Angeles County</p>
@@ -1022,7 +1022,7 @@ function filterFinderFallback() {
     ['Open Face', 'Open front with filtered exhaust through the rear wall for smaller parts.'],
     ['Prep Station', 'Open work area for sanding, masking, and prep work with filtered airflow.'],
   ];
-  const cards = boothTypes.map(([label, copy]) => `<article style="overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#0a0a0a">
+  const cards = boothTypes.map(([label, copy]) => `<article style="overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#000">
       <div style="height:176px;padding:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,.025),transparent)">
         <div style="position:relative;width:100%;max-width:280px;height:100%;border:2px solid rgba(255,255,255,.45);border-radius:4px">
           <div style="position:absolute;left:12%;right:12%;top:18%;height:2px;background:rgba(96,165,250,.72)"></div>
@@ -1038,7 +1038,7 @@ function filterFinderFallback() {
       </div>
     </article>`).join('');
 
-  return `<main data-seo-fallback id="filter-finder-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="filter-finder-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1047,7 +1047,7 @@ function filterFinderFallback() {
         </div>
       </div>
     </nav>
-    <section style="padding:112px 16px 32px;background:linear-gradient(180deg,#0a1628,#040404)">
+    <section style="padding:112px 16px 32px;background:#000">
       <div style="max-width:1024px;margin:0 auto;text-align:center">
         <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Home / Filter Finder</p>
         <span style="display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid rgba(59,130,246,.24);background:rgba(59,130,246,.1);color:#93c5fd;font-family:Arial,sans-serif;font-size:12px;font-weight:700;margin-bottom:16px">FILTER FINDER · STEP 1 OF 4</span>
@@ -1073,7 +1073,7 @@ function filterScannerFallback() {
       <p style="margin:0;color:rgba(255,255,255,.58);font-family:Arial,sans-serif;font-size:14px;line-height:1.45">${copy}</p>
     </article>`).join('');
 
-  return `<main data-seo-fallback id="filter-scanner-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="filter-scanner-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1082,7 +1082,7 @@ function filterScannerFallback() {
         </div>
       </div>
     </nav>
-    <section style="padding:112px 16px 40px;background:#050505">
+    <section style="padding:112px 16px 40px;background:#000">
       <div style="max-width:896px;margin:0 auto;text-align:center">
         <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Home / AI Filter Scanner</p>
         <span style="display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid rgba(59,130,246,.22);background:rgba(59,130,246,.1);color:#60a5fa;font-family:Arial,sans-serif;font-size:14px;font-weight:700;margin-bottom:16px">AI-Powered</span>
@@ -1090,8 +1090,8 @@ function filterScannerFallback() {
         <p style="max-width:672px;margin:0 auto;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:20px;line-height:1.55">Photograph the filter and label to narrow catalog candidates. Verify the booth position and actual dimensions before ordering.</p>
       </div>
     </section>
-    <div style="height:48px;background:linear-gradient(180deg,#050505,#0d0d0d)"></div>
-    <section style="padding:32px 16px 56px;background:#0d0d0d">
+    <div style="height:48px;background:#000"></div>
+    <section style="padding:32px 16px 56px;background:#000">
       <div style="max-width:896px;margin:0 auto">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:24px">${cards}</div>
         <article style="min-height:260px;border-radius:14px;border:1px solid rgba(59,130,246,.22);background:linear-gradient(135deg,rgba(59,130,246,.07),rgba(59,130,246,.12));padding:32px;text-align:center">
@@ -1105,7 +1105,7 @@ function filterScannerFallback() {
 }
 
 function polyesterMediaFallback(title, description) {
-  return `<main data-seo-fallback id="polyester-media-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="polyester-media-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1114,7 +1114,7 @@ function polyesterMediaFallback(title, description) {
         </div>
       </div>
     </nav>
-    <section style="padding:112px 16px 40px;background:#050505">
+    <section style="padding:112px 16px 40px;background:#000">
       <div style="max-width:1280px;margin:0 auto">
         <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Shop by Type / ${escapeHtml(title)}</p>
         <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px">Exhaust</span>
@@ -1122,8 +1122,8 @@ function polyesterMediaFallback(title, description) {
         <p style="max-width:672px;margin:0;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:18px;line-height:1.55">${escapeHtml(description)}</p>
       </div>
     </section>
-    <div style="height:100px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
-    <section style="padding:48px 16px 56px;background:#0d0d0d">
+    <div style="height:100px;background:#000"></div>
+    <section style="padding:48px 16px 56px;background:#000">
       <div style="max-width:1280px;margin:0 auto;text-align:center;padding:64px 0">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 16px;display:block">
           <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
@@ -1143,7 +1143,7 @@ function polyesterMediaFallback(title, description) {
 }
 
 function novaVertaFallback() {
-  return `<main data-seo-fallback id="nova-verta-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="nova-verta-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1152,7 +1152,7 @@ function novaVertaFallback() {
         </div>
       </div>
     </nav>
-    <section style="padding:112px 16px 40px;background:#050505">
+    <section style="padding:112px 16px 40px;background:#000">
       <div style="max-width:1280px;margin:0 auto">
         <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Shop by Booth / Nova Verta</p>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
@@ -1168,8 +1168,8 @@ function novaVertaFallback() {
         </div>
       </div>
     </section>
-    <div style="height:100px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
-    <section style="padding:56px 16px;background:#0d0d0d">
+    <div style="height:100px;background:#000"></div>
+    <section style="padding:56px 16px;background:#000">
       <div style="max-width:1280px;margin:0 auto">
         <h2 style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:24px;font-weight:700;color:#fff">Nova Verta Models</h2>
         <p style="margin:0 0 32px;color:rgba(255,255,255,.5);font-family:Arial,sans-serif;font-size:14px">Click any filter size to go directly to that product. Sizes marked with a call icon require a quote.</p>
@@ -1202,7 +1202,7 @@ function novaVertaFallback() {
 }
 
 function fiberglassVsTackyBlogFallback() {
-  return `<main data-seo-fallback id="fiberglass-vs-tacky-blog-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="fiberglass-vs-tacky-blog-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1211,14 +1211,14 @@ function fiberglassVsTackyBlogFallback() {
         </div>
       </div>
     </nav>
-    <section style="padding:96px 16px 24px;background:#050505">
+    <section style="padding:96px 16px 24px;background:#000">
       <div style="max-width:896px;margin:0 auto;font-family:Arial,sans-serif">
         <p style="margin:0 0 8px;font-size:14px;color:rgba(255,255,255,.5)">Home › Blog › <span style="color:rgba(255,255,255,.8)">Fiberglass vs. Tacky Panel Filters</span></p>
         <span style="display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.6);font-size:14px;font-weight:600">← Back to Blog</span>
       </div>
     </section>
-    <div style="height:100px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
-    <section style="padding:48px 16px;background:#0d0d0d">
+    <div style="height:100px;background:#000"></div>
+    <section style="padding:48px 16px;background:#000">
       <div style="max-width:896px;margin:0 auto">
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:16px;font-family:Arial,sans-serif">
           <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.85)">Product Guide</span>
@@ -1252,7 +1252,7 @@ function brandsFallback() {
       <a href="/shop" style="display:inline-flex;align-items:center;min-height:34px;border:1px solid rgba(255,255,255,.2);border-radius:8px;color:rgba(255,255,255,.75);text-decoration:none;padding:7px 12px;font-family:Arial,sans-serif;font-size:13px;font-weight:700">Shop Products</a>
     </article>`).join('');
 
-  return `<main data-seo-fallback id="brands-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="brands-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1261,7 +1261,7 @@ function brandsFallback() {
         </div>
       </div>
     </nav>
-    <section style="padding:112px 16px 40px;background:#050505">
+    <section style="padding:112px 16px 40px;background:#000">
       <div style="max-width:1280px;margin:0 auto">
         <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Home / Brands</p>
         <span style="display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.6);font-family:Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">Trusted Brands</span>
@@ -1269,15 +1269,15 @@ function brandsFallback() {
         <p style="max-width:672px;margin:0;color:rgba(255,255,255,.5);font-family:Arial,sans-serif;font-size:20px;line-height:1.55">Browse manufacturers represented in the current catalog, then verify the product record, filter stage, and dimensions before ordering.</p>
       </div>
     </section>
-    <div style="height:48px;background:linear-gradient(180deg,#050505,#0d0d0d)"></div>
-    <section style="padding:56px 16px;background:#0d0d0d">
+    <div style="height:48px;background:#000"></div>
+    <section style="padding:56px 16px;background:#000">
       <div style="max-width:896px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px">${cards}</div>
     </section>
   </main>`;
 }
 
 function vitraFallback() {
-  return `<main data-seo-fallback id="vitra-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="vitra-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1286,13 +1286,13 @@ function vitraFallback() {
         </div>
       </div>
     </nav>
-    <section style="padding:112px 16px 40px;background:#050505">
+    <section style="padding:112px 16px 40px;background:#000">
       <div style="max-width:1280px;margin:0 auto">
         <p style="margin:0;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Home / Consumables / PFS VITRA</p>
       </div>
     </section>
-    <div style="height:48px;background:linear-gradient(180deg,#050505,#0d0d0d)"></div>
-    <section style="padding:56px 16px;background:#0d0d0d">
+    <div style="height:48px;background:#000"></div>
+    <section style="padding:56px 16px;background:#000">
       <div style="max-width:1024px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;align-items:start">
         <div style="aspect-ratio:1/1;min-height:320px;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:rgba(255,255,255,.03);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px">
           <div style="width:80px;height:80px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);margin-bottom:24px"></div>
@@ -1338,14 +1338,14 @@ function automotiveIndustryFallback() {
       <p style="margin:0;color:rgba(255,255,255,.62);font-family:Arial,sans-serif;font-size:15px;line-height:1.65">${escapeHtml(faq.answer)}</p>
     </article>`).join('');
 
-  return `<main data-seo-fallback id="automotive-industry-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="automotive-industry-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="border-bottom:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.95)">
       <div style="height:96px;max-width:1280px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between">
         <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
         <a href="/shop" style="color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 14px;font-family:Arial,sans-serif;font-weight:700;font-size:14px">Shop Filters</a>
       </div>
     </nav>
-    <section style="padding:64px 16px;background:radial-gradient(circle at 50% 20%,rgba(59,130,246,.14),transparent 55%),#050505">
+    <section style="padding:64px 16px;background:#000">
       <div style="max-width:960px;margin:0 auto;text-align:center">
         <p style="margin:0 0 16px;color:#60a5fa;font-family:Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Automotive Finishing</p>
         <h1 style="margin:0 0 18px;font-size:clamp(3rem,10vw,4.5rem);line-height:.98;font-weight:800;color:#fff">Automotive Paint Booth Filters</h1>
@@ -1353,14 +1353,14 @@ function automotiveIndustryFallback() {
         <p style="margin:28px 0 0;font-family:Arial,sans-serif"><a href="/shop" style="display:inline-flex;min-height:44px;align-items:center;border-radius:8px;background:#3b82f6;padding:0 20px;color:#fff;font-weight:700;text-decoration:none">Shop Current Filters</a> <a href="/contact" style="display:inline-flex;min-height:44px;align-items:center;margin-left:10px;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:0 20px;color:#fff;font-weight:700;text-decoration:none">Request Fitment Review</a></p>
       </div>
     </section>
-    <section style="padding:56px 16px;background:#0d0d0d">
+    <section style="padding:56px 16px;background:#000">
       <div style="max-width:1120px;margin:0 auto">
         <h2 style="margin:0 0 10px;text-align:center;color:#fff;font-size:32px">Compare the Installed Filter Stage First</h2>
         <p style="max-width:720px;margin:0 auto 32px;text-align:center;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;line-height:1.6">A size match alone does not establish fit or suitability. Use the current booth documentation and product record for the stage being replaced.</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px">${cards}</div>
       </div>
     </section>
-    <section style="padding:56px 16px;background:#050505">
+    <section style="padding:56px 16px;background:#000">
       <div style="max-width:880px;margin:0 auto">
         <h2 style="margin:0 0 18px;color:#fff;font-size:30px">Information to Gather Before Ordering</h2>
         <ul style="margin:0;padding-left:22px;color:rgba(255,255,255,.65);font-family:Arial,sans-serif;font-size:16px;line-height:1.9">
@@ -1373,7 +1373,7 @@ function automotiveIndustryFallback() {
         <p style="margin:24px 0 0;border:1px solid rgba(251,146,60,.25);border-radius:12px;background:rgba(251,146,60,.06);padding:18px;color:rgba(255,255,255,.65);font-family:Arial,sans-serif;line-height:1.65">There is no universal replacement interval, and a replacement filter does not by itself establish facility compliance. Follow the booth and filter instructions and obtain site-specific review when needed.</p>
       </div>
     </section>
-    <section style="padding:56px 16px;background:#0d0d0d">
+    <section style="padding:56px 16px;background:#000">
       <div style="max-width:880px;margin:0 auto">
         <h2 style="margin:0 0 10px;text-align:center;color:#fff;font-size:32px">Automotive Filter Questions</h2>
         <p style="margin:0 auto 28px;text-align:center;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;line-height:1.6">Practical answers for identifying, measuring, and replacing paint booth filter media.</p>
@@ -1404,7 +1404,7 @@ function aerospaceFallback() {
         </a>
       </article>` : '';
 
-  return `<main data-seo-fallback id="aerospace-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="aerospace-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1413,7 +1413,7 @@ function aerospaceFallback() {
         </div>
       </div>
     </nav>
-    <section style="padding:112px 16px 40px;background:#050505">
+    <section style="padding:112px 16px 40px;background:#000">
       <div style="max-width:1280px;margin:0 auto;text-align:center">
         <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-family:Arial,sans-serif;font-size:14px">Industries / Aerospace Filters</p>
         <span style="display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid rgba(59,130,246,.22);background:rgba(59,130,246,.1);color:rgba(255,255,255,.8);font-family:Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">Aerospace & MRO Filtration</span>
@@ -1422,8 +1422,8 @@ function aerospaceFallback() {
         <p style="max-width:672px;margin:12px auto 0;color:rgba(255,255,255,.36);font-family:Arial,sans-serif;font-size:14px;line-height:1.5">HEPA-XFP™ multi-pocket bags · NESHAP 319 final-stage bags · CG100 2-pocket bags · ME/PT intake panels · SFR blankets · CPA roll media</p>
       </div>
     </section>
-    <div style="height:48px;background:linear-gradient(180deg,#050505,#0d0d0d)"></div>
-    <section style="padding:32px 16px 56px;background:#0d0d0d">
+    <div style="height:48px;background:#000"></div>
+    <section style="padding:32px 16px 56px;background:#000">
       <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">${card}</div>
     </section>
   </main>`;
@@ -1493,9 +1493,9 @@ function genericProductFallback(route) {
     ? `<picture>${productAvif ? `<source type="image/avif" srcset="${escapeHtml(productAvif)}" sizes="(min-width: 1024px) 50vw, 100vw" />` : ''}<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1024px) 50vw, 100vw" alt="${escapeHtml(imageAlt)}" width="${isMembershipProduct ? 720 : isKochProduct ? 960 : 800}" height="${isMembershipProduct ? 960 : isKochProduct ? 960 : 800}" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;max-width:${isKochProduct ? '400px' : 'none'};max-height:${isKochProduct ? '400px' : 'none'};object-fit:${isMembershipProduct || isKochProduct ? 'contain' : 'cover'};${isMembershipProduct ? 'padding:24px;box-sizing:border-box;' : ''}display:block" /></picture>`
     : '';
 
-  return `<main data-seo-fallback id="product-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
-    <div style="height:48px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
-    <section style="padding:40px 16px;background:#0d0d0d">
+  return `<main data-seo-fallback id="product-fallback" style="min-height:100vh;background:#000;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <div style="height:48px;background:#000"></div>
+    <section style="padding:40px 16px;background:#000">
       <div style="max-width:1280px;margin:0 auto;display:grid;gap:48px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
         <div>
           <div style="aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#161616;border:1px solid rgba(255,255,255,.07);margin-bottom:16px;${isKochProduct ? 'display:flex;align-items:center;justify-content:center;' : ''}">
@@ -1706,7 +1706,7 @@ function replaceMeta(html, route) {
   const fallback = route.path === '/'
     ? `<main data-seo-fallback><section id="home"><div><picture><source media="(max-width: 767px)" type="image/avif" srcset="/media/pfs-hero-poster-mobile.avif" /><source media="(min-width: 768px)" type="image/avif" srcset="/media/pfs-hero-poster-desktop.avif" /><source media="(max-width: 767px)" type="image/webp" srcset="${heroPosterMobile}" /><img src="${heroPosterDesktop}" alt="" aria-hidden="true" width="1600" height="900" fetchpriority="high" decoding="async" /></picture><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section></main>`
     : route.path === '/auth'
-    ? `<main data-seo-fallback id="auth-fallback" style="min-height:100vh;background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif"><div style="width:min(384px,calc(100% - 32px));border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#111;padding:32px;text-align:center;box-sizing:border-box"><img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" width="250" height="76" fetchpriority="high" style="display:block;width:250px;max-width:100%;height:auto;margin:0 auto 24px;filter:brightness(1.4) drop-shadow(0 0 20px rgba(59,130,246,.3))" /><p style="margin:0;color:rgba(255,255,255,.7);font-size:14px">Loading secure sign-in…</p></div></main>`
+    ? `<main data-seo-fallback id="auth-fallback" style="min-height:100vh;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif"><div style="width:min(384px,calc(100% - 32px));border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#111;padding:32px;text-align:center;box-sizing:border-box"><img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" width="250" height="76" fetchpriority="high" style="display:block;width:250px;max-width:100%;height:auto;margin:0 auto 24px;filter:brightness(1.4) drop-shadow(0 0 20px rgba(59,130,246,.3))" /><p style="margin:0;color:rgba(255,255,255,.7);font-size:14px">Loading secure sign-in…</p></div></main>`
     : route.path === '/shop'
     ? shopFallback(title, description)
     : route.path === '/intake-filters'
@@ -1741,7 +1741,7 @@ function replaceMeta(html, route) {
     ? fiberglassVsTackyBlogFallback()
     : route.path.startsWith('/product/')
     ? genericProductFallback(route)
-    : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
+    : `<main data-seo-fallback style="min-height:100vh;background:#000;color:#fff;font-family:Arial,sans-serif;padding:48px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
   const pageBody = route.noindex
     ? fallback
     : `${navigationFallback()}${breadcrumbsFallback(route)}${fallback}${footerFallback()}`;

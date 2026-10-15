@@ -305,8 +305,8 @@ export default function ProductDetail() {
           {/* Images */}
           <div>
             <div
-              className={`group/zoom relative aspect-square overflow-hidden shadow-xl mb-4 cursor-zoom-in ${isKochProduct ? 'flex items-center justify-center' : ''}`}
-              style={{ backgroundColor: '#161616', backgroundImage: 'radial-gradient(circle at 50% 42%, rgba(80,90,110,0.18), rgba(13,13,13,0) 62%)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}
+              className={`group/zoom relative aspect-square overflow-hidden mb-4 cursor-zoom-in ${isKochProduct ? 'flex items-center justify-center' : ''}`}
+              style={{ backgroundColor: '#111111', backgroundImage: 'radial-gradient(circle at 50% 42%, rgba(255,255,255,0.08), rgba(0,0,0,0) 62%)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px' }}
               onMouseMove={(e) => {
                 const r = e.currentTarget.getBoundingClientRect();
                 setZoom({
@@ -574,7 +574,7 @@ export default function ProductDetail() {
                 const imageNode = rp.node.images.edges[0]?.node;
 
                 return (
-                  <Card key={rp.node.id} className="flex flex-col bg-[#161616] border border-white/[0.07] hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-all overflow-hidden">
+                  <Card key={rp.node.id} className="flex flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-[#161617] shadow-none transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-white/25">
                     <Link href={`/product/${rp.node.handle}`} className="cursor-pointer">
                       <div className="aspect-square overflow-hidden bg-[#1e1e1e]">
                         <img

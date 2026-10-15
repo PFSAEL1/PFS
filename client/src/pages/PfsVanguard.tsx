@@ -51,7 +51,7 @@ export default function PfsVanguard() {
 
 
       {/* Product section */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* Product image */}

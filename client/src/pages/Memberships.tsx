@@ -170,7 +170,7 @@ export default function Memberships() {
 
 
       {/* Pricing cards */}
-      <section className="section-glow tex-dots pt-24 pb-12 px-4">
+      <section className="section-glow pt-24 pb-12 px-4">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {tiers.map((tier) => (
             <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] mt-20 overflow-visible`}>

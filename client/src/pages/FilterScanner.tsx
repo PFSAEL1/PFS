@@ -79,7 +79,7 @@ export default function FilterScanner() {
 
 
       {/* Content - raised */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="container mx-auto max-w-4xl">
 
         {/* How it works */}
