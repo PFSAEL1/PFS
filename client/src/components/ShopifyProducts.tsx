@@ -8,6 +8,7 @@ import {
   cacheShopifyProducts,
   filterShopifyProducts,
   getImmediateShopifyProducts,
+  searchShopifyProducts,
 } from '@/lib/productCatalog';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
@@ -23,9 +24,10 @@ const FALLBACK_IMAGE = '/images/filters/fiberglass-arrestors.png';
 interface ShopifyProductsProps {
   categoryFilter?: string | null;
   sizeFilter?: string | null;
+  textQuery?: string | null;
 }
 
-export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsProps = {}) => {
+export const ShopifyProducts = ({ categoryFilter, sizeFilter, textQuery }: ShopifyProductsProps = {}) => {
   const [products, setProducts] = useState<ShopifyProduct[]>(() =>
     filterShopifyProducts(getImmediateShopifyProducts(), categoryFilter, sizeFilter),
   );
@@ -94,6 +96,10 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
     };
   }, [categoryFilter, sizeFilter]);
 
+  const visibleProducts = textQuery?.trim()
+    ? searchShopifyProducts(products, textQuery, 48)
+    : products;
+
   const handleAddToCart = (product: ShopifyProduct) => {
     const variant = product.node.variants.edges[0]?.node;
     if (!variant) return;
@@ -120,11 +126,11 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
     );
   }
 
-  if (products.length === 0) {
+  if (visibleProducts.length === 0) {
     return (
       <div className="text-center py-12 text-white/70">
         <Package className="h-12 w-12 mx-auto mb-3 opacity-30" />
-        <p>No products found{categoryFilter ? ` for "${categoryFilter}"` : ''}{sizeFilter ? ` in size "${sizeFilter}"` : ''}.</p>
+        <p>No products found{textQuery ? ` for "${textQuery}"` : ''}{categoryFilter ? ` for "${categoryFilter}"` : ''}{sizeFilter ? ` in size "${sizeFilter}"` : ''}.</p>
       </div>
     );
   }
@@ -182,7 +188,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
       )}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {/* Shopify filter products first */}
-        {products.map((product, index) => {
+        {visibleProducts.map((product, index) => {
           const variant = product.node.variants.edges[0]?.node;
           const imageNode = product.node.images.edges[0]?.node;
           const image = imageNode?.url || FALLBACK_IMAGE;

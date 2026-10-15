@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { ArrowRight, ArrowLeft, CheckCircle2, ShoppingCart, Search, Phone, HelpCircle } from 'lucide-react';
 import { BOOTH_BRANDS, BOOTH_TYPES, type BoothType, type BoothBrand, type BoothModel } from '@/data/boothBrands';
+import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 import {
   CrossdraftDiagram,
   DowndraftDiagram,
@@ -379,9 +380,9 @@ export default function FilterFinder() {
           <h2 className="text-2xl font-bold text-white mb-2">Need help finding your filters?</h2>
           <p className="text-white/70 mb-6">Call us or send the booth make and model, filter position, actual dimensions, and a clear photo. We will review the available catalog options or a custom-size request.</p>
           <div className="flex gap-3 justify-center flex-wrap">
-            <a href="tel:+18554967969">
+            <a href={PHONE_TEL}>
               <Button className="bg-blue-600 hover:bg-blue-500 text-white gap-2">
-                <Phone className="w-4 h-4" /> 855-496-7969
+                <Phone className="w-4 h-4" /> {PHONE_DISPLAY}
               </Button>
             </a>
             <Link href="/contact">
@@ -421,7 +422,7 @@ function FilterResults({
       key: 'ceiling',
       label: 'Ceiling Diffusion Media',
       sizes: model.filters.ceiling,
-      description: 'Polyester ceiling blankets that diffuse clean air evenly into the booth. Replace every 6–12 months or when airflow drops.',
+      description: `Polyester ceiling blankets that diffuse clean air evenly into the booth. Replace every ${brand.replacementCycle?.ceiling || brand.replacementCycle?.intake || 'the recorded ceiling cycle'} or when airflow drops.`,
       shopSlug: 'ceiling-blankets',
       color: 'sky',
     });
@@ -431,7 +432,7 @@ function FilterResults({
       key: 'intake',
       label: 'Intake Panel Filters',
       sizes: model.filters.intake,
-      description: 'Tackified intake panels that filter incoming air on walls or doors. Replace every 35–50 days.',
+      description: `Tackified intake panels that filter incoming air on walls or doors. Replace every ${brand.replacementCycle?.intake || 'the recorded intake cycle'}.`,
       shopSlug: 'ceiling-blankets',
       color: 'teal',
     });
@@ -451,7 +452,7 @@ function FilterResults({
       key: 'exhaust',
       label: 'Exhaust Arrestors',
       sizes: model.filters.exhaust,
-      description: 'Fiberglass or polyester media that captures overspray before it exits the booth. Replace every 7–14 days (pads) or when loaded.',
+      description: `Fiberglass or polyester media that captures overspray before it exits the booth. Replace every ${brand.replacementCycle?.exhaust || 'the recorded exhaust cycle'} or when loaded.`,
       shopSlug: 'fiberglass-arrestors',
       color: 'orange',
     });
@@ -530,7 +531,7 @@ function FilterResults({
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {brand.replacementCycle.intake && (
               <div className="rounded-lg bg-white/[0.03] border border-white/5 p-3">
-                <div className="text-xs text-white/50 mb-1">Intake / Ceiling</div>
+                <div className="text-xs text-white/50 mb-1">Intake</div>
                 <div className="text-sm font-medium text-white">{brand.replacementCycle.intake}</div>
               </div>
             )}

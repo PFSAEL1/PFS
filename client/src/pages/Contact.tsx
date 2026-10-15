@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import { ContactForm } from '@/components/ContactForm';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
+import { PHONE_DISPLAY } from '@/lib/site';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://www.pfsfilters.com' },
@@ -15,7 +16,7 @@ export default function Contact() {
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
         title="Contact PFS Filters - Get a Custom Quote or Filter Help"
-        description="Contact PFS Filters for custom filter quotes, bulk pricing, or technical support. Call 855-496-7969 or use our request form. We match any booth make/model."
+        description={`Contact PFS Filters for custom filter quotes, bulk pricing, or technical support. Call ${PHONE_DISPLAY} or use our request form. We match any booth make/model.`}
         canonical="https://www.pfsfilters.com/contact"
         structuredData={breadcrumbSchema}
       />

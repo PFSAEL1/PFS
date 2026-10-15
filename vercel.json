@@ -8,6 +8,13 @@
   "cleanUrls": true,
   "routes": [
     {
+      "src": "/(.+)/",
+      "status": 301,
+      "headers": {
+        "Location": "/$1"
+      }
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },

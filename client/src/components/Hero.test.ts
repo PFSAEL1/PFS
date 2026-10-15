@@ -12,7 +12,7 @@ const VANGUARD_IMAGE = '/images/products/pfs-vanguard-kit-user-2026-09.png';
 
 describe('homepage quote and Vanguard product image', () => {
   it('routes the homepage custom quote control to the contact page', () => {
-    expect(heroSource).toMatch(/<Button[\s\S]*?asChild[\s\S]*?<Link href="\/contact">[\s\S]*?Get a Custom Quote/);
+    expect(heroSource).toMatch(/<Link href="\/contact"[\s\S]*?Get a Custom Quote/);
     expect(heroSource).not.toContain('scrollToContact');
   });
 

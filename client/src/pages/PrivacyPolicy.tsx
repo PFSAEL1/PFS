@@ -3,6 +3,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
+import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://www.pfsfilters.com' },
@@ -57,7 +58,7 @@ export default function PrivacyPolicy() {
 
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-3">Your Rights</h2>
-            <p>You have the right to access, correct, or delete your personal information. You may also opt out of marketing communications at any time. To exercise these rights, call <a href="tel:855-496-7969" className="text-blue-400 hover:underline">855-496-7969</a>.</p>
+            <p>You have the right to access, correct, or delete your personal information. You may also opt out of marketing communications at any time. To exercise these rights, call <a href={PHONE_TEL} className="text-blue-400 hover:underline">{PHONE_DISPLAY}</a>.</p>
           </section>
 
           <section>
@@ -67,7 +68,7 @@ export default function PrivacyPolicy() {
 
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-3">Contact Us</h2>
-            <p>If you have questions about this privacy policy, call <a href="tel:855-496-7969" className="text-blue-400 hover:underline">855-496-7969</a>.</p>
+            <p>If you have questions about this privacy policy, call <a href={PHONE_TEL} className="text-blue-400 hover:underline">{PHONE_DISPLAY}</a>.</p>
           </section>
         </div>
       </div>

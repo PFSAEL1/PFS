@@ -1,6 +1,34 @@
 // Structured data (JSON-LD) schemas for SEO
 // Used across all pages of pfsfilters.com
 
+import { PHONE_E164, SITE_ORIGIN } from '@/lib/site';
+
+export const storeSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['Store', 'LocalBusiness'],
+  '@id': `${SITE_ORIGIN}/#store`,
+  name: 'PFS Filters',
+  url: `${SITE_ORIGIN}/`,
+  logo: `${SITE_ORIGIN}/images/brands/pfs-logo-wide.png`,
+  image: `${SITE_ORIGIN}/media/pfs-hero-poster-desktop.webp`,
+  description: 'Paint booth filters and industrial filtration products backed by the PFS Spray Booths team.',
+  telephone: PHONE_E164,
+  priceRange: '$$',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '1400 Airport Blvd',
+    addressLocality: 'Santa Rosa',
+    addressRegion: 'CA',
+    postalCode: '95403',
+    addressCountry: 'US',
+  },
+  parentOrganization: {
+    '@type': 'Organization',
+    name: 'PFS Spray Booths',
+    url: 'https://www.pfsspraybooths.com/',
+  },
+};
+
 export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -14,7 +42,7 @@ export const organizationSchema = {
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'Customer Service',
-    telephone: '+1-855-496-7969',
+    telephone: PHONE_E164,
     availableLanguage: ['English'],
     areaServed: 'US',
   },

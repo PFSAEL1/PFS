@@ -158,7 +158,7 @@ export default function LightLayout({ children }: { children: React.ReactNode })
             <div>
               <img src={PFS_LOGO} alt="PFS Filters" style={{ height: "36px", width: "auto", marginBottom: "1.5rem" }} />
               <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "0.875rem", lineHeight: 1.7, color: "rgba(255,255,255,0.5)", maxWidth: "280px" }}>
-                Premium spray booth filtration solutions trusted by 1,200+ body shops nationwide. Ships in 1–2 business days.
+                Paint booth filters from Santa Rosa, California. Stocked items typically process in 1–2 business days.
               </p>
             </div>
 

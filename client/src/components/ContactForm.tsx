@@ -1,324 +1,171 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { Phone, MapPin } from 'lucide-react';
-import { prepareQuoteReturn } from '@/lib/quoteConversion';
+import { QUOTE_CONVERSION_DESTINATION } from '@/lib/quoteConversion';
+import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 
-// PFS Filters Contact — Zoho CRM Web-to-Lead form.
-// The Zoho form ships with its own CSS + a mandatory-check script that expect
-// a light page. To avoid clashing with the React app's global styles (and to
-// run the Zoho JS in isolation), we render the official Zoho markup inside an
-// iframe via srcDoc, then inject dark-theme overrides so it blends into the
-// site. The form still POSTs leads straight to Zoho exactly as generated.
+type FormState = {
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  booth: string;
+  filterNeeds: string;
+  message: string;
+  website: string;
+};
 
-const ZOHO_FORM_HTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<style>
-  html, body { margin: 0; padding: 0; background: transparent; height: auto !important; overflow: hidden !important; }
-  body { font-family: 'Inter', system-ui, Arial, sans-serif; color: #e8eaed; }
-  /* keep the injected analytics script out of layout flow so it never adds height */
-  #wf_anal { display: none !important; }
-  /* ---- Dark-theme overrides for the Zoho form ---- */
-  #crmWebToEntityForm.zcwf_lblLeft {
-    background-color: transparent !important;
-    color: #e8eaed !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-  #crmWebToEntityForm .zcwf_title {
-    display: none !important; /* page already has a "Send Us a Message" heading */
-  }
-  #crmWebToEntityForm .zcwf_row { margin: 14px 0 !important; }
-  #crmWebToEntityForm .zcwf_col_lab {
-    width: 100% !important;
-    float: none !important;
-    margin: 0 0 6px 0 !important;
-    padding: 0 !important;
-    font-size: 13px !important;
-    font-weight: 600 !important;
-    color: #c9ccd1 !important;
-    font-family: 'Inter', system-ui, Arial, sans-serif !important;
-  }
-  #crmWebToEntityForm .zcwf_col_lab label { color: #c9ccd1 !important; font-size: 13px !important; }
-  #crmWebToEntityForm .zcwf_col_fld {
-    width: 100% !important;
-    float: none !important;
-    padding: 0 !important;
-  }
-  #crmWebToEntityForm .zcwf_col_fld input[type=text],
-  #crmWebToEntityForm .zcwf_col_fld input[type=password],
-  #crmWebToEntityForm .zcwf_col_fld textarea,
-  #crmWebToEntityForm .zcwf_col_fld_slt {
-    width: 100% !important;
-    float: none !important;
-    background: #161616 !important;
-    color: #ffffff !important;
-    border: 1px solid #3a3a3a !important;
-    border-radius: 8px !important;
-    padding: 10px 12px !important;
-    font-size: 14px !important;
-    font-family: 'Inter', system-ui, Arial, sans-serif !important;
-    box-sizing: border-box !important;
-  }
-  #crmWebToEntityForm .zcwf_col_fld input::placeholder { color: #7a7d82 !important; }
-  #crmWebToEntityForm .zcwf_col_fld input:focus,
-  #crmWebToEntityForm .zcwf_col_fld textarea:focus,
-  #crmWebToEntityForm .zcwf_col_fld_slt:focus {
-    outline: none !important;
-    border-color: #3b82f6 !important;
-    box-shadow: 0 0 0 3px rgba(59,130,246,0.25) !important;
-  }
-  #crmWebToEntityForm .zcwf_col_fld_slt option { background: #161616 !important; color: #fff !important; }
-  #crmWebToEntityForm .zcwf_col_help { display: none !important; }
-  /* Submit / reset buttons */
-  #crmWebToEntityForm .zcwf_button {
-    font-size: 15px !important;
-    font-weight: 700 !important;
-    border-radius: 10px !important;
-    padding: 11px 26px !important;
-    cursor: pointer !important;
-    border: none !important;
-    max-width: none !important;
-  }
-  #crmWebToEntityForm .formsubmit.zcwf_button {
-    color: #ffffff !important;
-    background: #3b82f6 !important;
-    margin-right: 10px !important;
-    border: 1px solid transparent !important;
-    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease !important;
-  }
-  #crmWebToEntityForm .formsubmit.zcwf_button:hover {
-    background: #2f74e0 !important;
-    border-color: rgba(59,130,246,.5) !important;
-    box-shadow: 0 20px 70px -12px rgba(59,130,246,.75) !important;
-    transform: translateY(-4px) !important;
-  }
-  #crmWebToEntityForm input[type=reset].zcwf_button {
-    background: transparent !important;
-    color: #c9ccd1 !important;
-    border: 1px solid #3a3a3a !important;
-    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease !important;
-  }
-  #crmWebToEntityForm input[type=reset].zcwf_button:hover {
-    background: rgba(255,255,255,0.06) !important;
-    border-color: rgba(255,255,255,.45) !important;
-    box-shadow: 0 20px 70px -12px rgba(255,255,255,.45) !important;
-    transform: translateY(-4px) !important;
-  }
-</style>
-</head>
-<body>
-<div id='crmWebToEntityForm' class='zcwf_lblLeft crmWebToEntityForm'>
-  <form id='webform7365078000001463008' action='https://crm.zoho.com/crm/WebToLeadForm' name='WebToLeads7365078000001463008' method='POST' target='_top' onSubmit='javascript:document.charset="UTF-8"; return checkMandatory7365078000001463008()' accept-charset='UTF-8'>
-    <input type='text' style='display:none;' name='xnQsjsdp' value='82414cc7c481e269ec947edc4ebdd00a92e8ae14c4733c389f3749bb123f258a'></input>
-    <input type='hidden' name='zc_gad' id='zc_gad' value=''></input>
-    <input type='text' style='display:none;' name='xmIwtLD' value='8599de6e05111fc77dd833b75331ee9ffb56e4a53615f78a00009c2afac367fd76d5155c7160c5bff6c7b57638153c40'></input>
-    <input type='text' style='display:none;' name='actionType' value='TGVhZHM='></input>
-    <input type='text' style='display:none;' name='returnURL' value='https://www.pfsfilters.com/thank-you'></input>
-    <div class='zcwf_title'>PFS Filters - Website Form</div>
-    <div class='zcwf_row'>
-      <div class='zcwf_col_lab'><label for='First_Name'>First Name <span style='color:#ef4444;'>*</span></label></div>
-      <div class='zcwf_col_fld'><input type='text' id='First_Name' aria-required='true' aria-label='First Name' name='First Name' maxlength='40' placeholder='Your first name'></input><div class='zcwf_col_help'></div></div>
-    </div>
-    <div class='zcwf_row'>
-      <div class='zcwf_col_lab'><label for='Last_Name'>Last Name <span style='color:#ef4444;'>*</span></label></div>
-      <div class='zcwf_col_fld'><input type='text' id='Last_Name' aria-required='true' aria-label='Last Name' name='Last Name' maxlength='80' placeholder='Your last name'></input><div class='zcwf_col_help'></div></div>
-    </div>
-    <div class='zcwf_row'>
-      <div class='zcwf_col_lab'><label for='Phone'>Phone</label></div>
-      <div class='zcwf_col_fld'><input type='text' id='Phone' aria-required='false' aria-label='Phone' name='Phone' maxlength='30' placeholder='(555) 000-0000'></input><div class='zcwf_col_help'></div></div>
-    </div>
-    <div class='zcwf_row'>
-      <div class='zcwf_col_lab'><label for='Email'>Email <span style='color:#ef4444;'>*</span></label></div>
-      <div class='zcwf_col_fld'><input type='text' ftype='email' autocomplete='false' id='Email' required aria-required='true' aria-label='Email' name='Email' maxlength='100' placeholder='your@email.com'></input><div class='zcwf_col_help'></div></div>
-    </div>
-    <div class='zcwf_row'>
-      <div class='zcwf_col_lab'><label for='Company'>Company</label></div>
-      <div class='zcwf_col_fld'><input type='text' id='Company' aria-required='false' aria-label='Company' name='Company' maxlength='200' placeholder='Your shop name'></input><div class='zcwf_col_help'></div></div>
-    </div>
-    <input type='hidden' id='Lead_Source' name='Lead Source' value='Web Research'>
-    <div class='zcwf_row'>
-      <div class='zcwf_col_lab'><label for='Description'>How can we help? <span style='color:#ef4444;'>*</span></label></div>
-      <div class='zcwf_col_fld'>
-        <textarea id='Description' name='Description' required aria-required='true' aria-label='How can we help?' rows='5' maxlength='2000' placeholder='For a quote, include your booth make/model, filter dimensions, intake or exhaust stage, and quantity. For order help, include your order number.'></textarea>
-      </div>
-    </div>
-    <p style='font-size:12px;color:#c9ccd1;line-height:1.5;'>We use these details to respond to your request. <a href='https://www.pfsfilters.com/privacy-policy' target='_blank' rel='noopener' style='color:#93c5fd;'>Privacy policy</a></p>
-    <input type='text' style='display: none;' name='aG9uZXlwb3Q' value=''/>
-    <div class='zcwf_row'>
-      <div class='zcwf_col_fld' style='min-height:50px;'>
-        <input type='submit' id='formsubmit' role='button' class='formsubmit zcwf_button' value='Send Request' aria-label='Send Request' title='Send Request'>
-        <input type='reset' class='zcwf_button' role='button' name='reset' value='Reset' aria-label='Reset' title='Reset'>
-      </div>
-    </div>
-    <script>
-      function validateEmail7365078000001463008(){
-        var form = document.forms['WebToLeads7365078000001463008'];
-        var emailFld = form.querySelectorAll('[ftype=email]');
-        for(var i = 0; i < emailFld.length; i++){
-          var emailVal = emailFld[i].value;
-          if((emailVal.replace(/^\\s+|\\s+$/g,'')).length != 0){
-            var atpos = emailVal.indexOf('@');
-            var dotpos = emailVal.lastIndexOf('.');
-            if(atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= emailVal.length){
-              alert('Please enter a valid email address.');
-              emailFld[i].focus();
-              return false;
-            }
-          }
-        }
-        return true;
-      }
-      function checkMandatory7365078000001463008(){
-        var mndFileds = ['First Name','Last Name','Email','Description'];
-        var fldLangVal = ['First Name','Last Name','Email','How can we help?'];
-        for(var i = 0; i < mndFileds.length; i++){
-          var fieldObj = document.forms['WebToLeads7365078000001463008'][mndFileds[i]];
-          if(fieldObj){
-            if(((fieldObj.value).replace(/^\\s+|\\s+$/g,'')).length == 0){
-              alert(fldLangVal[i] + ' cannot be empty.');
-              fieldObj.focus();
-              return false;
-            }
-          }
-        }
-        if(!validateEmail7365078000001463008()){ return false; }
-        document.querySelector('.crmWebToEntityForm .formsubmit').setAttribute('disabled', true);
-        return true;
-      }
-    </script>
-    <script id='wf_anal' src='https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=90b4cde14f7f30f83d78e89bfab101e4b2cfdabb78b348d30464951fafe3778b2748c6923fa2fc3d61724ce428c75cf1gid1b8b97abe736709c5af4c7e12404b31523a72f7c646b8191a6ce39d4a540f9f9gid300814d3950518353603a4b2a9e1f36fe3d1f7018f770f12890958ccf56c0416gidf6b72fef5304091fbb405772dc04107f7deeada42c58a5226ea881cee111f862&tw=26e7df8948fa3db17f928e3bcaf90ded3eb91db32f59ed67366f702c2580ce28'></script>
-  </form>
-</div>
-</body>
-</html>`;
+const EMPTY: FormState = {
+  name: '',
+  company: '',
+  email: '',
+  phone: '',
+  booth: '',
+  filterNeeds: '',
+  message: '',
+  website: '',
+};
+
+const FIELD_CLASS = 'min-h-11 w-full rounded-lg border border-white/30 bg-[#111] px-3 text-base leading-normal text-white outline-none placeholder:text-[#cfcfcf] focus:border-[#8ec5ff]';
 
 export const ContactForm = () => {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [iframeHeight, setIframeHeight] = useState(560);
+  const [form, setForm] = useState<FormState>(EMPTY);
+  const [startedAt] = useState(() => Date.now());
+  const [error, setError] = useState('');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
 
-  const attachQuoteTracking = () => {
-    const form = iframeRef.current?.contentDocument?.querySelector('form');
-    if (!form || form.dataset.quoteTracking === 'attached') return;
-    form.dataset.quoteTracking = 'attached';
-    // The generated Zoho onsubmit validator runs before this listener.
-    form.addEventListener('submit', (event) => {
-      if (event.defaultPrevented) return;
-      const returnField = form.elements.namedItem('returnURL') as HTMLInputElement | null;
-      if (!returnField) return;
-      try {
-        returnField.value = prepareQuoteReturn(window.sessionStorage, window.crypto.randomUUID());
-      } catch {
-        // Storage restrictions must never prevent a customer sending a lead.
-        returnField.value = 'https://www.pfsfilters.com/thank-you';
-      }
-    });
+  const setField = (key: keyof FormState, value: string) => {
+    setForm((current) => ({ ...current, [key]: value }));
   };
 
-  // Auto-size the iframe to the FORM's real content height. We measure the form
-  // element itself (not body/documentElement) because the iframe body height can
-  // echo the iframe's own height, creating a feedback loop that grows forever on
-  // mobile. We also only commit a height when it actually changes, so it settles.
-  useEffect(() => {
-    const resize = () => {
-      try {
-        const doc = iframeRef.current?.contentWindow?.document;
-        const formEl = doc?.getElementById('crmWebToEntityForm');
-        if (formEl) {
-          const h = Math.ceil(formEl.getBoundingClientRect().height) + 8;
-          if (h > 0) {
-            setIframeHeight((prev) => (Math.abs(prev - h) > 2 ? h : prev));
-          }
-        }
-      } catch {
-        /* cross-origin after submit redirect — ignore */
+  const onSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    setError('');
+    const email = form.email.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('Enter a valid email address.');
+      return;
+    }
+    if (form.name.trim().length < 2 || form.booth.trim().length < 2 || form.filterNeeds.trim().length < 2 || form.message.trim().length < 8) {
+      setError('Name, booth make/model, filter needs, and a short message are required.');
+      return;
+    }
+    setStatus('sending');
+    try {
+      const response = await fetch('/api/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, startedAt }),
+      });
+      const payload = await response.json().catch(() => null) as { ok?: boolean; error?: string } | null;
+      if (!response.ok || !payload?.ok) {
+        setStatus('idle');
+        setError(payload?.error || 'We could not send your request. Please call us or try again.');
+        return;
       }
-    };
-    // measure shortly after mount, then a few more times as fonts/layout settle.
-    const timers = [120, 400, 800, 1500, 2500].map((d) => window.setTimeout(resize, d));
-
-    // Observe the form element itself for genuine content-size changes (e.g.
-    // orientation change, font reflow). This only fires on real layout changes,
-    // so it stays accurate without re-introducing the runaway growth loop.
-    let observer: ResizeObserver | undefined;
-    const attachObserver = () => {
-      try {
-        const doc = iframeRef.current?.contentWindow?.document;
-        const formEl = doc?.getElementById('crmWebToEntityForm');
-        if (formEl && 'ResizeObserver' in window) {
-          observer = new ResizeObserver(resize);
-          observer.observe(formEl);
-        }
-      } catch {
-        /* ignore */
-      }
-    };
-    const attachTimer = window.setTimeout(attachObserver, 300);
-
-    return () => {
-      timers.forEach((t) => window.clearTimeout(t));
-      window.clearTimeout(attachTimer);
-      observer?.disconnect();
-    };
-  }, []);
+      const trackingWindow = window as typeof window & { dataLayer?: Array<Record<string, unknown>> };
+      trackingWindow.dataLayer = trackingWindow.dataLayer || [];
+      trackingWindow.dataLayer.push({
+        event: 'google_ads_quote_conversion',
+        send_to: QUOTE_CONVERSION_DESTINATION,
+        transaction_id: crypto.randomUUID(),
+      });
+      setStatus('sent');
+    } catch {
+      setStatus('idle');
+      setError('We could not send your request. Please call us or try again.');
+    }
+  };
 
   return (
-    <section id="contact" className="py-20 px-4 bg-gradient-to-b from-background to-muted/30">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-3">Get In Touch</h1>
-          <p className="text-white/70 text-lg max-w-2xl mx-auto">
+    <section id="contact" className="bg-gradient-to-b from-background to-muted/30 px-4 py-16">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-12 text-center">
+          <h1 className="mb-3 text-4xl font-semibold">Get In Touch</h1>
+          <p className="mx-auto max-w-[62ch] text-lg leading-[1.6] text-white">
             Have questions about our filters? Need a custom size or bulk pricing? Our team is ready to help.
           </p>
         </div>
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact info */}
+        <div className="grid gap-12 lg:grid-cols-2">
           <div className="space-y-6">
             <div>
-              <h3 className="text-2xl font-bold mb-4">Contact Information</h3>
+              <h2 className="mb-4 text-2xl font-semibold">Contact Information</h2>
               <div className="space-y-4">
                 {[
-                  { icon: Phone, label: 'Phone', value: '855-496-7969', href: 'tel:855-496-7969' },
+                  { icon: Phone, label: 'Phone', value: PHONE_DISPLAY, href: PHONE_TEL },
                   { icon: MapPin, label: 'Location', value: 'Santa Rosa, CA', href: null },
                 ].map(({ icon: Icon, label, value, href }) => (
-                  <div key={label} className="flex items-center gap-4 p-4 bg-[#161616] border border-[#2a2a2a] rounded-lg">
-                    <div className="p-2 bg-blue-500/10 rounded-lg">
-                      <Icon className="h-5 w-5 text-blue-400" />
+                  <div key={label} className="flex items-center gap-4 rounded-lg border border-[#3a3a3a] bg-[#161616] p-4">
+                    <div className="rounded-lg bg-[#0066cc]/20 p-2">
+                      <Icon className="h-5 w-5 text-[#9ecbff]" />
                     </div>
                     <div>
-                      <p className="text-sm text-white/70">{label}</p>
+                      <p className="text-sm font-medium uppercase tracking-[0.14em] text-[#d7d7d7]">{label}</p>
                       {href ? (
-                        <a href={href} className="font-semibold hover:text-blue-400 transition-colors">{value}</a>
+                        <a href={href} className="text-base font-semibold text-white hover:text-[#9ecbff]">{value}</a>
                       ) : (
-                        <p className="font-semibold">{value}</p>
+                        <p className="text-base font-semibold text-white">{value}</p>
                       )}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="p-6 bg-blue-500/5 border border-blue-500/20 rounded-xl">
-              <h4 className="font-bold mb-2">Need a Custom Quote?</h4>
-              <p className="text-sm text-white/70 leading-relaxed">
+            <div className="rounded-xl border border-[#0066cc]/40 bg-[#0066cc]/10 p-6">
+              <h3 className="mb-2 font-semibold">Need a Custom Quote?</h3>
+              <p className="max-w-[62ch] text-base leading-[1.6] text-white">
                 Share your booth make/model, filter stage, dimensions and quantity. Our team will review the details and help you find suitable options.
               </p>
             </div>
           </div>
 
-          {/* Zoho Web-to-Lead form (dark-themed, isolated in iframe) */}
-          <div className="rounded-2xl border border-[#2a2a2a] bg-[#111111] p-6 md:p-8">
-            <h3 className="text-xl font-bold mb-5">Request a Quote or Get Help</h3>
-            <iframe
-              ref={iframeRef}
-              title="PFS Filters Contact Form"
-              srcDoc={ZOHO_FORM_HTML}
-              onLoad={attachQuoteTracking}
-              sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-top-navigation-by-user-activation"
-              style={{ width: '100%', height: iframeHeight, border: 'none', background: 'transparent' }}
-            />
+          <div className="rounded-2xl border border-[#3a3a3a] bg-[#111111] p-6 md:p-8">
+            <h2 className="mb-5 text-xl font-semibold">Request a Quote or Get Help</h2>
+            {status === 'sent' ? (
+              <p role="status" className="max-w-[62ch] text-base leading-[1.6] text-white">
+                Request received. A member of the PFS Filters team will reply within one business day.
+              </p>
+            ) : (
+              <form onSubmit={onSubmit} noValidate className="space-y-4">
+                <div className="absolute left-[-10000px] h-0 overflow-hidden" aria-hidden="true">
+                  <label htmlFor="company-website">Company website</label>
+                  <input id="company-website" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={(event) => setField('website', event.target.value)} />
+                </div>
+                <div>
+                  <label htmlFor="quote-name" className="mb-1 block text-sm font-medium uppercase tracking-[0.12em] text-[#e8e8e8]">Name</label>
+                  <input id="quote-name" name="name" autoComplete="name" required value={form.name} onChange={(event) => setField('name', event.target.value)} className={FIELD_CLASS} />
+                </div>
+                <div>
+                  <label htmlFor="quote-company" className="mb-1 block text-sm font-medium uppercase tracking-[0.12em] text-[#e8e8e8]">Company</label>
+                  <input id="quote-company" name="company" autoComplete="organization" value={form.company} onChange={(event) => setField('company', event.target.value)} className={FIELD_CLASS} />
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="quote-email" className="mb-1 block text-sm font-medium uppercase tracking-[0.12em] text-[#e8e8e8]">Email</label>
+                    <input id="quote-email" name="email" type="email" autoComplete="email" required value={form.email} onChange={(event) => setField('email', event.target.value)} className={FIELD_CLASS} />
+                  </div>
+                  <div>
+                    <label htmlFor="quote-phone" className="mb-1 block text-sm font-medium uppercase tracking-[0.12em] text-[#e8e8e8]">Phone</label>
+                    <input id="quote-phone" name="phone" type="tel" autoComplete="tel" value={form.phone} onChange={(event) => setField('phone', event.target.value)} className={FIELD_CLASS} />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="quote-booth" className="mb-1 block text-sm font-medium uppercase tracking-[0.12em] text-[#e8e8e8]">Booth make / model</label>
+                  <input id="quote-booth" name="booth" required value={form.booth} onChange={(event) => setField('booth', event.target.value)} className={FIELD_CLASS} />
+                </div>
+                <div>
+                  <label htmlFor="quote-filters" className="mb-1 block text-sm font-medium uppercase tracking-[0.12em] text-[#e8e8e8]">Filter needs</label>
+                  <input id="quote-filters" name="filterNeeds" required value={form.filterNeeds} onChange={(event) => setField('filterNeeds', event.target.value)} className={FIELD_CLASS} />
+                </div>
+                <div>
+                  <label htmlFor="quote-message" className="mb-1 block text-sm font-medium uppercase tracking-[0.12em] text-[#e8e8e8]">Message</label>
+                  <textarea id="quote-message" name="message" required rows={5} value={form.message} onChange={(event) => setField('message', event.target.value)} className={`${FIELD_CLASS} min-h-32 py-3`} />
+                </div>
+                {error && <p role="alert" className="text-base text-[#ffb4b4]">{error}</p>}
+                <button type="submit" disabled={status === 'sending'} className="inline-flex min-h-11 items-center rounded-lg bg-[#0066cc] px-6 text-base font-semibold text-white hover:bg-[#0057a3] disabled:opacity-70">
+                  {status === 'sending' ? 'Sending…' : 'Send Request'}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>

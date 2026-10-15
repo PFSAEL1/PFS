@@ -71,7 +71,7 @@ export default function BlogPost() {
 
   const articleSchema = {
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    '@type': ['Article', 'BlogPosting'],
     headline: post.title,
     description: post.excerpt,
     image: post.image,

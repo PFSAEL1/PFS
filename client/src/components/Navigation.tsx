@@ -6,10 +6,84 @@ import { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingBag, Menu, X, User, ChevronDown, Sparkles, Search } from 'lucide-react';
+import { ShoppingBag, Menu, X, User, ChevronDown, Search } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
 
 const LOGO_URL = '/images/brands/pfs-logo-wide-420.webp';
+
+const NAV_MENUS: Array<{
+  id: string;
+  label: string;
+  columns: Array<{ title: string; links: Array<[string, string]> }>;
+}> = [
+  {
+    id: 'shop',
+    label: 'Shop',
+    columns: [
+      {
+        title: 'By stage',
+        links: [
+          ['/exhaust-filters', 'Exhaust'],
+          ['/intake-filters', 'Intake'],
+          ['/ceiling-filters', 'Ceiling'],
+          ['/prefilters', 'Prefilters'],
+          ['/andreae-paint-booth-filters', 'Andreae'],
+          ['/shop', 'All products'],
+        ],
+      },
+      {
+        title: 'Find a fit',
+        links: [
+          ['/filter-finder', 'Filter Finder'],
+          ['/shop-by-booth', 'Booth brand'],
+          ['/shop-by-booth-type', 'Booth type'],
+          ['/shop-by-size', 'Size'],
+          ['/shop-by-filter-type', 'Filter type'],
+          ['/brands', 'Brands'],
+        ],
+      },
+      {
+        title: 'Also',
+        links: [
+          ['/consumables', 'Consumables'],
+          ['/filter-scanner', 'AI scanner'],
+        ],
+      },
+    ],
+  },
+  {
+    id: 'industries',
+    label: 'Industries',
+    columns: [
+      {
+        title: 'Applications',
+        links: [
+          ['/industries/automotive-paint-booth-filters', 'Automotive'],
+          ['/industries/aerospace-paint-booth-filters', 'Aerospace & MRO'],
+          ['/aerospace', 'Aerospace catalog'],
+          ['/paint-booth-filters', 'Paint booth filters'],
+          ['/neshap-compliant-paint-booth-filters', 'NESHAP guide'],
+        ],
+      },
+    ],
+  },
+  {
+    id: 'learn',
+    label: 'Learn',
+    columns: [
+      {
+        title: 'Resources',
+        links: [
+          ['/faq', 'FAQ'],
+          ['/blog', 'Guides'],
+          ['/why-choose-us', 'Why PFS'],
+          ['/memberships', 'Memberships'],
+          ['/contact', 'Contact'],
+        ],
+      },
+    ],
+  },
+];
 const CartDrawer = lazy(() => import('./CartDrawer').then((module) => ({ default: module.CartDrawer })));
 const ProductSearchDialog = lazy(() => import('./ProductSearchDialog'));
 
@@ -18,7 +92,7 @@ export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [shopOpen, setShopOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const shopDropdownRef = useRef<HTMLDivElement>(null);
   const [location] = useLocation();
@@ -26,7 +100,7 @@ export const Navigation = () => {
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (shopDropdownRef.current && !shopDropdownRef.current.contains(e.target as Node)) {
-        setShopOpen(false);
+        setOpenMenu(null);
       }
     };
     document.addEventListener('mousedown', handler);
@@ -121,7 +195,7 @@ export const Navigation = () => {
     };
   }, []);
 
-  useEffect(() => { setIsOpen(false); setShopOpen(false); setIsSearchOpen(false); }, [location]);
+  useEffect(() => { setIsOpen(false); setOpenMenu(null); setIsSearchOpen(false); }, [location]);
 
   useEffect(() => {
     const openSearch = (event: KeyboardEvent) => {
@@ -166,77 +240,41 @@ export const Navigation = () => {
               />
             </Link>
 
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-1">
-              <Link href="/" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
-                Home
-              </Link>
-
-              {/* Products dropdown */}
-              <div className="relative" ref={shopDropdownRef}>
-                <button
-                  onClick={() => setShopOpen(!shopOpen)}
-                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5"
+            <div className="hidden items-center gap-1 md:flex" ref={shopDropdownRef}>
+              {NAV_MENUS.map((menu) => (
+                <div
+                  key={menu.id}
+                  className="relative"
+                  onMouseEnter={() => setOpenMenu(menu.id)}
+                  onMouseLeave={() => setOpenMenu(null)}
                 >
-                  Products <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${shopOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {shopOpen && (
-                  <div className="absolute top-full left-0 mt-1 max-h-[86vh] w-64 overflow-y-auto overscroll-contain bg-[#111] border border-white/10 rounded-xl shadow-2xl py-2 z-50">
-                    <div className="px-3 py-1.5 text-xs font-semibold text-white/30 uppercase tracking-wider">Shop</div>
-                    <Link href="/shop" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
-                      All Products
-                    </Link>
-                    <Link href="/shop-by-filter-type" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
-                      Shop by Filter Type
-                    </Link>
-                    <Link href="/shop-by-booth" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
-                      Shop by Booth Brand
-                    </Link>
-                    <Link href="/shop-by-booth-type" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
-                      Shop by Booth Type
-                    </Link>
-                    <Link href="/shop-by-size" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
-                      Shop by Size
-                    </Link>
-                    <Link href="/brands" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
-                      Brands
-                    </Link>
-                    <Link href="/filter-finder" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
-                      Filter Finder Tool
-                    </Link>
-                    <Link href="/consumables" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
-                      Consumables
-                    </Link>
-                    <Link href="/industries/automotive-paint-booth-filters" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
-                      Automotive Filters
-                    </Link>
-                    <Link href="/industries/aerospace-paint-booth-filters" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
-                      Aerospace & MRO Filters
-                    </Link>
-                    <div className="border-t border-white/10 my-1.5 mx-3"></div>
-                    <div className="px-3 py-1.5 text-xs font-semibold text-white/30 uppercase tracking-wider">Info</div>
-                    <Link href="/why-choose-us" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
-                      Why Choose Us
-                    </Link>
-                    <Link href="/blog" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
-                      Blog
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              <Link href="/shop" className="px-3 py-2 text-sm font-semibold text-orange-500 hover:text-orange-300 transition-colors rounded-md hover:bg-white/5">Filters</Link>
-              <Link href="/memberships" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
-                Memberships
-              </Link>
-              <Link href="/filter-scanner" className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
-                <Sparkles className="w-4 h-4 text-[#4d9fff]" /> AI Scanner
-              </Link>
-              <Link href="/contact" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
-                Contact
-              </Link>
+                  <button
+                    type="button"
+                    aria-expanded={openMenu === menu.id}
+                    onClick={() => setOpenMenu(openMenu === menu.id ? null : menu.id)}
+                    className="flex min-h-11 items-center gap-1 rounded-md px-3 text-sm font-medium text-white hover:bg-white/5"
+                  >
+                    {menu.label}
+                    <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${openMenu === menu.id ? 'rotate-180' : ''}`} />
+                  </button>
+                  {openMenu === menu.id && (
+                    <div className={`absolute left-0 top-full z-50 mt-1 grid gap-6 rounded-xl border border-white/10 bg-[#0c0c0c] p-5 shadow-2xl ${menu.columns.length > 1 ? 'w-[34rem] grid-cols-3' : 'w-64 grid-cols-1'}`}>
+                      {menu.columns.map((column) => (
+                        <div key={column.title}>
+                          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/40">{column.title}</p>
+                          {column.links.map(([href, label]) => (
+                            <Link key={href} href={href} className="flex min-h-11 items-center rounded-md px-2 text-sm text-white/85 hover:bg-white/5 hover:text-white">
+                              {label}
+                            </Link>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
               {isAdmin && (
-                <Link href="/filter-database" className="px-3 py-2 text-sm font-medium text-[#4d9fff] hover:text-blue-300 transition-colors rounded-md hover:bg-white/5">
+                <Link href="/filter-database" className="flex min-h-11 items-center rounded-md px-3 text-sm font-medium text-[#4d9fff] hover:bg-white/5">
                   Filter DB
                 </Link>
               )}
@@ -257,7 +295,7 @@ export const Navigation = () => {
                 <Link href="/shop">
                   <Button
                     size="sm"
-                    className="font-semibold bg-[#4d9fff] hover:bg-[#6aadff] text-white transition-[background-color,box-shadow,transform,opacity]"
+                    className="min-h-11 font-semibold bg-[#0081f2] hover:bg-[#1a91ff] text-white transition-[background-color,box-shadow,transform,opacity]"
                   >
                     <ShoppingBag className="w-4 h-4 mr-1.5" />
                     Shop Now
@@ -268,7 +306,7 @@ export const Navigation = () => {
               {/* Cart */}
               <button
                 onClick={() => setCartOpen(true)}
-                className="relative p-2.5 rounded-lg hover:bg-white/10 transition-colors text-white/70 hover:text-white"
+                className="relative flex min-h-11 min-w-11 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                 aria-label="Open cart"
               >
                 <ShoppingBag className="w-5 h-5" />
@@ -298,7 +336,7 @@ export const Navigation = () => {
 
               {/* Mobile menu toggle */}
               <button
-                className="md:hidden p-2.5 rounded-lg hover:bg-white/10 transition-colors text-white/70 hover:text-white"
+                className="flex min-h-11 min-w-11 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white md:hidden"
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label="Toggle menu"
               >
@@ -309,27 +347,19 @@ export const Navigation = () => {
 
           {/* Mobile menu */}
           {isOpen && (
-            <div className="mobile-nav-menu md:hidden border-t border-white/10 py-3 space-y-0.5 bg-black" style={{ height: '74vh', overflow: 'scroll', flexDirection: 'column', alignItems: 'stretch' }}>
-              <Link href="/shop" className="block px-4 py-2.5 text-sm font-semibold text-orange-500 hover:text-orange-300 hover:bg-white/5 rounded-lg transition-colors">Shop Filters</Link>
-              <Link href="/shop" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">All Products</Link>
-              <Link href="/shop-by-filter-type" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Filter Type</Link>
-              <Link href="/shop-by-booth" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Booth Brand</Link>
-              <Link href="/shop-by-booth-type" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Booth Type</Link>
-              <Link href="/shop-by-size" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Size</Link>
-              <Link href="/brands" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Brands</Link>
-              <Link href="/filter-finder" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Filter Finder Tool</Link>
-              <Link href="/consumables" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Consumables</Link>
-              <Link href="/industries/automotive-paint-booth-filters" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Automotive Filters</Link>
-              <Link href="/industries/aerospace-paint-booth-filters" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Aerospace & MRO Filters</Link>
-              <Link href="/why-choose-us" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Why Choose Us</Link>
-              <Link href="/memberships" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Memberships</Link>
-              <Link href="/blog" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Blog</Link>
-              <Link href="/filter-scanner" className="flex items-center gap-2 px-4 py-[20px] text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                <Sparkles className="w-4 h-4 text-[#4d9fff]" /> AI Scanner
-              </Link>
-              <Link href="/contact" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Contact</Link>
+            <div className="mobile-nav-menu flex max-h-[74vh] flex-col items-stretch overflow-y-auto overflow-x-hidden border-t border-white/10 bg-black py-3 md:hidden">
+              {NAV_MENUS.map((menu) => (
+                <div key={menu.id} className="px-2 py-1">
+                  <p className="px-2 pb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/40">{menu.label}</p>
+                  {menu.columns.flatMap((column) => column.links).map(([href, label]) => (
+                    <Link key={href} href={href} className="flex min-h-11 items-center rounded-lg px-3 text-sm text-white hover:bg-white/5">
+                      {label}
+                    </Link>
+                  ))}
+                </div>
+              ))}
               {isAdmin && (
-                <Link href="/filter-database" className="block px-4 py-2.5 text-sm text-[#4d9fff] hover:text-blue-300 hover:bg-white/5 rounded-lg transition-colors">Filter Database (Admin)</Link>
+                <Link href="/filter-database" className="mx-2 flex min-h-11 items-center rounded-lg px-3 text-sm text-[#4d9fff] hover:bg-white/5">Filter Database (Admin)</Link>
               )}
               <div className="px-4 pt-3 pb-1 flex gap-2">
                 <Link href="/contact" className="flex-1">
@@ -353,7 +383,7 @@ export const Navigation = () => {
         type="button"
         onClick={() => {
           setIsOpen(false);
-          setShopOpen(false);
+          setOpenMenu(null);
           setIsSearchOpen(true);
         }}
         className="search-fab-pulse fixed bottom-20 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full text-white transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8bc0ff] focus-visible:ring-offset-2 focus-visible:ring-offset-black md:bottom-6 md:right-6 md:h-[84px] md:w-[84px]"

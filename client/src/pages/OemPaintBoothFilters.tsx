@@ -8,6 +8,7 @@ import { ArrowRight, Building2, CheckCircle2, ExternalLink, Filter, Info, Layers
 import { getBrandBySlug, BOOTH_TYPES, type BoothModel } from '@/data/boothBrands';
 import { OEM_LANDING_PAGES } from '@/data/isaacLandingPages';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
+import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 
 const SITE = 'https://www.pfsfilters.com';
 
@@ -81,6 +82,22 @@ export default function OemPaintBoothFilters() {
               <p className="pfs-sub-animate max-w-3xl text-lg leading-relaxed text-white/65 md:text-xl">
                 {config.introduction}
               </p>
+              {brand && (
+                <dl className="mt-8 grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
+                    <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">Models recorded</dt>
+                    <dd className="mt-1 text-2xl font-bold">{brand.models.length}</dd>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
+                    <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">Airflow types</dt>
+                    <dd className="mt-1 text-sm font-semibold leading-snug">{[...new Set(brand.models.map((model) => BOOTH_TYPES[model.type]?.label || model.type))].join(', ')}</dd>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
+                    <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">Exhaust sizes on file</dt>
+                    <dd className="mt-1 text-sm font-semibold leading-snug">{[...new Set(brand.models.flatMap((model) => model.filters.exhaust || []))].slice(0, 4).join(', ') || 'Confirm on the equipment'}</dd>
+                  </div>
+                </dl>
+              )}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link href="/filter-finder">
                   <Button className="gap-2 bg-blue-700 px-7 py-6 text-white hover:bg-blue-600">
@@ -207,7 +224,7 @@ export default function OemPaintBoothFilters() {
               <p className="mb-6 text-sm leading-relaxed text-white/60">Send the model, equipment tag, filter stage, label, photos, and dimensions. PFS will separate likely catalog matches from items that require more information.</p>
               <div className="flex flex-col gap-3">
                 <Link href="/contact"><Button className="w-full bg-blue-700 text-white hover:bg-blue-600">Request a fitment review</Button></Link>
-                <a href="tel:+18554967969"><Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/5">Call 855-496-7969</Button></a>
+                <a href={PHONE_TEL}><Button variant="outline" className="min-h-11 w-full border-white/20 text-white hover:bg-white/5">Call {PHONE_DISPLAY}</Button></a>
               </div>
             </div>
           </div>

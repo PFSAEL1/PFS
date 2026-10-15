@@ -1,83 +1,13 @@
-// Hero — PFS Filters Dark Theme
-// Full-bleed looping video hero, left-aligned text, electric blue CTAs
-import { useEffect, useRef, useState } from 'react';
 import { Link } from 'wouter';
-import { Button } from '@/components/ui/button';
-import { CircleHelp, Mail, ShoppingBag, Truck, Shield } from 'lucide-react';
+import { CircleHelp, ShoppingBag, Truck, Shield } from 'lucide-react';
 
-const HERO_VIDEO = 'https://cdn.shopify.com/videos/c/o/v/95b492e672f942f8acd0683f6053f877.mp4';
 const HERO_POSTER_MOBILE = '/media/pfs-hero-poster-mobile.webp';
 const HERO_POSTER_DESKTOP = '/media/pfs-hero-poster-desktop.webp';
 
 export const Hero = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [canPlayVideo, setCanPlayVideo] = useState(false);
-  const [videoReady, setVideoReady] = useState(false);
-  const [isDesktopViewport, setIsDesktopViewport] = useState(false);
-
-  useEffect(() => {
-    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const desktopViewportQuery = window.matchMedia('(min-width: 768px)');
-
-    const updatePlaybackPreference = () => {
-      // Same video now plays on mobile too — only reduced-motion opts out.
-      // Viewport is tracked separately just to pick the matching poster.
-      setIsDesktopViewport(desktopViewportQuery.matches);
-      const shouldPlayVideo = !reducedMotionQuery.matches;
-      setCanPlayVideo(shouldPlayVideo);
-      if (!shouldPlayVideo) setVideoReady(false);
-    };
-
-    updatePlaybackPreference();
-    reducedMotionQuery.addEventListener('change', updatePlaybackPreference);
-    desktopViewportQuery.addEventListener('change', updatePlaybackPreference);
-
-    return () => {
-      reducedMotionQuery.removeEventListener('change', updatePlaybackPreference);
-      desktopViewportQuery.removeEventListener('change', updatePlaybackPreference);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!canPlayVideo) return;
-
-    let idleId: number | undefined;
-    let timerId: number | undefined;
-    const enableVideo = () => {
-      if ('requestIdleCallback' in window) {
-        idleId = window.requestIdleCallback(() => setVideoReady(true), { timeout: 3000 });
-      } else {
-        timerId = globalThis.setTimeout(() => setVideoReady(true), 1500) as unknown as number;
-      }
-    };
-
-    if (document.readyState === 'complete') enableVideo();
-    else window.addEventListener('load', enableVideo, { once: true });
-
-    return () => {
-      window.removeEventListener('load', enableVideo);
-      if (idleId !== undefined) window.cancelIdleCallback(idleId);
-      if (timerId !== undefined) window.clearTimeout(timerId);
-    };
-  }, [canPlayVideo]);
-
-  useEffect(() => {
-    if (!canPlayVideo || !videoReady) return;
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = true;
-    video.play().catch(() => {
-      // Silently ignore if browser blocks autoplay (rare with muted + playsInline)
-    });
-  }, [videoReady]);
-
   return (
     <header>
-      <section
-        id="home"
-        className="relative min-h-[65vh] md:min-h-[80vh] flex items-center overflow-hidden bg-black"
-      >
-        {/* Full-bleed looping video background */}
+      <section id="home" className="relative flex min-h-[32rem] items-end overflow-hidden bg-black md:min-h-[36rem]">
         <div className="absolute inset-0 z-0">
           <picture>
             <source media="(max-width: 767px)" srcSet={HERO_POSTER_MOBILE} />
@@ -93,89 +23,44 @@ export const Hero = () => {
               aria-hidden="true"
             />
           </picture>
-          {canPlayVideo && (
-            <video
-              ref={videoRef}
-              className={`absolute inset-0 w-full h-full object-cover object-[65%_center] md:object-center transition-opacity duration-500 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
-              src={videoReady ? HERO_VIDEO : undefined}
-              poster={isDesktopViewport ? HERO_POSTER_DESKTOP : HERO_POSTER_MOBILE}
-              autoPlay={videoReady}
-              muted
-              loop
-              playsInline
-              controls={false}
-              preload="none"
-              disablePictureInPicture
-              aria-hidden="true"
-              tabIndex={-1}
-              style={{ pointerEvents: 'none' }}
-            />
-          )}
-          {/* Left-side vignette: grounds the headline to the image, keeps filter imagery on the right fully visible */}
           <div className="hero-vignette" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-[1]" />
+          <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black via-black/35 to-black/25" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-32 w-full">
-          <div className="max-w-2xl">
-            {/* Eyebrow badge */}
-            <div className="eyebrow-brand inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm font-medium mb-6">
-              <Shield className="w-3.5 h-3.5" />
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 pt-28 sm:px-6">
+          <div className="max-w-[68ch]">
+            <div className="eyebrow-brand mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium">
+              <Shield className="h-3.5 w-3.5" />
               A Division of PFS Spray Booths — 30+ Years of Expertise
             </div>
 
-            {/* Headline — two visual tiers: white setup line, larger gradient key message */}
-            <h1
-              className="hero-headline mb-6"
-            >
+            <h1 className="hero-headline mb-6">
               <span className="hero-tier1">A Filter Program Built to</span>
               <span className="hero-tier2">Manage Your Entire Booth</span>
             </h1>
 
-            {/* Subheadline */}
-            <p
-              className="text-lg md:text-xl text-white/60 leading-relaxed mb-8"
-            >
-              Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.
+            <p className="mb-8 max-w-[62ch] text-base leading-[1.6] text-white md:text-lg">
+              Start with the booth you run. Backed by 30+ years of PFS Spray Booths. In stock, ships fast.
             </p>
 
-            {/* CTAs */}
-            <div
-              className="flex flex-wrap gap-4 mb-10"
-            >
-              <Link href="/shop">
-                <Button
-                  size="lg"
-                  className="text-base px-8 py-6 font-bold bg-blue-500 hover:bg-blue-400 text-white transition-[background-color,box-shadow,transform]"
-                >
-                  <ShoppingBag className="mr-2 h-5 w-5" />
-                  Shop Filters Now
-                </Button>
+            <div className="mb-8 flex flex-wrap gap-3">
+              <Link href="/shop" className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-[#0066cc] px-5 text-base font-semibold text-white hover:bg-[#0057a3]">
+                <ShoppingBag className="h-4 w-4" />
+                Shop Filters Now
               </Link>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="text-base px-8 py-6 font-bold border-2 border-white/30 text-white hover:bg-white/10 transition-[background-color,box-shadow,transform] bg-transparent"
-              >
-                <Link href="/contact">
-                  <Mail className="mr-2 h-5 w-5" />
-                  Get a Custom Quote
-                </Link>
-              </Button>
+              <Link href="/contact" className="inline-flex min-h-11 items-center rounded-lg border border-white/70 px-5 text-base font-semibold text-white hover:bg-white/10">
+                Get a Custom Quote
+              </Link>
             </div>
 
-            {/* Trust Badges */}
-            <div
-              className="flex flex-wrap gap-6"
-            >
+            <div className="flex flex-wrap gap-x-6 gap-y-3">
               {[
                 { icon: Truck, label: 'Ships Fast Nationwide' },
                 { icon: Shield, label: 'Booth-Specific Filter Tracking' },
                 { icon: CircleHelp, label: 'Sizing Help Available' },
-              ].map((badge, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-sm text-white/50">
-                  <badge.icon className="h-4 w-4 text-blue-400" />
+              ].map((badge) => (
+                <div key={badge.label} className="flex items-center gap-2 text-base text-white">
+                  <badge.icon className="h-4 w-4 text-[#9ecbff]" />
                   <span className="font-medium">{badge.label}</span>
                 </div>
               ))}

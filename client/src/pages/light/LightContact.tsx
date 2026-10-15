@@ -4,6 +4,7 @@
 
 import { useState } from "react";
 import LightLayout from "../../components/light/LightLayout";
+import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 
 export default function LightContact() {
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
@@ -44,7 +45,7 @@ export default function LightContact() {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             {[
-              { label: "Phone", value: "855-496-7969" },
+              { label: "Phone", value: PHONE_DISPLAY },
               { label: "Hours", value: "Mon–Fri, 8am–5pm CST" },
               { label: "Shipping", value: "Ships in 1–2 Business Days" },
             ].map(item => (

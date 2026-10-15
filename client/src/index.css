@@ -1,5 +1,41 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/inter-400-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/inter-500-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/inter-600-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/montserrat-500-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/montserrat-600-latin.woff2') format('woff2');
+}
 @custom-variant dark (&:is(.dark *));
 /* 
  * PFS Filters Design System — Dark Industrial Theme
@@ -35,7 +71,10 @@
   --color-ring: var(--ring);
 }
 :root {
-  --pfs-brand-font: 'Barlow Condensed', 'Arial Narrow', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --pfs-body-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --pfs-heading-font: 'Montserrat', 'Inter', system-ui, sans-serif;
+  --pfs-brand-font: var(--pfs-body-font);
+  --pfs-blue-button: #0066cc;
   /* Dark theme as default — pure black background */
   --background: hsl(0 0% 5%);
   --foreground: hsl(0 0% 98%);
@@ -44,8 +83,9 @@
   --popover: hsl(0 0% 11%);
   --popover-foreground: hsl(0 0% 98%);
   
-  /* Electric blue primary */
-  --primary: hsl(207 100% 50%);
+  /* Brand blue #0081f2 */
+  --pfs-blue: #0081f2;
+  --primary: #0081f2;
   --primary-foreground: hsl(0 0% 100%);
   
   /* Secondary — dark gray */
@@ -68,7 +108,7 @@
   --destructive-foreground: hsl(0 0% 98%);
   --border: hsl(0 0% 16%);
   --input: hsl(0 0% 14%);
-  --ring: hsl(207 100% 50%);
+  --ring: #0081f2;
   --radius: 0.5rem;
 
   /* Gradients */
@@ -91,7 +131,7 @@
     --card-foreground: oklch(0.98 0 0);
     --popover: oklch(0.16 0 0);
     --popover-foreground: oklch(0.98 0 0);
-    --primary: oklch(0.62 0.22 230);
+    --primary: #0081f2;
     --primary-foreground: oklch(1 0 0);
     --secondary: oklch(0.19 0 0);
     --secondary-foreground: oklch(0.98 0 0);
@@ -105,7 +145,7 @@
     --destructive-foreground: oklch(0.985 0 0);
     --border: oklch(0.22 0 0);
     --input: oklch(0.20 0 0);
-    --ring: oklch(0.62 0.22 230);
+    --ring: #0081f2;
     --gradient-hero: linear-gradient(180deg, oklch(0.05 0 0) 0%, oklch(0.10 0 0) 100%);
     --gradient-subtle: linear-gradient(180deg, oklch(0.09 0 0) 0%, oklch(0.13 0 0) 100%);
     --shadow-soft: 0 4px 20px -2px oklch(0.62 0.22 230 / 0.15);
@@ -117,26 +157,53 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    overflow-x: clip;
+  }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--pfs-brand-font);
+    font-family: var(--pfs-body-font);
+    font-size: 16px;
     font-weight: 400;
-    letter-spacing: 0.02em;
+    letter-spacing: 0;
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+  img, video {
+    max-width: 100%;
+  }
+  p, li, dd, td, label {
+    line-height: 1.6;
+  }
+  p {
+    max-width: 68ch;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--pfs-brand-font);
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font-family: var(--pfs-heading-font);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
   }
   h1 {
-    text-transform: uppercase;
+    text-transform: none;
   }
   button, input, select, textarea {
-    font-family: var(--pfs-brand-font);
+    font-family: var(--pfs-body-font);
+    font-size: 16px;
   }
   nav, a {
-    font-family: var(--pfs-brand-font);
-    letter-spacing: 0.06em;
+    font-family: var(--pfs-body-font);
+  }
+  nav a, nav button {
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .eyebrow-brand, .eyebrow-teal {
+    font-family: var(--pfs-body-font);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -738,12 +805,12 @@ video::-internal-media-controls-play-button {
 .eyebrow-brand,
 .eyebrow-teal {
   color: #ffffff !important;
-  background: #3b82f6 !important; /* exact match to the hero bg-blue-500 CTA */
-  border-color: #3b82f6 !important;
+  background: #041018 !important;
+  border-color: rgba(255, 255, 255, 0.72) !important;
 }
 .eyebrow-brand svg,
 .eyebrow-teal svg {
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: #ffffff !important;
 }
 
 /* ---- 3. Card surface depth -------------------------------------------
@@ -868,6 +935,16 @@ video::-internal-media-controls-play-button {
     flex-wrap: wrap;
     justify-content: center;
   }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body:has(.pfs-mobile-atc) .search-fab-pulse {
+  bottom: 6.5rem;
 }
 
 
@@ -883,22 +960,20 @@ video::-internal-media-controls-play-button {
 .hero-tier1 {
   display: block;
   color: #ffffff;
-  font-size: clamp(1.9rem, 4.4vw, 3.4rem);   /* ~10% reduced vs old base */
-  font-weight: 800;
-  letter-spacing: 0;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
-/* Tier 2 — the key message: ~20% larger, diagonal gradient fill */
 .hero-tier2 {
   display: block;
   margin-top: 0.12em;
-  font-size: clamp(2.5rem, 6.2vw, 4.6rem);   /* ~20% larger than tier 1 */
-  font-weight: 800;
-  letter-spacing: 0;
-  background: linear-gradient(135deg, #60a5fa 0%, #a5f3fc 50%, #ffffff 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  font-size: clamp(2.15rem, 5vw, 3.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: #ffffff;
+  max-width: 16ch;
 }
 
 /* ---- Hero left-side vignette: grounds the headline to the image ---- */
@@ -909,37 +984,36 @@ video::-internal-media-controls-play-button {
   z-index: 1;
   background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.5) 40%,
-    rgba(0, 0, 0, 0) 70%
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.78) 46%,
+    rgba(0, 0, 0, 0.55) 100%
   );
 }
 
 /* ---- Trust ticker: quiet, subordinate, broadcast-style ---- */
 .ticker-bar {
-  opacity: 0.75;            /* the whole bar whispers */
+  opacity: 1;
 }
 .ticker-item {
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 0.875rem;
+  font-weight: 500;
   letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.72) !important;
+  color: #f2f2f2 !important;
 }
 .ticker-item span {
-  color: rgba(255, 255, 255, 0.72) !important;
+  color: #f2f2f2 !important;
 }
 .ticker-dot {
   opacity: 0.4;
   background-color: rgba(255, 255, 255, 0.35) !important;
 }
 
-/* ---- Force Barlow Condensed 800 on the actual rendered hero headline ---- */
 .hero-headline,
 .hero-headline .hero-tier1,
 .hero-headline .hero-tier2 {
-  font-family: var(--pfs-brand-font) !important;
-  font-weight: 800 !important;
-  letter-spacing: 0 !important;
+  font-family: var(--pfs-heading-font) !important;
+  letter-spacing: -0.03em !important;
+  text-transform: none;
 }
 
 @media (max-width: 767px) {
@@ -975,4 +1049,51 @@ video::-internal-media-controls-play-button {
 .contact-page #contact{
   padding-top: 50px !important;
   padding-bottom: 50px !important;
+}
+
+/* Body copy and labels stay at AA contrast on the dark surfaces. */
+.text-white\/20,
+.text-white\/25,
+.text-white\/30,
+.text-white\/35,
+.text-white\/40,
+.text-white\/45,
+.text-white\/50,
+.text-white\/55,
+.text-white\/60,
+.text-white\/65 {
+  color: #e8e8e8 !important;
+}
+::placeholder {
+  color: #cfcfcf;
+  opacity: 1;
+}
+.bg-blue-500,
+.bg-blue-600,
+.bg-\[\#0081f2\] {
+  background-color: #0066cc !important;
+  color: #ffffff !important;
+}
+.bg-orange-500,
+.bg-orange-500 * {
+  color: #1a0a00 !important;
+}
+h1, h2, h3, h4, h5, h6, .font-extrabold, .font-black, .font-bold {
+  font-weight: 600;
+}
+.text-sm { font-size: 1rem; line-height: 1.6; }
+.text-xs, .text-\[10px\], .text-\[7px\] { font-size: 0.875rem; line-height: 1.5; }
+@media (max-width: 767px) {
+  button,
+  [type="button"],
+  [type="submit"],
+  [type="reset"],
+  select,
+  summary,
+  input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+  textarea,
+  nav a,
+  [role="button"] {
+    min-height: 44px;
+  }
 }

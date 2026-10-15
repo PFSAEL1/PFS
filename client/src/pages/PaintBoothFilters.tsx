@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer';
 import { StickyMobileCTA } from '@/components/StickyMobileCTA';
 import { Button } from '@/components/ui/button';
 import { Phone, Truck, Package, ShieldCheck, RefreshCw, ChevronDown, ChevronUp, Shield, AlertTriangle, ArrowRight, Building2, MapPin } from 'lucide-react';
+import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 
 // FAQ Schema JSON-LD
 const faqSchema = {
@@ -65,7 +66,7 @@ const faqSchema = {
       "name": "Can I order in bulk?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Bulk pricing available. Call 855-496-7969 to discuss pricing for your facility's volume."
+        text: `Yes. Bulk pricing available. Call ${PHONE_DISPLAY} to discuss pricing for your facility's volume.`
       }
     }
   ]
@@ -78,7 +79,7 @@ const FAQS = [
   { q: "Do you cover all booth brands or just PFS?", a: "PFS Filters provides catalog and replacement guidance for PFS and multiple major booth brands, including Garmat, Accudraft, GFS, Col-Met, and Blowtherm. Compatibility depends on the booth model, stage, and dimensions." },
   { q: "How often should I replace exhaust filters?", a: "There is no universal replacement interval. Follow the booth and filter manufacturer instructions, differential-pressure or manometer readings, operating conditions, coating load, and documented visual inspections." },
   { q: "Does buying a filter make a booth CARB or OSHA compliant?", a: "No filter by itself makes a facility compliant. Compliance depends on the complete booth, ventilation, operating conditions, coating process, maintenance, permits, and applicable rules. Request product documentation and consult a qualified professional for your facility." },
-  { q: "Can I order in bulk?", a: "Yes. Bulk pricing available. Call 855-496-7969 to discuss pricing for your facility's volume." },
+  { q: "Can I order in bulk?", a: `Yes. Bulk pricing available. Call ${PHONE_DISPLAY} to discuss pricing for your facility's volume.` },
 ];
 
 const BRANDS = [
@@ -154,9 +155,9 @@ export default function PaintBoothFilters() {
                 Shop All Filters
               </Button>
             </a>
-            <a href="tel:+18554967969" className="inline-block">
+            <a href={PHONE_TEL} className="inline-block">
               <Button size="lg" variant="outline" className="border-2 border-white/30 text-white hover:bg-white/10 font-semibold text-lg px-8 py-6 rounded-lg bg-transparent">
-                <Phone className="w-5 h-5 mr-2" /> Call 855-496-7969
+                <Phone className="w-5 h-5 mr-2" /> Call {PHONE_DISPLAY}
               </Button>
             </a>
           </div>
@@ -166,7 +167,7 @@ export default function PaintBoothFilters() {
       {/* SECTION 2 — URGENCY BAR | Orange background */}
       <section className="w-full bg-orange-500 py-3 px-4">
         <p className="text-center text-white font-semibold text-sm md:text-base">
-          Stocked items typically process in 1–2 business days. Custom, freight, backordered, and special-order timing varies. Questions? Call 855-496-7969.
+          Stocked items typically process in 1–2 business days. Custom, freight, backordered, and special-order timing varies. Questions? Call {PHONE_DISPLAY}.
         </p>
       </section>
 
@@ -287,7 +288,7 @@ export default function PaintBoothFilters() {
           <div>
             <h3 className="text-xl font-bold text-blue-400 mb-2">Fulfillment Timing by Product and Order Type</h3>
             <p className="text-white/50 leading-relaxed">
-              Stocked items typically process in 1–2 business days. Custom, specialty, freight, backordered, and special-order items may require additional time. Review the current product page or call 855-496-7969 for an order-specific estimate.
+              Stocked items typically process in 1–2 business days. Custom, specialty, freight, backordered, and special-order items may require additional time. Review the current product page or call {PHONE_DISPLAY} for an order-specific estimate.
             </p>
           </div>
         </div>
@@ -401,7 +402,7 @@ export default function PaintBoothFilters() {
             Loaded or damaged filters can affect booth airflow and finish quality. Inspect each filter stage, record relevant pressure or manometer readings, and follow the booth and filter manufacturer instructions for your process.
           </p>
           <p className="text-white/60 mb-8 leading-relaxed">
-            There is no universal replacement interval. Timing depends on coating load, operating hours, airflow, filter media, booth design, manufacturer limits, permit conditions, and documented inspections. When in doubt, call 855-496-7969.
+            There is no universal replacement interval. Timing depends on coating load, operating hours, airflow, filter media, booth design, manufacturer limits, permit conditions, and documented inspections. When in doubt, call {PHONE_DISPLAY}.
           </p>
           {/* Warning Box */}
           <div className="glow-card border-l-4 border-l-orange-500 p-6 mb-10">
@@ -451,8 +452,8 @@ export default function PaintBoothFilters() {
           </a>
           <p className="text-white/40">
             Not sure what fits your booth?{' '}
-            <a href="tel:+18554967969" className="text-blue-400 hover:text-blue-300 underline transition-colors">
-              Call 855-496-7969 — we will help review the details
+            <a href={PHONE_TEL} className="text-blue-400 hover:text-blue-300 underline transition-colors">
+              Call {PHONE_DISPLAY} — we will help review the details
             </a>
           </p>
         </div>

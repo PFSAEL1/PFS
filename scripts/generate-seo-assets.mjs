@@ -142,6 +142,17 @@ const firstRollMediaProduct = rollMediaProducts.find((product) => product.images
 const mervFilterProducts = products.filter((product) => productMatchesCategorySlug(product, 'merv-filters'));
 const firstMervFilterProduct = mervFilterProducts.find((product) => product.images?.edges?.[0]?.node?.url);
 
+function dedupeStylesheets(html) {
+  const seen = new Set();
+  return html.replace(/<link\b[^>]*rel=["']stylesheet["'][^>]*>/gi, (tag) => {
+    const href = tag.match(/href=["']([^"']+)["']/i)?.[1];
+    if (!href) return tag;
+    if (seen.has(href)) return '';
+    seen.add(href);
+    return tag;
+  });
+}
+
 function deferMainStylesheet(html) {
   return html.replace(
     /<link rel="stylesheet" crossorigin href="([^"]+)">/i,
@@ -303,7 +314,7 @@ const blogRoutes = blogPosts.map((post) => ({
   ogType: 'article',
   schema: {
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    '@type': ['Article', 'BlogPosting'],
     headline: post.title,
     description: post.excerpt,
     datePublished: post.date,
@@ -567,6 +578,45 @@ if (garmatRoute) {
 
 const routes = [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...blogRoutes, ...productRoutes];
 
+for (const route of routes) {
+  if (route.noindex || route.schema) continue;
+  if (route.path === '/faq') {
+    route.schema = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'FAQPage',
+          mainEntity: faqs.map((faq) => ({
+            '@type': 'Question',
+            name: faq.question,
+            acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+          })),
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${origin}/` },
+            { '@type': 'ListItem', position: 2, name: 'FAQ', item: absoluteUrl('/faq') },
+          ],
+        },
+      ],
+    };
+    continue;
+  }
+  const crumbs = breadcrumbItems(route);
+  if (crumbs.length < 2) continue;
+  route.schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: crumbs.map(([href, name], index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name,
+      item: absoluteUrl(href),
+    })),
+  };
+}
+
 const primaryNavigation = [
   ['/', 'Home'],
   ['/shop', 'All Products'],
@@ -751,7 +801,7 @@ function shopFallback(title, description) {
       </article>`;
   }).join('');
 
-  return `<main data-seo-fallback id="shop-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="shop-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <section style="padding:112px 16px 16px;background:#050505">
       <div style="max-width:1280px;margin:0 auto">
         <p style="margin:0 0 16px;color:rgba(255,255,255,.55);font-size:14px">Home / Shop</p>
@@ -770,7 +820,7 @@ function shopFallback(title, description) {
 }
 
 function intakeFallback(title, description) {
-  return `<main data-seo-fallback id="intake-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="intake-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -816,7 +866,7 @@ function ceilingBlanketsFallback(title, description) {
       </article>`;
   }).join('');
 
-  return `<main data-seo-fallback id="ceiling-blankets-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="ceiling-blankets-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -863,7 +913,7 @@ function rollMediaFallback(title, description) {
       </article>`;
   }).join('');
 
-  return `<main data-seo-fallback id="roll-media-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="roll-media-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -910,7 +960,7 @@ function mervFiltersFallback(title, description) {
       </article>`;
   }).join('');
 
-  return `<main data-seo-fallback id="merv-filters-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="merv-filters-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -935,7 +985,7 @@ function mervFiltersFallback(title, description) {
 }
 
 function northBayFallback(description) {
-  return `<main data-seo-fallback id="north-bay-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="north-bay-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -960,7 +1010,7 @@ function northBayFallback(description) {
 }
 
 function losAngelesFallback() {
-  return `<main data-seo-fallback id="los-angeles-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="los-angeles-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1010,7 +1060,7 @@ function filterFinderFallback() {
       </div>
     </article>`).join('');
 
-  return `<main data-seo-fallback id="filter-finder-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="filter-finder-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1045,7 +1095,7 @@ function filterScannerFallback() {
       <p style="margin:0;color:rgba(255,255,255,.58);font-family:Arial,sans-serif;font-size:14px;line-height:1.45">${copy}</p>
     </article>`).join('');
 
-  return `<main data-seo-fallback id="filter-scanner-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="filter-scanner-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1077,7 +1127,7 @@ function filterScannerFallback() {
 }
 
 function polyesterMediaFallback(title, description) {
-  return `<main data-seo-fallback id="polyester-media-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="polyester-media-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1115,7 +1165,7 @@ function polyesterMediaFallback(title, description) {
 }
 
 function novaVertaFallback() {
-  return `<main data-seo-fallback id="nova-verta-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="nova-verta-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1174,7 +1224,7 @@ function novaVertaFallback() {
 }
 
 function fiberglassVsTackyBlogFallback() {
-  return `<main data-seo-fallback id="fiberglass-vs-tacky-blog-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="fiberglass-vs-tacky-blog-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1224,7 +1274,7 @@ function brandsFallback() {
       <a href="/shop" style="display:inline-flex;align-items:center;min-height:34px;border:1px solid rgba(255,255,255,.2);border-radius:8px;color:rgba(255,255,255,.75);text-decoration:none;padding:7px 12px;font-family:Arial,sans-serif;font-size:13px;font-weight:700">Shop Products</a>
     </article>`).join('');
 
-  return `<main data-seo-fallback id="brands-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="brands-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1249,7 +1299,7 @@ function brandsFallback() {
 }
 
 function vitraFallback() {
-  return `<main data-seo-fallback id="vitra-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="vitra-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1310,7 +1360,7 @@ function automotiveIndustryFallback() {
       <p style="margin:0;color:rgba(255,255,255,.62);font-family:Arial,sans-serif;font-size:15px;line-height:1.65">${escapeHtml(faq.answer)}</p>
     </article>`).join('');
 
-  return `<main data-seo-fallback id="automotive-industry-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="automotive-industry-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="border-bottom:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.95)">
       <div style="height:96px;max-width:1280px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between">
         <a href="/" aria-label="PFS Filters home"><img src="${logoUrl}" alt="PFS Filters" width="420" height="127" fetchpriority="high" decoding="async" style="display:block;height:64px;width:auto" /></a>
@@ -1376,7 +1426,7 @@ function aerospaceFallback() {
         </a>
       </article>` : '';
 
-  return `<main data-seo-fallback id="aerospace-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="aerospace-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="max-width:1280px;margin:0 auto;padding:0 16px">
         <div style="height:96px;display:flex;align-items:center;justify-content:space-between">
@@ -1464,7 +1514,7 @@ function genericProductFallback(route) {
     ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1024px) 50vw, 100vw" alt="${escapeHtml(imageAlt)}" width="${isMembershipProduct ? 720 : isKochProduct ? 960 : 800}" height="${isMembershipProduct ? 960 : isKochProduct ? 960 : 800}" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;max-width:${isKochProduct ? '400px' : 'none'};max-height:${isKochProduct ? '400px' : 'none'};object-fit:${isMembershipProduct || isKochProduct ? 'contain' : 'cover'};${isMembershipProduct ? 'padding:24px;box-sizing:border-box;' : ''}display:block" />`
     : '';
 
-  return `<main data-seo-fallback id="product-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+  return `<main data-seo-fallback id="product-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Inter',system-ui,sans-serif">
     <div style="height:48px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
     <section style="padding:40px 16px;background:#0d0d0d">
       <div style="max-width:1280px;margin:0 auto;display:grid;gap:48px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
@@ -1474,7 +1524,7 @@ function genericProductFallback(route) {
           </div>
         </div>
         <div style="font-family:Arial,sans-serif">
-          <h1 style="margin:0 0 12px;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;font-size:clamp(1.75rem,6vw,2.25rem);line-height:1.15;font-weight:800;color:#fff">${escapeHtml(title)}</h1>
+          <h1 style="margin:0 0 12px;font-family:'Inter',system-ui,sans-serif;font-size:clamp(1.75rem,6vw,2.25rem);line-height:1.15;font-weight:800;color:#fff">${escapeHtml(title)}</h1>
           ${priceMarkup}
           ${descriptionMarkup}
           ${productDetailsMarkup}
@@ -1500,6 +1550,7 @@ function writeSourceAssets() {
 }
 
 function replaceMeta(html, route) {
+  html = dedupeStylesheets(html);
   const url = absoluteUrl(route.path);
   const image = route.image || 'https://www.pfsfilters.com/media/pfs-hero-poster-desktop.webp';
   const imageWidth = route.imageWidth || 1600;
@@ -1675,7 +1726,7 @@ function replaceMeta(html, route) {
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
   const heading = escapeHtml(routeHeading(route));
   const fallback = route.path === '/'
-    ? `<main data-seo-fallback><section id="home"><div><picture><source media="(max-width: 767px)" srcset="${heroPosterMobile}" /><img src="${heroPosterDesktop}" alt="" aria-hidden="true" width="1600" height="900" fetchpriority="high" /></picture><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section></main>`
+    ? `<main data-seo-fallback><section id="home"><div><picture><source media="(max-width: 767px)" srcset="${heroPosterMobile}" /><img src="${heroPosterDesktop}" alt="" aria-hidden="true" width="1600" height="900" fetchpriority="high" /></picture><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Start with the booth you run. Backed by 30+ years of PFS Spray Booths. In stock, ships fast.</p><h2>Booth type, then brand, then model</h2><p><a href="/filter-finder" style="color:#93c5fd;font-weight:700">Filter Finder</a> · <a href="/exhaust-filters" style="color:#93c5fd;font-weight:700">Exhaust</a> · <a href="/intake-filters" style="color:#93c5fd;font-weight:700">Intake</a> · <a href="/ceiling-filters" style="color:#93c5fd;font-weight:700">Ceiling</a> · <a href="/prefilters" style="color:#93c5fd;font-weight:700">Prefilters</a></p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section></main>`
     : route.path === '/auth'
     ? `<main data-seo-fallback id="auth-fallback" style="min-height:100vh;background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif"><div style="width:min(384px,calc(100% - 32px));border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#111;padding:32px;text-align:center;box-sizing:border-box"><img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" width="250" height="76" fetchpriority="high" style="display:block;width:250px;max-width:100%;height:auto;margin:0 auto 24px;filter:brightness(1.4) drop-shadow(0 0 20px rgba(59,130,246,.3))" /><p style="margin:0;color:rgba(255,255,255,.7);font-size:14px">Loading secure sign-in…</p></div></main>`
     : route.path === '/shop'

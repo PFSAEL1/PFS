@@ -8,6 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Button } from '@/components/ui/button';
 import faqData from '@/data/faqData.json';
 import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
+import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/site';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://www.pfsfilters.com/' },
@@ -53,7 +54,7 @@ export default function FAQPage() {
                   <Search className="h-4 w-4" /> Find My Filter
                 </Button>
               </Link>
-              <a href="tel:855-496-7969">
+              <a href={PHONE_TEL}>
                 <Button variant="outline" className="gap-2 border-white/20 bg-transparent text-white hover:bg-white/10">
                   <Phone className="h-4 w-4" /> Call an Expert
                 </Button>
@@ -105,9 +106,9 @@ export default function FAQPage() {
             Have the booth make and model, filter position, dimensions, and a clear photo ready when you call. We will help identify the closest available option or review a custom-size request.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <a href="tel:855-496-7969">
+            <a href={PHONE_TEL}>
               <Button className="gap-2 bg-blue-500 text-white hover:bg-blue-400">
-                <Phone className="h-4 w-4" /> 855-496-7969
+                <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
               </Button>
             </a>
           </div>

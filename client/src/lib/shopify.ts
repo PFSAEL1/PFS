@@ -207,7 +207,7 @@ export const CATEGORY_TAG_MAP: Record<string, string[]> = {
   'roll-media': ['roll', 'roll media', 'media roll'],
   'merv-filters': ['merv', 'merv-10', 'merv-13', 'merv10', 'merv13'],
   'polyester-media': ['polyester', 'synthetic media'],
-  'pre-filters': ['pre-filter', 'prefilter', 'pre filter', 'first stage'],
+  'pre-filters': ['pre-filter', 'prefilter', 'pre filter', 'first stage', 'pleated', 'merv-10', 'merv 10'],
 };
 
 /**
