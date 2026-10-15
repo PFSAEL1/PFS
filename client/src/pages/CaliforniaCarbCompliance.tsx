@@ -106,7 +106,7 @@ export default function CaliforniaCarbCompliance() {
         </section>
 
 
-        <section className="section-raised tex-dots px-4 py-16">
+        <section className="section-raised px-4 py-16">
           <div className="mx-auto max-w-6xl">
             <div className="mb-10 max-w-3xl">
               <p className="section-label"><span>Three layers to verify</span></p>

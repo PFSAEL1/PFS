@@ -87,7 +87,7 @@ export default function Home() {
       {/* 2. Trust strip is inside SocialProofBanner — bg handled there */}
 
       {/* 3. Filters in Action — three feature rectangles */}
-      <section className="section-glow tex-dots py-20 px-4">
+      <section className="section-glow py-20 px-4">
         <div className="max-w-7xl mx-auto">
           {/* Eyebrow */}
           <div className="flex justify-center mb-3">
@@ -134,20 +134,27 @@ export default function Home() {
               },
             ].map((card) => (
               <Link key={card.title} href={card.href}>
-                <div className="relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color] duration-200 h-[360px] md:h-[520px]">
+                <div className="group relative cursor-pointer overflow-hidden rounded-3xl border border-white/[0.08] transition-[border-color] duration-300 hover:border-white/25">
+                  <picture className="block w-full">
+                  <source
+                    type="image/avif"
+                    srcSet={card.srcSet.replaceAll('.webp', '.avif')}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  />
                   <img
                     src={card.image}
                     srcSet={card.srcSet}
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                     alt={card.alt}
-                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
+                    className="block h-auto w-full"
                     width={960}
                     height={644}
                     loading="lazy"
                     decoding="async"
                   />
+                  </picture>
                   <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 55%, transparent 100%)' }} />
-                  <div className="absolute bottom-5 left-5 right-5 z-10">
+                  <div className="on-media absolute bottom-5 left-5 right-5 z-10">
                     <p className="text-white font-bold text-xl leading-tight">{card.title}</p>
                     <p className="text-white/75 text-sm mt-1">{card.subtitle}</p>
                     <span className="inline-flex items-center gap-2 mt-3 border border-transparent bg-[#4d9fff] text-black text-sm font-semibold px-5 py-2.5 rounded-lg group-hover:bg-[#6aadff] group-hover:border-blue-500/50 group-hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] transition-[transform,box-shadow,background-color,border-color] duration-200">{card.cta} <span className="text-base">→</span></span>
@@ -225,7 +232,7 @@ export default function Home() {
 
 
       {/* 7. Booth Brand Compatibility Strip */}
-      <section className="section-darker tex-dots py-14 px-4">
+      <section className="section-darker py-14 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-white/25 text-xs tracking-widest font-medium uppercase">Compatible With</p>
           <p className="text-white/60 text-sm mt-2 mb-8">Replacement guidance for many major booth brands</p>

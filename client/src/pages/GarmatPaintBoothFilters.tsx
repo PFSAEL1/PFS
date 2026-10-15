@@ -100,7 +100,7 @@ export default function GarmatPaintBoothFilters() {
 
 
       {/* Filter sizes by Garmat model */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Garmat filter sizes by model</h2>
           <p className="text-white/45 text-sm mb-6 max-w-2xl">
@@ -194,7 +194,7 @@ export default function GarmatPaintBoothFilters() {
 
 
       {/* SEO copy block */}
-      <section className="section-raised tex-dots py-16 px-4">
+      <section className="section-raised py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-5">Garmat paint booth filters — how to order the right size</h2>
           <div className="space-y-4 text-white/60 leading-relaxed">

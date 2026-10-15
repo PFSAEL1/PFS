@@ -68,6 +68,12 @@ export function shopProductCardImageSrcSet(handle: string, fallbackSrc: string):
   return shopifyImageSrcSet(fallbackSrc);
 }
 
+export function localAvifSrcSet(src: string, srcSet?: string): string | undefined {
+  if (!src.startsWith('/') || !/\.webp(\?|$)/i.test(src)) return undefined;
+  const toAvif = (value: string) => value.replace(/\.webp(?=(\s|$|\?))/gi, '.avif');
+  return toAvif(srcSet || src);
+}
+
 export function shopifyImageAltText(
   image: { altText?: string | null } | null | undefined,
   fallback: string,

@@ -227,7 +227,7 @@ export default function CategoryPage() {
 
 
       {/* Products - raised */}
-      <section className="section-raised tex-dots py-12 px-4">
+      <section className="section-raised py-12 px-4">
         <div className="max-w-7xl mx-auto">
 
         {/* Info bar */}

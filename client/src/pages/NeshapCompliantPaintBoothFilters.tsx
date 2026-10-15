@@ -110,7 +110,7 @@ export default function NeshapCompliantPaintBoothFilters() {
 
 
       {/* Section 1 — NESHAP 6H (surface coating) */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">Standard NESHAP 6H — surface coating operations</h2>
@@ -243,7 +243,7 @@ export default function NeshapCompliantPaintBoothFilters() {
 
 
       {/* SEO copy block */}
-      <section className="section-raised tex-dots py-16 px-4">
+      <section className="section-raised py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-5">About NESHAP and paint booth filters</h2>
           <div className="space-y-4 text-white/60 leading-relaxed">

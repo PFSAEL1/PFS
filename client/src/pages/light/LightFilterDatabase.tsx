@@ -63,7 +63,7 @@ export default function LightFilterDatabase() {
               Ready to automate your<br /><em style={{ fontStyle: "italic", color: "#4d9fff" }}>filter program?</em>
             </h2>
             <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "1rem", color: "rgba(255,255,255,0.6)", maxWidth: "400px" }}>
-              Join 1,200+ shops nationwide using PFS Filters to manage their booth maintenance.
+              Track booth positions and reorder schedules from one place.
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>

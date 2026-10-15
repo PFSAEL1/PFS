@@ -59,10 +59,10 @@ const categories = [
 ];
 
 const stats = [
-  { num: "1,200+", label: "Body Shops Served" },
-  { num: "99.8%", label: "Capture Efficiency" },
+  { num: "30+", label: "Years of Booth Experience" },
+  { num: "5%", label: "Subscribe & Save" },
   { num: "1–2", label: "Day Shipping" },
-  { num: "15+", label: "Years Experience" },
+  { num: "Santa Rosa", label: "California" },
 ];
 
 export default function LightHome() {
@@ -160,7 +160,7 @@ export default function LightHome() {
             maxWidth: "400px",
             marginBottom: "3rem",
           }}>
-            Premium spray booth filters trusted by 1,200+ body shops nationwide. Intake, exhaust, ceiling — every position covered.
+            Premium spray booth filters for intake, exhaust, and ceiling. Backed by 30+ years of PFS Spray Booths.
           </p>
 
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
@@ -208,7 +208,7 @@ export default function LightHome() {
 
           {/* Trust badges */}
           <div style={{ display: "flex", gap: "2rem", marginTop: "3rem", flexWrap: "wrap" }}>
-            {["Ships 1–2 Days", "1,200+ Shops", "Booth Tracking"].map(badge => (
+            {["Ships 1–2 Days", "30+ Years", "Booth Tracking"].map(badge => (
               <div key={badge} className="light-hero-badge" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                 <div style={{ width: "4px", height: "4px", background: "#1B4FD8", borderRadius: "50%" }} />
                 <span style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>{badge}</span>
@@ -255,7 +255,7 @@ export default function LightHome() {
               Popular Products
             </h2>
             <p style={{ fontFamily: "'Barlow Condensed', 'Barlow', sans-serif", fontWeight: 300, fontSize: "1rem", color: "#777", marginBottom: "3rem" }}>
-              Trusted by 1,200+ body shops nationwide
+              Intake, exhaust, ceiling, and prefilter media
             </p>
           </RevealBlock>
           <LightProductSlider />

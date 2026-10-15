@@ -196,7 +196,7 @@ export default function BrandDetail({ params }: BrandDetailProps) {
             { label: brand.name },
           ]} />
           <div className="mb-4">
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex flex-wrap items-center gap-3 mb-4">
               {brand.country && (
                 <span className="text-xs bg-white/5 text-white/50 border border-white/10 px-2.5 py-1 rounded-full">{brand.country}</span>
               )}
@@ -238,7 +238,7 @@ export default function BrandDetail({ params }: BrandDetailProps) {
 
 
       {/* Models */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-2">{brand.name} Models</h2>
           <p className="text-white/50 text-sm mb-8">Click any filter size to go directly to that product. Sizes marked with a call icon require a quote.</p>

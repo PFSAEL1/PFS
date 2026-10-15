@@ -1,31 +1,29 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'wouter';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, Package } from 'lucide-react';
-import { fetchProducts, getMonthlySellingPlanAllocation, ShopifyProduct } from '@/lib/shopify';
+import { Package } from 'lucide-react';
+import { fetchProducts, ShopifyProduct } from '@/lib/shopify';
 import {
   cacheShopifyProducts,
   filterShopifyProducts,
   getImmediateShopifyProducts,
+  searchShopifyProducts,
 } from '@/lib/productCatalog';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
-import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
-import { usePricing, getDiscountedPrice } from '@/hooks/usePricing';
-import { TierMedal } from '@/components/TierMedal';
+import { usePricing } from '@/hooks/usePricing';
 import { consumableProducts } from '@/pages/Consumables';
-import { shopProductCardImageSrcSet, shopProductCardImageUrl, shopifyImageAltText } from '@/lib/imageUrls';
+import { localAvifSrcSet, shopProductCardImageSrcSet, shopProductCardImageUrl, shopifyImageAltText } from '@/lib/imageUrls';
+import { LineupCard, LineupCarousel, formatFromPrice, plainText, tintFor } from '@/components/Lineup';
 
 const FALLBACK_IMAGE = '/images/filters/fiberglass-arrestors.png';
 
 interface ShopifyProductsProps {
   categoryFilter?: string | null;
   sizeFilter?: string | null;
+  textQuery?: string | null;
 }
 
-export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsProps = {}) => {
+export const ShopifyProducts = ({ categoryFilter, sizeFilter, textQuery }: ShopifyProductsProps = {}) => {
   const [products, setProducts] = useState<ShopifyProduct[]>(() =>
     filterShopifyProducts(getImmediateShopifyProducts(), categoryFilter, sizeFilter),
   );
@@ -94,6 +92,10 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
     };
   }, [categoryFilter, sizeFilter]);
 
+  const visibleProducts = textQuery?.trim()
+    ? searchShopifyProducts(products, textQuery, 48)
+    : products;
+
   const handleAddToCart = (product: ShopifyProduct) => {
     const variant = product.node.variants.edges[0]?.node;
     if (!variant) return;
@@ -120,11 +122,11 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
     );
   }
 
-  if (products.length === 0) {
+  if (visibleProducts.length === 0) {
     return (
       <div className="text-center py-12 text-white/70">
         <Package className="h-12 w-12 mx-auto mb-3 opacity-30" />
-        <p>No products found{categoryFilter ? ` for "${categoryFilter}"` : ''}{sizeFilter ? ` in size "${sizeFilter}"` : ''}.</p>
+        <p>No products found{textQuery ? ` for "${textQuery}"` : ''}{categoryFilter ? ` for "${categoryFilter}"` : ''}{sizeFilter ? ` in size "${sizeFilter}"` : ''}.</p>
       </div>
     );
   }
@@ -180,135 +182,70 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
           `}</style>
         </div>
       )}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {/* Shopify filter products first */}
-        {products.map((product, index) => {
+      <LineupCarousel label="Shop filters">
+        {visibleProducts.map((product, index) => {
           const variant = product.node.variants.edges[0]?.node;
           const imageNode = product.node.images.edges[0]?.node;
           const image = imageNode?.url || FALLBACK_IMAGE;
-          const shouldLoadEarly = index < 2;
-          const shouldPrioritizeImage = index === 0;
-          const originalPrice = variant?.price.amount ? parseFloat(variant.price.amount) : 0;
-          const memberPrice = discountPercent > 0 ? getDiscountedPrice(originalPrice, discountPercent) : originalPrice;
-          const currency = variant?.price.currencyCode || 'USD';
-          const inStock = variant?.availableForSale ?? true;
-          const hasMonthlySubscription = !!getMonthlySellingPlanAllocation(
-            product.node.selectedOrFirstAvailableVariant,
-          );
+          const cardSrc = shopProductCardImageUrl(product.node.handle, image, 640);
+          const cardSrcSet = shopProductCardImageSrcSet(product.node.handle, image);
+          const cardAvif = localAvifSrcSet(cardSrc, cardSrcSet);
+          const amounts = product.node.variants.edges
+            .map((edge) => parseFloat(edge.node.price?.amount || ''))
+            .filter((amount) => amount > 0);
+          const priced = formatFromPrice(amounts, discountPercent);
+          const inStock = Boolean(variant) && (variant?.availableForSale ?? true);
+          const badges = getProductBadges(product);
+          const badge = badges.some((item) => item.tone === 'new')
+            ? 'New'
+            : badges.some((item) => item.tone === 'reorder')
+              ? 'Popular'
+              : null;
+          const sizes = '(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 78vw';
 
           return (
-            <div key={product.node.id} className="glow-card group">
-              <Link href={`/product/${product.node.handle}`}>
-                <div className="product-img-wrap relative aspect-square overflow-hidden cursor-pointer">
-                  <ProductBadges badges={getProductBadges(product)} />
-                  {/* Subscribe & Save diagonal ribbon - non-members only */}
-                  {discountPercent === 0 && hasMonthlySubscription && (
-                    <div className="pointer-events-none absolute top-0 right-0 z-10 w-[100px] h-[100px] overflow-hidden">
-                      <div className="absolute w-[141px] bg-blue-600 py-[5px] text-center" style={{ top: '18px', right: '-37px', transform: 'rotate(45deg)' }}>
-                        {/* Light sweep animation */}
-                        <div className="absolute inset-0 overflow-hidden">
-                          <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, transparent 0%, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%, transparent 100%)', backgroundSize: '200% 100%', animation: 'ribbon-light-sweep 2.5s ease-in-out infinite' }} />
-                        </div>
-                        <span className="relative block text-[7px] font-bold text-white tracking-wider uppercase">
-                          Subscribe & Save
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                  <img
-                    src={shopProductCardImageUrl(product.node.handle, image, 480)}
-                    srcSet={shopProductCardImageSrcSet(product.node.handle, image)}
-                    sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
-                    alt={shopifyImageAltText(imageNode, product.node.title)}
-                    className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
-                    width={480}
-                    height={480}
-                    loading={shouldLoadEarly ? 'eager' : 'lazy'}
-                    fetchPriority={shouldPrioritizeImage ? 'high' : 'auto'}
-                    decoding="async"
-                    style={{ filter: 'brightness(0.95) contrast(1.05)' }}
-                  />
-                </div>
-              </Link>
-              <div className="p-4">
-                <Link href={`/product/${product.node.handle}`}>
-                  <h3 className="font-semibold text-sm leading-tight mb-1 hover:text-blue-400 transition-colors line-clamp-2">
-                    {product.node.title}
-                  </h3>
-                </Link>
-                <div className="flex items-center justify-between mt-2 mb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-blue-400">
-                      ${memberPrice.toFixed(2)} <span className="text-xs font-normal text-white/70">{currency}</span>
-                    </span>
-                    {discountPercent > 0 && (
-                      <span className="text-xs line-through text-white/30">
-                        ${originalPrice.toFixed(2)}
-                      </span>
-                    )}
-                  </div>
-                  {!inStock && (
-                    <Badge variant="secondary" className="text-xs">Out of Stock</Badge>
-                  )}
-                </div>
-                <Button
-                  size="sm"
-                  className="w-full bg-blue-500 text-blue-400-foreground hover:bg-blue-500/90 gap-2"
-                  onClick={() => handleAddToCart(product)}
-                  disabled={!inStock}
-                >
-                  <ShoppingCart className="h-3.5 w-3.5" />
-                  {inStock ? 'Add to Cart' : 'Out of Stock'}
-                </Button>
-              </div>
-            </div>
+            <LineupCard
+              key={product.node.id}
+              href={`/product/${product.node.handle}`}
+              title={product.node.title}
+              description={plainText(product.node.description)}
+              image={cardSrc}
+              imageSrcSet={cardSrcSet}
+              avifSrcSet={cardAvif}
+              alt={shopifyImageAltText(imageNode, product.node.title)}
+              tint={tintFor(`${product.node.productType} ${product.node.title} ${(product.node.tags || []).join(' ')}`, index)}
+              width={640}
+              height={640}
+              sizes={sizes}
+              loading={index < 2 ? 'eager' : 'lazy'}
+              fetchPriority={index === 0 ? 'high' : 'auto'}
+              badge={badge}
+              price={priced?.price}
+              comparePrice={priced?.compare}
+              buyLabel={inStock ? 'Buy' : 'Sold out'}
+              buyDisabled={!inStock}
+              onBuy={() => handleAddToCart(product)}
+            />
           );
         })}
-        {/* Consumable products (booth coatings) at the end */}
-        {!categoryFilter && !sizeFilter && consumableProducts.map((cp) => (
-          <div key={cp.id} className="glow-card group">
-            <Link href={cp.href}>
-              <div className="product-img-wrap relative aspect-square overflow-hidden cursor-pointer">
-                {cp.badge && (
-                  <span className="absolute top-3 left-3 z-10 px-2 py-0.5 text-xs font-bold bg-blue-500 text-white rounded-full">
-                    {cp.badge}
-                  </span>
-                )}
-                {cp.image ? (
-                  <img src={cp.image} alt={cp.title} className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300" width={480} height={480} loading="lazy" decoding="async" />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center p-6">
-                    <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4">
-                      <Package className="h-8 w-8 text-white/20" />
-                    </div>
-                    <p className="text-white/30 text-sm font-medium">Image Coming Soon</p>
-                    <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" className="w-20 opacity-15 mt-4" width={420} height={127} loading="lazy" decoding="async" />
-                  </div>
-                )}
-              </div>
-            </Link>
-            <div className="p-4">
-              <Link href={cp.href}>
-                <h3 className="font-semibold text-sm leading-tight mb-1 hover:text-blue-400 transition-colors line-clamp-2">
-                  {cp.title}
-                </h3>
-              </Link>
-              <p className="text-white/40 text-xs mb-2">{cp.subtitle}</p>
-              <div className="flex items-center justify-between mt-2 mb-3">
-                <span className="font-bold text-blue-400">
-                  ${cp.price.toFixed(2)} <span className="text-xs font-normal text-white/70">{cp.currency}</span>
-                </span>
-              </div>
-              <Link href={cp.href}>
-                <Button size="sm" className="w-full bg-blue-500 text-white hover:bg-blue-500/90 gap-2">
-                  <ShoppingCart className="h-3.5 w-3.5" />
-                  View Product
-                </Button>
-              </Link>
-            </div>
-          </div>
+        {!categoryFilter && !sizeFilter && !textQuery?.trim() && consumableProducts.map((cp, index) => (
+          <LineupCard
+            key={cp.id}
+            href={cp.href}
+            title={cp.title}
+            description={plainText(cp.description || cp.subtitle)}
+            image={cp.image || FALLBACK_IMAGE}
+            alt={cp.title}
+            tint={tintFor(cp.title, index)}
+            width={640}
+            height={640}
+            badge={cp.badge === 'New' ? 'New' : null}
+            price={formatFromPrice([cp.price])?.price}
+            buyLabel="Buy"
+            buyHref={cp.href}
+          />
         ))}
-      </div>
+      </LineupCarousel>
     </>
   );
 };

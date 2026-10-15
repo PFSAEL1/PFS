@@ -165,7 +165,7 @@ export default function PaintBoothFilters() {
 
       {/* SECTION 2 — URGENCY BAR | Orange background */}
       <section className="w-full bg-orange-500 py-3 px-4">
-        <p className="text-center text-white font-semibold text-sm md:text-base">
+        <p className="text-center text-[#1a0a00] font-semibold text-sm md:text-base">
           Stocked items typically process in 1–2 business days. Custom, freight, backordered, and special-order timing varies. Questions? Call 855-496-7969.
         </p>
       </section>

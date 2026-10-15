@@ -104,15 +104,14 @@ export default function PfsVitra() {
 
 
       {/* Product section */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* Product image */}
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] aspect-square min-h-[320px] flex items-center justify-center overflow-hidden p-4">
+            <div className="media-fit aspect-square min-h-[320px] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-4">
               <img
                 src={PFS_VITRA_IMAGE}
                 alt="PFS VITRA Booth Coating one-gallon container"
-                className="w-full h-full object-contain"
                 width={1365}
                 height={2048}
                 loading="eager"

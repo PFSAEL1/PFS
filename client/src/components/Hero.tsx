@@ -79,12 +79,15 @@ export const Hero = () => {
       >
         {/* Full-bleed looping video background */}
         <div className="absolute inset-0 z-0">
-          <picture>
-            <source media="(max-width: 767px)" srcSet={HERO_POSTER_MOBILE} />
+          <picture className="contents">
+            <source media="(max-width: 767px)" type="image/avif" srcSet="/media/pfs-hero-poster-mobile.avif" />
+            <source media="(min-width: 768px)" type="image/avif" srcSet="/media/pfs-hero-poster-desktop.avif" />
+            <source media="(max-width: 767px)" type="image/webp" srcSet={HERO_POSTER_MOBILE} />
             <img
               src={HERO_POSTER_DESKTOP}
               alt=""
               className="absolute inset-0 block h-full w-full object-cover object-[65%_center] md:object-center"
+              data-fit="cover"
               width={1600}
               height={900}
               loading="eager"

@@ -160,7 +160,7 @@ export default function ShopBySize() {
 
 
       {/* Size grid - raised */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="max-w-7xl mx-auto">
           {loading ? (
             <div className="flex items-center justify-center py-20">

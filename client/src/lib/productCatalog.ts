@@ -107,6 +107,38 @@ export function getBundledProductByHandle(handle?: string) {
   return bundledShopifyProducts.find((p) => p.node.handle === handle)?.node ?? null;
 }
 
+const PREFILTER_TERMS = ['pre-filter', 'prefilter', 'pre filter', 'first stage', 'pleated', 'merv 10', 'merv-10'];
+
+const SHOP_CATEGORY_TERMS: Record<string, string[]> = {
+  exhaust: ['exhaust', 'fiberglass', 'andreae', 'paint pocket'],
+  intake: ['intake', 'tacky'],
+  ceiling: ['ceiling', 'diffusion'],
+  'pre-filters': PREFILTER_TERMS,
+  prefilters: PREFILTER_TERMS,
+  prefilter: PREFILTER_TERMS,
+  'pre-filter': PREFILTER_TERMS,
+};
+
+function catalogText(product: ShopifyProduct): string {
+  const node = product.node;
+  return [
+    node.title,
+    node.productType,
+    node.description,
+    ...(node.tags || []),
+    ...node.variants.edges.map((edge) => `${edge.node.title} ${edge.node.sku || ''}`),
+  ].join(' ').toLowerCase();
+}
+
+function compactSize(value: string): string {
+  return value.toLowerCase().replace(/[″”"'′]/g, '').replace(/×/g, 'x').replace(/\s+/g, '');
+}
+
+function sizeMatches(haystack: string, size: string): boolean {
+  const escaped = size.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`${escaped}(?!\\d)`).test(haystack);
+}
+
 export function filterShopifyProducts(
   products: ShopifyProduct[],
   categoryFilter?: string | null,
@@ -119,30 +151,41 @@ export function filterShopifyProducts(
 
   if (categoryFilter) {
     const category = categoryFilter.toLowerCase();
+    const terms = SHOP_CATEGORY_TERMS[category] || [category];
     filtered = filtered.filter((product) => {
-      const tags = (product.node.tags || []).map((tag) => tag.toLowerCase());
-      const type = (product.node.productType || '').toLowerCase();
-      const title = product.node.title.toLowerCase();
-      return (
-        tags.some((tag) => tag.includes(category)) ||
-        type.includes(category) ||
-        title.includes(category)
-      );
+      const haystack = catalogText(product);
+      return terms.some((term) => haystack.includes(term));
     });
   }
 
   if (sizeFilter) {
-    const size = sizeFilter.toLowerCase().replace(/\s+/g, '');
+    const size = compactSize(sizeFilter);
     filtered = filtered.filter((product) => {
-      const title = product.node.title.toLowerCase().replace(/\s+/g, '');
-      const variants = product.node.variants.edges.map((variant) =>
-        variant.node.title.toLowerCase().replace(/\s+/g, ''),
-      );
-      return title.includes(size) || variants.some((variant) => variant.includes(size));
+      const title = compactSize(product.node.title);
+      const variants = product.node.variants.edges.map((variant) => compactSize(variant.node.title));
+      return sizeMatches(title, size) || variants.some((variant) => sizeMatches(variant, size));
     });
   }
 
   return filtered;
+}
+
+export function listShopSizes(products: ShopifyProduct[]): string[] {
+  const sizes = new Set<string>();
+  for (const product of products) {
+    const titles = [product.node.title, ...product.node.variants.edges.map((edge) => edge.node.title)];
+    for (const title of titles) {
+      const compact = compactSize(title);
+      for (const match of compact.matchAll(/(\d+(?:\.\d+)?)x(\d+(?:\.\d+)?)/g)) {
+        const width = Number(match[1]);
+        const height = Number(match[2]);
+        if (width < 10 || width > 96 || height < 10 || height > 150) continue;
+        if ((height === 100 || height === 300) && width <= 45) continue;
+        sizes.add(`${match[1]}x${match[2]}`);
+      }
+    }
+  }
+  return [...sizes].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 }
 
 export function getImmediateShopifyProducts(): ShopifyProduct[] {

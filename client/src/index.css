@@ -36,13 +36,13 @@
 }
 :root {
   --pfs-brand-font: 'Barlow Condensed', 'Arial Narrow', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  /* Dark theme as default — pure black background */
-  --background: hsl(0 0% 5%);
-  --foreground: hsl(0 0% 98%);
-  --card: hsl(0 0% 11%);
-  --card-foreground: hsl(0 0% 98%);
-  --popover: hsl(0 0% 11%);
-  --popover-foreground: hsl(0 0% 98%);
+  /* Light Apple mockup — page canvas and surfaces */
+  --background: #f5f5f7;
+  --foreground: #1d1d1f;
+  --card: #ffffff;
+  --card-foreground: #1d1d1f;
+  --popover: #ffffff;
+  --popover-foreground: #1d1d1f;
   
   /* Electric blue primary */
   --primary: hsl(207 100% 50%);
@@ -85,7 +85,7 @@
 /* oklch override for browsers that support it */
 @supports (color: oklch(0.5 0.1 200)) {
   :root {
-    --background: oklch(0.11 0 0);
+    --background: oklch(0 0 0);
     --foreground: oklch(0.98 0 0);
     --card: oklch(0.16 0 0);
     --card-foreground: oklch(0.98 0 0);
@@ -318,36 +318,20 @@
    GLOW CARD SYSTEM — PFS Filters Dark Industrial Design
    ============================================================ */
 
-/* Base glow card */
+/* Base card — dark Apple-style tile */
 .glow-card {
   position: relative;
-  background: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 7%) 100%);
-  border: 1px solid hsl(0 0% 18%);
-  border-radius: 12px;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #161617;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow: none;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   overflow: hidden;
 }
-.glow-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0,153,255,0.06), transparent 40%);
-  opacity: 0;
-  transition: opacity 0.35s;
-  pointer-events: none;
-  z-index: 0;
-}
-.glow-card:hover::before {
-  opacity: 1;
-}
 .glow-card:hover {
-  border-color: rgba(0, 153, 255, 0.45);
-  box-shadow:
-    0 0 0 1px rgba(0, 153, 255, 0.15),
-    0 8px 32px -4px rgba(0, 153, 255, 0.25),
-    0 0 60px -20px rgba(0, 153, 255, 0.15);
-  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: none;
+  transform: scale(1.02);
 }
 
 /* Glow card content sits above the pseudo-element */
@@ -379,7 +363,6 @@
 .glow-card:hover .glow-icon {
   background: rgba(0, 153, 255, 0.18);
   border-color: rgba(0, 153, 255, 0.5);
-  box-shadow: 0 0 20px rgba(0, 153, 255, 0.3);
 }
 
 /* Section dividers — gradient lines */
@@ -431,13 +414,17 @@
 }
 
 /* Product card image container */
-.product-img-wrap {
-  background: linear-gradient(135deg, hsl(0 0% 12%) 0%, hsl(0 0% 8%) 100%);
-  border-bottom: 1px solid hsl(0 0% 16%);
+.product-img-wrap,
+.product-frame {
+  display: grid;
+  place-items: center;
+  background-color: #111111;
+  background-image: radial-gradient(ellipse at 50% 42%, rgba(255, 255, 255, 0.07), transparent 62%);
   overflow: hidden;
+  padding: 10%;
 }
-.glow-card:hover .product-img-wrap {
-  background: linear-gradient(135deg, hsl(0 0% 14%) 0%, hsl(0 0% 10%) 100%);
+.product-img-wrap {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 /* Glowing number badge */
@@ -724,6 +711,8 @@ video::-internal-media-controls-play-button {
 /* Generic light-gray tailwind grays sometimes used for copy */
 .text-gray-400 { color: rgb(190 190 190) !important; }
 .text-gray-500 { color: rgb(170 170 170) !important; }
+/* Country chips sit on the white logo tile, so keep that label dark. */
+.bg-gray-100.text-gray-500 { color: #1f2937 !important; }
 
 /* ---- 2. Secondary accent: muted teal ---------------------------------
    Use sparingly for eyebrows, dividers, secondary CTAs so the blue
@@ -750,107 +739,41 @@ video::-internal-media-controls-play-button {
    Give common card patterns a clearly lighter surface (#1a1a1a-ish)
    against the darker page so elements read as raised, not flat. */
 .glow-card {
-  background: linear-gradient(135deg, hsl(0 0% 13%) 0%, hsl(0 0% 10%) 100%) !important;
-  border-color: hsl(0 0% 20%) !important;
+  background: #161617 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: none !important;
 }
 .feature-card {
-  background: linear-gradient(160deg, hsl(0 0% 13%) 0%, hsl(0 0% 9%) 100%) !important;
-  border-color: hsl(0 0% 19%) !important;
+  background: #161617 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
 /* Faint translucent card panels used inline (bg-white/[0.02]/[0.03]) get
    a real surface so they separate from the page. */
 .bg-white\/\[0\.02\],
 .bg-white\/\[0\.03\],
 .bg-white\/5 {
-  background-color: hsl(0 0% 11%) !important;
-  border-color: hsl(0 0% 18%);
+  background-color: #161617 !important;
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
-/* ---- 4. Section background differentiation + texture -----------------
-   Premium depth system inspired by Satellitor: alternating tones with
-   VISIBLE contrast, radial glows, textures, and curved arc dividers. */
-
-/* Base dark — near-black for contrast sections */
-.section-dark   { background-color: #141414 !important; }
-/* Deepest dark — true near-black */
-.section-darker {
-  background: #050505 !important;
+/* Page canvas is solid black. Section and texture class names stay in
+   markup, but they no longer paint a second tone, wash, or pattern. */
+html,
+body,
+#root,
+.bg-\[\#040404\] {
+  background-color: #000 !important;
 }
-/* Raised — slightly lighter surface, no radial glow that creates edges */
-.section-raised {
-  background: #0d0d0d !important;
-}
-
-/* Elevated section with centered radial glow — visible depth */
+.section-dark,
+.section-darker,
+.section-raised,
 .section-glow {
-  position: relative;
-  background-color: #0a0a0a !important;
-  overflow: hidden;
+  background: #000 !important;
+  background-image: none !important;
 }
-.section-glow::after {
-  content: '';
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1600px;
-  height: 1000px;
-  background: radial-gradient(ellipse, rgba(59,130,246,0.06) 0%, rgba(255,255,255,0.04) 30%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-}
+.section-glow { position: relative; }
 .section-glow > * { position: relative; z-index: 1; }
-
-/* Dotted grid texture — visible dot pattern */
-.tex-dots {
-  position: relative;
-}
-.tex-dots::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
-  background-size: 24px 24px;
-  pointer-events: none;
-  z-index: 0;
-}
-.tex-dots > * { position: relative; z-index: 1; }
-
-/* Diagonal hairline texture */
-.tex-lines {
-  position: relative;
-}
-.tex-lines::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgba(255,255,255,0.04) 0px,
-    rgba(255,255,255,0.04) 1px,
-    transparent 1px,
-    transparent 8px
-  );
-  pointer-events: none;
-  z-index: 0;
-}
-.tex-lines > * { position: relative; z-index: 1; }
-
-/* Noise grain texture — film grain for premium feel */
-.tex-grain {
-  position: relative;
-}
-.tex-grain::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0.6;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
-  pointer-events: none;
-  z-index: 0;
-}
+.tex-lines > *,
 .tex-grain > * { position: relative; z-index: 1; }
 
 
@@ -968,6 +891,145 @@ video::-internal-media-controls-play-button {
 /* build trigger 1784242030 */
 
 
+@media (prefers-reduced-motion: reduce) {
+  .glow-card,
+  .glow-card:hover {
+    transition: border-color 0.2s linear;
+    transform: none;
+  }
+}
+
+/* Dark "Explore the lineup" rows */
+.lineup-scroll {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px 4px 8px;
+}
+.lineup-scroll::-webkit-scrollbar { display: none; }
+.lineup-scroll > * {
+  flex: 0 0 min(78vw, 280px);
+  scroll-snap-align: start;
+}
+@media (min-width: 1024px) {
+  .lineup-scroll > * { flex-basis: 300px; }
+}
+
+.lineup-grid {
+  display: grid;
+  gap: 3rem 1.75rem;
+  padding: 8px 2px;
+}
+@media (max-width: 639px) {
+  .lineup-grid {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 12px 4px 8px;
+  }
+  .lineup-grid::-webkit-scrollbar { display: none; }
+  .lineup-grid > * {
+    flex: 0 0 min(78vw, 280px);
+    scroll-snap-align: start;
+  }
+}
+@media (min-width: 640px) {
+  .lineup-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .lineup-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1280px) {
+  .lineup-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.lineup-tile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 3.7;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid transparent;
+  padding: 7%;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.media-fit {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 0;
+}
+.media-fit > picture,
+.lineup-tile picture,
+.product-img-wrap picture,
+.product-frame picture {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+.lineup-tile img,
+.product-img-wrap img,
+.product-frame img,
+.media-fit img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  padding: 0 !important;
+}
+.lineup-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 42%, rgba(255, 255, 255, 0.72), transparent 68%);
+  pointer-events: none;
+}
+.group:hover .lineup-tile,
+.group:focus-within .lineup-tile {
+  transform: scale(1.02);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+.lineup-arrow {
+  position: absolute;
+  z-index: 2;
+  top: 32%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+  color: #1d1d1f;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+.lineup-arrow:hover { border-color: rgba(0, 0, 0, 0.16); }
+.lineup-arrow:focus-visible,
+.lineup-tile:focus-visible {
+  outline: 2px solid #0081f2;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lineup-tile,
+  .group:hover .lineup-tile,
+  .group:focus-within .lineup-tile {
+    transition: border-color 0.2s linear;
+    transform: none;
+  }
+}
+
 .contact-page .zcwf_col_fld{
   height: 50px !important;
 }
@@ -976,3 +1038,121 @@ video::-internal-media-controls-play-button {
   padding-top: 50px !important;
   padding-bottom: 50px !important;
 }
+
+/* White Apple mockup. Later rules beat the dark canvas locks above. */
+h1.normal-case {
+  text-transform: none !important;
+}
+html,
+body,
+#root,
+.bg-\[\#040404\],
+.section-dark,
+.section-darker,
+.section-raised,
+.section-glow {
+  background: #f5f5f7 !important;
+  background-color: #f5f5f7 !important;
+  background-image: none !important;
+  color: #1d1d1f;
+}
+.glow-card,
+.feature-card,
+.bg-white\/\[0\.02\],
+.bg-white\/\[0\.03\],
+.bg-white\/5 {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+.product-img-wrap,
+.product-frame {
+  background-color: #f5f5f7;
+  background-image: radial-gradient(ellipse at 50% 42%, #ffffff, transparent 62%);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+.text-white { color: #1d1d1f !important; }
+.text-white\/40,
+.text-white\/45,
+.text-white\/50,
+.text-white\/55,
+.text-white\/60,
+.text-white\/65,
+.text-white\/70,
+.text-white\/75,
+.text-white\/80,
+.text-muted-foreground {
+  color: #6e6e73 !important;
+}
+.text-white\/25,
+.text-white\/30,
+.text-white\/35,
+.text-gray-400,
+.text-gray-500 {
+  color: #86868b !important;
+}
+.bg-gray-100.text-gray-500 { color: #1f2937 !important; }
+#home,
+#home.bg-black,
+section#home {
+  background: #000 !important;
+  background-color: #000 !important;
+}
+#home .text-white,
+#home .text-white\/40,
+#home .text-white\/50,
+#home .text-white\/60,
+#home .text-white\/70,
+#home .text-white\/80 {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+.on-media,
+.on-media .text-white,
+.on-media [class*="text-white/"] {
+  color: #ffffff !important;
+}
+.bg-blue-500.text-white,
+.bg-blue-600.text-white,
+.bg-blue-700.text-white,
+.bg-\[\#3b82f6\].text-white,
+.bg-\[\#2563eb\].text-white,
+.bg-\[\#4d9fff\].text-white,
+.bg-\[\#0081f2\].text-white,
+.bg-primary.text-white,
+button.bg-blue-500,
+button.bg-\[\#4d9fff\],
+button.bg-\[\#2563eb\],
+.search-fab-pulse {
+  color: #ffffff !important;
+}
+.eyebrow-brand,
+.eyebrow-teal {
+  color: #0066cc !important;
+  background: rgba(0, 102, 204, 0.08) !important;
+  border-color: rgba(0, 102, 204, 0.18) !important;
+}
+#home .eyebrow-brand,
+#home .eyebrow-teal {
+  color: #ffffff !important;
+  background: rgba(77, 159, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.24) !important;
+}
+nav.site-header {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: none !important;
+}
+nav.site-header img[alt="PFS Filters"] {
+  filter: brightness(0);
+}
+nav.site-header .hover\:bg-white\/5:hover,
+nav.site-header .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+footer img[alt="PFS Filters"] {
+  filter: brightness(0);
+}
+.ticker-bar {
+  background: #f5f5f7 !important;
+  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+}
+.ticker-item { color: #6e6e73 !important; }
