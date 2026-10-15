@@ -1,15 +1,15 @@
-// Dark version of Apple's "Explore the lineup" row.
+// Light version of Apple's "Explore the lineup" row.
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'wouter';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getDiscountedPrice } from '@/hooks/usePricing';
 
 const TINTS = [
-  'linear-gradient(165deg, #1a2728 0%, #10181a 52%, #0c1214 100%)',
-  'linear-gradient(165deg, #1c2228 0%, #12161c 52%, #0e1116 100%)',
-  'linear-gradient(165deg, #1a2026 0%, #12181e 52%, #0e1418 100%)',
-  'linear-gradient(165deg, #222426 0%, #151718 55%, #101112 100%)',
-  'linear-gradient(165deg, #241f1c 0%, #161412 52%, #12100f 100%)',
+  'linear-gradient(180deg, #fbfbfd 0%, #e8e8ed 100%)',
+  'linear-gradient(180deg, #f3f8fd 0%, #d7e7f8 100%)',
+  'linear-gradient(180deg, #fbf7f2 0%, #f0e4d4 100%)',
+  'linear-gradient(180deg, #f7f5fb 0%, #e6e0f2 100%)',
+  'linear-gradient(180deg, #f3faf6 0%, #d9eee4 100%)',
 ];
 
 export function tintFor(text: string, index = 0): string {
@@ -55,12 +55,12 @@ export function LineupHeader({
 }) {
   const Tag = heading;
   return (
-    <div className="mb-8 flex items-end justify-between gap-4 md:mb-12">
-      <Tag className="normal-case text-[2rem] font-semibold leading-none tracking-tight text-white md:text-5xl">
+    <div className="mb-8 flex items-end justify-between gap-6 md:mb-12">
+      <Tag className="normal-case text-[2.5rem] font-semibold leading-[1.05] tracking-tight text-[#1d1d1f] md:text-[3.25rem]">
         {title}
       </Tag>
       {href && linkLabel ? (
-        <Link href={href} className="inline-flex min-h-11 shrink-0 items-center text-base font-medium text-[#0081f2] hover:underline md:text-lg">
+        <Link href={href} className="inline-flex min-h-11 shrink-0 items-center text-lg font-normal text-[#0066cc] hover:underline">
           {linkLabel} <span aria-hidden="true">›</span>
         </Link>
       ) : null}
@@ -152,28 +152,28 @@ export function LineupCard({
         </div>
       </Link>
       <div className="px-2 pt-5">
-        {badge ? <p className="mb-1 text-sm font-semibold text-[#ff9f0a]">{badge}</p> : null}
-        {kicker && !badge ? <p className="mb-1 text-sm font-medium text-[#a1a1a6]">{kicker}</p> : null}
-        <h3 className="normal-case line-clamp-2 text-[1.5rem] font-semibold leading-[1.15] tracking-tight text-white">
+        {badge ? <p className="mb-1 text-sm font-semibold text-[#bf4800]">{badge}</p> : null}
+        {kicker && !badge ? <p className="mb-1 text-sm font-medium text-[#6e6e73]">{kicker}</p> : null}
+        <h3 className="normal-case line-clamp-2 text-[1.5rem] font-semibold leading-[1.15] tracking-tight text-[#1d1d1f]">
           <Link href={href} className="hover:underline">{title}</Link>
         </h3>
         {description ? (
-          <p className="mt-2 line-clamp-2 text-base leading-snug text-[#a1a1a6]">{description}</p>
+          <p className="mt-2 line-clamp-2 text-base leading-snug text-[#6e6e73]">{description}</p>
         ) : (
           <p className="mt-2 line-clamp-2 text-base leading-snug text-transparent" aria-hidden="true">.</p>
         )}
         {price ? (
-          <p className="mt-3 text-base text-white">
+          <p className="mt-3 text-base text-[#1d1d1f]">
             {price}
-            {comparePrice ? <span className="ml-2 text-sm text-[#a1a1a6] line-through">{comparePrice}</span> : null}
+            {comparePrice ? <span className="ml-2 text-sm text-[#6e6e73] line-through">{comparePrice}</span> : null}
           </p>
         ) : null}
         <div className="mt-3 flex flex-wrap items-center justify-center gap-3">
-          <Link href={href} className="inline-flex min-h-11 items-center text-base font-medium text-[#0081f2] hover:underline">
+          <Link href={href} className="inline-flex min-h-11 items-center text-base font-normal text-[#0066cc] hover:underline">
             Learn more <span aria-hidden="true">›</span>
           </Link>
           {buyLabel && buyHref ? (
-            <Link href={buyHref} className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#0081f2] px-5 text-base font-medium text-[#0081f2] transition-colors hover:bg-[#0081f2]/10">
+            <Link href={buyHref} className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#0066cc] px-5 text-base font-normal text-[#0066cc] transition-colors hover:bg-[#0066cc]/10">
               {buyLabel}
             </Link>
           ) : buyLabel ? (
@@ -181,7 +181,7 @@ export function LineupCard({
               type="button"
               onClick={onBuy}
               disabled={buyDisabled || !onBuy}
-              className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#0081f2] px-5 text-base font-medium text-[#0081f2] transition-colors hover:bg-[#0081f2]/10 disabled:cursor-not-allowed disabled:opacity-40"
+              className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#0066cc] px-5 text-base font-normal text-[#0066cc] transition-colors hover:bg-[#0066cc]/10 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {buyLabel}
             </button>

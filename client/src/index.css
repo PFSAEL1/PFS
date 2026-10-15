@@ -36,13 +36,13 @@
 }
 :root {
   --pfs-brand-font: 'Barlow Condensed', 'Arial Narrow', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  /* Dark theme as default — pure black background */
-  --background: hsl(0 0% 0%);
-  --foreground: hsl(0 0% 98%);
-  --card: hsl(0 0% 11%);
-  --card-foreground: hsl(0 0% 98%);
-  --popover: hsl(0 0% 11%);
-  --popover-foreground: hsl(0 0% 98%);
+  /* Light Apple mockup — page canvas and surfaces */
+  --background: #f5f5f7;
+  --foreground: #1d1d1f;
+  --card: #ffffff;
+  --card-foreground: #1d1d1f;
+  --popover: #ffffff;
+  --popover-foreground: #1d1d1f;
   
   /* Electric blue primary */
   --primary: hsl(207 100% 50%);
@@ -956,8 +956,8 @@ body,
   aspect-ratio: 3 / 3.7;
   overflow: hidden;
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 12%;
+  border: 1px solid transparent;
+  padding: 7%;
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .media-fit {
@@ -992,13 +992,13 @@ body,
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 42%, rgba(255, 255, 255, 0.08), transparent 62%);
+  background: radial-gradient(ellipse at 50% 42%, rgba(255, 255, 255, 0.72), transparent 68%);
   pointer-events: none;
 }
 .group:hover .lineup-tile,
 .group:focus-within .lineup-tile {
   transform: scale(1.02);
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: rgba(0, 0, 0, 0.08);
 }
 .lineup-arrow {
   position: absolute;
@@ -1010,11 +1010,12 @@ body,
   width: 44px;
   height: 44px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(0, 0, 0, 0.72);
-  color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+  color: #1d1d1f;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
-.lineup-arrow:hover { border-color: rgba(255, 255, 255, 0.4); }
+.lineup-arrow:hover { border-color: rgba(0, 0, 0, 0.16); }
 .lineup-arrow:focus-visible,
 .lineup-tile:focus-visible {
   outline: 2px solid #0081f2;
@@ -1037,3 +1038,121 @@ body,
   padding-top: 50px !important;
   padding-bottom: 50px !important;
 }
+
+/* White Apple mockup. Later rules beat the dark canvas locks above. */
+h1.normal-case {
+  text-transform: none !important;
+}
+html,
+body,
+#root,
+.bg-\[\#040404\],
+.section-dark,
+.section-darker,
+.section-raised,
+.section-glow {
+  background: #f5f5f7 !important;
+  background-color: #f5f5f7 !important;
+  background-image: none !important;
+  color: #1d1d1f;
+}
+.glow-card,
+.feature-card,
+.bg-white\/\[0\.02\],
+.bg-white\/\[0\.03\],
+.bg-white\/5 {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+.product-img-wrap,
+.product-frame {
+  background-color: #f5f5f7;
+  background-image: radial-gradient(ellipse at 50% 42%, #ffffff, transparent 62%);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+.text-white { color: #1d1d1f !important; }
+.text-white\/40,
+.text-white\/45,
+.text-white\/50,
+.text-white\/55,
+.text-white\/60,
+.text-white\/65,
+.text-white\/70,
+.text-white\/75,
+.text-white\/80,
+.text-muted-foreground {
+  color: #6e6e73 !important;
+}
+.text-white\/25,
+.text-white\/30,
+.text-white\/35,
+.text-gray-400,
+.text-gray-500 {
+  color: #86868b !important;
+}
+.bg-gray-100.text-gray-500 { color: #1f2937 !important; }
+#home,
+#home.bg-black,
+section#home {
+  background: #000 !important;
+  background-color: #000 !important;
+}
+#home .text-white,
+#home .text-white\/40,
+#home .text-white\/50,
+#home .text-white\/60,
+#home .text-white\/70,
+#home .text-white\/80 {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+.on-media,
+.on-media .text-white,
+.on-media [class*="text-white/"] {
+  color: #ffffff !important;
+}
+.bg-blue-500.text-white,
+.bg-blue-600.text-white,
+.bg-blue-700.text-white,
+.bg-\[\#3b82f6\].text-white,
+.bg-\[\#2563eb\].text-white,
+.bg-\[\#4d9fff\].text-white,
+.bg-\[\#0081f2\].text-white,
+.bg-primary.text-white,
+button.bg-blue-500,
+button.bg-\[\#4d9fff\],
+button.bg-\[\#2563eb\],
+.search-fab-pulse {
+  color: #ffffff !important;
+}
+.eyebrow-brand,
+.eyebrow-teal {
+  color: #0066cc !important;
+  background: rgba(0, 102, 204, 0.08) !important;
+  border-color: rgba(0, 102, 204, 0.18) !important;
+}
+#home .eyebrow-brand,
+#home .eyebrow-teal {
+  color: #ffffff !important;
+  background: rgba(77, 159, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.24) !important;
+}
+nav.site-header {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: none !important;
+}
+nav.site-header img[alt="PFS Filters"] {
+  filter: brightness(0);
+}
+nav.site-header .hover\:bg-white\/5:hover,
+nav.site-header .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+footer img[alt="PFS Filters"] {
+  filter: brightness(0);
+}
+.ticker-bar {
+  background: #f5f5f7 !important;
+  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+}
+.ticker-item { color: #6e6e73 !important; }

@@ -79,7 +79,7 @@ export default function Shop() {
         <div className="max-w-7xl mx-auto">
           <Breadcrumb items={[{ label: 'Shop' }]} />
           <div className="text-center mb-4">
-            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-white">
+            <h1 className="normal-case mb-4 text-5xl font-semibold tracking-tight text-[#1d1d1f] md:text-6xl">
               Shop Paint Booth Filters
             </h1>
             <p className="text-lg text-white/50 max-w-3xl mx-auto">

@@ -91,14 +91,14 @@ export default function ShopByType() {
           <Breadcrumb items={[{ label: 'Shop by Type' }]} />
           <div className="mb-2 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <h1 className="normal-case text-4xl font-semibold tracking-tight text-white md:text-6xl">
+              <h1 className="normal-case text-4xl font-semibold tracking-tight text-[#1d1d1f] md:text-[3.25rem]">
                 Shop by Filter Type
               </h1>
               <p className="mt-4 max-w-2xl text-lg text-white/70">
                 Each position in your spray booth requires a specific filter type. Cards show whether a filter is for intake or exhaust.
               </p>
             </div>
-            <Link href="/shop" className="inline-flex min-h-11 shrink-0 items-center text-base font-medium text-[#0081f2] hover:underline md:text-lg">
+            <Link href="/shop" className="inline-flex min-h-11 shrink-0 items-center text-lg font-normal text-[#0066cc] hover:underline">
               Shop all <span aria-hidden="true">›</span>
             </Link>
           </div>

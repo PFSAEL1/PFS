@@ -13,7 +13,7 @@ import { getProductBadges } from '@/lib/productSignals';
 import { usePricing } from '@/hooks/usePricing';
 import { consumableProducts } from '@/pages/Consumables';
 import { localAvifSrcSet, shopProductCardImageSrcSet, shopProductCardImageUrl, shopifyImageAltText } from '@/lib/imageUrls';
-import { LineupCard, formatFromPrice, plainText, tintFor } from '@/components/Lineup';
+import { LineupCard, LineupCarousel, formatFromPrice, plainText, tintFor } from '@/components/Lineup';
 
 const FALLBACK_IMAGE = '/images/filters/fiberglass-arrestors.png';
 
@@ -182,7 +182,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter, textQuery }: Shopi
           `}</style>
         </div>
       )}
-      <div className="lineup-grid">
+      <LineupCarousel label="Shop filters">
         {visibleProducts.map((product, index) => {
           const variant = product.node.variants.edges[0]?.node;
           const imageNode = product.node.images.edges[0]?.node;
@@ -245,7 +245,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter, textQuery }: Shopi
             buyHref={cp.href}
           />
         ))}
-      </div>
+      </LineupCarousel>
     </>
   );
 };

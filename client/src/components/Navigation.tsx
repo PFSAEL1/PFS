@@ -15,7 +15,6 @@ const ProductSearchDialog = lazy(() => import('./ProductSearchDialog'));
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
@@ -37,12 +36,6 @@ export const Navigation = () => {
   const isCartOpen = useCartStore((s) => s.isCartOpen);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -143,11 +136,7 @@ export const Navigation = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-black/98 backdrop-blur-md border-b border-white/10 shadow-[0_1px_0_rgba(255,255,255,0.06)]'
-            : 'bg-black/95 backdrop-blur-sm border-b border-white/5'
-        }`}
+        className="site-header fixed top-0 left-0 right-0 z-50 border-b border-black/10 bg-white/90 shadow-none backdrop-blur-xl"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-24">
@@ -157,7 +146,7 @@ export const Navigation = () => {
               <img
                 src={LOGO_URL}
                 alt="PFS Filters"
-                className="h-16 w-auto"
+                className="h-14 w-auto brightness-0"
                 width={420}
                 height={127}
                 loading="eager"
@@ -181,7 +170,7 @@ export const Navigation = () => {
                   Products <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${shopOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {shopOpen && (
-                  <div className="absolute top-full left-0 mt-1 max-h-[86vh] w-64 overflow-y-auto overscroll-contain bg-[#111] border border-white/10 rounded-xl shadow-2xl py-2 z-50">
+                  <div className="absolute top-full left-0 mt-1 max-h-[86vh] w-64 overflow-y-auto overscroll-contain rounded-xl border border-black/10 bg-white py-2 shadow-xl z-50">
                     <div className="px-3 py-1.5 text-xs font-semibold text-white/30 uppercase tracking-wider">Shop</div>
                     <Link href="/shop" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
                       All Products
@@ -249,7 +238,7 @@ export const Navigation = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="font-semibold border-white/20 text-white/80 hover:bg-white/10 hover:text-white bg-transparent transition-[background-color,box-shadow,transform,opacity]"
+                    className="border-black/15 bg-transparent font-semibold text-[#1d1d1f] transition-[background-color,box-shadow,transform,opacity] hover:bg-black/5"
                   >
                     Get a Quote
                   </Button>
@@ -289,7 +278,7 @@ export const Navigation = () => {
                   </Link>
                 ) : (
                   <Link href="/auth">
-                    <Button size="sm" className="bg-white text-black hover:bg-white/90 font-semibold">
+                    <Button size="sm" className="bg-[#1d1d1f] font-semibold text-white hover:bg-black">
                       Sign In
                     </Button>
                   </Link>
@@ -309,7 +298,7 @@ export const Navigation = () => {
 
           {/* Mobile menu */}
           {isOpen && (
-            <div className="mobile-nav-menu md:hidden border-t border-white/10 py-3 space-y-0.5 bg-black" style={{ height: '74vh', overflow: 'scroll', flexDirection: 'column', alignItems: 'stretch' }}>
+            <div className="mobile-nav-menu md:hidden space-y-0.5 border-t border-black/10 bg-white py-3" style={{ height: '74vh', overflow: 'scroll', flexDirection: 'column', alignItems: 'stretch' }}>
               <Link href="/shop" className="block px-4 py-2.5 text-sm font-semibold text-orange-500 hover:text-orange-300 hover:bg-white/5 rounded-lg transition-colors">Shop Filters</Link>
               <Link href="/shop" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">All Products</Link>
               <Link href="/shop-by-filter-type" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Filter Type</Link>
