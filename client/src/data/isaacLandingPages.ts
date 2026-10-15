@@ -58,7 +58,10 @@ export const OEM_LANDING_PAGES: Record<string, OemLandingPageConfig> = {
     selectionGuidance: 'Identify whether the filter is at the intake, ceiling, exhaust wall, pit, or air-makeup stage. Match the construction as well as the dimensions. A same-size panel may not be interchangeable when media type, depth, support grid, or airflow direction differs.',
     industries: ['Automotive refinishing', 'Preparation stations', 'Industrial finishing', 'Woodworking and fabrication'],
     affiliated: false,
-    officialSource: { label: 'RTT notice about the Col-Met name change', href: 'https://rttsolutions.com/blog/col-met-name-change/' },
+    officialSource: {
+      label: 'Industry announcement: Col-Met rebrands to RTT Engineered Solutions',
+      href: 'https://www.powdercoatedtough.com/News/ID/5215/Col-Met-Rebrands-to-RTT-Engineered-Solutions',
+    },
   },
   '/pfs-spray-booth-filters': {
     path: '/pfs-spray-booth-filters',
