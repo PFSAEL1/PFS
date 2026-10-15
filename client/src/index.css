@@ -705,6 +705,8 @@ video::-internal-media-controls-play-button {
 /* Generic light-gray tailwind grays sometimes used for copy */
 .text-gray-400 { color: rgb(190 190 190) !important; }
 .text-gray-500 { color: rgb(170 170 170) !important; }
+/* Country chips sit on the white logo tile, so keep that label dark. */
+.bg-gray-100.text-gray-500 { color: #1f2937 !important; }
 
 /* ---- 2. Secondary accent: muted teal ---------------------------------
    Use sparingly for eyebrows, dividers, secondary CTAs so the blue
