@@ -235,7 +235,7 @@ export default function NeshapCompliantPaintBoothFilters() {
             </Link>
             .
           </p>
-          <a href="https://www.epa.gov/emc/method-319-determination-filtration-efficiency-paint-overspray-arrestors" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300">
+          <a href="https://www.ecfr.gov/current/title-40/chapter-I/subchapter-C/part-63/appendix-Appendix%20A%20to%20Part%2063" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300">
             Official EPA Method 319 information <ExternalLink className="h-3.5 w-3.5" />
           </a>
         </div>

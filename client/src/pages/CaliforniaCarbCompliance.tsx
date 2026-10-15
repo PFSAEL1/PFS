@@ -59,7 +59,7 @@ const OFFICIAL_RESOURCES = [
   },
   {
     label: 'EPA Method 319',
-    href: 'https://www.epa.gov/emc/method-319-determination-filtration-efficiency-paint-overspray-arrestors',
+    href: 'https://www.ecfr.gov/current/title-40/chapter-I/subchapter-C/part-63/appendix-Appendix%20A%20to%20Part%2063',
     description: 'Official EPA test-method information for paint overspray arrestors in applicable aerospace contexts.',
   },
 ];
