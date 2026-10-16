@@ -297,7 +297,7 @@ function RollMediaLoadingFallback() {
 }
 
 const mervFiltersProductImage = '/images/shop-thumbnails/merv-10-pleated-filter.jpg';
-const mervFiltersProductSrcSet = '/images/shop-thumbnails/merv-10-pleated-filter.jpg 320w';
+const mervFiltersProductSrcSet = '/images/shop-thumbnails/merv-10-pleated-filter.jpg 640w';
 
 function MervFiltersLoadingFallback() {
   return (

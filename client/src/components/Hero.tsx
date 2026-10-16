@@ -4,7 +4,7 @@ import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Mail, ShoppingBag } from 'lucide-react';
 
-const FIRST_IMAGE = '/images/shop-thumbnails/22-gram-fiberglass-roll.avif';
+const FIRST_IMAGE = '/images/hero/exhaust-roll.avif';
 
 type Frame = {
   id: string;
@@ -26,8 +26,8 @@ const FRAMES: Frame[] = [
     benefit: '20×100 and 36×100 rolls for the exhaust bank.',
     href: '/product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs',
     image: FIRST_IMAGE,
-    width: 480,
-    height: 480,
+    width: 1080,
+    height: 1080,
     alt: '22 gram fiberglass paint arrestor exhaust roll',
   },
   {
@@ -36,9 +36,9 @@ const FRAMES: Frame[] = [
     name: '22 gram arrestor pads',
     benefit: '20×20×2 pads, packed 50 to a case.',
     href: '/product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs',
-    image: '/images/shop-thumbnails/22-gram-fiberglass-pads.avif',
-    width: 480,
-    height: 480,
+    image: '/images/hero/arrestor-pads.avif',
+    width: 1080,
+    height: 1080,
     alt: '22 gram fiberglass paint arrestor pads, 20 by 20 by 2 inches, 50 per case',
   },
   {
@@ -47,9 +47,9 @@ const FRAMES: Frame[] = [
     name: 'Tacky intake panels',
     benefit: 'Tackified panels on the air entering the booth.',
     href: '/category/tacky-panels',
-    image: '/images/cat_tacky_panels-640.webp',
-    width: 640,
-    height: 640,
+    image: '/images/hero/tacky-panels.avif',
+    width: 1080,
+    height: 1080,
     alt: 'Tacky panel intake filter for a paint booth',
   },
   {
@@ -58,9 +58,9 @@ const FRAMES: Frame[] = [
     name: 'Ceiling diffusion media',
     benefit: 'Overhead blankets for downdraft and semi-downdraft booths.',
     href: '/category/ceiling-blankets',
-    image: '/images/cat_ceiling_blankets-640.webp',
-    width: 640,
-    height: 640,
+    image: '/images/hero/ceiling-media.avif',
+    width: 1080,
+    height: 1080,
     alt: 'Ceiling diffusion media for a downdraft paint booth',
   },
   {
@@ -69,9 +69,9 @@ const FRAMES: Frame[] = [
     name: 'Paint Pockets',
     benefit: '20×20 multi-pocket arrestors, 30 per case.',
     href: '/product/20x20-paint-pockets-paint-arrestor-30-cs',
-    image: '/images/shop-thumbnails/paint-pockets.avif',
-    width: 480,
-    height: 320,
+    image: '/images/hero/paint-pockets.avif',
+    width: 1080,
+    height: 1080,
     alt: 'Paint Pockets paint arrestor, 20 by 20 inches, 30 per case',
   },
 ];
@@ -188,6 +188,7 @@ export const Hero = () => {
       alt={item.alt}
       width={item.width}
       height={item.height}
+      data-fit="cover"
       decoding="async"
       loading={priority ? 'eager' : 'lazy'}
       fetchPriority={priority ? 'high' : 'auto'}
@@ -249,33 +250,36 @@ export const Hero = () => {
             </ul>
           ) : (
             <div
-              className="hero-stage"
-              role="region"
-              aria-roledescription="carousel"
-              aria-label="Filter lineup"
+              className="hero-showcase"
               onPointerDown={() => setPaused(true)}
               onFocus={() => setPaused(true)}
             >
-              <div className="hero-dots" aria-hidden="true" />
-              {mobile ? (
-                <div className="hero-track" style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
-                  {FRAMES.map((item, itemIndex) => (
-                    <div className="hero-slide" key={item.id} aria-hidden={itemIndex !== index}>
+              <div
+                className="hero-stage"
+                role="region"
+                aria-roledescription="carousel"
+                aria-label="Filter lineup"
+              >
+                {mobile ? (
+                  <div className="hero-track" style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
+                    {FRAMES.map((item, itemIndex) => (
+                      <div className="hero-slide" key={item.id} aria-hidden={itemIndex !== index}>
+                        {(itemIndex === 0 || armed) ? photo(item, itemIndex === 0) : null}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  FRAMES.map((item, itemIndex) => (
+                    <div
+                      className={`hero-frame${itemIndex === index ? ' is-active' : ''}`}
+                      key={item.id}
+                      aria-hidden={itemIndex !== index}
+                    >
                       {(itemIndex === 0 || armed) ? photo(item, itemIndex === 0) : null}
                     </div>
-                  ))}
-                </div>
-              ) : (
-                FRAMES.map((item, itemIndex) => (
-                  <div
-                    className={`hero-frame${itemIndex === index ? ' is-active' : ''}`}
-                    key={item.id}
-                    aria-hidden={itemIndex !== index}
-                  >
-                    {(itemIndex === 0 || armed) ? photo(item, itemIndex === 0) : null}
-                  </div>
-                ))
-              )}
+                  ))
+                )}
+              </div>
               <div className="hero-caption">
                 <p className="hero-kicker">{frame.eyebrow}</p>
                 <h2>{frame.name}</h2>

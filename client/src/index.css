@@ -418,7 +418,7 @@
 .product-frame {
   display: grid;
   place-items: center;
-  background-color: #111111;
+  background-color: #33373e;
   background-image: radial-gradient(ellipse at 50% 42%, rgba(255, 255, 255, 0.07), transparent 62%);
   overflow: hidden;
   padding: 10%;
@@ -796,22 +796,18 @@ body,
   line-height: 0.98;
   text-transform: uppercase;
 }
-/* Tier 1 — the setup line: white, slightly smaller */
-.hero-tier1 {
-  display: block;
-  color: #ffffff;
-  font-size: clamp(1.9rem, 4.4vw, 3.4rem);   /* ~10% reduced vs old base */
-  font-weight: 800;
-  letter-spacing: 0;
-}
-/* Tier 2 — the key message: ~20% larger, diagonal gradient fill */
+.hero-tier1,
 .hero-tier2 {
   display: block;
-  margin-top: 0.12em;
-  font-size: clamp(2.5rem, 6.2vw, 4.6rem);   /* ~20% larger than tier 1 */
+  color: #ececec;
+  font-size: clamp(1.7rem, 3.5vw, 2.75rem);
   font-weight: 800;
   letter-spacing: 0;
-  color: #ececec;
+  line-height: 1.02;
+}
+.hero-tier1 { color: #ffffff; }
+.hero-tier2 {
+  margin-top: 0.12em;
   background: none;
   -webkit-text-fill-color: #ececec;
 }
@@ -1017,8 +1013,12 @@ body,
   font-family: 'Instrument Serif';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/instrument-serif-400-latin.woff2') format('woff2');
+  size-adjust: 102%;
+  ascent-override: 92%;
+  descent-override: 22%;
+  line-gap-override: 0%;
 }
 
 .hero-shell { background: #1c1f24; color: #ececec; }
@@ -1057,54 +1057,77 @@ body,
   margin: 0.75rem 0 1rem;
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+.hero-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+}
 .hero-stage {
   position: relative;
-  min-height: 420px;
-  border-radius: 20px;
+  width: min(100%, 540px, calc(100vh - 26rem));
+  aspect-ratio: 1;
+  margin-inline: auto;
+  border-radius: 28px;
   background: #2e3137;
   overflow: hidden;
-  display: grid;
-}
-.hero-stage::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(255,255,255,0.22) 0.6px, transparent 0.7px);
-  background-size: 12px 12px;
-  opacity: 0.18;
-  mask-image: radial-gradient(circle at 50% 42%, #000 10%, transparent 68%);
 }
 .hero-frame, .hero-slide {
-  display: grid;
-  place-items: center;
-  min-height: 280px;
+  min-height: 0;
 }
-.hero-frame { position: absolute; inset: 0 0 132px; opacity: 0; transform: translate3d(0, 12px, 0) scale(0.96); transition: opacity 320ms ease, transform 320ms ease; }
+.hero-frame { position: absolute; inset: 0; opacity: 0; transform: translate3d(0, 12px, 0) scale(0.96); transition: opacity 320ms ease, transform 320ms ease; }
 .hero-frame.is-active { opacity: 1; transform: translate3d(0, calc(var(--tilt, 0) * 1px), 0) scale(1) rotateX(calc(var(--tilt, 0) * 0.4deg)); }
-.hero-track { display: flex; transition: transform 320ms ease; }
-.hero-slide { flex: 0 0 100%; }
+.hero-track { display: flex; height: 100%; transition: transform 320ms ease; }
+.hero-slide { position: relative; flex: 0 0 100%; height: 100%; }
 .hero-frame:not(.is-active),
 .hero-slide[aria-hidden="true"] { visibility: hidden; }
 .hero-stage img {
-  width: auto !important;
-  height: auto !important;
-  max-width: min(520px, 100%) !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
   max-height: none !important;
-  object-fit: contain !important;
-  justify-self: center;
-  align-self: center;
-  position: relative;
-  z-index: 1;
+  object-fit: cover !important;
+  display: block;
 }
-.hero-caption, .hero-progress, .hero-controls { position: relative; z-index: 2; }
-.hero-caption { padding: 0 1.25rem 0.5rem; }
-.hero-caption h2 { margin: 0; font-size: 1.5rem; color: #ececec; }
-.hero-caption p { margin: 0.25rem 0; color: #9aa0a6; }
-.hero-caption a, .keyword-guide-links a { color: #0081f2; }
-.hero-progress, .hero-controls { display: flex; gap: 0.5rem; padding: 0.75rem 1.25rem 1rem; }
-.hero-progress button { width: 2rem; height: 4px; border: 0; border-radius: 999px; background: rgba(255,255,255,0.28); padding: 0; }
-.hero-progress button[aria-selected="true"] { background: #ececec; }
+.hero-caption, .hero-progress, .hero-controls { position: relative; }
+.hero-caption { padding: 0 0.15rem; }
+#home .hero-caption .hero-kicker { margin: 0 0 0.35rem; font-size: 0.75rem; line-height: 1.2; color: #9aa0a6; }
+#home .hero-caption h2 { margin: 0; font-size: 1.35rem; line-height: 1.2; color: #ececec; }
+#home .hero-caption p { margin: 0.2rem 0 0; color: #9aa0a6; font-size: 1rem; line-height: 1.45; }
+.hero-caption a, .keyword-guide-links a { color: #0081f2; font-weight: 700; }
+.hero-progress, .hero-controls { display: flex; gap: 0.5rem; padding: 0.15rem 0.15rem 0; }
+#home .hero-progress button {
+  display: inline-flex;
+  width: 2.75rem;
+  min-height: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  position: relative;
+  transform: none;
+}
+#home .hero-controls button {
+  min-height: 44px;
+  padding: 0 0.9rem;
+  background: transparent;
+  color: #ececec;
+  border: 1px solid rgba(255,255,255,0.22);
+  box-shadow: none;
+}
+.hero-progress button::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 20px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.28);
+}
+.hero-progress button[aria-selected="true"]::before { background: #ececec; }
 .hero-controls button, .keyword-faqs summary, .btn-ghost, .btn-primary {
   min-height: 44px;
   border-radius: 8px;
@@ -1193,11 +1216,22 @@ button:focus-visible, a:focus-visible { outline: 2px solid #0081f2; outline-offs
   padding: 1rem;
 }
 @media (min-width: 768px) { .quick-view-sheet { grid-template-columns: 1fr 1fr; padding: 1.25rem; } }
-.quick-view-photo { display: grid; place-items: center; background: #24272c; border-radius: 16px; min-height: 240px; }
+.quick-view-photo { display: grid; place-items: center; background: #33373e; border-radius: 16px; min-height: 280px; aspect-ratio: 1; }
 .quick-view-photo img { width: auto; height: auto; max-width: 80%; max-height: 280px; object-fit: contain; }
-.quick-view-copy h2 { margin: 0 0 0.5rem; font-size: 1.75rem; }
+.quick-view { color: #ececec; }
+.quick-view-copy h2 { margin: 0 0 0.5rem; font-size: 1.75rem; color: #ececec; }
+.quick-view-desc { margin: 0; color: #c8cdd2; line-height: 1.5; }
+.quick-view .btn-text { color: #0081f2; }
 .quick-view-price { margin: 0.75rem 0 1rem; font-size: 1.75rem; font-weight: 800; color: #ececec; }
 .quick-view-sizes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+.quick-view-sizes button {
+  color: #ececec;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  min-height: 44px;
+  padding: 0.35rem 0.9rem;
+}
 .quick-view-sizes button[aria-pressed="true"] { background: #fff; color: #1a1c20; }
 .quick-view-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
 .btn-primary { background: #0081f2; color: #fff; border: 0; padding: 0.75rem 1.25rem; }
@@ -1366,8 +1400,40 @@ h1, h2, h3 { font-weight: 800; }
 .bg-gradient-to-b { background-image: none; }
 @media (max-width: 767px) {
   .section-dark, .section-darker, .section-raised, .section-glow { border-radius: 20px; margin: 8px !important; }
-  .hero-stage { min-height: 360px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal-wait, .skeleton-card, .search-fab-pulse-surface { animation: none; opacity: 1; transform: none; }
+}
+nav[aria-label="Breadcrumb"],
+nav[data-seo-breadcrumbs],
+nav.page-breadcrumbs {
+  position: static !important;
+  inset: auto !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  z-index: auto !important;
+  height: auto !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.footer-logo {
+  display: block;
+  width: 132px;
+  height: 40px;
+  object-fit: contain;
+}
+.media-well,
+.product-img-wrap,
+.product-frame,
+.quick-view-photo {
+  background-color: #33373e !important;
+  background-image: none !important;
+}
+.media-well img,
+.product-img-wrap img,
+.product-frame img,
+.quick-view-photo img {
+  background-color: transparent !important;
 }

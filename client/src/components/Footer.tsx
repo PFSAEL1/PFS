@@ -16,7 +16,7 @@ export const Footer = () => {
             <img
               src={LOGO_URL}
               alt="PFS Filters"
-              className="h-10 w-auto mb-4"
+              className="footer-logo mb-4"
               width={420}
               height={127}
               loading="lazy"

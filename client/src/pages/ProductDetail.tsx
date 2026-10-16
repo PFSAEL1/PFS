@@ -334,7 +334,7 @@ export default function ProductDetail() {
           <div>
             <div
               className="product-frame group/zoom relative mb-4 aspect-square cursor-zoom-in"
-              style={{ backgroundColor: '#111111', backgroundImage: 'radial-gradient(circle at 50% 42%, rgba(255,255,255,0.08), rgba(0,0,0,0) 62%)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px' }}
+              style={{ backgroundColor: '#33373e', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px' }}
               onMouseMove={(e) => {
                 const r = e.currentTarget.getBoundingClientRect();
                 setZoom({
@@ -373,7 +373,7 @@ export default function ProductDetail() {
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: '250%',
                   backgroundPosition: `${zoom.x}% ${zoom.y}%`,
-                  backgroundColor: '#161616',
+                  backgroundColor: '#33373e',
                 }}
               />
             </div>

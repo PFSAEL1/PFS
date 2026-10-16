@@ -21,7 +21,7 @@ const origin = 'https://www.pfsfilters.com';
 const logoUrl = '/images/brands/pfs-logo-wide-420.webp';
 const heroPosterMobile = '/media/pfs-hero-poster-mobile.webp';
 const heroPosterDesktop = '/media/pfs-hero-poster-desktop.webp';
-const heroLcpImage = '/images/shop-thumbnails/22-gram-fiberglass-roll.avif';
+const heroLcpImage = '/images/hero/exhaust-roll.avif';
 const heroPosterPreload = `<link rel="preload" as="image" href="${heroLcpImage}" type="image/avif" fetchpriority="high" />`;
 const logoPreload = `<link rel="preload" as="image" href="${logoUrl}" type="image/webp" fetchpriority="high" />`;
 const defaultProductImage = '/images/filters/fiberglass-arrestors.png';
@@ -32,7 +32,7 @@ const shopProductThumbnails = {
   '20x20-paint-arrestor-holding-grids-w-tips-each': { src: '/images/shop-thumbnails/holding-grid.webp', width: 480 },
   '20x20-paint-pockets-paint-arrestor-30-cs': { src: '/images/shop-thumbnails/paint-pockets.webp', width: 480 },
   '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': { src: '/images/shop-thumbnails/22-gram-fiberglass-roll.webp', width: 480 },
-  'pleated-air-filters-merv-10': { src: '/images/shop-thumbnails/merv-10-pleated-filter.jpg', width: 320 },
+  'pleated-air-filters-merv-10': { src: '/images/shop-thumbnails/merv-10-pleated-filter.jpg', width: 640 },
   '36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs': { src: '/images/shop-thumbnails/15-gram-fiberglass-roll.webp', width: 480 },
   'bronze-membership': { src: '/images/products/membership-bronze-720.png', width: 720 },
   'silver-membership': { src: '/images/products/membership-silver-720.png', width: 720 },
@@ -854,9 +854,9 @@ function shopFallback(title, description) {
     const price = firstVariant?.price?.amount || product.priceRange?.minVariantPrice?.amount;
     const currency = firstVariant?.price?.currencyCode || product.priceRange?.minVariantPrice?.currencyCode || 'USD';
     const alt = imageNode?.altText || product.title;
-    return `<article style="position:relative;overflow:hidden;border:1px solid #333;border-radius:12px;background:linear-gradient(135deg,#212121,#1a1a1a)">
+    return `<article style="position:relative;overflow:hidden;border:1px solid #333;border-radius:12px;background:#2a2d33">
         <a href="/product/${escapeHtml(product.handle)}" style="color:inherit;text-decoration:none">
-          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#1f1f1f,#151515);border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
+          <div style="aspect-ratio:1/1;background:#33373e;border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
             ${imageUrl ? `<picture>${avifSrcset(srcset) ? `<source type="image/avif" srcset="${escapeHtml(avifSrcset(srcset))}" sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)" />` : ''}<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)" alt="${escapeHtml(alt)}" width="480" height="480" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${index === 0 ? 'high' : 'auto'}" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box;filter:brightness(.95) contrast(1.05)" /></picture>` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#6b7280">Image Coming Soon</div>`}
           </div>
           <div style="padding:16px">
@@ -920,9 +920,9 @@ function ceilingBlanketsFallback(title, description) {
     const price = firstVariant?.price?.amount || product.priceRange?.minVariantPrice?.amount;
     const currency = firstVariant?.price?.currencyCode || product.priceRange?.minVariantPrice?.currencyCode || 'USD';
     const alt = imageNode?.altText || product.title;
-    return `<article style="overflow:hidden;border:1px solid #333;border-radius:12px;background:linear-gradient(135deg,#212121,#1a1a1a)">
+    return `<article style="overflow:hidden;border:1px solid #333;border-radius:12px;background:#2a2d33">
         <a href="/product/${escapeHtml(product.handle)}" style="color:inherit;text-decoration:none">
-          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#1f1f1f,#151515);border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
+          <div style="aspect-ratio:1/1;background:#33373e;border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
             ${imageUrl ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)" alt="${escapeHtml(alt)}" width="480" height="480" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${index === 0 ? 'high' : 'auto'}" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box;filter:brightness(.95) contrast(1.05)" />` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#6b7280">Image Coming Soon</div>'}
           </div>
           <div style="padding:16px">
@@ -967,9 +967,9 @@ function rollMediaFallback(title, description) {
     const price = firstVariant?.price?.amount || product.priceRange?.minVariantPrice?.amount;
     const currency = firstVariant?.price?.currencyCode || product.priceRange?.minVariantPrice?.currencyCode || 'USD';
     const alt = imageNode?.altText || product.title;
-    return `<article style="overflow:hidden;border:1px solid #333;border-radius:12px;background:linear-gradient(135deg,#212121,#1a1a1a)">
+    return `<article style="overflow:hidden;border:1px solid #333;border-radius:12px;background:#2a2d33">
         <a href="/product/${escapeHtml(product.handle)}" style="color:inherit;text-decoration:none">
-          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#1f1f1f,#151515);border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
+          <div style="aspect-ratio:1/1;background:#33373e;border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
             ${imageUrl ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)" alt="${escapeHtml(alt)}" width="480" height="480" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${index === 0 ? 'high' : 'auto'}" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box;filter:brightness(.95) contrast(1.05)" />` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#6b7280">Image Coming Soon</div>'}
           </div>
           <div style="padding:16px">
@@ -1036,9 +1036,9 @@ function mervFiltersFallback(title, description) {
     const price = firstVariant?.price?.amount || product.priceRange?.minVariantPrice?.amount;
     const currency = firstVariant?.price?.currencyCode || product.priceRange?.minVariantPrice?.currencyCode || 'USD';
     const alt = imageNode?.altText || product.title;
-    return `<article style="overflow:hidden;border:1px solid #333;border-radius:12px;background:linear-gradient(135deg,#212121,#1a1a1a)">
+    return `<article style="overflow:hidden;border:1px solid #333;border-radius:12px;background:#2a2d33">
         <a href="/product/${escapeHtml(product.handle)}" style="color:inherit;text-decoration:none">
-          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#1f1f1f,#151515);border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
+          <div style="aspect-ratio:1/1;background:#33373e;border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
             ${imageUrl ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)" alt="${escapeHtml(alt)}" width="480" height="480" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${index === 0 ? 'high' : 'auto'}" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box;filter:brightness(.95) contrast(1.05)" />` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#6b7280">Image Coming Soon</div>'}
           </div>
           <div style="padding:16px">
@@ -1339,7 +1339,7 @@ function fiberglassVsTackyBlogFallback() {
         <h1 style="margin:0 0 16px;font-size:clamp(2.25rem,7vw,3rem);line-height:1.15;font-weight:800;color:#fff">Fiberglass vs. Tacky Panel Filters</h1>
         <p style="max-width:768px;margin:0 0 24px;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:20px;line-height:1.5">Fiberglass paint arrestors and tackified panel media are not automatically interchangeable. Compare the documented filter stage, dimensions, media, airflow direction, and equipment requirements before ordering.</p>
         <p style="margin:0 0 40px;font-family:Arial,sans-serif;font-size:14px;color:rgba(255,255,255,.7)">By <strong style="color:#fff">PFS Filters Editorial Team</strong></p>
-        <div style="aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#151515">
+        <div style="aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#33373e">
           <img src="/images/cat_fiberglass_arrestors.png" alt="Fiberglass and tacky panel filter media comparison" width="1280" height="720" loading="eager" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block" />
         </div>
       </div>
@@ -1502,9 +1502,9 @@ function aerospaceFallback() {
   const price = product?.priceRange?.minVariantPrice?.amount;
   const currency = product?.priceRange?.minVariantPrice?.currencyCode || 'USD';
   const alt = imageNode?.altText || product?.title || 'Aerospace-grade filtration media';
-  const card = product ? `<article style="overflow:hidden;border:1px solid #333;border-radius:12px;background:linear-gradient(135deg,#212121,#1a1a1a)">
+  const card = product ? `<article style="overflow:hidden;border:1px solid #333;border-radius:12px;background:#2a2d33">
         <a href="/product/${escapeHtml(product.handle)}" style="color:inherit;text-decoration:none">
-          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#1f1f1f,#151515);border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
+          <div style="aspect-ratio:1/1;background:#33373e;border-bottom:1px solid #292929;display:flex;align-items:center;justify-content:center;overflow:hidden">
             ${imageUrl ? `<img src="${escapeHtml(imageUrl)}"${srcset ? ` srcset="${escapeHtml(srcset)}"` : ''} sizes="(min-width: 1280px) 300px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, calc(100vw - 2rem)" alt="${escapeHtml(alt)}" width="480" height="480" loading="eager" decoding="async" fetchpriority="high" style="width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box;filter:brightness(.95) contrast(1.05)" />` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#6b7280">Image Coming Soon</div>'}
           </div>
           <div style="padding:16px">
@@ -1832,7 +1832,7 @@ function replaceMeta(html, route) {
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
   const heading = escapeHtml(routeHeading(route));
   const fallback = route.path === '/'
-    ? `<main data-seo-fallback><section id="home" class="hero-shell"><div class="hero-pin"><div class="hero-copy"><p class="hero-kicker">Filtration</p><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p class="serif-lead">Exhaust rolls, arrestor pads, tacky panels, ceiling media, and paint pockets.</p><p class="hero-sub">Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div><div class="hero-stage"><div class="hero-frame is-active"><img src="${heroLcpImage}" alt="22 gram fiberglass paint arrestor exhaust roll" width="480" height="480" fetchpriority="high" decoding="async" /></div></div></div></section></main>`
+    ? `<main data-seo-fallback><section id="home" class="hero-shell"><div class="hero-pin"><div class="hero-copy"><p class="hero-kicker">Filtration</p><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p class="serif-lead">Exhaust rolls, arrestor pads, tacky panels, ceiling media, and paint pockets.</p><p class="hero-sub">Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div><div class="hero-showcase"><div class="hero-stage"><div class="hero-frame is-active"><img src="${heroLcpImage}" alt="22 gram fiberglass paint arrestor exhaust roll" width="1080" height="1080" data-fit="cover" fetchpriority="high" decoding="async" /></div></div></div></div></section></main>`
     : route.path === '/auth'
     ? `<main data-seo-fallback id="auth-fallback" style="min-height:100vh;background:#1a1c20;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif"><div style="width:min(384px,calc(100% - 32px));border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#111;padding:32px;text-align:center;box-sizing:border-box"><img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" width="250" height="76" fetchpriority="high" style="display:block;width:250px;max-width:100%;height:auto;margin:0 auto 24px;filter:brightness(1.4) drop-shadow(0 0 20px rgba(59,130,246,.3))" /><p style="margin:0;color:rgba(255,255,255,.7);font-size:14px">Loading secure sign-in…</p></div></main>`
     : route.path === '/shop'
