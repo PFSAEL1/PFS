@@ -84,11 +84,13 @@ export default function Shop() {
             <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-white">
               Shop Paint Booth Filters
             </h1>
+            <p className="serif-note mx-auto mb-3 max-w-3xl text-2xl text-[#ececec]">
+              Arrestor pads, exhaust rolls, tacky panels, ceiling media, and MERV 10 prefilters.
+            </p>
             <p className="text-lg text-white/50 max-w-3xl mx-auto">
               Browse spray booth filters and paint arrestors for intake, ceiling, prefilter, and exhaust stages. Confirm the booth position and exact dimensions before ordering.
             </p>
           </div>
-          <KeywordGuide paragraphs={shopKeyword.paragraphs} faqs={shopKeyword.faqs} links={shopKeyword.links} />
         </div>
       </section>
 
@@ -144,6 +146,7 @@ export default function Shop() {
           </div>
           <LineupHeader title="Find your filter." href="/shop-by-type" linkLabel="Shop by type" />
           <ShopifyProducts categoryFilter={categoryFilter} sizeFilter={sizeFilter} textQuery={textQuery} />
+          <KeywordGuide paragraphs={shopKeyword.paragraphs} faqs={shopKeyword.faqs} links={shopKeyword.links} />
         </div>
       </section>
 

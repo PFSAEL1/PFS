@@ -9,6 +9,8 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { importWithChunkRecovery } from './lib/chunkRecovery';
 import { getLocalProductThumbnail } from './lib/imageUrls';
 import { installRoutePrefetch } from './lib/routePrefetch';
+import { installScrollReveal } from './lib/scrollReveal';
+import { QuickView } from './components/QuickView';
 
 // Pages
 import Home from './pages/Home';
@@ -79,14 +81,14 @@ const brandsFallback = [
 
 function FilterFinderLoadingFallback() {
   return (
-    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
-      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+    <div style={{ minHeight: '100vh', background: '#1a1c20', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(26,28,32,.95)' }}>
         <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
           <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
         </div>
       </nav>
       <main>
-        <section style={{ padding: '112px 16px 32px', background: 'linear-gradient(180deg,#0a1628 0%,#040404 100%)' }}>
+        <section style={{ padding: '112px 16px 32px', background: 'linear-gradient(180deg,#0a1628 0%,#1a1c20 100%)' }}>
           <div style={{ maxWidth: 1024, margin: '0 auto', textAlign: 'center' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, border: '1px solid rgba(59,130,246,.24)', background: 'rgba(59,130,246,.1)', color: '#93c5fd', fontSize: 12, fontWeight: 700, marginBottom: 16 }}>
               FILTER FINDER · STEP 1 OF 4
@@ -102,7 +104,7 @@ function FilterFinderLoadingFallback() {
         <section style={{ padding: '0 16px 64px' }}>
           <div style={{ maxWidth: 1152, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 16 }}>
             {finderFallbackTypes.map((type) => (
-              <div key={type} style={{ minHeight: 260, borderRadius: 16, border: '1px solid rgba(255,255,255,.1)', background: '#0a0a0a', overflow: 'hidden' }}>
+              <div key={type} style={{ minHeight: 260, borderRadius: 16, border: '1px solid rgba(255,255,255,.1)', background: '#24272c', overflow: 'hidden' }}>
                 <div style={{ height: 160, padding: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(180deg,rgba(255,255,255,.025),transparent)' }}>
                   <div style={{ position: 'relative', width: '100%', maxWidth: 280, height: '100%', border: '2px solid rgba(255,255,255,.45)', borderRadius: 4 }}>
                     <div style={{ position: 'absolute', left: '12%', right: '12%', top: '18%', height: 2, background: 'rgba(96,165,250,.72)' }} />
@@ -126,17 +128,17 @@ function FilterFinderLoadingFallback() {
 
 function FilterScannerLoadingFallback() {
   return (
-    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
-      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+    <div style={{ minHeight: '100vh', background: '#1a1c20', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(26,28,32,.95)' }}>
         <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
           <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
         </div>
       </nav>
       <main>
-        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+        <section style={{ padding: '112px 16px 40px', background: '#1a1c20' }}>
           <div style={{ maxWidth: 896, margin: '0 auto', textAlign: 'center' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, border: '1px solid rgba(59,130,246,.22)', background: 'rgba(59,130,246,.1)', color: '#60a5fa', fontSize: 14, fontWeight: 700, marginBottom: 16 }}>
-              AI-Powered
+              Catalog tool
             </div>
             <h1 style={{ margin: '0 0 16px', fontFamily: '"Barlow Condensed", Arial, sans-serif', fontSize: 'clamp(3rem,12vw,4.5rem)', lineHeight: .95, fontWeight: 800, letterSpacing: 0 }}>
               Filter Scanner
@@ -146,8 +148,8 @@ function FilterScannerLoadingFallback() {
             </p>
           </div>
         </section>
-        <div style={{ height: 48, background: 'linear-gradient(180deg,#050505,#0d0d0d)' }} />
-        <section style={{ padding: '32px 16px 56px', background: '#0d0d0d' }}>
+        <div style={{ height: 48, background: 'linear-gradient(180deg,#1a1c20,#24272c)' }} />
+        <section style={{ padding: '32px 16px 56px', background: '#24272c' }}>
           <div style={{ maxWidth: 896, margin: '0 auto' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 16, marginBottom: 24 }}>
               {[
@@ -186,14 +188,14 @@ const ceilingBlanketsProductSrcSet =
 
 function CeilingBlanketsLoadingFallback() {
   return (
-    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
-      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+    <div style={{ minHeight: '100vh', background: '#1a1c20', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(26,28,32,.95)' }}>
         <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
           <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
         </div>
       </nav>
       <main>
-        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+        <section style={{ padding: '112px 16px 40px', background: '#1a1c20' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(77,159,255,.3)', background: 'rgba(77,159,255,.1)', color: '#4d9fff', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 16 }}>
               Intake
@@ -206,8 +208,8 @@ function CeilingBlanketsLoadingFallback() {
             </p>
           </div>
         </section>
-        <div style={{ height: 48, background: 'linear-gradient(180deg,#050505,#0d0d0d)' }} />
-        <section style={{ padding: '32px 16px 56px', background: '#0d0d0d' }}>
+        <div style={{ height: 48, background: 'linear-gradient(180deg,#1a1c20,#24272c)' }} />
+        <section style={{ padding: '32px 16px 56px', background: '#24272c' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 24 }}>
             <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: 'linear-gradient(135deg,#212121,#1a1a1a)' }}>
               <div style={{ aspectRatio: '1/1', background: 'linear-gradient(135deg,#1f1f1f,#151515)', borderBottom: '1px solid #292929', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
@@ -242,14 +244,14 @@ const rollMediaProductImage = '/images/shop-thumbnails/22-gram-fiberglass-roll.w
 
 function RollMediaLoadingFallback() {
   return (
-    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
-      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+    <div style={{ minHeight: '100vh', background: '#1a1c20', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(26,28,32,.95)' }}>
         <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
           <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
         </div>
       </nav>
       <main>
-        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+        <section style={{ padding: '112px 16px 40px', background: '#1a1c20' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(77,159,255,.3)', background: 'rgba(77,159,255,.1)', color: '#4d9fff', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 16 }}>
               Intake / Exhaust
@@ -262,8 +264,8 @@ function RollMediaLoadingFallback() {
             </p>
           </div>
         </section>
-        <div style={{ height: 48, background: 'linear-gradient(180deg,#050505,#0d0d0d)' }} />
-        <section style={{ padding: '32px 16px 56px', background: '#0d0d0d' }}>
+        <div style={{ height: 48, background: 'linear-gradient(180deg,#1a1c20,#24272c)' }} />
+        <section style={{ padding: '32px 16px 56px', background: '#24272c' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 24 }}>
             <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: 'linear-gradient(135deg,#212121,#1a1a1a)' }}>
               <div style={{ aspectRatio: '1/1', background: 'linear-gradient(135deg,#1f1f1f,#151515)', borderBottom: '1px solid #292929', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
@@ -299,14 +301,14 @@ const mervFiltersProductSrcSet = '/images/shop-thumbnails/merv-10-pleated-filter
 
 function MervFiltersLoadingFallback() {
   return (
-    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
-      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+    <div style={{ minHeight: '100vh', background: '#1a1c20', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(26,28,32,.95)' }}>
         <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
           <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
         </div>
       </nav>
       <main>
-        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+        <section style={{ padding: '112px 16px 40px', background: '#1a1c20' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(77,159,255,.3)', background: 'rgba(77,159,255,.1)', color: '#4d9fff', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 16 }}>
               Intake
@@ -319,8 +321,8 @@ function MervFiltersLoadingFallback() {
             </p>
           </div>
         </section>
-        <div style={{ height: 48, background: 'linear-gradient(180deg,#050505,#0d0d0d)' }} />
-        <section style={{ padding: '32px 16px 56px', background: '#0d0d0d' }}>
+        <div style={{ height: 48, background: 'linear-gradient(180deg,#1a1c20,#24272c)' }} />
+        <section style={{ padding: '32px 16px 56px', background: '#24272c' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 24 }}>
             <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: 'linear-gradient(135deg,#212121,#1a1a1a)' }}>
               <div style={{ aspectRatio: '1/1', background: 'linear-gradient(135deg,#1f1f1f,#151515)', borderBottom: '1px solid #292929', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
@@ -353,14 +355,14 @@ function MervFiltersLoadingFallback() {
 
 function PolyesterMediaLoadingFallback() {
   return (
-    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
-      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+    <div style={{ minHeight: '100vh', background: '#1a1c20', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(26,28,32,.95)' }}>
         <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
           <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
         </div>
       </nav>
       <main>
-        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+        <section style={{ padding: '112px 16px 40px', background: '#1a1c20' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 999, border: '1px solid rgba(255,255,255,.2)', background: 'rgba(255,255,255,.08)', color: 'rgba(255,255,255,.7)', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 16 }}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 6 }}>
@@ -376,8 +378,8 @@ function PolyesterMediaLoadingFallback() {
             </p>
           </div>
         </section>
-        <div style={{ height: 100, background: 'linear-gradient(to bottom,#050505,#0d0d0d)' }} />
-        <section style={{ padding: '48px 16px 56px', background: '#0d0d0d' }}>
+        <div style={{ height: 100, background: 'linear-gradient(to bottom,#1a1c20,#24272c)' }} />
+        <section style={{ padding: '48px 16px 56px', background: '#24272c' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', textAlign: 'center', padding: '64px 0' }}>
             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.2)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 16px', display: 'block' }}>
               <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
@@ -417,14 +419,14 @@ function PolyesterMediaLoadingFallback() {
 
 function BrandsLoadingFallback() {
   return (
-    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
-      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+    <div style={{ minHeight: '100vh', background: '#1a1c20', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(26,28,32,.95)' }}>
         <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
           <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
         </div>
       </nav>
       <main>
-        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+        <section style={{ padding: '112px 16px 40px', background: '#1a1c20' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, border: '1px solid rgba(255,255,255,.15)', background: 'rgba(255,255,255,.05)', color: 'rgba(255,255,255,.6)', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>
               Trusted Brands
@@ -437,7 +439,7 @@ function BrandsLoadingFallback() {
             </p>
           </div>
         </section>
-        <section style={{ padding: '56px 16px', background: '#0d0d0d' }}>
+        <section style={{ padding: '56px 16px', background: '#24272c' }}>
           <div style={{ maxWidth: 896, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 24 }}>
             {brandsFallback.map(([name, specialty]) => (
               <article key={name} style={{ minHeight: 190, border: '1px solid rgba(255,255,255,.08)', borderRadius: 16, background: 'rgba(255,255,255,.03)', padding: 24 }}>
@@ -457,19 +459,19 @@ function BrandsLoadingFallback() {
 
 function VitraLoadingFallback() {
   return (
-    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
-      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+    <div style={{ minHeight: '100vh', background: '#1a1c20', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(26,28,32,.95)' }}>
         <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
           <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
         </div>
       </nav>
       <main>
-        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+        <section style={{ padding: '112px 16px 40px', background: '#1a1c20' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', color: 'rgba(255,255,255,.55)', fontSize: 14 }}>
             Home / Consumables / PFS VITRA
           </div>
         </section>
-        <section style={{ padding: '56px 16px', background: '#0d0d0d' }}>
+        <section style={{ padding: '56px 16px', background: '#24272c' }}>
           <div style={{ maxWidth: 1024, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 40, alignItems: 'start' }}>
             <div style={{ aspectRatio: '1/1', minHeight: 320, borderRadius: 16, border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.03)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 16 }}>
               <img src="/images/products/pfs-vitra-booth-coating-transparent.webp" alt="PFS VITRA Booth Coating one-gallon container" width="1365" height="2048" style={{ width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }} fetchPriority="high" decoding="async" />
@@ -507,14 +509,14 @@ const aerospaceProductSrcSet =
 
 function AerospaceLoadingFallback() {
   return (
-    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
-      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+    <div style={{ minHeight: '100vh', background: '#1a1c20', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(26,28,32,.95)' }}>
         <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
           <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
         </div>
       </nav>
       <main>
-        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+        <section style={{ padding: '112px 16px 40px', background: '#1a1c20' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', textAlign: 'center' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, border: '1px solid rgba(59,130,246,.22)', background: 'rgba(59,130,246,.1)', color: 'rgba(255,255,255,.8)', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>
               Aerospace & MRO Filtration
@@ -527,8 +529,8 @@ function AerospaceLoadingFallback() {
             </p>
           </div>
         </section>
-        <div style={{ height: 48, background: 'linear-gradient(180deg,#050505,#0d0d0d)' }} />
-        <section style={{ padding: '32px 16px 56px', background: '#0d0d0d' }}>
+        <div style={{ height: 48, background: 'linear-gradient(180deg,#1a1c20,#24272c)' }} />
+        <section style={{ padding: '32px 16px 56px', background: '#24272c' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 24 }}>
             <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: 'linear-gradient(135deg,#212121,#1a1a1a)' }}>
               <div style={{ aspectRatio: '1/1', background: 'linear-gradient(135deg,#1f1f1f,#151515)', borderBottom: '1px solid #292929', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
@@ -561,14 +563,14 @@ function AerospaceLoadingFallback() {
 
 function NovaVertaLoadingFallback() {
   return (
-    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
-      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+    <div style={{ minHeight: '100vh', background: '#1a1c20', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(26,28,32,.95)' }}>
         <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
           <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
         </div>
       </nav>
       <main>
-        <section style={{ padding: '112px 16px 40px', background: '#050505' }}>
+        <section style={{ padding: '112px 16px 40px', background: '#1a1c20' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
               <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 999, background: 'rgba(255,255,255,.05)', color: 'rgba(255,255,255,.5)', border: '1px solid rgba(255,255,255,.1)' }}>Italy</span>
@@ -597,8 +599,8 @@ function NovaVertaLoadingFallback() {
             </div>
           </div>
         </section>
-        <div style={{ height: 100, background: 'linear-gradient(to bottom,#050505,#0d0d0d)' }} />
-        <section style={{ padding: '56px 16px', background: '#0d0d0d' }}>
+        <div style={{ height: 100, background: 'linear-gradient(to bottom,#1a1c20,#24272c)' }} />
+        <section style={{ padding: '56px 16px', background: '#24272c' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto' }}>
             <h2 style={{ margin: '0 0 8px', fontSize: 24, fontWeight: 700 }}>Nova Verta Models</h2>
             <p style={{ margin: '0 0 32px', color: 'rgba(255,255,255,.5)', fontSize: 14 }}>
@@ -636,14 +638,14 @@ function NovaVertaLoadingFallback() {
 
 function FiberglassVsTackyBlogLoadingFallback() {
   return (
-    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }}>
-      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+    <div style={{ minHeight: '100vh', background: '#1a1c20', color: '#fff' }}>
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(26,28,32,.95)' }}>
         <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
           <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
         </div>
       </nav>
       <main>
-        <section style={{ padding: '96px 16px 24px', background: '#050505' }}>
+        <section style={{ padding: '96px 16px 24px', background: '#1a1c20' }}>
           <div style={{ maxWidth: 896, margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, color: 'rgba(255,255,255,.5)', marginBottom: 8 }}>
               <span>Home</span><span>›</span><span>Blog</span><span>›</span><span style={{ color: 'rgba(255,255,255,.8)' }}>Fiberglass vs. Tacky Panel Filters</span>
@@ -657,8 +659,8 @@ function FiberglassVsTackyBlogLoadingFallback() {
             </div>
           </div>
         </section>
-        <div style={{ height: 100, background: 'linear-gradient(to bottom,#050505,#0d0d0d)' }} />
-        <section style={{ padding: '48px 16px', background: '#0d0d0d' }}>
+        <div style={{ height: 100, background: 'linear-gradient(to bottom,#1a1c20,#24272c)' }} />
+        <section style={{ padding: '48px 16px', background: '#24272c' }}>
           <div style={{ maxWidth: 896, margin: '0 auto' }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12, marginBottom: 16 }}>
               <span style={{ fontSize: 12, fontWeight: 600, padding: '3px 10px', borderRadius: 6, background: 'rgba(255,255,255,.1)', color: 'rgba(255,255,255,.85)' }}>Product Guide</span>
@@ -719,20 +721,20 @@ function ProductLoadingFallback({ handle }: { handle: string }) {
   const thumbnail = getLocalProductThumbnail(handle);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#040404', color: '#fff' }} aria-label="Loading product">
-      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.95)' }}>
+    <div style={{ minHeight: '100vh', background: '#1a1c20', color: '#fff' }} aria-label="Loading product">
+      <nav style={{ height: 96, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,.06)', background: 'rgba(26,28,32,.95)' }}>
         <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', padding: '0 16px' }}>
           <img src="/images/brands/pfs-logo-wide-420.webp" alt="PFS Filters" width="420" height="127" style={{ width: 198, height: 'auto', display: 'block' }} fetchPriority="high" decoding="async" />
         </div>
       </nav>
       <main>
-        <section style={{ padding: '112px 16px 16px', background: '#050505' }}>
+        <section style={{ padding: '112px 16px 16px', background: '#1a1c20' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto' }}>
             <div style={{ height: 20, width: 240, borderRadius: 4, background: 'rgba(255,255,255,.06)' }} />
           </div>
         </section>
-        <div style={{ height: 100, background: 'linear-gradient(to bottom,#050505,#0d0d0d)' }} />
-        <section style={{ padding: '40px 16px', background: '#0d0d0d' }}>
+        <div style={{ height: 100, background: 'linear-gradient(to bottom,#1a1c20,#24272c)' }} />
+        <section style={{ padding: '40px 16px', background: '#24272c' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gap: 48, gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))' }}>
             <div>
               <div style={{ aspectRatio: '1/1', borderRadius: 12, overflow: 'hidden', background: '#161616', border: '1px solid rgba(255,255,255,.07)', marginBottom: 16 }}>
@@ -777,6 +779,7 @@ function Router() {
   const [location] = useLocation();
   useEffect(() => {
     installRoutePrefetch();
+    installScrollReveal();
   }, []);
   const routeFallback = location === '/filter-finder' || location === '/filter-compatibility'
     ? <FilterFinderLoadingFallback />
@@ -802,12 +805,13 @@ function Router() {
     ? <FiberglassVsTackyBlogLoadingFallback />
     : location.startsWith('/product/')
     ? <ProductLoadingFallback handle={location.slice('/product/'.length)} />
-    : <div className="min-h-screen bg-[#040404]" aria-label="Loading page" />;
+    : <div className="min-h-screen bg-[#1a1c20] px-4 pt-32" aria-label="Loading page"><div className="skeleton-card" /></div>;
 
   // make sure to consider if you need authentication for certain routes
   return (
     <>
       <ScrollToTop />
+      <QuickView />
       <Suspense fallback={routeFallback}>
       <Switch>
       {/* Main pages */}

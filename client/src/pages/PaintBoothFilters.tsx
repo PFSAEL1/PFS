@@ -75,8 +75,7 @@ export default function PaintBoothFilters() {
       <section className="relative min-h-[70vh] md:min-h-[80vh] flex items-center overflow-hidden bg-[#040404] pt-24">
         {/* Gradient background */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-[hsl(207,50%,8%)] to-black" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,153,255,0.08)_0%,transparent_70%)]" />
+          <div className="absolute inset-0 bg-[#202328]" />
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-3xl px-4 py-16 text-left sm:px-6 md:py-24">

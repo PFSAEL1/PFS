@@ -7,7 +7,6 @@ import { Hero } from '@/components/Hero';
 import { StickyMobileCTA } from '@/components/StickyMobileCTA';
 import { organizationSchema, websiteSchema } from '@/lib/structuredData';
 import { Link } from 'wouter';
-import { ClipboardList, Package, RefreshCw } from 'lucide-react';
 
 const CategoryNavigation = lazy(() =>
   import('@/components/CategoryNavigation').then((module) => ({ default: module.CategoryNavigation })),
@@ -91,8 +90,8 @@ export default function Home() {
           <h2 className="text-white text-2xl md:text-3xl font-semibold text-center mt-2">
             Built for real booths. Proven in the field.
           </h2>
-          <p className="text-white/60 text-sm text-center mt-2 mb-10">
-            Every filter ships from the same team that builds the booths.
+          <p className="serif-note text-center mt-2 mb-10 text-2xl text-[#ececec]">
+            Exhaust, intake, and ceiling media from the booth builder.
           </p>
 
           {/* Three large rectangles: Intake Blankets · Exhaust Filters · Intake Pads */}
@@ -150,7 +149,7 @@ export default function Home() {
                   <div className="absolute bottom-5 left-5 right-5 z-10">
                     <p className="text-white font-bold text-xl leading-tight">{card.title}</p>
                     <p className="text-white/75 text-sm mt-1">{card.subtitle}</p>
-                    <span className="inline-flex items-center gap-2 mt-3 border border-transparent bg-[#4d9fff] text-black text-sm font-semibold px-5 py-2.5 rounded-lg group-hover:bg-[#6aadff] group-hover:border-blue-500/50 group-hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)] transition-[transform,box-shadow,background-color,border-color] duration-200">{card.cta} <span className="text-base">→</span></span>
+                    <span className="inline-flex items-center gap-2 mt-3 border border-transparent bg-[#0081f2] text-white text-sm font-semibold px-5 py-2.5 rounded-lg">{card.cta}</span>
                   </div>
                 </div>
               </Link>
@@ -181,45 +180,24 @@ export default function Home() {
               How It Works
             </span>
           </div>
-          <h2 className="text-white text-2xl font-semibold text-center mt-2 mb-12">
+          <h2 className="text-white text-2xl font-semibold text-center mt-2 mb-8">
             Set up in minutes. Never run out again.
           </h2>
-
-          {/* 3 Steps */}
-          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-            {/* Dashed connector line (desktop only) */}
-            <div className="hidden md:block absolute top-[54px] left-[16.67%] right-[16.67%] border-t border-dashed border-white/10 z-0" />
-
+          <ol className="mx-auto grid max-w-3xl gap-6">
             {[
-              {
-                num: '01',
-                icon: ClipboardList,
-                title: 'Tell us your booth',
-                body: 'Enter your booth make, model, filter position, and dimensions. We narrow the options and flag details to confirm.',
-              },
-              {
-                num: '02',
-                icon: Package,
-                title: 'Confirm the filter',
-                body: 'Review the size and booth stage before ordering, or ask PFS for help with custom and hard-to-find items.',
-              },
-              {
-                num: '03',
-                icon: RefreshCw,
-                title: 'Never run out again',
-                body: 'Booth-specific tracking tells you when to change. Auto-reorder handles the rest before you run low.',
-              },
-            ].map((step) => (
-              <div key={step.num} className="flex flex-col items-center text-center gap-3 relative z-10">
-                <span className="text-white/15 text-xs font-mono tracking-widest mb-1">{step.num}</span>
-                <div className="w-[72px] h-[72px] rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center">
-                  <step.icon className="h-9 w-9 text-blue-400" />
+              ['01', 'Tell us your booth', 'Enter the booth make, model, filter position, and the measured opening.'],
+              ['02', 'Confirm the filter', 'Match the stage and size, or ask PFS to check a custom or hard-to-find item.'],
+              ['03', 'Reorder on a cycle', 'Booth-specific tracking shows when that stage is due. Auto-reorder places the next case.'],
+            ].map(([num, title, body]) => (
+              <li key={num} className="grid grid-cols-[3rem_1fr] gap-4 border-t border-white/10 pt-4">
+                <span className="text-[#9aa0a6]">{num}</span>
+                <div>
+                  <h3 className="normal-case text-lg text-white">{title}</h3>
+                  <p className="mt-1 text-base leading-relaxed text-[#c8cdd2]">{body}</p>
                 </div>
-                <h3 className="text-white font-semibold text-base mt-3">{step.title}</h3>
-                <p className="text-white/60 text-sm mt-2 max-w-[220px]">{step.body}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 

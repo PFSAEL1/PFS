@@ -18,6 +18,8 @@ import {
   ShopifyProduct,
 } from '@/lib/shopify';
 import { bundledShopifyProducts } from '@/lib/productCatalog';
+import { openQuickView } from '@/lib/quickView';
+import { plainText } from '@/components/Lineup';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
 import { ProductBadges } from '@/components/ProductBadge';
@@ -374,6 +376,31 @@ export default function CategoryPage() {
                       <ShoppingCart className="h-3.5 w-3.5" />
                       {inStock ? 'Add to Cart' : 'Out of Stock'}
                     </Button>
+                    <button
+                      type="button"
+                      className="mt-2 min-h-11 w-full text-sm text-[#ececec]"
+                      onClick={(event) => {
+                        const rect = event.currentTarget.getBoundingClientRect();
+                        openQuickView({
+                          href: `/product/${product.node.handle}`,
+                          title: product.node.title,
+                          description: plainText(product.node.description).slice(0, 220),
+                          image: shopProductCardImageUrl(product.node.handle, image, 480),
+                          alt: shopifyImageAltText(imageNode, product.node.title),
+                          productId: product.node.id,
+                          handle: product.node.handle,
+                          options: product.node.variants.edges.map((edge: { node: { id: string; title: string; availableForSale: boolean; price: { amount: string; currencyCode: string } } }) => ({
+                            id: edge.node.id,
+                            title: edge.node.title,
+                            amount: edge.node.price.amount,
+                            currency: edge.node.price.currencyCode,
+                            available: Boolean(edge.node.availableForSale),
+                          })),
+                        }, { x: rect.left + rect.width / 2, y: rect.top });
+                      }}
+                    >
+                      Quick view
+                    </button>
                   </div>
                 </div>
               );

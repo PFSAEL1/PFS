@@ -12,7 +12,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Wind, Sparkles, Phone, ArrowRight } from 'lucide-react';
+import { Wind, Phone, ArrowRight } from 'lucide-react';
 import type { ShopifyProduct } from '@/lib/shopify';
 import { useCurrentShopifyProducts } from '@/hooks/useCurrentShopifyProducts';
 import { shopProductCardImageSrcSet, shopProductCardImageUrl, shopifyImageAltText } from '@/lib/imageUrls';
@@ -111,7 +111,7 @@ export default function IntakeFilters() {
                 <Wind className="h-3.5 w-3.5 text-blue-400" /> Availability shown by product and variant
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <Sparkles className="h-3.5 w-3.5 text-blue-400" /> Panels, blankets &amp; pleated media
+                <Wind className="h-3.5 w-3.5 text-blue-400" /> Panels, blankets, and pleated media
               </span>
             </div>
           </div>

@@ -3,7 +3,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { ShieldCheck, Truck, ShoppingCart, Sparkles } from 'lucide-react';
+import { ShieldCheck, Truck, ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
@@ -94,7 +94,7 @@ export default function PfsVanguard() {
               <div className="space-y-3 border-t border-white/10 pt-5">
                 <p className="text-white/90 text-sm font-semibold uppercase tracking-wider mb-2">Kit Includes:</p>
                 <div className="flex items-center gap-3 text-white/60 text-sm">
-                  <Sparkles className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  <ShieldCheck className="h-4 w-4 text-blue-400 flex-shrink-0" />
                   <span>Premium Booth Coating</span>
                 </div>
                 <div className="flex items-center gap-3 text-white/60 text-sm">

@@ -3,6 +3,7 @@
 // All functionality preserved: cart, auth, admin, products dropdown, mobile menu
 
 import { lazy, Suspense, useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,7 +16,6 @@ const ProductSearchDialog = lazy(() => import('./ProductSearchDialog'));
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
@@ -37,12 +37,6 @@ export const Navigation = () => {
   const isCartOpen = useCartStore((s) => s.isCartOpen);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -124,6 +118,20 @@ export const Navigation = () => {
   useEffect(() => { setIsOpen(false); setShopOpen(false); setIsSearchOpen(false); }, [location]);
 
   useEffect(() => {
+    if (!isOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
     const openSearch = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
       const isTyping = target?.matches('input, textarea, select, [contenteditable="true"]');
@@ -143,11 +151,7 @@ export const Navigation = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-black/98 backdrop-blur-md border-b border-white/10 shadow-[0_1px_0_rgba(255,255,255,0.06)]'
-            : 'bg-black/95 backdrop-blur-sm border-b border-white/5'
-        }`}
+        className="site-nav fixed top-0 left-0 right-0 z-50"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-24">
@@ -167,8 +171,8 @@ export const Navigation = () => {
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-1">
-              <Link href="/" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
+            <div className="nav-pills hidden md:flex">
+              <Link href="/" className={`nav-pill${location === '/' ? ' is-active' : ''}`}>
                 Home
               </Link>
 
@@ -176,7 +180,7 @@ export const Navigation = () => {
               <div className="relative" ref={shopDropdownRef}>
                 <button
                   onClick={() => setShopOpen(!shopOpen)}
-                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5"
+                  className="nav-pill"
                 >
                   Products <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${shopOpen ? 'rotate-180' : ''}`} />
                 </button>
@@ -228,14 +232,14 @@ export const Navigation = () => {
                 )}
               </div>
 
-              <Link href="/shop" className="px-3 py-2 text-sm font-semibold text-orange-500 hover:text-orange-300 transition-colors rounded-md hover:bg-white/5">Filters</Link>
-              <Link href="/memberships" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
+              <Link href="/shop" className={`nav-pill${location === '/shop' ? ' is-active' : ''}`}>Filters</Link>
+              <Link href="/memberships" className={`nav-pill${location === '/memberships' ? ' is-active' : ''}`}>
                 Memberships
               </Link>
-              <Link href="/filter-scanner" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
+              <Link href="/filter-scanner" className={`nav-pill${location === '/filter-scanner' ? ' is-active' : ''}`}>
                 Filter Scanner
               </Link>
-              <Link href="/contact" className="px-3 py-2 text-sm font-medium text-white hover:text-white transition-colors rounded-md hover:bg-white/5">
+              <Link href="/contact" className={`nav-pill${location === '/contact' ? ' is-active' : ''}`}>
                 Contact
               </Link>
               {isAdmin && (
@@ -247,7 +251,7 @@ export const Navigation = () => {
 
             {/* Right actions */}
             <div className="flex items-center gap-2">
-              <div className="hidden md:flex items-center gap-2">
+              <div className="header-cta hidden items-center gap-2 xl:flex">
                 <Link href="/contact">
                   <Button
                     variant="outline"
@@ -303,7 +307,9 @@ export const Navigation = () => {
               <button
                 className="md:hidden p-2.5 rounded-lg hover:bg-white/10 transition-colors text-white/70 hover:text-white"
                 onClick={() => setIsOpen(!isOpen)}
-                aria-label="Toggle menu"
+                aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={isOpen}
+                aria-controls="mobile-menu"
               >
                 {isOpen ? <X className="!w-[30px] h-[30px]" /> : <Menu className="!w-[30px] h-[30px]" />}
               </button>
@@ -311,45 +317,37 @@ export const Navigation = () => {
           </div>
 
           {/* Mobile menu */}
-          {isOpen && (
-            <div className="mobile-nav-menu md:hidden border-t border-white/10 py-3 space-y-0.5 bg-black" style={{ height: '74vh', overflow: 'scroll', flexDirection: 'column', alignItems: 'stretch' }}>
-              <Link href="/shop" className="block px-4 py-2.5 text-sm font-semibold text-orange-500 hover:text-orange-300 hover:bg-white/5 rounded-lg transition-colors">Shop Filters</Link>
-              <Link href="/shop" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">All Products</Link>
-              <Link href="/shop-by-filter-type" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Filter Type</Link>
-              <Link href="/shop-by-booth" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Booth Brand</Link>
-              <Link href="/shop-by-booth-type" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Booth Type</Link>
-              <Link href="/shop-by-size" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Shop by Size</Link>
-              <Link href="/brands" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Brands</Link>
-              <Link href="/filter-finder" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Filter Finder Tool</Link>
-              <Link href="/how-to-size-paint-booth-filters" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">How to Size a Filter</Link>
-              <Link href="/consumables" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Consumables</Link>
-              <Link href="/industries/automotive-paint-booth-filters" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Automotive Filters</Link>
-              <Link href="/industries/aerospace-paint-booth-filters" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Aerospace & MRO Filters</Link>
-              <Link href="/why-choose-us" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Why Choose Us</Link>
-              <Link href="/memberships" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Memberships</Link>
-              <Link href="/blog" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Blog</Link>
-              <Link href="/filter-scanner" className="flex items-center gap-2 px-4 py-[20px] text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                Filter Scanner
-              </Link>
-              <Link href="/contact" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Contact</Link>
-              {isAdmin && (
-                <Link href="/filter-database" className="block px-4 py-2.5 text-sm text-[#4d9fff] hover:text-blue-300 hover:bg-white/5 rounded-lg transition-colors">Filter Database (Admin)</Link>
-              )}
-              <div className="px-4 pt-3 pb-1 flex gap-2">
-                <Link href="/contact" className="flex-1">
-                  <Button className="w-full bg-[#4d9fff] hover:bg-[#6aadff] text-white" size="sm">Get a Quote</Button>
-                </Link>
-                {user ? (
-                  <Link href="/dashboard" className="flex-1">
-                    <Button variant="outline" className="w-full border-white/20 text-white/80 bg-transparent" size="sm">Dashboard</Button>
-                  </Link>
-                ) : (
-                  <Link href="/auth" className="flex-1">
-                    <Button className="w-full bg-white text-black hover:bg-white/90" size="sm">Sign In</Button>
-                  </Link>
-                )}
+          {isOpen && createPortal(
+            <div id="mobile-menu" className="mobile-overlay" role="dialog" aria-modal="true" aria-label="Menu" style={{ position: 'fixed', inset: 0, zIndex: 80, background: '#1a1c20', color: '#ececec' }}>
+              <div className="flex items-center justify-between">
+                <img src={LOGO_URL} alt="PFS Filters" width={420} height={127} style={{ height: 48, width: 'auto' }} />
+                <button type="button" className="nav-pill" onClick={() => setIsOpen(false)} aria-label="Close menu">
+                  <X className="h-6 w-6" />
+                </button>
               </div>
-            </div>
+              <div className="mobile-overlay-links">
+                <Link href="/">Home</Link>
+                <Link href="/shop">Shop Filters</Link>
+                <Link href="/shop-by-filter-type">Shop by Filter Type</Link>
+                <Link href="/shop-by-booth">Shop by Booth Brand</Link>
+                <Link href="/shop-by-booth-type">Shop by Booth Type</Link>
+                <Link href="/shop-by-size">Shop by Size</Link>
+                <Link href="/brands">Brands</Link>
+                <Link href="/filter-finder">Filter Finder</Link>
+                <Link href="/how-to-size-paint-booth-filters">How to Size a Filter</Link>
+                <Link href="/consumables">Consumables</Link>
+                <Link href="/industries/automotive-paint-booth-filters">Automotive Filters</Link>
+                <Link href="/industries/aerospace-paint-booth-filters">Aerospace and MRO Filters</Link>
+                <Link href="/why-choose-us">Why Choose Us</Link>
+                <Link href="/memberships">Memberships</Link>
+                <Link href="/blog">Blog</Link>
+                <Link href="/filter-scanner">Filter Scanner</Link>
+                <Link href="/contact">Contact</Link>
+                {isAdmin && <Link href="/filter-database">Filter Database</Link>}
+                {user ? <Link href="/dashboard">Dashboard</Link> : <Link href="/auth">Sign In</Link>}
+              </div>
+            </div>,
+            document.body,
           )}
         </div>
       </nav>

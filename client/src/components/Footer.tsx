@@ -22,6 +22,7 @@ export const Footer = () => {
               loading="lazy"
               decoding="async"
             />
+            <p className="serif-note mb-3 text-xl text-[#ececec]">Filters for every stage of the booth.</p>
             <p className="text-white/40 text-sm leading-relaxed">
               A proud division of PFS Spray Booths, providing premium paint booth filtration solutions for automotive, industrial, and woodworking applications.
             </p>

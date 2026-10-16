@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { useParams, useSearch, useLocation, Link } from 'wouter';
 import { resolveProductVariantId, productVariantSearch } from '@/lib/productVariant';
 import { SEO } from '@/components/SEO';
@@ -90,6 +90,8 @@ export default function ProductDetail() {
   const setCartOpen = useCartStore((s) => s.setCartOpen);
   const { discountPercent, tier } = usePricing();
   const isMember = discountPercent > 0 && !!tier;
+  const buyBoxRef = useRef<HTMLDivElement>(null);
+  const [showMiniBar, setShowMiniBar] = useState(false);
 
   // Reset to the new handle's bundled data DURING render (not in an effect) so a
   // client-side navigation from one product to another never paints the previous
@@ -129,6 +131,32 @@ export default function ProductDetail() {
   useEffect(() => {
     setPurchaseOption('one-time');
   }, [handle, requestedVariant]);
+
+  useEffect(() => {
+    const node = buyBoxRef.current;
+    if (!node) return;
+    // A 42px buy box can jump entirely past the viewport in one frame on a
+    // fling or scrollTo. IntersectionObserver only notifies when a threshold
+    // is crossed, so that jump never fires. Read the box position on scroll.
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const past = node.getBoundingClientRect().bottom < 0;
+      setShowMiniBar((current) => (current === past ? current : past));
+    };
+    const schedule = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [product, loading]);
 
   if (loading) {
     return (
@@ -510,7 +538,7 @@ export default function ProductDetail() {
             )}
 
             {/* Quantity + Add to Cart */}
-            <div className="flex items-center gap-4 mb-6">
+            <div ref={buyBoxRef} className="flex items-center gap-4 mb-6">
               <div className="flex items-center border border-white/10 rounded-lg">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -611,6 +639,18 @@ export default function ProductDetail() {
       </div>
       </section>
 
+
+      {showMiniBar ? (
+        <div className="product-mini-bar is-shown" role="region" aria-label="Buy this filter">
+          <div>
+            <p className="product-mini-title">{product.title}</p>
+            <p className="product-mini-price">${displayPrice.toFixed(2)}</p>
+          </div>
+          <button type="button" className="btn-primary" onClick={handleAddToCart} disabled={!inStock}>
+            {!inStock ? 'Out of Stock' : purchaseOption === 'subscription' ? 'Subscribe' : 'Add to Cart'}
+          </button>
+        </div>
+      ) : null}
 
       <DeferredFooter />
     </div>

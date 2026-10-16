@@ -3,6 +3,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 're
 import { Link } from 'wouter';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getDiscountedPrice } from '@/hooks/usePricing';
+import { openQuickView, type QuickViewPayload } from '@/lib/quickView';
 
 const TINTS = [
   'linear-gradient(165deg, #1a2728 0%, #10181a 52%, #0c1214 100%)',
@@ -91,6 +92,7 @@ export type LineupCardProps = {
   buyHref?: string;
   buyDisabled?: boolean;
   fallbackSrc?: string;
+  quickView?: QuickViewPayload;
 };
 
 export function LineupCard({
@@ -116,6 +118,7 @@ export function LineupCard({
   buyHref,
   buyDisabled,
   fallbackSrc,
+  quickView,
 }: LineupCardProps) {
   const imageEl = (
     <img
@@ -142,13 +145,15 @@ export function LineupCard({
   return (
     <article data-lineup-card className="group flex min-w-0 flex-col text-center">
       <Link href={href} className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0081f2]">
-        <div className="lineup-tile" style={{ background: tint }}>
-          {avifSrcSet ? (
-            <picture>
-              <source type="image/avif" srcSet={avifSrcSet} sizes={sizes} />
-              {imageEl}
-            </picture>
-          ) : imageEl}
+        <div className="lineup-tile" data-tint={tint ? 'uniform' : undefined}>
+          <div className="media-well">
+            {avifSrcSet ? (
+              <picture>
+                <source type="image/avif" srcSet={avifSrcSet} sizes={sizes} />
+                {imageEl}
+              </picture>
+            ) : imageEl}
+          </div>
         </div>
       </Link>
       <div className="px-2 pt-5">
@@ -172,6 +177,18 @@ export function LineupCard({
           <Link href={href} className="inline-flex min-h-11 items-center text-base font-medium text-[#0081f2] hover:underline">
             Learn more <span aria-hidden="true">›</span>
           </Link>
+          {quickView ? (
+            <button
+              type="button"
+              className="inline-flex min-h-11 items-center text-base font-medium text-[#ececec]"
+              onClick={(event) => {
+                const rect = event.currentTarget.getBoundingClientRect();
+                openQuickView(quickView, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+              }}
+            >
+              Quick view
+            </button>
+          ) : null}
           {buyLabel && buyHref ? (
             <Link href={buyHref} className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#0081f2] px-5 text-base font-medium text-[#0081f2] transition-colors hover:bg-[#0081f2]/10">
               {buyLabel}

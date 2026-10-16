@@ -126,6 +126,22 @@ export const TopMovers = () => {
                 buyLabel={inStock ? 'Buy' : 'Sold out'}
                 buyDisabled={!inStock}
                 onBuy={() => handleAdd(product)}
+                quickView={{
+                  href: `/product/${product.node.handle}`,
+                  title: product.node.title,
+                  description: plainText(product.node.description).slice(0, 220),
+                  image: cardSrc,
+                  alt: shopifyImageAltText(imageNode, product.node.title),
+                  productId: product.node.id,
+                  handle: product.node.handle,
+                  options: product.node.variants.edges.map((edge) => ({
+                    id: edge.node.id,
+                    title: edge.node.title,
+                    amount: edge.node.price.amount,
+                    currency: edge.node.price.currencyCode,
+                    available: Boolean(edge.node.availableForSale),
+                  })),
+                }}
               />
             );
           })}

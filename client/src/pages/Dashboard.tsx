@@ -375,7 +375,7 @@ function DashboardContent() {
                 {['gold', 'platinum'].includes(membership.tier) && (
                   <div className="flex items-center gap-2 text-white/80">
                     <div className="w-2 h-2 bg-green-500 rounded-full" />
-                    <span>AI Filter Scanner access</span>
+                    <span>Filter Scanner access</span>
                   </div>
                 )}
               </div>
