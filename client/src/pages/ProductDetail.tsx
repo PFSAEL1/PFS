@@ -574,7 +574,7 @@ export default function ProductDetail() {
                 { icon: CircleHelp, label: 'Sizing Help', sub: 'Confirm before ordering' },
                 { icon: Package, label: 'Custom Requests', sub: 'Contact us for options' },
               ].map((item) => (
-                <div key={item.label} className="text-center p-3" style={{ background: '#161616', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '10px' }}>
+                <div key={item.label} className="text-center p-3" style={{ background: '#343a44', border: '1px solid rgba(255,255,255,0.16)', borderRadius: '10px' }}>
                   <item.icon className="h-5 w-5 text-blue-400 mx-auto mb-1" />
                   <p className="text-xs font-semibold text-white/90">{item.label}</p>
                   <p className="text-xs text-white/55">{item.sub}</p>

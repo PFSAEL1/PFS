@@ -15,7 +15,7 @@ export const PfsBoothCompatibility = ({ product }: { product: any }) => {
       <button
         onClick={() => setOpen((v) => !v)}
         className="flex w-full items-center justify-between rounded-xl border px-5 py-4 text-left transition-colors hover:border-white/20"
-        style={{ background: '#161616', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}
+        style={{ background: '#343a44', border: '1px solid rgba(255,255,255,0.16)', borderRadius: '12px' }}
         aria-expanded={open}
       >
         <span className="flex items-center gap-2.5 text-lg font-semibold" style={{ color: '#ffffff' }}>

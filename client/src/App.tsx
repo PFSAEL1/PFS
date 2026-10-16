@@ -211,7 +211,7 @@ function CeilingBlanketsLoadingFallback() {
         <div style={{ height: 48, background: 'linear-gradient(180deg,#1a1c20,#24272c)' }} />
         <section style={{ padding: '32px 16px 56px', background: '#24272c' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 24 }}>
-            <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: 'linear-gradient(135deg,#212121,#1a1a1a)' }}>
+            <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: '#343a44' }}>
               <div style={{ aspectRatio: '1/1', background: 'linear-gradient(135deg,#1f1f1f,#151515)', borderBottom: '1px solid #292929', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                 <img
                   src={ceilingBlanketsProductImage}
@@ -267,7 +267,7 @@ function RollMediaLoadingFallback() {
         <div style={{ height: 48, background: 'linear-gradient(180deg,#1a1c20,#24272c)' }} />
         <section style={{ padding: '32px 16px 56px', background: '#24272c' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 24 }}>
-            <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: 'linear-gradient(135deg,#212121,#1a1a1a)' }}>
+            <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: '#343a44' }}>
               <div style={{ aspectRatio: '1/1', background: 'linear-gradient(135deg,#1f1f1f,#151515)', borderBottom: '1px solid #292929', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                 <img
                   src={rollMediaProductImage}
@@ -324,7 +324,7 @@ function MervFiltersLoadingFallback() {
         <div style={{ height: 48, background: 'linear-gradient(180deg,#1a1c20,#24272c)' }} />
         <section style={{ padding: '32px 16px 56px', background: '#24272c' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 24 }}>
-            <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: 'linear-gradient(135deg,#212121,#1a1a1a)' }}>
+            <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: '#343a44' }}>
               <div style={{ aspectRatio: '1/1', background: 'linear-gradient(135deg,#1f1f1f,#151515)', borderBottom: '1px solid #292929', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                 <img
                   src={mervFiltersProductImage}
@@ -532,7 +532,7 @@ function AerospaceLoadingFallback() {
         <div style={{ height: 48, background: 'linear-gradient(180deg,#1a1c20,#24272c)' }} />
         <section style={{ padding: '32px 16px 56px', background: '#24272c' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 24 }}>
-            <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: 'linear-gradient(135deg,#212121,#1a1a1a)' }}>
+            <article style={{ overflow: 'hidden', border: '1px solid #333', borderRadius: 12, background: '#343a44' }}>
               <div style={{ aspectRatio: '1/1', background: 'linear-gradient(135deg,#1f1f1f,#151515)', borderBottom: '1px solid #292929', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                 <img
                   src={aerospaceProductImage}
@@ -737,7 +737,7 @@ function ProductLoadingFallback({ handle }: { handle: string }) {
         <section style={{ padding: '40px 16px', background: '#24272c' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gap: 48, gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))' }}>
             <div>
-              <div style={{ aspectRatio: '1/1', borderRadius: 12, overflow: 'hidden', background: '#161616', border: '1px solid rgba(255,255,255,.07)', marginBottom: 16 }}>
+              <div style={{ aspectRatio: '1/1', borderRadius: 12, overflow: 'hidden', background: '#33373e', border: '1px solid rgba(255,255,255,.07)', marginBottom: 16 }}>
                 {thumbnail && (
                   <img
                     src={thumbnail.src}
@@ -763,7 +763,7 @@ function ProductLoadingFallback({ handle }: { handle: string }) {
               <div style={{ minHeight: 48, maxWidth: 420, borderRadius: 8, background: 'rgba(59,130,246,.4)' }} />
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 12, marginTop: 32, maxWidth: 420 }}>
                 {[0, 1, 2].map((i) => (
-                  <div key={i} style={{ minHeight: 76, background: '#161616', border: '1px solid rgba(255,255,255,.07)', borderRadius: 10 }} />
+                  <div key={i} style={{ minHeight: 76, background: '#33373e', border: '1px solid rgba(255,255,255,.07)', borderRadius: 10 }} />
                 ))}
               </div>
             </div>

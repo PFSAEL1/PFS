@@ -124,8 +124,6 @@ export const Hero = () => {
       const travel = node.offsetHeight - window.innerHeight;
       const progress = travel <= 0 ? 0 : Math.min(1, Math.max(0, -node.getBoundingClientRect().top / travel));
       const next = Math.min(FRAMES.length - 1, Math.floor(progress * FRAMES.length * 0.999));
-      const local = (progress * FRAMES.length) % 1;
-      node.style.setProperty('--tilt', ((local - 0.5) * 5).toFixed(2));
       if (indexRef.current !== next) {
         indexRef.current = next;
         setIndex(next);

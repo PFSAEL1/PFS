@@ -739,39 +739,45 @@ video::-internal-media-controls-play-button {
    Give common card patterns a clearly lighter surface (#1a1a1a-ish)
    against the darker page so elements read as raised, not flat. */
 .glow-card {
-  background: #161617 !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
-  box-shadow: none !important;
+  background: #343a44 !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
 }
 .feature-card {
-  background: #161617 !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
+  background: #343a44 !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
 }
 /* Faint translucent card panels used inline (bg-white/[0.02]/[0.03]) get
    a real surface so they separate from the page. */
 .bg-white\/\[0\.02\],
 .bg-white\/\[0\.03\],
 .bg-white\/5 {
-  background-color: #161617 !important;
-  border-color: rgba(255, 255, 255, 0.08);
+  background-color: #343a44 !important;
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
-/* Page canvas is solid black. Section and texture class names stay in
-   markup, but they no longer paint a second tone, wash, or pattern. */
+/* Page canvas is the dark end of the charcoal scale. Panels and cards
+   step lighter so the page is not one flat gray. */
 html,
 body,
 #root,
 .bg-\[\#040404\],
 .bg-\[\#0a0a0a\],
 .page-shell {
-  background-color: #1a1c20 !important;
+  background-color: #141519 !important;
   color: #ececec;
 }
+.section-dark { background-color: #1c2026 !important; }
+.section-darker { background-color: #1a1c20 !important; }
+.section-raised { background-color: #242830 !important; }
+.section-glow,
+.section-glow-bg { background-color: #20242b !important; }
 .section-dark,
 .section-darker,
 .section-raised,
-.section-glow {
-  background: #2a2d33 !important;
+.section-glow,
+.section-glow-bg {
   background-image: none !important;
 }
 .section-glow { position: relative; }
@@ -1058,29 +1064,50 @@ body,
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
 .hero-showcase {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
   min-width: 0;
 }
+.hero-showcase::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 36%;
+  width: min(680px, 128%);
+  height: 78%;
+  transform: translate(-50%, -46%);
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.065) 0%, rgba(255, 255, 255, 0) 68%);
+}
 .hero-stage {
   position: relative;
+  z-index: 1;
   width: min(100%, 540px, calc(100vh - 26rem));
   aspect-ratio: 1;
   margin-inline: auto;
   border-radius: 28px;
-  background: #2e3137;
+  background: #2c3038;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 28px -14px rgba(0, 0, 0, 0.7);
   overflow: hidden;
 }
 .hero-frame, .hero-slide {
   min-height: 0;
 }
-.hero-frame { position: absolute; inset: 0; opacity: 0; transform: translate3d(0, 12px, 0) scale(0.96); transition: opacity 320ms ease, transform 320ms ease; }
-.hero-frame.is-active { opacity: 1; transform: translate3d(0, calc(var(--tilt, 0) * 1px), 0) scale(1) rotateX(calc(var(--tilt, 0) * 0.4deg)); }
-.hero-track { display: flex; height: 100%; transition: transform 320ms ease; }
+.hero-frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: none;
+  transition: opacity 480ms ease;
+  pointer-events: none;
+}
+.hero-frame.is-active { opacity: 1; pointer-events: auto; z-index: 1; }
+.hero-track { display: flex; height: 100%; transition: transform 480ms ease; }
 .hero-slide { position: relative; flex: 0 0 100%; height: 100%; }
-.hero-frame:not(.is-active),
-.hero-slide[aria-hidden="true"] { visibility: hidden; }
 .hero-stage img {
   width: 100% !important;
   height: 100% !important;
@@ -1089,7 +1116,7 @@ body,
   object-fit: cover !important;
   display: block;
 }
-.hero-caption, .hero-progress, .hero-controls { position: relative; }
+.hero-caption, .hero-progress, .hero-controls { position: relative; z-index: 1; }
 .hero-caption { padding: 0 0.15rem; }
 #home .hero-caption .hero-kicker { margin: 0 0 0.35rem; font-size: 0.75rem; line-height: 1.2; color: #9aa0a6; }
 #home .hero-caption h2 { margin: 0; font-size: 1.35rem; line-height: 1.2; color: #ececec; }
@@ -1140,15 +1167,9 @@ body,
 }
 
 .lineup-tile {
-  background: #2a2d33 !important;
-  border: 1px solid rgba(255,255,255,0.12) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
-}
-@media (min-width: 1024px) {
-  .lineup-tile {
-    background: rgba(255,255,255,0.05) !important;
-    backdrop-filter: blur(16px) saturate(140%);
-  }
+  background: #343a44 !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255,255,255,0.2);
 }
 .shop-chip-bar, .product-mini-bar {
   position: sticky;
@@ -1210,9 +1231,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid #0081f2; outline-offs
 .quick-view-sheet {
   display: grid;
   gap: 1rem;
-  background: rgba(36, 39, 44, 0.94);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: #343a44;
+  border: 1px solid rgba(255,255,255,0.18);
   border-radius: 20px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.16);
   padding: 1rem;
 }
 @media (min-width: 768px) { .quick-view-sheet { grid-template-columns: 1fr 1fr; padding: 1.25rem; } }
@@ -1241,10 +1263,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid #0081f2; outline-offs
 
 /* Charcoal system. Later rules beat earlier black locks. */
 :root {
-  --page: #1a1c20;
-  --band: #202328;
-  --panel: #2a2d33;
-  --card: #2b2f36;
+  --page: #141519;
+  --band: #1a1c20;
+  --panel: #242830;
+  --card: #343a44;
   --elevated: #33373e;
   --ink: #ececec;
   --muted: #9aa0a6;
@@ -1259,13 +1281,16 @@ button:focus-visible, a:focus-visible { outline: 2px solid #0081f2; outline-offs
 .bg-\[\#111111\],
 .bg-\[\#0d0d0d\],
 .bg-\[\#161616\],
-.bg-\[\#161617\] {
+.bg-\[\#161617\],
+.bg-\[\#1a1a1a\],
+.bg-\[\#1a1a1a\]\/90 {
   background-color: var(--card) !important;
+  border-color: rgba(255, 255, 255, 0.16);
 }
 .site-nav {
-  background: rgba(26, 28, 32, 0.94) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: none !important;
+  background: #1e232b !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 8px 16px -12px rgba(0, 0, 0, 0.85) !important;
 }
 .nav-pills {
   align-items: center;
@@ -1324,15 +1349,22 @@ body:has(.mobile-overlay) .search-fab-pulse { visibility: hidden; }
 .section-dark,
 .section-darker,
 .section-raised,
-.section-glow {
-  background: #2a2d33 !important;
+.section-glow,
+.section-glow-bg {
   background-image: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 16px -10px rgba(0, 0, 0, 0.72);
   border-radius: 28px;
   width: auto !important;
   margin: 10px !important;
   box-sizing: border-box;
 }
-.hero-shell { background: #1a1c20; }
+.section-dark { background-color: #1c2026 !important; }
+.section-darker { background-color: #1a1c20 !important; }
+.section-raised { background-color: #242830 !important; }
+.section-glow,
+.section-glow-bg { background-color: #20242b !important; }
+.hero-shell { background: #141519; }
 .serif-lead, .serif-note {
   font-family: 'Instrument Serif', Georgia, serif;
   font-weight: 400;
@@ -1341,9 +1373,10 @@ body:has(.mobile-overlay) .search-fab-pulse { visibility: hidden; }
 h1.normal-case, h2.normal-case, h3.normal-case { text-transform: none !important; letter-spacing: 0 !important; }
 h1, h2, h3 { font-weight: 800; }
 .lineup-tile {
-  background: #2a2d33 !important;
+  background: #343a44 !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
   border-radius: 24px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
 }
 .media-well {
   width: 100%;
@@ -1355,10 +1388,10 @@ h1, h2, h3 { font-weight: 800; }
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 .glow-card {
-  background: #2a2d33 !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: #343a44 !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
   border-radius: 24px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
 }
 .product-img-wrap, .product-frame {
   background: #33373e !important;
@@ -1366,12 +1399,17 @@ h1, h2, h3 { font-weight: 800; }
   border-radius: 18px;
 }
 @media (min-width: 1024px) {
-  .lineup-tile, .glow-card {
-    background: rgba(255, 255, 255, 0.045) !important;
-    backdrop-filter: blur(12px) saturate(130%);
+  .lineup-tile, .glow-card, .feature-card {
+    background: rgba(52, 58, 68, 0.82) !important;
+    backdrop-filter: blur(12px) saturate(120%);
   }
 }
-.shop-chip-bar, .product-mini-bar { backdrop-filter: none; background: rgba(32, 35, 40, 0.96); }
+.shop-chip-bar, .product-mini-bar {
+  backdrop-filter: none;
+  background: #2a3038;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.32);
+}
 @media (min-width: 1024px) {
   .product-mini-bar.is-shown { backdrop-filter: blur(12px); }
 }
@@ -1386,7 +1424,7 @@ h1, h2, h3 { font-weight: 800; }
 .skeleton-card {
   min-height: 280px;
   border-radius: 24px;
-  background: linear-gradient(90deg, #2a2d33 0%, #3a3f47 50%, #2a2d33 100%);
+  background: linear-gradient(90deg, #2a3038 0%, #3e4550 50%, #2a3038 100%);
   background-size: 200% 100%;
   animation: pfs-shimmer 1.4s ease infinite;
 }
@@ -1399,7 +1437,7 @@ h1, h2, h3 { font-weight: 800; }
 .bg-gradient-to-b.from-\[\#0a1628\],
 .bg-gradient-to-b { background-image: none; }
 @media (max-width: 767px) {
-  .section-dark, .section-darker, .section-raised, .section-glow { border-radius: 20px; margin: 8px !important; }
+  .section-dark, .section-darker, .section-raised, .section-glow, .section-glow-bg { border-radius: 20px; margin: 8px !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal-wait, .skeleton-card, .search-fab-pulse-surface { animation: none; opacity: 1; transform: none; }
