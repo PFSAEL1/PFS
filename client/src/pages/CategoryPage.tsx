@@ -18,11 +18,15 @@ import {
   ShopifyProduct,
 } from '@/lib/shopify';
 import { bundledShopifyProducts } from '@/lib/productCatalog';
+import { openQuickView } from '@/lib/quickView';
+import { plainText } from '@/components/Lineup';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
 import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
-import { createBreadcrumbSchema } from '@/lib/structuredData';
+import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
+import { KeywordGuide } from '@/components/KeywordGuide';
+import { categoryKeywords } from '@/data/keywordPages';
 import { shopifyImageAltText, shopProductCardImageSrcSet, shopProductCardImageUrl } from '@/lib/imageUrls';
 
 const FALLBACK_IMAGE = '/images/filters/fiberglass-arrestors.png';
@@ -167,6 +171,7 @@ export default function CategoryPage() {
     setCartOpen(true);
   };
 
+  const guide = slug ? categoryKeywords[slug] : undefined;
   const title = categoryInfo?.title || (slug ? slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Category');
   const description = categoryInfo?.description || 'Browse our selection of premium paint booth filters.';
   const position = categoryInfo?.position || '';
@@ -189,7 +194,7 @@ export default function CategoryPage() {
         title={`${title} - Paint Booth Filters | PFS Filters`}
         description={description}
         canonical={`https://www.pfsfilters.com/category/${slug}`}
-        structuredData={breadcrumbSchema}
+        structuredData={guide ? { '@context': 'https://schema.org', '@graph': [breadcrumbSchema, createFAQSchema(guide.faqs)] } : breadcrumbSchema}
       />
       <Navigation />
 
@@ -221,13 +226,14 @@ export default function CategoryPage() {
             <p className="text-lg text-white/70 max-w-2xl">
               {description}
             </p>
+            {guide ? <KeywordGuide paragraphs={guide.paragraphs} faqs={guide.faqs} links={guide.links} /> : null}
           </div>
         </div>
       </section>
 
 
       {/* Products - raised */}
-      <section className="section-raised tex-dots py-12 px-4">
+      <section className="section-raised py-12 px-4">
         <div className="max-w-7xl mx-auto">
 
         {/* Info bar */}
@@ -370,6 +376,31 @@ export default function CategoryPage() {
                       <ShoppingCart className="h-3.5 w-3.5" />
                       {inStock ? 'Add to Cart' : 'Out of Stock'}
                     </Button>
+                    <button
+                      type="button"
+                      className="mt-2 min-h-11 w-full text-sm text-[#ececec]"
+                      onClick={(event) => {
+                        const rect = event.currentTarget.getBoundingClientRect();
+                        openQuickView({
+                          href: `/product/${product.node.handle}`,
+                          title: product.node.title,
+                          description: plainText(product.node.description).slice(0, 220),
+                          image: shopProductCardImageUrl(product.node.handle, image, 480),
+                          alt: shopifyImageAltText(imageNode, product.node.title),
+                          productId: product.node.id,
+                          handle: product.node.handle,
+                          options: product.node.variants.edges.map((edge: { node: { id: string; title: string; availableForSale: boolean; price: { amount: string; currencyCode: string } } }) => ({
+                            id: edge.node.id,
+                            title: edge.node.title,
+                            amount: edge.node.price.amount,
+                            currency: edge.node.price.currencyCode,
+                            available: Boolean(edge.node.availableForSale),
+                          })),
+                        }, { x: rect.left + rect.width / 2, y: rect.top });
+                      }}
+                    >
+                      Quick view
+                    </button>
                   </div>
                 </div>
               );

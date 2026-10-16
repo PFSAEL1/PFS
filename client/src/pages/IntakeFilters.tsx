@@ -12,7 +12,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { Wind, Sparkles, Phone, ArrowRight } from 'lucide-react';
+import { Wind, Phone, ArrowRight } from 'lucide-react';
 import type { ShopifyProduct } from '@/lib/shopify';
 import { useCurrentShopifyProducts } from '@/hooks/useCurrentShopifyProducts';
 import { shopProductCardImageSrcSet, shopProductCardImageUrl, shopifyImageAltText } from '@/lib/imageUrls';
@@ -111,7 +111,7 @@ export default function IntakeFilters() {
                 <Wind className="h-3.5 w-3.5 text-blue-400" /> Availability shown by product and variant
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <Sparkles className="h-3.5 w-3.5 text-blue-400" /> Panels, blankets &amp; pleated media
+                <Wind className="h-3.5 w-3.5 text-blue-400" /> Panels, blankets, and pleated media
               </span>
             </div>
           </div>
@@ -120,7 +120,7 @@ export default function IntakeFilters() {
 
 
       {/* Product grid */}
-      <section className="section-raised tex-dots py-12 px-4">
+      <section className="section-raised py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="sr-only">Intake filter products in the current catalog</h2>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 mb-6 text-[13px] text-white/50 border-b border-white/[0.06] pb-3">
@@ -235,7 +235,7 @@ export default function IntakeFilters() {
 
 
       {/* Related filter types */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Related filter types</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

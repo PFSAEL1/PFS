@@ -7,7 +7,7 @@ const SHOP_PRODUCT_THUMBNAILS: Record<string, { src: string; width: number }> = 
   '20x20-paint-arrestor-holding-grids-w-tips-each': { src: '/images/shop-thumbnails/holding-grid.webp', width: 480 },
   '20x20-paint-pockets-paint-arrestor-30-cs': { src: '/images/shop-thumbnails/paint-pockets.webp', width: 480 },
   '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': { src: '/images/shop-thumbnails/22-gram-fiberglass-roll.webp', width: 480 },
-  'pleated-air-filters-merv-10': { src: '/images/shop-thumbnails/merv-10-pleated-filter.jpg', width: 320 },
+  'pleated-air-filters-merv-10': { src: '/images/shop-thumbnails/merv-10-pleated-filter.jpg', width: 640 },
   '36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs': { src: '/images/shop-thumbnails/15-gram-fiberglass-roll.webp', width: 480 },
   'bronze-membership': { src: '/images/products/membership-bronze-720.png', width: 720 },
   'silver-membership': { src: '/images/products/membership-silver-720.png', width: 720 },
@@ -66,6 +66,12 @@ export function shopProductCardImageSrcSet(handle: string, fallbackSrc: string):
   if (localThumbnail) return `${localThumbnail.src} ${localThumbnail.width}w`;
 
   return shopifyImageSrcSet(fallbackSrc);
+}
+
+export function localAvifSrcSet(src: string, srcSet?: string): string | undefined {
+  if (!src.startsWith('/') || !/\.webp(\?|$)/i.test(src)) return undefined;
+  const toAvif = (value: string) => value.replace(/\.webp(?=(\s|$|\?))/gi, '.avif');
+  return toAvif(srcSet || src);
 }
 
 export function shopifyImageAltText(

@@ -1,153 +1,221 @@
-// Hero — PFS Filters Dark Theme
-// Full-bleed looping video hero, left-aligned text, electric blue CTAs
+// Hero — charcoal filter lineup. The first frame is the preloaded AVIF.
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
-import { CircleHelp, Mail, ShoppingBag, Truck, Shield } from 'lucide-react';
+import { Mail, ShoppingBag } from 'lucide-react';
 
-const HERO_VIDEO = 'https://cdn.shopify.com/videos/c/o/v/95b492e672f942f8acd0683f6053f877.mp4';
-const HERO_POSTER_MOBILE = '/media/pfs-hero-poster-mobile.webp';
-const HERO_POSTER_DESKTOP = '/media/pfs-hero-poster-desktop.webp';
+const FIRST_IMAGE = '/images/hero/exhaust-roll.avif';
+
+type Frame = {
+  id: string;
+  eyebrow: string;
+  name: string;
+  benefit: string;
+  href: string;
+  image: string;
+  width: number;
+  height: number;
+  alt: string;
+};
+
+const FRAMES: Frame[] = [
+  {
+    id: 'exhaust',
+    eyebrow: 'EXHAUST',
+    name: '22 gram fiberglass roll',
+    benefit: '20×100 and 36×100 rolls for the exhaust bank.',
+    href: '/product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs',
+    image: FIRST_IMAGE,
+    width: 1080,
+    height: 1080,
+    alt: '22 gram fiberglass paint arrestor exhaust roll',
+  },
+  {
+    id: 'pads',
+    eyebrow: 'PADS',
+    name: '22 gram arrestor pads',
+    benefit: '20×20×2 pads, packed 50 to a case.',
+    href: '/product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs',
+    image: '/images/hero/arrestor-pads.avif',
+    width: 1080,
+    height: 1080,
+    alt: '22 gram fiberglass paint arrestor pads, 20 by 20 by 2 inches, 50 per case',
+  },
+  {
+    id: 'tacky',
+    eyebrow: 'INTAKE',
+    name: 'Tacky intake panels',
+    benefit: 'Tackified panels on the air entering the booth.',
+    href: '/category/tacky-panels',
+    image: '/images/hero/tacky-panels.avif',
+    width: 1080,
+    height: 1080,
+    alt: 'Tacky panel intake filter for a paint booth',
+  },
+  {
+    id: 'ceiling',
+    eyebrow: 'CEILING',
+    name: 'Ceiling diffusion media',
+    benefit: 'Overhead blankets for downdraft and semi-downdraft booths.',
+    href: '/category/ceiling-blankets',
+    image: '/images/hero/ceiling-media.avif',
+    width: 1080,
+    height: 1080,
+    alt: 'Ceiling diffusion media for a downdraft paint booth',
+  },
+  {
+    id: 'pockets',
+    eyebrow: 'ARRESTOR',
+    name: 'Paint Pockets',
+    benefit: '20×20 multi-pocket arrestors, 30 per case.',
+    href: '/product/20x20-paint-pockets-paint-arrestor-30-cs',
+    image: '/images/hero/paint-pockets.avif',
+    width: 1080,
+    height: 1080,
+    alt: 'Paint Pockets paint arrestor, 20 by 20 inches, 30 per case',
+  },
+];
 
 export const Hero = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [canPlayVideo, setCanPlayVideo] = useState(false);
-  const [videoReady, setVideoReady] = useState(false);
-  const [isDesktopViewport, setIsDesktopViewport] = useState(false);
+  const runRef = useRef<HTMLElement>(null);
+  const [index, setIndex] = useState(0);
+  const [armed, setArmed] = useState(false);
+  const [mobile, setMobile] = useState(false);
+  const [reduced, setReduced] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const indexRef = useRef(0);
 
   useEffect(() => {
-    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const desktopViewportQuery = window.matchMedia('(min-width: 768px)');
-
-    const updatePlaybackPreference = () => {
-      // Same video now plays on mobile too — only reduced-motion opts out.
-      // Viewport is tracked separately just to pick the matching poster.
-      setIsDesktopViewport(desktopViewportQuery.matches);
-      const shouldPlayVideo = !reducedMotionQuery.matches;
-      setCanPlayVideo(shouldPlayVideo);
-      if (!shouldPlayVideo) setVideoReady(false);
+    const reduceQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobileQuery = window.matchMedia('(max-width: 1023px)');
+    const sync = () => {
+      setReduced(reduceQuery.matches);
+      setMobile(mobileQuery.matches);
     };
-
-    updatePlaybackPreference();
-    reducedMotionQuery.addEventListener('change', updatePlaybackPreference);
-    desktopViewportQuery.addEventListener('change', updatePlaybackPreference);
-
+    sync();
+    reduceQuery.addEventListener('change', sync);
+    mobileQuery.addEventListener('change', sync);
     return () => {
-      reducedMotionQuery.removeEventListener('change', updatePlaybackPreference);
-      desktopViewportQuery.removeEventListener('change', updatePlaybackPreference);
+      reduceQuery.removeEventListener('change', sync);
+      mobileQuery.removeEventListener('change', sync);
     };
   }, []);
 
   useEffect(() => {
-    if (!canPlayVideo) return;
+    const arm = () => setArmed(true);
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(arm, { timeout: 1800 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = window.setTimeout(arm, 900);
+    return () => window.clearTimeout(id);
+  }, []);
 
-    let idleId: number | undefined;
-    let timerId: number | undefined;
-    const enableVideo = () => {
-      if ('requestIdleCallback' in window) {
-        idleId = window.requestIdleCallback(() => setVideoReady(true), { timeout: 3000 });
-      } else {
-        timerId = globalThis.setTimeout(() => setVideoReady(true), 1500) as unknown as number;
+  useEffect(() => {
+    if (reduced || mobile) return;
+    const node = runRef.current;
+    if (!node) return;
+    let frame = 0;
+    let watching = true;
+
+    const tick = () => {
+      frame = 0;
+      if (!watching) return;
+      const travel = node.offsetHeight - window.innerHeight;
+      const progress = travel <= 0 ? 0 : Math.min(1, Math.max(0, -node.getBoundingClientRect().top / travel));
+      const next = Math.min(FRAMES.length - 1, Math.floor(progress * FRAMES.length * 0.999));
+      if (indexRef.current !== next) {
+        indexRef.current = next;
+        setIndex(next);
       }
     };
 
-    if (document.readyState === 'complete') enableVideo();
-    else window.addEventListener('load', enableVideo, { once: true });
-
-    return () => {
-      window.removeEventListener('load', enableVideo);
-      if (idleId !== undefined) window.cancelIdleCallback(idleId);
-      if (timerId !== undefined) window.clearTimeout(timerId);
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(tick);
     };
-  }, [canPlayVideo]);
+
+    const observer = new IntersectionObserver(([entry]) => {
+      watching = entry.isIntersecting;
+      if (watching) onScroll();
+    });
+    observer.observe(node);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [reduced, mobile]);
 
   useEffect(() => {
-    if (!canPlayVideo || !videoReady) return;
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = true;
-    video.play().catch(() => {
-      // Silently ignore if browser blocks autoplay (rare with muted + playsInline)
+    if (reduced || !mobile || paused) return;
+    const node = runRef.current;
+    let visible = true;
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
     });
-  }, [videoReady]);
+    if (node) observer.observe(node);
+    const id = window.setInterval(() => {
+      if (!visible) return;
+      setIndex((current) => {
+        const next = (current + 1) % FRAMES.length;
+        indexRef.current = next;
+        return next;
+      });
+    }, 4200);
+    return () => {
+      observer.disconnect();
+      window.clearInterval(id);
+    };
+  }, [reduced, mobile, paused]);
+
+  const go = (next: number) => {
+    const wrapped = (next + FRAMES.length) % FRAMES.length;
+    indexRef.current = wrapped;
+    setIndex(wrapped);
+    setArmed(true);
+    setPaused(true);
+  };
+
+  const frame = FRAMES[index];
+
+  const photo = (item: Frame, priority: boolean) => (
+    <img
+      src={item.image}
+      alt={item.alt}
+      width={item.width}
+      height={item.height}
+      data-fit="cover"
+      decoding="async"
+      loading={priority ? 'eager' : 'lazy'}
+      fetchPriority={priority ? 'high' : 'auto'}
+    />
+  );
 
   return (
     <header>
       <section
         id="home"
-        className="relative min-h-[65vh] md:min-h-[80vh] flex items-center overflow-hidden bg-black"
+        ref={runRef}
+        className={`hero-shell${reduced ? ' is-static' : ''}`}
       >
-        {/* Full-bleed looping video background */}
-        <div className="absolute inset-0 z-0">
-          <picture>
-            <source media="(max-width: 767px)" srcSet={HERO_POSTER_MOBILE} />
-            <img
-              src={HERO_POSTER_DESKTOP}
-              alt=""
-              className="absolute inset-0 block h-full w-full object-cover object-[65%_center] md:object-center"
-              width={1600}
-              height={900}
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-              aria-hidden="true"
-            />
-          </picture>
-          {canPlayVideo && (
-            <video
-              ref={videoRef}
-              className={`absolute inset-0 w-full h-full object-cover object-[65%_center] md:object-center transition-opacity duration-500 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
-              src={videoReady ? HERO_VIDEO : undefined}
-              poster={isDesktopViewport ? HERO_POSTER_DESKTOP : HERO_POSTER_MOBILE}
-              autoPlay={videoReady}
-              muted
-              loop
-              playsInline
-              controls={false}
-              preload="none"
-              disablePictureInPicture
-              aria-hidden="true"
-              tabIndex={-1}
-              style={{ pointerEvents: 'none' }}
-            />
-          )}
-          {/* Left-side vignette: grounds the headline to the image, keeps filter imagery on the right fully visible */}
-          <div className="hero-vignette" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-[1]" />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-32 w-full">
-          <div className="max-w-2xl">
-            {/* Eyebrow badge */}
-            <div className="eyebrow-brand inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm font-medium mb-6">
-              <Shield className="w-3.5 h-3.5" />
-              A Division of PFS Spray Booths — 30+ Years of Expertise
-            </div>
-
-            {/* Headline — two visual tiers: white setup line, larger gradient key message */}
-            <h1
-              className="hero-headline mb-6"
-            >
+        <div className="hero-pin">
+          <div className="hero-copy">
+            <p className="hero-kicker">Filtration</p>
+            <h1 className="hero-headline">
               <span className="hero-tier1">A Filter Program Built to</span>
               <span className="hero-tier2">Manage Your Entire Booth</span>
             </h1>
-
-            {/* Subheadline */}
-            <p
-              className="text-lg md:text-xl text-white/60 leading-relaxed mb-8"
-            >
+            <p className="serif-lead">
+              Exhaust rolls, arrestor pads, tacky panels, ceiling media, and paint pockets.
+            </p>
+            <p className="hero-sub">
               Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.
             </p>
-
-            {/* CTAs */}
-            <div
-              className="flex flex-wrap gap-4 mb-10"
-            >
+            <div className="hero-actions">
               <Link href="/shop">
-                <Button
-                  size="lg"
-                  className="text-base px-8 py-6 font-bold bg-blue-500 hover:bg-blue-400 text-white transition-[background-color,box-shadow,transform]"
-                >
+                <Button size="lg" className="btn-primary text-base">
                   <ShoppingBag className="mr-2 h-5 w-5" />
                   Shop Filters Now
                 </Button>
@@ -156,7 +224,7 @@ export const Hero = () => {
                 asChild
                 size="lg"
                 variant="outline"
-                className="text-base px-8 py-6 font-bold border-2 border-white/30 text-white hover:bg-white/10 transition-[background-color,box-shadow,transform] bg-transparent"
+                className="btn-ghost text-base"
               >
                 <Link href="/contact">
                   <Mail className="mr-2 h-5 w-5" />
@@ -164,23 +232,81 @@ export const Hero = () => {
                 </Link>
               </Button>
             </div>
-
-            {/* Trust Badges */}
-            <div
-              className="flex flex-wrap gap-6"
-            >
-              {[
-                { icon: Truck, label: 'Ships Fast Nationwide' },
-                { icon: Shield, label: 'Booth-Specific Filter Tracking' },
-                { icon: CircleHelp, label: 'Sizing Help Available' },
-              ].map((badge, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-sm text-white/50">
-                  <badge.icon className="h-4 w-4 text-blue-400" />
-                  <span className="font-medium">{badge.label}</span>
-                </div>
-              ))}
-            </div>
           </div>
+
+          {reduced ? (
+            <ul className="hero-static">
+              {FRAMES.map((item) => (
+                <li key={item.id}>
+                  <div className="hero-stage">{photo(item, item.id === 'exhaust')}</div>
+                  <p className="hero-kicker">{item.eyebrow}</p>
+                  <h2>{item.name}</h2>
+                  <p>{item.benefit}</p>
+                  <Link href={item.href}>Shop</Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div
+              className="hero-showcase"
+              onPointerDown={() => setPaused(true)}
+              onFocus={() => setPaused(true)}
+            >
+              <div
+                className="hero-stage"
+                role="region"
+                aria-roledescription="carousel"
+                aria-label="Filter lineup"
+              >
+                {mobile ? (
+                  <div className="hero-track" style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
+                    {FRAMES.map((item, itemIndex) => (
+                      <div className="hero-slide" key={item.id} aria-hidden={itemIndex !== index}>
+                        {(itemIndex === 0 || armed) ? photo(item, itemIndex === 0) : null}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  FRAMES.map((item, itemIndex) => (
+                    <div
+                      className={`hero-frame${itemIndex === index ? ' is-active' : ''}`}
+                      key={item.id}
+                      aria-hidden={itemIndex !== index}
+                    >
+                      {(itemIndex === 0 || armed) ? photo(item, itemIndex === 0) : null}
+                    </div>
+                  ))
+                )}
+              </div>
+              <div className="hero-caption">
+                <p className="hero-kicker">{frame.eyebrow}</p>
+                <h2>{frame.name}</h2>
+                <p>{frame.benefit}</p>
+                <Link href={frame.href}>Shop</Link>
+              </div>
+              <div className="hero-progress" role="tablist" aria-label="Filter types">
+                {FRAMES.map((item, itemIndex) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={itemIndex === index}
+                    aria-label={item.name}
+                    onClick={() => go(itemIndex)}
+                  />
+                ))}
+              </div>
+              {mobile ? (
+                <div className="hero-controls">
+                  <button type="button" onClick={() => go(index - 1)} aria-label="Previous filter">Prev</button>
+                  <button type="button" aria-pressed={paused} onClick={() => setPaused((value) => !value)}>
+                    {paused ? 'Play' : 'Pause'}
+                  </button>
+                  <button type="button" onClick={() => go(index + 1)} aria-label="Next filter">Next</button>
+                </div>
+              ) : null}
+            </div>
+          )}
         </div>
       </section>
     </header>

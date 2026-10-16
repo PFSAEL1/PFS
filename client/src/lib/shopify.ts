@@ -156,8 +156,8 @@ export function validateCartItemsForCheckout(items: CartItem[]): void {
 export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string; title: string; description: string; position: string }> = {
   'fiberglass-arrestors': {
     collectionHandle: 'fiberglass-paint-arrestors',
-    title: 'Fiberglass Paint Arrestors',
-    description: 'Fiberglass paint arrestor pads and roll media for spray booth exhaust filtration. Products shown here are explicitly identified as fiberglass in the catalog.',
+    title: 'Paint Arrestor Pads',
+    description: 'Paint arrestor pads for spray booth exhaust: 20×20×2 22-gram fiberglass pads, 50 per case, plus Paint Pockets. Measure the grid before ordering.',
     position: 'EXHAUST',
   },
   'tacky-panels': {
@@ -174,8 +174,8 @@ export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string;
   },
   'roll-media': {
     collectionHandle: 'roll-media',
-    title: 'Roll Media',
-    description: 'Roll filtration media in current catalog widths, lengths, and constructions. Confirm the intended filter stage and dimensions before ordering.',
+    title: 'Paint Booth Filter Rolls',
+    description: 'Exhaust filter rolls: 20×100×2 inch 22-gram fiberglass and 36×100 inch 15-gram fiberglass, one roll per case. Measure the bank width before ordering.',
     position: 'INTAKE / EXHAUST',
   },
   'merv-filters': {
@@ -207,7 +207,7 @@ export const CATEGORY_TAG_MAP: Record<string, string[]> = {
   'roll-media': ['roll', 'roll media', 'media roll'],
   'merv-filters': ['merv', 'merv-10', 'merv-13', 'merv10', 'merv13'],
   'polyester-media': ['polyester', 'synthetic media'],
-  'pre-filters': ['pre-filter', 'prefilter', 'pre filter', 'first stage'],
+  'pre-filters': ['pre-filter', 'prefilter', 'pre filter', 'first stage', 'pleated', 'merv-10', 'merv 10'],
 };
 
 /**

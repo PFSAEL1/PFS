@@ -3,7 +3,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
-import { ShieldCheck, Truck, ShoppingCart, Sparkles } from 'lucide-react';
+import { ShieldCheck, Truck, ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
 import { useCartStore } from '@/stores/cartStore';
 import { toast } from 'sonner';
@@ -51,15 +51,14 @@ export default function PfsVanguard() {
 
 
       {/* Product section */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* Product image */}
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] aspect-square flex items-center justify-center overflow-hidden p-4">
+            <div className="media-fit aspect-square overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-4">
               <img
                 src={PFS_VANGUARD_IMAGE}
                 alt="PFS VANGUARD booth coating and PFS VITRA glass coating kit"
-                className="w-full h-full object-contain"
                 width={1374}
                 height={1145}
                 fetchPriority="high"
@@ -95,7 +94,7 @@ export default function PfsVanguard() {
               <div className="space-y-3 border-t border-white/10 pt-5">
                 <p className="text-white/90 text-sm font-semibold uppercase tracking-wider mb-2">Kit Includes:</p>
                 <div className="flex items-center gap-3 text-white/60 text-sm">
-                  <Sparkles className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  <ShieldCheck className="h-4 w-4 text-blue-400 flex-shrink-0" />
                   <span>Premium Booth Coating</span>
                 </div>
                 <div className="flex items-center gap-3 text-white/60 text-sm">

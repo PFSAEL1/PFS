@@ -170,7 +170,7 @@ export default function Memberships() {
 
 
       {/* Pricing cards */}
-      <section className="section-glow tex-dots pt-24 pb-12 px-4">
+      <section className="section-glow pt-24 pb-12 px-4">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {tiers.map((tier) => (
             <Card key={tier.name} className={`relative border-2 ${tier.color} bg-[#0d0d0d] mt-20 overflow-visible`}>
@@ -216,7 +216,7 @@ export default function Memberships() {
             {[
               { q: 'Can I cancel anytime?', a: 'Yes, memberships can be cancelled at any time with no cancellation fees. Your benefits continue until the end of your billing period.' },
               { q: 'How are discounts applied?', a: 'Discounts are automatically applied at checkout using your membership discount code. No manual entry required.' },
-              { q: 'What is the AI Filter Scanner?', a: 'Our AI scanner lets you photograph your existing filters to instantly identify them and add replacements to your cart. Available on Gold and Platinum plans.' },
+              { q: 'What is the Filter Scanner?', a: 'Filter Scanner is included with Gold and Platinum memberships. Photograph the filter and label to narrow catalog matches, then confirm the stage and size before you order.' },
               { q: 'Can I upgrade or downgrade my plan?', a: 'Yes, you can change your plan at any time. Changes take effect at the start of your next billing cycle.' },
             ].map((item) => (
               <div key={item.q} className="bg-[#0d0d0d] border border-white/[0.08] rounded-xl p-5">

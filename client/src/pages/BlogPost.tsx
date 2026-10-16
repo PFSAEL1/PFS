@@ -165,8 +165,8 @@ export default function BlogPost() {
             </div>
           </div>
 
-          <div className="aspect-video overflow-hidden rounded-2xl mb-10">
-            <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+          <div className="mb-10 overflow-hidden rounded-2xl bg-[#111]">
+            <img src={post.image} alt={post.title} className="block h-auto w-full" />
           </div>
 
           <div className="prose prose-lg max-w-none space-y-2">

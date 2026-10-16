@@ -165,7 +165,7 @@ export default function CaliforniaPaintBoothFilters() {
         </section>
 
 
-        <section className="section-raised tex-dots px-4 py-16">
+        <section className="section-raised px-4 py-16">
           <div className="mx-auto max-w-6xl">
             <div className="mb-9 max-w-3xl">
               <p className="section-label"><span>Regional applications</span></p>
@@ -199,13 +199,12 @@ export default function CaliforniaPaintBoothFilters() {
               {FILTER_PATHS.map((item) => (
                 <Link key={item.href} href={item.href}>
                   <article className="glow-card group h-full overflow-hidden">
-                    <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-white/5 to-transparent">
+                    <div className="media-fit aspect-[4/3] overflow-hidden bg-gradient-to-br from-white/5 to-transparent">
                       <img
                         src={sizedShopifyImageUrl(item.image, 480)}
                         srcSet={shopifyImageSrcSet(item.image)}
                         sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, calc(100vw - 2rem)"
                         alt={`${item.title} for paint booth applications`}
-                        className="h-full w-full object-contain p-5 transition-transform duration-500 group-hover:scale-105"
                         width={480}
                         height={360}
                         loading="lazy"

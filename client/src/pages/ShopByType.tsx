@@ -7,7 +7,8 @@ import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { DEFAULT_PRODUCT_IMAGE } from '@/lib/imageUrls';
-import { ArrowRight, Wind, Filter } from 'lucide-react';
+import { Wind, Filter } from 'lucide-react';
+import { LineupCard, LineupCarousel, tintFor } from '@/components/Lineup';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://www.pfsfilters.com' },
@@ -88,73 +89,46 @@ export default function ShopByType() {
       <section className="section-darker pt-28 pb-10 px-4">
         <div className="max-w-7xl mx-auto">
           <Breadcrumb items={[{ label: 'Shop by Type' }]} />
-          <div className="mb-4">
-            <p className="text-[#4d9fff] text-xs font-semibold uppercase tracking-[0.2em] mb-3">Filter Types</p>
-            <h1 className="text-5xl font-extrabold mb-4 text-white pfs-heading-animate">
-              Shop by Filter Type
-            </h1>
-            <p className="text-lg text-white/70 max-w-2xl">
-              Each position in your spray booth requires a specific filter type. Cards show whether a filter is for <span className="text-white/70 font-medium">Intake</span> or <span className="text-white/70 font-medium">Exhaust</span>.
-            </p>
+          <div className="mb-2 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h1 className="normal-case text-4xl font-semibold tracking-tight text-white md:text-6xl">
+                Shop by Filter Type
+              </h1>
+              <p className="mt-4 max-w-2xl text-lg text-white/70">
+                Each position in your spray booth requires a specific filter type. Cards show whether a filter is for intake or exhaust.
+              </p>
+            </div>
+            <Link href="/shop" className="inline-flex min-h-11 shrink-0 items-center text-base font-medium text-[#0081f2] hover:underline md:text-lg">
+              Shop all <span aria-hidden="true">›</span>
+            </Link>
           </div>
         </div>
       </section>
 
 
       {/* Filter type grid - raised */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <LineupCarousel label="Filter types">
             {filterTypes.map((type, index) => (
-              <Link key={type.title} href={type.href}>
-                <div className="group border border-white/8 bg-white/[0.03] rounded-2xl overflow-hidden h-full cursor-pointer transition-all duration-300 hover:border-blue-500/50 hover:bg-white/[0.06] hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)]">
-                  {/* Product image */}
-                  <div className="relative aspect-[16/9] bg-gradient-to-br from-white/5 to-white/[0.02] overflow-hidden">
-                    <img
-                      src={type.image}
-                      alt={type.title}
-                      width={900}
-                      height={900}
-                      loading={index < 2 ? 'eager' : 'lazy'}
-                      fetchPriority={index === 0 ? 'high' : 'auto'}
-                      decoding="async"
-                      onError={(event) => {
-                        const image = event.currentTarget;
-                        if (image.dataset.fallbackApplied) return;
-                        image.dataset.fallbackApplied = 'true';
-                        image.src = DEFAULT_PRODUCT_IMAGE;
-                      }}
-                      className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
-                      style={{ filter: 'brightness(0.95) contrast(1.05)' }}
-                    />
-                    {/* Position badge overlay */}
-                    <div className={`absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-bold uppercase tracking-wider backdrop-blur-sm ${
-                      type.position === 'EXHAUST'
-                        ? 'bg-white/8 border-white/20 text-white/70'
-                        : type.position === 'INTAKE'
-                        ? 'bg-[#4d9fff]/10 border-[#4d9fff]/30 text-[#4d9fff]'
-                        : 'bg-white/5 border-white/15 text-white/50'
-                    }`}>
-                      {type.position}
-                    </div>
-                  </div>
-                  {/* Content */}
-                  <div className="p-5 border-t border-white/5">
-                    <h2 className="font-bold text-base text-white mb-2 group-hover:text-white/90">{type.title}</h2>
-                    <p className="text-sm text-white/70 leading-relaxed mb-4">{type.desc}</p>
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {type.tags.map((tag) => (
-                        <span key={tag} className="text-xs bg-white/5 text-white/70 border border-white/8 px-2 py-0.5 rounded-full">{tag}</span>
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-1.5 text-sm font-semibold text-white/50 group-hover:text-white transition-all group-hover:gap-2.5">
-                      Browse Products <ArrowRight className="h-3.5 w-3.5" />
-                    </div>
-                  </div>
-                </div>
-              </Link>
+              <LineupCard
+                key={type.title}
+                href={type.href}
+                title={type.title}
+                description={type.desc}
+                kicker={type.position === 'INTAKE / EXHAUST' ? 'Intake / Exhaust' : type.position === 'EXHAUST' ? 'Exhaust' : 'Intake'}
+                image={type.image}
+                alt={type.title}
+                tint={tintFor(`${type.title} ${type.position}`, index)}
+                width={900}
+                height={900}
+                sizes="300px"
+                loading={index < 2 ? 'eager' : 'lazy'}
+                fetchPriority={index === 0 ? 'high' : 'auto'}
+                fallbackSrc={DEFAULT_PRODUCT_IMAGE}
+              />
             ))}
-          </div>
+          </LineupCarousel>
         </div>
       </section>
 

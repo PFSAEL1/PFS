@@ -80,6 +80,24 @@ describe('instant Shopify product catalog', () => {
     ]);
   });
 
+  it('maps pre-filters to pleated MERV 10 panels and keeps quoted sizes', () => {
+    const products = [
+      makeProduct({
+        title: 'Pleated Air Filters MERV 10',
+        productType: 'Intake Filter',
+        tags: ['pleated', 'merv-10'],
+        variantTitle: '20"x20"x2" 12/cs',
+      }),
+      makeProduct({ title: '22-Gram Fiberglass Paint Arrestor Pads', tags: ['exhaust-filters', 'fiberglass'] }),
+    ];
+
+    expect(filterShopifyProducts(products, 'pre-filters').map((product) => product.node.title)).toEqual([
+      'Pleated Air Filters MERV 10',
+    ]);
+    expect(filterShopifyProducts(products, 'pre-filters', '20x20')).toHaveLength(1);
+    expect(filterShopifyProducts(products, 'pre-filters', '20x200')).toHaveLength(0);
+  });
+
   it('applies category and normalized size filters to the immediate catalog', () => {
     const products = [
       makeProduct({

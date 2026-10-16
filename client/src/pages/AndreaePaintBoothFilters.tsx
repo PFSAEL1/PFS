@@ -137,7 +137,7 @@ export default function AndreaePaintBoothFilters() {
 
 
           {/* Current catalog variants */}
-      <section className="section-raised tex-dots py-16 px-4">
+      <section className="section-raised py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Andreae-style variants in the current catalog</h2>
@@ -194,12 +194,13 @@ export default function AndreaePaintBoothFilters() {
           {andreaeProduct && (
             <div className="mt-8 flex flex-col sm:flex-row items-center gap-6 rounded-xl border border-white/10 bg-white/[0.03] p-5">
               <Link href={PRODUCT_PATH} className="shrink-0">
-                <img
-                  src={productImage}
-                  alt="Andreae accordion style paint booth exhaust filter"
-                  className="h-28 w-28 object-contain rounded-lg bg-white/5 p-2"
-                  loading="lazy"
-                />
+                <div className="media-fit h-28 w-28 rounded-lg bg-white/5">
+                  <img
+                    src={productImage}
+                    alt="Andreae accordion style paint booth exhaust filter"
+                    loading="lazy"
+                  />
+                </div>
               </Link>
               <div className="flex-1 text-center sm:text-left">
                 <h3 className="text-lg font-bold text-white">{andreaeProduct.title}</h3>
@@ -276,7 +277,7 @@ export default function AndreaePaintBoothFilters() {
 
 
       {/* FAQ */}
-      <section className="section-raised tex-dots py-16 px-4">
+      <section className="section-raised py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">Andreae filter questions</h2>
           <div className="space-y-6">

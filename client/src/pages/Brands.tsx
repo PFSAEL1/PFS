@@ -123,7 +123,7 @@ export default function Brands() {
       </section>
 
       {/* Brand cards - raised */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
             {brands.map((brand) => (

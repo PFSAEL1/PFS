@@ -16,12 +16,13 @@ export const Footer = () => {
             <img
               src={LOGO_URL}
               alt="PFS Filters"
-              className="h-10 w-auto mb-4"
+              className="footer-logo mb-4"
               width={420}
               height={127}
               loading="lazy"
               decoding="async"
             />
+            <p className="serif-note mb-3 text-xl text-[#ececec]">Filters for every stage of the booth.</p>
             <p className="text-white/40 text-sm leading-relaxed">
               A proud division of PFS Spray Booths, providing premium paint booth filtration solutions for automotive, industrial, and woodworking applications.
             </p>
@@ -36,6 +37,7 @@ export const Footer = () => {
                 { href: '/shop-by-booth', label: 'Booth Brand Guides' },
                 { href: '/blog', label: 'Blog & Resources' },
                 { href: '/faq', label: 'Filter FAQ' },
+                { href: '/how-to-size-paint-booth-filters', label: 'How to Size a Filter' },
                 { href: '/why-choose-us', label: 'Why Choose Us' },
                 { href: '/memberships', label: 'Memberships' },
                 { href: '/returns', label: 'Returns & Refunds' },

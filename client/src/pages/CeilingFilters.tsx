@@ -114,7 +114,7 @@ export default function CeilingFilters() {
 
 
       {/* Product grid */}
-      <section className="section-raised tex-dots py-12 px-4">
+      <section className="section-raised py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="sr-only">Ceiling filter products in the current catalog</h2>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 mb-6 text-[13px] text-white/50 border-b border-white/[0.06] pb-3">
@@ -213,7 +213,7 @@ export default function CeilingFilters() {
 
 
       {/* Related filter types */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Related filter types</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Button } from '@/components/ui/button';
@@ -16,72 +16,6 @@ const IS_MOBILE = typeof window !== 'undefined' && (
   window.innerWidth < 768 ||
   /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 );
-
-// Desktop-only particle background
-function ParticleBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationId: number;
-    let particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = [];
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const particleCount = 30;
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2.5 + 1,
-        opacity: Math.random() * 0.4 + 0.1,
-      });
-    }
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
-        ctx.fill();
-      });
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 0 }}
-    />
-  );
-}
 
 export default function Auth() {
   const [, navigate] = useLocation();
@@ -448,9 +382,9 @@ export default function Auth() {
             {/* Spacer for the logo above */}
             <div className="flex justify-center mb-6" style={{ height: '80px' }} />
 
-            <p className="text-white/70 text-sm text-center mb-4">
+            <h1 className="text-white/70 text-sm text-center mb-4 font-normal normal-case tracking-[0.02em]">
               {activeTab === 'signin' ? 'Sign in to your account' : 'Create your PFS Filters account'}
-            </p>
+            </h1>
 
             {/* Sign In Form */}
             {activeTab === 'signin' && (
@@ -588,15 +522,13 @@ export default function Auth() {
   // DESKTOP: Full cinematic intro with particles and animations
   // ═══════════════════════════════════════════════════════════════
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center relative overflow-hidden">
+    <div className="page-shell min-h-screen flex items-center justify-center relative overflow-hidden">
       <SEO
         title="Sign In - PFS Filters Account"
         description="Sign in to your PFS Filters account to manage orders, track memberships, and access exclusive discounts."
         canonical="https://www.pfsfilters.com/auth"
         noIndex
       />
-      <ParticleBackground />
-
       {/* CSS Animations */}
       <style>{`
         @keyframes breathingGlow {
@@ -646,15 +578,13 @@ export default function Auth() {
         <img
           src={LOGO_URL}
           alt="PFS Filters"
-          className={animState === 'intro' ? 'logo-breathing' : ''}
+          className=""
           style={{
             width: animState === 'intro' ? '340px' : '250px',
             transition: animState !== 'intro'
               ? 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease-out'
               : 'none',
-            filter: animState !== 'intro' 
-              ? 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))' 
-              : undefined,
+            filter: 'none',
             objectFit: 'contain',
           }}
         />
@@ -676,9 +606,9 @@ export default function Auth() {
 
           {/* Form content with staggered fade-in */}
           <div className={animState !== 'intro' ? 'form-fade-in' : ''} style={{ opacity: animState === 'intro' ? 0 : undefined }}>
-            <p className="text-white/50 text-sm text-center mb-4">
+            <h1 className="text-white/50 text-sm text-center mb-4 font-normal normal-case tracking-[0.02em]">
               {activeTab === 'signin' ? 'Sign in to your account' : 'Create your PFS Filters account'}
-            </p>
+            </h1>
 
             {/* Sign In Form */}
             {activeTab === 'signin' && (

@@ -18,7 +18,7 @@ const faqSchema = createFAQSchema(faqs);
 
 export const FAQ = () => {
   return (
-    <section className="section-glow tex-dots py-20 px-4 relative">
+    <section className="section-glow py-20 px-4 relative">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

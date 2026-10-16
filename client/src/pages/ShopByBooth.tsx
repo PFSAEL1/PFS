@@ -90,15 +90,15 @@ export default function ShopByBooth() {
 
 
       {/* PFS Featured Card */}
-      <section className="section-raised tex-dots pt-8 pb-4 px-4">
+      <section className="section-raised pt-8 pb-4 px-4">
         <div className="max-w-7xl mx-auto">
           <Link href="/shop-by-booth/pfs-spray-booths">
             <div className="group relative overflow-hidden border-2 border-[#4d9fff]/40 bg-gradient-to-r from-[#4d9fff]/10 via-[#4d9fff]/5 to-transparent rounded-2xl p-6 mb-8 cursor-pointer transition-[transform,box-shadow,background-color] duration-200 hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)]">
               {/* Glow effect */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#4d9fff]/5 rounded-full blur-3xl" />
               <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
-                <div className="h-40 w-full flex-shrink-0 bg-gray-100 rounded-xl flex items-center justify-center p-4 sm:w-64">
-                  <img src="/images/brands/pfs-logo-tight.png" alt="PFS Spray Booths" className="w-full h-full object-contain" />
+                <div className="media-fit h-40 w-full flex-shrink-0 rounded-xl bg-gray-100 p-4 sm:w-64">
+                  <img src="/images/brands/pfs-logo-tight.png" alt="PFS Spray Booths" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 mb-1">
@@ -118,7 +118,7 @@ export default function ShopByBooth() {
       </section>
 
       {/* Search & Filter bar */}
-      <section className="section-raised tex-dots py-4 px-4">
+      <section className="section-raised py-4 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row gap-4 mb-8">
             {/* Search */}

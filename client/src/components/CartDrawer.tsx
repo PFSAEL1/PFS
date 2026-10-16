@@ -166,11 +166,9 @@ export const CartDrawer = () => {
               return (
                 <div key={lineKey} className="flex gap-3 p-3 bg-white/5/30 rounded-lg">
                   {item.image && (
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-16 h-16 object-cover rounded-md flex-shrink-0"
-                    />
+                    <div className="media-fit h-16 w-16 flex-shrink-0 rounded-md bg-[#111]">
+                      <img src={item.image} alt={item.title} />
+                    </div>
                   )}
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-sm truncate">{item.title}</p>

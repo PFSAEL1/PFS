@@ -1,0 +1,181 @@
+{
+  "shop": {
+    "paragraphs": [
+      "Paint booth filters at PFS Filters are sold by stage: exhaust arrestors, intake panels, ceiling diffusion media, and first-stage prefilters. The catalog lists the size, media, and case quantity on each product, including 20×20×2 22-gram fiberglass pads (50 per case), 20×100 and 36×100 fiberglass rolls, 20×20 Paint Pockets (30 per case), tacky intake panels, and MERV 10 pleated prefilters.",
+      "A spray booth uses more than one filter. Intake and ceiling media clean air coming into the cabin. Exhaust paint arrestors sit on the outlet and hold overspray. Prefilters, where the booth is built for them, sit ahead of the more expensive blanket or panel. Order the stage that matches the opening you measured, not a similar-looking pad from another position.",
+      "Stocked items typically process in 1–2 business days from Santa Rosa, California. Custom cuts, freight, and backorders take longer; the product page or a call to 855-496-7969 is the place to confirm timing. Eligible products can be placed on monthly Subscribe & Save at 5% off, managed in the Shopify account. Measure the installed frame before you reorder. Nominal sizes such as 20×20 are not a substitute for the actual width, height, and depth of the filter in the booth."
+    ],
+    "faqs": [
+      {
+        "question": "What paint booth filters does PFS stock?",
+        "answer": "Fiberglass paint arrestor pads and rolls, Paint Pockets, Andreae-style accordion media, tacky intake panels, ceiling diffusion media, MERV 10 pleated prefilters, and booth-brand replacement guidance. Confirm the stage and the measured size on the product page."
+      },
+      {
+        "question": "Are paint booth filters and spray booth filters the same product?",
+        "answer": "Shops use both names for the same job. The filter you need depends on the stage: intake, ceiling, prefilter, or exhaust. Match the media to that opening and to the size you measured."
+      },
+      {
+        "question": "How do I choose a paint booth filter size?",
+        "answer": "Measure the installed filter or the frame opening: width, height, and depth for pads, width and length for rolls. Use the sizing guide, then confirm the product variant before ordering."
+      }
+    ],
+    "links": [
+      { "href": "/exhaust-filters", "label": "Exhaust filters" },
+      { "href": "/category/fiberglass-arrestors", "label": "Paint arrestor pads" },
+      { "href": "/category/roll-media", "label": "Filter rolls" },
+      { "href": "/neshap-compliant-paint-booth-filters", "label": "NESHAP filters" },
+      { "href": "/how-to-size-paint-booth-filters", "label": "How to size a booth filter" },
+      { "href": "/filter-finder", "label": "Filter Finder" }
+    ]
+  },
+  "spray": {
+    "paragraphs": [
+      "Spray booth filters cover the same stages as paint booth filters: air coming in, air going out, and any prefilter the booth was built with. PFS Filters stocks media for those positions and publishes the size and pack quantity on the product, rather than a single “booth kit” that ignores the model.",
+      "Downdraft and semi-downdraft booths usually need ceiling diffusion media overhead and exhaust arrestors at the floor or rear bank. Crossdraft and side-draft booths put intake panels on the incoming wall and exhaust media on the opposite wall. Prep stations often use a smaller exhaust frame. The Filter Finder narrows brands such as Global Finishing Solutions, Accudraft, Col-Met, and Garmat, then you still confirm the model and the measured opening.",
+      "Paint booth filtration is not one efficiency number. Exhaust fiberglass and pocket arrestors are built to hold overspray. Intake tacky panels and MERV-rated pleats are built to keep dirt out of the finish. Using an exhaust pad in an intake grid, or the reverse, is a common mismatch. Read the stage on the product, then the dimensions."
+    ],
+    "faqs": [
+      {
+        "question": "Which spray booth filters go in the exhaust?",
+        "answer": "Overspray media: fiberglass paint arrestor pads, fiberglass rolls, Paint Pockets, and Andreae-style accordion filters. Confirm the frame size and depth before ordering."
+      },
+      {
+        "question": "Which spray booth filters go on the intake or ceiling?",
+        "answer": "Tacky panels, pleated panels, and ceiling diffusion blankets, depending on where the booth brings air in. Ceiling media is common on downdraft booths. Do not substitute an exhaust arrestor for that stage."
+      },
+      {
+        "question": "Can one set of filters fit every booth brand?",
+        "answer": "No. GFS, Accudraft, Col-Met, Garmat, and other booths use different openings. Start with the brand guide or Filter Finder, then measure the installed filter."
+      }
+    ],
+    "links": [
+      { "href": "/shop", "label": "Shop paint booth filters" },
+      { "href": "/exhaust-filters", "label": "Exhaust filters" },
+      { "href": "/category/fiberglass-arrestors", "label": "Paint arrestor pads" },
+      { "href": "/category/roll-media", "label": "Filter rolls" },
+      { "href": "/neshap-compliant-paint-booth-filters", "label": "NESHAP filters" },
+      { "href": "/how-to-size-paint-booth-filters", "label": "How to size a booth filter" },
+      { "href": "/filter-finder", "label": "Filter Finder" }
+    ]
+  },
+  "arrestor": {
+    "paragraphs": [
+      "Paint arrestor pads are the exhaust boards that sit in a holding grid and catch overspray. In this catalog the common fiberglass pad is 20×20×2 inches, 22 gram, packed 50 to a case. Paint Pockets are a separate 20×20 multi-pocket arrestor, packed 30 to a case. Both are exhaust media. They are not ceiling blankets and they are not tacky intake panels.",
+      "Gram weight is the density of the fiberglass. A 22-gram pad and a 15-gram roll are different products with different loading. Match the gram weight the booth has been running, or ask PFS to look at the label before you switch. The holding grid has to accept the pad thickness. A 2-inch pad does not sit correctly in a frame built for a thinner board.",
+      "Andreae-style accordion arrestors are another exhaust option, sold as pad and roll variants such as AF223 and AF423. They load differently from a fiberglass pad. If the booth currently uses accordion media, replace it with accordion media unless the frame has been changed. Measure the opening, check the product variant, and order the case quantity that matches the bank."
+    ],
+    "faqs": [
+      {
+        "question": "What size are the paint arrestor pads?",
+        "answer": "The stocked fiberglass pad is 20×20×2 inches, 22 gram, 50 per case. Paint Pockets are 20×20, 30 per case. Other sizes are listed on the product when the catalog has them. Measure your grid before ordering."
+      },
+      {
+        "question": "Are paint arrestors the same as intake filters?",
+        "answer": "No. Paint arrestors are exhaust media. Intake filters are tacky panels, pleats, or ceiling diffusion media. The stage is printed on each PFS product."
+      },
+      {
+        "question": "How many pads are in a case?",
+        "answer": "The 20×20×2 22-gram fiberglass arrestor is packed 50 per case. The 20×20 Paint Pockets arrestor is packed 30 per case. Check the variant title on the product page for the case you are adding to the cart."
+      }
+    ],
+    "links": [
+      { "href": "/product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs", "label": "20×20×2 22-gram pads, 50 per case" },
+      { "href": "/product/20x20-paint-pockets-paint-arrestor-30-cs", "label": "20×20 Paint Pockets, 30 per case" },
+      { "href": "/exhaust-filters", "label": "All exhaust filters" },
+      { "href": "/category/roll-media", "label": "Exhaust filter rolls" },
+      { "href": "/how-to-size-paint-booth-filters", "label": "Sizing guide" }
+    ]
+  },
+  "roll": {
+    "paragraphs": [
+      "Paint booth filter rolls are continuous exhaust or intake media cut from a roll instead of a pre-cut pad. PFS stocks a 20×100×2 22-gram fiberglass exhaust roll and a 36×100 15-gram fiberglass paint arrestor roll, each sold as one roll per case. The first number is the roll width in inches. The second is the length. The gram weight is the fiberglass density, not the booth size.",
+      "Use a roll when the exhaust bank is wider than a 20×20 pad grid or when the booth was built for blanket media on a roll. Cut the length to the frame. Do not assume a 20-inch roll covers a 36-inch opening, and do not stretch a roll to make up the difference. The holding frame still has to support the media so it cannot pull into the fan.",
+      "Rolls and pads are both paint arrestors when they are fiberglass exhaust media, but the pack and the install are different. Pads drop into a grid. Rolls are cut and fastened across a bank. If the current filter is a pad, reorder the pad. If it is a roll, reorder the roll width you measured across the frame."
+    ],
+    "faqs": [
+      {
+        "question": "What paint booth filter roll widths are stocked?",
+        "answer": "A 20×100×2 inch 22-gram fiberglass exhaust roll and a 36×100 inch 15-gram fiberglass paint arrestor roll. Both are one roll per case. Confirm the width of your frame before you choose."
+      },
+      {
+        "question": "Is a filter roll the same as a 20×20 pad?",
+        "answer": "No. A pad is a pre-cut board for a grid. A roll is a continuous length you cut to the bank. The 20-inch dimension on a roll is the width of the media, not a 20×20 pad."
+      },
+      {
+        "question": "Can I use an exhaust roll as ceiling media?",
+        "answer": "No. These fiberglass rolls are paint-arrestor media for the exhaust stage. Ceiling diffusion media is a different product. Match the stage marked on the product page."
+      }
+    ],
+    "links": [
+      { "href": "/product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs", "label": "20×100×2 22-gram exhaust roll" },
+      { "href": "/product/36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs", "label": "36×100 15-gram arrestor roll" },
+      { "href": "/category/fiberglass-arrestors", "label": "Paint arrestor pads" },
+      { "href": "/exhaust-filters", "label": "Exhaust filters" },
+      { "href": "/how-to-size-paint-booth-filters", "label": "Sizing guide" }
+    ]
+  },
+  "neshap": {
+    "paragraphs": [
+      "NESHAP filters, in shop language, are the exhaust arrestors used when a facility is looking at EPA spray-booth rules. Two rules come up. Subpart 6H (40 CFR Part 63 Subpart HHHHHH) applies to many auto-body and miscellaneous surface-coating shops and expects spray coating inside a filtered enclosure. Subpart GG applies to aerospace manufacturing and rework, where exhaust performance is often discussed with EPA Method 319.",
+      "PFS Filters sells the exhaust media those booths use: fiberglass paint arrestor pads, fiberglass rolls, Paint Pockets, and Andreae-style accordion filters. A filter does not make a shop compliant. Compliance depends on the booth, the airflow, the coatings, the installation, the records, and the permit. PFS can identify media. The facility has to confirm what its permit requires.",
+      "If a specification calls for a tested efficiency, a Method 319 result, or a named arrestor construction, send that document with the booth model and the measured exhaust opening. Do not treat a catalog photo as a compliance certificate. The product page states the size, media, and case count. It does not state that installing it satisfies Subpart 6H or Subpart GG."
+    ],
+    "faqs": [
+      {
+        "question": "What are NESHAP filters?",
+        "answer": "Shops use the phrase for exhaust filtration associated with EPA NESHAP spray-coating rules, especially Subpart 6H and, for aerospace, Method 319. PFS sells exhaust arrestor media. The filter alone does not establish compliance."
+      },
+      {
+        "question": "Does PFS certify a filter as NESHAP compliant?",
+        "answer": "No. PFS identifies media and publishes the product construction it actually stocks. A facility has to compare that product with its permit, test requirements, and the complete booth."
+      },
+      {
+        "question": "Which exhaust products should I compare for a NESHAP review?",
+        "answer": "Fiberglass paint arrestor pads, fiberglass rolls, Paint Pockets, and Andreae-style accordion filters. Start from the exhaust filter page and the measured frame size."
+      }
+    ],
+    "links": [
+      { "href": "/exhaust-filters", "label": "Exhaust filters" },
+      { "href": "/andreae-paint-booth-filters", "label": "Andreae-style arrestors" },
+      { "href": "/category/fiberglass-arrestors", "label": "Fiberglass arrestor pads" },
+      { "href": "/aerospace", "label": "Aerospace media" },
+      { "href": "/contact", "label": "Send a permit spec" }
+    ]
+  },
+  "sizing": {
+    "paragraphs": [
+      "Determine the size from the filter in the booth, not from the booth’s outside dimensions. A 27-foot downdraft booth does not take a 27-foot filter. It takes the pad, roll, or blanket that fits each opening. Write down the stage first: exhaust, intake, ceiling, or prefilter. Then measure that opening in inches.",
+      "For a pad, measure width, height, and thickness. The stocked fiberglass arrestor is 20×20×2 inches, 22 gram, 50 pads per case. Paint Pockets for the same nominal opening are a different product, 30 per case. For a roll, measure the width of the bank and read the length on the roll label. PFS stocks a 20×100×2 inch 22-gram exhaust roll and a 36×100 inch 15-gram roll. The gram number is media density. It is not a size.",
+      "Ceiling diffusion media is sized to the overhead frame or blanket track. An exhaust roll will not replace it. Tacky intake panels are sized to the intake wall. If the label is gone, measure the empty frame and photograph the rack. Send the booth brand, model, stage, and those measurements to PFS at 855-496-7969 when the catalog size is not an exact match. The Filter Finder narrows brand and stage. It does not replace the tape measure."
+    ],
+    "faqs": [
+      {
+        "question": "How do I determine the size filter for a paint booth?",
+        "answer": "Measure the filter that is installed, or the frame opening if the booth is empty. Record width, height, and depth for a pad, and width and length for a roll. Match those numbers to a product variant. A nominal size printed on an old box can differ from the frame."
+      },
+      {
+        "question": "Is 20×20 the actual opening or the nominal pad size?",
+        "answer": "20×20 is the nominal size used on many exhaust pads, including the 20×20×2 22-gram pad in this catalog. Measure the grid. If the opening is not 20 by 20 inches, do not force that pad."
+      },
+      {
+        "question": "What measurements does PFS need for a custom size?",
+        "answer": "Booth brand and model, filter position, width, height, and depth in inches, a photo of the installed filter and its label, and the quantity. Call 855-496-7969 or use the quote form."
+      }
+    ],
+    "links": [
+      { "href": "/shop", "label": "Shop paint booth filters" },
+      { "href": "/category/fiberglass-arrestors", "label": "Paint arrestor pads" },
+      { "href": "/category/roll-media", "label": "Filter rolls" },
+      { "href": "/ceiling-filters", "label": "Ceiling media" },
+      { "href": "/filter-finder", "label": "Filter Finder" }
+    ],
+    "rows": [
+      ["Exhaust pad", "Grid opening", "Width × height × depth, inches", "20×20×2, 22 gram, 50 per case"],
+      ["Exhaust roll", "Bank width and the length you cut", "Roll width × roll length, plus gram weight", "20×100×2 at 22 gram, or 36×100 at 15 gram"],
+      ["Paint Pockets", "Same exhaust grid", "Width × height, and pocket depth", "20×20, 30 per case"],
+      ["Ceiling media", "Overhead frame or blanket track", "Blanket width and the booth section it covers", "Match the diffusion media on the ceiling page, not an exhaust roll"],
+      ["Tacky intake panel", "Intake wall opening", "Panel width × height", "Use the tacky panel category, not an arrestor pad"],
+      ["Pleated prefilter", "Prefilter rack ahead of the blanket", "Nominal frame size and MERV, if printed", "MERV 10 pleated panels where the rack calls for them"]
+    ]
+  }
+}

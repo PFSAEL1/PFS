@@ -6,11 +6,11 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
-import { Sparkles, Camera, Search, ShoppingCart, Crown, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Home', url: 'https://www.pfsfilters.com' },
-  { name: 'AI Filter Scanner', url: 'https://www.pfsfilters.com/filter-scanner' },
+  { name: 'Filter Scanner', url: 'https://www.pfsfilters.com/filter-scanner' },
 ]);
 
 const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
@@ -61,12 +61,8 @@ export default function FilterScanner() {
       {/* Header - darker */}
       <section className="section-darker pt-24 pb-10 px-4">
         <div className="container mx-auto max-w-4xl">
-          <Breadcrumb items={[{ label: 'AI Filter Scanner' }]} />
+          <Breadcrumb items={[{ label: 'Filter Scanner' }]} />
           <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-primary/20 mb-4">
-            <Sparkles className="h-4 w-4 text-blue-400" />
-            <span className="text-sm font-semibold text-blue-400">AI-Powered</span>
-          </div>
           <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-white">
             Filter Scanner
           </h1>
@@ -79,40 +75,22 @@ export default function FilterScanner() {
 
 
       {/* Content - raised */}
-      <section className="section-raised tex-dots py-14 px-4">
+      <section className="section-raised py-14 px-4">
         <div className="container mx-auto max-w-4xl">
 
         {/* How it works */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          {[
-            { icon: Camera, step: '1', title: 'Take a Photo', desc: 'Photograph your existing filter — front, back, or the label.' },
-            { icon: Search, step: '2', title: 'Review Candidates', desc: 'Image analysis can narrow possible catalog matches but does not prove fitment.' },
-            { icon: ShoppingCart, step: '3', title: 'Verify and Order', desc: 'Confirm the filter stage, label, and actual dimensions before adding a product to your cart.' },
-          ].map((item) => (
-            <Card key={item.step} className="text-center">
-              <CardContent className="pt-8 pb-6">
-                <div className="relative inline-flex mb-4">
-                  <div className="p-4 bg-blue-500/10 rounded-2xl">
-                    <item.icon className="h-8 w-8 text-blue-400" />
-                  </div>
-                  <span className="absolute -top-2 -right-2 w-6 h-6 bg-blue-500 text-blue-400-foreground rounded-full text-xs font-bold flex items-center justify-center">
-                    {item.step}
-                  </span>
-                </div>
-                <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                <p className="text-sm text-white/50">{item.desc}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <ol className="keyword-guide-copy mb-12 list-decimal space-y-3 pl-5">
+          <li>Photograph the filter, front and back, including the label.</li>
+          <li>The scanner narrows catalog candidates. It does not prove the filter fits.</li>
+          <li>Confirm the stage, label, and measured size before you add it to the cart.</li>
+        </ol>
 
         {/* Membership gate */}
         <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
           <CardContent className="pt-8 pb-8 text-center">
-            <Crown className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-2">Available on Gold & Platinum Plans</h2>
+            <h2 className="text-2xl font-bold mb-2">Included with Gold and Platinum</h2>
             <p className="text-white/50 mb-6 max-w-md mx-auto">
-              The AI Filter Scanner is included with Gold and Platinum memberships. Upgrade today to unlock instant filter identification, plus discounts on every order.
+              Filter Scanner is included with Gold and Platinum memberships. It narrows catalog matches from a photo. Confirm the stage, label, and size before you order.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/memberships">
