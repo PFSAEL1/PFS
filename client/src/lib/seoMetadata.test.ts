@@ -8,6 +8,14 @@ import {
 } from '@shared/seoText.mjs';
 
 describe('document SEO limits', () => {
+  it('keeps the homepage indexable and distinct from a not-found title', () => {
+    const home = resolveRouteSeo('/');
+    expect(home.noindex).toBe(false);
+    expect(home.canonical).toBe('/');
+    expect(home.title.toLowerCase()).not.toContain('not found');
+    expect(home.description.toLowerCase()).not.toContain('does not exist');
+  });
+
   it('keeps the exhaust description led by exhaust filters and within 140-160 characters', () => {
     const seo = resolveRouteSeo('/exhaust-filters');
     expect(seo.description.toLowerCase().startsWith('exhaust filters')).toBe(true);

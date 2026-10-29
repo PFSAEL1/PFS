@@ -83,7 +83,7 @@ export const SEO = ({
   const fullTitle = resolved.title;
   const metaDescription = resolved.description;
   const currentUrl = normalizeCanonical(resolved.canonical === '/' ? `${SITE_ORIGIN}/` : resolved.canonical);
-  const robotsNoIndex = noIndex || resolved.noindex;
+  const robotsNoIndex = path !== '/' && (noIndex || resolved.noindex);
   const jsonLd = withBreadcrumbs(path, fullTitle, structuredData);
 
   return (
