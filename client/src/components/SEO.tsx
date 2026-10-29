@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { breadcrumbNodes, resolveRouteSeo } from '@shared/seoText.mjs';
 
 interface SEOProps {
   title: string;
@@ -28,6 +29,38 @@ const normalizeCanonical = (value?: string) => {
   return url.toString().replace(/\/$/, url.pathname === '/' ? '/' : '');
 };
 
+const requestedPath = (value?: string) => {
+  const candidate = value || (typeof window !== 'undefined' ? window.location.pathname : '/');
+  try {
+    const url = new URL(candidate, SITE_ORIGIN);
+    const path = url.pathname.replace(/\/$/, '');
+    return path || '/';
+  } catch {
+    return '/';
+  }
+};
+
+const leafName = (title: string) => title.replace(/\s+\|\s+.*$/, '').trim() || 'PFS Filters';
+
+const withBreadcrumbs = (path: string, title: string, structuredData?: object | null) => {
+  const serialized = structuredData ? JSON.stringify(structuredData) : '';
+  if (serialized.includes('BreadcrumbList') || path === '/') return structuredData;
+  const crumbs = breadcrumbNodes(path, leafName(title)).map((item: { name: string; path: string }) => ({
+    '@type': 'ListItem',
+    position: 0,
+    name: item.name,
+    item: new URL(item.path, SITE_ORIGIN).toString().replace(/\/$/, item.path === '/' ? '/' : ''),
+  })).map((item: { position: number }, index: number) => ({ ...item, position: index + 1 }));
+  const breadcrumb = { '@type': 'BreadcrumbList', itemListElement: crumbs };
+  if (!structuredData) return { '@context': 'https://schema.org', ...breadcrumb };
+  const record = structuredData as { '@graph'?: object[]; '@context'?: string };
+  if (Array.isArray(record['@graph'])) {
+    return { ...record, '@graph': [...record['@graph'], breadcrumb] };
+  }
+  const { '@context': context, ...node } = record;
+  return { '@context': context || 'https://schema.org', '@graph': [node, breadcrumb] };
+};
+
 export const SEO = ({
   title,
   description,
@@ -40,22 +73,32 @@ export const SEO = ({
   structuredData,
   noIndex = false,
 }: SEOProps) => {
-  const fullTitle = title.includes('PFS Filters') ? title : `${title} | PFS Filters`;
-  const currentUrl = normalizeCanonical(canonical);
+  const path = requestedPath(canonical);
+  const resolved = resolveRouteSeo(path, {
+    title,
+    description,
+    noindex: noIndex,
+    productTitle: path.startsWith('/product/') ? title : undefined,
+  });
+  const fullTitle = resolved.title;
+  const metaDescription = resolved.description;
+  const currentUrl = normalizeCanonical(resolved.canonical === '/' ? `${SITE_ORIGIN}/` : resolved.canonical);
+  const robotsNoIndex = noIndex || resolved.noindex;
+  const jsonLd = withBreadcrumbs(path, fullTitle, structuredData);
 
   return (
     <Helmet>
       <title>{fullTitle}</title>
-      <meta name="description" content={description} />
+      <meta name="description" content={metaDescription} />
       <link rel="canonical" href={currentUrl} />
       <meta
         name="robots"
-        content={noIndex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'}
+        content={robotsNoIndex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'}
       />
 
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
+      <meta property="og:description" content={metaDescription} />
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:image" content={ogImage} />
@@ -67,14 +110,14 @@ export const SEO = ({
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:image" content={ogImage} />
       <meta name="twitter:image:alt" content={ogImageAlt || fullTitle} />
 
       {/* Structured Data */}
-      {structuredData && (
+      {jsonLd && (
         <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
+          {JSON.stringify(jsonLd)}
         </script>
       )}
     </Helmet>

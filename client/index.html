@@ -32,13 +32,15 @@
     d.readyState==='complete'?q():w.addEventListener('load',q,{once:true});
     })(window,document,'dataLayer','GTM-MDQHN829');</script>
     <!-- End Google Tag Manager -->
-    <!-- Google Ads dataLayer shim (no network load; processed by delayed GTM) -->
+    <!-- GA4 G-BJH1BXTH78 is sent once from the page-view helper. GTM-MDQHN829 keeps its own GA4 property and is not given this measurement ID. Ads AW-18447673060 stays send_page_view false so it does not emit a second page view. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJH1BXTH78"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       window.gtag = window.gtag || function(){window.dataLayer.push(arguments);}
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-BJH1BXTH78', { send_page_view: false });
       window.gtag('config', 'AW-18447673060', { send_page_view: false });
     </script>
-    <!-- End Google Ads dataLayer shim -->
     <title data-seo-generated>Paint Booth Filters for Every Booth Brand | PFS Filters</title>
     <meta data-seo-generated name="description" content="Paint booth filters for every booth brand — exhaust, intake, ceiling, prefilter, and Andreae. Backed by 30+ years of PFS Spray Booths. In stock, ships fast." />
     <meta data-seo-generated name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
@@ -70,7 +72,37 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": ["Store", "LocalBusiness"],
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.pfsfilters.com/#organization",
+            "name": "PFS Filters",
+            "url": "https://www.pfsfilters.com/",
+            "logo": "https://www.pfsfilters.com/images/brands/pfs-logo-wide.png",
+            "telephone": "+1-855-496-7969",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "1400 Airport Blvd",
+              "addressLocality": "Santa Rosa",
+              "addressRegion": "CA",
+              "postalCode": "95403",
+              "addressCountry": "US"
+            },
+            "parentOrganization": {
+              "@type": "Organization",
+              "name": "PFS Spray Booths",
+              "url": "https://www.pfsspraybooths.com/"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.pfsfilters.com/#website",
+            "name": "PFS Filters",
+            "url": "https://www.pfsfilters.com/",
+            "publisher": { "@id": "https://www.pfsfilters.com/#organization" }
+          },
+          {
+            "@type": ["Store", "LocalBusiness"],
         "@id": "https://www.pfsfilters.com/#store",
         "name": "PFS Filters",
         "url": "https://www.pfsfilters.com/",
@@ -107,8 +139,12 @@
           "@type": "MerchantReturnPolicy",
           "applicableCountry": "US",
           "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-          "merchantReturnDays": 5
+          "merchantReturnDays": 5,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/RestockingFees"
         }
+          }
+        ]
       }
     </script>
 

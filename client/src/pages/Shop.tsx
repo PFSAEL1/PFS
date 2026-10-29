@@ -1,11 +1,12 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { ShopifyProducts } from '@/components/ShopifyProducts';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
 import faqData from '@/data/faqData.json';
+import { bundledShopifyProducts, filterShopifyProducts } from '@/lib/productCatalog';
 
 const ShopBelowFold = lazy(() =>
   import('@/components/ShopBelowFold').then((module) => ({ default: module.ShopBelowFold })),
@@ -41,6 +42,9 @@ export default function Shop() {
     setSizeFilter(params.get('size'));
   }, [location]);
 
+  const filteredCount = filterShopifyProducts(bundledShopifyProducts, categoryFilter, sizeFilter).length;
+  const emptyQuery = Boolean((categoryFilter || sizeFilter) && filteredCount === 0);
+
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
@@ -48,6 +52,7 @@ export default function Shop() {
         description="Shop fiberglass paint arrestors, tacky intake panels, ceiling media, MERV filters, roll media, and booth-specific replacements. Stocked items typically process in 1–2 business days."
         canonical="https://www.pfsfilters.com/shop"
         structuredData={shopSchema}
+        noIndex={emptyQuery}
       />
       <Navigation />
 
@@ -70,7 +75,15 @@ export default function Shop() {
       {/* Products grid - raised section */}
       <section className="section-raised tex-dots py-6 px-4">
         <div className="max-w-7xl mx-auto">
-          <ShopifyProducts categoryFilter={categoryFilter} sizeFilter={sizeFilter} />
+          {emptyQuery ? (
+            <div className="text-center py-12 text-white/70">
+              <p className="mb-4">The current catalog does not list a filter for {sizeFilter ? `size ${sizeFilter}` : `category ${categoryFilter}`}.</p>
+              <p className="mb-4">Browse filters by size, or call 855-496-7969 with the booth model and measured opening.</p>
+              <Link href="/shop-by-size" className="text-blue-400 hover:text-blue-300">Shop by size</Link>
+            </div>
+          ) : (
+            <ShopifyProducts categoryFilter={categoryFilter} sizeFilter={sizeFilter} />
+          )}
         </div>
       </section>
 

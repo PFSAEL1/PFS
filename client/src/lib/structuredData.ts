@@ -1,5 +1,6 @@
 // Structured data (JSON-LD) schemas for SEO
 // Used across all pages of pfsfilters.com
+import { merchantReturnPolicy, offerShippingDetails } from '@shared/seoText.mjs';
 
 export const organizationSchema = {
   '@context': 'https://schema.org',
@@ -37,14 +38,6 @@ export const organizationSchema = {
     name: 'PFS Spray Booths',
     url: 'https://www.pfsspraybooths.com/',
   },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: 'https://www.pfsfilters.com/shop?q={search_term_string}',
-    },
-    'query-input': 'required name=search_term_string',
-  },
 };
 
 export const websiteSchema = {
@@ -55,14 +48,6 @@ export const websiteSchema = {
   url: 'https://www.pfsfilters.com/',
   description: 'Paint booth filters, spray booth filtration products, and industrial air filtration guidance',
   publisher: { '@id': 'https://www.pfsfilters.com/#organization' },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: 'https://www.pfsfilters.com/shop?q={search_term_string}',
-    },
-    'query-input': 'required name=search_term_string',
-  },
 };
 
 export const createProductSchema = (product: {
@@ -93,12 +78,8 @@ export const createProductSchema = (product: {
       itemCondition: 'https://schema.org/NewCondition',
       url: product.url,
       seller: { '@type': 'Organization', name: 'PFS Filters' },
-      hasMerchantReturnPolicy: {
-        '@type': 'MerchantReturnPolicy',
-        applicableCountry: 'US',
-        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-        merchantReturnDays: 5,
-      },
+      hasMerchantReturnPolicy: merchantReturnPolicy(),
+      shippingDetails: offerShippingDetails(),
     },
   };
   if (product.sku) schema.sku = product.sku;

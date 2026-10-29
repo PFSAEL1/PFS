@@ -6,6 +6,9 @@ Disallow: /dashboard
 Disallow: /filter-database
 Disallow: /thank-you
 Disallow: /submit-review
+Disallow: /product/test
+Disallow: /product/platinum
+Disallow: /product/*-membership
 
 # AI search and assistant crawlers are welcome on the same public content users see.
 User-agent: OAI-SearchBot

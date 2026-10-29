@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer';
 import { StickyMobileCTA } from '@/components/StickyMobileCTA';
 import { Button } from '@/components/ui/button';
 import { Phone, Truck, Package, ShieldCheck, RefreshCw, ChevronDown, ChevronUp, Shield, AlertTriangle, ArrowRight, Building2, MapPin } from 'lucide-react';
+import { HubGuide } from '@/components/HubGuide';
 
 // FAQ Schema JSON-LD
 const faqSchema = {
@@ -457,6 +458,8 @@ export default function PaintBoothFilters() {
           </p>
         </div>
       </section>
+
+      <HubGuide id="paint-booth-filters" showFaq={false} />
 
       {/* SECTION 11 — FAQ */}
       <section className="w-full section-darker py-20 px-4">

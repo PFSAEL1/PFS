@@ -72,14 +72,17 @@ function DeferredFooter() {
 
 type PurchaseOption = 'one-time' | 'subscription';
 
+const BLOCKED_PRODUCT_HANDLES = new Set(['test', 'platinum']);
+
 export default function ProductDetail() {
   const { handle } = useParams<{ handle: string }>();
+  const blockedHandle = !!handle && BLOCKED_PRODUCT_HANDLES.has(handle);
   const search = useSearch();
   const [, navigate] = useLocation();
   const requestedVariant = new URLSearchParams(search).get('variant');
-  const [product, setProduct] = useState<ReturnType<typeof Object.create> | null>(() => getBundledProductByHandle(handle));
+  const [product, setProduct] = useState<ReturnType<typeof Object.create> | null>(() => blockedHandle ? null : getBundledProductByHandle(handle));
   const [relatedProducts, setRelatedProducts] = useState<ShopifyProduct[]>([]);
-  const [loading, setLoading] = useState(() => !getBundledProductByHandle(handle));
+  const [loading, setLoading] = useState(() => blockedHandle ? false : !getBundledProductByHandle(handle));
   const selectedVariantId = resolveProductVariantId(product, requestedVariant);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -96,16 +99,16 @@ export default function ProductDetail() {
   const [renderedHandle, setRenderedHandle] = useState(handle);
   if (handle !== renderedHandle) {
     setRenderedHandle(handle);
-    const immediate = getBundledProductByHandle(handle);
+    const immediate = blockedHandle ? null : getBundledProductByHandle(handle);
     setProduct(immediate);
-    setLoading(!immediate);
+    setLoading(blockedHandle ? false : !immediate);
     setSelectedImage(0);
     setPurchaseOption('one-time');
     setRelatedProducts([]);
   }
 
   useEffect(() => {
-    if (!handle) return;
+    if (!handle || BLOCKED_PRODUCT_HANDLES.has(handle)) return;
     let active = true;
     const immediate = getBundledProductByHandle(handle);
 
@@ -141,9 +144,10 @@ export default function ProductDetail() {
     );
   }
 
-  if (!product) {
+  if (blockedHandle || !product) {
     return (
       <div className="min-h-screen bg-[#040404] text-white">
+        <SEO title="Product Not Found" description="This product is not in the PFS Filters catalog. Browse paint booth filters or call 855-496-7969 for help identifying a part number." canonical="https://www.pfsfilters.com/404" noIndex />
         <Navigation />
         <div className="container mx-auto px-4 pt-32 pb-16 text-center">
           <Package className="h-16 w-16 mx-auto mb-4 text-white/50 opacity-30" />
