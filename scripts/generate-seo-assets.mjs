@@ -814,15 +814,26 @@ function breadcrumbsFallback(route) {
   return `<nav data-seo-breadcrumbs aria-label="Breadcrumb" style="position:static;background:#050505;border:0;padding:112px 24px 16px;color:#c4c8d0;font-family:Arial,sans-serif;font-size:14px"><ol style="max-width:1280px;margin:0 auto;padding:0;list-style:none">${list}</ol></nav>`;
 }
 
-function footerFallback() {
+function footerFallback(route) {
   const quickLinks = [...primaryNavigation, ...footerNavigation]
     .filter(([href], index, list) => list.findIndex(([candidate]) => candidate === href) === index)
     .map(([href, label]) => `<li><a href="${href}" style="color:#c4c8d0">${label}</a></li>`)
     .join('');
-  const routeDirectory = routes
-    .filter((route) => !route.noindex)
-    .map((route) => `<li><a href="${route.path}" style="color:#9ca3af">${escapeHtml(routeLabel(route))}</a></li>`)
-    .join('');
+  // The full URL directory made the homepage and the 404 page about 90% identical,
+  // which Google classifies as a soft 404. Keep it off those two documents.
+  const includeDirectory = route?.path !== '/' && route?.path !== '/404';
+  const routeDirectory = includeDirectory
+    ? routes
+      .filter((candidate) => !candidate.noindex)
+      .map((candidate) => `<li><a href="${candidate.path}" style="color:#9ca3af">${escapeHtml(routeLabel(candidate))}</a></li>`)
+      .join('')
+    : '';
+  const directory = includeDirectory
+    ? `<details style="margin-top:32px;border-top:1px solid rgba(255,255,255,.1);padding-top:20px">
+        <summary style="cursor:pointer;font-weight:700;color:#e5e7eb">Browse all filters and guides</summary>
+        <nav aria-label="Complete site directory" style="position:static;background:transparent;border:0"><ul style="columns:280px auto;column-gap:32px;margin:20px 0 0;padding-left:18px;line-height:1.8">${routeDirectory}</ul></nav>
+      </details>`
+    : '';
 
   return `<footer data-seo-footer style="background:#080808;color:#fff;border-top:1px solid rgba(255,255,255,.1);padding:48px 24px;font-family:Arial,sans-serif">
     <div style="max-width:1280px;margin:0 auto">
@@ -831,12 +842,40 @@ function footerFallback() {
         <nav aria-label="Footer" style="position:static;background:transparent;border:0"><h2 style="font-size:16px;margin:0 0 12px">Quick Links</h2><ul style="display:grid;gap:8px;margin:0;padding-left:18px">${quickLinks}</ul></nav>
         <section><h2 style="font-size:16px;margin:0 0 12px">Contact</h2><p style="color:#9ca3af;line-height:1.6"><a href="tel:855-496-7969" style="color:#c4c8d0">855-496-7969</a><br />1400 Airport Blvd<br />Santa Rosa, CA 95403</p></section>
       </div>
-      <details style="margin-top:32px;border-top:1px solid rgba(255,255,255,.1);padding-top:20px">
-        <summary style="cursor:pointer;font-weight:700;color:#e5e7eb">Browse all filters and guides</summary>
-        <nav aria-label="Complete site directory" style="position:static;background:transparent;border:0"><ul style="columns:280px auto;column-gap:32px;margin:20px 0 0;padding-left:18px;line-height:1.8">${routeDirectory}</ul></nav>
-      </details>
+      ${directory}
     </div>
   </footer>`;
+}
+
+function homeFallback() {
+  const cards = [
+    ['Intake Blankets', 'Overhead ceiling intake filtration', '/images/home_intake_blankets-640.webp', 'Aircraft in a PFS downdraft booth with ceiling intake blankets overhead', '/category/ceiling-blankets', 'Shop Intake Blankets'],
+    ['Exhaust Filters', 'High-capacity fiberglass exhaust media', '/images/home_exhaust_filters-640.webp', 'PFS booth interior with a fiberglass exhaust filter wall', '/category/fiberglass-arrestors', 'Shop Exhaust Filters'],
+    ['Intake Pads', 'Diffusion pads for clean, even airflow', '/images/home_intake_pads-640.webp', 'PFS Zenith booth with green ceiling intake pads installed', '/category/tacky-panels', 'Shop Intake Pads'],
+  ].map(([title, subtitle, src, alt, href, cta]) => `<a href="${href}" style="color:inherit;text-decoration:none"><article style="border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;background:#111"><img src="${src}" alt="${escapeHtml(alt)}" width="640" height="430" style="display:block;width:100%;height:220px;object-fit:cover" /><div style="padding:16px"><h3 style="margin:0 0 6px;font-size:20px">${escapeHtml(title)}</h3><p style="margin:0 0 12px;color:rgba(255,255,255,.7)">${escapeHtml(subtitle)}</p><span style="color:#93c5fd;font-weight:700">${escapeHtml(cta)}</span></div></article></a>`).join('');
+  return `<main data-seo-fallback>
+    <section id="home"><div><picture><source media="(max-width: 767px)" srcset="${heroPosterMobile}" /><img src="${heroPosterDesktop}" alt="PFS downdraft paint booth with ceiling intake and exhaust filtration" width="1600" height="900" fetchpriority="high" /></picture><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section>
+    <section style="padding:64px 24px;background:#0d0d0d;color:#fff">
+      <div style="max-width:1100px;margin:0 auto">
+        <p style="letter-spacing:.14em;text-transform:uppercase;color:#7dd3fc;font-size:12px;font-weight:700">Our Filters in Action</p>
+        <h2 style="font-size:32px;margin:8px 0">Built for real booths. Proven in the field.</h2>
+        <p style="max-width:720px;color:rgba(255,255,255,.7);line-height:1.6">Every filter ships from the same team that builds the booths. Intake blankets, exhaust media, and intake pads are stocked for the stages used in downdraft, crossdraft, and prep equipment. Confirm the booth make, model, filter position, and dimensions before ordering.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:28px">${cards}</div>
+      </div>
+    </section>
+    <section style="padding:64px 24px;background:#080808;color:#fff">
+      <div style="max-width:900px;margin:0 auto">
+        <h2 style="font-size:32px;margin:0 0 16px">Set up in minutes. Never run out again.</h2>
+        <h3 style="margin:0 0 8px">Tell us your booth</h3>
+        <p style="color:rgba(255,255,255,.7);line-height:1.6">Enter your booth make, model, filter position, and dimensions. We narrow the options and flag details to confirm.</p>
+        <h3 style="margin:20px 0 8px">Confirm the filter</h3>
+        <p style="color:rgba(255,255,255,.7);line-height:1.6">Review the size and booth stage before ordering, or ask PFS for help with custom and hard-to-find items.</p>
+        <h3 style="margin:20px 0 8px">Never run out again</h3>
+        <p style="color:rgba(255,255,255,.7);line-height:1.6">Booth-specific tracking tells you when to change. Auto-reorder handles the rest before you run low. Replacement guidance covers Accudraft, Garmat, GFS, Blowtherm, Col-Met, and other major booth brands. Andreae accordion filters, fiberglass exhaust arrestors, ceiling diffusion media, and tacky intake panels are listed in the shop.</p>
+        <p style="margin-top:24px"><a href="/paint-booth-filters" style="color:#93c5fd;font-weight:700">Paint booth filter guide</a> · <a href="/exhaust-filters" style="color:#93c5fd;font-weight:700">Exhaust filters</a> · <a href="/intake-filters" style="color:#93c5fd;font-weight:700">Intake filters</a> · <a href="/ceiling-filters" style="color:#93c5fd;font-weight:700">Ceiling filters</a> · <a href="/andreae-paint-booth-filters" style="color:#93c5fd;font-weight:700">Andreae filters</a> · <a href="/shop-by-booth" style="color:#93c5fd;font-weight:700">Shop by booth</a></p>
+      </div>
+    </section>
+  </main>`;
 }
 
 function sitemapXml() {
@@ -1843,7 +1882,7 @@ function replaceMeta(html, route) {
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
   const heading = escapeHtml(routeHeading(route));
   const fallback = route.path === '/'
-    ? `<main data-seo-fallback><section id="home"><div><picture><source media="(max-width: 767px)" srcset="${heroPosterMobile}" /><img src="${heroPosterDesktop}" alt="PFS downdraft paint booth with ceiling intake and exhaust filtration" width="1600" height="900" fetchpriority="high" /></picture><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section></main>`
+    ? homeFallback()
     : route.path === '/auth'
     ? `<main data-seo-fallback id="auth-fallback" style="min-height:100vh;background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif"><div style="width:min(384px,calc(100% - 32px));border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#111;padding:32px;text-align:center;box-sizing:border-box"><img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" width="250" height="76" fetchpriority="high" style="display:block;width:250px;max-width:100%;height:auto;margin:0 auto 24px;filter:brightness(1.4) drop-shadow(0 0 20px rgba(59,130,246,.3))" /><p style="margin:0;color:rgba(255,255,255,.7);font-size:14px">Loading secure sign-in…</p></div></main>`
     : route.path === '/shop'
@@ -1883,7 +1922,7 @@ function replaceMeta(html, route) {
     : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
   const pageBody = route.noindex
     ? fallback
-    : `${navigationFallback()}${breadcrumbsFallback(route)}${fallback}${footerFallback()}`;
+    : `${navigationFallback()}${breadcrumbsFallback(route)}${fallback}${footerFallback(route)}`;
   if (!output.includes('<div id="root"></div>')) {
     throw new Error(`Prerender template is missing an empty <div id="root"></div> for ${route.path}. Rebuild the Vite bundle before generating pages.`);
   }
@@ -1947,12 +1986,42 @@ function writeDistPages() {
     path: '/404',
     title: 'Page Not Found | PFS Filters',
     description: 'The requested page does not exist. Browse paint booth filters, use the filter finder, or contact PFS Filters for help.',
+    noindex: true,
   })
     .replace('index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1', 'noindex,nofollow')
     .replace('<div id="root">', '<div id="root" data-http-status="404">');
   fs.writeFileSync(path.join(distDir, '404.html'), notFound);
   validateDistPages();
+  assertHomepageIsNotSoft404(notFound);
   console.log(`Generated static metadata and fallback HTML for ${routes.length} routes plus 404.html.`);
+}
+
+function visibleTokens(html) {
+  const withoutScripts = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ');
+  const text = withoutScripts.replace(/<[^>]+>/g, ' ').toLowerCase();
+  return new Set(text.match(/[a-z0-9']+/g) || []);
+}
+
+function assertHomepageIsNotSoft404(notFoundHtml) {
+  const homeHtml = fs.readFileSync(routeFile('/'), 'utf8');
+  if (!homeHtml.includes('index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1')) {
+    throw new Error('Homepage robots meta is not index,follow');
+  }
+  if (/noindex/i.test(homeHtml)) throw new Error('Homepage HTML contains noindex');
+  if (/page not found|does not exist/i.test(homeHtml.replace(/<script[\s\S]*?<\/script>/gi, ' '))) {
+    throw new Error('Homepage HTML contains not-found copy');
+  }
+  const homeTokens = visibleTokens(homeHtml);
+  const notFoundTokens = visibleTokens(notFoundHtml);
+  const union = new Set([...homeTokens, ...notFoundTokens]);
+  const overlap = [...homeTokens].filter((token) => notFoundTokens.has(token)).length;
+  const jaccard = overlap / union.size;
+  if (jaccard > 0.5) {
+    throw new Error(`Homepage is too similar to the 404 page (jaccard ${jaccard.toFixed(2)}), which Google treats as a soft 404`);
+  }
+  const main = homeHtml.match(/<main[\s\S]*?<\/main>/i)?.[0] || '';
+  const mainWords = (main.replace(/<[^>]+>/g, ' ').match(/[A-Za-z0-9']+/g) || []).length;
+  if (mainWords < 120) throw new Error(`Homepage main content is too thin for indexing (${mainWords} words)`);
 }
 
 if (mode === '--source') writeSourceAssets();

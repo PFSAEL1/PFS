@@ -13,6 +13,13 @@
       "dest": "/api/$1"
     },
     {
+      "src": "/andreae-filters/?",
+      "status": 301,
+      "headers": {
+        "Location": "/andreae-paint-booth-filters"
+      }
+    },
+    {
       "src": "/product/(test|platinum)/?",
       "status": 404,
       "dest": "/404.html"
