@@ -210,6 +210,11 @@ export default function BrandDetail({ params }: BrandDetailProps) {
               {brand.name} Booth Filters
             </h1>
             <p className="text-lg text-white/70 max-w-3xl">{brand.description}</p>
+            <p className="text-white/60 max-w-3xl mt-4 leading-relaxed">
+              {brand.name} models listed here: {brand.models.map((model) => model.name).join(', ')}.
+              {brand.industries.length > 0 ? ` Industries on this brand record: ${brand.industries.join(', ')}.` : ''}
+              {' '}Confirm the installed model, filter position, and measured size before ordering. Part numbers that are not on the cross-reference page are not in the current online catalog.
+            </p>
             {brand.replacementCycle && (
               <div className="flex flex-wrap gap-4 mt-6">
                 {brand.replacementCycle.ceiling && (

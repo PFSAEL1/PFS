@@ -17,6 +17,7 @@ import type { ShopifyProduct } from '@/lib/shopify';
 import { useCurrentShopifyProducts } from '@/hooks/useCurrentShopifyProducts';
 import { shopProductCardImageSrcSet, shopProductCardImageUrl, shopifyImageAltText } from '@/lib/imageUrls';
 import { createBreadcrumbSchema, createItemListSchema } from '@/lib/structuredData';
+import { HubGuide } from '@/components/HubGuide';
 
 const SITE = 'https://www.pfsfilters.com';
 const PAGE_PATH = '/intake-filters';
@@ -272,6 +273,7 @@ export default function IntakeFilters() {
       </section>
 
 
+      <HubGuide id="intake" />
       <Footer />
     </div>
   );

@@ -1,8 +1,18 @@
 #!/usr/bin/env node
 
+import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  REVALIDATE_SECONDS,
+  assertSeoRecord,
+  isBlockedProductHandle,
+  isMembershipHandle,
+  merchantReturnPolicy,
+  offerShippingDetails,
+  resolveRouteSeo,
+} from '../shared/seoText.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const publicDir = path.join(root, 'client', 'public');
@@ -49,10 +59,21 @@ const removePublicEmail = (value = '') => String(value)
   .replace(/([.!?])\s*([.!?])/g, '$1')
   .replace(/\s{2,}/g, ' ')
   .trim();
-const products = JSON.parse(fs.readFileSync(productFile, 'utf8')).map((edge) => ({
-  ...edge.node,
-  description: removePublicEmail(edge.node.description || ''),
-}));
+const catalogLastmod = (() => {
+  try {
+    const committed = execSync('git log -1 --format=%cs -- client/src/data/shopifyProductSnapshot.json', { cwd: root, encoding: 'utf8' }).trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(committed)) return committed;
+  } catch {
+    /* fall through */
+  }
+  return fs.statSync(productFile).mtime.toISOString().slice(0, 10);
+})();
+const products = JSON.parse(fs.readFileSync(productFile, 'utf8'))
+  .map((edge) => ({
+    ...edge.node,
+    description: removePublicEmail(edge.node.description || ''),
+  }))
+  .filter((product) => !isBlockedProductHandle(product.handle));
 const kochProductDetails = JSON.parse(fs.readFileSync(kochProductDetailsFile, 'utf8'));
 const faqs = JSON.parse(fs.readFileSync(faqFile, 'utf8'));
 const blogSource = fs.readFileSync(blogFile, 'utf8');
@@ -218,6 +239,7 @@ const staticRoutes = [
   { path: '/industries/aerospace-paint-booth-filters', title: 'Aerospace Paint Booth Filters & MRO Filtration | PFS Filters', description: 'Premium aerospace paint booth filtration solutions. Shop ceiling diffusion media and request custom multi-stage exhaust systems for MRO and aircraft finishing.', h1: 'Aerospace & Aircraft Paint Booth Filtration', priority: '0.9', changefreq: 'monthly' },
   { path: '/industries/automotive-paint-booth-filters', title: 'Automotive Paint Booth Filters | PFS Filters', description: 'Compare automotive paint booth intake, ceiling, prefilter, and exhaust filters. Verify booth configuration, stage, dimensions, and fit with PFS guidance.', priority: '0.9', changefreq: 'monthly' },
   { path: '/filter-scanner', title: 'Photo-Assisted Paint Booth Filter Review | PFS Filters', description: 'Use a filter photo to narrow catalog candidates, then verify the booth position, label, and actual dimensions before ordering.', h1: 'Filter Scanner', priority: '0.5', changefreq: 'monthly' },
+  { path: '/filter-part-numbers', title: 'Filter Part Number Cross Reference | PFS Filters', description: 'Cross-reference SKUs and manufacturer part numbers that appear in the current PFS catalog.', h1: 'Filter Part Number Cross Reference', priority: '0.7', changefreq: 'weekly', lastmod: '2026-10-29' },
 ];
 
 const paintBoothFilterFaqs = [
@@ -365,14 +387,12 @@ const productRoutes = products.map((product) => {
         itemCondition: 'https://schema.org/NewCondition',
         url: absoluteUrl(pathname),
         seller: { '@type': 'Organization', name: 'PFS Filters' },
-        hasMerchantReturnPolicy: {
-          '@type': 'MerchantReturnPolicy',
-          applicableCountry: 'US',
-          returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-          merchantReturnDays: 5,
-        },
+        hasMerchantReturnPolicy: merchantReturnPolicy(),
+        shippingDetails: offerShippingDetails(),
       },
     },
+    noindex: isMembershipHandle(product.handle),
+    lastmod: catalogLastmod,
   };
 });
 
@@ -567,6 +587,153 @@ if (garmatRoute) {
 
 const routes = [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...blogRoutes, ...productRoutes];
 
+const refreshedLastmod = new Set([
+  '/',
+  '/shop',
+  '/paint-booth-filters',
+  '/exhaust-filters',
+  '/intake-filters',
+  '/ceiling-filters',
+  '/andreae-paint-booth-filters',
+  '/neshap-compliant-paint-booth-filters',
+  '/filter-part-numbers',
+  '/shop-by-filter-type',
+  '/shop-by-booth',
+  '/gfs-paint-booth-filters',
+  '/accudraft-paint-booth-filters',
+]);
+
+for (const route of routes) {
+  const brandName = route.path.startsWith('/shop-by-booth/')
+    ? String(route.h1 || '').replace(/ Paint Booth Filters$/, '')
+    : undefined;
+  const seo = resolveRouteSeo(route.path, {
+    title: route.title,
+    description: route.description,
+    noindex: route.noindex,
+    brandName,
+    productTitle: route.path.startsWith('/product/') ? route.h1 : undefined,
+  });
+  route.title = seo.title;
+  route.description = seo.description;
+  route.noindex = Boolean(route.noindex || seo.noindex);
+  route.canonicalPath = seo.canonical;
+  if (refreshedLastmod.has(route.path)) route.lastmod = '2026-10-29';
+}
+
+const seoErrors = [];
+const seenTitles = new Map();
+for (const route of routes) {
+  seoErrors.push(...assertSeoRecord(route));
+  if (seenTitles.has(route.title)) seoErrors.push(`Duplicate title "${route.title}" on ${seenTitles.get(route.title)} and ${route.path}`);
+  else seenTitles.set(route.title, route.path);
+  if (route.path.startsWith('/product/')) {
+    const offer = route.schema?.offers;
+    if (!offer || offer.price == null || offer.price === '') {
+      seoErrors.push(`${route.path} Product is missing offers.price`);
+    }
+    if (!offer?.shippingDetails || !offer?.hasMerchantReturnPolicy?.returnMethod || !offer?.hasMerchantReturnPolicy?.returnFees) {
+      seoErrors.push(`${route.path} Product offer is missing shippingDetails or return policy fields`);
+    }
+  }
+}
+if (seoErrors.length > 0) {
+  throw new Error(`SEO metadata check failed:\n${seoErrors.join('\n')}`);
+}
+console.log(`SEO metadata ok for ${routes.length} routes. HTML revalidate window: ${REVALIDATE_SECONDS}s.`);
+
+function schemaNodes(schema) {
+  if (!schema) return [];
+  if (Array.isArray(schema['@graph'])) {
+    return schema['@graph'].map((node) => {
+      const copy = { ...node };
+      delete copy['@context'];
+      return copy;
+    });
+  }
+  const copy = { ...schema };
+  delete copy['@context'];
+  return [copy];
+}
+
+function collectionNodes(route) {
+  if (route.noindex) return [];
+  const path = route.path;
+  let items = [];
+  if (path.startsWith('/category/')) {
+    const slug = path.slice('/category/'.length);
+    const terms = {
+      'fiberglass-arrestors': ['fiberglass'],
+      'tacky-panels': ['tacky', '5kr1'],
+      'ceiling-blankets': ['ceiling', 'diffusion', 'swiss flow'],
+      'roll-media': ['roll'],
+      'merv-filters': ['merv'],
+      'polyester-media': ['polyester', 'spraystop', 'afc'],
+      'pre-filters': ['pre-filter', 'prefilter'],
+    }[slug] || [slug.replace(/-/g, ' ')];
+    items = products
+      .filter((product) => {
+        const haystack = `${product.title} ${(product.tags || []).join(' ')} ${product.productType || ''}`.toLowerCase();
+        return terms.some((term) => haystack.includes(term));
+      })
+      .slice(0, 24)
+      .map((product) => ({ name: product.title, url: absoluteUrl(`/product/${product.handle}`) }));
+  } else if (path === '/shop-by-booth') {
+    items = routes
+      .filter((candidate) => candidate.path.startsWith('/shop-by-booth/') && !candidate.noindex)
+      .map((candidate) => ({ name: candidate.h1 || candidate.title, url: absoluteUrl(candidate.canonicalPath || candidate.path) }));
+  } else if (path.startsWith('/shop-by-booth/') || path.startsWith('/california/')) {
+    items = [
+      ['Exhaust filters', '/exhaust-filters'],
+      ['Intake filters', '/intake-filters'],
+      ['Ceiling filters', '/ceiling-filters'],
+      ['Shop paint booth filters', '/shop'],
+    ].map(([name, url]) => ({ name, url: absoluteUrl(url) }));
+  } else {
+    return [];
+  }
+  if (items.length === 0) return [];
+  return [
+    {
+      '@type': 'CollectionPage',
+      name: route.h1 || route.title,
+      description: route.description,
+      url: absoluteUrl(route.canonicalPath || route.path),
+    },
+    {
+      '@type': 'ItemList',
+      itemListElement: items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        url: item.url,
+      })),
+    },
+  ];
+}
+
+for (const route of routes) {
+  const nodes = schemaNodes(route.schema);
+  const crumbs = breadcrumbItems(route);
+  if (crumbs.length > 0 && !nodes.some((node) => node['@type'] === 'BreadcrumbList')) {
+    nodes.push({
+      '@type': 'BreadcrumbList',
+      itemListElement: crumbs.map(([href, name], index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name,
+        item: absoluteUrl(href),
+      })),
+    });
+  }
+  for (const node of collectionNodes(route)) {
+    if (!nodes.some((existing) => existing['@type'] === node['@type'])) nodes.push(node);
+  }
+  if (nodes.length > 0) {
+    route.schema = { '@context': 'https://schema.org', '@graph': nodes };
+  }
+}
+
 const primaryNavigation = [
   ['/', 'Home'],
   ['/shop', 'All Products'],
@@ -673,9 +840,10 @@ function footerFallback() {
 }
 
 function sitemapXml() {
-  const entries = routes.filter((route) => !route.noindex).map((route) => {
+  const entries = routes.filter((route) => !route.noindex && (route.canonicalPath || route.path) === route.path).map((route) => {
     const image = route.image ? `\n    <image:image><image:loc>${escapeXml(route.image)}</image:loc><image:title>${escapeXml(route.title)}</image:title></image:image>` : '';
-    return `  <url>\n    <loc>${escapeXml(absoluteUrl(route.path))}</loc>\n    <lastmod>${route.lastmod || today}</lastmod>\n    <changefreq>${route.changefreq}</changefreq>\n    <priority>${route.priority}</priority>${image}\n  </url>`;
+    const lastmod = route.lastmod ? `\n    <lastmod>${route.lastmod}</lastmod>` : '';
+    return `  <url>\n    <loc>${escapeXml(absoluteUrl(route.path))}</loc>${lastmod}\n    <changefreq>${route.changefreq}</changefreq>\n    <priority>${route.priority}</priority>${image}\n  </url>`;
   }).join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entries}\n</urlset>\n`;
 }
@@ -1500,7 +1668,7 @@ function writeSourceAssets() {
 }
 
 function replaceMeta(html, route) {
-  const url = absoluteUrl(route.path);
+  const url = absoluteUrl(route.canonicalPath || route.path);
   const image = route.image || 'https://www.pfsfilters.com/media/pfs-hero-poster-desktop.webp';
   const imageWidth = route.imageWidth || 1600;
   const imageHeight = route.imageHeight || 900;
@@ -1675,7 +1843,7 @@ function replaceMeta(html, route) {
   const imageMarkup = route.image ? `<img src="${escapeHtml(route.image)}" alt="${title}" width="640" height="640" style="max-width:320px;width:100%;height:auto;border-radius:12px" />` : '';
   const heading = escapeHtml(routeHeading(route));
   const fallback = route.path === '/'
-    ? `<main data-seo-fallback><section id="home"><div><picture><source media="(max-width: 767px)" srcset="${heroPosterMobile}" /><img src="${heroPosterDesktop}" alt="" aria-hidden="true" width="1600" height="900" fetchpriority="high" /></picture><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section></main>`
+    ? `<main data-seo-fallback><section id="home"><div><picture><source media="(max-width: 767px)" srcset="${heroPosterMobile}" /><img src="${heroPosterDesktop}" alt="PFS downdraft paint booth with ceiling intake and exhaust filtration" width="1600" height="900" fetchpriority="high" /></picture><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section></main>`
     : route.path === '/auth'
     ? `<main data-seo-fallback id="auth-fallback" style="min-height:100vh;background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif"><div style="width:min(384px,calc(100% - 32px));border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#111;padding:32px;text-align:center;box-sizing:border-box"><img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" width="250" height="76" fetchpriority="high" style="display:block;width:250px;max-width:100%;height:auto;margin:0 auto 24px;filter:brightness(1.4) drop-shadow(0 0 20px rgba(59,130,246,.3))" /><p style="margin:0;color:rgba(255,255,255,.7);font-size:14px">Loading secure sign-in…</p></div></main>`
     : route.path === '/shop'
@@ -1716,7 +1884,11 @@ function replaceMeta(html, route) {
   const pageBody = route.noindex
     ? fallback
     : `${navigationFallback()}${breadcrumbsFallback(route)}${fallback}${footerFallback()}`;
-  return output.replace('<div id="root"></div>', `<div id="root">${pageBody}</div>`);
+  if (!output.includes('<div id="root"></div>')) {
+    throw new Error(`Prerender template is missing an empty <div id="root"></div> for ${route.path}. Rebuild the Vite bundle before generating pages.`);
+  }
+  // A function replacement keeps catalog prices like "$111.36" from being read as $1 capture tokens.
+  return output.replace('<div id="root"></div>', () => `<div id="root">${pageBody}</div>`);
 }
 
 function validateDistPages() {
@@ -1728,7 +1900,7 @@ function validateDistPages() {
     const html = fs.readFileSync(file, 'utf8');
     const expectedTitle = `<title data-seo-generated>${escapeHtml(route.title)}</title>`;
     const expectedDescription = `name="description" content="${escapeHtml(stripMarkdown(route.description))}"`;
-    const expectedCanonical = `rel="canonical" href="${escapeHtml(absoluteUrl(route.path))}"`;
+    const expectedCanonical = `rel="canonical" href="${escapeHtml(absoluteUrl(route.canonicalPath || route.path))}"`;
     const requiredMarkers = ['data-seo-fallback', expectedTitle, expectedDescription, expectedCanonical];
     if (!route.noindex) requiredMarkers.push('<h1', 'data-seo-navigation', 'data-seo-footer');
     if (!route.noindex && route.path !== '/') requiredMarkers.push('data-seo-breadcrumbs');

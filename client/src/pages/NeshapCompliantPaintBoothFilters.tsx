@@ -21,6 +21,7 @@ import { Button } from '@/components/ui/button';
 import { ShieldAlert, Plane, Phone, ArrowRight, Info, ExternalLink } from 'lucide-react';
 import { bundledShopifyProducts } from '@/lib/productCatalog';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
+import { HubGuide } from '@/components/HubGuide';
 
 const SITE = 'https://www.pfsfilters.com';
 const PAGE_PATH = '/neshap-compliant-paint-booth-filters';
@@ -308,6 +309,7 @@ export default function NeshapCompliantPaintBoothFilters() {
       </section>
 
 
+      <HubGuide id="neshap" />
       <Footer />
     </div>
   );

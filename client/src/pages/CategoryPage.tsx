@@ -278,9 +278,11 @@ export default function CategoryPage() {
         {!loading && !error && products.length === 0 && (
           <div className="text-center py-16">
             <Package className="h-16 w-16 mx-auto mb-4 text-white/20" />
-            <h2 className="text-xl font-semibold text-white/60 mb-2">No products found</h2>
+            <h2 className="text-xl font-semibold text-white/60 mb-2">{slug === 'pre-filters' ? 'Pre-filters are not a separate stocked collection' : 'This category has no catalog products right now'}</h2>
             <p className="text-white/70 mb-6 max-w-md mx-auto">
-              We couldn't find any products in this category right now. Browse all products or check back soon.
+              {slug === 'pre-filters'
+                ? 'Use the intake and ceiling pages when the booth manual calls for a first stage, or call 855-496-7969 with the filter you are replacing.'
+                : 'Browse the shop or call 855-496-7969 with the booth model, stage, and measured size.'}
             </p>
             <div className="flex gap-3 justify-center">
               <Link href="/shop">

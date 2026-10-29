@@ -83,14 +83,13 @@ export const Hero = () => {
             <source media="(max-width: 767px)" srcSet={HERO_POSTER_MOBILE} />
             <img
               src={HERO_POSTER_DESKTOP}
-              alt=""
+              alt="PFS downdraft paint booth with ceiling intake and exhaust filtration"
               className="absolute inset-0 block h-full w-full object-cover object-[65%_center] md:object-center"
               width={1600}
               height={900}
               loading="eager"
               decoding="async"
               fetchPriority="high"
-              aria-hidden="true"
             />
           </picture>
           {canPlayVideo && (

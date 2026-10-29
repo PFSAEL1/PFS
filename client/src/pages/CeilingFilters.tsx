@@ -15,6 +15,7 @@ import { Wind, ArrowDown, Phone, ArrowRight } from 'lucide-react';
 import type { ShopifyProduct } from '@/lib/shopify';
 import { useCurrentShopifyProducts } from '@/hooks/useCurrentShopifyProducts';
 import { createBreadcrumbSchema, createItemListSchema } from '@/lib/structuredData';
+import { HubGuide } from '@/components/HubGuide';
 
 const SITE = 'https://www.pfsfilters.com';
 const PAGE_PATH = '/ceiling-filters';
@@ -250,6 +251,7 @@ export default function CeilingFilters() {
       </section>
 
 
+      <HubGuide id="ceiling" />
       <Footer />
     </div>
   );

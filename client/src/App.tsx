@@ -8,6 +8,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { importWithChunkRecovery } from './lib/chunkRecovery';
 import { getLocalProductThumbnail } from './lib/imageUrls';
+import { AnalyticsPageViews } from './components/AnalyticsPageViews';
 
 // Pages
 import Home from './pages/Home';
@@ -41,6 +42,7 @@ const IntakeFilters = lazyRoute(() => import('./pages/IntakeFilters'));
 const CeilingFilters = lazyRoute(() => import('./pages/CeilingFilters'));
 const Prefilters = lazyRoute(() => import('./pages/Prefilters'));
 const NeshapCompliantPaintBoothFilters = lazyRoute(() => import('./pages/NeshapCompliantPaintBoothFilters'));
+const FilterPartNumbers = lazyRoute(() => import('./pages/FilterPartNumbers'));
 const GarmatPaintBoothFilters = lazyRoute(() => import('./pages/GarmatPaintBoothFilters'));
 const OemPaintBoothFilters = lazyRoute(() => import('./pages/OemPaintBoothFilters'));
 const CaliforniaPaintBoothFilters = lazyRoute(() => import('./pages/CaliforniaPaintBoothFilters'));
@@ -739,7 +741,7 @@ function ProductLoadingFallback({ handle }: { handle: string }) {
                     src={thumbnail.src}
                     srcSet={`${thumbnail.src} ${thumbnail.width}w`}
                     sizes="(min-width: 1024px) 50vw, 100vw"
-                    alt=""
+                    alt="Product photo"
                     aria-hidden="true"
                     width={thumbnail.width}
                     height={thumbnail.width}
@@ -803,6 +805,7 @@ function Router() {
   return (
     <>
       <ScrollToTop />
+      <AnalyticsPageViews />
       <Suspense fallback={routeFallback}>
       <Switch>
       {/* Main pages */}
@@ -822,6 +825,7 @@ function Router() {
       <Route path="/ceiling-filters" component={CeilingFilters} />
       <Route path="/prefilters" component={Prefilters} />
       <Route path="/neshap-compliant-paint-booth-filters" component={NeshapCompliantPaintBoothFilters} />
+      <Route path="/filter-part-numbers" component={FilterPartNumbers} />
       <Route path="/garmat-paint-booth-filters" component={GarmatPaintBoothFilters} />
       <Route path="/accudraft-paint-booth-filters" component={OemPaintBoothFilters} />
       <Route path="/gfs-paint-booth-filters" component={OemPaintBoothFilters} />

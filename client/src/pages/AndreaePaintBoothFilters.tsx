@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Layers, Wind, ShieldCheck, Phone, ArrowRight, ExternalLink } from 'lucide-react';
 import { useCurrentShopifyProducts } from '@/hooks/useCurrentShopifyProducts';
 import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
+import { HubGuide } from '@/components/HubGuide';
 
 const SITE = 'https://www.pfsfilters.com';
 const ANDREAE_HANDLE = 'accordion-style-paint-arrestors';
@@ -274,6 +275,8 @@ export default function AndreaePaintBoothFilters() {
         </div>
       </section>
 
+
+      <HubGuide id="andreae" showFaq={false} />
 
       {/* FAQ */}
       <section className="section-raised tex-dots py-16 px-4">
