@@ -24,6 +24,7 @@ import { ProductBadges } from '@/components/ProductBadge';
 import { getProductBadges } from '@/lib/productSignals';
 import { createBreadcrumbSchema } from '@/lib/structuredData';
 import { shopifyImageAltText, shopProductCardImageSrcSet, shopProductCardImageUrl } from '@/lib/imageUrls';
+import { categoryGuides } from '@/data/categoryGuides';
 
 const FALLBACK_IMAGE = '/images/filters/fiberglass-arrestors.png';
 const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
@@ -69,17 +70,24 @@ function DeferredFooter() {
 
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
-  const [products, setProducts] = useState<ShopifyProduct[]>(() => getBundledCategoryProducts(slug));
-  const [loading, setLoading] = useState(() => getBundledCategoryProducts(slug).length === 0);
+  const categoryInfo = slug ? CATEGORY_COLLECTION_MAP[slug] : null;
+  const quoteOnly = Boolean(categoryInfo?.quoteOnly);
+  const guide = slug ? categoryGuides[slug] : undefined;
+  const [products, setProducts] = useState<ShopifyProduct[]>(() => (quoteOnly ? [] : getBundledCategoryProducts(slug)));
+  const [loading, setLoading] = useState(() => !quoteOnly && getBundledCategoryProducts(slug).length === 0);
   const [error, setError] = useState<string | null>(null);
   const { discountPercent } = usePricing();
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
 
-  const categoryInfo = slug ? CATEGORY_COLLECTION_MAP[slug] : null;
-
   useEffect(() => {
     if (!slug) return;
+    if (CATEGORY_COLLECTION_MAP[slug]?.quoteOnly) {
+      setProducts([]);
+      setLoading(false);
+      setError(null);
+      return;
+    }
     let active = true;
     let started = false;
     let fallbackTimer: number | undefined;
@@ -275,7 +283,7 @@ export default function CategoryPage() {
         )}
 
         {/* Empty state — no matching products */}
-        {!loading && !error && products.length === 0 && (
+        {!quoteOnly && !loading && !error && products.length === 0 && (
           <div className="text-center py-16">
             <Package className="h-16 w-16 mx-auto mb-4 text-white/20" />
             <h2 className="text-xl font-semibold text-white/60 mb-2">{slug === 'pre-filters' ? 'Pre-filters are not a separate stocked collection' : 'This category has no catalog products right now'}</h2>
@@ -377,6 +385,48 @@ export default function CategoryPage() {
               );
             })}
           </div>
+        )}
+
+        {guide && (
+          <section className="pt-4">
+            <div className="max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-5">{guide.heading}</h2>
+              <div className="space-y-4 text-white/60 leading-relaxed">
+                {guide.paragraphs.map((paragraph) => (
+                  <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+                ))}
+              </div>
+              {quoteOnly && (
+                <div className="flex flex-wrap gap-3 mt-8">
+                  <Link href="/contact">
+                    <Button className="bg-blue-500 text-white hover:bg-blue-600">
+                      Request a Quote
+                    </Button>
+                  </Link>
+                </div>
+              )}
+              {guide.links.length > 0 && (
+                <p className="mt-6 text-white/60 leading-relaxed">
+                  Related:{' '}
+                  {guide.links.map((item, index) => (
+                    <span key={item.href}>
+                      {index > 0 ? ', ' : ''}
+                      {item.external ? (
+                        <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                          {item.label}
+                        </a>
+                      ) : (
+                        <Link href={item.href} className="text-blue-400 hover:text-blue-300">
+                          {item.label}
+                        </Link>
+                      )}
+                    </span>
+                  ))}
+                  .
+                </p>
+              )}
+            </div>
+          </section>
         )}
 
         {/* Back to categories */}

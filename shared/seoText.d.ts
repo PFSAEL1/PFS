@@ -36,4 +36,6 @@ declare module '@shared/seoText.mjs' {
   };
 
   export const REVALIDATE_SECONDS: number;
+
+  export const filterRotationFaqs: { question: string; answer: string }[];
 }

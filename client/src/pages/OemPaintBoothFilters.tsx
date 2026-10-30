@@ -16,6 +16,9 @@ const FILTER_LINKS = [
   { href: '/ceiling-filters', label: 'Ceiling filters', description: 'Diffusion media for applicable downdraft and semi-downdraft systems', icon: Layers },
   { href: '/exhaust-filters', label: 'Exhaust filters', description: 'Fiberglass, Paint Pockets, and accordion-style arrestor media', icon: Filter },
   { href: '/prefilters', label: 'Prefilter guidance', description: 'First-stage media and multi-stage selection considerations', icon: CheckCircle2 },
+  { href: '/category/pfs-oem-replacement-kits', label: 'PFS OEM filter kits', description: 'Quoted intake, ceiling, and exhaust sets for a PFS booth model', icon: Filter },
+  { href: '/filter-rotation-program', label: 'Filter rotation program', description: 'Scheduled media shipments based on how the booth is sprayed', icon: CheckCircle2 },
+  { href: '/blog/booth-filter-maintenance-checklist', label: 'Maintenance checklist', description: 'Gauge, seal, and filter-change checks between service visits', icon: Info },
 ];
 
 function formatFilterStages(model: BoothModel) {

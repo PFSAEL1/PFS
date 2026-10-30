@@ -269,6 +269,16 @@ export default function PaintBoothFilters() {
               </a>
             </div>
           </div>
+          <p className="text-white/55 text-sm leading-relaxed mb-8 max-w-3xl mx-auto text-center">
+            Also see{' '}
+            <a href="/category/polyester-media" className="text-blue-400 hover:text-blue-300">polyester exhaust media</a>,{' '}
+            <a href="/category/powder-booth-filters" className="text-blue-400 hover:text-blue-300">powder booth filters</a>,{' '}
+            <a href="/category/activated-carbon-media" className="text-blue-400 hover:text-blue-300">activated carbon media</a>,{' '}
+            <a href="/category/paint-arrest-systems" className="text-blue-400 hover:text-blue-300">paint arrest systems</a>,{' '}
+            <a href="/category/pfs-oem-replacement-kits" className="text-blue-400 hover:text-blue-300">PFS OEM kits</a>,{' '}
+            <a href="/filter-rotation-program" className="text-blue-400 hover:text-blue-300">filter rotation</a>, and the{' '}
+            <a href="/blog/booth-filter-maintenance-checklist" className="text-blue-400 hover:text-blue-300">maintenance checklist</a>.
+          </p>
           <div className="text-center">
             <a href="https://www.pfsfilters.com/shop">
               <Button size="lg" className="bg-blue-500 hover:bg-blue-400 text-white font-bold px-8 py-6 rounded-lg">

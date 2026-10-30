@@ -229,8 +229,13 @@ export default function ExhaustFilters() {
               { href: '/intake-filters', label: 'Paint booth intake filters', sub: 'Tacky panels & ceiling media' },
               { href: '/andreae-paint-booth-filters', label: 'Andreae accordion filters', sub: 'AF223, AF423, AF813, AF923 and more' },
               { href: '/category/fiberglass-arrestors', label: 'Fiberglass paint arrestors', sub: 'Pads and rolls, 15g and 22g' },
-              { href: '/category/polyester-media', label: 'Polyester filter media', sub: 'Synthetic media for moisture resistance' },
+              { href: '/category/polyester-media', label: 'Polyester exhaust media', sub: 'AFC cube and SprayStop roll, other cuts quoted' },
               { href: '/category/roll-media', label: 'Roll media', sub: 'Cut-to-length intake and exhaust rolls' },
+              { href: '/category/paint-arrest-systems', label: 'Paint arrest systems', sub: 'Multi-stage overspray capture, quoted as a set' },
+              { href: '/category/powder-booth-filters', label: 'Powder booth filters', sub: 'Three-stage panels and pulse-jet cartridges' },
+              { href: '/category/activated-carbon-media', label: 'Activated carbon media', sub: 'Solvent vapor stage, quoted from the housing' },
+              { href: '/blog/clogged-paint-booth-filters', label: 'What clogged filters do', sub: 'Airflow can fall below 100 feet per minute' },
+              { href: '/filter-rotation-program', label: 'Filter rotation program', sub: 'Scheduled media for busy booths' },
             ].map((card) => (
               <Link key={card.href} href={card.href}>
                 <div className="glow-card group h-full p-5 cursor-pointer">

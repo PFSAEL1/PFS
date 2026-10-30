@@ -553,6 +553,14 @@ export default function ProductDetail() {
                 </div>
               ))}
             </div>
+            <p className="text-sm text-white/55 mt-6 leading-relaxed">
+              Guides:{' '}
+              <Link href="/blog/how-to-choose-booth-filters" className="text-blue-400 hover:text-blue-300">how to choose</Link>,{' '}
+              <Link href="/blog/booth-filter-replacement-intervals" className="text-blue-400 hover:text-blue-300">change intervals</Link>,{' '}
+              <Link href="/blog/clogged-paint-booth-filters" className="text-blue-400 hover:text-blue-300">clogged filters</Link>,{' '}
+              <Link href="/blog/booth-filter-maintenance-checklist" className="text-blue-400 hover:text-blue-300">maintenance checklist</Link>,{' '}
+              <Link href="/filter-rotation-program" className="text-blue-400 hover:text-blue-300">filter rotation</Link>.
+            </p>
           </div>
         </div>
 

@@ -224,7 +224,19 @@ Yes. If the needed size is not listed, contact PFS Filters with the booth make, 
 
 ### How often should paint booth filters be changed?
 
-There is no safe universal interval. Replacement frequency depends on coating volume, filter area, booth airflow, media type, and the manufacturer's pressure-drop limits. Inspect filters regularly and replace them when loading reduces airflow, the pressure reading reaches the specified limit, or overspray begins to pass through.
+Exhaust filters are typically changed every 30 to 90 days, and intake filters, including many ceiling banks, every 3 to 6 months. Both ranges depend on spray hours, coatings, filter area, and the booth pressure reading. Replace a stage sooner when the gauge hits the booth limit or when face velocity falls below the NFPA 33 minimum of 100 feet per minute.
+
+### What do clogged spray booth filters do to airflow?
+
+Loaded media makes the fan move less air. Face velocity in the booth can drop below the NFPA 33 minimum of 100 feet per minute. Overspray stays in the work area, flash times stretch, and dirt shows up in the finish. Change the loaded stage. If velocity is still low with clean filters, the fan, belts, or duct need service.
+
+### How do I choose the right booth filter?
+
+Name the stage first, then measure the opening, then match the media family. Liquid exhaust options in the catalog include fiberglass arrestors, Paint Pockets, Andreae accordion media, and the listed polyester products. Powder panels, pulse-jet cartridges, activated carbon, and PFS model kits are quoted when they are not in the catalog.
+
+### What should a booth filter maintenance check include?
+
+Each shift, read the gauge, look for loaded media and gaps at the frame, and clean the floor without blowing dust around. Each week, wipe light lenses and check door seals. Plan exhaust changes on a 30 to 90 day rhythm and intake changes on a 3 to 6 month rhythm, and move sooner when the reading says so.
 
 ### What are signs that a spray booth filter needs replacement?
 
@@ -280,6 +292,10 @@ PFS Filters is a division of PFS Spray Booths serving automotive, industrial, wo
 - [Fiberglass vs. Tacky Panel Filters](https://www.pfsfilters.com/blog/fiberglass-vs-tacky-panel-filters): Fiberglass paint arrestors and tackified panel media are not automatically interchangeable. Compare the documented filter stage, dimensions, media, airflow direction, and equipment requirements before ordering.
 - [Paint Booth Filter Maintenance Checklist](https://www.pfsfilters.com/blog/paint-booth-maintenance-checklist): Use this general checklist to organize filter inspections and records, then apply the spray booth manual, filter instructions, permit conditions, and facility procedures that control your installation.
 - [EPA Method 319 for Aerospace Paint Booth Filters](https://www.pfsfilters.com/blog/aerospace-paint-booth-compliance-method-319): EPA Method 319 is a test method for determining paint overspray arrestor filtration efficiency. It is not a blanket certification for every installation, coating, operating condition, or facility obligation.
+- [How Often to Change Booth Filters](https://www.pfsfilters.com/blog/booth-filter-replacement-intervals): Exhaust filters are typically changed every 30 to 90 days, and intake filters every 3 to 6 months. Life depends on spray hours, coatings, and pressure.
+- [What Clogged Booth Filters Do](https://www.pfsfilters.com/blog/clogged-paint-booth-filters): Clogged booth filters cut airflow. Face velocity can drop below the NFPA 33 minimum of 100 feet per minute. Change the loaded stage before you keep spraying.
+- [How to Choose Booth Filters](https://www.pfsfilters.com/blog/how-to-choose-booth-filters): Choose booth filters by stage, measured opening, and media family. Powder, carbon, and PFS booth kits are quoted when the catalog has no matching product.
+- [Booth Filter Maintenance Checklist](https://www.pfsfilters.com/blog/booth-filter-maintenance-checklist): Booth filter maintenance checklist: daily floor and gauge checks, weekly light and seal inspections, and when to change exhaust or intake media.
 
 # Booth manufacturer compatibility guides
 
