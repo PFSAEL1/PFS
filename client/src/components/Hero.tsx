@@ -79,19 +79,19 @@ export const Hero = () => {
       >
         {/* Full-bleed looping video background */}
         <div className="absolute inset-0 z-0">
-          <picture>
-            <source media="(max-width: 767px)" srcSet={HERO_POSTER_MOBILE} />
-            <img
-              src={HERO_POSTER_DESKTOP}
-              alt="PFS downdraft paint booth with ceiling intake and exhaust filtration"
-              className="absolute inset-0 block h-full w-full object-cover object-[65%_center] md:object-center"
-              width={1600}
-              height={900}
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-            />
-          </picture>
+          <img
+            src={HERO_POSTER_MOBILE}
+            srcSet={`${HERO_POSTER_MOBILE} 960w, ${HERO_POSTER_DESKTOP} 1600w`}
+            sizes="(max-width: 767px) 100vw, 1600px"
+            alt="PFS downdraft paint booth with ceiling intake and exhaust filtration"
+            className="absolute inset-0 block h-full w-full object-cover object-[65%_center] md:object-center"
+            width={960}
+            height={540}
+            style={{ aspectRatio: '16 / 9' }}
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
           {canPlayVideo && (
             <video
               ref={videoRef}
