@@ -12,6 +12,7 @@ import {
   merchantReturnPolicy,
   offerShippingDetails,
   resolveRouteSeo,
+  filterRotationFaqs,
 } from '../shared/seoText.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -186,6 +187,10 @@ const categories = [
   { slug: 'merv-filters', title: 'MERV-Rated Filters', description: 'High-efficiency filters rated by MERV standard for precise particle capture. MERV-10 and MERV-13 options for industrial operations.' },
   { slug: 'polyester-media', title: 'Polyester Media', description: 'Durable synthetic filtration media with excellent moisture resistance. Ideal for high-humidity environments and water-based coatings.' },
   { slug: 'pre-filters', title: 'Pre-Filters', description: 'First-stage filtration that extends the life of your primary ceiling media by up to 50%. Catches large particles before they reach expensive diffusion blankets.' },
+  { slug: 'powder-booth-filters', title: 'Powder Booth Filters', description: 'Three-stage panels and pulse-jet cartridges for powder booths. None are stocked with prices or part numbers. Send the model and size to request a quote.' },
+  { slug: 'activated-carbon-media', title: 'Activated Carbon VOC Media', description: 'Activated carbon VOC media holds solvent vapor after a particulate filter. No prices or part numbers are listed. Request a quote with housing size and airflow.' },
+  { slug: 'paint-arrest-systems', title: 'Paint Arrest Systems', description: 'Paint arrest systems stack overspray media for heavy spray loads. Catalog arrestors are sold separately. Request a quote for a multi-stage exhaust set.' },
+  { slug: 'pfs-oem-replacement-kits', title: 'PFS OEM Replacement Kits', description: 'OEM replacement kits match intake, ceiling, and exhaust media to a PFS booth. Kits are quoted from the model and tag. No kit prices or part numbers are listed.' },
 ];
 
 const staticRoutes = [
@@ -232,6 +237,7 @@ const staticRoutes = [
   { path: '/privacy-policy', title: 'Privacy Policy - PFS Filters', description: 'Read the PFS Filters privacy policy to understand how we collect, use, and protect your personal information.', h1: 'Privacy Policy', priority: '0.2', changefreq: 'yearly' },
   { path: '/terms-of-service', title: 'Terms of Service - PFS Filters', description: 'Read the PFS Filters terms governing website use, orders, Subscribe & Save, shipping, returns, product guidance, and customer accounts.', h1: 'Terms of Service', priority: '0.2', changefreq: 'yearly' },
   { path: '/memberships', title: 'Paint Booth Filter Memberships - Save on Every Order | PFS Filters', description: 'Join PFS Filters membership for exclusive discounts, auto-reorder scheduling, AI filter scanner, and dedicated support. Plans from $29/month. Save 6-10% on every order.', h1: 'Save More, Order Smarter', priority: '0.5', changefreq: 'monthly' },
+  { path: '/filter-rotation-program', title: 'PFS Filter Rotation Program | PFS Filters', description: 'The PFS Filter Rotation Program sets a booth filter cadence from your spray load and ships media on that schedule. Request a quote to enroll a shop or fleet.', h1: 'PFS Filter Rotation Program', priority: '0.8', changefreq: 'monthly' },
   { path: '/consumables', title: 'Consumables - Paint Booth Supplies | PFS Filters', description: 'Shop paint booth consumables from PFS Filters, including absorbent mat rolls, glass shield coatings, and booth maintenance supplies.', h1: 'Booth Consumables', priority: '0.6', changefreq: 'monthly' },
   { path: '/consumables/pfs-vitra', title: 'PFS VITRA - Glass Shield Washable Coating | PFS Filters', description: 'PFS VITRA washable glass shield coating. Protect your paint booth glass from overspray. Easy to apply, easy to wash off. Available from PFS Filters.', h1: 'PFS VITRA', priority: '0.5', changefreq: 'monthly' },
   { path: '/consumables/pfs-vanguard', title: 'PFS VANGUARD™ Complete Booth Protection Kit | PFS Filters', description: 'PFS VANGUARD™ Complete Booth Protection Kit includes premium Booth Coating and Glass Shield Coating. Protect booth surfaces and viewing glass from overspray buildup.', h1: 'PFS VANGUARD™', priority: '0.5', changefreq: 'monthly' },
@@ -395,6 +401,19 @@ const productRoutes = products.map((product) => {
     lastmod: catalogLastmod,
   };
 });
+
+const rotationRoute = staticRoutes.find((route) => route.path === '/filter-rotation-program');
+if (rotationRoute) {
+  rotationRoute.schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: filterRotationFaqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  };
+}
 
 const faqRoute = staticRoutes.find((route) => route.path === '/faq');
 faqRoute.schema = {
@@ -670,6 +689,10 @@ function collectionNodes(route) {
       'merv-filters': ['merv'],
       'polyester-media': ['polyester', 'spraystop', 'afc'],
       'pre-filters': ['pre-filter', 'prefilter'],
+      'powder-booth-filters': ['pulse-jet cartridge'],
+      'activated-carbon-media': ['activated carbon voc media'],
+      'paint-arrest-systems': ['paint arrest system kit'],
+      'pfs-oem-replacement-kits': ['pfs oem replacement kit'],
     }[slug] || [slug.replace(/-/g, ' ')];
     items = products
       .filter((product) => {

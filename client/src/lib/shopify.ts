@@ -153,7 +153,7 @@ export function validateCartItemsForCheckout(items: CartItem[]): void {
 }
 
 // Category slug → Shopify collection handle mapping
-export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string; title: string; description: string; position: string }> = {
+export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string; title: string; description: string; position: string; quoteOnly?: boolean }> = {
   'fiberglass-arrestors': {
     collectionHandle: 'fiberglass-paint-arrestors',
     title: 'Fiberglass Paint Arrestors',
@@ -187,8 +187,36 @@ export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string;
   'polyester-media': {
     collectionHandle: 'polyester-media',
     title: 'Polyester Media',
-    description: 'Durable synthetic filtration media with excellent moisture resistance. Ideal for high-humidity environments and water-based coatings.',
+    description: 'Synthetic exhaust media for damp rooms and waterborne coatings. The catalog lists an AFC blue polyester exhaust cube and a Koch SprayStop roll. Other polyester cuts are quoted from the opening size.',
     position: 'EXHAUST',
+  },
+  'powder-booth-filters': {
+    collectionHandle: 'powder-booth-filters',
+    title: 'Powder Booth Filters',
+    description: 'Three-stage panel banks and pulse-jet cartridges for powder coating booths. These are not stocked catalog items. Request a quote from the booth model and the installed media.',
+    position: 'EXHAUST',
+    quoteOnly: true,
+  },
+  'activated-carbon-media': {
+    collectionHandle: 'activated-carbon-media',
+    title: 'Activated Carbon VOC Media',
+    description: 'Activated carbon used to hold solvent vapor after a particulate filter. No carbon products are in the current catalog. Request a quote with the housing size and the coatings you spray.',
+    position: 'EXHAUST',
+    quoteOnly: true,
+  },
+  'paint-arrest-systems': {
+    collectionHandle: 'paint-arrest-systems',
+    title: 'Paint Arrest Systems',
+    description: 'Multi-stage overspray capture for booths that load a single pad too quickly. Fiberglass, Paint Pockets, and Andreae media are sold separately. A staged set is quoted.',
+    position: 'EXHAUST',
+    quoteOnly: true,
+  },
+  'pfs-oem-replacement-kits': {
+    collectionHandle: 'pfs-oem-replacement-kits',
+    title: 'PFS OEM Replacement Kits',
+    description: 'Intake, ceiling, and exhaust media matched to a PFS booth model. Individual filters are in the catalog. The kit is quoted from the model and equipment tag.',
+    position: 'INTAKE / EXHAUST',
+    quoteOnly: true,
   },
   'pre-filters': {
     collectionHandle: 'pre-filters',
@@ -208,6 +236,10 @@ export const CATEGORY_TAG_MAP: Record<string, string[]> = {
   'merv-filters': ['merv', 'merv-10', 'merv-13', 'merv10', 'merv13'],
   'polyester-media': ['polyester', 'synthetic media'],
   'pre-filters': ['pre-filter', 'prefilter', 'pre filter', 'first stage'],
+  'powder-booth-filters': ['pulse-jet cartridge', 'three-stage powder panel'],
+  'activated-carbon-media': ['activated carbon voc media'],
+  'paint-arrest-systems': ['paint arrest system kit'],
+  'pfs-oem-replacement-kits': ['pfs oem replacement kit'],
 };
 
 /**
@@ -217,6 +249,8 @@ export const CATEGORY_TAG_MAP: Record<string, string[]> = {
  * accordion-style paper arrestors are different products).
  */
 export function productMatchesCategory(product: ShopifyProduct, categorySlug: string): boolean {
+  if (CATEGORY_COLLECTION_MAP[categorySlug]?.quoteOnly) return false;
+
   const productTags = (product.node.tags || []).map((tag) => tag.toLowerCase());
   const productType = (product.node.productType || '').toLowerCase();
   const productTitle = product.node.title.toLowerCase();
@@ -542,6 +576,7 @@ export async function fetchProducts(limit = 50): Promise<ShopifyProduct[]> {
  */
 export async function fetchProductsByCategory(categorySlug: string, limit = 50): Promise<ShopifyProduct[]> {
   const categoryInfo = CATEGORY_COLLECTION_MAP[categorySlug];
+  if (categoryInfo?.quoteOnly) return [];
 
   if (categoryInfo) {
     // Try collection-based fetch first

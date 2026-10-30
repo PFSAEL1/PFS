@@ -52,7 +52,10 @@ export function HubGuide({ id, showFaq = true }: { id: string; showFaq?: boolean
             <Link href="/ceiling-filters" className="text-blue-400 hover:text-blue-300">ceiling filters</Link>,{' '}
             <Link href="/andreae-paint-booth-filters" className="text-blue-400 hover:text-blue-300">Andreae filters</Link>,{' '}
             <Link href="/neshap-compliant-paint-booth-filters" className="text-blue-400 hover:text-blue-300">NESHAP guide</Link>,{' '}
-            <Link href="/filter-part-numbers" className="text-blue-400 hover:text-blue-300">part numbers</Link>.
+            <Link href="/filter-part-numbers" className="text-blue-400 hover:text-blue-300">part numbers</Link>,{' '}
+            <Link href="/filter-rotation-program" className="text-blue-400 hover:text-blue-300">filter rotation</Link>,{' '}
+            <Link href="/blog/booth-filter-replacement-intervals" className="text-blue-400 hover:text-blue-300">replacement intervals</Link>,{' '}
+            <Link href="/blog/booth-filter-maintenance-checklist" className="text-blue-400 hover:text-blue-300">maintenance checklist</Link>.
           </p>
         </div>
         {showFaq && <FaqList faqs={article.faqs} />}

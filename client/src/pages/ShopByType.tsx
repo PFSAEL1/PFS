@@ -71,6 +71,51 @@ const filterTypes = [
     image: '/images/cat_roll_media.png',
     tags: ['First Stage', 'System-Specific', 'Verify Media'],
   },
+  {
+    title: 'Polyester Exhaust Media',
+    position: 'EXHAUST',
+    desc: 'Synthetic exhaust media. The catalog lists an AFC polyester cube and a Koch SprayStop roll. Other cuts are quoted.',
+    href: '/category/polyester-media',
+    image: '/images/filters/polyester-exhaust.png',
+    tags: ['Polyester', 'Exhaust'],
+    cta: 'Browse Products',
+  },
+  {
+    title: 'Powder Booth Filters',
+    position: 'EXHAUST',
+    desc: 'Three-stage panels and pulse-jet cartridges for powder booths. Not a stocked collection. Request a quote from the installed media.',
+    href: '/category/powder-booth-filters',
+    image: '/images/filters/merv-pleated.jpg',
+    tags: ['Three-Stage', 'Pulse-Jet'],
+    cta: 'Request a Quote',
+  },
+  {
+    title: 'Activated Carbon VOC Media',
+    position: 'EXHAUST',
+    desc: 'Carbon media for solvent vapor after a particulate stage. No catalog price or part number. Request a quote with the housing size.',
+    href: '/category/activated-carbon-media',
+    image: '/images/filters/pre-filters.webp',
+    tags: ['VOC Media', 'Quote'],
+    cta: 'Request a Quote',
+  },
+  {
+    title: 'Paint Arrest Systems',
+    position: 'EXHAUST',
+    desc: 'Multi-stage overspray capture. Stocked arrestors are sold separately. A staged set is quoted.',
+    href: '/category/paint-arrest-systems',
+    image: '/images/filters/fiberglass-arrestors.png',
+    tags: ['Multi-Stage', 'Exhaust'],
+    cta: 'Request a Quote',
+  },
+  {
+    title: 'PFS OEM Replacement Kits',
+    position: 'INTAKE / EXHAUST',
+    desc: 'A quoted set of intake, ceiling, and exhaust media for a PFS booth model. Send the model and equipment tag.',
+    href: '/category/pfs-oem-replacement-kits',
+    image: '/images/filters/roll-media.jpg',
+    tags: ['PFS Booths', 'Quote'],
+    cta: 'Request a Quote',
+  },
 ];
 
 export default function ShopByType() {
@@ -148,7 +193,7 @@ export default function ShopByType() {
                       ))}
                     </div>
                     <div className="flex items-center gap-1.5 text-sm font-semibold text-white/50 group-hover:text-white transition-all group-hover:gap-2.5">
-                      Browse Products <ArrowRight className="h-3.5 w-3.5" />
+                      {type.cta || 'Browse Products'} <ArrowRight className="h-3.5 w-3.5" />
                     </div>
                   </div>
                 </div>

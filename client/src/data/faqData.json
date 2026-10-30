@@ -32,7 +32,22 @@
   {
     "category": "Replacement and maintenance",
     "question": "How often should paint booth filters be changed?",
-    "answer": "There is no safe universal interval. Replacement frequency depends on coating volume, filter area, booth airflow, media type, and the manufacturer's pressure-drop limits. Inspect filters regularly and replace them when loading reduces airflow, the pressure reading reaches the specified limit, or overspray begins to pass through."
+    "answer": "Exhaust filters are typically changed every 30 to 90 days, and intake filters, including many ceiling banks, every 3 to 6 months. Both ranges depend on spray hours, coatings, filter area, and the booth pressure reading. Replace a stage sooner when the gauge hits the booth limit or when face velocity falls below the NFPA 33 minimum of 100 feet per minute."
+  },
+  {
+    "category": "Replacement and maintenance",
+    "question": "What do clogged spray booth filters do to airflow?",
+    "answer": "Loaded media makes the fan move less air. Face velocity in the booth can drop below the NFPA 33 minimum of 100 feet per minute. Overspray stays in the work area, flash times stretch, and dirt shows up in the finish. Change the loaded stage. If velocity is still low with clean filters, the fan, belts, or duct need service."
+  },
+  {
+    "category": "Replacement and maintenance",
+    "question": "How do I choose the right booth filter?",
+    "answer": "Name the stage first, then measure the opening, then match the media family. Liquid exhaust options in the catalog include fiberglass arrestors, Paint Pockets, Andreae accordion media, and the listed polyester products. Powder panels, pulse-jet cartridges, activated carbon, and PFS model kits are quoted when they are not in the catalog."
+  },
+  {
+    "category": "Replacement and maintenance",
+    "question": "What should a booth filter maintenance check include?",
+    "answer": "Each shift, read the gauge, look for loaded media and gaps at the frame, and clean the floor without blowing dust around. Each week, wipe light lenses and check door seals. Plan exhaust changes on a 30 to 90 day rhythm and intake changes on a 3 to 6 month rhythm, and move sooner when the reading says so."
   },
   {
     "category": "Replacement and maintenance",

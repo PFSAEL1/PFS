@@ -61,7 +61,34 @@ const BLOG_TITLES = {
   'fiberglass-vs-tacky-panel-filters': 'Fiberglass vs Tacky Panel Filters | PFS Filters',
   'paint-booth-maintenance-checklist': 'Paint Booth Filter Maintenance | PFS Filters',
   'aerospace-paint-booth-compliance-method-319': 'EPA Method 319 Filter Guide | PFS Filters',
+  'booth-filter-replacement-intervals': 'Booth Filter Change Intervals | PFS Filters',
+  'clogged-paint-booth-filters': 'What Clogged Booth Filters Do | PFS Filters',
+  'how-to-choose-booth-filters': 'How to Choose Booth Filters | PFS Filters',
+  'booth-filter-maintenance-checklist': 'Booth Filter Maintenance List | PFS Filters',
 };
+
+export const filterRotationFaqs = [
+  {
+    question: 'How does the PFS Filter Rotation Program work?',
+    answer: 'PFS reviews the booth model, the filter stages in use, and how heavily the booth is sprayed. From that, a replacement cadence is set, media ships on that cadence, and the change can be lined up with a maintenance visit.',
+  },
+  {
+    question: 'What do shops get from a filter rotation schedule?',
+    answer: 'Media arrives before the bank is packed solid, which keeps a busy week from being spent on a rush order. A shop with several booths can keep every stage on one schedule and one point of contact. The price is quoted for the media you actually use.',
+  },
+  {
+    question: 'Is filter rotation the same as Subscribe and Save?',
+    answer: 'No. Subscribe and Save is the monthly option shown on eligible product pages in the shop. The rotation program is a scheduled supply for the stages on your booth, arranged with PFS. They are separate.',
+  },
+  {
+    question: 'What should I send to start the program?',
+    answer: 'Send the booth make and model, each filter position, the measured size, about how long a set lasts today, and a clear photo of the installed media. PFS will confirm the media before the first shipment.',
+  },
+  {
+    question: 'Where are PFS booth filter types described?',
+    answer: 'The booth manufacturer lists exhaust, intake, ceiling, paint-arrest, carbon, and OEM kit types at https://pfsspraybooths.com/parts/filters/. This store ships the replacement media and can quote a rotation schedule.',
+  },
+];
 
 export function breadcrumbNodes(path, leafName) {
   const normalized = path === '/' ? '/' : String(path || '/').replace(/\/$/, '');
@@ -236,6 +263,10 @@ export const ROUTE_SEO = {
     title: 'Paint Booth Filter Memberships | PFS Filters',
     description: 'Paint booth filter memberships from PFS Filters. Plan price, discount, and included tools are shown on this page. Confirm the current offer before you subscribe.',
   },
+  '/filter-rotation-program': {
+    title: 'PFS Filter Rotation Program | PFS Filters',
+    description: 'The PFS Filter Rotation Program sets a booth filter cadence from your spray load and ships media on that schedule. Request a quote to enroll a shop or fleet.',
+  },
   '/consumables': {
     title: 'Paint Booth Consumables | PFS Filters',
     description: 'Paint booth consumables from PFS Filters, including the absorbent mat roll, PFS VITRA glass coating, and the VANGUARD kit. Confirm the product page before ordering.',
@@ -329,6 +360,22 @@ const CATEGORY_SEO = {
     title: 'Paint Booth Pre-Filter Guide | PFS Filters',
     description: 'Paint booth pre-filter guidance: this catalog has no products tagged as pre-filters. Use a documented intake stage only where the booth specifies it.',
     noindex: true,
+  },
+  'powder-booth-filters': {
+    title: 'Powder Booth Filters | PFS Filters',
+    description: 'Three-stage panels and pulse-jet cartridges for powder booths. None are stocked with prices or part numbers. Send the model and size to request a quote.',
+  },
+  'activated-carbon-media': {
+    title: 'Activated Carbon VOC Media | PFS Filters',
+    description: 'Activated carbon VOC media holds solvent vapor after a particulate filter. No prices or part numbers are listed. Request a quote with housing size and airflow.',
+  },
+  'paint-arrest-systems': {
+    title: 'Paint Arrest Systems | PFS Filters',
+    description: 'Paint arrest systems stack overspray media for heavy spray loads. Catalog arrestors are sold separately. Request a quote for a multi-stage exhaust set.',
+  },
+  'pfs-oem-replacement-kits': {
+    title: 'PFS OEM Replacement Kits | PFS Filters',
+    description: 'OEM replacement kits match intake, ceiling, and exhaust media to a PFS booth. Kits are quoted from the model and tag. No kit prices or part numbers are listed.',
   },
 };
 

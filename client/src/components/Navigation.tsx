@@ -221,6 +221,9 @@ export const Navigation = () => {
                     <Link href="/blog" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
                       Blog
                     </Link>
+                    <Link href="/filter-rotation-program" className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+                      Filter Rotation Program
+                    </Link>
                   </div>
                 )}
               </div>
@@ -324,6 +327,7 @@ export const Navigation = () => {
               <Link href="/why-choose-us" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Why Choose Us</Link>
               <Link href="/memberships" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Memberships</Link>
               <Link href="/blog" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Blog</Link>
+              <Link href="/filter-rotation-program" className="block px-4 py-2.5 text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">Filter Rotation Program</Link>
               <Link href="/filter-scanner" className="flex items-center gap-2 px-4 py-[20px] text-sm text-white hover:text-white hover:bg-white/5 rounded-lg transition-colors">
                 <Sparkles className="w-4 h-4 text-[#4d9fff]" /> AI Scanner
               </Link>

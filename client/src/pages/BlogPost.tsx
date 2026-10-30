@@ -6,7 +6,8 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { blogPosts } from '@/lib/blogData';
-import { createBreadcrumbSchema } from '@/lib/structuredData';
+import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Clock, User, ArrowLeft, Calendar } from 'lucide-react';
 
 const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
@@ -82,6 +83,7 @@ export default function BlogPost() {
     publisher: { '@type': 'Organization', name: 'PFS Filters', logo: 'https://www.pfsfilters.com/images/brands/pfs-logo-wide.png' },
     keywords: post.keywords.join(', '),
   };
+  const faqSchema = post.faqs?.length ? createFAQSchema(post.faqs) : null;
 
   // Convert markdown-like content to HTML paragraphs
   const renderContent = (content: string) => {
@@ -125,7 +127,7 @@ export default function BlogPost() {
         canonical={`https://www.pfsfilters.com/blog/${post.slug}`}
         ogType="article"
         ogImage={post.image}
-        structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, articleSchema] }}
+        structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, articleSchema, ...(faqSchema ? [faqSchema] : [])] }}
       />
       <Navigation />
 
@@ -172,6 +174,49 @@ export default function BlogPost() {
           <div className="prose prose-lg max-w-none space-y-2">
             {renderContent(post.content)}
           </div>
+
+          {post.relatedLinks && post.relatedLinks.length > 0 && (
+            <p className="mt-8 text-white/60 leading-relaxed">
+              Related:{' '}
+              {post.relatedLinks.map((item, index) => (
+                <span key={item.href}>
+                  {index > 0 ? ', ' : ''}
+                  {item.external ? (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link href={item.href} className="text-blue-400 hover:text-blue-300">
+                      {item.label}
+                    </Link>
+                  )}
+                </span>
+              ))}
+              .
+            </p>
+          )}
+
+          {post.faqs && post.faqs.length > 0 && (
+            <div className="mt-10">
+              <h2 className="text-2xl font-bold mb-4">Questions</h2>
+              <Accordion type="single" collapsible className="space-y-3">
+                {post.faqs.map((faq, index) => (
+                  <AccordionItem
+                    key={faq.question}
+                    value={`post-faq-${index}`}
+                    className="rounded-xl border border-white/10 bg-[#0d0d0d] px-5"
+                  >
+                    <AccordionTrigger className="text-left text-base font-semibold hover:no-underline">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-base leading-relaxed text-white/70">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          )}
 
           <div className="mt-12 p-6 bg-blue-500/5 border border-primary/20 rounded-xl">
             <h3 className="font-bold text-lg mb-2">Need Help Choosing the Right Filters?</h3>

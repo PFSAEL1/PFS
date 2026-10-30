@@ -76,6 +76,46 @@ const filterCategories = [
     featured: false,
   },
   {
+    title: 'Powder Booth Filters',
+    position: 'EXHAUST',
+    desc: 'Three-stage panels for spray-to-waste powder booths and pulse-jet cartridges for reclaim collectors. Quoted from the installed media. No catalog price or part number.',
+    href: '/category/powder-booth-filters',
+    image: '/images/filters/merv-pleated.jpg',
+    tags: ['Three-Stage', 'Pulse-Jet'],
+    featured: false,
+    cta: 'View',
+  },
+  {
+    title: 'Activated Carbon VOC Media',
+    position: 'EXHAUST',
+    desc: 'Carbon media that holds solvent vapor after a particulate stage. Not a paint arrestor, and not a stocked catalog item. Request a quote with the housing size.',
+    href: '/category/activated-carbon-media',
+    image: '/images/filters/pre-filters.webp',
+    tags: ['VOC Media', 'Quote'],
+    featured: false,
+    cta: 'View',
+  },
+  {
+    title: 'Paint Arrest Systems',
+    position: 'EXHAUST',
+    desc: 'Multi-stage overspray capture. Fiberglass, Paint Pockets, and Andreae media are stocked separately. A staged set is quoted.',
+    href: '/category/paint-arrest-systems',
+    image: '/images/filters/fiberglass-arrestors.png',
+    tags: ['Multi-Stage', 'Exhaust'],
+    featured: false,
+    cta: 'View',
+  },
+  {
+    title: 'PFS OEM Replacement Kits',
+    position: 'INTAKE / EXHAUST',
+    desc: 'Intake, ceiling, and exhaust media matched to a PFS booth model. The kit is quoted from the model and equipment tag.',
+    href: '/category/pfs-oem-replacement-kits',
+    image: '/images/filters/roll-media.jpg',
+    tags: ['PFS Booths', 'Quote'],
+    featured: false,
+    cta: 'View',
+  },
+  {
     title: 'Aerospace & HEPA Media',
     position: 'INTAKE / EXHAUST',
     desc: 'High-efficiency filtration for aerospace, MRO, and chromate-capture applications. HEPA-XFP multi-pocket bags and NESHAP 319 final-stage bags.',
@@ -83,6 +123,7 @@ const filterCategories = [
     image: '/images/filters/aerospace-hepa.png',
     tags: ['HEPA', 'NESHAP 319', 'Aerospace'],
     featured: false,
+    cta: 'Shop',
   },
 ];
 
@@ -162,7 +203,7 @@ export default function ShopByFilterType() {
                         ))}
                       </div>
                       <span className="flex items-center gap-2 text-[#4d9fff] font-semibold text-sm group-hover:gap-3 transition-all">
-                        Shop <ArrowRight className="h-4 w-4" />
+                        {cat.cta || 'Shop'} <ArrowRight className="h-4 w-4" />
                       </span>
                     </div>
                   </div>
@@ -205,7 +246,7 @@ export default function ShopByFilterType() {
                         ))}
                       </div>
                       <span className="flex items-center gap-1.5 text-[#4d9fff] font-semibold text-sm group-hover:gap-2.5 transition-all">
-                        Shop <ArrowRight className="h-3.5 w-3.5" />
+                        {cat.cta || 'Shop'} <ArrowRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
                   </div>
