@@ -79,7 +79,7 @@ export default function Home() {
       <Navigation />
 
       {/* 1. Hero — untouched */}
-      <div className="pt-24">
+      <div className="home-top-gap pt-24">
         <SocialProofBanner />
       </div>
       <Hero />
@@ -134,7 +134,7 @@ export default function Home() {
               },
             ].map((card) => (
               <Link key={card.title} href={card.href}>
-                <div className="relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color] duration-200 h-[360px] md:h-[520px]">
+                <div className="home-filter-card relative rounded-xl overflow-hidden border border-white/[0.10] cursor-pointer group hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color] duration-200 h-[360px] md:h-[520px]">
                   <img
                     src={card.image}
                     srcSet={card.srcSet}
@@ -143,6 +143,7 @@ export default function Home() {
                     className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
                     width={960}
                     height={644}
+                    style={{ aspectRatio: '960 / 644' }}
                     loading="lazy"
                     decoding="async"
                   />

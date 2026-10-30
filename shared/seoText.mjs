@@ -5,6 +5,8 @@
  * Shipping rate and transit time are not published, so they are not invented.
  */
 
+import { getBoothGuide } from './boothFilterGuides.mjs';
+
 export const REVALIDATE_SECONDS = 86400;
 export const BRAND_SUFFIX = ' | PFS Filters';
 
@@ -374,7 +376,9 @@ export function brandGuideTitle(name, slug) {
   return options.find((title) => title.length <= 60) || productTitle(slug, `${name} Filters`);
 }
 
-export function brandGuideDescription(name) {
+export function brandGuideDescription(name, slug = '') {
+  const guide = slug ? getBoothGuide(slug) : null;
+  if (guide?.metaDescription) return guide.metaDescription;
   return fitDescription(
     `${name} paint booth filter guide. Review the models and stages listed here, then confirm the installed filter label and actual dimensions before ordering from PFS.`,
   );
@@ -481,7 +485,7 @@ export function resolveRouteSeo(path, extras = {}) {
     }
   } else if (brandSlug) {
     title = brandGuideTitle(extras.brandName || brandSlug, brandSlug);
-    description = brandGuideDescription(extras.brandName || brandSlug);
+    description = brandGuideDescription(extras.brandName || brandSlug, brandSlug);
   } else if (!preset) {
     title = productTitle(normalized, extras.title || 'PFS Filters');
     description = fitDescription(extras.description || description || 'Paint booth filters from PFS Filters.');
