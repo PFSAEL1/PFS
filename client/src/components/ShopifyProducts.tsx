@@ -47,7 +47,7 @@ export const ShopifyProducts = ({ categoryFilter, sizeFilter }: ShopifyProductsP
       if (started) return;
       started = true;
 
-      fetchProducts(50)
+      fetchProducts(250)
         .then((data) => {
           if (!active) return;
           cacheShopifyProducts(data);

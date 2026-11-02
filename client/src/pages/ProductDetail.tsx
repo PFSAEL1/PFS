@@ -14,6 +14,7 @@ import {
   ShopifyProduct,
 } from '@/lib/shopify';
 import { getBundledProductByHandle } from '@/lib/productCatalog';
+import { AEROSPACE_NESHAP_CATEGORY, AEROSPACE_NESHAP_PARENT_HANDLE, aerospaceNeshapProducts } from '@/lib/aerospaceCollection';
 import { useCartStore } from '@/stores/cartStore';
 import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredData';
 import { ShoppingCart, Loader2, Package, Truck, CircleHelp, ArrowLeft, Plus, Minus, RefreshCw } from 'lucide-react';
@@ -114,7 +115,7 @@ export default function ProductDetail() {
 
     fetchProductByHandle(handle).then((data) => {
       if (!active) return;
-      setProduct(data || immediate);
+      setProduct(data ? { ...data, seo: data.seo?.title || data.seo?.description ? data.seo : immediate?.seo } : immediate);
       setLoading(false);
       fetchRelatedProducts(data?.id || immediate?.id || '', 4).then((rp) => {
         if (active) setRelatedProducts(rp);
@@ -271,10 +272,12 @@ export default function ProductDetail() {
   return (
     <div className="min-h-screen text-white bg-[#040404]">
       <SEO
-        title={kochDetails?.seoTitle || (handle === 'swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium'
+        title={kochDetails?.seoTitle || product.seo?.title || (handle === 'swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium'
           ? 'Swiss Flow 600G Ceiling Media | PFS Filters'
           : `${product.title} | PFS Filters`)}
-        description={kochDetails?.seoDescription || product.description || `View ${product.title} from PFS Filters with current catalog details and ordering support.`}
+        description={kochDetails?.seoDescription || product.seo?.description || product.description || `View ${product.title} from PFS Filters with current catalog details and ordering support.`}
+        shopifyTitle={product.seo?.title || undefined}
+        shopifyDescription={product.seo?.description || undefined}
         canonical={`https://www.pfsfilters.com/product/${handle}`}
         ogImage={mainImageSeoUrl}
         ogImageAlt={mainImageAlt}
@@ -563,6 +566,56 @@ export default function ProductDetail() {
             </p>
           </div>
         </div>
+
+        {handle === AEROSPACE_NESHAP_PARENT_HANDLE && aerospaceNeshapProducts().length > 0 && (
+          <div className="mb-16">
+            <h2 className="text-2xl font-bold mb-2">Shop individual sizes</h2>
+            <p className="text-white/60 mb-6">
+              <Link href={`/category/${AEROSPACE_NESHAP_CATEGORY}`} className="text-blue-400 hover:text-blue-300">
+                Aerospace & NESHAP Filters
+              </Link>
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {aerospaceNeshapProducts().map((rp) => {
+                const imageNode = rp.node.images.edges[0]?.node;
+                return (
+                  <Card key={rp.node.id} className="flex flex-col bg-[#161616] border border-white/[0.07] hover:border-blue-500/50 hover:-translate-y-1 hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-all overflow-hidden">
+                    <Link href={`/product/${rp.node.handle}`} className="cursor-pointer">
+                      <div className="aspect-square overflow-hidden bg-[#1e1e1e]">
+                        <img
+                          src={shopProductCardImageUrl(rp.node.handle, imageNode?.url || DEFAULT_PRODUCT_IMAGE, 320)}
+                          srcSet={shopProductCardImageSrcSet(rp.node.handle, imageNode?.url || DEFAULT_PRODUCT_IMAGE)}
+                          sizes="(min-width: 768px) 25vw, 50vw"
+                          alt={shopifyImageAltText(imageNode, rp.node.title)}
+                          width={320}
+                          height={320}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </Link>
+                    <CardContent className="flex flex-1 flex-col p-3">
+                      <Link href={`/product/${rp.node.handle}`} className="cursor-pointer">
+                        <p className="font-medium text-sm line-clamp-2">{rp.node.title}</p>
+                        <p className="text-blue-400 font-bold text-sm mt-1">
+                          ${parseFloat(rp.node.priceRange.minVariantPrice.amount).toFixed(2)}
+                        </p>
+                      </Link>
+                      <button
+                        onClick={() => handleAddRelatedToCart(rp)}
+                        className="mt-3 w-full rounded-lg border border-transparent bg-[#2563eb] py-2.5 text-[13px] font-medium text-white transition-[transform,box-shadow,background-color,border-color] duration-200 hover:bg-[#1d4ed8] hover:border-blue-500/50 hover:shadow-[0_20px_70px_-12px_rgba(59,130,246,0.75)]"
+                        style={{ padding: '10px', borderRadius: '8px' }}
+                      >
+                        Add to Cart
+                      </button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Technical specifications */}
         <ProductSpecs product={product} />
