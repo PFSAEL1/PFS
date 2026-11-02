@@ -3,6 +3,7 @@
 // Safari-compatible: includes retry logic and proper error handling
 
 import { removePublicEmail, sanitizeProductContact } from '@/lib/publicContactText';
+import shopifyCollections from '@/data/shopifyCollections.json' with { type: 'json' };
 
 export interface Money {
   amount: string;
@@ -87,6 +88,11 @@ export interface ShopifyProduct {
       name: string;
       values: string[];
     }>;
+    seo?: {
+      title?: string | null;
+      description?: string | null;
+    };
+    collections?: string[];
     sellingPlanGroups?: {
       edges: Array<{
         node: {
@@ -153,7 +159,9 @@ export function validateCartItemsForCheckout(items: CartItem[]): void {
 }
 
 // Category slug → Shopify collection handle mapping
-export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string; title: string; description: string; position: string }> = {
+const aerospaceNeshapCollection = (shopifyCollections as Record<string, { title?: string; seoDescription?: string; handles?: string[] }>)['aerospace-neshap-filters'];
+
+export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string; title: string; description: string; position: string; trustCollection?: boolean }> = {
   'fiberglass-arrestors': {
     collectionHandle: 'fiberglass-paint-arrestors',
     title: 'Fiberglass Paint Arrestors',
@@ -196,6 +204,13 @@ export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string;
     description: 'First-stage filtration that extends the life of your primary ceiling media by up to 50%. Catches large particles before they reach expensive diffusion blankets.',
     position: 'INTAKE',
   },
+  'aerospace-neshap-filters': {
+    collectionHandle: 'aerospace-neshap-filters',
+    title: aerospaceNeshapCollection?.title || 'Aerospace & NESHAP Filters',
+    description: aerospaceNeshapCollection?.seoDescription || 'Shop aerospace paint booth filters for NESHAP Method 319 systems.',
+    position: 'EXHAUST',
+    trustCollection: true,
+  },
 };
 
 // Tag-based fallback mapping when collections don't exist
@@ -217,6 +232,11 @@ export const CATEGORY_TAG_MAP: Record<string, string[]> = {
  * accordion-style paper arrestors are different products).
  */
 export function productMatchesCategory(product: ShopifyProduct, categorySlug: string): boolean {
+  const listedHandles = (shopifyCollections as Record<string, { handles?: string[] }>)[categorySlug]?.handles;
+  if (listedHandles && listedHandles.length > 0) {
+    return listedHandles.includes(product.node.handle);
+  }
+
   const productTags = (product.node.tags || []).map((tag) => tag.toLowerCase());
   const productType = (product.node.productType || '').toLowerCase();
   const productTitle = product.node.title.toLowerCase();
@@ -292,6 +312,10 @@ const PRODUCT_FIELDS = `
   productType
   vendor
   tags
+  seo {
+    title
+    description
+  }
   priceRange {
     minVariantPrice {
       amount
@@ -352,8 +376,12 @@ const PRODUCT_FIELDS = `
 `;
 
 const GET_PRODUCTS_QUERY = `
-  query GetProducts($first: Int!) {
-    products(first: $first) {
+  query GetProducts($first: Int!, $after: String) {
+    products(first: $first, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       edges {
         node {
           ${PRODUCT_FIELDS}
@@ -390,6 +418,10 @@ const GET_PRODUCT_BY_HANDLE_QUERY = `
       productType
       vendor
       tags
+      seo {
+        title
+        description
+      }
       priceRange {
         minVariantPrice {
           amount
@@ -529,9 +561,21 @@ const CART_CREATE_MUTATION = `
   }
 `;
 
-export async function fetchProducts(limit = 50): Promise<ShopifyProduct[]> {
-  const data = await storefrontApiRequest(GET_PRODUCTS_QUERY, { first: limit });
-  return (data?.data?.products?.edges || []).map(sanitizeProductContact);
+export async function fetchProducts(limit = 250): Promise<ShopifyProduct[]> {
+  const collected: ShopifyProduct[] = [];
+  let cursor: string | null = null;
+
+  while (collected.length < limit) {
+    const pageSize = Math.min(100, limit - collected.length);
+    const data = await storefrontApiRequest(GET_PRODUCTS_QUERY, { first: pageSize, after: cursor });
+    const connection = data?.data?.products;
+    const edges = connection?.edges || [];
+    collected.push(...edges);
+    if (!connection?.pageInfo?.hasNextPage || edges.length === 0) break;
+    cursor = connection.pageInfo.endCursor;
+  }
+
+  return collected.slice(0, limit).map(sanitizeProductContact);
 }
 
 /**
@@ -552,7 +596,13 @@ export async function fetchProductsByCategory(categorySlug: string, limit = 50):
       });
       const products = data?.data?.collectionByHandle?.products?.edges;
       if (products && products.length > 0) {
-        const matchingProducts = products.filter((product: ShopifyProduct) =>
+        const visibleProducts = products.filter((product: ShopifyProduct) =>
+          !product.node.title.toLowerCase().includes('membership'),
+        );
+        if (categoryInfo.trustCollection && visibleProducts.length > 0) {
+          return visibleProducts.map(sanitizeProductContact);
+        }
+        const matchingProducts = visibleProducts.filter((product: ShopifyProduct) =>
           productMatchesCategory(product, categorySlug),
         );
         if (matchingProducts.length > 0) {

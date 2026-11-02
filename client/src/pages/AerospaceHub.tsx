@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Plane, Wind, Shield, Wrench, ChevronDown, Phone, ArrowRight } from 'lucide-react';
+import { AEROSPACE_NESHAP_CATEGORY, aerospaceNeshapProducts } from '@/lib/aerospaceCollection';
 
 const LOGO_URL = '/images/brands/pfs-logo-wide.png';
 const PAGE_URL = 'https://www.pfsfilters.com/industries/aerospace-paint-booth-filters';
@@ -42,6 +43,7 @@ const structuredData = {
 
 export default function AerospaceHub() {
   const [guideOpen, setGuideOpen] = useState(false);
+  const aerospaceSizes = aerospaceNeshapProducts();
 
   return (
     <div className="min-h-screen bg-[#040404] text-white">
@@ -153,6 +155,35 @@ export default function AerospaceHub() {
           </div>
         </div>
       </section>
+
+      {aerospaceSizes.length > 0 && (
+        <section className="section-raised py-16 px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">Shop individual sizes</h2>
+              <p className="text-white/40 max-w-xl mx-auto">
+                <Link href={`/category/${AEROSPACE_NESHAP_CATEGORY}`} className="text-blue-400 hover:text-blue-300">
+                  Aerospace & NESHAP Filters
+                </Link>
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {aerospaceSizes.map((product) => (
+                <Link key={product.node.handle} href={`/product/${product.node.handle}`}>
+                  <div className="glow-card group cursor-pointer h-full">
+                    <div className="p-5 flex items-center justify-between gap-4">
+                      <h3 className="text-base font-bold text-white">{product.node.title}</h3>
+                      <span className="shrink-0 inline-flex items-center gap-1 text-blue-400 text-sm font-medium group-hover:gap-2 transition-all">
+                        Shop Now <ArrowRight className="h-3.5 w-3.5" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Trust bar */}
       <section className="py-10 px-4 border-y border-white/5">
