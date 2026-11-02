@@ -3,9 +3,11 @@ import { Link } from 'wouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Breadcrumb } from '@/components/Breadcrumb';
-import { createBreadcrumbSchema } from '@/lib/structuredData';
+import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
 import { ArrowRight, ShoppingCart, Phone, Clock, Layers, Wind, Filter as FilterIcon, ExternalLink } from 'lucide-react';
 import { getBrandBySlug, BOOTH_TYPES, type BoothModel } from '@/data/boothBrands';
+import { getBoothGuide } from '@shared/boothFilterGuides.mjs';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const Footer = lazy(() => import('@/components/Footer').then((module) => ({ default: module.Footer })));
 
@@ -174,6 +176,17 @@ export default function BrandDetail({ params }: BrandDetailProps) {
     { name: 'Shop by Booth', url: 'https://www.pfsfilters.com/shop-by-booth' },
     { name: brand.name, url: `https://www.pfsfilters.com/shop-by-booth/${brand.slug}` },
   ]);
+  const guide = getBoothGuide(brand.slug);
+  const faqSchema = guide ? createFAQSchema(guide.faqs) : null;
+  const structuredData = faqSchema
+    ? {
+        '@context': 'https://schema.org',
+        '@graph': [
+          { '@type': 'BreadcrumbList', itemListElement: breadcrumbSchema.itemListElement },
+          { '@type': 'FAQPage', mainEntity: faqSchema.mainEntity },
+        ],
+      }
+    : breadcrumbSchema;
 
   const boothTypes = [...new Set(brand.models.map(m => m.type))];
   const seoBrandName = brand.slug === 'global-finishing-solutions' ? 'GFS' : brand.name;
@@ -184,7 +197,7 @@ export default function BrandDetail({ params }: BrandDetailProps) {
         title={`${seoBrandName} Paint Booth Filter Guide | PFS Filters`}
         description={`Review filter positions and replacement guidance for ${brand.name} spray booths. Confirm the installed model, stage, and dimensions before ordering.`}
         canonical={`https://www.pfsfilters.com/shop-by-booth/${brand.slug}`}
-        structuredData={breadcrumbSchema}
+        structuredData={structuredData}
       />
       <Navigation />
 
@@ -210,11 +223,15 @@ export default function BrandDetail({ params }: BrandDetailProps) {
               {brand.name} Booth Filters
             </h1>
             <p className="text-lg text-white/70 max-w-3xl">{brand.description}</p>
-            <p className="text-white/60 max-w-3xl mt-4 leading-relaxed">
-              {brand.name} models listed here: {brand.models.map((model) => model.name).join(', ')}.
-              {brand.industries.length > 0 ? ` Industries on this brand record: ${brand.industries.join(', ')}.` : ''}
-              {' '}Confirm the installed model, filter position, and measured size before ordering. Part numbers that are not on the cross-reference page are not in the current online catalog.
-            </p>
+            {guide ? (
+              <p className="text-white/60 max-w-3xl mt-4 leading-relaxed">{guide.intro}</p>
+            ) : (
+              <p className="text-white/60 max-w-3xl mt-4 leading-relaxed">
+                {brand.name} models listed here: {brand.models.map((model) => model.name).join(', ')}.
+                {brand.industries.length > 0 ? ` Industries on this brand record: ${brand.industries.join(', ')}.` : ''}
+                {' '}Confirm the installed model, filter position, and measured size before ordering. Part numbers that are not on the cross-reference page are not in the current online catalog.
+              </p>
+            )}
             {brand.replacementCycle && (
               <div className="flex flex-wrap gap-4 mt-6">
                 {brand.replacementCycle.ceiling && (
@@ -246,14 +263,73 @@ export default function BrandDetail({ params }: BrandDetailProps) {
       <section className="section-raised tex-dots py-14 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-2">{brand.name} Models</h2>
-          <p className="text-white/50 text-sm mb-8">Click any filter size to go directly to that product. Sizes marked with a call icon require a quote.</p>
-          <div className="grid gap-4">
-            {brand.models.map((model) => (
-              <ModelCard key={model.name} model={model} brandName={brand.name} />
-            ))}
-          </div>
+          {guide ? (
+            <>
+              <p className="text-white/50 text-sm mb-8">Filter type and size for each listed model. Measure the installed filter before ordering.</p>
+              <div className="rounded-xl border border-white/10 overflow-hidden bg-white/[0.02]">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <caption className="sr-only">{brand.name} booth models with filter position, type, and size</caption>
+                    <thead>
+                      <tr className="text-left text-white/40 text-xs uppercase tracking-wider">
+                        <th scope="col" className="px-4 py-3 font-semibold">Model</th>
+                        <th scope="col" className="px-4 py-3 font-semibold">Position</th>
+                        <th scope="col" className="px-4 py-3 font-semibold">Filter type</th>
+                        <th scope="col" className="px-4 py-3 font-semibold">Size</th>
+                        <th scope="col" className="px-4 py-3 font-semibold">Qty</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {guide.rows.map((row) => (
+                        <tr key={`${row.model}-${row.position}-${row.size}-${row.filterType}`} className="border-t border-white/[0.07] align-top">
+                          <td className="px-4 py-3 text-white/85 font-medium">{row.model}</td>
+                          <td className="px-4 py-3 text-white/65">{row.position}</td>
+                          <td className="px-4 py-3 text-white/65">{row.filterType}</td>
+                          <td className="px-4 py-3 text-white/65 whitespace-nowrap">{row.size}</td>
+                          <td className="px-4 py-3 text-white/65">{row.qty || '—'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="text-white/50 text-sm mb-8">Click any filter size to go directly to that product. Sizes marked with a call icon require a quote.</p>
+              <div className="grid gap-4">
+                {brand.models.map((model) => (
+                  <ModelCard key={model.name} model={model} brandName={brand.name} />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </section>
+
+      {guide && (
+        <section className="section-darker py-14 px-4">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-white mb-6">{brand.name} filter questions</h2>
+            <Accordion type="single" collapsible className="space-y-2">
+              {guide.faqs.map((faq, index) => (
+                <AccordionItem
+                  key={faq.question}
+                  value={`faq-${index}`}
+                  className="bg-[#0d0d0d] border border-white/10 rounded-lg px-4"
+                >
+                  <AccordionTrigger className="text-left font-medium hover:no-underline">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/70 leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="section-glow tex-lines py-14 px-4">
