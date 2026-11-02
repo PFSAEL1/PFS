@@ -5,6 +5,7 @@ declare module '@shared/seoText.mjs' {
     description: string;
     noindex: boolean;
     canonical: string;
+    shopifySeo?: boolean;
   };
 
   export function resolveRouteSeo(path: string, extras?: {
@@ -13,6 +14,8 @@ declare module '@shared/seoText.mjs' {
     noindex?: boolean;
     brandName?: string;
     productTitle?: string;
+    seoTitle?: string;
+    seoDescription?: string;
   }): SeoRecord;
 
   export function breadcrumbNodes(path: string, leafName?: string): { name: string; path: string }[];

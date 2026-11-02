@@ -12,6 +12,8 @@ interface SEOProps {
   ogImageHeight?: number;
   structuredData?: object | null;
   noIndex?: boolean;
+  shopifyTitle?: string;
+  shopifyDescription?: string;
 }
 
 const DEFAULT_OG_IMAGE = 'https://www.pfsfilters.com/media/pfs-hero-poster-desktop.webp';
@@ -72,6 +74,8 @@ export const SEO = ({
   ogImageHeight,
   structuredData,
   noIndex = false,
+  shopifyTitle,
+  shopifyDescription,
 }: SEOProps) => {
   const path = requestedPath(canonical);
   const resolved = resolveRouteSeo(path, {
@@ -79,6 +83,8 @@ export const SEO = ({
     description,
     noindex: noIndex,
     productTitle: path.startsWith('/product/') ? title : undefined,
+    seoTitle: shopifyTitle,
+    seoDescription: shopifyDescription,
   });
   const fullTitle = resolved.title;
   const metaDescription = resolved.description;

@@ -258,6 +258,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.pfsfilters.com/category/aerospace-neshap-filters</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://www.pfsfilters.com/shop-by-booth/accudraft</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -647,5 +652,96 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image><image:loc>https://www.pfsfilters.com/images/products/afc/afc-blue-poly-cube-2-pocket-restored.webp</image:loc><image:title>AFC Blue Poly Exhaust Cube 20x20 | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/20x20-neshap-319-final-stage-panel-filter-20-cs</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/neshap-319-final-stage-panel-filter.jpg?v=1793641744&amp;width=800</image:loc><image:title>20x20 NESHAP 319 Final Stage Panel Filter 20/CS | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/20x25-neshap-319-final-stage-panel-filter-20-cs</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/neshap-319-final-stage-panel-filter_595d9ad2-50b1-4bf3-b078-16c8d56c721d.jpg?v=1793641744&amp;width=800</image:loc><image:title>20x25 NESHAP 319 Final Stage Panel Filter 20/CS | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/53x112-volz-sfr-ceiling-filter-blanket-4-bag</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/volz-sfr-ceiling-filter-media.jpg?v=1793641504&amp;width=800</image:loc><image:title>53x112 Volz SFR Ceiling Filter Blanket 4/Bag | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/20x20x12-neshap-319-final-stage-5-pocket-bag-filter-6-cs</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/neshap-319-final-stage-pocket-bag-filter_9d46349c-43f8-4d1c-b1a1-6445bc3cce39.jpg?v=1793641744&amp;width=800</image:loc><image:title>20x20x12 NESHAP 319 5-Pocket Bag Filter 6/CS | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/20x20x15-cg100-2-pocket-bag-filter-8-cs</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/cg100-2-pocket-bag-filter-hd.jpg?v=1793642143&amp;width=800</image:loc><image:title>20x20x15 CG100 2-Pocket Bag Filter 8/CS | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/20x25x12-neshap-319-final-stage-5-pocket-bag-filter-6-cs</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/neshap-319-final-stage-pocket-bag-filter.jpg?v=1793641744&amp;width=800</image:loc><image:title>20x25x12 NESHAP 319 5-Pocket Bag Filter 6/CS | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/24x24x12-hepa-xfp-6000-6-pocket-bag-filter-5-cs</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/hepa-xfp-6-pocket-bag-filter.jpg?v=1793641505&amp;width=800</image:loc><image:title>24x24x12 HEPA-XFP 6000 6-Pocket Bag Filter 5/CS | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/24x24x12-neshap-319-final-stage-6-pocket-bag-filter-6-cs</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/neshap-319-final-stage-pocket-bag-filter_3cc1e46c-1543-4db0-98f7-f8e35a8ec8dd.jpg?v=1793641745&amp;width=800</image:loc><image:title>24x24x12 NESHAP 319 6-Pocket Bag Filter 6/CS | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/20x20-me-pt-aerospace-exhaust-panel-filter-24-cs</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/me-pt-polyester-filter-panel.jpg?v=1793641506&amp;width=800</image:loc><image:title>20x20 ME/PT Aerospace Exhaust Panel Filter 24/CS | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/20x20x15-neshap-319-final-stage-2-pocket-bag-filter-6-cs</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/neshap-319-2-pocket-bag-filter.jpg?v=1793642142&amp;width=800</image:loc><image:title>20x20x15 NESHAP 319 2-Pocket Bag Filter 6/CS | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/20x20x12-hepa-xfp-6-pocket-bag-filter-5-cs</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/hepa-xfp-6-pocket-bag-filter_fe15da08-d26a-4e66-bb11-640038f10cbf.jpg?v=1793641506&amp;width=800</image:loc><image:title>20x20x12 HEPA-XFP 6-Pocket Bag Filter 5/CS | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/20x25x15-neshap-319-final-stage-2-pocket-bag-filter-6-cs</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/neshap-319-2-pocket-bag-filter_731de2ab-5747-4d99-bcc4-a90a549be000.jpg?v=1793642143&amp;width=800</image:loc><image:title>20x25x15 NESHAP 319 2-Pocket Bag Filter 6/CS | PFS Filters</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://www.pfsfilters.com/product/96x50-cpa-polyester-overspray-filter-roll</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://cdn.shopify.com/s/files/1/0972/9815/3604/files/cpa-polyester-overspray-media.jpg?v=1793641507&amp;width=800</image:loc><image:title>96&quot; x 50&apos; CPA Overspray Filter Roll | PFS Filters</image:title></image:image>
   </url>
 </urlset>

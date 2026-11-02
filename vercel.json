@@ -54,6 +54,10 @@
       "handle": "filesystem"
     },
     {
+      "src": "/product/([^/]+)",
+      "dest": "/product-shell.html"
+    },
+    {
       "src": "/(.*)",
       "status": 404,
       "dest": "/404.html"

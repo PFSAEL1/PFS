@@ -68,6 +68,12 @@ const catalogLastmod = (() => {
   }
   return fs.statSync(productFile).mtime.toISOString().slice(0, 10);
 })();
+const collectionsFile = path.join(root, 'client', 'src', 'data', 'shopifyCollections.json');
+const shopifyCollections = fs.existsSync(collectionsFile)
+  ? JSON.parse(fs.readFileSync(collectionsFile, 'utf8'))
+  : {};
+const AEROSPACE_NESHAP_CATEGORY = 'aerospace-neshap-filters';
+const AEROSPACE_NESHAP_PARENT_HANDLE = 'aerospace-neshap-319-5-pocket-bag-filter-merv-14-15';
 const products = JSON.parse(fs.readFileSync(productFile, 'utf8'))
   .map((edge) => ({
     ...edge.node,
@@ -186,6 +192,11 @@ const categories = [
   { slug: 'merv-filters', title: 'MERV-Rated Filters', description: 'High-efficiency filters rated by MERV standard for precise particle capture. MERV-10 and MERV-13 options for industrial operations.' },
   { slug: 'polyester-media', title: 'Polyester Media', description: 'Durable synthetic filtration media with excellent moisture resistance. Ideal for high-humidity environments and water-based coatings.' },
   { slug: 'pre-filters', title: 'Pre-Filters', description: 'First-stage filtration that extends the life of your primary ceiling media by up to 50%. Catches large particles before they reach expensive diffusion blankets.' },
+  {
+    slug: AEROSPACE_NESHAP_CATEGORY,
+    title: shopifyCollections[AEROSPACE_NESHAP_CATEGORY]?.title || 'Aerospace & NESHAP Filters',
+    description: shopifyCollections[AEROSPACE_NESHAP_CATEGORY]?.seoDescription || 'Shop aerospace paint booth filters for NESHAP Method 319 systems.',
+  },
 ];
 
 const staticRoutes = [
@@ -393,6 +404,8 @@ const productRoutes = products.map((product) => {
     },
     noindex: isMembershipHandle(product.handle),
     lastmod: catalogLastmod,
+    seoTitle: product.seo?.title || '',
+    seoDescription: product.seo?.description || '',
   };
 });
 
@@ -613,11 +626,14 @@ for (const route of routes) {
     noindex: route.noindex,
     brandName,
     productTitle: route.path.startsWith('/product/') ? route.h1 : undefined,
+    seoTitle: route.seoTitle,
+    seoDescription: route.seoDescription,
   });
   route.title = seo.title;
   route.description = seo.description;
   route.noindex = Boolean(route.noindex || seo.noindex);
   route.canonicalPath = seo.canonical;
+  route.shopifySeo = Boolean(seo.shopifySeo);
   if (refreshedLastmod.has(route.path)) route.lastmod = '2026-10-29';
 }
 
@@ -662,6 +678,13 @@ function collectionNodes(route) {
   let items = [];
   if (path.startsWith('/category/')) {
     const slug = path.slice('/category/'.length);
+    const listedHandles = shopifyCollections[slug]?.handles;
+    if (listedHandles?.length) {
+      items = listedHandles
+        .map((handle) => products.find((product) => product.handle === handle))
+        .filter(Boolean)
+        .map((product) => ({ name: product.title, url: absoluteUrl(`/product/${product.handle}`) }));
+    } else {
     const terms = {
       'fiberglass-arrestors': ['fiberglass'],
       'tacky-panels': ['tacky', '5kr1'],
@@ -678,6 +701,7 @@ function collectionNodes(route) {
       })
       .slice(0, 24)
       .map((product) => ({ name: product.title, url: absoluteUrl(`/product/${product.handle}`) }));
+    }
   } else if (path === '/shop-by-booth') {
     items = routes
       .filter((candidate) => candidate.path.startsWith('/shop-by-booth/') && !candidate.noindex)
@@ -1635,6 +1659,54 @@ function kochProductDetailsFallback(handle) {
   </details>`;
 }
 
+function aerospaceNeshapSizeLinks() {
+  const handles = shopifyCollections[AEROSPACE_NESHAP_CATEGORY]?.handles || [];
+  return handles.map((handle) => {
+    const product = products.find((candidate) => candidate.handle === handle);
+    if (!product) return '';
+    return `<li style="margin:8px 0"><a href="/product/${escapeHtml(product.handle)}" style="color:#93c5fd">${escapeHtml(product.title)}</a></li>`;
+  }).join('');
+}
+
+function shopIndividualSizesMarkup() {
+  return `<section style="padding:8px 16px 48px;background:#0d0d0d">
+    <div style="max-width:1280px;margin:0 auto;font-family:Arial,sans-serif">
+      <h2 style="margin:0 0 8px;color:#fff;font-size:28px">Shop individual sizes</h2>
+      <p style="margin:0 0 16px"><a href="/category/${AEROSPACE_NESHAP_CATEGORY}" style="color:#60a5fa;font-weight:700">Aerospace &amp; NESHAP Filters</a></p>
+      <ul style="margin:0;padding-left:20px;line-height:1.6">${aerospaceNeshapSizeLinks()}</ul>
+    </div>
+  </section>`;
+}
+
+function collectionCategoryFallback(route) {
+  const heading = escapeHtml(routeHeading(route));
+  const description = escapeHtml(stripMarkdown(route.description));
+  return `<main data-seo-fallback id="aerospace-neshap-category-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <section style="padding:32px 16px 24px;background:#050505">
+      <div style="max-width:1280px;margin:0 auto">
+        <h1 style="margin:0 0 16px;font-size:clamp(2.6rem,8vw,4.5rem);line-height:.95;font-weight:800;color:#fff">${heading}</h1>
+        <p style="max-width:760px;margin:0;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:18px;line-height:1.6">${description}</p>
+      </div>
+    </section>
+    ${shopIndividualSizesMarkup()}
+  </main>`;
+}
+
+function aerospaceIndustryFallback(route) {
+  const heading = escapeHtml(routeHeading(route));
+  const description = escapeHtml(stripMarkdown(route.description));
+  return `<main data-seo-fallback id="aerospace-industry-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
+    <section style="padding:32px 16px 24px;background:#050505">
+      <div style="max-width:880px;margin:0 auto">
+        <p style="color:#60a5fa;font-weight:700">PFS FILTERS</p>
+        <h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1>
+        <p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>
+      </div>
+    </section>
+    ${shopIndividualSizesMarkup()}
+  </main>`;
+}
+
 // Generic, data-driven fallback for ANY /product/:handle route — looks the
 // handle up in the parsed snapshot instead of hardcoding per-product markup.
 function genericProductFallback(route) {
@@ -1692,6 +1764,7 @@ function genericProductFallback(route) {
         </div>
       </div>
     </section>
+    ${handle === AEROSPACE_NESHAP_PARENT_HANDLE ? shopIndividualSizesMarkup() : ''}
   </main>`;
 }
 
@@ -1911,6 +1984,10 @@ function replaceMeta(html, route) {
     ? vitraFallback()
     : route.path === '/industries/automotive-paint-booth-filters'
     ? automotiveIndustryFallback()
+    : route.path === '/industries/aerospace-paint-booth-filters'
+    ? aerospaceIndustryFallback(route)
+    : route.path === `/category/${AEROSPACE_NESHAP_CATEGORY}`
+    ? collectionCategoryFallback(route)
     : route.path === '/aerospace'
     ? aerospaceFallback()
     : route.path === '/shop-by-booth/nova-verta'
@@ -1991,6 +2068,14 @@ function writeDistPages() {
     .replace('index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1', 'noindex,nofollow')
     .replace('<div id="root">', '<div id="root" data-http-status="404">');
   fs.writeFileSync(path.join(distDir, '404.html'), notFound);
+  const productShell = replaceMeta(template, {
+    path: '/product-shell',
+    title: 'Paint Booth Filter | PFS Filters',
+    description: 'View this paint booth filter from the PFS Filters catalog, including the current price, availability, and ordering options.',
+    noindex: true,
+    h1: 'Paint Booth Filter',
+  });
+  fs.writeFileSync(path.join(distDir, 'product-shell.html'), productShell);
   validateDistPages();
   assertHomepageIsNotSoft404(notFound);
   console.log(`Generated static metadata and fallback HTML for ${routes.length} routes plus 404.html.`);

@@ -1,9 +1,12 @@
 /**
  * Shared document titles, descriptions, canonicals, and merchant-listing facts.
- * Titles are keyword-led and at most 60 characters.
- * Descriptions are 140–160 characters.
+ * Curated titles are keyword-led and at most 60 characters.
+ * Curated descriptions are 140–160 characters.
+ * Titles and descriptions taken from Shopify SEO fields are published as written
+ * when they fit the slightly wider merchant-SEO bounds.
  * Shipping rate and transit time are not published, so they are not invented.
  */
+import shopifyCollections from '../client/src/data/shopifyCollections.json' with { type: 'json' };
 
 export const REVALIDATE_SECONDS = 86400;
 export const BRAND_SUFFIX = ' | PFS Filters';
@@ -381,7 +384,22 @@ export function brandGuideDescription(name) {
 }
 
 export function categorySeo(slug) {
+  const live = shopifyCollections[slug];
+  if (live?.seoTitle && live?.seoDescription) {
+    return {
+      title: live.seoTitle,
+      description: live.seoDescription,
+      fromShopify: true,
+    };
+  }
   return CATEGORY_SEO[slug] || null;
+}
+
+function shopifyMetaText(value, max) {
+  const clean = stripMarkdown(value);
+  if (!clean) return '';
+  if (clean.length <= max) return clean;
+  return clean.slice(0, max).replace(/\s+\S*$/, '').trim();
 }
 
 function stripMarkdown(value = '') {
@@ -461,19 +479,43 @@ export function resolveRouteSeo(path, extras = {}) {
   let description = preset?.description || extras.description || '';
   let noindex = Boolean(preset?.noindex || extras.noindex || NOINDEX_PATHS.has(normalized));
   let canonical = preset?.canonical || CANONICAL_OVERRIDES[normalized] || normalized;
+  let shopifySeo = false;
 
   if (handle) {
     if (isBlockedProductHandle(handle) || isMembershipHandle(handle)) noindex = true;
-    title = productTitle(handle, extras.productTitle || extras.title || handle);
-    description = productDescription(extras.productTitle || title, extras.description || description);
+    const curated = Boolean(PRODUCT_TITLES[handle]);
+    const shopifyTitle = !curated ? shopifyMetaText(extras.seoTitle || '', 70) : '';
+    const shopifyDescription = !curated ? shopifyMetaText(extras.seoDescription || '', 160) : '';
+    if (shopifyTitle) {
+      title = shopifyTitle;
+      shopifySeo = true;
+    } else {
+      title = productTitle(handle, extras.seoTitle || extras.productTitle || extras.title || handle);
+    }
+    if (shopifyDescription && shopifyDescription.length >= 50) {
+      description = shopifyDescription;
+      shopifySeo = true;
+    } else {
+      description = productDescription(extras.productTitle || title, extras.description || description);
+    }
   } else if (blogSlug && blogSlug !== '') {
     title = blogTitle(blogSlug, extras.title || blogSlug);
     description = fitDescription(extras.description || description);
   } else if (categorySlug) {
     const category = categorySeo(categorySlug);
     if (category) {
-      title = category.title;
-      description = fitDescription(category.description);
+      if (category.fromShopify) {
+        const shopifyTitle = shopifyMetaText(category.title, 70);
+        const shopifyDescription = shopifyMetaText(category.description, 160);
+        title = shopifyTitle || productTitle(categorySlug, category.title);
+        description = shopifyDescription.length >= 50
+          ? shopifyDescription
+          : fitDescription(category.description);
+        shopifySeo = true;
+      } else {
+        title = category.title;
+        description = fitDescription(category.description);
+      }
       if (category.noindex) noindex = true;
     } else {
       title = productTitle(categorySlug, extras.title || categorySlug);
@@ -497,15 +539,18 @@ export function resolveRouteSeo(path, extras = {}) {
     description,
     noindex,
     canonical,
+    shopifySeo,
   };
 }
 
 export function assertSeoRecord(record) {
   const errors = [];
-  if (!record.title || record.title.length > 60) {
+  const titleLimit = record.shopifySeo ? 70 : 60;
+  const descriptionMin = record.shopifySeo ? 50 : 140;
+  if (!record.title || record.title.length > titleLimit) {
     errors.push(`${record.path} title (${record.title?.length || 0}): ${record.title}`);
   }
-  if (!record.description || record.description.length < 140 || record.description.length > 160) {
+  if (!record.description || record.description.length < descriptionMin || record.description.length > 160) {
     errors.push(`${record.path} description (${record.description?.length || 0}): ${record.description}`);
   }
   return errors;
