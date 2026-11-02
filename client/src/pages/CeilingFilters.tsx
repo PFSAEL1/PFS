@@ -225,6 +225,9 @@ export default function CeilingFilters() {
               { href: '/category/ceiling-blankets', label: 'Ceiling blankets', sub: 'Overhead intake media by size' },
               { href: '/category/pre-filters', label: 'Pre-filters', sub: 'First-stage protection for ceiling media' },
               { href: '/shop-by-booth-type', label: 'Shop by booth type', sub: 'Downdraft, crossdraft & semi-downdraft' },
+              { href: '/blog/booth-filter-replacement-intervals', label: 'Replacement intervals', sub: 'Ceiling and intake media often last 3 to 6 months' },
+              { href: '/blog/how-to-choose-booth-filters', label: 'How to choose filters', sub: 'Match the stage before you match the size' },
+              { href: '/filter-rotation-program', label: 'Filter rotation program', sub: 'Scheduled supply for ceiling and exhaust stages' },
             ].map((card) => (
               <Link key={card.href} href={card.href}>
                 <div className="glow-card group h-full p-5 cursor-pointer">

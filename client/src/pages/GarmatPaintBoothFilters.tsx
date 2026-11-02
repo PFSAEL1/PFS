@@ -219,7 +219,12 @@ export default function GarmatPaintBoothFilters() {
               <Link href="/filter-finder" className="text-blue-400 hover:text-blue-300">filter finder</Link>{' '}
               or{' '}
               <Link href="/contact" className="text-blue-400 hover:text-blue-300">contact PFS</Link>{' '}
-              for help and a quote.
+              for help and a quote. For change timing, see{' '}
+              <Link href="/blog/booth-filter-replacement-intervals" className="text-blue-400 hover:text-blue-300">replacement intervals</Link>
+              {' '}and the{' '}
+              <Link href="/blog/booth-filter-maintenance-checklist" className="text-blue-400 hover:text-blue-300">maintenance checklist</Link>,
+              or ask about the{' '}
+              <Link href="/filter-rotation-program" className="text-blue-400 hover:text-blue-300">filter rotation program</Link>.
             </p>
           </div>
 

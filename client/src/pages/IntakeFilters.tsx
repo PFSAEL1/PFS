@@ -247,6 +247,9 @@ export default function IntakeFilters() {
               { href: '/ceiling-filters', label: 'Paint booth ceiling filters', sub: 'Downdraft diffusion media by size' },
               { href: '/category/merv-filters', label: 'MERV-rated filters', sub: 'Pleated panels for air-makeup units' },
               { href: '/category/pre-filters', label: 'Pre-filters', sub: 'First-stage protection for ceiling media' },
+              { href: '/blog/booth-filter-replacement-intervals', label: 'Replacement intervals', sub: 'Intake media often lasts 3 to 6 months' },
+              { href: '/blog/how-to-choose-booth-filters', label: 'How to choose booth filters', sub: 'Stage, opening, then media family' },
+              { href: '/filter-rotation-program', label: 'Filter rotation program', sub: 'Scheduled supply for intake and exhaust' },
             ].map((card) => (
               <Link key={card.href} href={card.href}>
                 <div className="glow-card group h-full p-5 cursor-pointer">

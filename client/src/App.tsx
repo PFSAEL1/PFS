@@ -60,6 +60,7 @@ const ShopByBoothType = lazyRoute(() => import('./pages/ShopByBoothType'));
 const ShopByFilterType = lazyRoute(() => import('./pages/ShopByFilterType'));
 const FilterFinder = lazyRoute(() => import('./pages/FilterFinder'));
 const FAQPage = lazyRoute(() => import('./pages/FAQPage'));
+const FilterRotationProgram = lazyRoute(() => import('./pages/FilterRotationProgram'));
 
 const finderFallbackTypes = [
   'Downdraft',
@@ -839,6 +840,7 @@ function Router() {
       <Route path="/thank-you" component={ThankYou} />
       <Route path="/why-choose-us" component={WhyChooseUs} />
       <Route path="/faq" component={FAQPage} />
+      <Route path="/filter-rotation-program" component={FilterRotationProgram} />
       <Route path="/memberships" component={Memberships} />
       <Route path="/returns" component={Returns} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />

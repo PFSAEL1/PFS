@@ -36,6 +36,8 @@ export const Footer = () => {
                 { href: '/shop-by-booth', label: 'Booth Brand Guides' },
                 { href: '/blog', label: 'Blog & Resources' },
                 { href: '/faq', label: 'Filter FAQ' },
+                { href: '/filter-rotation-program', label: 'Filter Rotation Program' },
+                { href: '/blog/booth-filter-maintenance-checklist', label: 'Filter Maintenance Checklist' },
                 { href: '/why-choose-us', label: 'Why Choose Us' },
                 { href: '/memberships', label: 'Memberships' },
                 { href: '/returns', label: 'Returns & Refunds' },

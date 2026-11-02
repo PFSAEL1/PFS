@@ -98,7 +98,7 @@ describe('Koch catalog products', () => {
       productDetailSource.indexOf('<ProductSpecs product={product} />'),
     );
     expect(productDetailSource).toContain('const isKochProduct = !!kochDetails');
-    expect(productDetailSource).toContain('setProduct(data || immediate)');
+    expect(productDetailSource).toContain('setProduct(data ? { ...data, seo: data.seo?.title || data.seo?.description ? data.seo : immediate?.seo } : immediate)');
     expect(productDetailSource).toContain('ogImageWidth={isKochProduct ? 960 : undefined}');
     expect(productDetailSource).toContain('ogImageHeight={isKochProduct ? 960 : undefined}');
     expect(productDetailSource).toContain('ogImageAlt={mainImageAlt}');

@@ -9,6 +9,8 @@ export interface BlogPost {
   category: string;
   image: string;
   keywords: string[];
+  faqs?: { question: string; answer: string }[];
+  relatedLinks?: { href: string; label: string; external?: boolean }[];
 }
 
 export const blogPosts: BlogPost[] = [
@@ -186,6 +188,221 @@ PFS Filters can provide current catalog information, dimensions, and product or 
 Source: https://www3.epa.gov/ttnemc01/proposed/m-319.pdf
 Source: https://www.ecfr.gov/current/title-40/chapter-I/subchapter-C/part-63/subpart-GG
 Source: https://www.epa.gov/stationary-sources-air-pollution/aerospace-manufacturing-and-rework-facilities-national-emission
+    `,
+  },
+  {
+    slug: "booth-filter-replacement-intervals",
+    title: "How Often to Change Booth Filters",
+    excerpt: "Exhaust filters are typically changed every 30 to 90 days, and intake filters every 3 to 6 months. Life depends on spray hours, coatings, and pressure.",
+    author: "PFS Filters Editorial Team",
+    date: "2026-10-30",
+    readTime: "6 min read",
+    category: "Maintenance",
+    image: "/images/blog-featured-pfs.jpg",
+    keywords: ["paint booth filter change interval", "exhaust filter replacement", "intake filter schedule"],
+    relatedLinks: [
+      { href: "/exhaust-filters", label: "Exhaust filters" },
+      { href: "/intake-filters", label: "Intake filters" },
+      { href: "/ceiling-filters", label: "Ceiling filters" },
+      { href: "/filter-rotation-program", label: "Filter rotation program" },
+      { href: "/blog/clogged-paint-booth-filters", label: "What clogged filters do" },
+    ],
+    faqs: [
+      {
+        question: "How often should exhaust filters be changed?",
+        answer: "On a booth that sprays most days, exhaust filters are typically changed every 30 to 90 days. Heavy primer weeks and a small bank shorten that. Light color work stretches it. The booth pressure limit outranks the calendar.",
+      },
+      {
+        question: "How often should intake filters be changed?",
+        answer: "Intake filters, including many ceiling banks, typically last 3 to 6 months. Change them sooner when the gauge climbs, the blanket looks matted, or dirt starts showing in the finish.",
+      },
+    ],
+    content: `
+Exhaust filters on a booth that sprays most days are typically replaced every 30 to 90 days. Intake filters, including many ceiling banks, typically run 3 to 6 months. Both ranges move with the work. They are planning numbers, not a rule that replaces the booth manual.
+
+## What moves the date
+
+Spray hours, the coatings in the gun, and the area of the bank decide how fast a filter loads. A week of high-build primer fills an exhaust pad faster than a week of light color. A larger intake bank lasts longer than a small one in the same shop. Humidity and waterborne coatings can change how a synthetic pad loads compared with a light fiberglass pad.
+
+Write down the day a set goes in and the day it comes out. After a few cycles, the shop's own interval is more useful than a chart copied from another booth.
+
+## The reading that actually decides
+
+Use the manometer or draft gauge the way the booth manual describes. If that reading reaches the limit printed for the booth, change the loaded stage even if the calendar still has weeks left. If the face velocity in the booth falls below the NFPA 33 minimum of 100 feet per minute, the bank is already too loaded to keep spraying as if nothing changed.
+
+A clean-looking frame can still be packed in the center. Check the media, not only the edges.
+
+## Exhaust and intake are different clocks
+
+Do not change every stage on the exhaust interval. Intake and ceiling media usually see dust, not a full load of overspray, so they often stay in service for those 3 to 6 months. Exhaust media sees the paint and is the stage that most often lands in the 30 to 90 day range.
+
+If a stage is loading in days rather than weeks, look for a gun problem, a missing pre-stage, or a bank that is undersized for the work. A shorter calendar will not fix that.
+
+## If you do not want to track it by hand
+
+The PFS Filter Rotation Program sets a cadence from the booth and the spray load, then ships media before a normal cycle runs out. The gauge can still call for an early change. The program is there so a predictable cycle is not a rush order.
+    `,
+  },
+  {
+    slug: "clogged-paint-booth-filters",
+    title: "What Clogged Booth Filters Do",
+    excerpt: "Clogged booth filters cut airflow. Face velocity can drop below the NFPA 33 minimum of 100 feet per minute. Change the loaded stage before you keep spraying.",
+    author: "PFS Filters Editorial Team",
+    date: "2026-10-30",
+    readTime: "5 min read",
+    category: "Maintenance",
+    image: "/images/blog-featured-pfs.jpg",
+    keywords: ["clogged paint booth filter", "NFPA 33 100 fpm", "spray booth airflow"],
+    relatedLinks: [
+      { href: "/exhaust-filters", label: "Exhaust filters" },
+      { href: "/intake-filters", label: "Intake filters" },
+      { href: "/blog/booth-filter-replacement-intervals", label: "Replacement intervals" },
+      { href: "/blog/booth-filter-maintenance-checklist", label: "Maintenance checklist" },
+      { href: "/contact", label: "Request a quote" },
+    ],
+    faqs: [
+      {
+        question: "What happens when paint booth filters clog?",
+        answer: "The fan keeps turning, but less air moves through the booth. Face velocity can fall below the NFPA 33 minimum of 100 feet per minute. Overspray hangs in the work area, flash times stretch, and dirt shows up in the finish.",
+      },
+      {
+        question: "Will a new filter fix low airflow by itself?",
+        answer: "A new filter fixes low airflow caused by loaded media. If velocity is still low with clean filters seated tight in the frame, the fan, belts, or duct need a technician. Another layer of media will not solve that.",
+      },
+    ],
+    content: `
+A clogged filter does not just look dirty. It changes how the booth breathes. Overspray fills the gaps in exhaust media. Dirt mats intake and ceiling media. In both cases the fan keeps spinning while less air actually moves.
+
+## The 100 feet per minute line
+
+NFPA 33 uses 100 feet per minute as the minimum face velocity for a spray booth. When filters load up, measured velocity at the booth face can drop below that minimum. Paint mist stays in the work area instead of being carried to the exhaust bank. Flash and dry times stretch. Dirt and dry spray show up in the finish. The fan, ducts, and heater also see a booth that is no longer moving the air they were sized for.
+
+That figure is an airflow minimum for the booth. It is not a claim that any one filter, by itself, settles every other obligation a shop has.
+
+## Exhaust clogging and intake clogging
+
+Exhaust clogging is the common one in a busy collision or industrial booth. The pad or accordion crusts over, the gauge climbs, and the booth feels still. Intake and ceiling clogging is quieter. The supply side starves, balance shifts, and dust that should have been caught on a fresh panel makes it into the wet film.
+
+Bypass is a cousin of clogging. A gap at the frame lets dirty air sneak around a pad that is only half used. Seat the new media so the opening is covered.
+
+## What to do the day you notice it
+
+Change the stage that is loaded. Do not keep spraying through a bank that will not hold velocity. After the new media is in, check the frame for gaps and read the gauge again.
+
+If face velocity is still under 100 feet per minute with clean filters, stop blaming the filter. A loose belt, a dirty fan wheel, or a blocked duct can do the same thing. Those are service items, not another box of pads.
+
+Typical planning ranges are still 30 to 90 days on exhaust and 3 to 6 months on intake, depending on usage. A clogged reading overrides both.
+    `,
+  },
+  {
+    slug: "how-to-choose-booth-filters",
+    title: "How to Choose Booth Filters",
+    excerpt: "Choose booth filters by stage, measured opening, and media family. Powder, carbon, and PFS booth kits are quoted when the catalog has no matching product.",
+    author: "PFS Filters Editorial Team",
+    date: "2026-10-30",
+    readTime: "7 min read",
+    category: "Product Guide",
+    image: "/images/blog-featured-pfs.jpg",
+    keywords: ["choose paint booth filters", "exhaust vs intake media", "powder booth filters", "activated carbon booth media"],
+    relatedLinks: [
+      { href: "/shop-by-filter-type", label: "Shop by filter type" },
+      { href: "/category/polyester-media", label: "Polyester exhaust media" },
+      { href: "/category/powder-booth-filters", label: "Powder booth filters" },
+      { href: "/category/activated-carbon-media", label: "Activated carbon media" },
+      { href: "/category/paint-arrest-systems", label: "Paint arrest systems" },
+      { href: "/category/pfs-oem-replacement-kits", label: "PFS OEM kits" },
+      { href: "/filter-finder", label: "Filter finder" },
+    ],
+    faqs: [
+      {
+        question: "How do I choose a paint booth filter?",
+        answer: "Name the stage first: intake, ceiling, prefilter, or exhaust. Measure the opening. Then match the media family the booth uses. Two pads with the same outline are not automatically the same filter.",
+      },
+      {
+        question: "What if the catalog does not list the filter?",
+        answer: "Powder booth three-stage panels, pulse-jet cartridges, activated carbon modules, and PFS model kits are quoted. Send the booth model, the stage, the measured size, and a photo. Do not invent a part number from a similar picture.",
+      },
+    ],
+    content: `
+Start with the stage, then the opening, then the media family. That order prevents the most common miss: ordering a clean-looking pad that belongs on the other side of the booth.
+
+## Name the stage
+
+Intake media keeps dust out of the finish. Ceiling media spreads supply air across a downdraft booth. A prefilter, when the booth actually has one, catches coarse dirt ahead of a more expensive final layer. Exhaust media holds overspray before air reaches the fan. Those jobs are not interchangeable.
+
+## Measure the opening
+
+Read the width, height, and depth of the frame, grid, or blanket pocket. A nominal 20 by 20 label is a hint, not a measurement. Roll media needs the width and the length you can actually handle. Write down an arrow direction if the installed piece has one.
+
+## Match the family that the booth uses
+
+Liquid exhaust banks in the PFS catalog include fiberglass arrestor pads and rolls, Paint Pockets, and Andreae accordion media. Polyester exhaust media in the catalog is the AFC blue cube and the Koch SprayStop roll. Intake choices include tacky panels, ceiling diffusion media, pleated panels, and pocket bags, each on its own product page.
+
+Powder booths are a separate choice. Spray-to-waste booths commonly use a three-stage panel bank. Many reclaim collectors use pulse-jet cartridges. Neither is a stocked catalog item. Request a quote from the model and a photo of the installed media.
+
+Activated carbon is for solvent vapor, and only after a particulate stage. Carbon is not a paint arrestor. It is also quoted, not listed with a price on this site.
+
+A PFS booth can be quoted as an OEM set: intake, ceiling, and exhaust pieces for that model. Send the model and the equipment tag. The kit is not a published part number.
+
+## Confirm before you substitute
+
+Color, thickness, and a similar photo do not prove a match. If the label is gone, send the booth make and model, the stage, the measurements, and a clear photo. PFS will separate catalog matches from items that need a quote.
+    `,
+  },
+  {
+    slug: "booth-filter-maintenance-checklist",
+    title: "Booth Filter Maintenance Checklist",
+    excerpt: "Booth filter maintenance checklist: daily floor and gauge checks, weekly light and seal inspections, and when to change exhaust or intake media.",
+    author: "PFS Filters Editorial Team",
+    date: "2026-10-30",
+    readTime: "6 min read",
+    category: "Maintenance",
+    image: "/images/blog-featured-pfs.jpg",
+    keywords: ["paint booth maintenance checklist", "manometer filter check", "spray booth filter care"],
+    relatedLinks: [
+      { href: "/blog/booth-filter-replacement-intervals", label: "Replacement intervals" },
+      { href: "/blog/clogged-paint-booth-filters", label: "Clogged filters" },
+      { href: "/filter-rotation-program", label: "Filter rotation program" },
+      { href: "/pfs-spray-booth-filters", label: "PFS booth filters" },
+      { href: "https://pfsspraybooths.com/service", label: "PFS booth service", external: true },
+    ],
+    faqs: [
+      {
+        question: "What belongs on a booth filter checklist?",
+        answer: "Each shift, read the gauge, look for loaded media and frame gaps, and clean the floor without blowing dust around. Each week, wipe light lenses and check door seals. Change exhaust media on a typical 30 to 90 day rhythm and intake media on a typical 3 to 6 month rhythm, sooner if the reading says so.",
+      },
+      {
+        question: "Which filter tasks are not a filter change?",
+        answer: "Fan wheels, belts, burners, and safety switches are technician work. A fresh pad does not fix a loose belt or a fan full of overspray. Schedule that work with a service visit.",
+      },
+    ],
+    content: `
+Use this list to keep filter care on a rhythm. The booth manual still wins if it names a different gauge limit or a different inspection. Assign a person to each line so it does not live only on a poster.
+
+## Before the shift
+
+- Read the manometer or draft gauge and write the number down.
+- Look at the exhaust media for heavy crust, sagging, or a gap at the frame.
+- Confirm intake and ceiling media sit flat, with any airflow mark pointing the way the booth specifies.
+- Sweep or mop the floor. Do not blow dust around with an air hose. It settles into the next coat.
+
+## During the week
+
+- Wipe light lenses. A film of overspray hides color and wet edges long before the lamp actually fails.
+- Check the seals on personnel doors and product doors. A torn seal pulls shop air into the booth.
+- Note finish dirt, slow flash, or a booth that feels still. Those track with a loaded filter more often than with a bad gun.
+
+## When to change the media
+
+Exhaust filters in regular production are often due every 30 to 90 days. Intake and ceiling filters are often due every 3 to 6 months. Usage moves both. Change sooner when the gauge climbs past the booth's limit, or when face velocity falls below the NFPA 33 minimum of 100 feet per minute.
+
+Do not wash disposable fiberglass, tacky, polyester, pleated, or ceiling media and put it back. Replace it. Bag used filters the way the coating instructions and the shop's waste rules require.
+
+## Once a year, beyond the filter
+
+Fan wheels, belts, burners, and airflow switches are service work. A new filter does not correct a loose belt or a wheel loaded with overspray. PFS booth owners can put that visit on the same day as a planned filter change so the booth is down once.
+
+Keep one line in the log for each stage: booth, position, what went in, the gauge, the date, and who did the work.
     `,
   },
 ];
