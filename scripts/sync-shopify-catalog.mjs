@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 /**
  * Refresh the committed Storefront snapshot before prerender.
- * Existing product records are left in place so curated images and copy stay put.
- * Published products that are missing from the snapshot are appended, which is
- * how a new Shopify product gets a /product/<handle> page on the next build.
+ * Existing product copy stays in place. Shopify image files replace snapshot
+ * CDN images when the file changed, so a deleted Storefront image is not
+ * prerendered. Curated local image paths (and products stored with no image)
+ * are left unchanged. Published products missing from the snapshot are
+ * appended, which is how a new Shopify product gets a /product/<handle> page
+ * on the next build.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -200,6 +203,37 @@ function missingRequired(snapshot) {
   return REQUIRED_HANDLES.filter((handle) => !handles.has(handle));
 }
 
+function imageEdges(images) {
+  return Array.isArray(images?.edges) ? images.edges : [];
+}
+
+function imageFileKey(url = '') {
+  if (!url || url.startsWith('/')) return url;
+  try {
+    const parsed = new URL(url);
+    return `${parsed.origin}${parsed.pathname}`;
+  } catch {
+    return url;
+  }
+}
+
+/**
+ * Use the live Storefront image set when a snapshot CDN file has been replaced.
+ * Local paths such as /images/products/... are curated assets and stay put.
+ * An empty snapshot image list is also left empty so products that intentionally
+ * ship without a catalog photo do not pick one up at build time.
+ */
+export function refreshSnapshotImages(existingImages, liveImages) {
+  const existingEdges = imageEdges(existingImages);
+  const liveEdges = imageEdges(liveImages);
+  if (!existingEdges.length || !liveEdges.length) return existingImages || { edges: [] };
+  if (existingEdges.some((edge) => String(edge?.node?.url || '').startsWith('/'))) return existingImages;
+  const sameFile = existingEdges.length === liveEdges.length && existingEdges.every((edge, index) => (
+    imageFileKey(edge?.node?.url) === imageFileKey(liveEdges[index]?.node?.url)
+  ));
+  return sameFile ? existingImages : liveImages;
+}
+
 async function sync() {
   const [liveProducts, collectionData] = await Promise.all([
     fetchAllProducts(),
@@ -212,7 +246,19 @@ async function sync() {
   const memberSet = new Set(memberHandles);
   const snapshot = readJson(productFile, []);
   const known = new Set(snapshot.map((edge) => edge.node.handle));
+  const liveByHandle = new Map(liveProducts.filter((node) => node.handle).map((node) => [node.handle, node]));
   let added = 0;
+  let imagesUpdated = 0;
+
+  for (const edge of snapshot) {
+    const live = liveByHandle.get(edge.node?.handle);
+    if (!live) continue;
+    const nextImages = refreshSnapshotImages(edge.node.images, live.images);
+    if (nextImages !== edge.node.images) {
+      edge.node.images = nextImages;
+      imagesUpdated += 1;
+    }
+  }
 
   for (const node of liveProducts) {
     if (!node.handle || known.has(node.handle) || BLOCKED_HANDLES.has(node.handle)) continue;
@@ -242,19 +288,22 @@ async function sync() {
     throw new Error(`Collection ${collectionHandle} is missing ${absentFromCollection.join(', ')}`);
   }
 
-  console.log(`Shopify catalog sync added ${added} product(s). ${collectionHandle} lists ${memberHandles.length}.`);
+  console.log(`Shopify catalog sync added ${added} product(s) and refreshed ${imagesUpdated} image set(s). ${collectionHandle} lists ${memberHandles.length}.`);
 }
 
-try {
-  await sync();
-} catch (error) {
-  const message = error instanceof Error ? error.message : String(error);
-  const snapshot = readJson(productFile, []);
-  const missing = missingRequired(snapshot);
-  if (missing.length === 0 && fs.existsSync(collectionsFile)) {
-    console.warn(`Shopify catalog sync skipped (${message}). Using the committed snapshot.`);
-    process.exit(0);
+const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (invokedDirectly) {
+  try {
+    await sync();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    const snapshot = readJson(productFile, []);
+    const missing = missingRequired(snapshot);
+    if (missing.length === 0 && fs.existsSync(collectionsFile)) {
+      console.warn(`Shopify catalog sync skipped (${message}). Using the committed snapshot.`);
+      process.exit(0);
+    }
+    console.error(`Shopify catalog sync failed: ${message}`);
+    process.exit(1);
   }
-  console.error(`Shopify catalog sync failed: ${message}`);
-  process.exit(1);
 }
