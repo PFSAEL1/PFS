@@ -250,6 +250,7 @@ async function sync() {
   let added = 0;
   let imagesUpdated = 0;
 
+  let identityUpdated = 0;
   for (const edge of snapshot) {
     const live = liveByHandle.get(edge.node?.handle);
     if (!live) continue;
@@ -258,6 +259,7 @@ async function sync() {
       edge.node.images = nextImages;
       imagesUpdated += 1;
     }
+    if (fillMissingCatalogIdentity(edge.node, live)) identityUpdated += 1;
   }
 
   for (const node of liveProducts) {
@@ -288,7 +290,26 @@ async function sync() {
     throw new Error(`Collection ${collectionHandle} is missing ${absentFromCollection.join(', ')}`);
   }
 
-  console.log(`Shopify catalog sync added ${added} product(s) and refreshed ${imagesUpdated} image set(s). ${collectionHandle} lists ${memberHandles.length}.`);
+  console.log(`Shopify catalog sync added ${added} product(s), refreshed ${imagesUpdated} image set(s), and filled missing SKUs or vendors on ${identityUpdated} product(s). ${collectionHandle} lists ${memberHandles.length}.`);
+}
+
+export function fillMissingCatalogIdentity(existing, live) {
+  if (!existing || !live) return false;
+  let changed = false;
+  if (!String(existing.vendor || '').trim() && String(live.vendor || '').trim()) {
+    existing.vendor = live.vendor;
+    changed = true;
+  }
+  const liveVariants = new Map((live.variants?.edges || []).map((edge) => [edge.node?.id, edge.node]));
+  for (const edge of existing.variants?.edges || []) {
+    const liveVariant = liveVariants.get(edge.node?.id);
+    if (!liveVariant) continue;
+    if (!String(edge.node.sku || '').trim() && String(liveVariant.sku || '').trim()) {
+      edge.node.sku = liveVariant.sku;
+      changed = true;
+    }
+  }
+  return changed;
 }
 
 const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);

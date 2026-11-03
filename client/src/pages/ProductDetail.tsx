@@ -218,11 +218,13 @@ export default function ProductDetail() {
     name: product.title,
     description: product.description,
     image: mainImageSeoUrl,
-    price: displayPrice.toFixed(2),
+    price: basePrice.toFixed(2),
     currency,
     sku: selectedVariant?.sku || undefined,
+    handle: handle || '',
+    variantId: selectedVariant?.id,
     brand: product.vendor || undefined,
-    url: `https://www.pfsfilters.com/product/${handle}${selectedVariantId ? productVariantSearch('', selectedVariantId) : ''}`,
+    url: `https://www.pfsfilters.com/product/${handle}`,
     availability: isParkerCase || isAfcCase ? 'https://schema.org/BackOrder' : inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
   });
 
