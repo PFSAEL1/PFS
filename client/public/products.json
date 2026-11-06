@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T18:12:08.004Z",
+  "generatedAt": "2026-11-06T17:27:27.867Z",
   "source": "https://www.pfsfilters.com/shop",
   "notice": "Prices and availability can change. Confirm the current product page before purchasing.",
   "products": [
@@ -22,7 +22,7 @@
       "variants": [
         {
           "name": "20\"x25\"x2\" 50/CS",
-          "sku": null,
+          "sku": "PFSF-PA222025-50",
           "price": {
             "amount": "111.36",
             "currencyCode": "USD"
@@ -31,7 +31,7 @@
         },
         {
           "name": "20\"x20\"x2\" 100/CS",
-          "sku": null,
+          "sku": "PFSF-PA222020-100",
           "price": {
             "amount": "175.82",
             "currencyCode": "USD"
@@ -40,7 +40,7 @@
         },
         {
           "name": "24\"x24\"x2\" 50/CS",
-          "sku": null,
+          "sku": "PFSF-PA222424-50",
           "price": {
             "amount": "154.11",
             "currencyCode": "USD"
@@ -67,7 +67,7 @@
       "variants": [
         {
           "name": "Default Title",
-          "sku": null,
+          "sku": "GRID-2020-TIPS",
           "price": {
             "amount": "7.06",
             "currencyCode": "USD"
@@ -95,7 +95,7 @@
       "variants": [
         {
           "name": "20\"x20\" Paint Pockets Paint Arrestor 30/CS",
-          "sku": null,
+          "sku": "PFSF-PPW2020-30",
           "price": {
             "amount": "181.84",
             "currencyCode": "USD"
@@ -104,7 +104,7 @@
         },
         {
           "name": "20\"X25\" Paint Pockets Paint Arrestor 30/CS",
-          "sku": null,
+          "sku": "PFSF-PPW2025-30",
           "price": {
             "amount": "227.38",
             "currencyCode": "USD"
@@ -113,7 +113,7 @@
         },
         {
           "name": "24\"X24\" Paint Pockets Paint Arrestor, 20/CS",
-          "sku": null,
+          "sku": "PFSF-PPW2424-20",
           "price": {
             "amount": "192.74",
             "currencyCode": "USD"
@@ -122,7 +122,7 @@
         },
         {
           "name": "45\"x50' Paint Pockets Paint Arrestor, 1/CS",
-          "sku": null,
+          "sku": "PFSF-PPW455",
           "price": {
             "amount": "400.69",
             "currencyCode": "USD"
@@ -149,7 +149,7 @@
       "variants": [
         {
           "name": "20\"x100\"x2\"",
-          "sku": null,
+          "sku": "PFSF-PA22201",
           "price": {
             "amount": "92.39",
             "currencyCode": "USD"
@@ -158,7 +158,7 @@
         },
         {
           "name": "20\"x300\"x2\"",
-          "sku": null,
+          "sku": "PFSF-PA22203",
           "price": {
             "amount": "220.87",
             "currencyCode": "USD"
@@ -167,7 +167,7 @@
         },
         {
           "name": "25\"x100\"x2\"",
-          "sku": null,
+          "sku": "PFSF-PA22251",
           "price": {
             "amount": "117.77",
             "currencyCode": "USD"
@@ -176,7 +176,7 @@
         },
         {
           "name": "25\"x300\"x2\"",
-          "sku": null,
+          "sku": "PFSF-PA22253",
           "price": {
             "amount": "276.09",
             "currencyCode": "USD"
@@ -185,7 +185,7 @@
         },
         {
           "name": "28\"x300\"x2\"",
-          "sku": null,
+          "sku": "PFSF-PA22283",
           "price": {
             "amount": "311.75",
             "currencyCode": "USD"
@@ -194,7 +194,7 @@
         },
         {
           "name": "30\"x100\"x2\"",
-          "sku": null,
+          "sku": "PFSF-PA22301",
           "price": {
             "amount": "137.08",
             "currencyCode": "USD"
@@ -203,7 +203,7 @@
         },
         {
           "name": "30\"x300\"x2\"",
-          "sku": null,
+          "sku": "PFSF-PA22303",
           "price": {
             "amount": "331.31",
             "currencyCode": "USD"
@@ -212,7 +212,7 @@
         },
         {
           "name": "32\"x300\"x2\"",
-          "sku": null,
+          "sku": "PFSF-PA22323",
           "price": {
             "amount": "353.4",
             "currencyCode": "USD"
@@ -221,7 +221,7 @@
         },
         {
           "name": "36\"x100'x2\"",
-          "sku": null,
+          "sku": "PFSF-PA22361",
           "price": {
             "amount": "173.55",
             "currencyCode": "USD"
@@ -230,7 +230,7 @@
         },
         {
           "name": "36\"x300\"x2\"",
-          "sku": null,
+          "sku": "PFSF-PA22363",
           "price": {
             "amount": "409.53",
             "currencyCode": "USD"
@@ -239,7 +239,7 @@
         },
         {
           "name": "41\"x100\"x2\"",
-          "sku": null,
+          "sku": "PFSF-PA22411",
           "price": {
             "amount": "189.23",
             "currencyCode": "USD"
@@ -248,7 +248,7 @@
         },
         {
           "name": "41\"x300\"x2\"",
-          "sku": null,
+          "sku": "PFSF-PA22413",
           "price": {
             "amount": "454.39",
             "currencyCode": "USD"
@@ -276,7 +276,7 @@
       "variants": [
         {
           "name": "16x20x2 12/cs",
-          "sku": null,
+          "sku": "PFSF-PLM1016202-12",
           "price": {
             "amount": "124.75",
             "currencyCode": "USD"
@@ -285,7 +285,7 @@
         },
         {
           "name": "16x25x2 12/cs",
-          "sku": null,
+          "sku": "PFSF-PLM1016252-12",
           "price": {
             "amount": "141.98",
             "currencyCode": "USD"
@@ -294,7 +294,7 @@
         },
         {
           "name": "20x20x2 12/cs",
-          "sku": null,
+          "sku": "PFSF-PLM1020202-12",
           "price": {
             "amount": "154.93",
             "currencyCode": "USD"
@@ -303,7 +303,7 @@
         },
         {
           "name": "24x20x4 6/cs",
-          "sku": null,
+          "sku": "PFSF-PLM1020244-6",
           "price": {
             "amount": "150.68",
             "currencyCode": "USD"
@@ -312,7 +312,7 @@
         },
         {
           "name": "20x25x2 12/cs",
-          "sku": null,
+          "sku": "PFSF-PLM1020252-12",
           "price": {
             "amount": "175.44",
             "currencyCode": "USD"
@@ -321,7 +321,7 @@
         },
         {
           "name": "24x24x2 12/cs",
-          "sku": null,
+          "sku": "PFSF-PLM1024242-12",
           "price": {
             "amount": "197.27",
             "currencyCode": "USD"
@@ -330,7 +330,7 @@
         },
         {
           "name": "24x24x4 6/cs",
-          "sku": null,
+          "sku": "PFSF-PLM1024244-6",
           "price": {
             "amount": "158.24",
             "currencyCode": "USD"
@@ -353,7 +353,7 @@
       "variants": [
         {
           "name": "20\"x20\"x2\" 50/CS",
-          "sku": null,
+          "sku": "PFSF-PA152020-50",
           "price": {
             "amount": "70.9",
             "currencyCode": "USD"
@@ -362,7 +362,7 @@
         },
         {
           "name": "20\"x20\"x2\" 100/CS",
-          "sku": null,
+          "sku": "PFSF-PA152020-100",
           "price": {
             "amount": "131.08",
             "currencyCode": "USD"
@@ -371,7 +371,7 @@
         },
         {
           "name": "20\"x25\"x2\" 50/CS",
-          "sku": null,
+          "sku": "PFSF-PA152025-50",
           "price": {
             "amount": "85.52",
             "currencyCode": "USD"
@@ -380,7 +380,7 @@
         },
         {
           "name": "20\"x25\"x2\" 100/CS",
-          "sku": null,
+          "sku": "PFSF-PA152025-100",
           "price": {
             "amount": "158.09",
             "currencyCode": "USD"
@@ -389,7 +389,7 @@
         },
         {
           "name": "24\"x24\"x2\" 50/CS",
-          "sku": null,
+          "sku": "PFSF-PA152424-50",
           "price": {
             "amount": "106.6",
             "currencyCode": "USD"
@@ -398,7 +398,7 @@
         },
         {
           "name": "24\"x24\"x2\" 100/CS",
-          "sku": null,
+          "sku": "PFSF-PA152424-100",
           "price": {
             "amount": "197.05",
             "currencyCode": "USD"
@@ -407,7 +407,7 @@
         },
         {
           "name": "26\"x48\"x2\" 8/CS",
-          "sku": null,
+          "sku": "PFSF-PA152648-8",
           "price": {
             "amount": "57.81",
             "currencyCode": "USD"
@@ -430,7 +430,7 @@
       "variants": [
         {
           "name": "20\"x100'",
-          "sku": null,
+          "sku": "PFSF-PA15201",
           "price": {
             "amount": "72.88",
             "currencyCode": "USD"
@@ -439,7 +439,7 @@
         },
         {
           "name": "20\"x300'",
-          "sku": null,
+          "sku": "PFSF-PA15203",
           "price": {
             "amount": "180.55",
             "currencyCode": "USD"
@@ -448,7 +448,7 @@
         },
         {
           "name": "22\"x300'",
-          "sku": null,
+          "sku": "PFSF-PA15223",
           "price": {
             "amount": "198.61",
             "currencyCode": "USD"
@@ -457,7 +457,7 @@
         },
         {
           "name": "25\"x100'",
-          "sku": null,
+          "sku": "PFSF-PA15251",
           "price": {
             "amount": "86.11",
             "currencyCode": "USD"
@@ -466,7 +466,7 @@
         },
         {
           "name": "25\"x300'",
-          "sku": null,
+          "sku": "PFSF-PA15205",
           "price": {
             "amount": "225.64",
             "currencyCode": "USD"
@@ -475,7 +475,7 @@
         },
         {
           "name": "28\"x300'",
-          "sku": null,
+          "sku": "PFSF-PA15206",
           "price": {
             "amount": "252.73",
             "currencyCode": "USD"
@@ -484,7 +484,7 @@
         },
         {
           "name": "30\"x100'",
-          "sku": null,
+          "sku": "PFSF-PA15207",
           "price": {
             "amount": "102.03",
             "currencyCode": "USD"
@@ -493,7 +493,7 @@
         },
         {
           "name": "30\"x300'",
-          "sku": null,
+          "sku": "PFSF-PA15208",
           "price": {
             "amount": "270.73",
             "currencyCode": "USD"
@@ -502,7 +502,7 @@
         },
         {
           "name": "32\"x300'",
-          "sku": null,
+          "sku": "PFSF-PA15209",
           "price": {
             "amount": "288.8",
             "currencyCode": "USD"
@@ -511,7 +511,7 @@
         },
         {
           "name": "36\"x300'",
-          "sku": null,
+          "sku": "PFSF-PA15363",
           "price": {
             "amount": "324.92",
             "currencyCode": "USD"
@@ -534,7 +534,7 @@
       "variants": [
         {
           "name": "20\"x20\" 300 Series Tacky Filter Panel, 20/CS",
-          "sku": null,
+          "sku": "PFSF-3TP2020-20",
           "price": {
             "amount": "139.75",
             "currencyCode": "USD"
@@ -543,7 +543,7 @@
         },
         {
           "name": "20\"x25\" 300 Series Tacky Filter Panel, 20/CS",
-          "sku": null,
+          "sku": "PFSF-3TP2025-20",
           "price": {
             "amount": "156.97",
             "currencyCode": "USD"
@@ -552,7 +552,7 @@
         },
         {
           "name": "24\"x24\" 300 Series Tacky Filter Panel, 20/CS",
-          "sku": null,
+          "sku": "PFSF-3TP2424-20",
           "price": {
             "amount": "186.93",
             "currencyCode": "USD"
@@ -561,7 +561,7 @@
         },
         {
           "name": "20\"x50\" 300 Series Tacky Filter Panel - Link, 10/CS",
-          "sku": null,
+          "sku": "PFSF-3TL2050-10",
           "price": {
             "amount": "167.71",
             "currencyCode": "USD"
@@ -570,7 +570,7 @@
         },
         {
           "name": "20\"x72\" 300 Series Tacky Filter Panel - Link, 6/CS",
-          "sku": null,
+          "sku": "PFSF-3TL2072-6",
           "price": {
             "amount": "162.41",
             "currencyCode": "USD"
@@ -579,7 +579,7 @@
         },
         {
           "name": "20\"x48\" 300 Series Tacky Filter Panel - Single Frame, 10/CS",
-          "sku": null,
+          "sku": "PFSF-3TP2048-10",
           "price": {
             "amount": "192.87",
             "currencyCode": "USD"
@@ -602,7 +602,7 @@
       "variants": [
         {
           "name": "20\"x20\" 20/CS",
-          "sku": null,
+          "sku": "PFSF-5KP2020-20",
           "price": {
             "amount": "239.55",
             "currencyCode": "USD"
@@ -611,7 +611,7 @@
         },
         {
           "name": "20\"x20\" 24/CS",
-          "sku": null,
+          "sku": "PFSF-5KP2020-24",
           "price": {
             "amount": "284.83",
             "currencyCode": "USD"
@@ -620,7 +620,7 @@
         },
         {
           "name": "20\"x25\" 20/CS",
-          "sku": null,
+          "sku": "PFSF-5KP2025-20",
           "price": {
             "amount": "259.23",
             "currencyCode": "USD"
@@ -629,7 +629,7 @@
         },
         {
           "name": "24\"x24\" 20/CS",
-          "sku": null,
+          "sku": "PFSF-5KP2424-20",
           "price": {
             "amount": "297.44",
             "currencyCode": "USD"
@@ -638,7 +638,7 @@
         },
         {
           "name": "20\"x50\" 12/CS",
-          "sku": null,
+          "sku": "PFSF-5KL2050-12",
           "price": {
             "amount": "360.62",
             "currencyCode": "USD"
@@ -647,7 +647,7 @@
         },
         {
           "name": "20\"x50\" 10/CS",
-          "sku": null,
+          "sku": "PFSF-5KL2050-10",
           "price": {
             "amount": "264.22",
             "currencyCode": "USD"
@@ -688,7 +688,7 @@
         },
         {
           "name": "20\"x20\"x12\" NESHAP 319 Final Stage Bag 5pkt  6/CS",
-          "sku": null,
+          "sku": "PFSF-N35P202012-6",
           "price": {
             "amount": "413.77",
             "currencyCode": "USD"
@@ -697,7 +697,7 @@
         },
         {
           "name": "20\"x25\"x12\" NESHAP 319 Final Stage Bag 5pkt, 6/CS",
-          "sku": null,
+          "sku": "PFSF-N35P202512-6",
           "price": {
             "amount": "591.1",
             "currencyCode": "USD"
@@ -706,7 +706,7 @@
         },
         {
           "name": "24\"x24\"x12\" NESHAP 319 Final Stage Bag 6pkt, 6/CS",
-          "sku": null,
+          "sku": "PFSF-N36P242412-6",
           "price": {
             "amount": "528.71",
             "currencyCode": "USD"
@@ -733,7 +733,7 @@
         },
         {
           "name": "53\"x112\" SFR Blanket, 4/Bag",
-          "sku": null,
+          "sku": "PFSF-SFRBLT53112",
           "price": {
             "amount": "485.42",
             "currencyCode": "USD"
@@ -742,7 +742,7 @@
         },
         {
           "name": "20\"x20\"x15\" CG100 2-Pocket Bag, 8/CS",
-          "sku": null,
+          "sku": "PFSF-CG100202015",
           "price": {
             "amount": "340.87",
             "currencyCode": "USD"
@@ -751,7 +751,7 @@
         },
         {
           "name": "24\"x24\"x12\" HEPA-XFP™ 6000 6-Pocket Bag, 5/CS",
-          "sku": null,
+          "sku": "PFSF-B6P242412",
           "price": {
             "amount": "1002.62",
             "currencyCode": "USD"
@@ -760,7 +760,7 @@
         },
         {
           "name": "20\"x20\" ME/PT Intake Panel, 24/CS",
-          "sku": null,
+          "sku": "PFSF-PTPNL2020",
           "price": {
             "amount": "218.09",
             "currencyCode": "USD"
@@ -769,7 +769,7 @@
         },
         {
           "name": "20\"x20\"x12\" HEPA-XFP 6-Pocket Bag, 5/CS",
-          "sku": null,
+          "sku": "PFSF-B6P202012",
           "price": {
             "amount": "858.51",
             "currencyCode": "USD"
@@ -778,7 +778,7 @@
         },
         {
           "name": "96\"x50' CPA Roll, 1/CS",
-          "sku": null,
+          "sku": "PFSF-CPARL9650",
           "price": {
             "amount": "291.15",
             "currencyCode": "USD"
@@ -801,7 +801,7 @@
       "variants": [
         {
           "name": "58\"x58\" L560 Ceiling Diffusion Media, 3/CS",
-          "sku": null,
+          "sku": "PFSF-L560G5858-3",
           "price": {
             "amount": "255.57",
             "currencyCode": "USD"
@@ -810,7 +810,7 @@
         },
         {
           "name": "37\"x64\" L560 Ceiling Diffusion Media 8/CS",
-          "sku": null,
+          "sku": "PFSF-L560G3764-8",
           "price": {
             "amount": "479.73",
             "currencyCode": "USD"
@@ -819,7 +819,7 @@
         },
         {
           "name": "36.75\"x54\" L560 Ceiling Diffusion Media 12/CS",
-          "sku": null,
+          "sku": "PFSF-L560G36F54-12",
           "price": {
             "amount": "603.05",
             "currencyCode": "USD"
@@ -828,7 +828,7 @@
         },
         {
           "name": "48\"x66\" L560 Ceiling Diffusion Media 6/CS",
-          "sku": null,
+          "sku": "PFSF-L560G4866-6",
           "price": {
             "amount": "481.36",
             "currencyCode": "USD"
@@ -837,7 +837,7 @@
         },
         {
           "name": "26\"x120\" L560 Ceiling Diffusion Media, 9/CS",
-          "sku": null,
+          "sku": "PFSF-L560G26120-9",
           "price": {
             "amount": "711.08",
             "currencyCode": "USD"
@@ -846,7 +846,7 @@
         },
         {
           "name": "51\"x128\" L560 Ceiling Diffusion Media, 6/CS",
-          "sku": null,
+          "sku": "PFSF-L560G51128-6",
           "price": {
             "amount": "991.87",
             "currencyCode": "USD"
@@ -855,7 +855,7 @@
         },
         {
           "name": "60\"x120\" L560 Ceiling Diffusion Media, 2/CS",
-          "sku": null,
+          "sku": "PFSF-L560G60120-2",
           "price": {
             "amount": "364.66",
             "currencyCode": "USD"
@@ -864,7 +864,7 @@
         },
         {
           "name": "38\"x102\" L560 Ceiling Diffusion Media, 7/CS",
-          "sku": null,
+          "sku": "PFSF-L560G38102-7",
           "price": {
             "amount": "687.08",
             "currencyCode": "USD"
@@ -873,7 +873,7 @@
         },
         {
           "name": "59\"x149\" L560 Ceiling Diffusion Media, 4/CS",
-          "sku": null,
+          "sku": "PFSF-L560G59149-4",
           "price": {
             "amount": "890.48",
             "currencyCode": "USD"
@@ -882,7 +882,7 @@
         },
         {
           "name": "36\"x144\" L560 Ceiling Diffusion Media, 8/CS",
-          "sku": null,
+          "sku": "PFSF-L560G36144-8",
           "price": {
             "amount": "1050.21",
             "currencyCode": "USD"
@@ -891,7 +891,7 @@
         },
         {
           "name": "38\"x62\" L560 Ceiling Diffusion Media 1/CS",
-          "sku": null,
+          "sku": "PFSF-L560G3862-1",
           "price": {
             "amount": "61.29",
             "currencyCode": "USD"
@@ -900,7 +900,7 @@
         },
         {
           "name": "38\"x107\" L560 Ceiling Diffusion Media 1/CS",
-          "sku": null,
+          "sku": "PFSF-L560G38107-1",
           "price": {
             "amount": "105.78",
             "currencyCode": "USD"
@@ -909,7 +909,7 @@
         },
         {
           "name": "48\"x108\" L560 Ceiling Diffusion Media 1/CS",
-          "sku": null,
+          "sku": "PFSF-L560G48108-1",
           "price": {
             "amount": "131.39",
             "currencyCode": "USD"
@@ -918,7 +918,7 @@
         },
         {
           "name": "38\"x67\" L560 Ceiling Diffusion Media 1/CS",
-          "sku": null,
+          "sku": "PFSF-L560G3867-1",
           "price": {
             "amount": "64.96",
             "currencyCode": "USD"
@@ -941,7 +941,7 @@
       "variants": [
         {
           "name": "36\"x108\" Swiss Flow Ceiling Diffusion Media, 1/CS",
-          "sku": null,
+          "sku": "PFSF-SF36108-1",
           "price": {
             "amount": "109.12",
             "currencyCode": "USD"
@@ -950,7 +950,7 @@
         },
         {
           "name": "36\"x109\" Swiss Flow Ceiling Diffusion Media, 2/CS",
-          "sku": null,
+          "sku": "PFSF-SF36109-2",
           "price": {
             "amount": "227.46",
             "currencyCode": "USD"
@@ -959,7 +959,7 @@
         },
         {
           "name": "24\"x66' Swiss Flow Diffusion Media Master Roll 1/CS",
-          "sku": null,
+          "sku": "PFSF-SFMR24",
           "price": {
             "amount": "404.25",
             "currencyCode": "USD"
@@ -968,7 +968,7 @@
         },
         {
           "name": "26\"x66' Swiss Flow Diffusion Media Master Roll 1/CS",
-          "sku": null,
+          "sku": "PFSF-SFMR25",
           "price": {
             "amount": "437.94",
             "currencyCode": "USD"
@@ -977,7 +977,7 @@
         },
         {
           "name": "48\"x66' Swiss Flow Diffusion Media Master Roll 1/CS",
-          "sku": null,
+          "sku": "PFSF-SFMR26",
           "price": {
             "amount": "808.5",
             "currencyCode": "USD"
@@ -986,7 +986,7 @@
         },
         {
           "name": "33\"x45.5\" Swiss Flow Ceiling Diffusion Media 18/CS",
-          "sku": null,
+          "sku": "PFSF-SF3345D-18",
           "price": {
             "amount": "753.46",
             "currencyCode": "USD"
@@ -995,7 +995,7 @@
         },
         {
           "name": "36.75\"x54\" Swiss Flow Ceiling Diffusion Media, 12/CS",
-          "sku": null,
+          "sku": "PFSF-SF36F54-12",
           "price": {
             "amount": "672.21",
             "currencyCode": "USD"
@@ -1004,7 +1004,7 @@
         },
         {
           "name": "37\"x64\" Swiss Flow Ceiling Diffusion Media, 8/CS",
-          "sku": null,
+          "sku": "PFSF-SF3764-8",
           "price": {
             "amount": "537.82",
             "currencyCode": "USD"
@@ -1013,7 +1013,7 @@
         },
         {
           "name": "39\"x59\" Swiss Flow Ceiling Diffusion Media, 3/CS",
-          "sku": null,
+          "sku": "PFSF-SF3959-3",
           "price": {
             "amount": "192.52",
             "currencyCode": "USD"
@@ -1022,7 +1022,7 @@
         },
         {
           "name": "40\"x100\" Swiss Flow Ceiling Diffusion Media, 4/CS",
-          "sku": null,
+          "sku": "PFSF-SF40100-4",
           "price": {
             "amount": "446.36",
             "currencyCode": "USD"
@@ -1031,7 +1031,7 @@
         },
         {
           "name": "44\"x50\" Swiss Flow Ceiling Diffusion Media, 10/CS",
-          "sku": null,
+          "sku": "PFSF-SF4450-10",
           "price": {
             "amount": "613.76",
             "currencyCode": "USD"
@@ -1040,7 +1040,7 @@
         },
         {
           "name": "81\"x144\" Swiss Flow Ceiling Diffusion Media, 4/CS",
-          "sku": null,
+          "sku": "PFSF-SF81144-4",
           "price": {
             "amount": "1301.49",
             "currencyCode": "USD"
@@ -1049,7 +1049,7 @@
         },
         {
           "name": "38\"x102\" Swiss Flow Ceiling Diffusion Media, 7/CS",
-          "sku": null,
+          "sku": "PFSF-SF38102-7",
           "price": {
             "amount": "756.9",
             "currencyCode": "USD"
@@ -1058,7 +1058,7 @@
         },
         {
           "name": "59\"x149\" Swiss Flow Ceiling Diffusion Media, 4/CS",
-          "sku": null,
+          "sku": "PFSF-SF59149-4",
           "price": {
             "amount": "997.6",
             "currencyCode": "USD"
@@ -1067,7 +1067,7 @@
         },
         {
           "name": "36\"x144\" Swiss Flow Ceiling Diffusion Media, 8/CS",
-          "sku": null,
+          "sku": "PFSF-SF36144-8",
           "price": {
             "amount": "1149.61",
             "currencyCode": "USD"
@@ -1076,7 +1076,7 @@
         },
         {
           "name": "38\"x62\" Swiss Flow Ceiling Diffusion Media, 1/CS",
-          "sku": null,
+          "sku": "PFSF-SF3862-1",
           "price": {
             "amount": "68.19",
             "currencyCode": "USD"
@@ -1085,7 +1085,7 @@
         },
         {
           "name": "38\"x107\" Swiss Flow Ceiling Diffusion Media, 1/CS",
-          "sku": null,
+          "sku": "PFSF-SF38107-1",
           "price": {
             "amount": "117.67",
             "currencyCode": "USD"
@@ -1094,7 +1094,7 @@
         },
         {
           "name": "48\"x108\" Swiss Flow Ceiling Diffusion Media, 1/CS",
-          "sku": null,
+          "sku": "PFSF-SF48108-1",
           "price": {
             "amount": "146.2",
             "currencyCode": "USD"
@@ -1103,7 +1103,7 @@
         },
         {
           "name": "38\"x67\" Swiss Flow Ceiling Diffusion Media, 1/CS",
-          "sku": null,
+          "sku": "PFSF-SF3867-1",
           "price": {
             "amount": "73.69",
             "currencyCode": "USD"
@@ -1126,7 +1126,7 @@
       "variants": [
         {
           "name": "20\"x20\" AF213 Accordion Paint Arrestor 40/CS",
-          "sku": null,
+          "sku": "AF213",
           "price": {
             "amount": "107.9",
             "currencyCode": "USD"
@@ -1135,7 +1135,7 @@
         },
         {
           "name": "20\"x25\" AF413 Accordion Paint Arrestor 36/CS",
-          "sku": null,
+          "sku": "AF413",
           "price": {
             "amount": "121.27",
             "currencyCode": "USD"
@@ -1144,7 +1144,7 @@
         },
         {
           "name": "36\"x30' AF813 Roll Accordion Paint Arrestor 1/CS",
-          "sku": null,
+          "sku": "AF813",
           "price": {
             "amount": "120.84",
             "currencyCode": "USD"
@@ -1153,7 +1153,7 @@
         },
         {
           "name": "40\"x32'10\" AF113 Roll Accordion Paint Arrestor 1/CS",
-          "sku": null,
+          "sku": "AF113",
           "price": {
             "amount": "144.84",
             "currencyCode": "USD"
@@ -1212,7 +1212,7 @@
       "variants": [
         {
           "name": "Default Title",
-          "sku": null,
+          "sku": "PFSF-B6P23B478-4",
           "price": {
             "amount": "368.29",
             "currencyCode": "USD"

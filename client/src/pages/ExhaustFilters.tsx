@@ -38,6 +38,7 @@ const getExhaustProducts = (products: ShopifyProduct[]) => products
   .map((product) => {
     const node = product.node;
     const amount = node.priceRange?.minVariantPrice?.amount;
+    const variantNodes = node.variants?.edges?.map((edge) => edge.node) || [];
     return {
       id: node.id,
       handle: node.handle,
@@ -45,7 +46,11 @@ const getExhaustProducts = (products: ShopifyProduct[]) => products
       image: node.images?.edges?.[0]?.node?.url ?? FALLBACK_IMAGE,
       minPrice: amount ? parseFloat(amount) : null,
       currency: node.priceRange?.minVariantPrice?.currencyCode ?? 'USD',
-      sizes: (node.variants?.edges?.length ?? 0),
+      sizes: variantNodes.length,
+      sku: variantNodes.map((variant) => variant.sku?.trim()).find(Boolean) || node.handle,
+      availability: variantNodes.some((variant) => variant.availableForSale)
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
     };
   });
 
@@ -67,6 +72,9 @@ export default function ExhaustFilters() {
         image: product.image,
         price: product.minPrice?.toFixed(2) ?? '',
         currency: product.currency,
+        sku: product.sku,
+        handle: product.handle,
+        availability: product.availability,
       })),
     )],
   }), [exhaustProducts]);

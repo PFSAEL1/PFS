@@ -16,7 +16,6 @@ export const BRAND_SUFFIX = ' | PFS Filters';
 export const CANONICAL_OVERRIDES = {
   '/accudraft-paint-booth-filters': '/shop-by-booth/accudraft',
   '/shop-by-booth/global-finishing-solutions': '/gfs-paint-booth-filters',
-  '/shop-by-type': '/shop-by-filter-type',
   '/shop-by-booth-type': '/shop-by-booth',
   '/filter-compatibility': '/filter-finder',
 };
@@ -27,7 +26,6 @@ export const NOINDEX_PATHS = new Set([
   '/submit-review',
   '/dashboard',
   '/filter-database',
-  '/shop-by-type',
   '/shop-by-booth-type',
   '/category/pre-filters',
   '/404',
@@ -37,10 +35,10 @@ const PRODUCT_TITLES = {
   '20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs': '22-Gram Fiberglass Arrestor Pads | PFS Filters',
   '20x20-paint-arrestor-holding-grids-w-tips-each': '20x20 Paint Arrestor Holding Grids | PFS Filters',
   '20x20-paint-pockets-paint-arrestor-30-cs': 'Paint Pockets Arrestor Media | PFS Filters',
-  '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': '22-Gram Fiberglass Exhaust Rolls | PFS Filters',
+  '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': '22-Gram Paint Booth Filter Roll | PFS Filters',
   'pleated-air-filters-merv-10': 'Pleated MERV 10 Intake Filters | PFS Filters',
   '20x20x2-15-gram-fiberglass-paint-arrestor-pads-50-cs': '15-Gram Fiberglass Arrestor Pads | PFS Filters',
-  '36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs': '15-Gram Fiberglass Exhaust Rolls | PFS Filters',
+  '36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs': '15-Gram Paint Booth Filter Roll | PFS Filters',
   '300-series-tacky-filter-panel': '300 Series Tacky Intake Panels | PFS Filters',
   '5kr1-series-premium-intake': '5KR1 Series Premium Intake | PFS Filters',
   'aerospace-neshap-319-5-pocket-bag-filter-merv-14-15': 'Aerospace NESHAP 319 Filter Bags | PFS Filters',
@@ -56,9 +54,15 @@ const PRODUCT_TITLES = {
   'pfs-vanguard-complete-booth-protection-kit': 'PFS VANGUARD Booth Protection Kit | PFS Filters',
   'pfs-paint-booth-absorbent-mat-roll-32x50': 'PFS Absorbent Mat Roll 32x50 | PFS Filters',
   'koch-biomax-hepa-9999-23-375x23-375x11-5': 'Koch BioMAX HEPA 99.99% Filter | PFS Filters',
-  'koch-spraystop-stk10-61x90-roll': 'Koch SprayStop STK-10 Roll | PFS Filters',
+  'koch-spraystop-stk10-61x90-roll': 'Koch STK-10 Paint Booth Filter Roll | PFS Filters',
   'parker-loadtech-merv14-20x20x4-single-header-case-3': 'Parker LoadTECH MERV 14 20x20x4 | PFS Filters',
   'afc-2-pocket-blue-poly-exhaust-cube-20x20x15-no-header-case-6': 'AFC Blue Poly Exhaust Cube 20x20 | PFS Filters',
+};
+
+const PRODUCT_DESCRIPTIONS = {
+  '20x100x2-22-gram-fiberglass-exhaust-roll-1-cs': '22-gram paint booth filter roll for exhaust banks. Widths and lengths are on the product page. Confirm the filter wall opening before you order.',
+  '36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs': '15-gram paint booth filter roll for exhaust banks. Widths and lengths are on the product page. Confirm the filter wall opening before you order.',
+  'koch-spraystop-stk10-61x90-roll': 'Koch SprayStop STK-10 paint booth filter roll, 61 inches by 90 feet. Confirm the exhaust stage and the installed width before ordering from PFS.',
 };
 
 const BLOG_TITLES = {
@@ -117,12 +121,12 @@ export const ROUTE_SEO = {
     description: 'Paint booth filters for exhaust, intake, ceiling, and prefilter stages. PFS Filters in Santa Rosa ships stocked media, typically processed in 1–2 business days.',
   },
   '/shop': {
-    title: 'Shop Paint Booth Filters & Media | PFS Filters',
-    description: 'Shop paint booth filters: fiberglass arrestors, tacky panels, ceiling media, MERV 10 pleats, and rolls. Confirm the stage and dimensions before ordering.',
+    title: 'Paint Shop Filters & Booth Media | PFS Filters',
+    description: 'Paint shop filters for intake, exhaust, ceiling, and rolls. Compare fiberglass, tacky panels, and ceiling media, then confirm the booth stage and size.',
   },
   '/paint-booth-filters': {
-    title: 'Paint Booth Filters by Stage | PFS Filters',
-    description: 'Paint booth filters for intake, ceiling, prefilter, and exhaust stages. Compare catalog media by position, then confirm the booth model and actual size.',
+    title: 'Paint Booth Filters & Filter Walls | PFS Filters',
+    description: 'Paint booth filters and paint booth filter walls: intake, exhaust, ceiling, rolls, and pads. Match the stage and the measured size before you order.',
   },
   '/andreae-paint-booth-filters': {
     title: 'Andreae Paint Booth Filters | PFS Filters',
@@ -133,8 +137,8 @@ export const ROUTE_SEO = {
     description: 'Exhaust filters for paint booths: 15- and 22-gram fiberglass pads and rolls, Paint Pockets, and Andreae accordion media. Confirm the frame size first.',
   },
   '/intake-filters': {
-    title: 'Paint Booth Intake Filters | PFS Filters',
-    description: 'Intake filters for paint booths include 300 Series tacky panels, 5KR1 panels, MERV 10 pleats, and pocket bags. Confirm the inlet stage and size.',
+    title: 'Paint Booth Intake Filters | Tacky & Pleats',
+    description: 'Paint booth intake filters for supply air: 300 Series tacky panels, 5KR1 panels, MERV 10 pleats, and pocket bags. Confirm the inlet size first.',
   },
   '/ceiling-filters': {
     title: 'Paint Booth Ceiling Filters | PFS Filters',
@@ -149,8 +153,8 @@ export const ROUTE_SEO = {
     description: 'NESHAP 6H paint booth filter guide for Subpart HHHHHH and Method 319. A filter alone does not make a facility compliant. Review the catalog media.',
   },
   '/garmat-paint-booth-filters': {
-    title: 'Garmat Paint Booth Filters | PFS Filters',
-    description: 'Garmat paint booth filters: review model, stage, and dimensions, then match intake, ceiling, or exhaust media in the PFS catalog before ordering.',
+    title: 'Garmat Paint Booth Filters | Intake & Exhaust',
+    description: 'Garmat paint booth filters for replacement intake and exhaust stages. Confirm the model, position, and measured size, then match catalog media.',
   },
   '/accudraft-paint-booth-filters': {
     title: 'Accudraft Filter Stage Guide | PFS Filters',
@@ -213,10 +217,8 @@ export const ROUTE_SEO = {
     description: 'Paint booth filters by size, including 20x20, 20x25, and 24x24 variants plus rolls and blankets. Sizes not listed need a PFS fitment review before ordering.',
   },
   '/shop-by-type': {
-    title: 'Filters by Booth Position | PFS Filters',
-    description: 'Filters by booth position point to the same type index as the filter-type page. Use intake, exhaust, ceiling, and roll links, then confirm the installed stage.',
-    noindex: true,
-    canonical: '/shop-by-filter-type',
+    title: 'Shop by Type: Pads, Rolls & Cubes | PFS Filters',
+    description: 'Shop filters by type: pads, rolls, cubes, intake filters, and ceiling media. For the full stage guide, use the paint booth filters hub first.',
   },
   '/shop-by-filter-type': {
     title: 'Shop Paint Booth Filters by Type | PFS Filters',
@@ -338,8 +340,8 @@ export const ROUTE_SEO = {
 
 const CATEGORY_SEO = {
   'fiberglass-arrestors': {
-    title: 'Fiberglass Paint Arrestors | PFS Filters',
-    description: 'Fiberglass paint arrestors in 15-gram and 22-gram pads and rolls. Sizes are listed on each product. Confirm the exhaust frame before ordering from PFS Filters.',
+    title: 'Paint Arrestor Pads | Fiberglass | PFS Filters',
+    description: 'Paint arrestor pads for exhaust banks: 15-gram and 22-gram fiberglass pads in the sizes listed. Confirm the filter wall opening before ordering.',
   },
   'tacky-panels': {
     title: 'Tacky Panel Intake Filters | PFS Filters',
@@ -350,8 +352,8 @@ const CATEGORY_SEO = {
     description: 'Ceiling diffusion media filters for downdraft booths, including L560 and Swiss Flow 600G sizes listed on the product pages. Measure the ceiling grid first.',
   },
   'roll-media': {
-    title: 'Paint Booth Roll Media | PFS Filters',
-    description: 'Paint booth roll media in the catalog includes fiberglass exhaust rolls, Paint Pockets roll, and other listed widths. Confirm the stage and roll length first.',
+    title: 'Paint Booth Filter Rolls | PFS Filters',
+    description: 'Paint booth filter rolls for exhaust banks and overspray, including fiberglass and Paint Pockets widths. Confirm the stage and the roll length first.',
   },
   'merv-filters': {
     title: 'MERV Rated Paint Booth Filters | PFS Filters',
@@ -488,6 +490,49 @@ export function productDescription(title, description) {
   return fitDescription(lead);
 }
 
+export const paintBoothFilterFaqs = [
+  {
+    question: 'How fast do filters ship?',
+    answer: 'Stocked items typically process in 1–2 business days. Custom, specialty, freight, and backordered items may require additional time; confirm the current product page or contact PFS Filters for an order-specific estimate.',
+  },
+  {
+    question: 'What is Subscribe & Save?',
+    answer: 'Eligible products can be purchased on a monthly Shopify subscription with 5% off. The subscription terms must be shown and confirmed at checkout, and customers can manage eligible subscriptions through the Shopify account portal.',
+  },
+  {
+    question: 'How do I know which filter fits my booth?',
+    answer: 'Confirm the booth manufacturer and model, filter position, and actual dimensions. Browse by filter type or booth brand, then contact PFS Filters when a part number or fitment detail needs review.',
+  },
+  {
+    question: 'What is a paint booth filter wall?',
+    answer: 'A paint booth filter wall is the exhaust bank on a crossdraft or semi-downdraft booth. Shops also call it an exhaust filter wall or a paint arrestor wall. Pads or rolls load into that frame. It is not the ceiling grid on a downdraft booth and it is not the intake door. Measure the opening and match the pad or roll on the product page. A 20x20 holding grid is sold separately from the media.',
+  },
+  {
+    question: 'Which paint booth filter types can I order?',
+    answer: 'The catalog lists intake filters such as tacky panels, pleats, and bags; exhaust filters such as fiberglass pads, rolls, Paint Pockets, and accordion arrestors; ceiling diffusion blankets; and roll media. Order the stage the booth uses, then the measured size.',
+  },
+  {
+    question: 'Where do I order a paint booth filter roll?',
+    answer: 'Paint booth filter rolls are listed with roll media, including 15-gram and 22-gram fiberglass rolls. Open the product page and choose the width and length that match the filter wall. A pad of the same gram weight is a different product from the roll.',
+  },
+  {
+    question: 'Do you cover all booth brands or just PFS?',
+    answer: 'PFS Filters provides catalog and replacement guidance for PFS and multiple major booth brands, including Garmat, Accudraft, GFS, Col-Met, and Blowtherm. Compatibility depends on the booth model, stage, and dimensions.',
+  },
+  {
+    question: 'How often should I replace exhaust filters?',
+    answer: 'There is no universal replacement interval. Follow the booth and filter manufacturer instructions, differential-pressure or manometer readings, operating conditions, coating load, and documented visual inspections.',
+  },
+  {
+    question: 'Does buying a filter make a booth CARB or OSHA compliant?',
+    answer: 'No filter by itself makes a facility compliant. Compliance depends on the complete booth, ventilation, operating conditions, coating process, maintenance, permits, and applicable rules. Request product documentation and consult a qualified professional for your facility.',
+  },
+  {
+    question: 'Can I order in bulk?',
+    answer: 'Yes. Bulk pricing available. Call 855-496-7969 to discuss pricing for your facility\'s volume.',
+  },
+];
+
 export function merchantReturnPolicy() {
   return {
     '@type': 'MerchantReturnPolicy',
@@ -495,7 +540,14 @@ export function merchantReturnPolicy() {
     returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
     merchantReturnDays: 5,
     returnMethod: 'https://schema.org/ReturnByMail',
-    returnFees: 'https://schema.org/RestockingFees',
+    // Google merchant listings accept FreeReturn, ReturnFeesCustomerResponsibility,
+    // or ReturnShippingFees. RestockingFees is not one of those values.
+    // The published policy has the customer mail the unopened package back, so
+    // return shipping is the customer's responsibility. The 25% restocking fee
+    // is a separate percentage on the refund.
+    returnFees: 'https://schema.org/ReturnFeesCustomerResponsibility',
+    restockingFee: 25,
+    merchantReturnLink: 'https://www.pfsfilters.com/returns',
   };
 }
 
@@ -506,6 +558,18 @@ export function offerShippingDetails() {
       '@type': 'DefinedRegion',
       addressCountry: 'US',
     },
+    // Terms: prices do not include shipping or freight, and checkout calculates
+    // the charge. A value of 0 would be read as free shipping, which is not
+    // the default offer. $40.76 is the UPS Ground quote checkout returned for
+    // one stocked 22-gram pad case to New York, NY 10001, with a service
+    // description of 4 business days. It is a representative US ground rate,
+    // not a flat catalog price. Other items, quantities, and freight quotes differ.
+    shippingRate: {
+      '@type': 'MonetaryAmount',
+      currency: 'USD',
+      value: '40.76',
+      description: 'Representative UPS Ground checkout quote for one stocked case to a US address. Checkout calculates the charge for the item, quantity, and destination. Freight is quoted.',
+    },
     deliveryTime: {
       '@type': 'ShippingDeliveryTime',
       handlingTime: {
@@ -514,7 +578,61 @@ export function offerShippingDetails() {
         maxValue: 2,
         unitCode: 'DAY',
       },
+      transitTime: {
+        '@type': 'QuantitativeValue',
+        minValue: 1,
+        maxValue: 4,
+        unitCode: 'DAY',
+      },
     },
+  };
+}
+
+export function priceValidUntil(from = new Date()) {
+  const date = new Date(from.getTime());
+  date.setUTCFullYear(date.getUTCFullYear() + 1);
+  return date.toISOString().slice(0, 10);
+}
+
+export function normalizeOfferPrice(amount) {
+  if (amount == null || String(amount).trim() === '') return '';
+  const numeric = Number(amount);
+  if (!Number.isFinite(numeric) || numeric < 0) return '';
+  return numeric.toFixed(2);
+}
+
+export function schemaSkuFromVariant(variant, handle = '') {
+  const sku = String(variant?.sku || '').trim();
+  if (sku) return sku;
+  const variantId = String(variant?.id || '').split('/').pop();
+  if (variantId && variantId !== 'undefined') return variantId;
+  return String(handle || '').trim();
+}
+
+export function lowestPriceVariant(product) {
+  const variants = product?.variants?.edges?.map((edge) => edge?.node).filter(Boolean) || [];
+  if (!variants.length) return null;
+  return variants.reduce((best, variant) => {
+    const price = Number(variant?.price?.amount);
+    const bestPrice = Number(best?.price?.amount);
+    if (!Number.isFinite(bestPrice)) return variant;
+    if (!Number.isFinite(price)) return best;
+    return price < bestPrice ? variant : best;
+  }, variants[0]);
+}
+
+export function productOffer({ price, currency = 'USD', availability, url, priceValidUntil: until } = {}) {
+  return {
+    '@type': 'Offer',
+    price: normalizeOfferPrice(price),
+    priceCurrency: currency || 'USD',
+    availability: availability || 'https://schema.org/InStock',
+    itemCondition: 'https://schema.org/NewCondition',
+    url,
+    priceValidUntil: until || priceValidUntil(),
+    seller: { '@type': 'Organization', name: 'PFS Filters' },
+    hasMerchantReturnPolicy: merchantReturnPolicy(),
+    shippingDetails: offerShippingDetails(),
   };
 }
 
@@ -543,7 +661,9 @@ export function resolveRouteSeo(path, extras = {}) {
     } else {
       title = productTitle(handle, extras.seoTitle || extras.productTitle || extras.title || handle);
     }
-    if (shopifyDescription && shopifyDescription.length >= 50) {
+    if (PRODUCT_DESCRIPTIONS[handle]) {
+      description = PRODUCT_DESCRIPTIONS[handle];
+    } else if (shopifyDescription && shopifyDescription.length >= 50) {
       description = shopifyDescription;
       shopifySeo = true;
     } else {

@@ -7,80 +7,10 @@ import { StickyMobileCTA } from '@/components/StickyMobileCTA';
 import { Button } from '@/components/ui/button';
 import { Phone, Truck, Package, ShieldCheck, RefreshCw, ChevronDown, ChevronUp, Shield, AlertTriangle, ArrowRight, Building2, MapPin } from 'lucide-react';
 import { HubGuide } from '@/components/HubGuide';
+import { createFAQSchema } from '@/lib/structuredData';
+import { paintBoothFilterFaqs } from '@shared/seoText.mjs';
 
-// FAQ Schema JSON-LD
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How fast do filters ship?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Stocked items typically process in 1–2 business days. Custom, specialty, freight, and backordered items may require additional time; confirm the current product page or contact PFS Filters for an order-specific estimate."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is Subscribe & Save?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Eligible products can be purchased on a monthly Shopify subscription with 5% off. The subscription terms must be shown and confirmed at checkout, and customers can manage eligible subscriptions through the Shopify account portal."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I know which filter fits my booth?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Confirm the booth manufacturer and model, filter position, and actual dimensions. Browse by filter type or booth brand, then contact PFS Filters when a part number or fitment detail needs review."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you cover all booth brands or just PFS?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "PFS Filters provides catalog and replacement guidance for PFS and multiple major booth brands, including Garmat, Accudraft, GFS, Col-Met, and Blowtherm. Compatibility depends on the booth model, stage, and dimensions."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How often should I replace exhaust filters?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "There is no universal replacement interval. Follow the booth and filter manufacturer instructions, differential-pressure or manometer readings, operating conditions, coating load, and documented visual inspections."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does buying a filter make a booth CARB or OSHA compliant?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No filter by itself makes a facility compliant. Compliance depends on the complete booth, ventilation, operating conditions, coating process, maintenance, permits, and applicable rules. Request product documentation and consult a qualified professional for your facility."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I order in bulk?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Bulk pricing available. Call 855-496-7969 to discuss pricing for your facility's volume."
-      }
-    }
-  ]
-};
-
-const FAQS = [
-  { q: "How fast do filters ship?", a: "Stocked items typically process in 1–2 business days. Custom, specialty, freight, and backordered items may require additional time; confirm the current product page or contact PFS Filters for an order-specific estimate." },
-  { q: "What is Subscribe & Save?", a: "Eligible products can be purchased on a monthly Shopify subscription with 5% off. The subscription terms must be shown and confirmed at checkout, and customers can manage eligible subscriptions through the Shopify account portal." },
-  { q: "How do I know which filter fits my booth?", a: "Confirm the booth manufacturer and model, filter position, and actual dimensions. Browse by filter type or booth brand, then contact PFS Filters when a part number or fitment detail needs review." },
-  { q: "Do you cover all booth brands or just PFS?", a: "PFS Filters provides catalog and replacement guidance for PFS and multiple major booth brands, including Garmat, Accudraft, GFS, Col-Met, and Blowtherm. Compatibility depends on the booth model, stage, and dimensions." },
-  { q: "How often should I replace exhaust filters?", a: "There is no universal replacement interval. Follow the booth and filter manufacturer instructions, differential-pressure or manometer readings, operating conditions, coating load, and documented visual inspections." },
-  { q: "Does buying a filter make a booth CARB or OSHA compliant?", a: "No filter by itself makes a facility compliant. Compliance depends on the complete booth, ventilation, operating conditions, coating process, maintenance, permits, and applicable rules. Request product documentation and consult a qualified professional for your facility." },
-  { q: "Can I order in bulk?", a: "Yes. Bulk pricing available. Call 855-496-7969 to discuss pricing for your facility's volume." },
-];
+const faqSchema = createFAQSchema(paintBoothFilterFaqs);
 
 const BRANDS = [
   { label: 'PFS Spray Booths', href: '/pfs-spray-booth-filters' },
@@ -109,8 +39,8 @@ export default function PaintBoothFilters() {
     <div className="min-h-screen bg-[#040404]">
       <Navigation />
       <SEO
-        title="Paint Booth Filters by Type, Size & Booth | PFS Filters"
-        description="Browse paint booth intake, ceiling, prefilter, and exhaust media by type, size, and booth brand. Get sizing help and 5% Subscribe & Save on eligible products."
+        title="Paint Booth Filters & Filter Walls | PFS Filters"
+        description="Paint booth filters and paint booth filter walls: intake, exhaust, ceiling, rolls, and pads. Match the stage and the measured size before you order."
         canonical="https://www.pfsfilters.com/paint-booth-filters"
         structuredData={faqSchema}
       />
@@ -131,12 +61,12 @@ export default function PaintBoothFilters() {
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
-            Paint Booth Filters for Intake, Ceiling,{' '}
-            <span className="text-blue-400">Prefilter & Exhaust Stages</span>
+            Paint Booth Filters and Filter Walls for{' '}
+            <span className="text-blue-400">Intake, Exhaust, Ceiling, Rolls, and Pads</span>
           </h1>
 
           <p className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto mb-8 leading-relaxed">
-            Browse current filter media and replacement options by booth position, size, and manufacturer guidance. Confirm dimensions before ordering; eligible products offer monthly Subscribe & Save with 5% off.
+            Paint booth filters for intake, exhaust, ceiling, rolls, and pads, including media for an exhaust filter wall. Confirm the stage and the measured size before ordering.
           </p>
 
           {/* Trust Badges */}
@@ -286,6 +216,54 @@ export default function PaintBoothFilters() {
               </Button>
             </a>
           </div>
+        </div>
+      </section>
+
+      <section className="w-full section-darker py-20 px-4">
+        <div className="section-divider mb-16" />
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="section-label"><span>Filter walls and media</span></div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+              Paint Booth Filters, Filter Walls, Rolls, and Pads
+            </h2>
+            <p className="text-white/50 text-lg max-w-3xl mx-auto">
+              Choose the stage that is installed today, then the size printed on that filter. A paint booth filter wall is not a ceiling blanket, and a roll is not a pad of the same face width.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="glow-card p-6">
+              <h3 className="text-lg font-bold text-white mb-2">Exhaust filter wall</h3>
+              <p className="text-sm text-white/50 leading-relaxed">
+                A paint booth filter wall, also called an exhaust filter wall or a paint arrestor wall, is the frame on the outlet side of a crossdraft or semi-downdraft booth. Fiberglass pads, fiberglass rolls, Paint Pockets, or accordion arrestors load into that bank. It is not the ceiling grid on a downdraft booth and it is not the intake door. Measure the opening. A 20x20 holding grid is sold separately from the media.
+              </p>
+            </div>
+            <div className="glow-card p-6">
+              <h3 className="text-lg font-bold text-white mb-2">Intake, ceiling, rolls, and pads</h3>
+              <p className="text-sm text-white/50 leading-relaxed">
+                Intake filters clean air before the finish. Ceiling diffusion media spreads that air across a downdraft plenum. Exhaust pads and rolls sit on the filter wall. Roll media and cut pads of the same gram weight are different products. Match the label on the filter you are removing, including width, length, and thickness.
+              </p>
+            </div>
+          </div>
+          <p className="text-white/55 text-sm leading-relaxed mt-8 max-w-3xl mx-auto text-center">
+            Shop{' '}
+            <Link href="/exhaust-filters" className="text-blue-400 hover:text-blue-300">exhaust filters</Link>,{' '}
+            <Link href="/intake-filters" className="text-blue-400 hover:text-blue-300">intake filters</Link>,{' '}
+            <Link href="/ceiling-filters" className="text-blue-400 hover:text-blue-300">ceiling filters</Link>,{' '}
+            <Link href="/category/fiberglass-arrestors" className="text-blue-400 hover:text-blue-300">fiberglass pads</Link>,{' '}
+            <Link href="/category/roll-media" className="text-blue-400 hover:text-blue-300">paint booth filter rolls</Link>,{' '}
+            <Link href="/category/tacky-panels" className="text-blue-400 hover:text-blue-300">tacky intake panels</Link>,{' '}
+            <Link href="/category/ceiling-blankets" className="text-blue-400 hover:text-blue-300">ceiling blankets</Link>,{' '}
+            <Link href="/product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs" className="text-blue-400 hover:text-blue-300">22-gram filter rolls</Link>,{' '}
+            <Link href="/product/36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs" className="text-blue-400 hover:text-blue-300">15-gram filter rolls</Link>,{' '}
+            <Link href="/product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs" className="text-blue-400 hover:text-blue-300">22-gram pads</Link>,{' '}
+            <Link href="/andreae-paint-booth-filters" className="text-blue-400 hover:text-blue-300">Andreae filters</Link>,{' '}
+            <Link href="/shop-by-booth" className="text-blue-400 hover:text-blue-300">booth brands</Link>,{' '}
+            <Link href="/garmat-paint-booth-filters" className="text-blue-400 hover:text-blue-300">Garmat</Link>,{' '}
+            <Link href="/gfs-paint-booth-filters" className="text-blue-400 hover:text-blue-300">GFS</Link>,{' '}
+            <Link href="/col-met-paint-booth-filters" className="text-blue-400 hover:text-blue-300">Col-Met</Link>, and the{' '}
+            <Link href="/filter-rotation-program" className="text-blue-400 hover:text-blue-300">filter rotation program</Link>.
+          </p>
         </div>
       </section>
 
@@ -482,13 +460,13 @@ export default function PaintBoothFilters() {
             </h2>
           </div>
           <div className="space-y-3">
-            {FAQS.map((faq, idx) => (
-              <div key={idx} className="bg-[#0d0d0d] border border-white/10 rounded-lg overflow-hidden">
+            {paintBoothFilterFaqs.map((faq, idx) => (
+              <div key={faq.question} className="bg-[#0d0d0d] border border-white/10 rounded-lg overflow-hidden">
                 <button
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
                   className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors"
                 >
-                  <h3 className="text-base font-semibold text-white pr-4">{faq.q}</h3>
+                  <h3 className="text-base font-semibold text-white pr-4">{faq.question}</h3>
                   {openFaq === idx ? (
                     <ChevronUp className="w-5 h-5 text-blue-400 flex-shrink-0" />
                   ) : (
@@ -497,7 +475,7 @@ export default function PaintBoothFilters() {
                 </button>
                 {openFaq === idx && (
                   <div className="px-6 pb-4">
-                    <p className="text-white/60 leading-relaxed">{faq.a}</p>
+                    <p className="text-white/60 leading-relaxed">{faq.answer}</p>
                   </div>
                 )}
               </div>
