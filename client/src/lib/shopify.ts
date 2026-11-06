@@ -165,7 +165,7 @@ export const CATEGORY_COLLECTION_MAP: Record<string, { collectionHandle: string;
   'fiberglass-arrestors': {
     collectionHandle: 'fiberglass-paint-arrestors',
     title: 'Fiberglass Paint Arrestors',
-    description: 'Fiberglass paint arrestor pads and roll media for spray booth exhaust filtration. Products shown here are explicitly identified as fiberglass in the catalog.',
+    description: 'Fiberglass paint arrestor pads and roll media for spray booth exhaust filtration. Paint arrestor pads here are the exhaust pads that load into a filter wall. Products shown are identified as fiberglass in the catalog.',
     position: 'EXHAUST',
   },
   'tacky-panels': {

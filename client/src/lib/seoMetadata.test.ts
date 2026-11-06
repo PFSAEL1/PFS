@@ -1,10 +1,15 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { hubArticles } from '@/data/hubArticles';
+import snapshot from '@/data/shopifyProductSnapshot.json';
 import {
+  lowestPriceVariant,
   merchantReturnPolicy,
+  normalizeOfferPrice,
   offerShippingDetails,
+  productOffer,
   resolveRouteSeo,
+  schemaSkuFromVariant,
 } from '@shared/seoText.mjs';
 import { createItemListSchema, createProductSchema } from '@/lib/structuredData';
 
@@ -37,7 +42,8 @@ describe('document SEO limits', () => {
     expect(resolveRouteSeo('/product/bronze-membership', { productTitle: 'Bronze Membership' }).noindex).toBe(true);
     expect(resolveRouteSeo('/product/test', { productTitle: 'Test' }).noindex).toBe(true);
     expect(resolveRouteSeo('/product/platinum', { productTitle: 'Platinum' }).noindex).toBe(true);
-    expect(resolveRouteSeo('/shop-by-type').noindex).toBe(true);
+    expect(resolveRouteSeo('/shop-by-type').noindex).toBe(false);
+    expect(resolveRouteSeo('/shop-by-type').canonical).toBe('/shop-by-type');
     expect(resolveRouteSeo('/shop-by-booth-type').noindex).toBe(true);
     expect(resolveRouteSeo('/category/pre-filters').noindex).toBe(true);
   });
@@ -129,6 +135,58 @@ describe('document SEO limits', () => {
     expect(listed.offers.price).toBe('12.50');
     expect(listed.offers.priceCurrency).toBe('USD');
     expect(listed.sku).toBe('example-filter');
+  });
+
+  it('keeps shop-by-type, Garmat, intake, and arrestor pads on distinct queries', () => {
+    const byType = resolveRouteSeo('/shop-by-type');
+    const garmat = resolveRouteSeo('/garmat-paint-booth-filters');
+    const intake = resolveRouteSeo('/intake-filters');
+    const pads = resolveRouteSeo('/category/fiberglass-arrestors');
+    expect(byType.canonical).toBe('/shop-by-type');
+    expect(byType.noindex).toBe(false);
+    expect(byType.title.toLowerCase()).not.toContain('paint booth filters');
+    expect(byType.title.toLowerCase()).toContain('pads');
+    expect(byType.description.toLowerCase()).toContain('paint booth filters hub');
+    expect(garmat.title).toContain('Garmat Paint Booth Filters');
+    expect(garmat.description.toLowerCase()).toContain('replacement intake and exhaust');
+    expect(intake.title.toLowerCase()).toContain('paint booth intake filters');
+    expect(intake.description.toLowerCase().startsWith('paint booth intake filters')).toBe(true);
+    expect(pads.title.toLowerCase()).toContain('paint arrestor pads');
+    expect(pads.description.toLowerCase()).toContain('paint arrestor pads');
+    for (const record of [byType, garmat, intake, pads]) {
+      expect(record.title.length).toBeLessThanOrEqual(60);
+      expect(record.description.length).toBeGreaterThanOrEqual(140);
+      expect(record.description.length).toBeLessThanOrEqual(160);
+    }
+  });
+
+  it('gives every catalog product a priced offer and does not invent ratings', () => {
+    const products = snapshot as Array<{ node: {
+      handle: string;
+      title: string;
+      vendor?: string;
+      priceRange?: { minVariantPrice?: { amount?: string } };
+      variants?: { edges?: Array<{ node?: { id?: string; sku?: string | null; price?: { amount?: string } } }> };
+    } }>;
+    expect(products.length).toBeGreaterThan(8);
+    for (const { node } of products) {
+      const variant = lowestPriceVariant(node);
+      const price = normalizeOfferPrice(variant?.price?.amount ?? node.priceRange?.minVariantPrice?.amount);
+      const offer = productOffer({
+        price,
+        currency: 'USD',
+        availability: 'https://schema.org/InStock',
+        url: `https://www.pfsfilters.com/product/${node.handle}`,
+      });
+      expect(price, node.handle).toMatch(/^\d+\.\d{2}$/);
+      expect(Number(price), node.handle).toBeGreaterThan(0);
+      expect(offer.priceCurrency).toBe('USD');
+      expect(offer.url).toContain(`/product/${node.handle}`);
+      expect(offer.priceValidUntil).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(offer).not.toHaveProperty('review');
+      expect(offer).not.toHaveProperty('aggregateRating');
+      expect(schemaSkuFromVariant(variant, node.handle).length, node.handle).toBeGreaterThan(0);
+    }
   });
 
   it('redirects known dead filter URLs to live pages', () => {

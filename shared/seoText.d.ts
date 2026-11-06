@@ -51,6 +51,10 @@ declare module '@shared/seoText.mjs' {
     handle?: string,
   ): string;
 
+  export function lowestPriceVariant(product: {
+    variants?: { edges?: Array<{ node?: { id?: string; sku?: string | null; price?: { amount?: string } } }> };
+  } | null | undefined): { id?: string; sku?: string | null; price?: { amount?: string } } | null;
+
   export function productOffer(input: {
     price?: unknown;
     currency?: string;

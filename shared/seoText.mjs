@@ -16,7 +16,6 @@ export const BRAND_SUFFIX = ' | PFS Filters';
 export const CANONICAL_OVERRIDES = {
   '/accudraft-paint-booth-filters': '/shop-by-booth/accudraft',
   '/shop-by-booth/global-finishing-solutions': '/gfs-paint-booth-filters',
-  '/shop-by-type': '/shop-by-filter-type',
   '/shop-by-booth-type': '/shop-by-booth',
   '/filter-compatibility': '/filter-finder',
 };
@@ -27,7 +26,6 @@ export const NOINDEX_PATHS = new Set([
   '/submit-review',
   '/dashboard',
   '/filter-database',
-  '/shop-by-type',
   '/shop-by-booth-type',
   '/category/pre-filters',
   '/404',
@@ -139,8 +137,8 @@ export const ROUTE_SEO = {
     description: 'Exhaust filters for paint booths: 15- and 22-gram fiberglass pads and rolls, Paint Pockets, and Andreae accordion media. Confirm the frame size first.',
   },
   '/intake-filters': {
-    title: 'Paint Booth Intake Filters | PFS Filters',
-    description: 'Intake filters for paint booths include 300 Series tacky panels, 5KR1 panels, MERV 10 pleats, and pocket bags. Confirm the inlet stage and size.',
+    title: 'Paint Booth Intake Filters | Tacky & Pleats',
+    description: 'Paint booth intake filters for supply air: 300 Series tacky panels, 5KR1 panels, MERV 10 pleats, and pocket bags. Confirm the inlet size first.',
   },
   '/ceiling-filters': {
     title: 'Paint Booth Ceiling Filters | PFS Filters',
@@ -155,8 +153,8 @@ export const ROUTE_SEO = {
     description: 'NESHAP 6H paint booth filter guide for Subpart HHHHHH and Method 319. A filter alone does not make a facility compliant. Review the catalog media.',
   },
   '/garmat-paint-booth-filters': {
-    title: 'Garmat Paint Booth Filters | PFS Filters',
-    description: 'Garmat paint booth filters: review model, stage, and dimensions, then match intake, ceiling, or exhaust media in the PFS catalog before ordering.',
+    title: 'Garmat Paint Booth Filters | Intake & Exhaust',
+    description: 'Garmat paint booth filters for replacement intake and exhaust stages. Confirm the model, position, and measured size, then match catalog media.',
   },
   '/accudraft-paint-booth-filters': {
     title: 'Accudraft Filter Stage Guide | PFS Filters',
@@ -219,10 +217,8 @@ export const ROUTE_SEO = {
     description: 'Paint booth filters by size, including 20x20, 20x25, and 24x24 variants plus rolls and blankets. Sizes not listed need a PFS fitment review before ordering.',
   },
   '/shop-by-type': {
-    title: 'Filters by Booth Position | PFS Filters',
-    description: 'Filters by booth position point to the same type index as the filter-type page. Use intake, exhaust, ceiling, and roll links, then confirm the installed stage.',
-    noindex: true,
-    canonical: '/shop-by-filter-type',
+    title: 'Shop by Type: Pads, Rolls & Cubes | PFS Filters',
+    description: 'Shop filters by type: pads, rolls, cubes, intake filters, and ceiling media. For the full stage guide, use the paint booth filters hub first.',
   },
   '/shop-by-filter-type': {
     title: 'Shop Paint Booth Filters by Type | PFS Filters',
@@ -344,8 +340,8 @@ export const ROUTE_SEO = {
 
 const CATEGORY_SEO = {
   'fiberglass-arrestors': {
-    title: 'Fiberglass Paint Arrestors | PFS Filters',
-    description: 'Fiberglass paint arrestors in 15-gram and 22-gram pads and rolls. Sizes are listed on each product. Confirm the exhaust frame before ordering from PFS Filters.',
+    title: 'Paint Arrestor Pads | Fiberglass | PFS Filters',
+    description: 'Paint arrestor pads for exhaust banks: 15-gram and 22-gram fiberglass pads in the sizes listed. Confirm the filter wall opening before ordering.',
   },
   'tacky-panels': {
     title: 'Tacky Panel Intake Filters | PFS Filters',

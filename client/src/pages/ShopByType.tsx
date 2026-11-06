@@ -122,8 +122,8 @@ export default function ShopByType() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Shop Paint Booth Filters by Type - Intake, Exhaust, Ceiling & More"
-        description="Browse paint booth filters by type: fiberglass paint arrestors (exhaust), tacky panel filters (intake), ceiling blankets, roll media, and MERV-rated filters."
+        title="Shop by Type: Pads, Rolls & Cubes | PFS Filters"
+        description="Shop filters by type: pads, rolls, cubes, intake filters, and ceiling media. For the full stage guide, use the paint booth filters hub first."
         canonical="https://www.pfsfilters.com/shop-by-type"
         structuredData={breadcrumbSchema}
       />
@@ -136,10 +136,11 @@ export default function ShopByType() {
           <div className="mb-4">
             <p className="text-[#4d9fff] text-xs font-semibold uppercase tracking-[0.2em] mb-3">Filter Types</p>
             <h1 className="text-5xl font-extrabold mb-4 text-white pfs-heading-animate">
-              Shop by Filter Type
+              Shop Filters by Type: Pads, Rolls, and Cubes
             </h1>
             <p className="text-lg text-white/70 max-w-2xl">
-              Each position in your spray booth requires a specific filter type. Cards show whether a filter is for <span className="text-white/70 font-medium">Intake</span> or <span className="text-white/70 font-medium">Exhaust</span>.
+              Shop pads, rolls, cubes, intake filters, and ceiling media by construction. For the full stage guide, start at the{' '}
+              <Link href="/paint-booth-filters" className="text-blue-400 hover:text-blue-300">paint booth filters hub</Link>.
             </p>
           </div>
         </div>
