@@ -1,6 +1,15 @@
 // Structured data (JSON-LD) schemas for SEO
 // Used across all pages of pfsfilters.com
-import { merchantReturnPolicy, offerShippingDetails } from '@shared/seoText.mjs';
+import { productOffer, schemaSkuFromVariant } from '@shared/seoText.mjs';
+
+const SITE_ORIGIN = 'https://www.pfsfilters.com';
+const DEFAULT_PRODUCT_IMAGE = `${SITE_ORIGIN}/images/filters/fiberglass-arrestors.png`;
+
+const absoluteSiteUrl = (value?: string) => {
+  if (!value) return DEFAULT_PRODUCT_IMAGE;
+  if (value.startsWith('https://') || value.startsWith('http://')) return value;
+  return `${SITE_ORIGIN}${value.startsWith('/') ? value : `/${value}`}`;
+};
 
 export const organizationSchema = {
   '@context': 'https://schema.org',
@@ -53,36 +62,38 @@ export const websiteSchema = {
 export const createProductSchema = (product: {
   name: string;
   description: string;
-  image: string;
+  image?: string;
   price: string;
   currency: string;
   sku?: string;
+  handle?: string;
+  variantId?: string;
   brand?: string;
   availability?: string;
   url?: string;
   aggregateRating?: { ratingValue: number; reviewCount: number };
 }) => {
+  const sku = schemaSkuFromVariant(
+    { sku: product.sku, id: product.variantId },
+    product.handle,
+  );
+  const url = product.url || '';
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
-    description: product.description,
-    image: product.image,
-    url: product.url,
+    description: product.description || product.name,
+    image: absoluteSiteUrl(product.image),
+    url,
     brand: { '@type': 'Brand', name: product.brand || 'PFS Filters' },
-    offers: {
-      '@type': 'Offer',
+    offers: productOffer({
       price: product.price,
-      priceCurrency: product.currency,
-      availability: product.availability || 'https://schema.org/InStock',
-      itemCondition: 'https://schema.org/NewCondition',
-      url: product.url,
-      seller: { '@type': 'Organization', name: 'PFS Filters' },
-      hasMerchantReturnPolicy: merchantReturnPolicy(),
-      shippingDetails: offerShippingDetails(),
-    },
+      currency: product.currency || 'USD',
+      availability: product.availability,
+      url,
+    }),
   };
-  if (product.sku) schema.sku = product.sku;
+  if (sku) schema.sku = sku;
   if (product.aggregateRating) {
     schema.aggregateRating = {
       '@type': 'AggregateRating',
@@ -105,20 +116,41 @@ export const createBreadcrumbSchema = (items: { name: string; url: string }[]) =
 });
 
 export const createItemListSchema = (items: Array<{
-  name: string; url: string; image: string; price: string; currency: string;
+  name: string;
+  url: string;
+  image: string;
+  price: string;
+  currency: string;
+  sku?: string;
+  handle?: string;
+  brand?: string;
+  availability?: string;
 }>) => ({
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  itemListElement: items.map((item, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    item: {
+  itemListElement: items.map((item, index) => {
+    const url = absoluteSiteUrl(item.url).replace(/\/$/, '') || item.url;
+    const sku = schemaSkuFromVariant({ sku: item.sku }, item.handle);
+    const product: Record<string, unknown> = {
       '@type': 'Product',
       name: item.name,
-      url: item.url,
-      image: item.image,
-    },
-  })),
+      url,
+      image: absoluteSiteUrl(item.image),
+      brand: { '@type': 'Brand', name: item.brand || 'PFS Filters' },
+      offers: productOffer({
+        price: item.price,
+        currency: item.currency || 'USD',
+        availability: item.availability,
+        url,
+      }),
+    };
+    if (sku) product.sku = sku;
+    return {
+      '@type': 'ListItem',
+      position: index + 1,
+      item: product,
+    };
+  }),
 });
 
 export const createFAQSchema = (faqs: Array<{ question: string; answer: string }>) => ({

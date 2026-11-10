@@ -45,8 +45,8 @@ export default function GarmatPaintBoothFilters() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Garmat Paint Booth Filter Guide | PFS Filters"
-        description="Review model and filter-stage guidance for Garmat paint booths, then verify the installed filter label, construction, position, and dimensions before ordering."
+        title="Garmat Paint Booth Filters | Intake & Exhaust"
+        description="Garmat paint booth filters for replacement intake and exhaust stages. Confirm the model, position, and measured size, then match catalog media."
         canonical="https://www.pfsfilters.com/garmat-paint-booth-filters"
         structuredData={breadcrumbSchema}
       />

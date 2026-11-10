@@ -9,9 +9,11 @@ import {
   assertSeoRecord,
   isBlockedProductHandle,
   isMembershipHandle,
-  merchantReturnPolicy,
-  offerShippingDetails,
+  lowestPriceVariant,
+  paintBoothFilterFaqs,
+  productOffer,
   resolveRouteSeo,
+  schemaSkuFromVariant,
   filterRotationFaqs,
 } from '../shared/seoText.mjs';
 import { getBoothGuide } from '../shared/boothFilterGuides.mjs';
@@ -187,7 +189,7 @@ for (const match of blogSource.matchAll(blogPattern)) {
 const brandSlugs = [...new Set([...brandsSource.matchAll(/\bslug:\s*'([^']+)'/g)].map((match) => match[1]))];
 
 const categories = [
-  { slug: 'fiberglass-arrestors', title: 'Fiberglass Paint Arrestors', description: 'Fiberglass paint arrestor pads and roll media for spray booth exhaust filtration. Products shown here are explicitly identified as fiberglass in the catalog.' },
+  { slug: 'fiberglass-arrestors', title: 'Fiberglass Paint Arrestors', description: 'Paint arrestor pads for exhaust banks: 15-gram and 22-gram fiberglass pads in the sizes listed. Confirm the filter wall opening before ordering.' },
   { slug: 'tacky-panels', title: 'Tacky Panel Filters', description: 'Adhesive-coated panels trap dust, debris, and airborne particles at the intake. Keeps contaminants out of your booth.' },
   { slug: 'ceiling-blankets', title: 'Ceiling Blankets', description: 'Overhead intake filtration for downdraft and semi-downdraft booths. Ensures clean, even airflow from ceiling to floor.' },
   { slug: 'roll-media', title: 'Roll Media', description: 'Roll filtration media in current catalog widths, lengths, and constructions. Confirm the intended filter stage and dimensions before ordering.' },
@@ -213,14 +215,14 @@ const staticRoutes = [
   { path: '/dashboard', title: 'Dashboard - PFS Filters Account', description: 'Manage your PFS Filters account, memberships, and orders.', noindex: true },
   { path: '/filter-database', title: 'Filter Database | PFS Filters', description: 'Administrative filter database.', noindex: true },
   { path: '/shop', title: 'Shop Paint Booth Filters, Intake & Exhaust Media | PFS Filters', description: 'Shop fiberglass paint arrestors, tacky intake panels, ceiling media, MERV filters, roll media, and booth-specific replacements. Stocked items typically process in 1–2 business days.', h1: 'Shop Paint Booth Filters', priority: '1.0', changefreq: 'daily' },
-  { path: '/paint-booth-filters', title: 'Paint Booth Filters by Type, Size & Booth | PFS Filters', description: 'Browse paint booth intake, ceiling, prefilter, and exhaust media by type, size, and booth brand. Get sizing help and 5% Subscribe & Save on eligible products.', h1: 'Paint Booth Filters for Intake, Ceiling, Prefilter & Exhaust Stages', priority: '0.9', changefreq: 'monthly' },
+  { path: '/paint-booth-filters', title: 'Paint Booth Filters & Filter Walls | PFS Filters', description: 'Paint booth filters and paint booth filter walls: intake, exhaust, ceiling, rolls, and pads. Match the stage and the measured size before you order.', h1: 'Paint Booth Filters and Filter Walls for Intake, Exhaust, Ceiling, Rolls, and Pads', priority: '0.9', changefreq: 'monthly' },
   { path: '/andreae-paint-booth-filters', title: 'Andreae Paint Booth Filters — AF Pad & Roll Variants | PFS Filters', description: 'Review current Andreae-style accordion paint arrestor variants, including AF213, AF223, AF413, AF423, AF813, AF923, AF113, and AF123.', h1: 'Andreae Paint Booth Filters — Current Pad & Roll Variants', priority: '0.9', changefreq: 'monthly' },
   { path: '/exhaust-filters', title: 'Paint Booth Exhaust Filters | PFS Filters', description: 'Compare fiberglass paint arrestor pads and rolls, Paint Pockets, and Andreae-style accordion media. Check current options and availability on each product page.', h1: 'Paint Booth Exhaust Filters — Fiberglass, Paint Pockets & Andreae Style', priority: '0.9', changefreq: 'weekly' },
-  { path: '/intake-filters', title: 'Paint Booth Intake Filters — Tacky, Pleated & Ceiling Media | PFS Filters', description: 'Compare tacky panels, ceiling diffusion media, MERV-rated pleated filters, and pocket bag filters. Verify the equipment stage and dimensions before ordering.', h1: 'Paint Booth Intake Filters — Tacky Panels & Ceiling Media', priority: '0.9', changefreq: 'weekly' },
+  { path: '/intake-filters', title: 'Paint Booth Intake Filters | Tacky & Pleats', description: 'Paint booth intake filters for supply air: 300 Series tacky panels, 5KR1 panels, MERV 10 pleats, and pocket bags. Confirm the inlet size first.', h1: 'Paint Booth Intake Filters — Tacky Panels & Ceiling Media', priority: '0.9', changefreq: 'weekly' },
   { path: '/ceiling-filters', title: 'Paint Booth Ceiling Filters — Downdraft Diffusion Media | PFS Filters', description: 'Compare paint booth ceiling diffusion media and current size variants for applicable downdraft and semi-downdraft systems. Verify the grid before ordering.', h1: 'Paint Booth Ceiling Filters for Downdraft Booths', priority: '0.9', changefreq: 'weekly' },
   { path: '/prefilters', title: 'Paint Booth Prefilters & First-Stage Filter Guidance | PFS Filters', description: 'Learn where paint booth prefilters and first-stage media may be used, what details to verify, and when a multi-stage arrangement needs review.', h1: 'Paint Booth Prefilters & First-Stage Filter Guidance', priority: '0.7', changefreq: 'monthly' },
   { path: '/neshap-compliant-paint-booth-filters', title: 'NESHAP Paint Booth Filter Guide — Subpart 6H & Method 319 | PFS Filters', description: 'Learn how EPA Subpart 6H and Method 319 relate to paint booth exhaust filtration, product evidence, and facility responsibilities.', h1: 'NESHAP Paint Booth Filter Guide — Standard & Aerospace Systems', priority: '0.8', changefreq: 'monthly' },
-  { path: '/garmat-paint-booth-filters', title: 'Garmat Paint Booth Filter Guide | PFS Filters', description: 'Review model and filter-stage guidance for Garmat paint booths, then verify the installed filter label, construction, position, and dimensions before ordering.', h1: 'Replacement Filter Guidance for Garmat Paint Booths', priority: '0.8', changefreq: 'monthly' },
+  { path: '/garmat-paint-booth-filters', title: 'Garmat Paint Booth Filters | Intake & Exhaust', description: 'Garmat paint booth filters for replacement intake and exhaust stages. Confirm the model, position, and measured size, then match catalog media.', h1: 'Replacement Filter Guidance for Garmat Paint Booths', priority: '0.8', changefreq: 'monthly' },
   { path: '/accudraft-paint-booth-filters', title: 'Accudraft Paint Booth Filter Guide | PFS Filters', description: 'Review filter-stage and model guidance for Accudraft paint booths, then verify the current filter label, position, and dimensions before ordering.', h1: 'Replacement Filter Guidance for Accudraft Paint Booths', priority: '0.8', changefreq: 'monthly' },
   { path: '/gfs-paint-booth-filters', title: 'GFS Paint Booth Filter Guide | PFS Filters', description: 'Review filter-stage and model guidance for Global Finishing Solutions paint booths, then confirm the model, position, and dimensions before ordering.', h1: 'Replacement Filter Guidance for Global Finishing Solutions Booths', priority: '0.8', changefreq: 'monthly' },
   { path: '/col-met-paint-booth-filters', title: 'Col-Met / RTT Paint Booth Filter Guide | PFS Filters', description: 'Review model and filter-stage guidance for Col-Met paint booths and prep stations. Verify installed media and dimensions before ordering.', h1: 'Replacement Filter Guidance for Col-Met / RTT Paint Booths', priority: '0.8', changefreq: 'monthly' },
@@ -236,7 +238,7 @@ const staticRoutes = [
   { path: '/california/los-angeles-paint-booth-filters', title: 'Los Angeles Paint Booth Filters | PFS Filters', description: 'Paint booth filter ordering and fitment support for Los Angeles County collision, fleet, fabrication, aerospace, and entertainment finishing work.', h1: 'Paint Booth Filters for Los Angeles County', priority: '0.8', changefreq: 'monthly' },
   { path: '/filter-finder', title: 'Paint Booth Filter Finder by Booth, Stage & Size | PFS Filters', description: 'Narrow paint booth filter options by booth type, brand, model, filter stage, and size. Verify the product record and actual dimensions before ordering.', h1: 'What kind of booth do you have?', priority: '0.9', changefreq: 'monthly' },
   { path: '/shop-by-size', title: 'Shop Paint Booth Filters by Size - 20x20, 20x25, Custom Cuts | PFS Filters', description: 'Browse current paint booth filter variants by size. Confirm actual dimensions and request a review for custom or hard-to-find products before ordering.', h1: 'Find Your Filter Size', priority: '0.8', changefreq: 'weekly' },
-  { path: '/shop-by-type', title: 'Shop Paint Booth Filters by Type - Intake, Exhaust, Ceiling & More | PFS Filters', description: 'Browse paint booth filters by type: fiberglass paint arrestors (exhaust), tacky panel filters (intake), ceiling blankets, roll media, and MERV-rated filters.', h1: 'Shop by Filter Type', priority: '0.8', changefreq: 'weekly' },
+  { path: '/shop-by-type', title: 'Shop by Type: Pads, Rolls & Cubes | PFS Filters', description: 'Shop filters by type: pads, rolls, cubes, intake filters, and ceiling media. For the full stage guide, use the paint booth filters hub first.', h1: 'Shop Filters by Type: Pads, Rolls, and Cubes', priority: '0.8', changefreq: 'weekly' },
   { path: '/shop-by-filter-type', title: 'Shop Paint Booth Filters by Filter Type — Fiberglass, Ceiling, Intake, Exhaust | PFS Filters', description: 'Browse paint booth filters by type: fiberglass paint arrestors, ceiling diffusion media, tacky intake panels, polyester pads, MERV-rated pleated filters, roll media, pre-filters, and aerospace HEPA media.', h1: 'Shop by Filter Type', priority: '0.8', changefreq: 'monthly' },
   { path: '/shop-by-booth', title: 'Paint Booth Filter Guidance by Booth Brand | PFS Filters', description: 'Review model and filter-stage guidance for major spray booth brands. Confirm the booth model, filter position, product record, and actual dimensions before ordering.', h1: 'Shop by Booth Brand', priority: '0.9', changefreq: 'monthly' },
   { path: '/shop-by-booth-type', title: 'Paint Booth Filter Guidance by Airflow Type | PFS Filters', description: 'Compare typical filter positions for downdraft, crossdraft, semi-downdraft, side-downdraft, open-face, and prep-station booths, then verify the model and dimensions.', h1: 'Choose Your Airflow', priority: '0.8', changefreq: 'monthly' },
@@ -258,37 +260,6 @@ const staticRoutes = [
   { path: '/industries/automotive-paint-booth-filters', title: 'Automotive Paint Booth Filters | PFS Filters', description: 'Compare automotive paint booth intake, ceiling, prefilter, and exhaust filters. Verify booth configuration, stage, dimensions, and fit with PFS guidance.', priority: '0.9', changefreq: 'monthly' },
   { path: '/filter-scanner', title: 'Photo-Assisted Paint Booth Filter Review | PFS Filters', description: 'Use a filter photo to narrow catalog candidates, then verify the booth position, label, and actual dimensions before ordering.', h1: 'Filter Scanner', priority: '0.5', changefreq: 'monthly' },
   { path: '/filter-part-numbers', title: 'Filter Part Number Cross Reference | PFS Filters', description: 'Cross-reference SKUs and manufacturer part numbers that appear in the current PFS catalog.', h1: 'Filter Part Number Cross Reference', priority: '0.7', changefreq: 'weekly', lastmod: '2026-10-29' },
-];
-
-const paintBoothFilterFaqs = [
-  {
-    question: 'How fast do filters ship?',
-    answer: 'Stocked items typically process in 1–2 business days. Custom, specialty, freight, and backordered items may require additional time; confirm the current product page or contact PFS Filters for an order-specific estimate.',
-  },
-  {
-    question: 'What is Subscribe & Save?',
-    answer: 'Eligible products can be purchased on a monthly Shopify subscription with 5% off. The subscription terms must be shown and confirmed at checkout, and customers can manage eligible subscriptions through the Shopify account portal.',
-  },
-  {
-    question: 'How do I know which filter fits my booth?',
-    answer: 'Confirm the booth manufacturer and model, filter position, and actual dimensions. Browse by filter type or booth brand, then contact PFS Filters when a part number or fitment detail needs review.',
-  },
-  {
-    question: 'Do you cover all booth brands or just PFS?',
-    answer: 'PFS Filters provides catalog and replacement guidance for PFS and multiple major booth brands, including Garmat, Accudraft, GFS, Col-Met, and Blowtherm. Compatibility depends on the booth model, stage, and dimensions.',
-  },
-  {
-    question: 'How often should I replace exhaust filters?',
-    answer: 'There is no universal replacement interval. Follow the booth and filter manufacturer instructions, differential-pressure or manometer readings, operating conditions, coating load, and documented visual inspections.',
-  },
-  {
-    question: 'Does buying a filter make a booth CARB or OSHA compliant?',
-    answer: 'No filter by itself makes a facility compliant. Compliance depends on the complete booth, ventilation, operating conditions, coating process, maintenance, permits, and applicable rules. Request product documentation and consult a qualified professional for your facility.',
-  },
-  {
-    question: 'Can I order in bulk?',
-    answer: 'Yes. Bulk pricing available. Call 855-496-7969 to discuss pricing for your facility\'s volume.',
-  },
 ];
 
 const automotiveFilterFaqs = [
@@ -384,19 +355,18 @@ const productRoutes = products.map((product) => {
   const kochDetails = kochProductDetails[product.handle];
   const isParkerCase = product.handle === 'parker-loadtech-merv14-20x20x4-single-header-case-3';
   const isAfcCase = product.handle === 'afc-2-pocket-blue-poly-exhaust-cube-20x20x15-no-header-case-6';
-  const imagePath = shopProductCardImage(product, 800);
+  const imagePath = shopProductCardImage(product, 800) || defaultProductImage;
   const image = imagePath.startsWith('/') ? absoluteUrl(imagePath) : imagePath;
-  const price = product.priceRange?.minVariantPrice?.amount;
-  const currency = product.priceRange?.minVariantPrice?.currencyCode || 'USD';
+  const offerVariant = lowestPriceVariant(product);
+  const price = offerVariant?.price?.amount ?? product.priceRange?.minVariantPrice?.amount;
+  const currency = offerVariant?.price?.currencyCode || product.priceRange?.minVariantPrice?.currencyCode || 'USD';
   const availability = (isParkerCase || isAfcCase)
     ? 'https://schema.org/BackOrder'
     : product.variants?.edges?.some((edge) => edge.node.availableForSale)
       ? 'https://schema.org/InStock'
       : 'https://schema.org/OutOfStock';
   const pathname = `/product/${product.handle}`;
-  // sku / vendor come from the Shopify snapshot; guarded so the schema still
-  // validates for older snapshots taken before those fields were queried.
-  const sku = product.variants?.edges?.[0]?.node?.sku || undefined;
+  const sku = schemaSkuFromVariant(offerVariant, product.handle);
   const brandName = product.vendor || 'PFS Filters';
   const imageNode = product.images?.edges?.[0]?.node;
   return {
@@ -418,22 +388,17 @@ const productRoutes = products.map((product) => {
       '@context': 'https://schema.org',
       '@type': 'Product',
       name: product.title,
-      description: stripMarkdown(product.description),
-      image: image ? [image] : undefined,
+      description: stripMarkdown(product.description) || product.title,
+      image: [image],
       url: absoluteUrl(pathname),
-      ...(sku ? { sku } : {}),
+      sku,
       brand: { '@type': 'Brand', name: brandName },
-      offers: {
-        '@type': 'Offer',
+      offers: productOffer({
         price,
-        priceCurrency: currency,
+        currency,
         availability,
-        itemCondition: 'https://schema.org/NewCondition',
         url: absoluteUrl(pathname),
-        seller: { '@type': 'Organization', name: 'PFS Filters' },
-        hasMerchantReturnPolicy: merchantReturnPolicy(),
-        shippingDetails: offerShippingDetails(),
-      },
+      }),
     },
     noindex: isMembershipHandle(product.handle),
     lastmod: catalogLastmod,
@@ -681,6 +646,18 @@ for (const route of routes) {
   route.canonicalPath = seo.canonical;
   route.shopifySeo = Boolean(seo.shopifySeo);
   if (refreshedLastmod.has(route.path)) route.lastmod = '2026-10-29';
+  if ([
+    '/paint-booth-filters',
+    '/shop',
+    '/category/roll-media',
+    '/product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs',
+    '/product/36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs',
+    '/product/koch-spraystop-stk10-61x90-roll',
+    '/shop-by-type',
+    '/garmat-paint-booth-filters',
+    '/intake-filters',
+    '/category/fiberglass-arrestors',
+  ].includes(route.path)) route.lastmod = '2026-11-06';
 }
 
 const seoErrors = [];
@@ -691,12 +668,37 @@ for (const route of routes) {
   else seenTitles.set(route.title, route.path);
   if (route.path.startsWith('/product/')) {
     const offer = route.schema?.offers;
-    if (!offer || offer.price == null || offer.price === '') {
+    const price = Number(offer?.price);
+    if (!offer || !Number.isFinite(price) || offer.price === '') {
       seoErrors.push(`${route.path} Product is missing offers.price`);
     }
-    if (!offer?.shippingDetails || !offer?.hasMerchantReturnPolicy?.returnMethod || !offer?.hasMerchantReturnPolicy?.returnFees) {
-      seoErrors.push(`${route.path} Product offer is missing shippingDetails or return policy fields`);
+    if (offer?.priceCurrency !== 'USD') seoErrors.push(`${route.path} Product offer priceCurrency must be USD`);
+    if (!offer?.availability || !offer?.url || !/^\d{4}-\d{2}-\d{2}$/.test(offer?.priceValidUntil || '')) {
+      seoErrors.push(`${route.path} Product offer is missing availability, url, or priceValidUntil`);
     }
+    if (offer?.priceValidUntil && offer.priceValidUntil < today) {
+      seoErrors.push(`${route.path} Product offer priceValidUntil is in the past`);
+    }
+    const returnFees = offer?.hasMerchantReturnPolicy?.returnFees;
+    const allowedReturnFees = [
+      'https://schema.org/FreeReturn',
+      'https://schema.org/ReturnFeesCustomerResponsibility',
+      'https://schema.org/ReturnShippingFees',
+    ];
+    if (offer?.hasMerchantReturnPolicy?.returnMethod !== 'https://schema.org/ReturnByMail' || !allowedReturnFees.includes(returnFees)) {
+      seoErrors.push(`${route.path} Product offer has an invalid returnMethod or returnFees value`);
+    }
+    const rate = offer?.shippingDetails?.shippingRate;
+    if (offer?.shippingDetails?.shippingDestination?.addressCountry !== 'US' || rate?.currency !== 'USD' || rate?.value == null || rate.value === '') {
+      seoErrors.push(`${route.path} Product offer is missing US shippingDetails`);
+    }
+    if (!offer?.shippingDetails?.deliveryTime?.handlingTime || !offer?.shippingDetails?.deliveryTime?.transitTime) {
+      seoErrors.push(`${route.path} Product offer shippingDetails is missing handling or transit time`);
+    }
+    if (!route.schema?.sku) seoErrors.push(`${route.path} Product is missing sku`);
+    if (!route.schema?.brand?.name) seoErrors.push(`${route.path} Product is missing brand`);
+    const image = Array.isArray(route.schema?.image) ? route.schema.image[0] : route.schema?.image;
+    if (!image || !String(image).startsWith('https://')) seoErrors.push(`${route.path} Product is missing an absolute image`);
   }
 }
 if (seoErrors.length > 0) {
@@ -1054,6 +1056,36 @@ function shopFallback(title, description) {
   </main>`;
 }
 
+function paintBoothFiltersFallback(route) {
+  const heading = escapeHtml(routeHeading(route));
+  const description = escapeHtml(route.description);
+  return `<main data-seo-fallback id="paint-booth-filters-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px">
+    <div style="max-width:880px;margin:0 auto">
+      <p style="color:#60a5fa;font-weight:700">PFS FILTERS</p>
+      <h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1>
+      <p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>
+      <h2 style="font-size:1.6rem;margin-top:32px">Paint booth filters, filter walls, rolls, and pads</h2>
+      <p style="color:#c4c8d0;line-height:1.7">A paint booth filter wall, also called an exhaust filter wall or a paint arrestor wall, is the frame on the outlet side of a crossdraft or semi-downdraft booth. Fiberglass pads, fiberglass rolls, Paint Pockets, or accordion arrestors load into that bank. It is not the ceiling diffusion grid in a downdraft booth and it is not the intake door. Measure the opening before choosing a pad or a roll. A 20x20 holding grid is a separate accessory.</p>
+      <p style="color:#c4c8d0;line-height:1.7">Intake filters clean air before it reaches the finish. Ceiling filters spread that air across a downdraft plenum. Exhaust pads and rolls sit on the filter wall. Roll media and cut pads of the same gram weight are different products. The filter rotation program can schedule those stages for a shop that changes them on a set cadence.</p>
+      <p><a href="/exhaust-filters" style="color:#60a5fa">Exhaust filters</a> · <a href="/intake-filters" style="color:#60a5fa">Intake filters</a> · <a href="/ceiling-filters" style="color:#60a5fa">Ceiling filters</a> · <a href="/category/fiberglass-arrestors" style="color:#60a5fa">Fiberglass pads</a> · <a href="/category/roll-media" style="color:#60a5fa">Paint booth filter rolls</a> · <a href="/category/tacky-panels" style="color:#60a5fa">Tacky intake panels</a> · <a href="/category/ceiling-blankets" style="color:#60a5fa">Ceiling blankets</a> · <a href="/product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs" style="color:#60a5fa">22-gram filter roll</a> · <a href="/product/36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs" style="color:#60a5fa">15-gram filter roll</a> · <a href="/product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs" style="color:#60a5fa">22-gram pads</a> · <a href="/andreae-paint-booth-filters" style="color:#60a5fa">Andreae filters</a> · <a href="/shop-by-booth" style="color:#60a5fa">Shop by booth</a> · <a href="/garmat-paint-booth-filters" style="color:#60a5fa">Garmat</a> · <a href="/gfs-paint-booth-filters" style="color:#60a5fa">GFS</a> · <a href="/col-met-paint-booth-filters" style="color:#60a5fa">Col-Met</a> · <a href="/filter-rotation-program" style="color:#60a5fa">Filter rotation program</a></p>
+    </div>
+  </main>`;
+}
+
+function shopByTypeFallback(route) {
+  const heading = escapeHtml(routeHeading(route));
+  const description = escapeHtml(route.description);
+  return `<main data-seo-fallback id="shop-by-type-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px">
+    <div style="max-width:880px;margin:0 auto">
+      <p style="color:#60a5fa;font-weight:700">PFS FILTERS</p>
+      <h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1>
+      <p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>
+      <p style="color:#c4c8d0;line-height:1.7">Shop pads, rolls, cubes, intake filters, and ceiling media by construction. For the full stage guide, start at the <a href="/paint-booth-filters" style="color:#60a5fa">paint booth filters hub</a>.</p>
+      <p><a href="/category/fiberglass-arrestors" style="color:#60a5fa">Pads</a> · <a href="/category/roll-media" style="color:#60a5fa">Rolls</a> · <a href="/category/polyester-media" style="color:#60a5fa">Cubes</a> · <a href="/intake-filters" style="color:#60a5fa">Intake</a> · <a href="/ceiling-filters" style="color:#60a5fa">Ceiling</a></p>
+    </div>
+  </main>`;
+}
+
 function intakeFallback(title, description) {
   return `<main data-seo-fallback id="intake-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
     <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.08)">
@@ -1071,6 +1103,7 @@ function intakeFallback(title, description) {
           <span style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;border:1px solid rgba(77,159,255,.3);background:rgba(77,159,255,.1);color:#4d9fff;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px">Intake stage</span>
           <h1 style="margin:0 0 16px;font-size:clamp(2.6rem,10vw,4.5rem);line-height:.95;font-weight:800;letter-spacing:0;color:#fff">${escapeHtml(title)}</h1>
           <p style="margin:0;color:rgba(255,255,255,.62);font-size:18px;line-height:1.6;max-width:720px">${escapeHtml(description)}</p>
+          <p style="margin:16px 0 0;color:rgba(255,255,255,.62);font-size:18px;line-height:1.6;max-width:720px">Paint booth intake filters sit where air enters the booth, including door banks, inlet walls, and the supply side of a downdraft. Match the panel, pleat, or bag to the opening you are replacing.</p>
           <p style="margin:24px 0 0;color:rgba(255,255,255,.55);font-size:15px;line-height:1.6"><a href="/shop" style="color:#60a5fa;font-weight:700">Browse intake products</a> · <a href="/filter-finder" style="color:#60a5fa;font-weight:700">Find my filter</a> · <a href="/contact" style="color:#60a5fa;font-weight:700">Contact PFS</a></p>
         </div>
       </div>
@@ -2051,6 +2084,10 @@ function replaceMeta(html, route) {
     ? `<main data-seo-fallback id="auth-fallback" style="min-height:100vh;background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif"><div style="width:min(384px,calc(100% - 32px));border:1px solid rgba(255,255,255,.1);border-radius:16px;background:#111;padding:32px;text-align:center;box-sizing:border-box"><img src="/images/brands/pfs-logo-wide.png" alt="PFS Filters" width="250" height="76" fetchpriority="high" style="display:block;width:250px;max-width:100%;height:auto;margin:0 auto 24px;filter:brightness(1.4) drop-shadow(0 0 20px rgba(59,130,246,.3))" /><p style="margin:0;color:rgba(255,255,255,.7);font-size:14px">Loading secure sign-in…</p></div></main>`
     : route.path === '/shop'
     ? shopFallback(title, description)
+    : route.path === '/paint-booth-filters'
+    ? paintBoothFiltersFallback(route)
+    : route.path === '/shop-by-type'
+    ? shopByTypeFallback(route)
     : route.path === '/intake-filters'
     ? intakeFallback(routeHeading(route), route.description)
     : route.path === '/category/ceiling-blankets'
