@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import { breadcrumbNodes, resolveRouteSeo } from '@shared/seoText.mjs';
+import { breadcrumbNodes, isGuidePath, resolveRouteSeo } from '@shared/seoText.mjs';
+import routeLastmod from '@/data/routeLastmod.json';
 
 interface SEOProps {
   title: string;
@@ -63,6 +64,34 @@ const withBreadcrumbs = (path: string, title: string, structuredData?: object | 
   return { '@context': context || 'https://schema.org', '@graph': [node, breadcrumb] };
 };
 
+const GUIDE_DATE_TYPES = new Set(['BlogPosting', 'Article', 'WebPage', 'CollectionPage', 'FAQPage']);
+
+const withGuideDateModified = (path: string, structuredData?: object | null) => {
+  if (!isGuidePath(path)) return structuredData;
+  const dateModified = (routeLastmod as Record<string, string>)[path];
+  if (!dateModified) return structuredData;
+  const webpage = {
+    '@type': 'WebPage',
+    '@id': `${SITE_ORIGIN}${path === '/' ? '/' : path}#webpage`,
+    url: `${SITE_ORIGIN}${path === '/' ? '/' : path}`,
+    dateModified,
+  };
+  const stamp = (node: { '@type'?: string }) => (
+    node && GUIDE_DATE_TYPES.has(node['@type'] || '') ? { ...node, dateModified } : node
+  );
+  if (!structuredData) return { '@context': 'https://schema.org', ...webpage };
+  const record = structuredData as { '@graph'?: Array<{ '@type'?: string }>; '@context'?: string; '@type'?: string };
+  if (Array.isArray(record['@graph'])) {
+    const graph = record['@graph'].map(stamp);
+    const stamped = graph.some((node) => GUIDE_DATE_TYPES.has(node['@type'] || '') && (node as { dateModified?: string }).dateModified === dateModified);
+    return { ...record, '@graph': stamped ? graph : [...graph, webpage] };
+  }
+  const stamped = stamp(record);
+  if (GUIDE_DATE_TYPES.has(stamped['@type'] || '')) return stamped;
+  const { '@context': context, ...node } = record;
+  return { '@context': context || 'https://schema.org', '@graph': [node, webpage] };
+};
+
 export const SEO = ({
   title,
   description,
@@ -90,7 +119,7 @@ export const SEO = ({
   const metaDescription = resolved.description;
   const currentUrl = normalizeCanonical(resolved.canonical === '/' ? `${SITE_ORIGIN}/` : resolved.canonical);
   const robotsNoIndex = path !== '/' && (noIndex || resolved.noindex);
-  const jsonLd = withBreadcrumbs(path, fullTitle, structuredData);
+  const jsonLd = withGuideDateModified(path, withBreadcrumbs(path, fullTitle, structuredData));
 
   return (
     <Helmet>

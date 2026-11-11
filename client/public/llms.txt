@@ -1,33 +1,60 @@
 # PFS Filters
 
-> PFS Filters sells paint booth filters and industrial filtration products backed by the PFS Spray Booths team in Santa Rosa, California.
-
-## Primary resources
-
-- [Shop all paint booth filters](https://www.pfsfilters.com/shop)
-- [Filter finder by booth and size](https://www.pfsfilters.com/filter-finder)
-- [Shop by booth manufacturer](https://www.pfsfilters.com/shop-by-booth)
-- [Paint booth filter FAQ](https://www.pfsfilters.com/faq)
-- [Guides and maintenance resources](https://www.pfsfilters.com/blog)
-- [Aerospace paint booth filtration](https://www.pfsfilters.com/industries/aerospace-paint-booth-filters)
-- [Contact PFS Filters](https://www.pfsfilters.com/contact)
-- [Returns policy](https://www.pfsfilters.com/returns)
+> PFS Filters (pfsfilters.com) sells paint booth filters online: intake and ceiling diffusion media, tacky intake panels, fiberglass and accordion (Andreae-style) exhaust arrestors, paint pockets, roll media, pocket/bag filters, MERV and HEPA final filters, and aerospace exhaust filter media. It is the filter division of PFS Spray Booths (pfsspraybooths.com), a paint booth builder in Santa Rosa, California, and ships within the United States.
 
 ## Business facts
-
+- Business: PFS Filters, a division of PFS Spray Booths
 - Address: 1400 Airport Blvd, Santa Rosa, CA 95403, United States
 - Phone: 855-496-7969
-- Parent organization: PFS Spray Booths
-- Service area: United States
-- Most stocked orders are processed in 1–2 business days; freight, custom, and special-order timing varies.
-- Opened packages are not returnable. Unopened packages may be returned within five business days for a refund less shipping costs and a 25% restocking fee.
+- Service area: United States (online orders); booth sales and service via PFS Spray Booths
+- Ordering: online checkout on pfsfilters.com; call for sizes not listed, custom cuts, and freight orders
+- Processing: most stocked orders are processed in 1–2 business days; freight, custom, and special-order timing varies
+- Returns: opened packages are not returnable; unopened packages may be returned within five business days for a refund less shipping costs and a 25% restocking fee
 
-## Important product guidance
+## How to choose a paint booth filter
+- [Paint booth filters by stage (intake, ceiling, prefilter, exhaust)](https://www.pfsfilters.com/paint-booth-filters)
+- [Exhaust filters: fiberglass, paint pockets, accordion](https://www.pfsfilters.com/exhaust-filters)
+- [Intake filters: tacky panels and pleats](https://www.pfsfilters.com/intake-filters)
+- [Ceiling filters for downdraft booths](https://www.pfsfilters.com/ceiling-filters)
+- [Prefilters](https://www.pfsfilters.com/prefilters)
+- [Filter finder by booth type, brand, and size](https://www.pfsfilters.com/filter-finder)
+- [Filter part number cross reference](https://www.pfsfilters.com/filter-part-numbers)
+- [Paint booth filter FAQ](https://www.pfsfilters.com/faq)
 
-Intake filters clean incoming air. Exhaust filters capture paint overspray. Correct selection depends on the booth, filter position, dimensions, airflow, media type, and coating process. PFS Filters does not claim that a product by itself makes a facility compliant with EPA Method 319, NESHAP, or a permit.
+## Filters by booth brand
+- [All booth brand guides with model-by-model filter sizes](https://www.pfsfilters.com/shop-by-booth)
+- [Garmat](https://www.pfsfilters.com/shop-by-booth/garmat-usa)
+- [Accudraft](https://www.pfsfilters.com/shop-by-booth/accudraft)
+- [Global Finishing Solutions (GFS)](https://www.pfsfilters.com/gfs-paint-booth-filters)
+- [Col-Met](https://www.pfsfilters.com/shop-by-booth/col-met)
+- [Blowtherm](https://www.pfsfilters.com/shop-by-booth/blowtherm)
+- [PFS Spray Booths](https://www.pfsfilters.com/shop-by-booth/pfs-spray-booths)
 
-## Machine-readable resources
+## Filters by media brand
+- [Andreae accordion filters: AF213, AF223, AF413, AF423 pads; AF813, AF923, AF113, AF123 rolls](https://www.pfsfilters.com/andreae-paint-booth-filters)
+- [Filter brands carried](https://www.pfsfilters.com/brands)
 
+## Aerospace and regulated coatings
+- [NESHAP 6H and Method 319 filter guide](https://www.pfsfilters.com/neshap-compliant-paint-booth-filters)
+- [Aerospace paint booth filtration](https://www.pfsfilters.com/industries/aerospace-paint-booth-filters)
+- Note: PFS Filters does not claim that any filter by itself makes a facility compliant with EPA Method 319, NESHAP Subpart HHHHHH, or a permit. Compliance depends on the full system, testing documentation, operation, and recordkeeping.
+
+## Programs
+- [Filter Rotation Program: scheduled filter replacement by booth](https://www.pfsfilters.com/filter-rotation-program)
+- [Memberships](https://www.pfsfilters.com/memberships)
+
+## Guides
+- [How Often Should You Change Paint Booth Filters?](https://www.pfsfilters.com/blog/how-often-change-paint-booth-filters)
+- [Fiberglass vs. Tacky Panel Filters](https://www.pfsfilters.com/blog/fiberglass-vs-tacky-panel-filters)
+- [Paint Booth Filter Maintenance Checklist](https://www.pfsfilters.com/blog/paint-booth-maintenance-checklist)
+- [EPA Method 319 for Aerospace Paint Booth Filters](https://www.pfsfilters.com/blog/aerospace-paint-booth-compliance-method-319)
+- [How Often to Change Booth Filters](https://www.pfsfilters.com/blog/booth-filter-replacement-intervals)
+- [What Clogged Booth Filters Do](https://www.pfsfilters.com/blog/clogged-paint-booth-filters)
+- [How to Choose Booth Filters](https://www.pfsfilters.com/blog/how-to-choose-booth-filters)
+- [Booth Filter Maintenance Checklist](https://www.pfsfilters.com/blog/booth-filter-maintenance-checklist)
+
+## Machine-readable
+- [Full text of guides, FAQ, and catalog](https://www.pfsfilters.com/llms-full.txt)
 - [XML sitemap](https://www.pfsfilters.com/sitemap.xml)
 - [Product catalog JSON](https://www.pfsfilters.com/products.json)
 - [RSS feed](https://www.pfsfilters.com/feed.xml)

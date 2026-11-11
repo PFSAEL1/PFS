@@ -71,6 +71,9 @@ export const createProductSchema = (product: {
   brand?: string;
   availability?: string;
   url?: string;
+  mpn?: string;
+  category?: string;
+  additionalProperty?: Array<{ '@type': string; name: string; value: string }>;
   aggregateRating?: { ratingValue: number; reviewCount: number };
 }) => {
   const sku = schemaSkuFromVariant(
@@ -94,6 +97,9 @@ export const createProductSchema = (product: {
     }),
   };
   if (sku) schema.sku = sku;
+  if (product.mpn) schema.mpn = product.mpn;
+  if (product.category) schema.category = product.category;
+  if (product.additionalProperty?.length) schema.additionalProperty = product.additionalProperty;
   if (product.aggregateRating) {
     schema.aggregateRating = {
       '@type': 'AggregateRating',
@@ -123,6 +129,9 @@ export const createItemListSchema = (items: Array<{
   currency: string;
   sku?: string;
   handle?: string;
+  mpn?: string;
+  category?: string;
+  additionalProperty?: Array<{ '@type': string; name: string; value: string }>;
   brand?: string;
   availability?: string;
 }>) => ({
@@ -145,6 +154,9 @@ export const createItemListSchema = (items: Array<{
       }),
     };
     if (sku) product.sku = sku;
+    if (item.mpn) product.mpn = item.mpn;
+    if (item.category) product.category = item.category;
+    if (item.additionalProperty?.length) product.additionalProperty = item.additionalProperty;
     return {
       '@type': 'ListItem',
       position: index + 1,

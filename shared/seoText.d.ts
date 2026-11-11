@@ -72,6 +72,21 @@ declare module '@shared/seoText.mjs' {
     shippingDetails: ReturnType<typeof offerShippingDetails>;
   };
 
+  export function isGuidePath(pathname?: string): boolean;
+
+  export function productSchemaExtras(product: {
+    node?: unknown;
+    title?: string;
+    description?: string;
+    productType?: string;
+    tags?: string[];
+    variants?: { edges?: Array<{ node?: { title?: string; sku?: string | null; price?: { amount?: string } } }> };
+  } | null | undefined, details?: { highlights?: Array<{ label?: string; value?: string }> } | null): {
+    mpn?: string;
+    category?: string;
+    additionalProperty?: Array<{ '@type': string; name: string; value: string }>;
+  };
+
   export const REVALIDATE_SECONDS: number;
 
   export const filterRotationFaqs: { question: string; answer: string }[];
