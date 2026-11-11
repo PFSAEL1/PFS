@@ -1,0 +1,30 @@
+name: IndexNow
+
+# Pings api.indexnow.org after a successful production deployment.
+# It is not part of the Vercel build. Preview deployments do not match
+# the Production environment, so they do not submit URLs.
+on:
+  deployment_status:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Submit production sitemap URLs to IndexNow
+        env:
+          INDEXNOW_CONFIRM_PRODUCTION: '1'
+        run: node scripts/indexnow.mjs

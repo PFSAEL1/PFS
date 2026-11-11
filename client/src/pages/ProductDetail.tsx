@@ -17,6 +17,7 @@ import { getBundledProductByHandle } from '@/lib/productCatalog';
 import { AEROSPACE_NESHAP_CATEGORY, AEROSPACE_NESHAP_PARENT_HANDLE, aerospaceNeshapProducts } from '@/lib/aerospaceCollection';
 import { useCartStore } from '@/stores/cartStore';
 import { createProductSchema, createBreadcrumbSchema } from '@/lib/structuredData';
+import { productSchemaExtras } from '@shared/seoText.mjs';
 import { ShoppingCart, Loader2, Package, Truck, CircleHelp, ArrowLeft, Plus, Minus, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import { ProductSpecs } from '@/components/ProductSpecs';
@@ -214,6 +215,7 @@ export default function ProductDetail() {
     { name: product.title, url: `https://www.pfsfilters.com/product/${handle}` },
   ]);
 
+  const schemaExtras = productSchemaExtras(product, kochDetails);
   const productSchema = createProductSchema({
     name: product.title,
     description: product.description,
@@ -224,6 +226,9 @@ export default function ProductDetail() {
     handle: handle || '',
     variantId: selectedVariant?.id,
     brand: product.vendor || undefined,
+    mpn: schemaExtras.mpn,
+    category: schemaExtras.category,
+    additionalProperty: schemaExtras.additionalProperty,
     url: `https://www.pfsfilters.com/product/${handle}`,
     availability: isParkerCase || isAfcCase ? 'https://schema.org/BackOrder' : inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
   });

@@ -714,6 +714,105 @@ export function resolveRouteSeo(path, extras = {}) {
   };
 }
 
+function propertyValue(name, value) {
+  return { '@type': 'PropertyValue', name, value: String(value) };
+}
+
+/**
+ * Merchant identifiers and specs copied from catalog fields.
+ * mpn is set only from a variant SKU or an explicit vendor part number.
+ * No GTIN, review, or rating is created.
+ */
+export function catalogAdditionalProperties(product) {
+  const node = product?.node || product || {};
+  const variantTitles = (node.variants?.edges || [])
+    .map((edge) => String(edge?.node?.title || '').trim())
+    .filter((title) => title && title.toLowerCase() !== 'default title');
+  const tags = (node.tags || []).map((tag) => String(tag));
+  const haystack = [node.title, node.productType, node.description, ...tags, ...variantTitles]
+    .filter(Boolean)
+    .join('\n');
+  const properties = [];
+  const gram = haystack.match(/\b(\d{1,3})\s*-?\s*gram\b/i);
+  if (gram) properties.push(propertyValue('Gram weight', `${gram[1]} gram`));
+  const mervs = [...new Set([...haystack.matchAll(/\bMERV\s*-?\s*(\d{1,2})\b/gi)].map((match) => match[1]))];
+  if (mervs.length) properties.push(propertyValue('MERV', mervs.map((value) => `MERV ${value}`).join(', ')));
+  const mediaWords = ['fiberglass', 'polyester', 'tacky', 'accordion', 'pleated', 'synthetic', 'carbon', 'HEPA', 'cellulose'];
+  const media = mediaWords.filter((word) => new RegExp(`\\b${word}\\b`, 'i').test(haystack));
+  if (media.length) properties.push(propertyValue('Media', media.join(', ')));
+  if (variantTitles.length) properties.push(propertyValue('Size', variantTitles.join('; ')));
+  const packs = [];
+  for (const title of variantTitles) {
+    const pack = title.match(/(\d+)\s*\/\s*CS\b/i) || title.match(/\b(\d+)\s*per case\b/i);
+    if (pack) packs.push(`${title}: ${pack[1]}`);
+  }
+  for (const tag of tags) {
+    if (/\bcase of\s+\d+\b/i.test(tag)) packs.push(tag);
+  }
+  if (packs.length) properties.push(propertyValue('Pack quantity', [...new Set(packs)].join('; ')));
+  return properties;
+}
+
+export function vendorPartNumbers(product, details) {
+  const node = product?.node || product || {};
+  const parts = [];
+  for (const item of details?.highlights || []) {
+    const label = String(item?.label || '');
+    const value = String(item?.value || '').trim();
+    if (value && /part/i.test(label) && !/sku/i.test(label)) parts.push(value);
+  }
+  const description = String(node.description || '');
+  const parker = description.match(/\bParker part\s+([0-9]+)/i);
+  if (parker) parts.push(parker[1]);
+  const afc = description.match(/\bAFC filter number\s+([A-Z0-9-]+)/i);
+  if (afc) parts.push(afc[1]);
+  return [...new Set(parts)];
+}
+
+const GUIDE_EXACT_PATHS = new Set([
+  '/paint-booth-filters',
+  '/exhaust-filters',
+  '/intake-filters',
+  '/ceiling-filters',
+  '/prefilters',
+  '/andreae-paint-booth-filters',
+  '/neshap-compliant-paint-booth-filters',
+  '/garmat-paint-booth-filters',
+  '/accudraft-paint-booth-filters',
+  '/gfs-paint-booth-filters',
+  '/col-met-paint-booth-filters',
+  '/pfs-spray-booth-filters',
+  '/filter-rotation-program',
+  '/filter-part-numbers',
+  '/faq',
+  '/blog',
+  '/why-choose-us',
+]);
+
+export function isGuidePath(pathname = '/') {
+  const path = pathname === '/' ? '/' : String(pathname || '/').replace(/\/$/, '') || '/';
+  if (path.startsWith('/blog/')) return true;
+  if (path.startsWith('/shop-by-booth/')) return true;
+  if (path.startsWith('/california/')) return true;
+  if (path.startsWith('/category/')) return true;
+  if (path.startsWith('/industries/')) return true;
+  return GUIDE_EXACT_PATHS.has(path);
+}
+
+export function productSchemaExtras(product, details) {
+  const node = product?.node || product || {};
+  const sku = String(lowestPriceVariant(node)?.sku || '').trim();
+  const vendorParts = vendorPartNumbers(node, details);
+  const mpn = vendorParts[0] || sku || undefined;
+  const category = String(node.productType || '').trim() || undefined;
+  const additionalProperty = catalogAdditionalProperties(node);
+  return {
+    mpn,
+    category,
+    additionalProperty: additionalProperty.length ? additionalProperty : undefined,
+  };
+}
+
 export function assertSeoRecord(record) {
   const errors = [];
   const titleLimit = record.shopifySeo ? 70 : 60;

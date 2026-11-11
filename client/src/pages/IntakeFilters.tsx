@@ -17,6 +17,7 @@ import type { ShopifyProduct } from '@/lib/shopify';
 import { useCurrentShopifyProducts } from '@/hooks/useCurrentShopifyProducts';
 import { shopProductCardImageSrcSet, shopProductCardImageUrl, shopifyImageAltText } from '@/lib/imageUrls';
 import { createBreadcrumbSchema, createItemListSchema } from '@/lib/structuredData';
+import { productSchemaExtras } from '@shared/seoText.mjs';
 import { HubGuide } from '@/components/HubGuide';
 
 const SITE = 'https://www.pfsfilters.com';
@@ -53,6 +54,7 @@ const getIntakeProducts = (products: ShopifyProduct[]) => products
       currency: node.priceRange?.minVariantPrice?.currencyCode ?? 'USD',
       sizes: variantNodes.length,
       sku: variantNodes.map((variant) => variant.sku?.trim()).find(Boolean) || node.handle,
+      ...productSchemaExtras(node),
       availability: variantNodes.some((variant) => variant.availableForSale)
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
