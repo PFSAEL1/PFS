@@ -20,9 +20,14 @@
       }
     },
     {
-      "src": "/product/(test|platinum)/?",
-      "status": 404,
-      "dest": "/404.html"
+      "src": "/product/test/?",
+      "status": 301,
+      "headers": { "Location": "/shop" }
+    },
+    {
+      "src": "/product/platinum/?",
+      "status": 301,
+      "headers": { "Location": "/memberships" }
     },
     {
       "src": "/\\$",
@@ -99,12 +104,22 @@
     { "src": "^/industries/?$", "status": 301, "headers": { "Location": "/paint-booth-filters" } },
     { "src": "^/california/?$", "status": 301, "headers": { "Location": "/california/north-bay-paint-booth-filters" } },
     { "src": "^/search/?$", "status": 301, "headers": { "Location": "/filter-finder" } },
+    { "src": "^/product-shell/?$", "status": 301, "headers": { "Location": "/shop" } },
+    { "src": "^/(?:spraybooth-filters|spray-booth-filter)/?$", "status": 301, "headers": { "Location": "/spray-booth-filters" } },
+    { "src": "^/(?:shop-by-booth/marathon|marathon-finishing|marathon-paint-booth-filters)/?$", "status": 301, "headers": { "Location": "/shop-by-booth/marathon-finishing" } },
+    { "src": "^/(?:holding-grids|category/holding-grids)/?$", "status": 301, "headers": { "Location": "/product/20x20-paint-arrestor-holding-grids-w-tips-each" } },
+    { "src": "^/paint-booth-filter-rolls?/?$", "status": 301, "headers": { "Location": "/category/roll-media" } },
+    { "src": "^/filter-wall/?$", "status": 301, "headers": { "Location": "/paint-booth-filters" } },
+    { "src": "^/collections/?$", "status": 301, "headers": { "Location": "/shop" } },
+    { "src": "^/blogs(?:/.*)?$", "status": 301, "headers": { "Location": "/blog" } },
+    { "src": "^/pages/about-us/?$", "status": 301, "headers": { "Location": "/why-choose-us" } },
     {
       "handle": "filesystem"
     },
     {
       "src": "/product/([^/]+)",
-      "dest": "/product-shell.html"
+      "status": 404,
+      "dest": "/404.html"
     },
     {
       "src": "/(.*)",

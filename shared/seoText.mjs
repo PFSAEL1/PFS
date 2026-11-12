@@ -128,6 +128,14 @@ export const ROUTE_SEO = {
     title: 'Paint Booth Filters & Filter Walls | PFS Filters',
     description: 'Paint booth filters and paint booth filter walls: intake, exhaust, ceiling, rolls, and pads. Match the stage and the measured size before you order.',
   },
+  '/spray-booth-filters': {
+    title: 'Spray Booth Filters | PFS Filters',
+    description: 'Spray booth filters from PFS Filters in Santa Rosa: intake, ceiling, exhaust arrestors, and rolls. Match the stage and the measured opening before you order.',
+  },
+  '/georgia/spray-booth-filters': {
+    title: 'Georgia Spray Booth Filter Shipping | PFS',
+    description: 'PFS Filters ships spray booth filters to Georgia from 1400 Airport Blvd, Santa Rosa, CA 95403. Same U.S. catalog. No Georgia storefront. Call 855-496-7969.',
+  },
   '/andreae-paint-booth-filters': {
     title: 'Andreae Paint Booth Filters | PFS Filters',
     description: 'Andreae accordion paint booth filters in the catalog: AF213, AF223, AF413, AF423 pads and AF813, AF923, AF113, AF123 rolls. Confirm the frame size.',
@@ -564,11 +572,12 @@ export function offerShippingDetails() {
     // one stocked 22-gram pad case to New York, NY 10001, with a service
     // description of 4 business days. It is a representative US ground rate,
     // not a flat catalog price. Other items, quantities, and freight quotes differ.
+    // Do not put a description on MonetaryAmount. Google drops shippingDetails
+    // when shippingRate includes properties outside value, maxValue, and currency.
     shippingRate: {
       '@type': 'MonetaryAmount',
       currency: 'USD',
       value: '40.76',
-      description: 'Representative UPS Ground checkout quote for one stocked case to a US address. Checkout calculates the charge for the item, quantity, and destination. Freight is quoted.',
     },
     deliveryTime: {
       '@type': 'ShippingDeliveryTime',
@@ -787,6 +796,8 @@ const GUIDE_EXACT_PATHS = new Set([
   '/faq',
   '/blog',
   '/why-choose-us',
+  '/spray-booth-filters',
+  '/georgia/spray-booth-filters',
 ]);
 
 export function isGuidePath(pathname = '/') {

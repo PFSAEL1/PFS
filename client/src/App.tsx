@@ -36,6 +36,9 @@ const SubmitReview = lazyRoute(() => import('./pages/SubmitReview'));
 const FilterDatabase = lazyRoute(() => import('./pages/FilterDatabase'));
 const CategoryPage = lazyRoute(() => import('./pages/CategoryPage'));
 const PaintBoothFilters = lazyRoute(() => import('./pages/PaintBoothFilters'));
+const SprayBoothFilters = lazyRoute(() => import('./pages/SprayBoothFilters'));
+const GeorgiaSprayBoothFilters = lazyRoute(() => import('./pages/GeorgiaSprayBoothFilters'));
+const CatalogGuide = lazyRoute(() => import('./pages/CatalogGuide'));
 const AndreaePaintBoothFilters = lazyRoute(() => import('./pages/AndreaePaintBoothFilters'));
 const ExhaustFilters = lazyRoute(() => import('./pages/ExhaustFilters'));
 const IntakeFilters = lazyRoute(() => import('./pages/IntakeFilters'));
@@ -820,6 +823,9 @@ function Router() {
 
       {/* Landing pages */}
       <Route path="/paint-booth-filters" component={PaintBoothFilters} />
+      <Route path="/spray-booth-filters" component={SprayBoothFilters} />
+      <Route path="/georgia/spray-booth-filters" component={GeorgiaSprayBoothFilters} />
+      <Route path="/guides/:slug" component={CatalogGuide} />
       <Route path="/andreae-paint-booth-filters" component={AndreaePaintBoothFilters} />
       <Route path="/exhaust-filters" component={ExhaustFilters} />
       <Route path="/intake-filters" component={IntakeFilters} />

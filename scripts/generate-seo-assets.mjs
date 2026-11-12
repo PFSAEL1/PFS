@@ -19,6 +19,24 @@ import {
   isGuidePath,
 } from '../shared/seoText.mjs';
 import { getBoothGuide } from '../shared/boothFilterGuides.mjs';
+import { georgiaFaqs, sprayBoothFaqs } from '../shared/guideCopy.mjs';
+import {
+  CROSSREF_PAGES,
+  andreaeFaqs,
+  andreaeSections,
+  comparisonFaqs,
+  comparisonSections,
+  crossRefFaqs,
+  crossRefSections,
+  homepageExpansion,
+  measureFaqs,
+  measureSections,
+  priceParagraphs,
+  shippingFaqs,
+  shippingSections,
+  sizeChartFaqs,
+  sizeChartSections,
+} from '../shared/catalogGuides.mjs';
 import { mainFallbackWordCount, pageCopyHtml, renderLlmsFullTxt, renderLlmsTxt } from './page-copy.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -219,6 +237,8 @@ const staticRoutes = [
   { path: '/filter-database', title: 'Filter Database | PFS Filters', description: 'Administrative filter database.', noindex: true },
   { path: '/shop', title: 'Shop Paint Booth Filters, Intake & Exhaust Media | PFS Filters', description: 'Shop fiberglass paint arrestors, tacky intake panels, ceiling media, MERV filters, roll media, and booth-specific replacements. Stocked items typically process in 1–2 business days.', h1: 'Shop Paint Booth Filters', priority: '1.0', changefreq: 'daily' },
   { path: '/paint-booth-filters', title: 'Paint Booth Filters & Filter Walls | PFS Filters', description: 'Paint booth filters and paint booth filter walls: intake, exhaust, ceiling, rolls, and pads. Match the stage and the measured size before you order.', h1: 'Paint Booth Filters and Filter Walls for Intake, Exhaust, Ceiling, Rolls, and Pads', priority: '0.9', changefreq: 'monthly' },
+  { path: '/spray-booth-filters', title: 'Spray Booth Filters | PFS Filters', description: 'Spray booth filters from PFS Filters in Santa Rosa: intake, ceiling, exhaust arrestors, and rolls. Match the stage and the measured opening before you order.', h1: 'Spray Booth Filters', priority: '0.9', changefreq: 'monthly' },
+  { path: '/georgia/spray-booth-filters', title: 'Georgia Spray Booth Filter Shipping | PFS', description: 'PFS Filters ships spray booth filters to Georgia from 1400 Airport Blvd, Santa Rosa, CA 95403. Same U.S. catalog. No Georgia storefront. Call 855-496-7969.', h1: 'Spray Booth Filters for Georgia Shops', priority: '0.7', changefreq: 'monthly' },
   { path: '/andreae-paint-booth-filters', title: 'Andreae Paint Booth Filters — AF Pad & Roll Variants | PFS Filters', description: 'Review current Andreae-style accordion paint arrestor variants, including AF213, AF223, AF413, AF423, AF813, AF923, AF113, and AF123.', h1: 'Andreae Paint Booth Filters — Current Pad & Roll Variants', priority: '0.9', changefreq: 'monthly' },
   { path: '/exhaust-filters', title: 'Paint Booth Exhaust Filters | PFS Filters', description: 'Compare fiberglass paint arrestor pads and rolls, Paint Pockets, and Andreae-style accordion media. Check current options and availability on each product page.', h1: 'Paint Booth Exhaust Filters — Fiberglass, Paint Pockets & Andreae Style', priority: '0.9', changefreq: 'weekly' },
   { path: '/intake-filters', title: 'Paint Booth Intake Filters | Tacky & Pleats', description: 'Paint booth intake filters for supply air: 300 Series tacky panels, 5KR1 panels, MERV 10 pleats, and pocket bags. Confirm the inlet size first.', h1: 'Paint Booth Intake Filters — Tacky Panels & Ceiling Media', priority: '0.9', changefreq: 'weekly' },
@@ -438,6 +458,15 @@ faqRoute.schema = {
   })),
 };
 
+const sprayBoothRoute = staticRoutes.find((route) => route.path === '/spray-booth-filters');
+if (sprayBoothRoute) {
+  sprayBoothRoute.schema = { '@context': 'https://schema.org', '@graph': [faqSchema(sprayBoothFaqs)] };
+}
+const georgiaRoute = staticRoutes.find((route) => route.path === '/georgia/spray-booth-filters');
+if (georgiaRoute) {
+  georgiaRoute.schema = { '@context': 'https://schema.org', '@graph': [faqSchema(georgiaFaqs)] };
+}
+
 const paintBoothFiltersRoute = staticRoutes.find((route) => route.path === '/paint-booth-filters');
 if (paintBoothFiltersRoute) {
   paintBoothFiltersRoute.schema = {
@@ -616,7 +645,59 @@ if (garmatRoute) {
   };
 }
 
-const routes = [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...blogRoutes, ...productRoutes];
+function faqSchema(faqs) {
+  return {
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  };
+}
+
+const guideContent = new Map();
+function rememberGuide(path, sections, faqs) {
+  guideContent.set(path, { sections, faqs });
+}
+
+const crossrefRoutes = CROSSREF_PAGES.map((page) => {
+  const sections = crossRefSections(page, products);
+  const faqs = crossRefFaqs(page);
+  rememberGuide(page.path, sections, faqs);
+  return {
+    path: page.path,
+    title: `${page.h1} | PFS Filters`.slice(0, 60),
+    description: `Recorded ${page.h1.replace(/ Filter Cross Reference$/, '')} filter rows from the PFS booth directory, with catalog prices only where a variant title shares a size string. Measure before ordering.`,
+    h1: page.h1,
+    priority: '0.7',
+    changefreq: 'monthly',
+    schema: { '@context': 'https://schema.org', '@graph': [faqSchema(faqs)] },
+    guideKey: page.path,
+  };
+});
+
+const extraGuideRoutes = [
+  { path: '/guides/filter-size-chart', h1: 'Paint Booth Filter Size Chart', sections: sizeChartSections(products), faqs: sizeChartFaqs(), description: 'Paint booth filter size chart from the published PFS booth directory. Each row is a recorded size, not confirmed fitment. Measure the opening before you order.' },
+  { path: '/guides/andreae-af-numbers', h1: 'Andreae AF Number Guide', sections: andreaeSections(products), faqs: andreaeFaqs(products), description: 'Andreae AF numbers that appear on the PFS accordion filter variants, with the catalog price of each variant. Codes that are not in the snapshot are omitted.' },
+  { path: '/guides/how-to-measure-paint-booth-filters', h1: 'How to Measure a Paint Booth Filter', sections: measureSections(), faqs: measureFaqs(), description: 'How to measure a paint booth filter opening and compare it with the variant title. Nominal directory sizes are not a substitute for the measured opening.' },
+  { path: '/guides/andreae-vs-fiberglass-vs-paint-pockets', h1: 'Andreae, Fiberglass, and Paint Pockets', sections: comparisonSections(products), faqs: comparisonFaqs(), description: 'Andreae accordion filters, fiberglass arrestors, and Paint Pockets compared using only variant titles and prices in the PFS catalog. No invented test numbers.' },
+  { path: '/guides/shipping-and-freight', h1: 'Shipping and Freight for Paint Booth Filters', sections: shippingSections(products), faqs: shippingFaqs(), description: 'Shipping and freight for PFS Filters: checkout calculates the charge, roll media is typically LTL, and stocked orders process in 1–2 business days. No same-day claim.' },
+];
+for (const page of extraGuideRoutes) rememberGuide(page.path, page.sections, page.faqs);
+
+const builtGuideRoutes = extraGuideRoutes.map((page) => ({
+  path: page.path,
+  title: `${page.h1} | PFS Filters`.slice(0, 60),
+  description: page.description,
+  h1: page.h1,
+  priority: '0.7',
+  changefreq: 'monthly',
+  schema: { '@context': 'https://schema.org', '@graph': [faqSchema(page.faqs)] },
+  guideKey: page.path,
+}));
+
+const routes = [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...blogRoutes, ...productRoutes, ...crossrefRoutes, ...builtGuideRoutes];
 
 const gitLastmodCache = new Map();
 
@@ -660,6 +741,8 @@ function lastmodSources(route) {
     '/': ['client/src/pages/Home.tsx', 'client/index.html'],
     '/faq': ['client/src/data/faqData.json', 'client/src/pages/FAQPage.tsx'],
     '/paint-booth-filters': ['client/src/data/hubArticles.ts', 'client/src/pages/PaintBoothFilters.tsx'],
+    '/spray-booth-filters': ['shared/guideCopy.mjs', 'client/src/pages/SprayBoothFilters.tsx'],
+    '/georgia/spray-booth-filters': ['shared/guideCopy.mjs', 'client/src/pages/GeorgiaSprayBoothFilters.tsx'],
     '/exhaust-filters': ['client/src/data/hubArticles.ts', 'client/src/pages/ExhaustFilters.tsx'],
     '/intake-filters': ['client/src/data/hubArticles.ts', 'client/src/pages/IntakeFilters.tsx'],
     '/ceiling-filters': ['client/src/data/hubArticles.ts', 'client/src/pages/CeilingFilters.tsx'],
@@ -985,6 +1068,20 @@ for (const route of routes) {
   }
   const offerList = guideOfferList(route);
   if (offerList) nodes.push(offerList);
+  if (route.guideKey || route.path === '/spray-booth-filters' || route.path === '/paint-booth-filters') {
+    const priced = products.filter((product) => !/membership/i.test(product.title || '')).slice(0, 12);
+    if (priced.length && !nodes.some((node) => node['@type'] === 'ItemList' && node.itemListElement?.[0]?.item?.offers)) {
+      nodes.push({
+        '@type': 'ItemList',
+        name: route.h1 || route.title,
+        itemListElement: priced.map((product, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          item: listedProductNode(product),
+        })),
+      });
+    }
+  }
   stampGuideDateModified(route, nodes);
   if (nodes.length > 0) {
     route.schema = { '@context': 'https://schema.org', '@graph': nodes };
@@ -1038,6 +1135,7 @@ function breadcrumbItems(route) {
   else if (route.path.startsWith('/shop-by-booth/')) items.push(['/shop-by-booth', 'Booth Brands']);
   else if (route.path.startsWith('/blog/')) items.push(['/blog', 'Guides']);
   else if (route.path.startsWith('/california/')) items.push(['/california/north-bay-paint-booth-filters', 'California']);
+  else if (route.path.startsWith('/georgia/')) items.push(['/spray-booth-filters', 'Spray Booth Filters']);
   else if (route.path.startsWith('/industries/')) items.push(['/paint-booth-filters', 'Paint Booth Filters']);
   else if (route.path.startsWith('/consumables/')) items.push(['/consumables', 'Consumables']);
 
@@ -1104,6 +1202,30 @@ function footerFallback(route) {
   </footer>`;
 }
 
+function sectionsHtml(sections, faqs = []) {
+  const body = sections.map((section) => {
+    const heading = section.heading ? `<h2 style="margin:28px 0 8px;font-size:1.35rem;color:#fff">${escapeHtml(section.heading)}</h2>` : '';
+    const paragraphs = section.paragraphs.map((paragraph) => `<p style="margin:0 0 14px;color:#c4c8d0;line-height:1.7">${escapeHtml(paragraph)}</p>`).join('');
+    return `${heading}${paragraphs}`;
+  }).join('');
+  const questions = faqs.map((faq) => `<h3 style="margin:18px 0 6px;color:#fff">${escapeHtml(faq.question)}</h3><p style="margin:0 0 14px;color:#c4c8d0;line-height:1.7">${escapeHtml(faq.answer)}</p>`).join('');
+  return `${body}${questions ? `<h2 style="margin:28px 0 8px;font-size:1.35rem;color:#fff">Questions</h2>${questions}` : ''}`;
+}
+
+function directoryGuideFallback(route) {
+  const content = guideContent.get(route.guideKey);
+  const heading = escapeHtml(routeHeading(route));
+  return `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1>${content ? sectionsHtml(content.sections, content.faqs) : ''}<p><a href="/shop-by-booth" style="color:#60a5fa">Booth brand directory</a> · <a href="/guides/filter-size-chart" style="color:#60a5fa">Filter size chart</a> · <a href="/filter-part-numbers" style="color:#60a5fa">Part numbers</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
+}
+
+function prosePageFallback(route) {
+  const heading = escapeHtml(routeHeading(route));
+  const prices = route.path === '/spray-booth-filters'
+    ? `<h2 style="margin:28px 0 8px;font-size:1.35rem;color:#fff">Catalog prices</h2>${priceParagraphs(products).map((paragraph) => `<p style="margin:0 0 14px;color:#c4c8d0;line-height:1.7">${escapeHtml(paragraph)}</p>`).join('')}`
+    : '';
+  return `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1><p style="color:#c4c8d0;line-height:1.7">${escapeHtml(route.description)}</p>${pageCopyHtml(route.path)}${prices}</div></main>`;
+}
+
 function homeFallback() {
   const cards = [
     ['Intake Blankets', 'Overhead ceiling intake filtration', '/images/home_intake_blankets-640.webp', 'Aircraft in a PFS downdraft booth with ceiling intake blankets overhead', '/category/ceiling-blankets', 'Shop Intake Blankets'],
@@ -1133,7 +1255,13 @@ function homeFallback() {
         <p style="color:rgba(255,255,255,.7);line-height:1.6">Review the size and booth stage before ordering, or ask PFS for help with custom and hard-to-find items.</p>
         <h3 style="margin:20px 0 8px">Never run out again</h3>
         <p style="color:rgba(255,255,255,.7);line-height:1.6">Booth-specific tracking tells you when to change. Auto-reorder handles the rest before you run low. Replacement guidance covers Accudraft, Garmat, GFS, Blowtherm, Col-Met, and other major booth brands. Andreae accordion filters, fiberglass exhaust arrestors, ceiling diffusion media, and tacky intake panels are listed in the shop.</p>
-        <p style="margin-top:24px"><a href="/paint-booth-filters" style="color:#93c5fd;font-weight:700">Paint booth filter guide</a> · <a href="/exhaust-filters" style="color:#93c5fd;font-weight:700">Exhaust filters</a> · <a href="/intake-filters" style="color:#93c5fd;font-weight:700">Intake filters</a> · <a href="/ceiling-filters" style="color:#93c5fd;font-weight:700">Ceiling filters</a> · <a href="/andreae-paint-booth-filters" style="color:#93c5fd;font-weight:700">Andreae filters</a> · <a href="/shop-by-booth" style="color:#93c5fd;font-weight:700">Shop by booth</a></p>
+        <p style="margin-top:24px"><a href="/paint-booth-filters" style="color:#93c5fd;font-weight:700">Paint booth filter guide</a> · <a href="/spray-booth-filters" style="color:#93c5fd;font-weight:700">Spray booth filters</a> · <a href="/exhaust-filters" style="color:#93c5fd;font-weight:700">Exhaust filters</a> · <a href="/intake-filters" style="color:#93c5fd;font-weight:700">Intake filters</a> · <a href="/ceiling-filters" style="color:#93c5fd;font-weight:700">Ceiling filters</a> · <a href="/andreae-paint-booth-filters" style="color:#93c5fd;font-weight:700">Andreae filters</a> · <a href="/shop-by-booth" style="color:#93c5fd;font-weight:700">Shop by booth</a> · <a href="/guides/filter-size-chart" style="color:#93c5fd;font-weight:700">Filter size chart</a> · <a href="/guides/shipping-and-freight" style="color:#93c5fd;font-weight:700">Shipping and freight</a></p>
+      </div>
+    </section>
+    <section style="padding:48px 24px;background:#040404;color:#c4c8d0">
+      <div style="max-width:900px;margin:0 auto">
+        <h2 style="color:#fff;font-size:28px">Catalog, stages, and recorded booth rows</h2>
+        ${homepageExpansion(products).map((paragraph) => `<p style="line-height:1.7">${escapeHtml(paragraph)}</p>`).join('')}
       </div>
     </section>
   </main>`;
@@ -1145,7 +1273,8 @@ function sitemapXml() {
     const lastmod = route.lastmod ? `\n    <lastmod>${route.lastmod}</lastmod>` : '';
     return `  <url>\n    <loc>${escapeXml(absoluteUrl(route.path))}</loc>${lastmod}\n    <changefreq>${route.changefreq}</changefreq>\n    <priority>${route.priority}</priority>${image}\n  </url>`;
   }).join('\n');
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entries}\n</urlset>\n`;
+  const agents = `  <url>\n    <loc>${origin}/agents.md</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.3</priority>\n  </url>`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entries}\n${agents}\n</urlset>\n`;
 }
 
 function rssXml() {
@@ -1237,7 +1366,13 @@ function paintBoothFiltersFallback(route) {
       <h2 style="font-size:1.6rem;margin-top:32px">Paint booth filters, filter walls, rolls, and pads</h2>
       <p style="color:#c4c8d0;line-height:1.7">A paint booth filter wall, also called an exhaust filter wall or a paint arrestor wall, is the frame on the outlet side of a crossdraft or semi-downdraft booth. Fiberglass pads, fiberglass rolls, Paint Pockets, or accordion arrestors load into that bank. It is not the ceiling diffusion grid in a downdraft booth and it is not the intake door. Measure the opening before choosing a pad or a roll. A 20x20 holding grid is a separate accessory.</p>
       <p style="color:#c4c8d0;line-height:1.7">Intake filters clean air before it reaches the finish. Ceiling filters spread that air across a downdraft plenum. Exhaust pads and rolls sit on the filter wall. Roll media and cut pads of the same gram weight are different products. The filter rotation program can schedule those stages for a shop that changes them on a set cadence.</p>
-      <p><a href="/exhaust-filters" style="color:#60a5fa">Exhaust filters</a> · <a href="/intake-filters" style="color:#60a5fa">Intake filters</a> · <a href="/ceiling-filters" style="color:#60a5fa">Ceiling filters</a> · <a href="/category/fiberglass-arrestors" style="color:#60a5fa">Fiberglass pads</a> · <a href="/category/roll-media" style="color:#60a5fa">Paint booth filter rolls</a> · <a href="/category/tacky-panels" style="color:#60a5fa">Tacky intake panels</a> · <a href="/category/ceiling-blankets" style="color:#60a5fa">Ceiling blankets</a> · <a href="/product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs" style="color:#60a5fa">22-gram filter roll</a> · <a href="/product/36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs" style="color:#60a5fa">15-gram filter roll</a> · <a href="/product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs" style="color:#60a5fa">22-gram pads</a> · <a href="/andreae-paint-booth-filters" style="color:#60a5fa">Andreae filters</a> · <a href="/shop-by-booth" style="color:#60a5fa">Shop by booth</a> · <a href="/garmat-paint-booth-filters" style="color:#60a5fa">Garmat</a> · <a href="/gfs-paint-booth-filters" style="color:#60a5fa">GFS</a> · <a href="/col-met-paint-booth-filters" style="color:#60a5fa">Col-Met</a> · <a href="/filter-rotation-program" style="color:#60a5fa">Filter rotation program</a></p>
+      <h2 style="font-size:1.6rem;margin-top:32px">Paint booth filter wall</h2>
+      <p style="color:#c4c8d0;line-height:1.7">The paint booth filter wall is the exhaust frame. Pads, rolls, Paint Pockets, and accordion arrestors are different products. A 20x20 holding grid is sold separately.</p>
+      <h2 style="font-size:1.6rem;margin-top:32px">Paint booth filter roll</h2>
+      <p style="color:#c4c8d0;line-height:1.7">Paint booth filter rolls are the roll-media variants. A roll and a pad of the same gram weight are different catalog items. Roll product text says shipping is typically LTL because of size.</p>
+      <h2 style="font-size:1.6rem;margin-top:32px">Catalog prices</h2>
+      ${priceParagraphs(products).map((paragraph) => `<p style="color:#c4c8d0;line-height:1.7">${escapeHtml(paragraph)}</p>`).join('')}
+      <p><a href="/exhaust-filters" style="color:#60a5fa">Exhaust filters</a> · <a href="/intake-filters" style="color:#60a5fa">Intake filters</a> · <a href="/ceiling-filters" style="color:#60a5fa">Ceiling filters</a> · <a href="/spray-booth-filters" style="color:#60a5fa">Spray booth filters</a> · <a href="/category/fiberglass-arrestors" style="color:#60a5fa">Fiberglass pads</a> · <a href="/category/roll-media" style="color:#60a5fa">Paint booth filter rolls</a> · <a href="/category/tacky-panels" style="color:#60a5fa">Tacky intake panels</a> · <a href="/category/ceiling-blankets" style="color:#60a5fa">Ceiling blankets</a> · <a href="/product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs" style="color:#60a5fa">22-gram filter roll</a> · <a href="/product/36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs" style="color:#60a5fa">15-gram filter roll</a> · <a href="/product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs" style="color:#60a5fa">22-gram pads</a> · <a href="/andreae-paint-booth-filters" style="color:#60a5fa">Andreae filters</a> · <a href="/guides/andreae-af-numbers" style="color:#60a5fa">AF number guide</a> · <a href="/guides/filter-size-chart" style="color:#60a5fa">Filter size chart</a> · <a href="/shop-by-booth" style="color:#60a5fa">Shop by booth</a> · <a href="/garmat-paint-booth-filters" style="color:#60a5fa">Garmat</a> · <a href="/gfs-paint-booth-filters" style="color:#60a5fa">GFS</a> · <a href="/col-met-paint-booth-filters" style="color:#60a5fa">Col-Met</a> · <a href="/filter-rotation-program" style="color:#60a5fa">Filter rotation program</a> · <a href="/georgia/spray-booth-filters" style="color:#60a5fa">Georgia shipping</a></p>
     </div>
   </main>`;
 }
@@ -1634,7 +1769,7 @@ function brandGuideFallback(route) {
       </div>
       <h2 style="margin-top:36px">${escapeHtml(guide.name)} filter questions</h2>
       ${faqs}
-      <p style="margin-top:28px"><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p>
+      <p style="margin-top:28px"><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a> · <a href="/guides/filter-size-chart" style="color:#60a5fa">Filter size chart</a> · <a href="/paint-booth-filters" style="color:#60a5fa">Paint booth filters</a> · <a href="/spray-booth-filters" style="color:#60a5fa">Spray booth filters</a>${CROSSREF_PAGES.filter((page) => page.slug === guide.slug || page.also === guide.slug).map((page) => ` · <a href="${page.path}" style="color:#60a5fa">${escapeHtml(page.h1)}</a>`).join('')}</p>
     </div>
   </main>`;
 }
@@ -2288,6 +2423,10 @@ function replaceMeta(html, route) {
     ? shopFallback(title, description)
     : route.path === '/paint-booth-filters'
     ? paintBoothFiltersFallback(route)
+    : route.guideKey
+    ? directoryGuideFallback(route)
+    : route.path === '/spray-booth-filters' || route.path === '/georgia/spray-booth-filters'
+    ? prosePageFallback(route)
     : route.path === '/shop-by-type'
     ? shopByTypeFallback(route)
     : route.path === '/intake-filters'
@@ -2401,6 +2540,37 @@ function validateDistPages() {
     if (route.path.startsWith('/product/') && /"aggregateRating"|"gtin13"|"review"/.test(JSON.stringify(flat))) {
       throw new Error(`${route.path} JSON-LD includes an invented rating or GTIN`);
     }
+    const allowedReturnFees = new Set([
+      'https://schema.org/FreeReturn',
+      'https://schema.org/ReturnFeesCustomerResponsibility',
+      'https://schema.org/ReturnShippingFees',
+    ]);
+    const walk = (node) => {
+      if (!node || typeof node !== 'object') return;
+      if (Array.isArray(node)) {
+        node.forEach(walk);
+        return;
+      }
+      if (node['@type'] === 'Product') {
+        const price = node.offers?.price;
+        if (!price || !node.offers?.priceCurrency) throw new Error(`${route.path} Product JSON-LD is missing an offer price`);
+      }
+      if (node['@type'] === 'MerchantReturnPolicy' && !allowedReturnFees.has(node.returnFees)) {
+        throw new Error(`${route.path} returnFees is not a supported enum: ${node.returnFees}`);
+      }
+      if (node['@type'] === 'OfferShippingDetails') {
+        const rate = node.shippingRate;
+        if (node.shippingDestination?.addressCountry !== 'US' || rate?.currency !== 'USD' || rate?.value == null || rate.description) {
+          throw new Error(`${route.path} OfferShippingDetails is missing a US rate or includes an unsupported description`);
+        }
+        if (!node.deliveryTime?.handlingTime?.maxValue || !node.deliveryTime?.transitTime?.maxValue) {
+          throw new Error(`${route.path} OfferShippingDetails is missing handling or transit time`);
+        }
+      }
+      if (node.aggregateRating || node.review) throw new Error(`${route.path} JSON-LD includes a review without a published source`);
+      Object.values(node).forEach(walk);
+    };
+    flat.forEach(walk);
   }
   const home = fs.readFileSync(routeFile('/'), 'utf8');
   if (!home.includes('"+1-855-496-7969"') && !home.includes('+1-855-496-7969')) {
