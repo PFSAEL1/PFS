@@ -203,6 +203,9 @@ describe('document SEO limits', () => {
     expect(redirects.get('^/category/rolls?/?$')).toBe('/category/roll-media');
     expect(redirects.get('^/light/shop/?$')).toBe('/shop');
     expect(redirects.get('^/(?:policies/)?refund-policy/?$')).toBe('/returns');
+    expect(redirects.get('/product/test/?')).toBe('/shop');
+    expect(redirects.get('/product/platinum/?')).toBe('/memberships');
+    expect(redirects.get('^/(?:spraybooth-filters|spray-booth-filter)/?$')).toBe('/spray-booth-filters');
   });
 });
 

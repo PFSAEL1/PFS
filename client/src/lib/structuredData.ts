@@ -1,6 +1,6 @@
 // Structured data (JSON-LD) schemas for SEO
 // Used across all pages of pfsfilters.com
-import { productOffer, schemaSkuFromVariant } from '@shared/seoText.mjs';
+import { normalizeOfferPrice, productOffer, schemaSkuFromVariant } from '@shared/seoText.mjs';
 
 const SITE_ORIGIN = 'https://www.pfsfilters.com';
 const DEFAULT_PRODUCT_IMAGE = `${SITE_ORIGIN}/images/filters/fiberglass-arrestors.png`;
@@ -137,7 +137,9 @@ export const createItemListSchema = (items: Array<{
 }>) => ({
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  itemListElement: items.map((item, index) => {
+  itemListElement: items.flatMap((item) => {
+    const price = normalizeOfferPrice(item.price);
+    if (!price || Number(price) <= 0) return [];
     const url = absoluteSiteUrl(item.url).replace(/\/$/, '') || item.url;
     const sku = schemaSkuFromVariant({ sku: item.sku }, item.handle);
     const product: Record<string, unknown> = {
@@ -147,7 +149,7 @@ export const createItemListSchema = (items: Array<{
       image: absoluteSiteUrl(item.image),
       brand: { '@type': 'Brand', name: item.brand || 'PFS Filters' },
       offers: productOffer({
-        price: item.price,
+        price,
         currency: item.currency || 'USD',
         availability: item.availability,
         url,
@@ -157,12 +159,12 @@ export const createItemListSchema = (items: Array<{
     if (item.mpn) product.mpn = item.mpn;
     if (item.category) product.category = item.category;
     if (item.additionalProperty?.length) product.additionalProperty = item.additionalProperty;
-    return {
+    return [{
       '@type': 'ListItem',
-      position: index + 1,
+      position: 0,
       item: product,
-    };
-  }),
+    }];
+  }).map((entry, index) => ({ ...entry, position: index + 1 })),
 });
 
 export const createFAQSchema = (faqs: Array<{ question: string; answer: string }>) => ({
