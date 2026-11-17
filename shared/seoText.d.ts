@@ -61,12 +61,14 @@ declare module '@shared/seoText.mjs' {
     availability?: string;
     url?: string;
     priceValidUntil?: string;
+    validFrom?: string;
   }): {
     '@type': string;
     price: string;
     priceCurrency: string;
     availability: string;
     url?: string;
+    validFrom: string;
     priceValidUntil: string;
     hasMerchantReturnPolicy: ReturnType<typeof merchantReturnPolicy>;
     shippingDetails: ReturnType<typeof offerShippingDetails>;

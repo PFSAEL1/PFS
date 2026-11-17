@@ -12,6 +12,7 @@ import {
   lowestPriceVariant,
   paintBoothFilterFaqs,
   productOffer,
+  normalizeOfferPrice,
   resolveRouteSeo,
   schemaSkuFromVariant,
   filterRotationFaqs,
@@ -957,13 +958,17 @@ function listedProductNode(product) {
       : 'https://schema.org/OutOfStock';
   const extras = productSchemaExtras(product, kochProductDetails[product.handle]);
   const sku = schemaSkuFromVariant(offerVariant, product.handle);
+  const description = stripMarkdown(product.description) || `${product.title}. Listed in the PFS Filters catalog.`;
+  const normalizedPrice = normalizeOfferPrice(price);
+  if (!normalizedPrice) return null;
   const node = {
     '@type': 'Product',
     name: product.title,
+    description,
     url,
     image,
     brand: { '@type': 'Brand', name: product.vendor || 'PFS Filters' },
-    offers: productOffer({ price, currency, availability, url }),
+    offers: productOffer({ price: normalizedPrice, currency, availability, url }),
   };
   if (sku) node.sku = sku;
   if (extras.mpn) node.mpn = extras.mpn;
@@ -1019,10 +1024,10 @@ function guideOfferList(route) {
   return {
     '@type': 'ItemList',
     name: names[route.path],
-    itemListElement: listed.map((product, index) => ({
+    itemListElement: listed.map((product) => listedProductNode(product)).filter(Boolean).map((item, index) => ({
       '@type': 'ListItem',
       position: index + 1,
-      item: listedProductNode(product),
+      item,
     })),
   };
 }
@@ -1074,10 +1079,10 @@ for (const route of routes) {
       nodes.push({
         '@type': 'ItemList',
         name: route.h1 || route.title,
-        itemListElement: priced.map((product, index) => ({
+        itemListElement: priced.map((product) => listedProductNode(product)).filter(Boolean).map((item, index) => ({
           '@type': 'ListItem',
           position: index + 1,
-          item: listedProductNode(product),
+          item,
         })),
       });
     }
@@ -1255,7 +1260,7 @@ function homeFallback() {
         <p style="color:rgba(255,255,255,.7);line-height:1.6">Review the size and booth stage before ordering, or ask PFS for help with custom and hard-to-find items.</p>
         <h3 style="margin:20px 0 8px">Never run out again</h3>
         <p style="color:rgba(255,255,255,.7);line-height:1.6">Booth-specific tracking tells you when to change. Auto-reorder handles the rest before you run low. Replacement guidance covers Accudraft, Garmat, GFS, Blowtherm, Col-Met, and other major booth brands. Andreae accordion filters, fiberglass exhaust arrestors, ceiling diffusion media, and tacky intake panels are listed in the shop.</p>
-        <p style="margin-top:24px"><a href="/paint-booth-filters" style="color:#93c5fd;font-weight:700">Paint booth filter guide</a> · <a href="/spray-booth-filters" style="color:#93c5fd;font-weight:700">Spray booth filters</a> · <a href="/exhaust-filters" style="color:#93c5fd;font-weight:700">Exhaust filters</a> · <a href="/intake-filters" style="color:#93c5fd;font-weight:700">Intake filters</a> · <a href="/ceiling-filters" style="color:#93c5fd;font-weight:700">Ceiling filters</a> · <a href="/andreae-paint-booth-filters" style="color:#93c5fd;font-weight:700">Andreae filters</a> · <a href="/shop-by-booth" style="color:#93c5fd;font-weight:700">Shop by booth</a> · <a href="/guides/filter-size-chart" style="color:#93c5fd;font-weight:700">Filter size chart</a> · <a href="/guides/shipping-and-freight" style="color:#93c5fd;font-weight:700">Shipping and freight</a></p>
+        <p style="margin-top:24px"><a href="/paint-booth-filters" style="color:#93c5fd;font-weight:700">Paint booth filters</a> · <a href="/exhaust-filters" style="color:#93c5fd;font-weight:700">Paint booth exhaust filters</a> · <a href="/category/aerospace-neshap-filters" style="color:#93c5fd;font-weight:700">NESHAP filters</a> · <a href="/shop-by-type" style="color:#93c5fd;font-weight:700">Shop filters by type</a> · <a href="/spray-booth-filters" style="color:#93c5fd;font-weight:700">Spray booth filters</a> · <a href="/guides/filter-size-chart" style="color:#93c5fd;font-weight:700">Filter size chart</a> · <a href="/guides/garmat-filter-cross-reference" style="color:#93c5fd;font-weight:700">Garmat filter cross reference</a> · <a href="/georgia/spray-booth-filters" style="color:#93c5fd;font-weight:700">Spray booth filters shipped to Georgia</a></p>
       </div>
     </section>
     <section style="padding:48px 24px;background:#040404;color:#c4c8d0">
@@ -1273,7 +1278,8 @@ function sitemapXml() {
     const lastmod = route.lastmod ? `\n    <lastmod>${route.lastmod}</lastmod>` : '';
     return `  <url>\n    <loc>${escapeXml(absoluteUrl(route.path))}</loc>${lastmod}\n    <changefreq>${route.changefreq}</changefreq>\n    <priority>${route.priority}</priority>${image}\n  </url>`;
   }).join('\n');
-  const agents = `  <url>\n    <loc>${origin}/agents.md</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.3</priority>\n  </url>`;
+  const agentsLastmod = gitLastmod(['client/public/agents.md']) || '2026-11-17';
+  const agents = `  <url>\n    <loc>${origin}/agents.md</loc>\n    <lastmod>${agentsLastmod}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.3</priority>\n  </url>`;
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entries}\n${agents}\n</urlset>\n`;
 }
 
@@ -1355,6 +1361,66 @@ function shopFallback(title, description) {
   </main>`;
 }
 
+function strongPageLinks() {
+  const links = [
+    ['/paint-booth-filters', 'paint booth filters'],
+    ['/exhaust-filters', 'paint booth exhaust filters'],
+    ['/intake-filters', 'paint booth intake filters'],
+    ['/ceiling-filters', 'paint booth ceiling filters'],
+    ['/shop-by-type', 'shop filters by type'],
+    ['/category/aerospace-neshap-filters', 'NESHAP filters'],
+    ['/neshap-compliant-paint-booth-filters', 'NESHAP filter guide'],
+    ['/category/fiberglass-arrestors', 'fiberglass paint arrestor pads'],
+    ['/category/roll-media', 'paint booth filter rolls'],
+    ['/guides/filter-size-chart', 'filter size chart'],
+    ['/guides/how-to-measure-paint-booth-filters', 'how to measure a paint booth filter'],
+    ['/guides/garmat-filter-cross-reference', 'Garmat filter cross reference'],
+    ['/guides/gfs-filter-cross-reference', 'GFS filter cross reference'],
+    ['/guides/accudraft-filter-cross-reference', 'Accudraft filter cross reference'],
+    ['/guides/blowtherm-filter-cross-reference', 'Blowtherm filter cross reference'],
+    ['/guides/col-met-filter-cross-reference', 'Col-Met filter cross reference'],
+    ['/guides/pfs-spray-booth-filter-cross-reference', 'PFS spray booth filter cross reference'],
+    ['/georgia/spray-booth-filters', 'spray booth filters shipped to Georgia'],
+    ['/california/north-bay-paint-booth-filters', 'North Bay paint booth filters'],
+  ];
+  return `<p>${links.map(([href, label]) => `<a href="${href}" style="color:#60a5fa">${escapeHtml(label)}</a>`).join(' · ')}</p>`;
+}
+
+function exhaustCatalogHtml() {
+  const listed = guideProducts('/exhaust-filters');
+  const blocks = listed.map((product) => {
+    const variants = (product.variants?.edges || [])
+      .map((edge) => edge.node)
+      .filter((node) => node?.title && node.title.toLowerCase() !== 'default title' && node.price?.amount);
+    const sizes = variants.map((node) => `${node.title} at $${Number(node.price.amount).toFixed(2)}`).join('; ');
+    const note = /ltl|less than truckload/i.test(product.description || '')
+      ? ' The product text says shipping is typically LTL because of size.'
+      : '';
+    return `<p style="color:#c4c8d0;line-height:1.7">${escapeHtml(product.title)}${sizes ? `: ${escapeHtml(sizes)}.` : '.'}${escapeHtml(note)} <a href="/product/${escapeHtml(product.handle)}" style="color:#60a5fa">${escapeHtml(product.title)}</a></p>`;
+  }).join('');
+  return `<h2 style="font-size:1.6rem;margin-top:32px">Exhaust filter types, sizes, and prices</h2>
+    <p style="color:#c4c8d0;line-height:1.7">Paint booth exhaust filters in this catalog are fiberglass pads, fiberglass rolls, Paint Pockets, and Andreae-style accordion arrestors. A pad and a roll of the same gram weight are different products. Match the filter wall opening and the label before ordering. These prices are the catalog snapshot and do not include shipping.</p>
+    ${blocks}
+    <h2 style="font-size:1.6rem;margin-top:32px">How to choose an exhaust filter</h2>
+    <p style="color:#c4c8d0;line-height:1.7">Start with the booth make and model, the exhaust stage, and the measured opening. Read the gram weight or AF code on the filter coming out. 15-gram and 22-gram fiberglass are different products. An AF code is an accordion variant, not a gram weight. If the size is not listed, call 855-496-7969. There is no universal replacement interval. A filter purchase does not make a booth compliant.</p>
+    <h2 style="font-size:1.6rem;margin-top:32px">Exhaust filter questions</h2>
+    ${paintBoothFilterFaqs.filter((faq) => /exhaust|roll|wall|replace|type/i.test(faq.question)).map((faq) => `<h3 style="margin:18px 0 6px">${escapeHtml(faq.question)}</h3><p style="color:#c4c8d0;line-height:1.7">${escapeHtml(faq.answer)}</p>`).join('')}
+    ${strongPageLinks()}`;
+}
+
+function exhaustFiltersFallback(route) {
+  const heading = escapeHtml(routeHeading(route));
+  return `<main data-seo-fallback id="exhaust-filters-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px">
+    <div style="max-width:880px;margin:0 auto">
+      <p style="color:#60a5fa;font-weight:700">PFS FILTERS</p>
+      <h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1>
+      <p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${escapeHtml(route.description)}</p>
+      ${pageCopyHtml(route.path)}
+      ${exhaustCatalogHtml()}
+    </div>
+  </main>`;
+}
+
 function paintBoothFiltersFallback(route) {
   const heading = escapeHtml(routeHeading(route));
   const description = escapeHtml(route.description);
@@ -1365,14 +1431,14 @@ function paintBoothFiltersFallback(route) {
       <p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>
       <h2 style="font-size:1.6rem;margin-top:32px">Paint booth filters, filter walls, rolls, and pads</h2>
       <p style="color:#c4c8d0;line-height:1.7">A paint booth filter wall, also called an exhaust filter wall or a paint arrestor wall, is the frame on the outlet side of a crossdraft or semi-downdraft booth. Fiberglass pads, fiberglass rolls, Paint Pockets, or accordion arrestors load into that bank. It is not the ceiling diffusion grid in a downdraft booth and it is not the intake door. Measure the opening before choosing a pad or a roll. A 20x20 holding grid is a separate accessory.</p>
-      <p style="color:#c4c8d0;line-height:1.7">Intake filters clean air before it reaches the finish. Ceiling filters spread that air across a downdraft plenum. Exhaust pads and rolls sit on the filter wall. Roll media and cut pads of the same gram weight are different products. The filter rotation program can schedule those stages for a shop that changes them on a set cadence.</p>
+      <p style="color:#c4c8d0;line-height:1.7">Paint booth filters are the intake, ceiling, and exhaust media for a finishing booth. Intake filters clean air before it reaches the finish. Ceiling filters spread that air across a downdraft plenum. Exhaust pads and rolls sit on the filter wall. Roll media and cut pads of the same gram weight are different products. The filter rotation program can schedule those stages for a shop that changes them on a set cadence.</p>
       <h2 style="font-size:1.6rem;margin-top:32px">Paint booth filter wall</h2>
       <p style="color:#c4c8d0;line-height:1.7">The paint booth filter wall is the exhaust frame. Pads, rolls, Paint Pockets, and accordion arrestors are different products. A 20x20 holding grid is sold separately.</p>
       <h2 style="font-size:1.6rem;margin-top:32px">Paint booth filter roll</h2>
       <p style="color:#c4c8d0;line-height:1.7">Paint booth filter rolls are the roll-media variants. A roll and a pad of the same gram weight are different catalog items. Roll product text says shipping is typically LTL because of size.</p>
       <h2 style="font-size:1.6rem;margin-top:32px">Catalog prices</h2>
       ${priceParagraphs(products).map((paragraph) => `<p style="color:#c4c8d0;line-height:1.7">${escapeHtml(paragraph)}</p>`).join('')}
-      <p><a href="/exhaust-filters" style="color:#60a5fa">Exhaust filters</a> · <a href="/intake-filters" style="color:#60a5fa">Intake filters</a> · <a href="/ceiling-filters" style="color:#60a5fa">Ceiling filters</a> · <a href="/spray-booth-filters" style="color:#60a5fa">Spray booth filters</a> · <a href="/category/fiberglass-arrestors" style="color:#60a5fa">Fiberglass pads</a> · <a href="/category/roll-media" style="color:#60a5fa">Paint booth filter rolls</a> · <a href="/category/tacky-panels" style="color:#60a5fa">Tacky intake panels</a> · <a href="/category/ceiling-blankets" style="color:#60a5fa">Ceiling blankets</a> · <a href="/product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs" style="color:#60a5fa">22-gram filter roll</a> · <a href="/product/36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs" style="color:#60a5fa">15-gram filter roll</a> · <a href="/product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs" style="color:#60a5fa">22-gram pads</a> · <a href="/andreae-paint-booth-filters" style="color:#60a5fa">Andreae filters</a> · <a href="/guides/andreae-af-numbers" style="color:#60a5fa">AF number guide</a> · <a href="/guides/filter-size-chart" style="color:#60a5fa">Filter size chart</a> · <a href="/shop-by-booth" style="color:#60a5fa">Shop by booth</a> · <a href="/garmat-paint-booth-filters" style="color:#60a5fa">Garmat</a> · <a href="/gfs-paint-booth-filters" style="color:#60a5fa">GFS</a> · <a href="/col-met-paint-booth-filters" style="color:#60a5fa">Col-Met</a> · <a href="/filter-rotation-program" style="color:#60a5fa">Filter rotation program</a> · <a href="/georgia/spray-booth-filters" style="color:#60a5fa">Georgia shipping</a></p>
+      ${strongPageLinks()}
     </div>
   </main>`;
 }
@@ -1387,6 +1453,7 @@ function shopByTypeFallback(route) {
       <p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>
       <p style="color:#c4c8d0;line-height:1.7">Shop pads, rolls, cubes, intake filters, and ceiling media by construction. For the full stage guide, start at the <a href="/paint-booth-filters" style="color:#60a5fa">paint booth filters hub</a>.</p>
       <p><a href="/category/fiberglass-arrestors" style="color:#60a5fa">Pads</a> · <a href="/category/roll-media" style="color:#60a5fa">Rolls</a> · <a href="/category/polyester-media" style="color:#60a5fa">Cubes</a> · <a href="/intake-filters" style="color:#60a5fa">Intake</a> · <a href="/ceiling-filters" style="color:#60a5fa">Ceiling</a></p>
+      ${strongPageLinks()}
     </div>
   </main>`;
 }
@@ -1769,7 +1836,7 @@ function brandGuideFallback(route) {
       </div>
       <h2 style="margin-top:36px">${escapeHtml(guide.name)} filter questions</h2>
       ${faqs}
-      <p style="margin-top:28px"><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a> · <a href="/guides/filter-size-chart" style="color:#60a5fa">Filter size chart</a> · <a href="/paint-booth-filters" style="color:#60a5fa">Paint booth filters</a> · <a href="/spray-booth-filters" style="color:#60a5fa">Spray booth filters</a>${CROSSREF_PAGES.filter((page) => page.slug === guide.slug || page.also === guide.slug).map((page) => ` · <a href="${page.path}" style="color:#60a5fa">${escapeHtml(page.h1)}</a>`).join('')}</p>
+      <p style="margin-top:28px"><a href="/paint-booth-filters" style="color:#60a5fa">Paint booth filters</a> · <a href="/exhaust-filters" style="color:#60a5fa">Paint booth exhaust filters</a> · <a href="/category/aerospace-neshap-filters" style="color:#60a5fa">NESHAP filters</a> · <a href="/guides/filter-size-chart" style="color:#60a5fa">Filter size chart</a>${CROSSREF_PAGES.filter((page) => page.slug === guide.slug || page.also === guide.slug).map((page) => ` · <a href="${page.path}" style="color:#60a5fa">${escapeHtml(page.h1)}</a>`).join('')}</p>
     </div>
   </main>`;
 }
@@ -2110,14 +2177,28 @@ function shopIndividualSizesMarkup() {
 function collectionCategoryFallback(route) {
   const heading = escapeHtml(routeHeading(route));
   const description = escapeHtml(stripMarkdown(route.description));
-  return `<main data-seo-fallback id="aerospace-neshap-category-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif">
-    <section style="padding:32px 16px 24px;background:#050505">
-      <div style="max-width:1280px;margin:0 auto">
-        <h1 style="margin:0 0 16px;font-size:clamp(2.6rem,8vw,4.5rem);line-height:.95;font-weight:800;color:#fff">${heading}</h1>
-        <p style="max-width:760px;margin:0;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-size:18px;line-height:1.6">${description}</p>
-      </div>
-    </section>
-    ${shopIndividualSizesMarkup()}
+  const handles = shopifyCollections[AEROSPACE_NESHAP_CATEGORY]?.handles || [];
+  const facts = handles.map((handle) => {
+    const product = products.find((candidate) => candidate.handle === handle);
+    if (!product) return '';
+    const variants = (product.variants?.edges || []).map((edge) => edge.node).filter((node) => node?.price?.amount);
+    const detail = variants.map((node) => {
+      const label = node.title && node.title.toLowerCase() !== 'default title' ? `${node.title}: ` : '';
+      return `${label}$${Number(node.price.amount).toFixed(2)}`;
+    }).join('; ');
+    const text = stripMarkdown(product.description || '');
+    const lead = text ? `${text.slice(0, 280).replace(/\s+\S*$/, '')}. ` : '';
+    return `<h2 style="margin:28px 0 8px;font-size:1.25rem;color:#fff">${escapeHtml(product.title)}</h2><p style="color:#c4c8d0;line-height:1.7">${escapeHtml(lead)}Catalog price${variants.length > 1 ? 's' : ''}: ${escapeHtml(detail)}. <a href="/product/${escapeHtml(product.handle)}" style="color:#60a5fa">View ${escapeHtml(product.title)}</a></p>`;
+  }).join('');
+  return `<main data-seo-fallback id="aerospace-neshap-category-fallback" style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px">
+    <div style="max-width:880px;margin:0 auto">
+      <p style="color:#60a5fa;font-weight:700">PFS FILTERS</p>
+      <h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1>
+      <p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>
+      <p style="color:#c4c8d0;line-height:1.7">These are the products currently grouped in the aerospace and NESHAP filters collection. The names, sizes, and prices below are the catalog records. Buying one does not make a facility compliant with Method 319, NESHAP Subpart HHHHHH, or a permit. The NESHAP filter guide explains that limit.</p>
+      ${facts}
+      ${strongPageLinks()}
+    </div>
   </main>`;
 }
 
@@ -2423,6 +2504,8 @@ function replaceMeta(html, route) {
     ? shopFallback(title, description)
     : route.path === '/paint-booth-filters'
     ? paintBoothFiltersFallback(route)
+    : route.path === '/exhaust-filters'
+    ? exhaustFiltersFallback(route)
     : route.guideKey
     ? directoryGuideFallback(route)
     : route.path === '/spray-booth-filters' || route.path === '/georgia/spray-booth-filters'
@@ -2467,7 +2550,7 @@ function replaceMeta(html, route) {
     ? fiberglassVsTackyBlogFallback()
     : route.path.startsWith('/product/')
     ? genericProductFallback(route)
-    : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}<p><a href="/shop" style="color:#60a5fa">Shop paint booth filters</a> · <a href="/filter-finder" style="color:#60a5fa">Find my filter</a> · <a href="/faq" style="color:#60a5fa">Filter FAQ</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`, route);
+    : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}${strongPageLinks()}</div></main>`, route);
   const pageBody = route.noindex
     ? fallback
     : `${navigationFallback()}${breadcrumbsFallback(route)}${fallback}${footerFallback(route)}`;
@@ -2554,6 +2637,10 @@ function validateDistPages() {
       if (node['@type'] === 'Product') {
         const price = node.offers?.price;
         if (!price || !node.offers?.priceCurrency) throw new Error(`${route.path} Product JSON-LD is missing an offer price`);
+        if (!node.description) throw new Error(`${route.path} Product JSON-LD is missing a description`);
+        if (!node.offers.validFrom || !node.offers.hasMerchantReturnPolicy?.returnMethod || !node.offers.shippingDetails?.shippingRate) {
+          throw new Error(`${route.path} Product offer is missing validFrom, returnMethod, or shippingDetails`);
+        }
       }
       if (node['@type'] === 'MerchantReturnPolicy' && !allowedReturnFees.has(node.returnFees)) {
         throw new Error(`${route.path} returnFees is not a supported enum: ${node.returnFees}`);

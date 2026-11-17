@@ -142,7 +142,7 @@ export const ROUTE_SEO = {
   },
   '/exhaust-filters': {
     title: 'Paint Booth Exhaust Filters | PFS Filters',
-    description: 'Exhaust filters for paint booths: 15- and 22-gram fiberglass pads and rolls, Paint Pockets, and Andreae accordion media. Confirm the frame size first.',
+    description: 'Exhaust filters for paint booths: 15- and 22-gram fiberglass pads and rolls, Paint Pockets, and Andreae accordion sizes. Confirm the frame before ordering.',
   },
   '/intake-filters': {
     title: 'Paint Booth Intake Filters | Tacky & Pleats',
@@ -371,6 +371,10 @@ const CATEGORY_SEO = {
     title: 'Polyester Paint Booth Media | PFS Filters',
     description: 'Polyester paint booth media in the catalog includes the AFC blue poly exhaust cube and Koch SprayStop STK-10 roll. Confirm the stage and dimensions first.',
   },
+  'aerospace-neshap-filters': {
+    title: 'NESHAP Filters for Paint Booths | PFS',
+    description: 'NESHAP filters in the PFS catalog: 319 panels and bags, HEPA-XFP bags, CG100 bags, ME/PT panels, an SFR blanket, and a CPA roll. Not a compliance claim.',
+  },
   'pre-filters': {
     title: 'Paint Booth Pre-Filter Guide | PFS Filters',
     description: 'Paint booth pre-filter guidance: this catalog has no products tagged as pre-filters. Use a documented intake stage only where the booth specifies it.',
@@ -445,6 +449,7 @@ export function brandGuideDescription(name, slug = '') {
 }
 
 export function categorySeo(slug) {
+  if (slug === 'aerospace-neshap-filters' && CATEGORY_SEO[slug]) return CATEGORY_SEO[slug];
   const live = shopifyCollections[slug];
   if (live?.seoTitle && live?.seoDescription) {
     return {
@@ -630,7 +635,10 @@ export function lowestPriceVariant(product) {
   }, variants[0]);
 }
 
-export function productOffer({ price, currency = 'USD', availability, url, priceValidUntil: until } = {}) {
+// Date the committed Shopify snapshot prices were last updated (git).
+export const CATALOG_PRICE_VALID_FROM = '2026-11-10';
+
+export function productOffer({ price, currency = 'USD', availability, url, priceValidUntil: until, validFrom } = {}) {
   return {
     '@type': 'Offer',
     price: normalizeOfferPrice(price),
@@ -638,6 +646,7 @@ export function productOffer({ price, currency = 'USD', availability, url, price
     availability: availability || 'https://schema.org/InStock',
     itemCondition: 'https://schema.org/NewCondition',
     url,
+    validFrom: validFrom || CATALOG_PRICE_VALID_FROM,
     priceValidUntil: until || priceValidUntil(),
     seller: { '@type': 'Organization', name: 'PFS Filters' },
     hasMerchantReturnPolicy: merchantReturnPolicy(),
