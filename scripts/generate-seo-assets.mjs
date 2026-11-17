@@ -21,6 +21,7 @@ import {
 } from '../shared/seoText.mjs';
 import { getBoothGuide } from '../shared/boothFilterGuides.mjs';
 import { georgiaFaqs, sprayBoothFaqs } from '../shared/guideCopy.mjs';
+import { industryPages } from '../shared/industryPages.mjs';
 import {
   CROSSREF_PAGES,
   andreaeFaqs,
@@ -281,7 +282,7 @@ const staticRoutes = [
   { path: '/consumables/pfs-vanguard', title: 'PFS VANGUARD™ Complete Booth Protection Kit | PFS Filters', description: 'PFS VANGUARD™ Complete Booth Protection Kit includes premium Booth Coating and Glass Shield Coating. Protect booth surfaces and viewing glass from overspray buildup.', h1: 'PFS VANGUARD™', priority: '0.5', changefreq: 'monthly' },
   { path: '/aerospace', title: 'Aerospace Paint Booth Filters | HEPA-XFP, NESHAP 319 Bags & MRO Media | PFS Filters', description: 'Shop aerospace-grade paint booth filtration: HEPA-XFP multi-pocket bags, NESHAP 319 final-stage filters, CG100 2-pocket bags, ME/PT intake panels, SFR blankets & CPA roll media. Built for MRO and aircraft finishing.', h1: 'Aerospace Paint Booth Filters', priority: '0.8', changefreq: 'monthly' },
   { path: '/industries/aerospace-paint-booth-filters', title: 'Aerospace Paint Booth Filters & MRO Filtration | PFS Filters', description: 'Premium aerospace paint booth filtration solutions. Shop ceiling diffusion media and request custom multi-stage exhaust systems for MRO and aircraft finishing.', h1: 'Aerospace & Aircraft Paint Booth Filtration', priority: '0.9', changefreq: 'monthly' },
-  { path: '/industries/automotive-paint-booth-filters', title: 'Automotive Paint Booth Filters | PFS Filters', description: 'Compare automotive paint booth intake, ceiling, prefilter, and exhaust filters. Verify booth configuration, stage, dimensions, and fit with PFS guidance.', priority: '0.9', changefreq: 'monthly' },
+  { path: '/industries/automotive-paint-booth-filters', title: 'Auto Body Paint Booth Filters | PFS Filters', description: 'Automotive paint booth filters for auto body, collision, and refinish shops. Stocked tacky panels, ceiling blankets, and exhaust pads. Confirm the stage.', h1: 'Automotive Paint Booth Filters', priority: '0.9', changefreq: 'monthly' },
   { path: '/filter-scanner', title: 'Photo-Assisted Paint Booth Filter Review | PFS Filters', description: 'Use a filter photo to narrow catalog candidates, then verify the booth position, label, and actual dimensions before ordering.', h1: 'Filter Scanner', priority: '0.5', changefreq: 'monthly' },
   { path: '/filter-part-numbers', title: 'Filter Part Number Cross Reference | PFS Filters', description: 'Cross-reference SKUs and manufacturer part numbers that appear in the current PFS catalog.', h1: 'Filter Part Number Cross Reference', priority: '0.7', changefreq: 'weekly', lastmod: '2026-10-29' },
 ];
@@ -698,7 +699,21 @@ const builtGuideRoutes = extraGuideRoutes.map((page) => ({
   guideKey: page.path,
 }));
 
-const routes = [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...blogRoutes, ...productRoutes, ...crossrefRoutes, ...builtGuideRoutes];
+const industryContent = new Map();
+for (const page of industryPages(products)) industryContent.set(page.path, page);
+const industryRouteList = [...industryContent.values()]
+  .filter((page) => page.path !== '/industries/automotive-paint-booth-filters')
+  .map((page) => ({
+    path: page.path,
+    title: page.title,
+    description: page.description,
+    h1: page.h1,
+    priority: '0.8',
+    changefreq: 'monthly',
+    schema: { '@context': 'https://schema.org', '@graph': [faqSchema(page.faqs)] },
+  }));
+
+const routes = [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...blogRoutes, ...productRoutes, ...crossrefRoutes, ...builtGuideRoutes, ...industryRouteList];
 
 const gitLastmodCache = new Map();
 
@@ -1382,6 +1397,12 @@ function strongPageLinks() {
     ['/guides/pfs-spray-booth-filter-cross-reference', 'PFS spray booth filter cross reference'],
     ['/georgia/spray-booth-filters', 'spray booth filters shipped to Georgia'],
     ['/california/north-bay-paint-booth-filters', 'North Bay paint booth filters'],
+    ['/industries/automotive-paint-booth-filters', 'automotive paint booth filters'],
+    ['/industries/industrial-paint-booth-filters', 'industrial paint booth filters'],
+    ['/industries/truck-and-fleet-paint-booth-filters', 'truck and fleet paint booth filters'],
+    ['/industries/woodworking-paint-booth-filters', 'woodworking paint booth filters'],
+    ['/industries/prep-station-filters', 'prep station filters'],
+    ['/industries/marine-paint-booth-filters', 'marine paint booth filters'],
   ];
   return `<p>${links.map(([href, label]) => `<a href="${href}" style="color:#60a5fa">${escapeHtml(label)}</a>`).join(' · ')}</p>`;
 }
@@ -2079,6 +2100,34 @@ function automotiveIndustryFallback() {
         <div style="display:grid;gap:12px">${faqItems}</div>
       </div>
     </section>
+    <section style="padding:24px 16px 56px;background:#050505">
+      <div style="max-width:880px;margin:0 auto;font-family:Arial,sans-serif">
+        ${industryHtml('/industries/automotive-paint-booth-filters')}
+      </div>
+    </section>
+  </main>`;
+}
+
+function industryHtml(pathname) {
+  const page = industryContent.get(pathname);
+  if (!page) return '';
+  const sections = page.sections.map((section) => {
+    const paragraphs = section.paragraphs.filter(Boolean).map((paragraph) => `<p style="margin:0 0 14px;color:#c4c8d0;line-height:1.7">${escapeHtml(paragraph)}</p>`).join('');
+    return `<h2 style="margin:28px 0 8px;font-size:1.35rem;color:#fff">${escapeHtml(section.heading)}</h2>${paragraphs}`;
+  }).join('');
+  const faqs = page.faqs.map((faq) => `<h3 style="margin:18px 0 6px;color:#fff">${escapeHtml(faq.question)}</h3><p style="margin:0 0 14px;color:#c4c8d0;line-height:1.7">${escapeHtml(faq.answer)}</p>`).join('');
+  return `${sections}<h2 style="margin:28px 0 8px;font-size:1.35rem;color:#fff">Questions</h2>${faqs}${strongPageLinks()}`;
+}
+
+function industryLandingFallback(route) {
+  const heading = escapeHtml(routeHeading(route));
+  return `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px">
+    <div style="max-width:880px;margin:0 auto">
+      <p style="color:#60a5fa;font-weight:700">PFS FILTERS</p>
+      <h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1>
+      <p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${escapeHtml(route.description)}</p>
+      ${industryHtml(route.path)}
+    </div>
   </main>`;
 }
 
@@ -2536,6 +2585,8 @@ function replaceMeta(html, route) {
     ? vitraFallback()
     : route.path === '/industries/automotive-paint-booth-filters'
     ? automotiveIndustryFallback()
+    : route.path.startsWith('/industries/') && industryContent.has(route.path)
+    ? industryLandingFallback(route)
     : route.path === '/industries/aerospace-paint-booth-filters'
     ? aerospaceIndustryFallback(route)
     : route.path === `/category/${AEROSPACE_NESHAP_CATEGORY}`

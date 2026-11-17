@@ -19,7 +19,8 @@ describe('automotive paint booth SEO landing page', () => {
   });
 
   it('provides unique metadata and crawlable collection, breadcrumb, and FAQ schema', () => {
-    expect(pageSource).toContain('Automotive Paint Booth Filters | PFS Filters');
+    expect(pageSource).toContain('Auto Body Paint Booth Filters | PFS Filters');
+    expect(pageSource).toContain('Automotive Paint Booth Filters');
     expect(pageSource).toContain(`const PAGE_URL = 'https://www.pfsfilters.com${ROUTE}'`);
     expect(pageSource).toContain("'@type': 'CollectionPage'");
     expect(pageSource).toContain("'@type': 'WebSite'");

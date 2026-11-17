@@ -116,6 +116,16 @@
 - [Andreae accordion filters: AF213, AF223, AF413, AF423 pads; AF813, AF923, AF113, AF123 rolls](https://www.pfsfilters.com/andreae-paint-booth-filters)
 - [Filter brands carried](https://www.pfsfilters.com/brands)
 
+## Industries
+- [Automotive, auto body, and collision paint booth filters](https://www.pfsfilters.com/industries/automotive-paint-booth-filters)
+- [Industrial and open-face paint booth filters](https://www.pfsfilters.com/industries/industrial-paint-booth-filters)
+- [Truck and fleet paint booth filters](https://www.pfsfilters.com/industries/truck-and-fleet-paint-booth-filters)
+- [Woodworking, furniture, and cabinet paint booth filters](https://www.pfsfilters.com/industries/woodworking-paint-booth-filters)
+- [Prep station filters](https://www.pfsfilters.com/industries/prep-station-filters)
+- [Marine paint booth filters](https://www.pfsfilters.com/industries/marine-paint-booth-filters)
+- [Aerospace paint booth filtration](https://www.pfsfilters.com/industries/aerospace-paint-booth-filters)
+- [NESHAP filters in the catalog](https://www.pfsfilters.com/category/aerospace-neshap-filters)
+
 ## Aerospace and regulated coatings
 - [NESHAP 6H and Method 319 filter guide](https://www.pfsfilters.com/neshap-compliant-paint-booth-filters)
 - [Aerospace paint booth filtration](https://www.pfsfilters.com/industries/aerospace-paint-booth-filters)
@@ -230,6 +240,290 @@ No. Compliance depends on the complete filtration system, installation, airflow,
 ### Who is PFS Filters?
 
 PFS Filters is a division of PFS Spray Booths serving automotive, industrial, woodworking, aerospace, and related finishing operations. The team is located at 1400 Airport Boulevard in Santa Rosa, California.
+
+# Industries
+
+## Automotive Paint Booth Filters
+
+Auto body shops, collision repair shops, and refinish booths use the same liquid paint-booth catalog. A crossdraft booth usually has an intake bank and an exhaust filter wall. A downdraft or semi-downdraft booth adds a ceiling blanket. This page lists the stocked intake, ceiling, and exhaust products with the sizes and prices on the current catalog snapshot. It does not add a collision-only kit.
+
+Brand guides already on this site cover the booths those shops name most often: Garmat at /guides/garmat-filter-cross-reference, Global Finishing Solutions at /guides/gfs-filter-cross-reference, Accudraft at /guides/accudraft-filter-cross-reference, Blowtherm at /guides/blowtherm-filter-cross-reference, and USI Italia at /guides/usi-italia-filter-cross-reference. Nova Verta and Binks/DeVilbiss guides are linked from the size chart. A guide row is a recorded size. Measure the opening before you treat it as the part to order.
+
+There is no universal change interval. A replacement filter does not by itself make a booth or facility compliant. Follow the booth and filter instructions.
+
+300 Series Tacky Filter Panel is at /product/300-series-tacky-filter-panel. Catalog variants: 20"x20" 300 Series Tacky Filter Panel, 20/CS at $139.75; 20"x25" 300 Series Tacky Filter Panel, 20/CS at $156.97; 24"x24" 300 Series Tacky Filter Panel, 20/CS at $186.93; 20"x50" 300 Series Tacky Filter Panel - Link, 10/CS at $167.71; 20"x72" 300 Series Tacky Filter Panel - Link, 6/CS at $162.41; 20"x48" 300 Series Tacky Filter Panel - Single Frame, 10/CS at $192.87. Shipping is not included.
+
+5KR1 Series Premium Intake is at /product/5kr1-series-premium-intake. Catalog variants: 20"x20" 20/CS at $239.55; 20"x20" 24/CS at $284.83; 20"x25" 20/CS at $259.23; 24"x24" 20/CS at $297.44; 20"x50" 12/CS at $360.62; 20"x50" 10/CS at $264.22. Shipping is not included.
+
+Pleated Air Filters MERV 10 is at /product/pleated-air-filters-merv-10. Catalog variants: 16x20x2 12/cs at $124.75; 16x25x2 12/cs at $141.98; 20x20x2 12/cs at $154.93; 24x20x4 6/cs at $150.68; 20x25x2 12/cs at $175.44; 24x24x2 12/cs at $197.27; 24x24x4 6/cs at $158.24. Shipping is not included.
+
+Ceiling Diffusion Media is at /product/ceiling-diffusion-media. Catalog variants: 58"x58" L560 Ceiling Diffusion Media, 3/CS at $255.57; 37"x64" L560 Ceiling Diffusion Media 8/CS at $479.73; 36.75"x54" L560 Ceiling Diffusion Media 12/CS at $603.05; 48"x66" L560 Ceiling Diffusion Media 6/CS at $481.36; 26"x120" L560 Ceiling Diffusion Media, 9/CS at $711.08; 51"x128" L560 Ceiling Diffusion Media, 6/CS at $991.87; 60"x120" L560 Ceiling Diffusion Media, 2/CS at $364.66; 38"x102" L560 Ceiling Diffusion Media, 7/CS at $687.08; 59"x149" L560 Ceiling Diffusion Media, 4/CS at $890.48; 36"x144" L560 Ceiling Diffusion Media, 8/CS at $1050.21; 38"x62" L560 Ceiling Diffusion Media 1/CS at $61.29; 38"x107" L560 Ceiling Diffusion Media 1/CS at $105.78; 48"x108" L560 Ceiling Diffusion Media 1/CS at $131.39; 38"x67" L560 Ceiling Diffusion Media 1/CS at $64.96. Shipping is not included.
+
+Swiss Flow Downdraft Ceiling Diffusion Media (600G Ultra-Premium) is at /product/swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium. Catalog variants: 36"x108" Swiss Flow Ceiling Diffusion Media, 1/CS at $109.12; 36"x109" Swiss Flow Ceiling Diffusion Media, 2/CS at $227.46; 24"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $404.25; 26"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $437.94; 48"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $808.50; 33"x45.5" Swiss Flow Ceiling Diffusion Media 18/CS at $753.46; 36.75"x54" Swiss Flow Ceiling Diffusion Media, 12/CS at $672.21; 37"x64" Swiss Flow Ceiling Diffusion Media, 8/CS at $537.82; 39"x59" Swiss Flow Ceiling Diffusion Media, 3/CS at $192.52; 40"x100" Swiss Flow Ceiling Diffusion Media, 4/CS at $446.36; 44"x50" Swiss Flow Ceiling Diffusion Media, 10/CS at $613.76; 81"x144" Swiss Flow Ceiling Diffusion Media, 4/CS at $1301.49; 38"x102" Swiss Flow Ceiling Diffusion Media, 7/CS at $756.90; 59"x149" Swiss Flow Ceiling Diffusion Media, 4/CS at $997.60; 36"x144" Swiss Flow Ceiling Diffusion Media, 8/CS at $1149.61; 38"x62" Swiss Flow Ceiling Diffusion Media, 1/CS at $68.19; 38"x107" Swiss Flow Ceiling Diffusion Media, 1/CS at $117.67; 48"x108" Swiss Flow Ceiling Diffusion Media, 1/CS at $146.20; 38"x67" Swiss Flow Ceiling Diffusion Media, 1/CS at $73.69. Shipping is not included.
+
+15-Gram Fiberglass Paint Arrestor Pads is at /product/20x20x2-15-gram-fiberglass-paint-arrestor-pads-50-cs. Catalog variants: 20"x20"x2" 50/CS at $70.90; 20"x20"x2" 100/CS at $131.08; 20"x25"x2" 50/CS at $85.52; 20"x25"x2" 100/CS at $158.09; 24"x24"x2" 50/CS at $106.60; 24"x24"x2" 100/CS at $197.05; 26"x48"x2" 8/CS at $57.81. Shipping is not included.
+
+22-Gram Fiberglass Paint Arrestor Pads is at /product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs. Catalog variants: 20"x25"x2" 50/CS at $111.36; 20"x20"x2" 100/CS at $175.82; 24"x24"x2" 50/CS at $154.11. Shipping is not included.
+
+15-Gram Fiberglass Paint Arrestor Roll 1/CS is at /product/36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs. Catalog variants: 20"x100' at $72.88; 20"x300' at $180.55; 22"x300' at $198.61; 25"x100' at $86.11; 25"x300' at $225.64; 28"x300' at $252.73; 30"x100' at $102.03; 30"x300' at $270.73; 32"x300' at $288.80; 36"x300' at $324.92. Shipping is not included.
+
+22-Gram Fiberglass Paint Arrestor Roll, 1/CS is at /product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs. Catalog variants: 20"x100"x2" at $92.39; 20"x300"x2" at $220.87; 25"x100"x2" at $117.77; 25"x300"x2" at $276.09; 28"x300"x2" at $311.75; 30"x100"x2" at $137.08; 30"x300"x2" at $331.31; 32"x300"x2" at $353.40; 36"x100'x2" at $173.55; 36"x300"x2" at $409.53; 41"x100"x2" at $189.23; 41"x300"x2" at $454.39. Shipping is not included.
+
+Paint Pockets Paint Arrestor Media is at /product/20x20-paint-pockets-paint-arrestor-30-cs. Catalog variants: 20"x20" Paint Pockets Paint Arrestor 30/CS at $181.84; 20"X25" Paint Pockets Paint Arrestor 30/CS at $227.38; 24"X24" Paint Pockets Paint Arrestor, 20/CS at $192.74; 45"x50' Paint Pockets Paint Arrestor, 1/CS at $400.69. Shipping is not included.
+
+Andreae Accordion Style Paint Arrestors is at /product/accordion-style-paint-arrestors. Catalog variants: 20"x20" AF213 Accordion Paint Arrestor 40/CS at $107.90; 20"x25" AF413 Accordion Paint Arrestor 36/CS at $121.27; 36"x30' AF813 Roll Accordion Paint Arrestor 1/CS at $120.84; 40"x32'10" AF113 Roll Accordion Paint Arrestor 1/CS at $144.84; 20"x20" AF223 High Efficiency Filter 28/CS at $141.56; 20"x25" AF423 High Efficiency Filter 24/CS at $151.57; 36"x30' AF923 Roll High Efficiency Filter 1/CS at $168.80; 40"x26'3" AF123 Roll High Efficiency Filter 1/CS at $161.64. Shipping is not included.
+
+Which filters do auto body and collision booths usually order?
+
+The stocked catalog used for those booths is tacky intake panels, pleated intake filters, ceiling diffusion blankets, fiberglass pads and rolls, Paint Pockets, and Andreae accordion arrestors. The booth brand and the measured opening decide the variant. Garmat, GFS, Accudraft, Blowtherm, and USI Italia each have a guide on this site.
+
+Is there a separate collision-shop filter page?
+
+No. Collision repair, auto body, and refinish work use this automotive page. There is not a second thin collision URL.
+
+Does buying a filter make the booth compliant?
+
+No. A filter purchase does not make a facility compliant with any permit or rule. Match the stage and the measured opening, then confirm the product page.
+
+What if the size is not in the catalog?
+
+Call 855-496-7969 with the booth model, stage, and measured opening. Recorded directory sizes that are not catalog variants are quote-only. Do not invent a kit.
+
+## Industrial Paint Booth Filters
+
+Industrial and manufacturing booths on this site are liquid finishing booths, not a separate filter chemistry. The stocked arrestors are the fiberglass pads and rolls, Paint Pockets, Andreae accordion media, the AFC polyester cube, and the Koch SprayStop roll. Col-Met and GFS brand guides already describe industrial and large-equipment use. Diamond and Protectaire have shop-by-booth pages in the same directory.
+
+Open-face spray booths, when the directory describes them, exhaust through a filter wall. They do not automatically take a ceiling blanket. Stocked wall sizes that shops measure against include the 20x20 and 20x25 fiberglass pads and the Paint Pockets 20x20 and 20x25 variants listed below. If the opening is not one of those variants, call for a quote. Do not order an open-face kit. None is in the catalog.
+
+Heavy equipment and agricultural repaint booths are folded into this page because the catalog has no equipment-specific part numbers for them. They are large liquid booths. Use the wide rolls and the Andreae rolls below, and the ceiling products when the booth has a plenum. Col-Met’s filter cross reference is the large-equipment brand page. The truck and fleet page records Blowtherm truck ceiling sizes that are also large-booth dimensions. Those recorded sizes are not confirmed fitment.
+
+15-Gram Fiberglass Paint Arrestor Pads is at /product/20x20x2-15-gram-fiberglass-paint-arrestor-pads-50-cs. Catalog variants: 20"x20"x2" 50/CS at $70.90; 20"x20"x2" 100/CS at $131.08; 20"x25"x2" 50/CS at $85.52; 20"x25"x2" 100/CS at $158.09; 24"x24"x2" 50/CS at $106.60; 24"x24"x2" 100/CS at $197.05; 26"x48"x2" 8/CS at $57.81. Shipping is not included.
+
+22-Gram Fiberglass Paint Arrestor Pads is at /product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs. Catalog variants: 20"x25"x2" 50/CS at $111.36; 20"x20"x2" 100/CS at $175.82; 24"x24"x2" 50/CS at $154.11. Shipping is not included.
+
+15-Gram Fiberglass Paint Arrestor Roll 1/CS is at /product/36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs. Catalog variants: 20"x100' at $72.88; 20"x300' at $180.55; 22"x300' at $198.61; 25"x100' at $86.11; 25"x300' at $225.64; 28"x300' at $252.73; 30"x100' at $102.03; 30"x300' at $270.73; 32"x300' at $288.80; 36"x300' at $324.92. Shipping is not included.
+
+22-Gram Fiberglass Paint Arrestor Roll, 1/CS is at /product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs. Catalog variants: 20"x100"x2" at $92.39; 20"x300"x2" at $220.87; 25"x100"x2" at $117.77; 25"x300"x2" at $276.09; 28"x300"x2" at $311.75; 30"x100"x2" at $137.08; 30"x300"x2" at $331.31; 32"x300"x2" at $353.40; 36"x100'x2" at $173.55; 36"x300"x2" at $409.53; 41"x100"x2" at $189.23; 41"x300"x2" at $454.39. Shipping is not included.
+
+Paint Pockets Paint Arrestor Media is at /product/20x20-paint-pockets-paint-arrestor-30-cs. Catalog variants: 20"x20" Paint Pockets Paint Arrestor 30/CS at $181.84; 20"X25" Paint Pockets Paint Arrestor 30/CS at $227.38; 24"X24" Paint Pockets Paint Arrestor, 20/CS at $192.74; 45"x50' Paint Pockets Paint Arrestor, 1/CS at $400.69. Shipping is not included.
+
+Andreae Accordion Style Paint Arrestors is at /product/accordion-style-paint-arrestors. Catalog variants: 20"x20" AF213 Accordion Paint Arrestor 40/CS at $107.90; 20"x25" AF413 Accordion Paint Arrestor 36/CS at $121.27; 36"x30' AF813 Roll Accordion Paint Arrestor 1/CS at $120.84; 40"x32'10" AF113 Roll Accordion Paint Arrestor 1/CS at $144.84; 20"x20" AF223 High Efficiency Filter 28/CS at $141.56; 20"x25" AF423 High Efficiency Filter 24/CS at $151.57; 36"x30' AF923 Roll High Efficiency Filter 1/CS at $168.80; 40"x26'3" AF123 Roll High Efficiency Filter 1/CS at $161.64. Shipping is not included.
+
+AFC 2-Pocket Blue Poly Exhaust Cube — 20 × 20 × 15 in (Case of 6) is at /product/afc-2-pocket-blue-poly-exhaust-cube-20x20x15-no-header-case-6. Catalog variants: $194.92 on the product page. Shipping is not included.
+
+Koch SprayStop STK-10 Roll — 61 in × 90 ft is at /product/koch-spraystop-stk10-61x90-roll. Catalog variants: $242.37 on the product page. Shipping is not included.
+
+300 Series Tacky Filter Panel is at /product/300-series-tacky-filter-panel. Catalog variants: 20"x20" 300 Series Tacky Filter Panel, 20/CS at $139.75; 20"x25" 300 Series Tacky Filter Panel, 20/CS at $156.97; 24"x24" 300 Series Tacky Filter Panel, 20/CS at $186.93; 20"x50" 300 Series Tacky Filter Panel - Link, 10/CS at $167.71; 20"x72" 300 Series Tacky Filter Panel - Link, 6/CS at $162.41; 20"x48" 300 Series Tacky Filter Panel - Single Frame, 10/CS at $192.87. Shipping is not included.
+
+5KR1 Series Premium Intake is at /product/5kr1-series-premium-intake. Catalog variants: 20"x20" 20/CS at $239.55; 20"x20" 24/CS at $284.83; 20"x25" 20/CS at $259.23; 24"x24" 20/CS at $297.44; 20"x50" 12/CS at $360.62; 20"x50" 10/CS at $264.22. Shipping is not included.
+
+Pleated Air Filters MERV 10 is at /product/pleated-air-filters-merv-10. Catalog variants: 16x20x2 12/cs at $124.75; 16x25x2 12/cs at $141.98; 20x20x2 12/cs at $154.93; 24x20x4 6/cs at $150.68; 20x25x2 12/cs at $175.44; 24x24x2 12/cs at $197.27; 24x24x4 6/cs at $158.24. Shipping is not included.
+
+Ceiling Diffusion Media is at /product/ceiling-diffusion-media. Catalog variants: 58"x58" L560 Ceiling Diffusion Media, 3/CS at $255.57; 37"x64" L560 Ceiling Diffusion Media 8/CS at $479.73; 36.75"x54" L560 Ceiling Diffusion Media 12/CS at $603.05; 48"x66" L560 Ceiling Diffusion Media 6/CS at $481.36; 26"x120" L560 Ceiling Diffusion Media, 9/CS at $711.08; 51"x128" L560 Ceiling Diffusion Media, 6/CS at $991.87; 60"x120" L560 Ceiling Diffusion Media, 2/CS at $364.66; 38"x102" L560 Ceiling Diffusion Media, 7/CS at $687.08; 59"x149" L560 Ceiling Diffusion Media, 4/CS at $890.48; 36"x144" L560 Ceiling Diffusion Media, 8/CS at $1050.21; 38"x62" L560 Ceiling Diffusion Media 1/CS at $61.29; 38"x107" L560 Ceiling Diffusion Media 1/CS at $105.78; 48"x108" L560 Ceiling Diffusion Media 1/CS at $131.39; 38"x67" L560 Ceiling Diffusion Media 1/CS at $64.96. Shipping is not included.
+
+Swiss Flow Downdraft Ceiling Diffusion Media (600G Ultra-Premium) is at /product/swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium. Catalog variants: 36"x108" Swiss Flow Ceiling Diffusion Media, 1/CS at $109.12; 36"x109" Swiss Flow Ceiling Diffusion Media, 2/CS at $227.46; 24"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $404.25; 26"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $437.94; 48"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $808.50; 33"x45.5" Swiss Flow Ceiling Diffusion Media 18/CS at $753.46; 36.75"x54" Swiss Flow Ceiling Diffusion Media, 12/CS at $672.21; 37"x64" Swiss Flow Ceiling Diffusion Media, 8/CS at $537.82; 39"x59" Swiss Flow Ceiling Diffusion Media, 3/CS at $192.52; 40"x100" Swiss Flow Ceiling Diffusion Media, 4/CS at $446.36; 44"x50" Swiss Flow Ceiling Diffusion Media, 10/CS at $613.76; 81"x144" Swiss Flow Ceiling Diffusion Media, 4/CS at $1301.49; 38"x102" Swiss Flow Ceiling Diffusion Media, 7/CS at $756.90; 59"x149" Swiss Flow Ceiling Diffusion Media, 4/CS at $997.60; 36"x144" Swiss Flow Ceiling Diffusion Media, 8/CS at $1149.61; 38"x62" Swiss Flow Ceiling Diffusion Media, 1/CS at $68.19; 38"x107" Swiss Flow Ceiling Diffusion Media, 1/CS at $117.67; 48"x108" Swiss Flow Ceiling Diffusion Media, 1/CS at $146.20; 38"x67" Swiss Flow Ceiling Diffusion Media, 1/CS at $73.69. Shipping is not included.
+
+How is an open-face booth different from a downdraft booth?
+
+An open-face booth in the PFS booth-type notes moves air toward an exhaust wall. It does not use a ceiling diffusion blanket unless the manufacturer added a plenum. A downdraft booth does use ceiling media. Order the stage the booth actually has.
+
+Where do heavy equipment and agricultural booths fit?
+
+They use the same large-booth liquid media as industrial and truck booths: wide fiberglass rolls, Andreae rolls, Paint Pockets, and ceiling blankets when the booth has a ceiling. There is no separate farm-equipment SKU in the catalog. Non-stocked sizes are quote-only. Col-Met’s brand guide is the large-equipment directory page.
+
+Does buying a filter make the booth compliant?
+
+No. A filter purchase does not make a facility compliant with any permit or rule. Match the stage and the measured opening, then confirm the product page.
+
+What if the size is not in the catalog?
+
+Call 855-496-7969 with the booth model, stage, and measured opening. Recorded directory sizes that are not catalog variants are quote-only. Do not invent a kit.
+
+## Truck and Fleet Paint Booth Filters
+
+Truck and fleet booths are larger liquid booths. This page does not publish a Garmat truck kit or a GFS truck kit, because no complete confirmed filter list for those models is in the PFS directory. What is recorded is below. Marathon, Wellbuilt, Saima, Eagle, GFS, and Col-Met have brand pages for shops that need the directory, not a kit.
+
+Blowtherm, Truck booths: Ceiling using Ceiling diffusion (Filtrair FF560GX) at 64x108 / 64x144 / 81x108 (see size). This is a recorded directory size, not confirmed fitment. Measure the opening before ordering. If the size is not a catalog variant, it is quote-only.
+
+Blowtherm, Truck booths: Intake / prefilter using 8-pocket bag w/hdr at 19.5x36.75x10 (2/CS). This is a recorded directory size, not confirmed fitment. Measure the opening before ordering. If the size is not a catalog variant, it is quote-only.
+
+DeVilbiss, Truck booth: Ceiling using Ceiling diffusion (Filtrair FF560GX) at 40x120 (3). This is a recorded directory size, not confirmed fitment. Measure the opening before ordering. If the size is not a catalog variant, it is quote-only.
+
+Filtrair FF560GX cuts and the 19.5x36.75x10 bag are quote-only. They are not given a PFS price here.
+
+The brand directory describes Marathon Finishing as a United States builder of heavy-duty and large-vehicle booths for fleet, truck, and industrial work. Wellbuilt, Saima, Eagle, GFS, and Col-Met also have shop-by-booth pages. Those pages are directories. They are not truck kits, and they do not add prices for sizes that are not in the catalog.
+
+15-Gram Fiberglass Paint Arrestor Pads is at /product/20x20x2-15-gram-fiberglass-paint-arrestor-pads-50-cs. Catalog variants: 20"x20"x2" 50/CS at $70.90; 20"x20"x2" 100/CS at $131.08; 20"x25"x2" 50/CS at $85.52; 20"x25"x2" 100/CS at $158.09; 24"x24"x2" 50/CS at $106.60; 24"x24"x2" 100/CS at $197.05; 26"x48"x2" 8/CS at $57.81. Shipping is not included.
+
+22-Gram Fiberglass Paint Arrestor Pads is at /product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs. Catalog variants: 20"x25"x2" 50/CS at $111.36; 20"x20"x2" 100/CS at $175.82; 24"x24"x2" 50/CS at $154.11. Shipping is not included.
+
+15-Gram Fiberglass Paint Arrestor Roll 1/CS is at /product/36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs. Catalog variants: 20"x100' at $72.88; 20"x300' at $180.55; 22"x300' at $198.61; 25"x100' at $86.11; 25"x300' at $225.64; 28"x300' at $252.73; 30"x100' at $102.03; 30"x300' at $270.73; 32"x300' at $288.80; 36"x300' at $324.92. Shipping is not included.
+
+22-Gram Fiberglass Paint Arrestor Roll, 1/CS is at /product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs. Catalog variants: 20"x100"x2" at $92.39; 20"x300"x2" at $220.87; 25"x100"x2" at $117.77; 25"x300"x2" at $276.09; 28"x300"x2" at $311.75; 30"x100"x2" at $137.08; 30"x300"x2" at $331.31; 32"x300"x2" at $353.40; 36"x100'x2" at $173.55; 36"x300"x2" at $409.53; 41"x100"x2" at $189.23; 41"x300"x2" at $454.39. Shipping is not included.
+
+Paint Pockets Paint Arrestor Media is at /product/20x20-paint-pockets-paint-arrestor-30-cs. Catalog variants: 20"x20" Paint Pockets Paint Arrestor 30/CS at $181.84; 20"X25" Paint Pockets Paint Arrestor 30/CS at $227.38; 24"X24" Paint Pockets Paint Arrestor, 20/CS at $192.74; 45"x50' Paint Pockets Paint Arrestor, 1/CS at $400.69. Shipping is not included.
+
+Andreae Accordion Style Paint Arrestors is at /product/accordion-style-paint-arrestors. Catalog variants: 20"x20" AF213 Accordion Paint Arrestor 40/CS at $107.90; 20"x25" AF413 Accordion Paint Arrestor 36/CS at $121.27; 36"x30' AF813 Roll Accordion Paint Arrestor 1/CS at $120.84; 40"x32'10" AF113 Roll Accordion Paint Arrestor 1/CS at $144.84; 20"x20" AF223 High Efficiency Filter 28/CS at $141.56; 20"x25" AF423 High Efficiency Filter 24/CS at $151.57; 36"x30' AF923 Roll High Efficiency Filter 1/CS at $168.80; 40"x26'3" AF123 Roll High Efficiency Filter 1/CS at $161.64. Shipping is not included.
+
+Ceiling Diffusion Media is at /product/ceiling-diffusion-media. Catalog variants: 58"x58" L560 Ceiling Diffusion Media, 3/CS at $255.57; 37"x64" L560 Ceiling Diffusion Media 8/CS at $479.73; 36.75"x54" L560 Ceiling Diffusion Media 12/CS at $603.05; 48"x66" L560 Ceiling Diffusion Media 6/CS at $481.36; 26"x120" L560 Ceiling Diffusion Media, 9/CS at $711.08; 51"x128" L560 Ceiling Diffusion Media, 6/CS at $991.87; 60"x120" L560 Ceiling Diffusion Media, 2/CS at $364.66; 38"x102" L560 Ceiling Diffusion Media, 7/CS at $687.08; 59"x149" L560 Ceiling Diffusion Media, 4/CS at $890.48; 36"x144" L560 Ceiling Diffusion Media, 8/CS at $1050.21; 38"x62" L560 Ceiling Diffusion Media 1/CS at $61.29; 38"x107" L560 Ceiling Diffusion Media 1/CS at $105.78; 48"x108" L560 Ceiling Diffusion Media 1/CS at $131.39; 38"x67" L560 Ceiling Diffusion Media 1/CS at $64.96. Shipping is not included.
+
+Swiss Flow Downdraft Ceiling Diffusion Media (600G Ultra-Premium) is at /product/swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium. Catalog variants: 36"x108" Swiss Flow Ceiling Diffusion Media, 1/CS at $109.12; 36"x109" Swiss Flow Ceiling Diffusion Media, 2/CS at $227.46; 24"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $404.25; 26"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $437.94; 48"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $808.50; 33"x45.5" Swiss Flow Ceiling Diffusion Media 18/CS at $753.46; 36.75"x54" Swiss Flow Ceiling Diffusion Media, 12/CS at $672.21; 37"x64" Swiss Flow Ceiling Diffusion Media, 8/CS at $537.82; 39"x59" Swiss Flow Ceiling Diffusion Media, 3/CS at $192.52; 40"x100" Swiss Flow Ceiling Diffusion Media, 4/CS at $446.36; 44"x50" Swiss Flow Ceiling Diffusion Media, 10/CS at $613.76; 81"x144" Swiss Flow Ceiling Diffusion Media, 4/CS at $1301.49; 38"x102" Swiss Flow Ceiling Diffusion Media, 7/CS at $756.90; 59"x149" Swiss Flow Ceiling Diffusion Media, 4/CS at $997.60; 36"x144" Swiss Flow Ceiling Diffusion Media, 8/CS at $1149.61; 38"x62" Swiss Flow Ceiling Diffusion Media, 1/CS at $68.19; 38"x107" Swiss Flow Ceiling Diffusion Media, 1/CS at $117.67; 48"x108" Swiss Flow Ceiling Diffusion Media, 1/CS at $146.20; 38"x67" Swiss Flow Ceiling Diffusion Media, 1/CS at $73.69. Shipping is not included.
+
+Order the variant whose title matches the label and the measured opening. A nearby nominal size is not a substitute. Prices on this page are the catalog snapshot and do not include shipping. Roll product text says shipping is typically LTL because of size. Stocked items are typically processed in one to two business days. Freight and custom sizes take longer. There is no same-day claim.
+
+Unopened packages may be returned within five business days. The refund is reduced by shipping costs and a 25 percent restocking fee. Opened packages are not returnable. The phone number for an unlisted size is 855-496-7969. The filter finder and the size chart are the other tools. A directory row that is not a catalog variant stays a quote.
+
+Are the Blowtherm truck sizes a confirmed kit?
+
+No. The ceiling sizes 64x108, 64x144, and 81x108, and the 19.5x36.75x10 eight-pocket bag, are recorded directory rows. They are not confirmed fitment, and the bag is not a priced catalog product. Measure first. Quote the sizes that are not variants.
+
+Does buying a filter make the booth compliant?
+
+No. A filter purchase does not make a facility compliant with any permit or rule. Match the stage and the measured opening, then confirm the product page.
+
+What if the size is not in the catalog?
+
+Call 855-496-7969 with the booth model, stage, and measured opening. Recorded directory sizes that are not catalog variants are quote-only. Do not invent a kit.
+
+## Woodworking Paint Booth Filters
+
+Woodworking, furniture, and cabinet booths are covered on this one page. The stocked exhaust choice is among fiberglass pads and rolls, Andreae accordion media, and Paint Pockets. Intake for a dusty shop is the tacky panels and pleats below, and a downdraft booth still needs the ceiling blanket that matches its grid. The comparison guide at /guides/andreae-vs-fiberglass-vs-paint-pockets and the measuring guide at /guides/how-to-measure-paint-booth-filters are the next pages. No holding-capacity test is published for these products.
+
+A furniture booth and a cabinet booth are not given different part numbers here. Choose the stage, measure the opening, and use the variant title. Polyester exhaust media, the AFC cube and the Koch SprayStop roll, are also stocked if the booth calls for synthetic media instead of fiberglass. They are listed with the other exhaust products only when you open those product pages. This page stays with the fiberglass, Andreae, Paint Pockets, intake, and ceiling records.
+
+15-Gram Fiberglass Paint Arrestor Pads is at /product/20x20x2-15-gram-fiberglass-paint-arrestor-pads-50-cs. Catalog variants: 20"x20"x2" 50/CS at $70.90; 20"x20"x2" 100/CS at $131.08; 20"x25"x2" 50/CS at $85.52; 20"x25"x2" 100/CS at $158.09; 24"x24"x2" 50/CS at $106.60; 24"x24"x2" 100/CS at $197.05; 26"x48"x2" 8/CS at $57.81. Shipping is not included.
+
+22-Gram Fiberglass Paint Arrestor Pads is at /product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs. Catalog variants: 20"x25"x2" 50/CS at $111.36; 20"x20"x2" 100/CS at $175.82; 24"x24"x2" 50/CS at $154.11. Shipping is not included.
+
+15-Gram Fiberglass Paint Arrestor Roll 1/CS is at /product/36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs. Catalog variants: 20"x100' at $72.88; 20"x300' at $180.55; 22"x300' at $198.61; 25"x100' at $86.11; 25"x300' at $225.64; 28"x300' at $252.73; 30"x100' at $102.03; 30"x300' at $270.73; 32"x300' at $288.80; 36"x300' at $324.92. Shipping is not included.
+
+22-Gram Fiberglass Paint Arrestor Roll, 1/CS is at /product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs. Catalog variants: 20"x100"x2" at $92.39; 20"x300"x2" at $220.87; 25"x100"x2" at $117.77; 25"x300"x2" at $276.09; 28"x300"x2" at $311.75; 30"x100"x2" at $137.08; 30"x300"x2" at $331.31; 32"x300"x2" at $353.40; 36"x100'x2" at $173.55; 36"x300"x2" at $409.53; 41"x100"x2" at $189.23; 41"x300"x2" at $454.39. Shipping is not included.
+
+Paint Pockets Paint Arrestor Media is at /product/20x20-paint-pockets-paint-arrestor-30-cs. Catalog variants: 20"x20" Paint Pockets Paint Arrestor 30/CS at $181.84; 20"X25" Paint Pockets Paint Arrestor 30/CS at $227.38; 24"X24" Paint Pockets Paint Arrestor, 20/CS at $192.74; 45"x50' Paint Pockets Paint Arrestor, 1/CS at $400.69. Shipping is not included.
+
+Andreae Accordion Style Paint Arrestors is at /product/accordion-style-paint-arrestors. Catalog variants: 20"x20" AF213 Accordion Paint Arrestor 40/CS at $107.90; 20"x25" AF413 Accordion Paint Arrestor 36/CS at $121.27; 36"x30' AF813 Roll Accordion Paint Arrestor 1/CS at $120.84; 40"x32'10" AF113 Roll Accordion Paint Arrestor 1/CS at $144.84; 20"x20" AF223 High Efficiency Filter 28/CS at $141.56; 20"x25" AF423 High Efficiency Filter 24/CS at $151.57; 36"x30' AF923 Roll High Efficiency Filter 1/CS at $168.80; 40"x26'3" AF123 Roll High Efficiency Filter 1/CS at $161.64. Shipping is not included.
+
+300 Series Tacky Filter Panel is at /product/300-series-tacky-filter-panel. Catalog variants: 20"x20" 300 Series Tacky Filter Panel, 20/CS at $139.75; 20"x25" 300 Series Tacky Filter Panel, 20/CS at $156.97; 24"x24" 300 Series Tacky Filter Panel, 20/CS at $186.93; 20"x50" 300 Series Tacky Filter Panel - Link, 10/CS at $167.71; 20"x72" 300 Series Tacky Filter Panel - Link, 6/CS at $162.41; 20"x48" 300 Series Tacky Filter Panel - Single Frame, 10/CS at $192.87. Shipping is not included.
+
+5KR1 Series Premium Intake is at /product/5kr1-series-premium-intake. Catalog variants: 20"x20" 20/CS at $239.55; 20"x20" 24/CS at $284.83; 20"x25" 20/CS at $259.23; 24"x24" 20/CS at $297.44; 20"x50" 12/CS at $360.62; 20"x50" 10/CS at $264.22. Shipping is not included.
+
+Pleated Air Filters MERV 10 is at /product/pleated-air-filters-merv-10. Catalog variants: 16x20x2 12/cs at $124.75; 16x25x2 12/cs at $141.98; 20x20x2 12/cs at $154.93; 24x20x4 6/cs at $150.68; 20x25x2 12/cs at $175.44; 24x24x2 12/cs at $197.27; 24x24x4 6/cs at $158.24. Shipping is not included.
+
+Ceiling Diffusion Media is at /product/ceiling-diffusion-media. Catalog variants: 58"x58" L560 Ceiling Diffusion Media, 3/CS at $255.57; 37"x64" L560 Ceiling Diffusion Media 8/CS at $479.73; 36.75"x54" L560 Ceiling Diffusion Media 12/CS at $603.05; 48"x66" L560 Ceiling Diffusion Media 6/CS at $481.36; 26"x120" L560 Ceiling Diffusion Media, 9/CS at $711.08; 51"x128" L560 Ceiling Diffusion Media, 6/CS at $991.87; 60"x120" L560 Ceiling Diffusion Media, 2/CS at $364.66; 38"x102" L560 Ceiling Diffusion Media, 7/CS at $687.08; 59"x149" L560 Ceiling Diffusion Media, 4/CS at $890.48; 36"x144" L560 Ceiling Diffusion Media, 8/CS at $1050.21; 38"x62" L560 Ceiling Diffusion Media 1/CS at $61.29; 38"x107" L560 Ceiling Diffusion Media 1/CS at $105.78; 48"x108" L560 Ceiling Diffusion Media 1/CS at $131.39; 38"x67" L560 Ceiling Diffusion Media 1/CS at $64.96. Shipping is not included.
+
+Swiss Flow Downdraft Ceiling Diffusion Media (600G Ultra-Premium) is at /product/swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium. Catalog variants: 36"x108" Swiss Flow Ceiling Diffusion Media, 1/CS at $109.12; 36"x109" Swiss Flow Ceiling Diffusion Media, 2/CS at $227.46; 24"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $404.25; 26"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $437.94; 48"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $808.50; 33"x45.5" Swiss Flow Ceiling Diffusion Media 18/CS at $753.46; 36.75"x54" Swiss Flow Ceiling Diffusion Media, 12/CS at $672.21; 37"x64" Swiss Flow Ceiling Diffusion Media, 8/CS at $537.82; 39"x59" Swiss Flow Ceiling Diffusion Media, 3/CS at $192.52; 40"x100" Swiss Flow Ceiling Diffusion Media, 4/CS at $446.36; 44"x50" Swiss Flow Ceiling Diffusion Media, 10/CS at $613.76; 81"x144" Swiss Flow Ceiling Diffusion Media, 4/CS at $1301.49; 38"x102" Swiss Flow Ceiling Diffusion Media, 7/CS at $756.90; 59"x149" Swiss Flow Ceiling Diffusion Media, 4/CS at $997.60; 36"x144" Swiss Flow Ceiling Diffusion Media, 8/CS at $1149.61; 38"x62" Swiss Flow Ceiling Diffusion Media, 1/CS at $68.19; 38"x107" Swiss Flow Ceiling Diffusion Media, 1/CS at $117.67; 48"x108" Swiss Flow Ceiling Diffusion Media, 1/CS at $146.20; 38"x67" Swiss Flow Ceiling Diffusion Media, 1/CS at $73.69. Shipping is not included.
+
+Order the variant whose title matches the label and the measured opening. A nearby nominal size is not a substitute. Prices on this page are the catalog snapshot and do not include shipping. Roll product text says shipping is typically LTL because of size. Stocked items are typically processed in one to two business days. Freight and custom sizes take longer. There is no same-day claim.
+
+Unopened packages may be returned within five business days. The refund is reduced by shipping costs and a 25 percent restocking fee. Opened packages are not returnable. The phone number for an unlisted size is 855-496-7969. The filter finder and the size chart are the other tools. A directory row that is not a catalog variant stays a quote.
+
+Do furniture and cabinet shops use a different filter?
+
+Not in this catalog. Furniture, cabinet, and other wood-finishing booths order the same fiberglass, Andreae, Paint Pockets, tacky intake, and ceiling media, matched to the stage and the measured opening. There is no wood-dust collector SKU here.
+
+Does buying a filter make the booth compliant?
+
+No. A filter purchase does not make a facility compliant with any permit or rule. Match the stage and the measured opening, then confirm the product page.
+
+What if the size is not in the catalog?
+
+Call 855-496-7969 with the booth model, stage, and measured opening. Recorded directory sizes that are not catalog variants are quote-only. Do not invent a kit.
+
+## Prep Station Filters
+
+A prep station uses the stages the directory records for that model, which may be a smaller exhaust bank or a ceiling. Only the rows below are published. Do not copy a kit list from another seller.
+
+Global Finishing Solutions (GFS), Global / prep station: Exhaust using Paint Pockets pad at 20x25 (case of 30; 1-2 cases). This is a recorded directory size, not confirmed fitment. Measure the opening before ordering. If the size is not a catalog variant, it is quote-only.
+
+Global Finishing Solutions (GFS), XL Ultra prep station: Exhaust using GFS Wave pad at 20x25. This is a recorded directory size, not confirmed fitment. Measure the opening before ordering. If the size is not a catalog variant, it is quote-only.
+
+Blowtherm, Blowtherm prep station: Ceiling using Ceiling diffusion SFL at 73x120 (2). This is a recorded directory size, not confirmed fitment. Measure the opening before ordering. If the size is not a catalog variant, it is quote-only.
+
+The Paint Pockets 20x25 variant is stocked. GFS Wave pads and the Blowtherm prep ceiling size are recorded only. They are quote-only.
+
+Prep stations are not given a PFS changeout kit. Shops that ask for an Accudraft, Garmat, DeVilbiss, or Spraybake prep kit are sent to the filter finder and to a measurement, not to a bundle SKU. Saima and PFS Spray Booths brand pages mention prep-station configurations in the directory. Those mentions are not a parts list.
+
+When the recorded exhaust size is 20x25, the stocked product to open is Paint Pockets. A 20x20 or 20x25 fiberglass pad is a different product. Use it only when the label you are replacing is fiberglass, not because the nominal face is close. The measuring guide says to measure the opening and read the label.
+
+Paint Pockets Paint Arrestor Media is at /product/20x20-paint-pockets-paint-arrestor-30-cs. Catalog variants: 20"x20" Paint Pockets Paint Arrestor 30/CS at $181.84; 20"X25" Paint Pockets Paint Arrestor 30/CS at $227.38; 24"X24" Paint Pockets Paint Arrestor, 20/CS at $192.74; 45"x50' Paint Pockets Paint Arrestor, 1/CS at $400.69. Shipping is not included.
+
+15-Gram Fiberglass Paint Arrestor Pads is at /product/20x20x2-15-gram-fiberglass-paint-arrestor-pads-50-cs. Catalog variants: 20"x20"x2" 50/CS at $70.90; 20"x20"x2" 100/CS at $131.08; 20"x25"x2" 50/CS at $85.52; 20"x25"x2" 100/CS at $158.09; 24"x24"x2" 50/CS at $106.60; 24"x24"x2" 100/CS at $197.05; 26"x48"x2" 8/CS at $57.81. Shipping is not included.
+
+22-Gram Fiberglass Paint Arrestor Pads is at /product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs. Catalog variants: 20"x25"x2" 50/CS at $111.36; 20"x20"x2" 100/CS at $175.82; 24"x24"x2" 50/CS at $154.11. Shipping is not included.
+
+Order the variant whose title matches the label and the measured opening. A nearby nominal size is not a substitute. Prices on this page are the catalog snapshot and do not include shipping. Roll product text says shipping is typically LTL because of size. Stocked items are typically processed in one to two business days. Freight and custom sizes take longer. There is no same-day claim.
+
+Unopened packages may be returned within five business days. The refund is reduced by shipping costs and a 25 percent restocking fee. Opened packages are not returnable. The phone number for an unlisted size is 855-496-7969. The filter finder and the size chart are the other tools. A directory row that is not a catalog variant stays a quote.
+
+The PFS catalog and the booth directory both say to measure the installed filter opening before ordering. A nominal size such as 20 by 20 is a label. The frame in the booth can differ. Write down the booth make and model from the equipment tag, the stage you are changing, and the actual opening.
+
+For an exhaust filter wall, measure the bank where the pad or roll sits. A pad and a roll are different products even when the gram weight matches. For a ceiling, measure the grid or the blanket pocket the booth uses. For an intake door or wall, measure that opening. Do not use the ceiling measurement for the exhaust bank.
+
+Read whatever is still printed on the filter coming out: gram weight, an AF code, a SKU, or a brand. Compare that text with the variant titles. The part-number cross reference lists only codes that are already on catalog products. A code that is absent, including searches that do not appear in the snapshot, is a call to 855-496-7969 with a photo. It is not a guessed substitute.
+
+The booth directory rows are a second note, not a tape measure. If the row and the opening disagree, follow the opening and the label. This site does not publish a separate measuring formula, a conversion from nominal to actual, or a tolerance. Those numbers are not in the catalog, so they are not stated here.
+
+Holding grids are separate from the media. The 20 by 20 paint arrestor holding grid with tips is its own product. Measuring the pad does not tell you whether the grid is included. The cart line does.
+
+The NESHAP filter category is a different catalog. Do not replace a prep-station pad with an aerospace bag because both are filters. Stay on the stage the prep station uses. Link the paint booth filters hub and the exhaust filter page when the bank is a full booth wall rather than a prep station.
+
+Is there a prep-station changeout kit?
+
+No. PFS does not list a complete changeout kit for Garmat, Accudraft, DeVilbiss, or Spraybake prep stations. The stocked item tied to a recorded prep row is the Paint Pockets 20x25 pad. Other recorded sizes are quote-only.
+
+Does buying a filter make the booth compliant?
+
+No. A filter purchase does not make a facility compliant with any permit or rule. Match the stage and the measured opening, then confirm the product page.
+
+What if the size is not in the catalog?
+
+Call 855-496-7969 with the booth model, stage, and measured opening. Recorded directory sizes that are not catalog variants are quote-only. Do not invent a kit.
+
+## Marine Paint Booth Filters
+
+Marine and boat finishing booths that spray liquid coatings use the same exhaust and ceiling catalog as other large liquid booths. High-capacity choices already stocked are the fiberglass rolls, Andreae rolls, Paint Pockets, and the wide ceiling blankets. There is no marine-only part number. Sizes that are not variants are a quote. Custom cuts are requested with the measured grid, not assumed from a directory row.
+
+15-Gram Fiberglass Paint Arrestor Pads is at /product/20x20x2-15-gram-fiberglass-paint-arrestor-pads-50-cs. Catalog variants: 20"x20"x2" 50/CS at $70.90; 20"x20"x2" 100/CS at $131.08; 20"x25"x2" 50/CS at $85.52; 20"x25"x2" 100/CS at $158.09; 24"x24"x2" 50/CS at $106.60; 24"x24"x2" 100/CS at $197.05; 26"x48"x2" 8/CS at $57.81. Shipping is not included.
+
+22-Gram Fiberglass Paint Arrestor Pads is at /product/20x20x2-22-gram-fiberglass-paint-arrestor-pads-50-cs. Catalog variants: 20"x25"x2" 50/CS at $111.36; 20"x20"x2" 100/CS at $175.82; 24"x24"x2" 50/CS at $154.11. Shipping is not included.
+
+15-Gram Fiberglass Paint Arrestor Roll 1/CS is at /product/36x100-15-gram-fiberglass-paint-arrestor-roll-1-cs. Catalog variants: 20"x100' at $72.88; 20"x300' at $180.55; 22"x300' at $198.61; 25"x100' at $86.11; 25"x300' at $225.64; 28"x300' at $252.73; 30"x100' at $102.03; 30"x300' at $270.73; 32"x300' at $288.80; 36"x300' at $324.92. Shipping is not included.
+
+22-Gram Fiberglass Paint Arrestor Roll, 1/CS is at /product/20x100x2-22-gram-fiberglass-exhaust-roll-1-cs. Catalog variants: 20"x100"x2" at $92.39; 20"x300"x2" at $220.87; 25"x100"x2" at $117.77; 25"x300"x2" at $276.09; 28"x300"x2" at $311.75; 30"x100"x2" at $137.08; 30"x300"x2" at $331.31; 32"x300"x2" at $353.40; 36"x100'x2" at $173.55; 36"x300"x2" at $409.53; 41"x100"x2" at $189.23; 41"x300"x2" at $454.39. Shipping is not included.
+
+Paint Pockets Paint Arrestor Media is at /product/20x20-paint-pockets-paint-arrestor-30-cs. Catalog variants: 20"x20" Paint Pockets Paint Arrestor 30/CS at $181.84; 20"X25" Paint Pockets Paint Arrestor 30/CS at $227.38; 24"X24" Paint Pockets Paint Arrestor, 20/CS at $192.74; 45"x50' Paint Pockets Paint Arrestor, 1/CS at $400.69. Shipping is not included.
+
+Andreae Accordion Style Paint Arrestors is at /product/accordion-style-paint-arrestors. Catalog variants: 20"x20" AF213 Accordion Paint Arrestor 40/CS at $107.90; 20"x25" AF413 Accordion Paint Arrestor 36/CS at $121.27; 36"x30' AF813 Roll Accordion Paint Arrestor 1/CS at $120.84; 40"x32'10" AF113 Roll Accordion Paint Arrestor 1/CS at $144.84; 20"x20" AF223 High Efficiency Filter 28/CS at $141.56; 20"x25" AF423 High Efficiency Filter 24/CS at $151.57; 36"x30' AF923 Roll High Efficiency Filter 1/CS at $168.80; 40"x26'3" AF123 Roll High Efficiency Filter 1/CS at $161.64. Shipping is not included.
+
+Ceiling Diffusion Media is at /product/ceiling-diffusion-media. Catalog variants: 58"x58" L560 Ceiling Diffusion Media, 3/CS at $255.57; 37"x64" L560 Ceiling Diffusion Media 8/CS at $479.73; 36.75"x54" L560 Ceiling Diffusion Media 12/CS at $603.05; 48"x66" L560 Ceiling Diffusion Media 6/CS at $481.36; 26"x120" L560 Ceiling Diffusion Media, 9/CS at $711.08; 51"x128" L560 Ceiling Diffusion Media, 6/CS at $991.87; 60"x120" L560 Ceiling Diffusion Media, 2/CS at $364.66; 38"x102" L560 Ceiling Diffusion Media, 7/CS at $687.08; 59"x149" L560 Ceiling Diffusion Media, 4/CS at $890.48; 36"x144" L560 Ceiling Diffusion Media, 8/CS at $1050.21; 38"x62" L560 Ceiling Diffusion Media 1/CS at $61.29; 38"x107" L560 Ceiling Diffusion Media 1/CS at $105.78; 48"x108" L560 Ceiling Diffusion Media 1/CS at $131.39; 38"x67" L560 Ceiling Diffusion Media 1/CS at $64.96. Shipping is not included.
+
+Swiss Flow Downdraft Ceiling Diffusion Media (600G Ultra-Premium) is at /product/swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium. Catalog variants: 36"x108" Swiss Flow Ceiling Diffusion Media, 1/CS at $109.12; 36"x109" Swiss Flow Ceiling Diffusion Media, 2/CS at $227.46; 24"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $404.25; 26"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $437.94; 48"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $808.50; 33"x45.5" Swiss Flow Ceiling Diffusion Media 18/CS at $753.46; 36.75"x54" Swiss Flow Ceiling Diffusion Media, 12/CS at $672.21; 37"x64" Swiss Flow Ceiling Diffusion Media, 8/CS at $537.82; 39"x59" Swiss Flow Ceiling Diffusion Media, 3/CS at $192.52; 40"x100" Swiss Flow Ceiling Diffusion Media, 4/CS at $446.36; 44"x50" Swiss Flow Ceiling Diffusion Media, 10/CS at $613.76; 81"x144" Swiss Flow Ceiling Diffusion Media, 4/CS at $1301.49; 38"x102" Swiss Flow Ceiling Diffusion Media, 7/CS at $756.90; 59"x149" Swiss Flow Ceiling Diffusion Media, 4/CS at $997.60; 36"x144" Swiss Flow Ceiling Diffusion Media, 8/CS at $1149.61; 38"x62" Swiss Flow Ceiling Diffusion Media, 1/CS at $68.19; 38"x107" Swiss Flow Ceiling Diffusion Media, 1/CS at $117.67; 48"x108" Swiss Flow Ceiling Diffusion Media, 1/CS at $146.20; 38"x67" Swiss Flow Ceiling Diffusion Media, 1/CS at $73.69. Shipping is not included.
+
+Order the variant whose title matches the label and the measured opening. A nearby nominal size is not a substitute. Prices on this page are the catalog snapshot and do not include shipping. Roll product text says shipping is typically LTL because of size. Stocked items are typically processed in one to two business days. Freight and custom sizes take longer. There is no same-day claim.
+
+Unopened packages may be returned within five business days. The refund is reduced by shipping costs and a 25 percent restocking fee. Opened packages are not returnable. The phone number for an unlisted size is 855-496-7969. The filter finder and the size chart are the other tools. A directory row that is not a catalog variant stays a quote.
+
+The PFS catalog and the booth directory both say to measure the installed filter opening before ordering. A nominal size such as 20 by 20 is a label. The frame in the booth can differ. Write down the booth make and model from the equipment tag, the stage you are changing, and the actual opening.
+
+For an exhaust filter wall, measure the bank where the pad or roll sits. A pad and a roll are different products even when the gram weight matches. For a ceiling, measure the grid or the blanket pocket the booth uses. For an intake door or wall, measure that opening. Do not use the ceiling measurement for the exhaust bank.
+
+Read whatever is still printed on the filter coming out: gram weight, an AF code, a SKU, or a brand. Compare that text with the variant titles. The part-number cross reference lists only codes that are already on catalog products. A code that is absent, including searches that do not appear in the snapshot, is a call to 855-496-7969 with a photo. It is not a guessed substitute.
+
+The booth directory rows are a second note, not a tape measure. If the row and the opening disagree, follow the opening and the label. This site does not publish a separate measuring formula, a conversion from nominal to actual, or a tolerance. Those numbers are not in the catalog, so they are not stated here.
+
+Holding grids are separate from the media. The 20 by 20 paint arrestor holding grid with tips is its own product. Measuring the pad does not tell you whether the grid is included. The cart line does.
+
+Do you publish gelcoat filter test results?
+
+No. This page does not claim a gelcoat test, a marine rating, or a boat-only SKU. It lists the stocked large-booth exhaust media and ceiling blankets and tells you to measure the opening.
+
+Does buying a filter make the booth compliant?
+
+No. A filter purchase does not make a facility compliant with any permit or rule. Match the stage and the measured opening, then confirm the product page.
+
+What if the size is not in the catalog?
+
+Call 855-496-7969 with the booth model, stage, and measured opening. Recorded directory sizes that are not catalog variants are quote-only. Do not invent a kit.
 
 # Spray booth filters
 

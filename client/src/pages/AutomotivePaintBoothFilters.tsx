@@ -125,8 +125,8 @@ export default function AutomotivePaintBoothFilters() {
   return (
     <div className="min-h-screen bg-[#040404] text-white">
       <SEO
-        title="Automotive Paint Booth Filters | PFS Filters"
-        description="Compare automotive paint booth intake, ceiling, prefilter, and exhaust filters. Verify booth configuration, stage, dimensions, and fit with PFS guidance."
+        title="Auto Body Paint Booth Filters | PFS Filters"
+        description="Automotive paint booth filters for auto body, collision, and refinish shops. Stocked tacky panels, ceiling blankets, and exhaust pads. Confirm the stage."
         canonical={PAGE_URL}
         structuredData={structuredData}
       />
