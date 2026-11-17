@@ -128,13 +128,21 @@ export const ROUTE_SEO = {
     title: 'Paint Booth Filters & Filter Walls | PFS Filters',
     description: 'Paint booth filters and paint booth filter walls: intake, exhaust, ceiling, rolls, and pads. Match the stage and the measured size before you order.',
   },
+  '/spray-booth-filters': {
+    title: 'Spray Booth Filters | PFS Filters',
+    description: 'Spray booth filters from PFS Filters in Santa Rosa: intake, ceiling, exhaust arrestors, and rolls. Match the stage and the measured opening before you order.',
+  },
+  '/georgia/spray-booth-filters': {
+    title: 'Georgia Spray Booth Filter Shipping | PFS',
+    description: 'PFS Filters ships spray booth filters to Georgia from 1400 Airport Blvd, Santa Rosa, CA 95403. Same U.S. catalog. No Georgia storefront. Call 855-496-7969.',
+  },
   '/andreae-paint-booth-filters': {
     title: 'Andreae Paint Booth Filters | PFS Filters',
     description: 'Andreae accordion paint booth filters in the catalog: AF213, AF223, AF413, AF423 pads and AF813, AF923, AF113, AF123 rolls. Confirm the frame size.',
   },
   '/exhaust-filters': {
     title: 'Paint Booth Exhaust Filters | PFS Filters',
-    description: 'Exhaust filters for paint booths: 15- and 22-gram fiberglass pads and rolls, Paint Pockets, and Andreae accordion media. Confirm the frame size first.',
+    description: 'Exhaust filters for paint booths: 15- and 22-gram fiberglass pads and rolls, Paint Pockets, and Andreae accordion sizes. Confirm the frame before ordering.',
   },
   '/intake-filters': {
     title: 'Paint Booth Intake Filters | Tacky & Pleats',
@@ -363,6 +371,10 @@ const CATEGORY_SEO = {
     title: 'Polyester Paint Booth Media | PFS Filters',
     description: 'Polyester paint booth media in the catalog includes the AFC blue poly exhaust cube and Koch SprayStop STK-10 roll. Confirm the stage and dimensions first.',
   },
+  'aerospace-neshap-filters': {
+    title: 'NESHAP Filters for Paint Booths | PFS',
+    description: 'NESHAP filters in the PFS catalog: 319 panels and bags, HEPA-XFP bags, CG100 bags, ME/PT panels, an SFR blanket, and a CPA roll. Not a compliance claim.',
+  },
   'pre-filters': {
     title: 'Paint Booth Pre-Filter Guide | PFS Filters',
     description: 'Paint booth pre-filter guidance: this catalog has no products tagged as pre-filters. Use a documented intake stage only where the booth specifies it.',
@@ -437,6 +449,7 @@ export function brandGuideDescription(name, slug = '') {
 }
 
 export function categorySeo(slug) {
+  if (slug === 'aerospace-neshap-filters' && CATEGORY_SEO[slug]) return CATEGORY_SEO[slug];
   const live = shopifyCollections[slug];
   if (live?.seoTitle && live?.seoDescription) {
     return {
@@ -564,11 +577,12 @@ export function offerShippingDetails() {
     // one stocked 22-gram pad case to New York, NY 10001, with a service
     // description of 4 business days. It is a representative US ground rate,
     // not a flat catalog price. Other items, quantities, and freight quotes differ.
+    // Do not put a description on MonetaryAmount. Google drops shippingDetails
+    // when shippingRate includes properties outside value, maxValue, and currency.
     shippingRate: {
       '@type': 'MonetaryAmount',
       currency: 'USD',
       value: '40.76',
-      description: 'Representative UPS Ground checkout quote for one stocked case to a US address. Checkout calculates the charge for the item, quantity, and destination. Freight is quoted.',
     },
     deliveryTime: {
       '@type': 'ShippingDeliveryTime',
@@ -621,7 +635,10 @@ export function lowestPriceVariant(product) {
   }, variants[0]);
 }
 
-export function productOffer({ price, currency = 'USD', availability, url, priceValidUntil: until } = {}) {
+// Date the committed Shopify snapshot prices were last updated (git).
+export const CATALOG_PRICE_VALID_FROM = '2026-11-10';
+
+export function productOffer({ price, currency = 'USD', availability, url, priceValidUntil: until, validFrom } = {}) {
   return {
     '@type': 'Offer',
     price: normalizeOfferPrice(price),
@@ -629,6 +646,7 @@ export function productOffer({ price, currency = 'USD', availability, url, price
     availability: availability || 'https://schema.org/InStock',
     itemCondition: 'https://schema.org/NewCondition',
     url,
+    validFrom: validFrom || CATALOG_PRICE_VALID_FROM,
     priceValidUntil: until || priceValidUntil(),
     seller: { '@type': 'Organization', name: 'PFS Filters' },
     hasMerchantReturnPolicy: merchantReturnPolicy(),
@@ -787,6 +805,8 @@ const GUIDE_EXACT_PATHS = new Set([
   '/faq',
   '/blog',
   '/why-choose-us',
+  '/spray-booth-filters',
+  '/georgia/spray-booth-filters',
 ]);
 
 export function isGuidePath(pathname = '/') {

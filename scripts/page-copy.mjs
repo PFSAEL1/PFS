@@ -11,6 +11,28 @@ import { fileURLToPath } from 'node:url';
 import * as esbuild from 'esbuild';
 import { listBoothGuides } from '../shared/boothFilterGuides.mjs';
 import { filterRotationFaqs } from '../shared/seoText.mjs';
+import {
+  georgiaFaqs,
+  georgiaSections,
+  sprayBoothFaqs,
+  sprayBoothSections,
+  thinPageSupplements,
+} from '../shared/guideCopy.mjs';
+import {
+  CROSSREF_PAGES,
+  andreaeFaqs,
+  andreaeSections,
+  comparisonFaqs,
+  comparisonSections,
+  crossRefFaqs,
+  crossRefSections,
+  measureFaqs,
+  measureSections,
+  shippingFaqs,
+  shippingSections,
+  sizeChartFaqs,
+  sizeChartSections,
+} from '../shared/catalogGuides.mjs';
 
 const require = createRequire(import.meta.url);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -440,6 +462,19 @@ export function pageSections(pathname) {
     sections.push(...hubSections(HUB_BY_PATH[pathname]));
   }
 
+  if (pathname === '/spray-booth-filters') {
+    for (const section of sprayBoothSections) push(section.heading, section.paragraphs);
+    push('Spray booth filter questions', faqParagraphs(sprayBoothFaqs));
+  } else if (pathname === '/georgia/spray-booth-filters') {
+    for (const section of georgiaSections) push(section.heading, section.paragraphs);
+    push('Georgia shipping questions', faqParagraphs(georgiaFaqs));
+  }
+
+  const extra = thinPageSupplements[pathname];
+  if (extra) {
+    for (const section of extra) push(section.heading, section.paragraphs);
+  }
+
   const prose = sourceParagraphs(pathname);
   if (prose.length) push('', prose);
   return sections
@@ -474,6 +509,9 @@ export function renderLlmsTxt() {
 
 ## How to choose a paint booth filter
 - [Paint booth filters by stage (intake, ceiling, prefilter, exhaust)](${origin}/paint-booth-filters)
+- [Spray booth filters: intake, ceiling, exhaust, and multi-stage media](${origin}/spray-booth-filters)
+- [Paint booth filter walls, rolls, and pads](${origin}/paint-booth-filters)
+- [Roll media](${origin}/category/roll-media)
 - [Exhaust filters: fiberglass, paint pockets, accordion](${origin}/exhaust-filters)
 - [Intake filters: tacky panels and pleats](${origin}/intake-filters)
 - [Ceiling filters for downdraft booths](${origin}/ceiling-filters)
@@ -490,6 +528,33 @@ export function renderLlmsTxt() {
 - [Col-Met](${origin}/shop-by-booth/col-met)
 - [Blowtherm](${origin}/shop-by-booth/blowtherm)
 - [PFS Spray Booths](${origin}/shop-by-booth/pfs-spray-booths)
+${BOOTH_BRANDS.map((brand) => `- [${brand.name} paint booth filters](${origin}/shop-by-booth/${brand.slug})`).join('\n')}
+
+## Where orders ship
+- [Santa Rosa, California address and phone](${origin}/contact)
+- [Spray booth filters shipped to Georgia from Santa Rosa](${origin}/georgia/spray-booth-filters)
+- Address: 1400 Airport Blvd, Santa Rosa, CA 95403. Online orders ship within the United States. There is no Georgia storefront.
+
+## California pages
+- [North Bay](${origin}/california/north-bay-paint-booth-filters)
+- [Bay Area](${origin}/california/bay-area-paint-booth-filters)
+- [Sacramento](${origin}/california/sacramento-paint-booth-filters)
+- [Napa Valley](${origin}/california/napa-valley-paint-booth-filters)
+- [Central Valley](${origin}/california/central-valley-paint-booth-filters)
+- [Bakersfield](${origin}/california/bakersfield-paint-booth-filters)
+- [San Diego](${origin}/california/san-diego-paint-booth-filters)
+- [Los Angeles](${origin}/california/los-angeles-paint-booth-filters)
+- [California compliance boundary](${origin}/california/carb-paint-booth-filter-compliance)
+
+## Guides
+- [Filter size chart](${origin}/guides/filter-size-chart)
+- [Andreae AF numbers in the catalog](${origin}/guides/andreae-af-numbers)
+- [How to measure a paint booth filter](${origin}/guides/how-to-measure-paint-booth-filters)
+- [Andreae, fiberglass, and Paint Pockets](${origin}/guides/andreae-vs-fiberglass-vs-paint-pockets)
+- [Shipping and freight](${origin}/guides/shipping-and-freight)
+- [Part number cross reference](${origin}/filter-part-numbers)
+${CROSSREF_PAGES.map((page) => `- [${page.h1}](${origin}${page.path})`).join('\n')}
+- [Agent instructions (no checkout)](${origin}/agents.md)
 
 ## Filters by media brand
 - [Andreae accordion filters: AF213, AF223, AF413, AF423 pads; AF813, AF923, AF113, AF123 rolls](${origin}/andreae-paint-booth-filters)
@@ -527,10 +592,20 @@ export function renderLlmsFullTxt() {
     return `## ${post.title}\n\nPublished: ${post.date}\n\n${plainText(post.excerpt)}\n\n${markdownParagraphs(post.content).join('\n\n')}${extra ? `\n\n${extra}` : ''}\n`;
   }).join('\n');
   const brands = listBoothGuides().map((guide) => headingBlock(guide.name, guideParagraphs(guide))).join('\n');
+  const sprayGuide = [...sprayBoothSections.map((section) => headingBlock(section.heading, section.paragraphs)), headingBlock('Spray booth filter questions', faqParagraphs(sprayBoothFaqs))].join('\n');
+  const georgiaGuide = [...georgiaSections.map((section) => headingBlock(section.heading, section.paragraphs)), headingBlock('Georgia shipping questions', faqParagraphs(georgiaFaqs))].join('\n');
+  const generatedGuides = [
+    ...CROSSREF_PAGES.map((page) => headingBlock(page.h1, [...crossRefSections(page, products).flatMap((section) => section.paragraphs), ...faqParagraphs(crossRefFaqs(page))])),
+    headingBlock('Paint Booth Filter Size Chart', [...sizeChartSections(products).flatMap((section) => section.paragraphs), ...faqParagraphs(sizeChartFaqs())]),
+    headingBlock('Andreae AF Number Guide', [...andreaeSections(products).flatMap((section) => section.paragraphs), ...faqParagraphs(andreaeFaqs(products))]),
+    headingBlock('How to Measure a Paint Booth Filter', [...measureSections().flatMap((section) => section.paragraphs), ...faqParagraphs(measureFaqs())]),
+    headingBlock('Andreae, Fiberglass, and Paint Pockets', [...comparisonSections(products).flatMap((section) => section.paragraphs), ...faqParagraphs(comparisonFaqs())]),
+    headingBlock('Shipping and Freight', [...shippingSections(products).flatMap((section) => section.paragraphs), ...faqParagraphs(shippingFaqs())]),
+  ].join('\n');
   const brandReference = BOOTH_BRANDS.map((brand) => headingBlock(brand.name, brandModelParagraphs(brand))).join('\n');
   const catalog = sellableProducts().map((product) => {
     const lines = productParagraphs(product);
     return `### ${product.title}\n\n- URL: ${origin}/product/${product.handle}\n\n${lines.join('\n\n')}\n`;
   }).join('\n');
-  return `${renderLlmsTxt()}\n# Frequently asked questions\n\n${faq}\n\n# Published guides\n\n${guides}\n# Booth brand guides\n\n${brands}\n# Booth brand reference\n\n${brandReference}\n# Product catalog\n\n${catalog}`;
+  return `${renderLlmsTxt()}\n# Frequently asked questions\n\n${faq}\n\n# Spray booth filters\n\n${sprayGuide}\n# Georgia shipping\n\n${georgiaGuide}\n# Generated guides\n\n${generatedGuides}\n# Published guides\n\n${guides}\n# Booth brand guides\n\n${brands}\n# Booth brand reference\n\n${brandReference}\n# Product catalog\n\n${catalog}`;
 }

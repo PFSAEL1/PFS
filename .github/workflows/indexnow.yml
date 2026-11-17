@@ -1,8 +1,15 @@
 name: IndexNow
 
-# Pings api.indexnow.org after a successful production deployment.
-# It is not part of the Vercel build. Preview deployments do not match
-# the Production environment, so they do not submit URLs.
+# Pings api.indexnow.org after a successful production deployment of the
+# Vercel project that serves www.pfsfilters.com.
+#
+# That project is abc-filter-splash. Vercel records its GitHub deployment
+# environment as "Production – abc-filter-splash" (en dash, not a hyphen).
+# The same push also deploys the separate "pfs" project, whose Nextjs
+# deployments are named "Preview – pfs" and whose production alias
+# (pfs.vercel.app) is a different site. Matching only the abc-filter-splash
+# production environment submits once per production deploy.
+# workflow_dispatch remains available for a manual submit.
 on:
   deployment_status:
   workflow_dispatch:
@@ -15,7 +22,7 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event.deployment_status.state == 'success' &&
-       github.event.deployment.environment == 'Production')
+       github.event.deployment.environment == 'Production – abc-filter-splash')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -41,6 +41,14 @@ describe('answer engine files', () => {
     expect(llms).toContain('1400 Airport Blvd, Santa Rosa, CA 95403');
     expect(llms.toLowerCase()).toContain('does not claim');
     expect(llms).not.toMatch(/30\+ years|years in business/i);
+    expect(llms).toContain('/spray-booth-filters');
+    expect(llms).toContain('/georgia/spray-booth-filters');
+    expect(llms).toContain('/guides/filter-size-chart');
+    expect(llms).toContain('/agents.md');
+    expect(llms).not.toMatch(/EPD-compliant/i);
+    const workflow = readFileSync(new URL('../../../.github/workflows/indexnow.yml', import.meta.url), 'utf8');
+    expect(workflow).toContain('Production – abc-filter-splash');
+    expect(workflow).toContain('workflow_dispatch');
   });
 
   it('puts the full FAQ and a full blog article in the prerender copy', () => {

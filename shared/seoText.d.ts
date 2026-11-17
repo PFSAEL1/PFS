@@ -34,7 +34,7 @@ declare module '@shared/seoText.mjs' {
   export function offerShippingDetails(): {
     '@type': string;
     shippingDestination: { '@type': string; addressCountry: string };
-    shippingRate: { '@type': string; currency: string; value: string; description: string };
+    shippingRate: { '@type': string; currency: string; value: string };
     deliveryTime: {
       '@type': string;
       handlingTime: { '@type': string; minValue: number; maxValue: number; unitCode: string };
@@ -61,12 +61,14 @@ declare module '@shared/seoText.mjs' {
     availability?: string;
     url?: string;
     priceValidUntil?: string;
+    validFrom?: string;
   }): {
     '@type': string;
     price: string;
     priceCurrency: string;
     availability: string;
     url?: string;
+    validFrom: string;
     priceValidUntil: string;
     hasMerchantReturnPolicy: ReturnType<typeof merchantReturnPolicy>;
     shippingDetails: ReturnType<typeof offerShippingDetails>;

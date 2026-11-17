@@ -103,8 +103,9 @@ describe('document SEO limits', () => {
         priceCurrency: string;
         availability: string;
         url: string;
+        validFrom: string;
         priceValidUntil: string;
-        hasMerchantReturnPolicy: { returnFees: string };
+        hasMerchantReturnPolicy: { returnFees: string; returnMethod: string };
         shippingDetails: { shippingRate: { currency: string } };
       };
     };
@@ -118,6 +119,8 @@ describe('document SEO limits', () => {
       url: 'https://www.pfsfilters.com/product/example-filter',
     });
     expect(schema.offers.priceValidUntil).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(schema.offers.validFrom).toBe('2026-11-10');
+    expect(schema.offers.hasMerchantReturnPolicy.returnMethod).toBe('https://schema.org/ReturnByMail');
     expect(schema.offers.hasMerchantReturnPolicy.returnFees).toBe('https://schema.org/ReturnFeesCustomerResponsibility');
     expect(schema.offers.shippingDetails.shippingRate.currency).toBe('USD');
   });
@@ -203,6 +206,9 @@ describe('document SEO limits', () => {
     expect(redirects.get('^/category/rolls?/?$')).toBe('/category/roll-media');
     expect(redirects.get('^/light/shop/?$')).toBe('/shop');
     expect(redirects.get('^/(?:policies/)?refund-policy/?$')).toBe('/returns');
+    expect(redirects.get('/product/test/?')).toBe('/shop');
+    expect(redirects.get('/product/platinum/?')).toBe('/memberships');
+    expect(redirects.get('^/(?:spraybooth-filters|spray-booth-filter)/?$')).toBe('/spray-booth-filters');
   });
 });
 

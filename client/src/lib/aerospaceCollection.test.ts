@@ -47,8 +47,12 @@ describe('aerospace NESHAP catalog', () => {
     expect(seo.noindex).toBe(false);
 
     const category = resolveRouteSeo('/category/aerospace-neshap-filters');
-    expect(category.title).toBe(collections['aerospace-neshap-filters'].seoTitle);
-    expect(category.description).toBe(collections['aerospace-neshap-filters'].seoDescription);
+    expect(category.title).toBe('NESHAP Filters for Paint Booths | PFS');
+    expect(category.description).toContain('NESHAP filters');
+    expect(category.description.toLowerCase()).not.toContain('compliant');
+    expect(category.title.length).toBeLessThanOrEqual(60);
+    expect(category.description.length).toBeGreaterThanOrEqual(140);
+    expect(category.description.length).toBeLessThanOrEqual(160);
   });
 
   it('does not let Shopify SEO replace a curated product title', () => {
