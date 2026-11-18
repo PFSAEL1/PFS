@@ -601,7 +601,7 @@ function FilterCard({ filter }: { filter: { key: string; label: string; sizes: s
           <div className="text-[10px] uppercase tracking-wider text-white/40 mb-1.5">Sizes for this booth</div>
           <div className="flex flex-wrap gap-1.5">
             {filter.sizes.map(size => (
-              <Link key={size} href={`/shop?category=${encodeURIComponent(filter.shopSlug)}&size=${encodeURIComponent(size.replace(/[""]/g, '').replace(/×/g, 'x'))}`}>
+              <Link key={size} href="/shop-by-size">
                 <span className="inline-block px-2.5 py-1 rounded-md text-xs bg-white/[0.06] border border-white/10 text-white/85 hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-white hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.35)] transition-[transform,box-shadow,background-color,border-color,color] duration-200 cursor-pointer">
                   {size}
                 </span>
@@ -611,7 +611,7 @@ function FilterCard({ filter }: { filter: { key: string; label: string; sizes: s
         </div>
 
         {/* Shop button */}
-        <Link href={`/shop?category=${encodeURIComponent(filter.shopSlug)}`}>
+        <Link href={filter.shopSlug === 'pre-filters' ? '/prefilters' : `/category/${filter.shopSlug}`}>
           <Button size="sm" className="w-full bg-blue-600/80 hover:bg-blue-500 text-white text-xs gap-1.5">
             <ShoppingCart className="w-3 h-3" /> Shop {filter.label.split(' (')[0]}
           </Button>

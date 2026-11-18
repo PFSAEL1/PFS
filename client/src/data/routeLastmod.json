@@ -42,8 +42,8 @@
   "/consumables/pfs-vitra": "2026-09-16",
   "/consumables/pfs-vanguard": "2026-09-22",
   "/aerospace": "2026-09-15",
-  "/industries/aerospace-paint-booth-filters": "2026-11-02",
-  "/industries/automotive-paint-booth-filters": "2026-11-02",
+  "/industries/aerospace-paint-booth-filters": "2026-11-17",
+  "/industries/automotive-paint-booth-filters": "2026-11-17",
   "/filter-scanner": "2026-09-15",
   "/filter-part-numbers": "2026-11-10",
   "/category/fiberglass-arrestors": "2026-11-10",
@@ -157,9 +157,9 @@
   "/guides/how-to-measure-paint-booth-filters": "2026-11-17",
   "/guides/andreae-vs-fiberglass-vs-paint-pockets": "2026-11-17",
   "/guides/shipping-and-freight": "2026-11-17",
-  "/industries/industrial-paint-booth-filters": "2026-11-02",
-  "/industries/truck-and-fleet-paint-booth-filters": "2026-11-02",
-  "/industries/woodworking-paint-booth-filters": "2026-11-02",
-  "/industries/prep-station-filters": "2026-11-02",
-  "/industries/marine-paint-booth-filters": "2026-11-02"
+  "/industries/industrial-paint-booth-filters": "2026-11-17",
+  "/industries/truck-and-fleet-paint-booth-filters": "2026-11-17",
+  "/industries/woodworking-paint-booth-filters": "2026-11-17",
+  "/industries/prep-station-filters": "2026-11-17",
+  "/industries/marine-paint-booth-filters": "2026-11-17"
 }

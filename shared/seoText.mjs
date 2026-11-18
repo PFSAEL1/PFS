@@ -18,6 +18,7 @@ export const CANONICAL_OVERRIDES = {
   '/shop-by-booth/global-finishing-solutions': '/gfs-paint-booth-filters',
   '/shop-by-booth-type': '/shop-by-booth',
   '/filter-compatibility': '/filter-finder',
+  '/category/pre-filters': '/prefilters',
 };
 
 export const NOINDEX_PATHS = new Set([

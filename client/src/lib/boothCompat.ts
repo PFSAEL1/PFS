@@ -32,18 +32,9 @@ export function categorySlug(category: string): string {
 
 // Build a shoppable link: filter the shop by category (+ size when we have a clean size)
 export function shopLink(category: string, size?: string): string {
+  if (size) return '/shop-by-size';
   const slug = categorySlug(category);
-  // Only pass a size param when it looks like a clean panel size (e.g. 20"×20", 20"×25")
-  // Roll / case specs are left off so the shop shows the whole category.
-  let url = `/shop?category=${encodeURIComponent(slug)}`;
-  if (size) {
-    const clean = size.replace(/["”]/g, '').replace(/×/g, 'x').trim();
-    const panel = clean.match(/^(\d{1,2})\s*x\s*(\d{1,2})(?:\s*x\s*(\d))?$/i);
-    if (panel) {
-      url += `&size=${encodeURIComponent(`${panel[1]}x${panel[2]}${panel[3] ? 'x' + panel[3] : ''}`)}`;
-    }
-  }
-  return url;
+  return slug === 'pre-filters' ? '/prefilters' : `/category/${slug}`;
 }
 
 // Normalize user text -> a known brand key (fuzzy: substring both directions)

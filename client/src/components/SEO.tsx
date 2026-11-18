@@ -13,6 +13,7 @@ interface SEOProps {
   ogImageHeight?: number;
   structuredData?: object | null;
   noIndex?: boolean;
+  noIndexFollow?: boolean;
   shopifyTitle?: string;
   shopifyDescription?: string;
 }
@@ -103,6 +104,7 @@ export const SEO = ({
   ogImageHeight,
   structuredData,
   noIndex = false,
+  noIndexFollow = false,
   shopifyTitle,
   shopifyDescription,
 }: SEOProps) => {
@@ -128,7 +130,7 @@ export const SEO = ({
       <link rel="canonical" href={currentUrl} />
       <meta
         name="robots"
-        content={robotsNoIndex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'}
+        content={robotsNoIndex ? (noIndexFollow ? 'noindex,follow' : 'noindex,nofollow') : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'}
       />
 
       {/* Open Graph */}

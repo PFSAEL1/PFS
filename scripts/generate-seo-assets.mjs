@@ -1276,6 +1276,7 @@ function homeFallback() {
         <h3 style="margin:20px 0 8px">Never run out again</h3>
         <p style="color:rgba(255,255,255,.7);line-height:1.6">Booth-specific tracking tells you when to change. Auto-reorder handles the rest before you run low. Replacement guidance covers Accudraft, Garmat, GFS, Blowtherm, Col-Met, and other major booth brands. Andreae accordion filters, fiberglass exhaust arrestors, ceiling diffusion media, and tacky intake panels are listed in the shop.</p>
         <p style="margin-top:24px"><a href="/paint-booth-filters" style="color:#93c5fd;font-weight:700">Paint booth filters</a> · <a href="/exhaust-filters" style="color:#93c5fd;font-weight:700">Paint booth exhaust filters</a> · <a href="/category/aerospace-neshap-filters" style="color:#93c5fd;font-weight:700">NESHAP filters</a> · <a href="/shop-by-type" style="color:#93c5fd;font-weight:700">Shop filters by type</a> · <a href="/spray-booth-filters" style="color:#93c5fd;font-weight:700">Spray booth filters</a> · <a href="/guides/filter-size-chart" style="color:#93c5fd;font-weight:700">Filter size chart</a> · <a href="/guides/garmat-filter-cross-reference" style="color:#93c5fd;font-weight:700">Garmat filter cross reference</a> · <a href="/georgia/spray-booth-filters" style="color:#93c5fd;font-weight:700">Spray booth filters shipped to Georgia</a></p>
+        ${discoveredCrawlLinks()}
       </div>
     </section>
     <section style="padding:48px 24px;background:#040404;color:#c4c8d0">
@@ -1368,12 +1369,28 @@ function shopFallback(title, description) {
         </div>
       </div>
     </section>
+    <script>if(/[?&]size=/.test(location.search))location.replace('/shop-by-size');else if(/[?&]category=/.test(location.search))location.replace('/shop');</script>
     <div style="height:88px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
     <section style="padding:24px 16px 56px;background:#0d0d0d">
       <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">${cards}</div>
       <p style="max-width:1280px;margin:24px auto 0;color:rgba(255,255,255,.55);font-size:15px;line-height:1.6">Product data is shown from the PFS Filters catalog snapshot. Confirm live variants, pricing, and availability on each product page before ordering.</p>
     </section>
   </main>`;
+}
+
+const DISCOVERED_LINKS = [
+  ['/blog/booth-filter-maintenance-checklist', 'booth filter maintenance checklist'],
+  ['/blog/clogged-paint-booth-filters', 'what clogged paint booth filters do'],
+  ['/product/20x20-neshap-319-final-stage-panel-filter-20-cs', '20x20 NESHAP 319 final stage panel'],
+  ['/product/20x25-neshap-319-final-stage-panel-filter-20-cs', '20x25 NESHAP 319 final stage panel'],
+  ['/product/20x20x12-hepa-xfp-6-pocket-bag-filter-5-cs', '20x20x12 HEPA-XFP bag'],
+  ['/product/20x20x15-cg100-2-pocket-bag-filter-8-cs', '20x20x15 CG100 bag'],
+  ['/product/53x112-volz-sfr-ceiling-filter-blanket-4-bag', '53x112 Volz SFR ceiling blanket'],
+  ['/product/koch-spraystop-stk10-61x90-roll', 'Koch SprayStop STK-10 roll'],
+];
+
+function discoveredCrawlLinks() {
+  return `<p>${DISCOVERED_LINKS.map(([href, label]) => `<a href="${href}" style="color:#60a5fa">${escapeHtml(label)}</a>`).join(' · ')}</p>`;
 }
 
 function strongPageLinks() {
@@ -1404,7 +1421,7 @@ function strongPageLinks() {
     ['/industries/prep-station-filters', 'prep station filters'],
     ['/industries/marine-paint-booth-filters', 'marine paint booth filters'],
   ];
-  return `<p>${links.map(([href, label]) => `<a href="${href}" style="color:#60a5fa">${escapeHtml(label)}</a>`).join(' · ')}</p>`;
+  return `<p>${links.map(([href, label]) => `<a href="${href}" style="color:#60a5fa">${escapeHtml(label)}</a>`).join(' · ')}</p>${discoveredCrawlLinks()}`;
 }
 
 function exhaustCatalogHtml() {
@@ -2266,6 +2283,36 @@ function aerospaceIndustryFallback(route) {
   </main>`;
 }
 
+function productCatalogFacts(product) {
+  if (!product) return '';
+  const variants = (product.variants?.edges || []).map((edge) => edge.node).filter((node) => node?.price?.amount);
+  const priced = variants.map((node) => {
+    const label = node.title && node.title.toLowerCase() !== 'default title' ? node.title : product.title;
+    return `${label} at $${Number(node.price.amount).toFixed(2)}`;
+  }).join('; ');
+  const links = [];
+  for (const [slug, collection] of Object.entries(shopifyCollections)) {
+    const handles = collection.handles || [];
+    if (!handles.includes(product.handle)) continue;
+    links.push(`<a href="/category/${slug}" style="color:#60a5fa">${escapeHtml(collection.title || slug)}</a>`);
+    for (const handle of handles) {
+      if (handle === product.handle) continue;
+      const sibling = products.find((item) => item.handle === handle);
+      if (!sibling) continue;
+      links.push(`<a href="/product/${escapeHtml(handle)}" style="color:#60a5fa">${escapeHtml(sibling.title)}</a>`);
+    }
+  }
+  if (product.handle === 'koch-spraystop-stk10-61x90-roll') {
+    links.push('<a href="/category/polyester-media" style="color:#60a5fa">Polyester media</a>');
+    links.push('<a href="/exhaust-filters" style="color:#60a5fa">Exhaust filters</a>');
+  }
+  if (product.handle === '53x112-volz-sfr-ceiling-filter-blanket-4-bag') {
+    links.push('<a href="/ceiling-filters" style="color:#60a5fa">Ceiling filters</a>');
+  }
+  const reading = '<a href="/blog/clogged-paint-booth-filters" style="color:#60a5fa">what clogged filters do</a> · <a href="/blog/booth-filter-maintenance-checklist" style="color:#60a5fa">maintenance checklist</a>';
+  return `<p style="margin:0 0 16px;max-width:640px;color:rgba(255,255,255,.7);font-size:15px;line-height:1.6">${priced ? `Catalog variants: ${escapeHtml(priced)}. ` : ''}Prices do not include shipping. ${links.length ? `${links.join(' · ')}. ` : ''}${reading}.</p>`;
+}
+
 // Generic, data-driven fallback for ANY /product/:handle route — looks the
 // handle up in the parsed snapshot instead of hardcoding per-product markup.
 function genericProductFallback(route) {
@@ -2315,6 +2362,7 @@ function genericProductFallback(route) {
           <h1 style="margin:0 0 12px;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;font-size:clamp(1.75rem,6vw,2.25rem);line-height:1.15;font-weight:800;color:#fff">${escapeHtml(title)}</h1>
           ${priceMarkup}
           ${descriptionMarkup}
+          ${productCatalogFacts(product)}
           ${productDetailsMarkup}
           <div style="min-height:48px;max-width:420px;border-radius:8px;background:#3b82f6;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:800">Add to Cart</div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;max-width:420px">

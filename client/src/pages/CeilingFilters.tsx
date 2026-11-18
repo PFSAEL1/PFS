@@ -209,7 +209,7 @@ export default function CeilingFilters() {
             <p>
               Ceiling media is sized to the ceiling grid opening, not the booth footprint, so measure
               the frame or your existing media before ordering. Many shops also run a{' '}
-              <Link href="/category/pre-filters" className="text-blue-400 hover:text-blue-300">
+              <Link href="/prefilters" className="text-blue-400 hover:text-blue-300">
                 pre-filter
               </Link>{' '}
               prefilter stage above the ceiling media when the equipment is designed for it.{' '}
@@ -233,7 +233,7 @@ export default function CeilingFilters() {
               { href: '/intake-filters', label: 'Paint booth intake filters', sub: 'Tacky panels & ceiling media' },
               { href: '/exhaust-filters', label: 'Paint booth exhaust filters', sub: 'Fiberglass, Paint Pockets & Andreae' },
               { href: '/category/ceiling-blankets', label: 'Ceiling blankets', sub: 'Overhead intake media by size' },
-              { href: '/category/pre-filters', label: 'Pre-filters', sub: 'First-stage protection for ceiling media' },
+              { href: '/prefilters', label: 'Pre-filters', sub: 'First-stage protection for ceiling media' },
               { href: '/shop-by-booth-type', label: 'Shop by booth type', sub: 'Downdraft, crossdraft & semi-downdraft' },
               { href: '/blog/booth-filter-replacement-intervals', label: 'Replacement intervals', sub: 'Ceiling and intake media often last 3 to 6 months' },
               { href: '/blog/how-to-choose-booth-filters', label: 'How to choose filters', sub: 'Match the stage before you match the size' },
