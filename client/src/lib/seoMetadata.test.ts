@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { hubArticles } from '@/data/hubArticles';
 import snapshot from '@/data/shopifyProductSnapshot.json';
+import { shopLink } from '@/lib/boothCompat';
 import {
   lowestPriceVariant,
   merchantReturnPolicy,
@@ -46,6 +47,7 @@ describe('document SEO limits', () => {
     expect(resolveRouteSeo('/shop-by-type').canonical).toBe('/shop-by-type');
     expect(resolveRouteSeo('/shop-by-booth-type').noindex).toBe(true);
     expect(resolveRouteSeo('/category/pre-filters').noindex).toBe(true);
+    expect(resolveRouteSeo('/category/pre-filters').canonical).toBe('/prefilters');
   });
 
   it('publishes a Google-supported return fee and a US shipping rate', () => {
@@ -208,7 +210,33 @@ describe('document SEO limits', () => {
     expect(redirects.get('^/(?:policies/)?refund-policy/?$')).toBe('/returns');
     expect(redirects.get('/product/test/?')).toBe('/shop');
     expect(redirects.get('/product/platinum/?')).toBe('/memberships');
+    expect(redirects.get('/\\$/?$')).toBe('/');
+    expect(redirects.get('^/category/pre-filters/?$')).toBe('/prefilters');
     expect(redirects.get('^/(?:spraybooth-filters|spray-booth-filter)/?$')).toBe('/spray-booth-filters');
+  });
+
+  it('does not build indexable shop filter query URLs', () => {
+    expect(shopLink('Exhaust / Arrestor Filter', '20"×20"')).toBe('/shop-by-size');
+    expect(shopLink('Exhaust / Arrestor Filter')).toBe('/category/fiberglass-arrestors');
+    expect(shopLink('Pre-Filter', '25x25')).toBe('/shop-by-size');
+    const finder = readFileSync(new URL('../pages/FilterFinder.tsx', import.meta.url), 'utf8');
+    expect(finder).not.toContain('/shop?');
+    const sitemap = readFileSync(new URL('../../public/sitemap.xml', import.meta.url), 'utf8');
+    expect(sitemap).not.toContain('?size=');
+    expect(sitemap).not.toContain('/product/test');
+    expect(sitemap).not.toContain('/product/platinum<');
+    for (const path of [
+      '/blog/booth-filter-maintenance-checklist',
+      '/blog/clogged-paint-booth-filters',
+      '/product/20x20-neshap-319-final-stage-panel-filter-20-cs',
+      '/product/20x20x12-hepa-xfp-6-pocket-bag-filter-5-cs',
+      '/product/20x20x15-cg100-2-pocket-bag-filter-8-cs',
+      '/product/20x25-neshap-319-final-stage-panel-filter-20-cs',
+      '/product/53x112-volz-sfr-ceiling-filter-blanket-4-bag',
+      '/product/koch-spraystop-stk10-61x90-roll',
+    ]) {
+      expect(sitemap).toContain(`https://www.pfsfilters.com${path}`);
+    }
   });
 });
 

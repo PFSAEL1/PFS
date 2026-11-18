@@ -18,6 +18,7 @@ export const CANONICAL_OVERRIDES = {
   '/shop-by-booth/global-finishing-solutions': '/gfs-paint-booth-filters',
   '/shop-by-booth-type': '/shop-by-booth',
   '/filter-compatibility': '/filter-finder',
+  '/category/pre-filters': '/prefilters',
 };
 
 export const NOINDEX_PATHS = new Set([
@@ -303,8 +304,28 @@ export const ROUTE_SEO = {
     description: 'Aerospace MRO paint booth filters and multi-stage exhaust notes. Method 319 evidence applies only to the tested media and installation, not every facility.',
   },
   '/industries/automotive-paint-booth-filters': {
-    title: 'Automotive Paint Booth Filters | PFS Filters',
-    description: 'Automotive paint booth filters for intake, ceiling, and exhaust stages. Confirm the booth make, model, filter position, and actual dimensions before ordering.',
+    title: 'Auto Body Paint Booth Filters | PFS Filters',
+    description: 'Automotive paint booth filters for auto body, collision, and refinish shops. Stocked tacky panels, ceiling blankets, and exhaust pads. Confirm the stage.',
+  },
+  '/industries/industrial-paint-booth-filters': {
+    title: 'Industrial Paint Booth Filters | PFS Filters',
+    description: 'Industrial paint booth filters for manufacturing and open-face booths. Stocked fiberglass, Andreae, Paint Pockets, and polyester media. Measure first.',
+  },
+  '/industries/truck-and-fleet-paint-booth-filters': {
+    title: 'Truck and Fleet Paint Booth Filters | PFS',
+    description: 'Truck and fleet paint booth filters with recorded Blowtherm sizes, plus stocked large rolls and blankets. Non-stocked sizes are quote-only. Measure first.',
+  },
+  '/industries/woodworking-paint-booth-filters': {
+    title: 'Woodworking Paint Booth Filters | PFS Filters',
+    description: 'Woodworking paint booth filters for furniture and cabinet finishing: stocked fiberglass, Andreae, Paint Pockets, and intake or ceiling media. Confirm the stage.',
+  },
+  '/industries/prep-station-filters': {
+    title: 'Prep Station Filters | PFS Filters',
+    description: 'Prep station filters from the PFS directory: stocked Paint Pockets 20x25 for the recorded GFS prep row. Other recorded sizes are quote-only. No changeout kits.',
+  },
+  '/industries/marine-paint-booth-filters': {
+    title: 'Marine Paint Booth Filters | PFS Filters',
+    description: 'Marine paint booth filters for large liquid booths. Stocked exhaust rolls, arrestors, and ceiling blankets. Measure first. No gelcoat test claim.',
   },
   '/filter-scanner': {
     title: 'Paint Booth Filter Photo Review | PFS Filters',

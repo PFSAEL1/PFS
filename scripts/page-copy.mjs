@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import * as esbuild from 'esbuild';
 import { listBoothGuides } from '../shared/boothFilterGuides.mjs';
 import { filterRotationFaqs } from '../shared/seoText.mjs';
+import { industryPages } from '../shared/industryPages.mjs';
 import {
   georgiaFaqs,
   georgiaSections,
@@ -560,6 +561,16 @@ ${CROSSREF_PAGES.map((page) => `- [${page.h1}](${origin}${page.path})`).join('\n
 - [Andreae accordion filters: AF213, AF223, AF413, AF423 pads; AF813, AF923, AF113, AF123 rolls](${origin}/andreae-paint-booth-filters)
 - [Filter brands carried](${origin}/brands)
 
+## Industries
+- [Automotive, auto body, and collision paint booth filters](${origin}/industries/automotive-paint-booth-filters)
+- [Industrial and open-face paint booth filters](${origin}/industries/industrial-paint-booth-filters)
+- [Truck and fleet paint booth filters](${origin}/industries/truck-and-fleet-paint-booth-filters)
+- [Woodworking, furniture, and cabinet paint booth filters](${origin}/industries/woodworking-paint-booth-filters)
+- [Prep station filters](${origin}/industries/prep-station-filters)
+- [Marine paint booth filters](${origin}/industries/marine-paint-booth-filters)
+- [Aerospace paint booth filtration](${origin}/industries/aerospace-paint-booth-filters)
+- [NESHAP filters in the catalog](${origin}/category/aerospace-neshap-filters)
+
 ## Aerospace and regulated coatings
 - [NESHAP 6H and Method 319 filter guide](${origin}/neshap-compliant-paint-booth-filters)
 - [Aerospace paint booth filtration](${origin}/industries/aerospace-paint-booth-filters)
@@ -594,6 +605,10 @@ export function renderLlmsFullTxt() {
   const brands = listBoothGuides().map((guide) => headingBlock(guide.name, guideParagraphs(guide))).join('\n');
   const sprayGuide = [...sprayBoothSections.map((section) => headingBlock(section.heading, section.paragraphs)), headingBlock('Spray booth filter questions', faqParagraphs(sprayBoothFaqs))].join('\n');
   const georgiaGuide = [...georgiaSections.map((section) => headingBlock(section.heading, section.paragraphs)), headingBlock('Georgia shipping questions', faqParagraphs(georgiaFaqs))].join('\n');
+  const industryText = industryPages(products).map((page) => headingBlock(page.h1, [
+    ...page.sections.flatMap((section) => section.paragraphs),
+    ...faqParagraphs(page.faqs),
+  ])).join('\n');
   const generatedGuides = [
     ...CROSSREF_PAGES.map((page) => headingBlock(page.h1, [...crossRefSections(page, products).flatMap((section) => section.paragraphs), ...faqParagraphs(crossRefFaqs(page))])),
     headingBlock('Paint Booth Filter Size Chart', [...sizeChartSections(products).flatMap((section) => section.paragraphs), ...faqParagraphs(sizeChartFaqs())]),
@@ -607,5 +622,5 @@ export function renderLlmsFullTxt() {
     const lines = productParagraphs(product);
     return `### ${product.title}\n\n- URL: ${origin}/product/${product.handle}\n\n${lines.join('\n\n')}\n`;
   }).join('\n');
-  return `${renderLlmsTxt()}\n# Frequently asked questions\n\n${faq}\n\n# Spray booth filters\n\n${sprayGuide}\n# Georgia shipping\n\n${georgiaGuide}\n# Generated guides\n\n${generatedGuides}\n# Published guides\n\n${guides}\n# Booth brand guides\n\n${brands}\n# Booth brand reference\n\n${brandReference}\n# Product catalog\n\n${catalog}`;
+  return `${renderLlmsTxt()}\n# Frequently asked questions\n\n${faq}\n\n# Industries\n\n${industryText}\n# Spray booth filters\n\n${sprayGuide}\n# Georgia shipping\n\n${georgiaGuide}\n# Generated guides\n\n${generatedGuides}\n# Published guides\n\n${guides}\n# Booth brand guides\n\n${brands}\n# Booth brand reference\n\n${brandReference}\n# Product catalog\n\n${catalog}`;
 }

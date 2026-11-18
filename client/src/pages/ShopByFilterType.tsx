@@ -70,7 +70,7 @@ const filterCategories = [
     title: 'Pre-Filters',
     position: 'INTAKE',
     desc: 'First-stage filtration that extends the life of your primary ceiling media. Catches large particles before they reach expensive diffusion blankets.',
-    href: '/shop?category=pre-filters',
+    href: '/prefilters',
     image: '/images/filters/pre-filters.webp',
     tags: ['Cost Savings', 'Protection'],
     featured: false,

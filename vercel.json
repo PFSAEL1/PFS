@@ -30,9 +30,14 @@
       "headers": { "Location": "/memberships" }
     },
     {
-      "src": "/\\$",
-      "status": 404,
-      "dest": "/404.html"
+      "src": "/\\$/?$",
+      "status": 301,
+      "headers": { "Location": "/" }
+    },
+    {
+      "src": "^/category/pre-filters/?$",
+      "status": 301,
+      "headers": { "Location": "/prefilters" }
     },
     {
       "src": "/(.+)/",

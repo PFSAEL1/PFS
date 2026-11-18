@@ -44,6 +44,7 @@ export default function Shop() {
 
   const filteredCount = filterShopifyProducts(bundledShopifyProducts, categoryFilter, sizeFilter).length;
   const emptyQuery = Boolean((categoryFilter || sizeFilter) && filteredCount === 0);
+  const shopQuery = typeof window !== 'undefined' && /(?:^|[?&])(?:size|category)=/.test(window.location.search);
 
   return (
     <div className="min-h-screen bg-[#040404] text-white">
@@ -52,7 +53,8 @@ export default function Shop() {
         description="Shop fiberglass paint arrestors, tacky intake panels, ceiling media, MERV filters, roll media, and booth-specific replacements. Stocked items typically process in 1–2 business days."
         canonical="https://www.pfsfilters.com/shop"
         structuredData={shopSchema}
-        noIndex={emptyQuery}
+        noIndex={emptyQuery || shopQuery}
+        noIndexFollow={emptyQuery || shopQuery}
       />
       <Navigation />
 

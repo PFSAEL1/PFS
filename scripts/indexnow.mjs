@@ -29,6 +29,17 @@ function keyFile() {
   return key;
 }
 
+const REQUIRED_URLS = [
+  '/blog/booth-filter-maintenance-checklist',
+  '/blog/clogged-paint-booth-filters',
+  '/product/20x20-neshap-319-final-stage-panel-filter-20-cs',
+  '/product/20x20x12-hepa-xfp-6-pocket-bag-filter-5-cs',
+  '/product/20x20x15-cg100-2-pocket-bag-filter-8-cs',
+  '/product/20x25-neshap-319-final-stage-panel-filter-20-cs',
+  '/product/53x112-volz-sfr-ceiling-filter-blanket-4-bag',
+  '/product/koch-spraystop-stk10-61x90-roll',
+];
+
 function sitemapUrls() {
   const sitemapPath = path.join(publicDir, 'sitemap.xml');
   const xml = fs.readFileSync(sitemapPath, 'utf8');
@@ -36,6 +47,10 @@ function sitemapUrls() {
   if (!urls.length) throw new Error('Sitemap has no URLs');
   const foreign = urls.filter((url) => !url.startsWith(`https://${host}/`));
   if (foreign.length) throw new Error(`Sitemap contains non-production URLs: ${foreign.slice(0, 3).join(', ')}`);
+  const missing = REQUIRED_URLS.filter((pathname) => !urls.includes(`https://${host}${pathname}`));
+  if (missing.length) throw new Error(`IndexNow sitemap is missing discovered URLs: ${missing.join(', ')}`);
+  const blocked = urls.filter((url) => /\/product\/(?:test|platinum)(?:\/|$)/.test(url) || url.includes('?'));
+  if (blocked.length) throw new Error(`IndexNow sitemap includes non-canonical URLs: ${blocked.slice(0, 3).join(', ')}`);
   return urls;
 }
 

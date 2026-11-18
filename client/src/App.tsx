@@ -57,6 +57,7 @@ const Consumables = lazyRoute(() => import('./pages/Consumables'));
 const Aerospace = lazyRoute(() => import('./pages/Aerospace'));
 const AerospaceHub = lazyRoute(() => import('./pages/AerospaceHub'));
 const AutomotivePaintBoothFilters = lazyRoute(() => import('./pages/AutomotivePaintBoothFilters'));
+const IndustryLanding = lazyRoute(() => import('./pages/IndustryLanding'));
 const ShopByBooth = lazyRoute(() => import('./pages/ShopByBooth'));
 const BrandDetail = lazyRoute(() => import('./pages/BrandDetail'));
 const ShopByBoothType = lazyRoute(() => import('./pages/ShopByBoothType'));
@@ -871,6 +872,11 @@ function Router() {
       <Route path="/aerospace" component={Aerospace} />
       <Route path="/industries/aerospace-paint-booth-filters" component={AerospaceHub} />
       <Route path="/industries/automotive-paint-booth-filters" component={AutomotivePaintBoothFilters} />
+      <Route path="/industries/industrial-paint-booth-filters" component={IndustryLanding} />
+      <Route path="/industries/truck-and-fleet-paint-booth-filters" component={IndustryLanding} />
+      <Route path="/industries/woodworking-paint-booth-filters" component={IndustryLanding} />
+      <Route path="/industries/prep-station-filters" component={IndustryLanding} />
+      <Route path="/industries/marine-paint-booth-filters" component={IndustryLanding} />
 
       {/* Features */}
       <Route path="/filter-scanner" component={FilterScanner} />

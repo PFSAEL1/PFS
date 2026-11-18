@@ -21,6 +21,7 @@ import {
 } from '../shared/seoText.mjs';
 import { getBoothGuide } from '../shared/boothFilterGuides.mjs';
 import { georgiaFaqs, sprayBoothFaqs } from '../shared/guideCopy.mjs';
+import { industryPages } from '../shared/industryPages.mjs';
 import {
   CROSSREF_PAGES,
   andreaeFaqs,
@@ -281,7 +282,7 @@ const staticRoutes = [
   { path: '/consumables/pfs-vanguard', title: 'PFS VANGUARD™ Complete Booth Protection Kit | PFS Filters', description: 'PFS VANGUARD™ Complete Booth Protection Kit includes premium Booth Coating and Glass Shield Coating. Protect booth surfaces and viewing glass from overspray buildup.', h1: 'PFS VANGUARD™', priority: '0.5', changefreq: 'monthly' },
   { path: '/aerospace', title: 'Aerospace Paint Booth Filters | HEPA-XFP, NESHAP 319 Bags & MRO Media | PFS Filters', description: 'Shop aerospace-grade paint booth filtration: HEPA-XFP multi-pocket bags, NESHAP 319 final-stage filters, CG100 2-pocket bags, ME/PT intake panels, SFR blankets & CPA roll media. Built for MRO and aircraft finishing.', h1: 'Aerospace Paint Booth Filters', priority: '0.8', changefreq: 'monthly' },
   { path: '/industries/aerospace-paint-booth-filters', title: 'Aerospace Paint Booth Filters & MRO Filtration | PFS Filters', description: 'Premium aerospace paint booth filtration solutions. Shop ceiling diffusion media and request custom multi-stage exhaust systems for MRO and aircraft finishing.', h1: 'Aerospace & Aircraft Paint Booth Filtration', priority: '0.9', changefreq: 'monthly' },
-  { path: '/industries/automotive-paint-booth-filters', title: 'Automotive Paint Booth Filters | PFS Filters', description: 'Compare automotive paint booth intake, ceiling, prefilter, and exhaust filters. Verify booth configuration, stage, dimensions, and fit with PFS guidance.', priority: '0.9', changefreq: 'monthly' },
+  { path: '/industries/automotive-paint-booth-filters', title: 'Auto Body Paint Booth Filters | PFS Filters', description: 'Automotive paint booth filters for auto body, collision, and refinish shops. Stocked tacky panels, ceiling blankets, and exhaust pads. Confirm the stage.', h1: 'Automotive Paint Booth Filters', priority: '0.9', changefreq: 'monthly' },
   { path: '/filter-scanner', title: 'Photo-Assisted Paint Booth Filter Review | PFS Filters', description: 'Use a filter photo to narrow catalog candidates, then verify the booth position, label, and actual dimensions before ordering.', h1: 'Filter Scanner', priority: '0.5', changefreq: 'monthly' },
   { path: '/filter-part-numbers', title: 'Filter Part Number Cross Reference | PFS Filters', description: 'Cross-reference SKUs and manufacturer part numbers that appear in the current PFS catalog.', h1: 'Filter Part Number Cross Reference', priority: '0.7', changefreq: 'weekly', lastmod: '2026-10-29' },
 ];
@@ -698,7 +699,21 @@ const builtGuideRoutes = extraGuideRoutes.map((page) => ({
   guideKey: page.path,
 }));
 
-const routes = [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...blogRoutes, ...productRoutes, ...crossrefRoutes, ...builtGuideRoutes];
+const industryContent = new Map();
+for (const page of industryPages(products)) industryContent.set(page.path, page);
+const industryRouteList = [...industryContent.values()]
+  .filter((page) => page.path !== '/industries/automotive-paint-booth-filters')
+  .map((page) => ({
+    path: page.path,
+    title: page.title,
+    description: page.description,
+    h1: page.h1,
+    priority: '0.8',
+    changefreq: 'monthly',
+    schema: { '@context': 'https://schema.org', '@graph': [faqSchema(page.faqs)] },
+  }));
+
+const routes = [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...blogRoutes, ...productRoutes, ...crossrefRoutes, ...builtGuideRoutes, ...industryRouteList];
 
 const gitLastmodCache = new Map();
 
@@ -1261,6 +1276,7 @@ function homeFallback() {
         <h3 style="margin:20px 0 8px">Never run out again</h3>
         <p style="color:rgba(255,255,255,.7);line-height:1.6">Booth-specific tracking tells you when to change. Auto-reorder handles the rest before you run low. Replacement guidance covers Accudraft, Garmat, GFS, Blowtherm, Col-Met, and other major booth brands. Andreae accordion filters, fiberglass exhaust arrestors, ceiling diffusion media, and tacky intake panels are listed in the shop.</p>
         <p style="margin-top:24px"><a href="/paint-booth-filters" style="color:#93c5fd;font-weight:700">Paint booth filters</a> · <a href="/exhaust-filters" style="color:#93c5fd;font-weight:700">Paint booth exhaust filters</a> · <a href="/category/aerospace-neshap-filters" style="color:#93c5fd;font-weight:700">NESHAP filters</a> · <a href="/shop-by-type" style="color:#93c5fd;font-weight:700">Shop filters by type</a> · <a href="/spray-booth-filters" style="color:#93c5fd;font-weight:700">Spray booth filters</a> · <a href="/guides/filter-size-chart" style="color:#93c5fd;font-weight:700">Filter size chart</a> · <a href="/guides/garmat-filter-cross-reference" style="color:#93c5fd;font-weight:700">Garmat filter cross reference</a> · <a href="/georgia/spray-booth-filters" style="color:#93c5fd;font-weight:700">Spray booth filters shipped to Georgia</a></p>
+        ${discoveredCrawlLinks()}
       </div>
     </section>
     <section style="padding:48px 24px;background:#040404;color:#c4c8d0">
@@ -1353,12 +1369,28 @@ function shopFallback(title, description) {
         </div>
       </div>
     </section>
+    <script>if(/[?&]size=/.test(location.search))location.replace('/shop-by-size');else if(/[?&]category=/.test(location.search))location.replace('/shop');</script>
     <div style="height:88px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
     <section style="padding:24px 16px 56px;background:#0d0d0d">
       <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">${cards}</div>
       <p style="max-width:1280px;margin:24px auto 0;color:rgba(255,255,255,.55);font-size:15px;line-height:1.6">Product data is shown from the PFS Filters catalog snapshot. Confirm live variants, pricing, and availability on each product page before ordering.</p>
     </section>
   </main>`;
+}
+
+const DISCOVERED_LINKS = [
+  ['/blog/booth-filter-maintenance-checklist', 'booth filter maintenance checklist'],
+  ['/blog/clogged-paint-booth-filters', 'what clogged paint booth filters do'],
+  ['/product/20x20-neshap-319-final-stage-panel-filter-20-cs', '20x20 NESHAP 319 final stage panel'],
+  ['/product/20x25-neshap-319-final-stage-panel-filter-20-cs', '20x25 NESHAP 319 final stage panel'],
+  ['/product/20x20x12-hepa-xfp-6-pocket-bag-filter-5-cs', '20x20x12 HEPA-XFP bag'],
+  ['/product/20x20x15-cg100-2-pocket-bag-filter-8-cs', '20x20x15 CG100 bag'],
+  ['/product/53x112-volz-sfr-ceiling-filter-blanket-4-bag', '53x112 Volz SFR ceiling blanket'],
+  ['/product/koch-spraystop-stk10-61x90-roll', 'Koch SprayStop STK-10 roll'],
+];
+
+function discoveredCrawlLinks() {
+  return `<p>${DISCOVERED_LINKS.map(([href, label]) => `<a href="${href}" style="color:#60a5fa">${escapeHtml(label)}</a>`).join(' · ')}</p>`;
 }
 
 function strongPageLinks() {
@@ -1382,8 +1414,14 @@ function strongPageLinks() {
     ['/guides/pfs-spray-booth-filter-cross-reference', 'PFS spray booth filter cross reference'],
     ['/georgia/spray-booth-filters', 'spray booth filters shipped to Georgia'],
     ['/california/north-bay-paint-booth-filters', 'North Bay paint booth filters'],
+    ['/industries/automotive-paint-booth-filters', 'automotive paint booth filters'],
+    ['/industries/industrial-paint-booth-filters', 'industrial paint booth filters'],
+    ['/industries/truck-and-fleet-paint-booth-filters', 'truck and fleet paint booth filters'],
+    ['/industries/woodworking-paint-booth-filters', 'woodworking paint booth filters'],
+    ['/industries/prep-station-filters', 'prep station filters'],
+    ['/industries/marine-paint-booth-filters', 'marine paint booth filters'],
   ];
-  return `<p>${links.map(([href, label]) => `<a href="${href}" style="color:#60a5fa">${escapeHtml(label)}</a>`).join(' · ')}</p>`;
+  return `<p>${links.map(([href, label]) => `<a href="${href}" style="color:#60a5fa">${escapeHtml(label)}</a>`).join(' · ')}</p>${discoveredCrawlLinks()}`;
 }
 
 function exhaustCatalogHtml() {
@@ -2079,6 +2117,34 @@ function automotiveIndustryFallback() {
         <div style="display:grid;gap:12px">${faqItems}</div>
       </div>
     </section>
+    <section style="padding:24px 16px 56px;background:#050505">
+      <div style="max-width:880px;margin:0 auto;font-family:Arial,sans-serif">
+        ${industryHtml('/industries/automotive-paint-booth-filters')}
+      </div>
+    </section>
+  </main>`;
+}
+
+function industryHtml(pathname) {
+  const page = industryContent.get(pathname);
+  if (!page) return '';
+  const sections = page.sections.map((section) => {
+    const paragraphs = section.paragraphs.filter(Boolean).map((paragraph) => `<p style="margin:0 0 14px;color:#c4c8d0;line-height:1.7">${escapeHtml(paragraph)}</p>`).join('');
+    return `<h2 style="margin:28px 0 8px;font-size:1.35rem;color:#fff">${escapeHtml(section.heading)}</h2>${paragraphs}`;
+  }).join('');
+  const faqs = page.faqs.map((faq) => `<h3 style="margin:18px 0 6px;color:#fff">${escapeHtml(faq.question)}</h3><p style="margin:0 0 14px;color:#c4c8d0;line-height:1.7">${escapeHtml(faq.answer)}</p>`).join('');
+  return `${sections}<h2 style="margin:28px 0 8px;font-size:1.35rem;color:#fff">Questions</h2>${faqs}${strongPageLinks()}`;
+}
+
+function industryLandingFallback(route) {
+  const heading = escapeHtml(routeHeading(route));
+  return `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px">
+    <div style="max-width:880px;margin:0 auto">
+      <p style="color:#60a5fa;font-weight:700">PFS FILTERS</p>
+      <h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1>
+      <p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${escapeHtml(route.description)}</p>
+      ${industryHtml(route.path)}
+    </div>
   </main>`;
 }
 
@@ -2217,6 +2283,36 @@ function aerospaceIndustryFallback(route) {
   </main>`;
 }
 
+function productCatalogFacts(product) {
+  if (!product) return '';
+  const variants = (product.variants?.edges || []).map((edge) => edge.node).filter((node) => node?.price?.amount);
+  const priced = variants.map((node) => {
+    const label = node.title && node.title.toLowerCase() !== 'default title' ? node.title : product.title;
+    return `${label} at $${Number(node.price.amount).toFixed(2)}`;
+  }).join('; ');
+  const links = [];
+  for (const [slug, collection] of Object.entries(shopifyCollections)) {
+    const handles = collection.handles || [];
+    if (!handles.includes(product.handle)) continue;
+    links.push(`<a href="/category/${slug}" style="color:#60a5fa">${escapeHtml(collection.title || slug)}</a>`);
+    for (const handle of handles) {
+      if (handle === product.handle) continue;
+      const sibling = products.find((item) => item.handle === handle);
+      if (!sibling) continue;
+      links.push(`<a href="/product/${escapeHtml(handle)}" style="color:#60a5fa">${escapeHtml(sibling.title)}</a>`);
+    }
+  }
+  if (product.handle === 'koch-spraystop-stk10-61x90-roll') {
+    links.push('<a href="/category/polyester-media" style="color:#60a5fa">Polyester media</a>');
+    links.push('<a href="/exhaust-filters" style="color:#60a5fa">Exhaust filters</a>');
+  }
+  if (product.handle === '53x112-volz-sfr-ceiling-filter-blanket-4-bag') {
+    links.push('<a href="/ceiling-filters" style="color:#60a5fa">Ceiling filters</a>');
+  }
+  const reading = '<a href="/blog/clogged-paint-booth-filters" style="color:#60a5fa">what clogged filters do</a> · <a href="/blog/booth-filter-maintenance-checklist" style="color:#60a5fa">maintenance checklist</a>';
+  return `<p style="margin:0 0 16px;max-width:640px;color:rgba(255,255,255,.7);font-size:15px;line-height:1.6">${priced ? `Catalog variants: ${escapeHtml(priced)}. ` : ''}Prices do not include shipping. ${links.length ? `${links.join(' · ')}. ` : ''}${reading}.</p>`;
+}
+
 // Generic, data-driven fallback for ANY /product/:handle route — looks the
 // handle up in the parsed snapshot instead of hardcoding per-product markup.
 function genericProductFallback(route) {
@@ -2266,6 +2362,7 @@ function genericProductFallback(route) {
           <h1 style="margin:0 0 12px;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;font-size:clamp(1.75rem,6vw,2.25rem);line-height:1.15;font-weight:800;color:#fff">${escapeHtml(title)}</h1>
           ${priceMarkup}
           ${descriptionMarkup}
+          ${productCatalogFacts(product)}
           ${productDetailsMarkup}
           <div style="min-height:48px;max-width:420px;border-radius:8px;background:#3b82f6;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:800">Add to Cart</div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;max-width:420px">
@@ -2536,6 +2633,8 @@ function replaceMeta(html, route) {
     ? vitraFallback()
     : route.path === '/industries/automotive-paint-booth-filters'
     ? automotiveIndustryFallback()
+    : route.path.startsWith('/industries/') && industryContent.has(route.path)
+    ? industryLandingFallback(route)
     : route.path === '/industries/aerospace-paint-booth-filters'
     ? aerospaceIndustryFallback(route)
     : route.path === `/category/${AEROSPACE_NESHAP_CATEGORY}`
