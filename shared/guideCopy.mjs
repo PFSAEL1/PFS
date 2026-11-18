@@ -272,6 +272,59 @@ export const thinPageSupplements = {
   ],
 };
 
+export const bulkFaqs = [
+  {
+    question: 'Does this page list volume discounts or payment terms?',
+    answer: 'No. Volume pricing, payment terms, Net terms, and purchase-order policy are not published. Call 855-496-7969. The prices on product pages are the case or roll prices and do not include shipping.',
+  },
+  {
+    question: 'What should a multi-site buyer send for a quote?',
+    answer: 'Send the booth make and model, each filter position, the measured size, the quantity, about how long a set lasts, and a photo of the installed media. The filter rotation program asks for the same notes. PFS confirms the media before the first shipment.',
+  },
+  {
+    question: 'Is a case the same product as a roll?',
+    answer: 'No. A case is the pack named on a pad or panel variant. A roll is a separate catalog product. Roll text that says shipping is typically LTL means freight because of size. Shipping is not included in either price.',
+  },
+];
+
+export const bulkSections = [
+  {
+    heading: 'Industrial and multi-site orders',
+    paragraphs: [
+      'This page is for production lines, fleet and truck shops, collision groups, and other buyers ordering filters for more than one booth or more than one building. It uses the same catalog as the rest of the site. It does not add a contract price, a payment term, or a kit.',
+      'Account setup is by phone. Call 855-496-7969. The published address is 1400 Airport Blvd, Santa Rosa, CA 95403. Volume pricing, Net terms, and purchase-order policy are not written here. Those are only discussed on that call.',
+    ],
+  },
+  {
+    heading: 'What to send for a quote',
+    paragraphs: [
+      'The filter rotation program already lists the notes PFS uses: the booth make and model, each filter position, the measured size, about how long a set lasts today, and a clear photo of the installed media. Add the quantity and how many booths or sites are on the order. PFS confirms the media before the first shipment.',
+      'A size that is not a catalog variant stays a quote. A directory row is recorded, not confirmed fitment. Measure the opening before ordering. The filter finder and the filter size chart are the other tools on the site.',
+    ],
+  },
+  {
+    heading: 'Case prices and roll prices',
+    paragraphs: [
+      'Each product page lists the catalog snapshot price for the variants on that page. A case count is the pack in the variant title, such as 50/CS or 30/CS. A roll is a different product, with its own width and length. Do not treat a case price as a roll price.',
+      'Those prices do not include shipping or freight. Checkout calculates the charge for the item, the quantity, and the destination. The shipping and freight guide is at /guides/shipping-and-freight.',
+    ],
+  },
+  {
+    heading: 'Freight and timing',
+    paragraphs: [
+      'Most stocked orders are generally processed within one to two business days. Freight, custom, large-quantity, and special-order items may take longer. There is no same-day shipping claim. Processing and delivery dates on the site are estimates.',
+      'Unopened packages may be returned within five business days. The refund deducts shipping costs and a 25 percent restocking fee. Opened packages are not returnable. Call 855-496-7969 before sending a return to Santa Rosa.',
+    ],
+  },
+  {
+    heading: 'Several booths on one schedule',
+    paragraphs: [
+      'The filter rotation program is separate from Subscribe and Save. Subscribe and Save is the monthly option shown on eligible product pages. The rotation program reviews the booth model, the stages in use, and how heavily the booth is sprayed, then ships media on that cadence. A shop with several booths can keep every stage on one schedule and one point of contact. The price is quoted for the media you actually use. The program page is /filter-rotation-program.',
+      'The automotive, industrial, and truck industry pages describe the stocked media for those booths. This bulk page does not replace those pages and does not confirm that a filter fits a booth.',
+    ],
+  },
+];
+
 export function supplementWordCount(pathname) {
   const blocks = thinPageSupplements[pathname] || [];
   return words(blocks);

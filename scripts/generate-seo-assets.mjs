@@ -17,6 +17,8 @@ import {
   schemaSkuFromVariant,
   filterRotationFaqs,
   productSchemaExtras,
+  catalogSpecRows,
+  filterRotationSteps,
   isGuidePath,
 } from '../shared/seoText.mjs';
 import { getBoothGuide } from '../shared/boothFilterGuides.mjs';
@@ -277,6 +279,7 @@ const staticRoutes = [
   { path: '/terms-of-service', title: 'Terms of Service - PFS Filters', description: 'Read the PFS Filters terms governing website use, orders, Subscribe & Save, shipping, returns, product guidance, and customer accounts.', h1: 'Terms of Service', priority: '0.2', changefreq: 'yearly' },
   { path: '/memberships', title: 'Paint Booth Filter Memberships - Save on Every Order | PFS Filters', description: 'Join PFS Filters membership for exclusive discounts, auto-reorder scheduling, AI filter scanner, and dedicated support. Plans from $29/month. Save 6-10% on every order.', h1: 'Save More, Order Smarter', priority: '0.5', changefreq: 'monthly' },
   { path: '/filter-rotation-program', title: 'PFS Filter Rotation Program | PFS Filters', description: 'The PFS Filter Rotation Program sets a booth filter cadence from your spray load and ships media on that schedule. Request a quote to enroll a shop or fleet.', h1: 'PFS Filter Rotation Program', priority: '0.8', changefreq: 'monthly' },
+  { path: '/bulk-paint-booth-filters', title: 'Bulk Paint Booth Filter Orders | PFS', description: 'Bulk paint booth filter orders for lines and multi-site shops. Case and roll prices are on the product pages. Volume pricing and payment terms are by phone.', h1: 'Bulk Paint Booth Filter Orders', priority: '0.8', changefreq: 'monthly' },
   { path: '/consumables', title: 'Consumables - Paint Booth Supplies | PFS Filters', description: 'Shop paint booth consumables from PFS Filters, including absorbent mat rolls, glass shield coatings, and booth maintenance supplies.', h1: 'Booth Consumables', priority: '0.6', changefreq: 'monthly' },
   { path: '/consumables/pfs-vitra', title: 'PFS VITRA - Glass Shield Washable Coating | PFS Filters', description: 'PFS VITRA washable glass shield coating. Protect your paint booth glass from overspray. Easy to apply, easy to wash off. Available from PFS Filters.', h1: 'PFS VITRA', priority: '0.5', changefreq: 'monthly' },
   { path: '/consumables/pfs-vanguard', title: 'PFS VANGUARD™ Complete Booth Protection Kit | PFS Filters', description: 'PFS VANGUARD™ Complete Booth Protection Kit includes premium Booth Coating and Glass Shield Coating. Protect booth surfaces and viewing glass from overspray buildup.', h1: 'PFS VANGUARD™', priority: '0.5', changefreq: 'monthly' },
@@ -440,12 +443,26 @@ const rotationRoute = staticRoutes.find((route) => route.path === '/filter-rotat
 if (rotationRoute) {
   rotationRoute.schema = {
     '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: filterRotationFaqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
-    })),
+    '@graph': [
+      {
+        '@type': 'FAQPage',
+        mainEntity: filterRotationFaqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+        })),
+      },
+      {
+        '@type': 'HowTo',
+        name: 'How the PFS Filter Rotation Program works',
+        step: filterRotationSteps.map((step, index) => ({
+          '@type': 'HowToStep',
+          position: index + 1,
+          name: step.title,
+          text: step.text,
+        })),
+      },
+    ],
   };
 }
 
@@ -1258,7 +1275,7 @@ function homeFallback() {
   }).join('');
   return `<main data-seo-fallback>
     <div class="home-top-gap"><div class="ticker-bar" style="min-height:33px"><div class="ticker-track"><span class="ticker-item">Paint booth intake and exhaust media</span></div></div></div>
-    <section id="home"><div><img src="${heroPosterMobile}" srcset="${heroPosterMobile} 960w, ${heroPosterDesktop} 1600w" sizes="(max-width: 767px) 100vw, 1600px" alt="PFS downdraft paint booth with ceiling intake and exhaust filtration" width="960" height="540" style="aspect-ratio:16/9" fetchpriority="high" decoding="async" /><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span><span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section>
+    <section id="home"><div><img src="${heroPosterMobile}" srcset="${heroPosterMobile} 960w, ${heroPosterDesktop} 1600w" sizes="(max-width: 767px) 100vw, 1600px" alt="PFS downdraft paint booth with ceiling intake and exhaust filtration" width="960" height="540" style="aspect-ratio:16/9" fetchpriority="high" decoding="async" /><div class="hero-vignette"></div></div><div><div><div class="eyebrow-brand">A Division of PFS Spray Booths — 30+ Years of Expertise</div><h1 class="hero-headline"><span class="hero-tier1">A Filter Program Built to</span> <span class="hero-tier2">Manage Your Entire Booth</span></h1><p>Auto-reorder on your schedule. Booth-specific filter tracking. Backed by 30+ years of PFS Spray Booths expertise. Keep routine filter replacement organized.</p><p><a href="/shop" style="color:#93c5fd;font-weight:700">Shop Filters Now</a> · <a href="/contact" style="color:#93c5fd;font-weight:700">Get a Custom Quote</a></p></div></div></section>
     <section style="padding:64px 24px;background:#0d0d0d;color:#fff">
       <div style="max-width:1100px;margin:0 auto">
         <p style="letter-spacing:.14em;text-transform:uppercase;color:#7dd3fc;font-size:12px;font-weight:700">Our Filters in Action</p>
@@ -1396,6 +1413,8 @@ const INDUSTRY_CRAWL_LINKS = [
   ['/industries/woodworking-paint-booth-filters', 'woodworking paint booth filters'],
   ['/industries/prep-station-filters', 'prep station filters'],
   ['/industries/marine-paint-booth-filters', 'marine paint booth filters'],
+  ['/bulk-paint-booth-filters', 'bulk paint booth filter orders'],
+  ['/filter-rotation-program', 'filter rotation program'],
 ];
 
 function industryCrawlLinks() {
@@ -1433,6 +1452,8 @@ function strongPageLinks() {
     ['/industries/woodworking-paint-booth-filters', 'woodworking paint booth filters'],
     ['/industries/prep-station-filters', 'prep station filters'],
     ['/industries/marine-paint-booth-filters', 'marine paint booth filters'],
+    ['/bulk-paint-booth-filters', 'bulk paint booth filter orders'],
+    ['/filter-rotation-program', 'filter rotation program'],
   ];
   return `<p>${links.map(([href, label]) => `<a href="${href}" style="color:#60a5fa">${escapeHtml(label)}</a>`).join(' · ')}</p>${discoveredCrawlLinks()}`;
 }
@@ -2146,7 +2167,7 @@ function industryHtml(pathname) {
     return `<h2 style="margin:28px 0 8px;font-size:1.35rem;color:#fff">${escapeHtml(section.heading)}</h2>${paragraphs}`;
   }).join('');
   const faqs = page.faqs.map((faq) => `<h3 style="margin:18px 0 6px;color:#fff">${escapeHtml(faq.question)}</h3><p style="margin:0 0 14px;color:#c4c8d0;line-height:1.7">${escapeHtml(faq.answer)}</p>`).join('');
-  return `${sections}<h2 style="margin:28px 0 8px;font-size:1.35rem;color:#fff">Questions</h2>${faqs}${strongPageLinks()}`;
+  return `${sections}<h2 style="margin:28px 0 8px;font-size:1.35rem;color:#fff">Questions</h2>${faqs}<p><a href="/bulk-paint-booth-filters" style="color:#60a5fa">Bulk paint booth filter orders</a> · <a href="/filter-rotation-program" style="color:#60a5fa">Filter rotation program</a></p>${strongPageLinks()}`;
 }
 
 function industryLandingFallback(route) {
@@ -2296,6 +2317,13 @@ function aerospaceIndustryFallback(route) {
   </main>`;
 }
 
+function productSpecTable(product) {
+  const rows = catalogSpecRows(product, kochProductDetails[product.handle]);
+  if (!rows.length) return '';
+  const body = rows.map((row) => `<tr><th scope="row" style="text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid rgba(255,255,255,.12);color:#fff;font-weight:700">${escapeHtml(row.name)}</th><td style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,.12);color:#c4c8d0">${escapeHtml(row.value)}</td></tr>`).join('');
+  return `<h2 style="margin:28px 0 8px;font-size:1.25rem;color:#fff">Catalog specifications</h2><table style="width:100%;border-collapse:collapse;font-family:Arial,sans-serif;font-size:15px"><tbody>${body}</tbody></table><p style="color:#9ca3af;font-size:14px">Prices are the catalog snapshot and do not include shipping. A per-piece figure is the case price divided by the pack count written in that variant title.</p>`;
+}
+
 function productCatalogFacts(product) {
   if (!product) return '';
   const variants = (product.variants?.edges || []).map((edge) => edge.node).filter((node) => node?.price?.amount);
@@ -2376,6 +2404,7 @@ function genericProductFallback(route) {
           ${priceMarkup}
           ${descriptionMarkup}
           ${productCatalogFacts(product)}
+          ${productSpecTable(product)}
           ${productDetailsMarkup}
           <div style="min-height:48px;max-width:420px;border-radius:8px;background:#3b82f6;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:800">Add to Cart</div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;max-width:420px">
@@ -2680,6 +2709,13 @@ function validateDistPages() {
   for (const route of routes) {
     const file = routeFile(route.path);
     const html = fs.readFileSync(file, 'utf8');
+    const crawlerText = (html.match(/<main data-seo-fallback[\s\S]*?<\/main>/i)?.[0] || '')
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<[^>]+>/g, ' ');
+    if (/product\.description|radial-gradient|bg-\[#|not in the PFS Filters catalog|Built toManage/.test(crawlerText)) {
+      throw new Error(`Prerender text for ${route.path} contains source code or a false catalog sentence`);
+    }
     const expectedTitle = `<title data-seo-generated>${escapeHtml(route.title)}</title>`;
     const expectedDescription = `name="description" content="${escapeHtml(stripMarkdown(route.description))}"`;
     const expectedCanonical = `rel="canonical" href="${escapeHtml(absoluteUrl(route.canonicalPath || route.path))}"`;

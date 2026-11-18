@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { ContactForm } from '@/components/ContactForm';
 import { createBreadcrumbSchema, createFAQSchema } from '@/lib/structuredData';
-import { filterRotationFaqs } from '@shared/seoText.mjs';
+import { filterRotationFaqs, filterRotationSteps } from '@shared/seoText.mjs';
 import { Phone, RefreshCw } from 'lucide-react';
 
 const SITE = 'https://www.pfsfilters.com';
@@ -17,30 +17,20 @@ const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'PFS Filter Rotation Program', url: `${SITE}/filter-rotation-program` },
 ]);
 
-const faqSchema = createFAQSchema(filterRotationFaqs);
+const steps = filterRotationSteps.map((step) => ({ ...step, body: step.text }));
 
-const steps = [
-  {
-    step: '01',
-    title: 'We review the booth',
-    body: 'The starting point is the booth model, each filter stage, the coatings you run, and how many hours the booth actually sprays. That review picks the media and shows which stage loads first.',
-  },
-  {
-    step: '02',
-    title: 'We set the cadence',
-    body: 'The replacement rhythm follows your spray load. A heavy primer week is not treated the same as a light color week, and exhaust is not put on the same clock as intake.',
-  },
-  {
-    step: '03',
-    title: 'Media ships ahead of the change',
-    body: 'Replacement filters leave on that cadence, so the shop is not placing a rush order after the bank is already packed. You still confirm the media before the first shipment.',
-  },
-  {
-    step: '04',
-    title: 'The change can ride with service',
-    body: 'When a preventive maintenance visit is already on the calendar, the filter swap can be scheduled with it. Production staff are not left to pull a loaded bank in the middle of a job.',
-  },
-];
+const howToSchema = {
+  '@type': 'HowTo',
+  name: 'How the PFS Filter Rotation Program works',
+  step: filterRotationSteps.map((step, index) => ({
+    '@type': 'HowToStep',
+    position: index + 1,
+    name: step.title,
+    text: step.text,
+  })),
+};
+
+const faqSchema = createFAQSchema(filterRotationFaqs);
 
 const benefits = [
   {
@@ -68,7 +58,7 @@ export default function FilterRotationProgram() {
         title="PFS Filter Rotation Program | PFS Filters"
         description="The PFS Filter Rotation Program sets a booth filter cadence from your spray load and ships media on that schedule. Request a quote to enroll a shop or fleet."
         canonical="https://www.pfsfilters.com/filter-rotation-program"
-        structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, faqSchema] }}
+        structuredData={{ '@context': 'https://schema.org', '@graph': [breadcrumbSchema, faqSchema, howToSchema] }}
       />
       <Navigation />
 

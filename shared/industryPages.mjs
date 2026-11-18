@@ -106,6 +106,14 @@ export function industryPages(products) {
         { heading: 'Stocked intake filters', paragraphs: intake },
         { heading: 'Stocked ceiling filters', paragraphs: ceiling },
         { heading: 'Stocked exhaust filters', paragraphs: exhaust },
+        {
+          heading: 'Collision shops and multi-location operators',
+          paragraphs: [
+            'Collision repair, auto body, and refinish work stay on this page, including operators with more than one location. There is not a second collision URL and there is not a collision kit. Each booth still uses the stage and the measured opening.',
+            'The brand guides for those shops are Garmat at /guides/garmat-filter-cross-reference, Global Finishing Solutions at /guides/gfs-filter-cross-reference, Blowtherm at /guides/blowtherm-filter-cross-reference, Accudraft at /guides/accudraft-filter-cross-reference, and Col-Met at /guides/col-met-filter-cross-reference. A guide row is recorded, not confirmed fitment.',
+            'The filter rotation program can put several booths on one schedule. It is not Subscribe and Save, and it does not publish a discount. Account setup and volume pricing are by phone at 855-496-7969. Bulk ordering notes are at /bulk-paint-booth-filters. Payment terms are not published on this site.',
+          ],
+        },
       ],
     },
     {
@@ -140,6 +148,13 @@ export function industryPages(products) {
         },
         { heading: 'Stocked industrial exhaust and polyester media', paragraphs: [...exhaust, ...poly] },
         { heading: 'Stocked intake and ceiling media', paragraphs: [...intake, ...ceiling] },
+        {
+          heading: 'Production lines and multiple facilities',
+          paragraphs: [
+            'A production line or more than one facility orders the same stocked arrestors, polyester media, and intake or ceiling products, matched to each booth. There is no industrial-only part number and no open-face kit. Measure each opening.',
+            'The filter rotation program can keep every stage for several booths on one schedule. The price is quoted for the media you use. Volume pricing, payment terms, and account setup are not published. Call 855-496-7969. The bulk order page is /bulk-paint-booth-filters.',
+          ],
+        },
       ],
     },
     {
@@ -166,6 +181,13 @@ export function industryPages(products) {
           ],
         },
         { heading: 'Stocked large rolls and blankets', paragraphs: [...exhaust, ...ceiling, ...orderingNotes()] },
+        {
+          heading: 'Production lines and multiple facilities',
+          paragraphs: [
+            'Fleet and truck shops that run more than one booth use the same large rolls and blankets, plus a quote for recorded sizes that are not catalog variants. This page still does not publish a truck kit.',
+            'Several facilities can share one rotation schedule. That program is separate from Subscribe and Save. Volume pricing and payment terms are only by phone at 855-496-7969. See /bulk-paint-booth-filters and /filter-rotation-program.',
+          ],
+        },
       ],
     },
     {

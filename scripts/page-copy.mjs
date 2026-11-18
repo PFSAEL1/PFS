@@ -10,10 +10,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as esbuild from 'esbuild';
 import { listBoothGuides } from '../shared/boothFilterGuides.mjs';
-import { filterRotationFaqs } from '../shared/seoText.mjs';
+import { filterRotationFaqs, filterRotationSteps } from '../shared/seoText.mjs';
 import { industryPages } from '../shared/industryPages.mjs';
 import {
   georgiaFaqs,
+  bulkFaqs,
+  bulkSections,
   georgiaSections,
   sprayBoothFaqs,
   sprayBoothSections,
@@ -197,7 +199,7 @@ function isProse(text) {
   const clean = plainText(text);
   if (!clean || clean.length < 24) return false;
   if (!/[a-z]{3}/i.test(clean)) return false;
-  if (/[{}<>]|className|function |import |const |=>/.test(clean)) return false;
+  if (/[{}<>]|className|function |import |const |=>|&&|\|\||\bproduct\.|radial-gradient|bg-\[|rgba\(|not in the PFS Filters catalog/i.test(clean)) return false;
   if (/^(https?:|\/)/.test(clean)) return false;
   if (clean.split(' ').length < 4) return false;
   return true;
@@ -229,7 +231,6 @@ function sourceParagraphs(pathname) {
   if (pathname.startsWith('/california/')) files.push('client/src/pages/CaliforniaPaintBoothFilters.tsx');
   if (OEM_LANDING_PAGES[pathname]) files.push('client/src/pages/OemPaintBoothFilters.tsx');
   if (pathname.startsWith('/category/')) files.push('client/src/pages/CategoryPage.tsx');
-  if (pathname.startsWith('/product/')) files.push('client/src/pages/ProductDetail.tsx');
   if (pathname.startsWith('/blog/')) files.push('client/src/pages/BlogPost.tsx');
   return uniqueParagraphs([...new Set(files)].flatMap((file) => textFromSource(file)));
 }
@@ -442,7 +443,11 @@ export function pageSections(pathname) {
   } else if (pathname === '/filter-part-numbers') {
     push('Catalog identifiers', partNumberParagraphs());
   } else if (pathname === '/filter-rotation-program') {
+    push('How the program works', filterRotationSteps.map((step, index) => `${index + 1}. ${step.title}. ${step.text}`));
     push('Filter rotation questions', faqParagraphs(filterRotationFaqs));
+  } else if (pathname === '/bulk-paint-booth-filters') {
+    for (const section of bulkSections) push(section.heading, section.paragraphs);
+    push('Bulk order questions', faqParagraphs(bulkFaqs));
   } else if (pathname === '/shop-by-size') {
     push('Catalog sizes', sellableProducts().map((product) => {
       const options = (product.variants?.edges || [])
@@ -576,6 +581,7 @@ ${CROSSREF_PAGES.map((page) => `- [${page.h1}](${origin}${page.path})`).join('\n
 - Note: PFS Filters does not claim that any filter by itself makes a facility compliant with EPA Method 319, NESHAP Subpart HHHHHH, or a permit. Compliance depends on the full system, testing documentation, operation, and recordkeeping.
 
 ## Programs
+- [Bulk paint booth filter orders for lines and multi-site shops](${origin}/bulk-paint-booth-filters)
 - [Filter Rotation Program: scheduled filter replacement by booth](${origin}/filter-rotation-program)
 - [Memberships](${origin}/memberships)
 

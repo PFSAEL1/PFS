@@ -131,6 +131,7 @@
 - Note: PFS Filters does not claim that any filter by itself makes a facility compliant with EPA Method 319, NESHAP Subpart HHHHHH, or a permit. Compliance depends on the full system, testing documentation, operation, and recordkeeping.
 
 ## Programs
+- [Bulk paint booth filter orders for lines and multi-site shops](https://www.pfsfilters.com/bulk-paint-booth-filters)
 - [Filter Rotation Program: scheduled filter replacement by booth](https://www.pfsfilters.com/filter-rotation-program)
 - [Memberships](https://www.pfsfilters.com/memberships)
 
@@ -272,6 +273,12 @@ Paint Pockets Paint Arrestor Media is at /product/20x20-paint-pockets-paint-arre
 
 Andreae Accordion Style Paint Arrestors is at /product/accordion-style-paint-arrestors. Catalog variants: 20"x20" AF213 Accordion Paint Arrestor 40/CS at $107.90; 20"x25" AF413 Accordion Paint Arrestor 36/CS at $121.27; 36"x30' AF813 Roll Accordion Paint Arrestor 1/CS at $120.84; 40"x32'10" AF113 Roll Accordion Paint Arrestor 1/CS at $144.84; 20"x20" AF223 High Efficiency Filter 28/CS at $141.56; 20"x25" AF423 High Efficiency Filter 24/CS at $151.57; 36"x30' AF923 Roll High Efficiency Filter 1/CS at $168.80; 40"x26'3" AF123 Roll High Efficiency Filter 1/CS at $161.64. Shipping is not included.
 
+Collision repair, auto body, and refinish work stay on this page, including operators with more than one location. There is not a second collision URL and there is not a collision kit. Each booth still uses the stage and the measured opening.
+
+The brand guides for those shops are Garmat at /guides/garmat-filter-cross-reference, Global Finishing Solutions at /guides/gfs-filter-cross-reference, Blowtherm at /guides/blowtherm-filter-cross-reference, Accudraft at /guides/accudraft-filter-cross-reference, and Col-Met at /guides/col-met-filter-cross-reference. A guide row is recorded, not confirmed fitment.
+
+The filter rotation program can put several booths on one schedule. It is not Subscribe and Save, and it does not publish a discount. Account setup and volume pricing are by phone at 855-496-7969. Bulk ordering notes are at /bulk-paint-booth-filters. Payment terms are not published on this site.
+
 Which filters do auto body and collision booths usually order?
 
 The stocked catalog used for those booths is tacky intake panels, pleated intake filters, ceiling diffusion blankets, fiberglass pads and rolls, Paint Pockets, and Andreae accordion arrestors. The booth brand and the measured opening decide the variant. Garmat, GFS, Accudraft, Blowtherm, and USI Italia each have a guide on this site.
@@ -322,6 +329,10 @@ Ceiling Diffusion Media is at /product/ceiling-diffusion-media. Catalog variants
 
 Swiss Flow Downdraft Ceiling Diffusion Media (600G Ultra-Premium) is at /product/swiss-flow-downdraft-ceiling-diffusion-media-600g-ultra-premium. Catalog variants: 36"x108" Swiss Flow Ceiling Diffusion Media, 1/CS at $109.12; 36"x109" Swiss Flow Ceiling Diffusion Media, 2/CS at $227.46; 24"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $404.25; 26"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $437.94; 48"x66' Swiss Flow Diffusion Media Master Roll 1/CS at $808.50; 33"x45.5" Swiss Flow Ceiling Diffusion Media 18/CS at $753.46; 36.75"x54" Swiss Flow Ceiling Diffusion Media, 12/CS at $672.21; 37"x64" Swiss Flow Ceiling Diffusion Media, 8/CS at $537.82; 39"x59" Swiss Flow Ceiling Diffusion Media, 3/CS at $192.52; 40"x100" Swiss Flow Ceiling Diffusion Media, 4/CS at $446.36; 44"x50" Swiss Flow Ceiling Diffusion Media, 10/CS at $613.76; 81"x144" Swiss Flow Ceiling Diffusion Media, 4/CS at $1301.49; 38"x102" Swiss Flow Ceiling Diffusion Media, 7/CS at $756.90; 59"x149" Swiss Flow Ceiling Diffusion Media, 4/CS at $997.60; 36"x144" Swiss Flow Ceiling Diffusion Media, 8/CS at $1149.61; 38"x62" Swiss Flow Ceiling Diffusion Media, 1/CS at $68.19; 38"x107" Swiss Flow Ceiling Diffusion Media, 1/CS at $117.67; 48"x108" Swiss Flow Ceiling Diffusion Media, 1/CS at $146.20; 38"x67" Swiss Flow Ceiling Diffusion Media, 1/CS at $73.69. Shipping is not included.
 
+A production line or more than one facility orders the same stocked arrestors, polyester media, and intake or ceiling products, matched to each booth. There is no industrial-only part number and no open-face kit. Measure each opening.
+
+The filter rotation program can keep every stage for several booths on one schedule. The price is quoted for the media you use. Volume pricing, payment terms, and account setup are not published. Call 855-496-7969. The bulk order page is /bulk-paint-booth-filters.
+
 How is an open-face booth different from a downdraft booth?
 
 An open-face booth in the PFS booth-type notes moves air toward an exhaust wall. It does not use a ceiling diffusion blanket unless the manufacturer added a plenum. A downdraft booth does use ceiling media. Order the stage the booth actually has.
@@ -371,6 +382,10 @@ Swiss Flow Downdraft Ceiling Diffusion Media (600G Ultra-Premium) is at /product
 Order the variant whose title matches the label and the measured opening. A nearby nominal size is not a substitute. Prices on this page are the catalog snapshot and do not include shipping. Roll product text says shipping is typically LTL because of size. Stocked items are typically processed in one to two business days. Freight and custom sizes take longer. There is no same-day claim.
 
 Unopened packages may be returned within five business days. The refund is reduced by shipping costs and a 25 percent restocking fee. Opened packages are not returnable. The phone number for an unlisted size is 855-496-7969. The filter finder and the size chart are the other tools. A directory row that is not a catalog variant stays a quote.
+
+Fleet and truck shops that run more than one booth use the same large rolls and blankets, plus a quote for recorded sizes that are not catalog variants. This page still does not publish a truck kit.
+
+Several facilities can share one rotation schedule. That program is separate from Subscribe and Save. Volume pricing and payment terms are only by phone at 855-496-7969. See /bulk-paint-booth-filters and /filter-rotation-program.
 
 Are the Blowtherm truck sizes a confirmed kit?
 
