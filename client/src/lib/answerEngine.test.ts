@@ -45,6 +45,8 @@ describe('answer engine files', () => {
     expect(llms).toContain('/georgia/spray-booth-filters');
     expect(llms).toContain('/guides/filter-size-chart');
     expect(llms).toContain('/agents.md');
+    const aerospaceLines = llms.split('\n').filter((line) => line.includes('/industries/aerospace-paint-booth-filters'));
+    expect(aerospaceLines).toHaveLength(1);
     expect(llms).not.toMatch(/EPD-compliant/i);
     const workflow = readFileSync(new URL('../../../.github/workflows/indexnow.yml', import.meta.url), 'utf8');
     expect(workflow).toContain('Production – abc-filter-splash');

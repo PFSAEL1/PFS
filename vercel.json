@@ -164,6 +164,16 @@
       ]
     },
     {
+      "source": "/shop",
+      "has": [{ "type": "query", "key": "size" }],
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, follow" }]
+    },
+    {
+      "source": "/shop",
+      "has": [{ "type": "query", "key": "category" }],
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, follow" }]
+    },
+    {
       "source": "/products.json",
       "headers": [
         { "key": "Content-Type", "value": "application/json; charset=utf-8" },

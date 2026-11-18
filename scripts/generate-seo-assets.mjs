@@ -1190,7 +1190,8 @@ function breadcrumbsFallback(route) {
 }
 
 function footerFallback(route) {
-  const quickLinks = [...primaryNavigation, ...footerNavigation]
+  const homepageIndustries = route?.path === '/' ? INDUSTRY_CRAWL_LINKS : [];
+  const quickLinks = [...primaryNavigation, ...footerNavigation, ...homepageIndustries]
     .filter(([href], index, list) => list.findIndex(([candidate]) => candidate === href) === index)
     .map(([href, label]) => `<li><a href="${href}" style="color:#c4c8d0">${label}</a></li>`)
     .join('');
@@ -1277,6 +1278,7 @@ function homeFallback() {
         <p style="color:rgba(255,255,255,.7);line-height:1.6">Booth-specific tracking tells you when to change. Auto-reorder handles the rest before you run low. Replacement guidance covers Accudraft, Garmat, GFS, Blowtherm, Col-Met, and other major booth brands. Andreae accordion filters, fiberglass exhaust arrestors, ceiling diffusion media, and tacky intake panels are listed in the shop.</p>
         <p style="margin-top:24px"><a href="/paint-booth-filters" style="color:#93c5fd;font-weight:700">Paint booth filters</a> · <a href="/exhaust-filters" style="color:#93c5fd;font-weight:700">Paint booth exhaust filters</a> · <a href="/category/aerospace-neshap-filters" style="color:#93c5fd;font-weight:700">NESHAP filters</a> · <a href="/shop-by-type" style="color:#93c5fd;font-weight:700">Shop filters by type</a> · <a href="/spray-booth-filters" style="color:#93c5fd;font-weight:700">Spray booth filters</a> · <a href="/guides/filter-size-chart" style="color:#93c5fd;font-weight:700">Filter size chart</a> · <a href="/guides/garmat-filter-cross-reference" style="color:#93c5fd;font-weight:700">Garmat filter cross reference</a> · <a href="/georgia/spray-booth-filters" style="color:#93c5fd;font-weight:700">Spray booth filters shipped to Georgia</a></p>
         ${discoveredCrawlLinks()}
+        ${industryCrawlLinks()}
       </div>
     </section>
     <section style="padding:48px 24px;background:#040404;color:#c4c8d0">
@@ -1369,7 +1371,6 @@ function shopFallback(title, description) {
         </div>
       </div>
     </section>
-    <script>if(/[?&]size=/.test(location.search))location.replace('/shop-by-size');else if(/[?&]category=/.test(location.search))location.replace('/shop');</script>
     <div style="height:88px;background:linear-gradient(to bottom,#050505,#0d0d0d)"></div>
     <section style="padding:24px 16px 56px;background:#0d0d0d">
       <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">${cards}</div>
@@ -1388,6 +1389,18 @@ const DISCOVERED_LINKS = [
   ['/product/53x112-volz-sfr-ceiling-filter-blanket-4-bag', '53x112 Volz SFR ceiling blanket'],
   ['/product/koch-spraystop-stk10-61x90-roll', 'Koch SprayStop STK-10 roll'],
 ];
+
+const INDUSTRY_CRAWL_LINKS = [
+  ['/industries/industrial-paint-booth-filters', 'industrial paint booth filters'],
+  ['/industries/truck-and-fleet-paint-booth-filters', 'truck and fleet paint booth filters'],
+  ['/industries/woodworking-paint-booth-filters', 'woodworking paint booth filters'],
+  ['/industries/prep-station-filters', 'prep station filters'],
+  ['/industries/marine-paint-booth-filters', 'marine paint booth filters'],
+];
+
+function industryCrawlLinks() {
+  return `<p>${INDUSTRY_CRAWL_LINKS.map(([href, label]) => `<a href="${href}" style="color:#60a5fa">${escapeHtml(label)}</a>`).join(' · ')}</p>`;
+}
 
 function discoveredCrawlLinks() {
   return `<p>${DISCOVERED_LINKS.map(([href, label]) => `<a href="${href}" style="color:#60a5fa">${escapeHtml(label)}</a>`).join(' · ')}</p>`;
@@ -2797,6 +2810,14 @@ function writeDistPages() {
     fs.mkdirSync(path.dirname(targetFile), { recursive: true });
     fs.writeFileSync(targetFile, replaceMeta(template, route));
   }
+  const shopFile = routeFile('/shop');
+  const shopHtml = fs.readFileSync(shopFile, 'utf8');
+  const shopQueryHtml = shopHtml.replace(
+    'content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"',
+    'content="noindex, follow"',
+  );
+  if (shopQueryHtml === shopHtml) throw new Error('Shop query prerender did not receive a noindex robots meta');
+  fs.writeFileSync(path.join(distDir, 'shop-query.html'), shopQueryHtml);
 
   const notFound = replaceMeta(template, {
     path: '/404',
