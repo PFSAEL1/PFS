@@ -223,6 +223,22 @@ describe('document SEO limits', () => {
     expect(finder).not.toContain('/shop?');
     const sitemap = readFileSync(new URL('../../public/sitemap.xml', import.meta.url), 'utf8');
     expect(sitemap).not.toContain('?size=');
+    const config = JSON.parse(readFileSync(new URL('../../../vercel.json', import.meta.url), 'utf8'));
+    const shopQueryHeaders = config.headers.filter((entry) => entry.source === '/shop' && entry.has?.some((rule) => rule.type === 'query'));
+    expect(shopQueryHeaders.map((entry) => entry.headers[0].value)).toEqual(['noindex, follow', 'noindex, follow']);
+    const middleware = readFileSync(new URL('../../../middleware.js', import.meta.url), 'utf8');
+    expect(middleware).toContain('noindex, follow');
+    expect(middleware).toContain('/shop-query');
+    const generator = readFileSync(new URL('../../../scripts/generate-seo-assets.mjs', import.meta.url), 'utf8');
+    for (const industryPath of [
+      '/industries/industrial-paint-booth-filters',
+      '/industries/truck-and-fleet-paint-booth-filters',
+      '/industries/woodworking-paint-booth-filters',
+      '/industries/prep-station-filters',
+      '/industries/marine-paint-booth-filters',
+    ]) {
+      expect(generator).toContain(industryPath);
+    }
     expect(sitemap).not.toContain('/product/test');
     expect(sitemap).not.toContain('/product/platinum<');
     for (const path of [

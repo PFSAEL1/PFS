@@ -573,7 +573,6 @@ ${CROSSREF_PAGES.map((page) => `- [${page.h1}](${origin}${page.path})`).join('\n
 
 ## Aerospace and regulated coatings
 - [NESHAP 6H and Method 319 filter guide](${origin}/neshap-compliant-paint-booth-filters)
-- [Aerospace paint booth filtration](${origin}/industries/aerospace-paint-booth-filters)
 - Note: PFS Filters does not claim that any filter by itself makes a facility compliant with EPA Method 319, NESHAP Subpart HHHHHH, or a permit. Compliance depends on the full system, testing documentation, operation, and recordkeeping.
 
 ## Programs
