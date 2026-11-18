@@ -38,6 +38,7 @@ const REQUIRED_URLS = [
   '/product/20x25-neshap-319-final-stage-panel-filter-20-cs',
   '/product/53x112-volz-sfr-ceiling-filter-blanket-4-bag',
   '/product/koch-spraystop-stk10-61x90-roll',
+  '/bulk-paint-booth-filters',
 ];
 
 function sitemapUrls() {

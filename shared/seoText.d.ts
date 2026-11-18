@@ -91,7 +91,9 @@ declare module '@shared/seoText.mjs' {
 
   export const REVALIDATE_SECONDS: number;
 
+  export const filterRotationSteps: { step: string; title: string; text: string }[];
   export const filterRotationFaqs: { question: string; answer: string }[];
+  export function catalogSpecRows(product: unknown, details?: unknown): Array<{ name: string; value: string }>;
 
   export const paintBoothFilterFaqs: { question: string; answer: string }[];
 }

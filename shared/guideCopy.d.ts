@@ -4,6 +4,8 @@ declare module '@shared/guideCopy.mjs' {
 
   export const sprayBoothFaqs: GuideFaq[];
   export const sprayBoothSections: GuideSection[];
+  export const bulkFaqs: GuideFaq[];
+  export const bulkSections: GuideSection[];
   export const georgiaFaqs: GuideFaq[];
   export const georgiaSections: GuideSection[];
   export function sprayBoothWordCount(): number;

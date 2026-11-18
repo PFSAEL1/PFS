@@ -28,6 +28,8 @@ export default function IndustryLanding() {
         { href: '/shop-by-type', label: 'Shop filters by type' },
         { href: '/industries/automotive-paint-booth-filters', label: 'Automotive paint booth filters' },
         { href: '/guides/filter-size-chart', label: 'Filter size chart' },
+        { href: '/bulk-paint-booth-filters', label: 'Bulk paint booth filter orders' },
+        { href: '/filter-rotation-program', label: 'Filter rotation program' },
       ]}
       structuredData={{
         '@context': 'https://schema.org',

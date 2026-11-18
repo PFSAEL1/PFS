@@ -77,6 +77,29 @@ const BLOG_TITLES = {
   'booth-filter-maintenance-checklist': 'Booth Filter Maintenance List | PFS Filters',
 };
 
+export const filterRotationSteps = [
+  {
+    step: '01',
+    title: 'We review the booth',
+    text: 'The starting point is the booth model, each filter stage, the coatings you run, and how many hours the booth actually sprays. That review picks the media and shows which stage loads first.',
+  },
+  {
+    step: '02',
+    title: 'We set the cadence',
+    text: 'The replacement rhythm follows your spray load. A heavy primer week is not treated the same as a light color week, and exhaust is not put on the same clock as intake.',
+  },
+  {
+    step: '03',
+    title: 'Media ships ahead of the change',
+    text: 'Replacement filters leave on that cadence, so the shop is not placing a rush order after the bank is already packed. You still confirm the media before the first shipment.',
+  },
+  {
+    step: '04',
+    title: 'The change can ride with service',
+    text: 'When a preventive maintenance visit is already on the calendar, the filter swap can be scheduled with it. Production staff are not left to pull a loaded bank in the middle of a job.',
+  },
+];
+
 export const filterRotationFaqs = [
   {
     question: 'How does the PFS Filter Rotation Program work?',
@@ -278,6 +301,10 @@ export const ROUTE_SEO = {
   '/memberships': {
     title: 'Paint Booth Filter Memberships | PFS Filters',
     description: 'Paint booth filter memberships from PFS Filters. Plan price, discount, and included tools are shown on this page. Confirm the current offer before you subscribe.',
+  },
+  '/bulk-paint-booth-filters': {
+    title: 'Bulk Paint Booth Filter Orders | PFS',
+    description: 'Bulk paint booth filter orders for lines and multi-site shops. Case and roll prices are on the product pages. Volume pricing and payment terms are by phone.',
   },
   '/filter-rotation-program': {
     title: 'PFS Filter Rotation Program | PFS Filters',
@@ -753,6 +780,41 @@ export function resolveRouteSeo(path, extras = {}) {
   };
 }
 
+export function packCountFromTitle(title = '') {
+  const text = String(title);
+  const match = text.match(/(\d+)\s*\/\s*(?:CS|Bag)\b/i)
+    || text.match(/\bcase of\s+(\d+)\b/i)
+    || text.match(/\b(\d+)\s*per case\b/i);
+  const count = match ? Number(match[1]) : 0;
+  return Number.isInteger(count) && count >= 2 ? count : 0;
+}
+
+export function catalogSpecRows(product, details) {
+  const node = product?.node || product || {};
+  const rows = catalogAdditionalProperties(node).map((item) => ({ name: item.name, value: item.value }));
+  const variants = (node.variants?.edges || []).map((edge) => edge?.node).filter(Boolean);
+  const skus = [...new Set(variants.map((variant) => String(variant.sku || '').trim()).filter(Boolean))];
+  if (skus.length) rows.push({ name: 'SKU', value: skus.join('; ') });
+  const parts = vendorPartNumbers(node, details);
+  if (parts.length) rows.push({ name: 'Vendor part number', value: parts.join('; ') });
+  const priced = [];
+  for (const variant of variants) {
+    const amount = Number(variant.price?.amount);
+    if (!Number.isFinite(amount)) continue;
+    const label = variant.title && variant.title.toLowerCase() !== 'default title' ? variant.title : (node.title || 'Catalog option');
+    const pack = packCountFromTitle(label);
+    priced.push({
+      label,
+      casePrice: `$${amount.toFixed(2)}`,
+      piece: pack ? `$${(amount / pack).toFixed(2)} (${pack} in the variant title)` : '',
+    });
+  }
+  if (priced.length) rows.push({ name: 'Price per case', value: priced.map((row) => `${row.label}: ${row.casePrice}`).join('; ') });
+  const pieces = priced.filter((row) => row.piece);
+  if (pieces.length) rows.push({ name: 'Price per piece', value: pieces.map((row) => `${row.label}: ${row.piece}`).join('; ') });
+  return rows;
+}
+
 function propertyValue(name, value) {
   return { '@type': 'PropertyValue', name, value: String(value) };
 }
@@ -846,7 +908,7 @@ export function productSchemaExtras(product, details) {
   const vendorParts = vendorPartNumbers(node, details);
   const mpn = vendorParts[0] || sku || undefined;
   const category = String(node.productType || '').trim() || undefined;
-  const additionalProperty = catalogAdditionalProperties(node);
+  const additionalProperty = catalogSpecRows(node, details).map((row) => propertyValue(row.name, row.value));
   return {
     mpn,
     category,
