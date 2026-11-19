@@ -39,6 +39,9 @@ const REQUIRED_URLS = [
   '/product/53x112-volz-sfr-ceiling-filter-blanket-4-bag',
   '/product/koch-spraystop-stk10-61x90-roll',
   '/bulk-paint-booth-filters',
+  '/best-paint-booth-filter-suppliers',
+  '/guides/paint-booth-filter-size',
+  '/guides/paint-booth-filter-changeout',
 ];
 
 function sitemapUrls() {

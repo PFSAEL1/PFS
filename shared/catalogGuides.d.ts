@@ -15,4 +15,12 @@ declare module '@shared/catalogGuides.mjs' {
   export function comparisonFaqs(): GuideFaq[];
   export function shippingSections(products: unknown[]): GuideSection[];
   export function shippingFaqs(): GuideFaq[];
+  export function sizeChoiceSections(): GuideSection[];
+  export function sizeChoiceFaqs(): GuideFaq[];
+  export function sizeChoiceSteps(): Array<{ name: string; text: string }>;
+  export function changeoutSections(): GuideSection[];
+  export function changeoutFaqs(): GuideFaq[];
+  export function changeoutSteps(): Array<{ name: string; text: string }>;
+  export function supplierSections(): GuideSection[];
+  export function supplierFaqs(): GuideFaq[];
 }

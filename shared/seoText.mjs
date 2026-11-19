@@ -170,7 +170,7 @@ export const ROUTE_SEO = {
   },
   '/intake-filters': {
     title: 'Paint Booth Intake Filters | Tacky & Pleats',
-    description: 'Paint booth intake filters for supply air: 300 Series tacky panels, 5KR1 panels, MERV 10 pleats, and pocket bags. Confirm the inlet size first.',
+    description: 'Paint booth intake filters for supply air: 300 Series tacky panels, 5KR1 panels, MERV 10 pleats, and a six-pocket bag. Confirm the inlet size first.',
   },
   '/ceiling-filters': {
     title: 'Paint Booth Ceiling Filters | PFS Filters',
@@ -302,6 +302,18 @@ export const ROUTE_SEO = {
     title: 'Paint Booth Filter Memberships | PFS Filters',
     description: 'Paint booth filter memberships from PFS Filters. Plan price, discount, and included tools are shown on this page. Confirm the current offer before you subscribe.',
   },
+  '/best-paint-booth-filter-suppliers': {
+    title: 'Choose a Paint Booth Filter Supplier | PFS',
+    description: 'How to choose a paint booth filter supplier in the US: catalog media, a booth-brand directory, shipping from Santa Rosa, and quotes by phone. Not a ranking.',
+  },
+  '/guides/paint-booth-filter-size': {
+    title: 'Right Paint Booth Filter Size | PFS Filters',
+    description: 'How to determine the right paint booth filter size: match the stage and the measured opening to a catalog variant. A nominal size is not a substitute.',
+  },
+  '/guides/paint-booth-filter-changeout': {
+    title: 'Paint Booth Filter Changeout Guide | PFS',
+    description: 'Paint booth filter changeout: when to change intake, ceiling, and exhaust media, using pressure readings and the installed label. No universal interval.',
+  },
   '/bulk-paint-booth-filters': {
     title: 'Bulk Paint Booth Filter Orders | PFS',
     description: 'Bulk paint booth filter orders for lines and multi-site shops. Case and roll prices are on the product pages. Volume pricing and payment terms are by phone.',
@@ -428,21 +440,24 @@ const CATEGORY_SEO = {
     description: 'Paint booth pre-filter guidance: this catalog has no products tagged as pre-filters. Use a documented intake stage only where the booth specifies it.',
     noindex: true,
   },
-  'powder-booth-filters': {
-    title: 'Powder Booth Filters | PFS Filters',
-    description: 'Three-stage panels and pulse-jet cartridges for powder booths. None are stocked with prices or part numbers. Send the model and size to request a quote.',
-  },
   'activated-carbon-media': {
-    title: 'Activated Carbon VOC Media | PFS Filters',
-    description: 'Activated carbon VOC media holds solvent vapor after a particulate filter. No prices or part numbers are listed. Request a quote with housing size and airflow.',
+    title: 'Paint Booth Carbon Filters | PFS Filters',
+    description: 'Paint booth carbon filters are not a stocked catalog item. Activated carbon VOC media is quoted from the housing size and airflow. No part number is listed.',
   },
   'paint-arrest-systems': {
     title: 'Paint Arrest Systems | PFS Filters',
     description: 'Paint arrest systems stack overspray media for heavy spray loads. Catalog arrestors are sold separately. Request a quote for a multi-stage exhaust set.',
+    noindex: true,
   },
   'pfs-oem-replacement-kits': {
     title: 'PFS OEM Replacement Kits | PFS Filters',
     description: 'OEM replacement kits match intake, ceiling, and exhaust media to a PFS booth. Kits are quoted from the model and tag. No kit prices or part numbers are listed.',
+    noindex: true,
+  },
+  'powder-booth-filters': {
+    title: 'Powder Booth Filters | PFS Filters',
+    description: 'Three-stage panels and pulse-jet cartridges for powder booths. None are stocked with prices or part numbers. Send the model and size to request a quote.',
+    noindex: true,
   },
 };
 
@@ -686,8 +701,12 @@ export function lowestPriceVariant(product) {
 // Date the committed Shopify snapshot prices were last updated (git).
 export const CATALOG_PRICE_VALID_FROM = '2026-11-10';
 
-export function productOffer({ price, currency = 'USD', availability, url, priceValidUntil: until, validFrom } = {}) {
-  return {
+export function isFreightProduct(product) {
+  return /ltl|less than truckload/i.test(`${product?.title || ''} ${product?.description || ''}`);
+}
+
+export function productOffer({ price, currency = 'USD', availability, url, priceValidUntil: until, validFrom, description, includeShipping = true } = {}) {
+  const offer = {
     '@type': 'Offer',
     price: normalizeOfferPrice(price),
     priceCurrency: currency || 'USD',
@@ -698,8 +717,11 @@ export function productOffer({ price, currency = 'USD', availability, url, price
     priceValidUntil: until || priceValidUntil(),
     seller: { '@type': 'Organization', name: 'PFS Filters' },
     hasMerchantReturnPolicy: merchantReturnPolicy(),
-    shippingDetails: offerShippingDetails(),
   };
+  const text = String(description || '').replace(/\s+/g, ' ').trim();
+  if (text) offer.description = text;
+  if (includeShipping) offer.shippingDetails = offerShippingDetails();
+  return offer;
 }
 
 export function resolveRouteSeo(path, extras = {}) {

@@ -22,6 +22,8 @@ export const GUIDE_PAGES = [
   { path: '/guides/how-to-measure-paint-booth-filters', h1: 'How to Measure a Paint Booth Filter' },
   { path: '/guides/andreae-vs-fiberglass-vs-paint-pockets', h1: 'Andreae, Fiberglass, and Paint Pockets' },
   { path: '/guides/shipping-and-freight', h1: 'Shipping and Freight for Paint Booth Filters' },
+  { path: '/guides/paint-booth-filter-size', h1: 'How to Determine the Right Paint Booth Filter Size' },
+  { path: '/guides/paint-booth-filter-changeout', h1: 'Paint Booth Filter Changeout Guide' },
 ];
 
 const CAVEAT = 'This row is a recorded size in the PFS booth directory. It is not marked as confirmed fitment. Measure the opening and read the label before ordering.';
@@ -326,6 +328,143 @@ export function homepageExpansion(products) {
     'Unopened packages may be returned within five business days. The refund is reduced by shipping costs and a 25 percent restocking fee. Opened packages are not returnable. Roll media product text says shipping is typically LTL because of size. Other shipping charges are calculated at checkout.',
     'California pages on this site cover regions the Santa Rosa team already describes. Georgia orders use the same catalog, shipped from Santa Rosa. There is no Georgia storefront and no Georgia compliance title on this site.',
     ...priceParagraphs(products).slice(0, 20),
+  ];
+}
+
+export function sizeChoiceSections() {
+  return [
+    {
+      heading: 'Start with the stage, then the opening',
+      paragraphs: [
+        'The right paint booth filter size is the size of the opening you are filling, on the stage you are changing. Intake, ceiling, and exhaust are different openings. A 20 by 20 exhaust pad does not become a ceiling blanket because both numbers start with 20. Write down the booth make and model from the equipment tag, the stage, and the width, height, and depth of the opening.',
+        'Nominal labels such as 20x20 are names used on product pages. The frame in the booth can differ from that name. Measure the installed opening and the filter coming out. Compare those numbers with the variant title. The measuring guide at /guides/how-to-measure-paint-booth-filters is the step-by-step version of that check. This page is about choosing which listed size to order after you have the measurement.',
+        'The size chart at /guides/filter-size-chart repeats recorded directory rows. A row is not confirmed fitment. If the directory size and the opening disagree, follow the opening and the label on the filter. This site does not publish a conversion from nominal size to actual size, and it does not publish a tolerance.',
+      ],
+    },
+    {
+      heading: 'Pads, rolls, bags, and blankets are not one size system',
+      paragraphs: [
+        'Fiberglass paint arrestor pads are sold as cases with face sizes such as 20x20, 20x25, and 24x24. Rolls of the same gram weight are separate products, listed by width and length. A pad does not convert into a roll. Paint Pockets and Andreae accordion filters have their own variant titles, including AF codes on the accordion product. Match the code and the face size that are printed on the filter you remove.',
+        'Intake panels, pleats, and the six-pocket bag are intake sizes, not exhaust sizes. The six-pocket bag in the catalog is 23.25 by 47 by 8 inches, four per case. Ceiling blankets are cut to the grid. L560 and Swiss Flow 600G list many cut sizes. A ceiling size from a drawing is not a substitute for the blanket in the grid today.',
+        'If the measured opening is not a variant title, call 855-496-7969 with the booth model, the stage, the measurement, and a photo. Do not trim a listed size unless the product page says that is how it is sold. Do not invent a kit from nearby sizes.',
+      ],
+    },
+  ];
+}
+
+export function sizeChoiceFaqs() {
+  return [
+    {
+      question: 'How do I determine the right filter size for a paint booth?',
+      answer: 'Identify the stage, measure the opening, and match that measurement to a variant title. A directory row and a nominal 20x20 label are not a substitute for the measurement.',
+    },
+    {
+      question: 'Can one size cover intake and exhaust?',
+      answer: 'No. Intake panels, ceiling blankets, exhaust pads, rolls, and bags are different products. Order the stage you are changing.',
+    },
+  ];
+}
+
+export function sizeChoiceSteps() {
+  return [
+    { name: 'Identify the stage', text: 'Record whether you are changing intake, ceiling, or exhaust. Those openings are not interchangeable.' },
+    { name: 'Measure the opening', text: 'Measure the installed opening and the filter coming out. Write down width, height, and depth.' },
+    { name: 'Read the label', text: 'Record gram weight, an AF code, a SKU, or a brand still printed on the filter.' },
+    { name: 'Match a variant title', text: 'Order the catalog variant whose title matches that stage and measurement. If none matches, call 855-496-7969.' },
+  ];
+}
+
+export function changeoutSections() {
+  return [
+    {
+      heading: 'When to change paint booth filters',
+      paragraphs: [
+        'There is no universal change interval on this site. Follow the booth and filter instructions, the pressure or manometer reading the manufacturer specifies, spray load, and what you see on the filter face. Visible overspray loading, bypass at the edges, or paint past the filter are reasons to change that stage. Intake and ceiling filters can be due on a different day from the exhaust bank.',
+        'A clogged exhaust filter can drop face velocity. The maintenance notes on this site cite NFPA 33 and a 100 feet per minute minimum for a spray booth as the reason a loaded bank matters. A new filter fixes low airflow caused by loaded media. If velocity is still low with clean filters seated in the frame, the fan, belts, or duct need a technician. Another layer of media does not solve that.',
+      ],
+    },
+    {
+      heading: 'A changeout, stage by stage',
+      paragraphs: [
+        'Exhaust: shut the booth down as the equipment instructions require, note the pad or roll that is installed, and match the gram weight or AF code before you order the replacement. A 15-gram pad and a 22-gram pad are different products. A roll and a pad of the same gram weight are different products. Holding grids are a separate accessory.',
+        'Intake and ceiling: match the panel, pleat, bag, or blanket to the opening. A 2-inch pleat does not fill a 4-inch track. The six-pocket bag is one catalog size, 23.25 by 47 by 8 inches. Ceiling media is cut to the grid, not to the booth footprint.',
+        'The filter rotation program can ship media on a cadence after PFS reviews the booth, the stages, and the spray load. It is not Subscribe and Save, and it does not publish a discount. Call 855-496-7969 to set it up. The program page is /filter-rotation-program.',
+      ],
+    },
+    {
+      heading: 'After the filters are in',
+      paragraphs: [
+        'Seat the media in the frame so air does not bypass the edges. Confirm airflow direction when the product text names one, as Paint Pockets does with a white side and a green side. Stocked orders are typically processed in one to two business days. Freight and custom sizes take longer. Prices do not include shipping.',
+        'Unopened packages may be returned within five business days. The refund deducts shipping costs and a 25 percent restocking fee. Opened packages are not returnable. A filter purchase does not make a booth compliant with any permit or rule.',
+      ],
+    },
+  ];
+}
+
+export function changeoutFaqs() {
+  return [
+    {
+      question: 'How often should paint booth filters be changed?',
+      answer: 'There is no universal interval. Use the booth and filter instructions, pressure readings, spray load, and a visual check. Exhaust, intake, and ceiling are not on the same clock.',
+    },
+    {
+      question: 'Does a new filter fix low airflow by itself?',
+      answer: 'A new filter fixes low airflow caused by loaded media. If velocity is still low with clean filters seated tight, the fan, belts, or duct need a technician.',
+    },
+  ];
+}
+
+export function changeoutSteps() {
+  return [
+    { name: 'Check the stage that is loaded', text: 'Use pressure readings and a visual check. Do not assume intake, ceiling, and exhaust are due on the same day.' },
+    { name: 'Record the installed filter', text: 'Write down the stage, the measured opening, and any gram weight, AF code, or SKU still readable.' },
+    { name: 'Order the matching catalog variant', text: 'Match the product page variant. Call 855-496-7969 if the size is not listed.' },
+    { name: 'Install and seat the media', text: 'Follow the product notes for airflow direction and seat the filter so air does not bypass the frame.' },
+  ];
+}
+
+export function supplierSections() {
+  const brands = listBoothGuides().map((guide) => guide.name);
+  return [
+    {
+      heading: 'What to look for in a paint booth filter supplier',
+      paragraphs: [
+        'Buyers comparing paint booth filter suppliers in the United States usually check four things: whether the catalog actually lists the media they use, whether booth brands are documented, how shipping and returns work, and whether a person will quote a size that is not on the page. This page states those criteria and what PFS Filters publishes. It does not rank suppliers and it does not call PFS the best or the number one.',
+        'A useful catalog separates intake, ceiling, and exhaust. PFS lists tacky panels, pleated intake filters, a six-pocket bag, ceiling diffusion blankets, fiberglass paint arrestor pads and rolls, Paint Pockets, Andreae accordion filters, and aerospace bags and panels whose titles include NESHAP 319. Activated carbon modules, powder cartridges, and complete changeout kits are not stocked with prices. Those requests are quotes.',
+      ],
+    },
+    {
+      heading: 'United States',
+      paragraphs: [
+        `PFS Filters ships within the United States from 1400 Airport Blvd, Santa Rosa, CA 95403. The phone number is 855-496-7969. Stocked items are typically processed in one to two business days. Freight, custom, and special-order timing varies. There is no same-day claim. Prices do not include shipping. Checkout calculates the charge. Roll product text says shipping is typically LTL because of size.`,
+        `The booth directory names ${brands.length} brands with recorded rows: ${brands.join(', ')}. Each row is recorded, not confirmed fitment. Measure the opening. The filter rotation program can schedule media for more than one booth. Volume pricing and payment terms are not published. Call for those.`,
+        'Unopened packages may be returned within five business days. The refund deducts shipping costs and a 25 percent restocking fee. Opened packages are not returnable. This site does not publish Canada or other international shipping. Those destinations are not offered here.',
+      ],
+    },
+    {
+      heading: 'California',
+      paragraphs: [
+        'The company is in Santa Rosa, California. Regional pages already on this site cover the North Bay, the Bay Area, Sacramento, Napa Valley, the Central Valley, Bakersfield, San Diego, and Los Angeles. They use the same U.S. catalog. There is no separate California warehouse claim beyond the Santa Rosa address, and there is no claim that a filter makes a shop compliant with a California rule.',
+        'Georgia orders use the same catalog, shipped from Santa Rosa. There is no Georgia storefront. Shops outside California order the same way: the product page for a listed size, or a phone quote for a size that is not listed.',
+      ],
+    },
+  ];
+}
+
+export function supplierFaqs() {
+  return [
+    {
+      question: 'Who sells paint booth filters in the United States?',
+      answer: 'PFS Filters sells paint booth filters online to U.S. addresses from 1400 Airport Blvd, Santa Rosa, CA 95403. Listed sizes are on the product pages. Unlisted sizes are a phone quote at 855-496-7969. This page does not rank other sellers.',
+    },
+    {
+      question: 'Where do I buy paint booth filters in California?',
+      answer: 'PFS Filters is in Santa Rosa and ships the same catalog nationwide, including California. Regional pages describe North Bay, Bay Area, Sacramento, and other California areas already published on the site. There is no second California price list.',
+    },
+    {
+      question: 'Does PFS publish volume discounts or payment terms?',
+      answer: 'No. Volume pricing and payment terms are only by phone at 855-496-7969. Catalog prices are the case or roll prices and do not include shipping.',
+    },
   ];
 }
 

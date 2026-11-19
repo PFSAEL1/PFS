@@ -10,12 +10,18 @@ import {
   comparisonSections,
   crossRefFaqs,
   crossRefSections,
+  changeoutFaqs,
+  changeoutSections,
+  changeoutSteps,
   measureFaqs,
   measureSections,
   shippingFaqs,
   shippingSections,
   sizeChartFaqs,
   sizeChartSections,
+  sizeChoiceFaqs,
+  sizeChoiceSections,
+  sizeChoiceSteps,
 } from '@shared/catalogGuides.mjs';
 import NotFound from '@/pages/NotFound';
 
@@ -27,6 +33,8 @@ const STATIC = [
   { path: '/guides/how-to-measure-paint-booth-filters', h1: 'How to Measure a Paint Booth Filter', sections: measureSections(), faqs: measureFaqs() },
   { path: '/guides/andreae-vs-fiberglass-vs-paint-pockets', h1: 'Andreae, Fiberglass, and Paint Pockets', sections: comparisonSections(products), faqs: comparisonFaqs() },
   { path: '/guides/shipping-and-freight', h1: 'Shipping and Freight for Paint Booth Filters', sections: shippingSections(products), faqs: shippingFaqs() },
+  { path: '/guides/paint-booth-filter-size', h1: 'How to Determine the Right Paint Booth Filter Size', sections: sizeChoiceSections(), faqs: sizeChoiceFaqs(), steps: sizeChoiceSteps() },
+  { path: '/guides/paint-booth-filter-changeout', h1: 'Paint Booth Filter Changeout Guide', sections: changeoutSections(), faqs: changeoutFaqs(), steps: changeoutSteps() },
 ];
 
 export default function CatalogGuide() {
@@ -37,6 +45,7 @@ export default function CatalogGuide() {
     ? { h1: cross.h1, sections: crossRefSections(cross, products), faqs: crossRefFaqs(cross) }
     : STATIC.find((item) => item.path === path);
   if (!page) return <NotFound />;
+  const steps = 'steps' in page ? page.steps : undefined;
 
   const canonical = `https://www.pfsfilters.com${path}`;
   return (
@@ -64,6 +73,18 @@ export default function CatalogGuide() {
             { name: page.h1, url: canonical },
           ]),
           createFAQSchema(page.faqs),
+          ...(steps ? [{
+            '@type': 'HowTo',
+            name: page.h1,
+            dateModified: '2026-11-19',
+            author: { '@type': 'Organization', name: 'Platinum Finishing Systems', url: 'https://www.pfsfilters.com/' },
+            step: steps.map((step, index) => ({
+              '@type': 'HowToStep',
+              position: index + 1,
+              name: step.name,
+              text: step.text,
+            })),
+          }] : []),
         ],
       }}
     />
