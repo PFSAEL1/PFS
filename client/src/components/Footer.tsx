@@ -38,6 +38,7 @@ export const Footer = () => {
                 { href: '/faq', label: 'Filter FAQ' },
                 { href: '/filter-rotation-program', label: 'Filter Rotation Program' },
                 { href: '/bulk-paint-booth-filters', label: 'Bulk Filter Orders' },
+                { href: '/best-paint-booth-filter-suppliers', label: 'Choosing a Filter Supplier' },
                 { href: '/blog/booth-filter-maintenance-checklist', label: 'Filter Maintenance Checklist' },
                 { href: '/why-choose-us', label: 'Why Choose Us' },
                 { href: '/memberships', label: 'Memberships' },

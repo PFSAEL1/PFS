@@ -94,6 +94,7 @@ export const createProductSchema = (product: {
       currency: product.currency || 'USD',
       availability: product.availability,
       url,
+      description: product.description || product.name,
     }),
   };
   if (sku) schema.sku = sku;
@@ -153,6 +154,7 @@ export const createItemListSchema = (items: Array<{
         currency: item.currency || 'USD',
         availability: item.availability,
         url,
+        description: item.name,
       }),
     };
     if (sku) product.sku = sku;

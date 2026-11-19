@@ -62,16 +62,19 @@ declare module '@shared/seoText.mjs' {
     url?: string;
     priceValidUntil?: string;
     validFrom?: string;
+    description?: string;
+    includeShipping?: boolean;
   }): {
     '@type': string;
     price: string;
     priceCurrency: string;
     availability: string;
     url?: string;
+    description?: string;
     validFrom: string;
     priceValidUntil: string;
     hasMerchantReturnPolicy: ReturnType<typeof merchantReturnPolicy>;
-    shippingDetails: ReturnType<typeof offerShippingDetails>;
+    shippingDetails?: ReturnType<typeof offerShippingDetails>;
   };
 
   export function isGuidePath(pathname?: string): boolean;

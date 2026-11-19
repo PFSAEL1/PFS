@@ -48,6 +48,11 @@ describe('document SEO limits', () => {
     expect(resolveRouteSeo('/shop-by-booth-type').noindex).toBe(true);
     expect(resolveRouteSeo('/category/pre-filters').noindex).toBe(true);
     expect(resolveRouteSeo('/category/pre-filters').canonical).toBe('/prefilters');
+    expect(resolveRouteSeo('/category/powder-booth-filters').noindex).toBe(true);
+    expect(resolveRouteSeo('/category/paint-arrest-systems').noindex).toBe(true);
+    expect(resolveRouteSeo('/category/pfs-oem-replacement-kits').noindex).toBe(true);
+    expect(resolveRouteSeo('/category/activated-carbon-media').noindex).toBe(false);
+    expect(resolveRouteSeo('/best-paint-booth-filter-suppliers').title.length).toBeLessThanOrEqual(60);
   });
 
   it('publishes a Google-supported return fee and a US shipping rate', () => {
@@ -182,6 +187,8 @@ describe('document SEO limits', () => {
         currency: 'USD',
         availability: 'https://schema.org/InStock',
         url: `https://www.pfsfilters.com/product/${node.handle}`,
+        description: node.title,
+        includeShipping: !/ltl|less than truckload/i.test(node.title),
       });
       expect(price, node.handle).toMatch(/^\d+\.\d{2}$/);
       expect(Number(price), node.handle).toBeGreaterThan(0);
@@ -190,6 +197,13 @@ describe('document SEO limits', () => {
       expect(offer.priceValidUntil).toMatch(/^\d{4}-\d{2}-\d{2}$/);
       expect(offer).not.toHaveProperty('review');
       expect(offer).not.toHaveProperty('aggregateRating');
+      expect(offer.description, node.handle).toBeTruthy();
+      if (/ltl|less than truckload/i.test(`${node.title}`)) {
+        expect(offer.shippingDetails, node.handle).toBeUndefined();
+      } else {
+        expect(offer.shippingDetails?.shippingRate?.value, node.handle).toBe('40.76');
+      }
+      expect(offer.hasMerchantReturnPolicy.returnFees).toBe('https://schema.org/ReturnFeesCustomerResponsibility');
       expect(schemaSkuFromVariant(variant, node.handle).length, node.handle).toBeGreaterThan(0);
     }
   });
