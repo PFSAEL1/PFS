@@ -19,6 +19,7 @@ import {
   productSchemaExtras,
   catalogSpecRows,
   filterRotationSteps,
+  isFreightProduct,
   isGuidePath,
 } from '../shared/seoText.mjs';
 import { getBoothGuide } from '../shared/boothFilterGuides.mjs';
@@ -36,10 +37,18 @@ import {
   measureFaqs,
   measureSections,
   priceParagraphs,
+  changeoutFaqs,
+  changeoutSections,
+  changeoutSteps,
   shippingFaqs,
   shippingSections,
   sizeChartFaqs,
   sizeChartSections,
+  sizeChoiceFaqs,
+  sizeChoiceSections,
+  sizeChoiceSteps,
+  supplierFaqs,
+  supplierSections,
 } from '../shared/catalogGuides.mjs';
 import { mainFallbackWordCount, pageCopyHtml, renderLlmsFullTxt, renderLlmsTxt } from './page-copy.mjs';
 
@@ -430,6 +439,8 @@ const productRoutes = products.map((product) => {
         currency,
         availability,
         url: absoluteUrl(pathname),
+        description: stripMarkdown(product.description) || product.title,
+        includeShipping: !isFreightProduct(product),
       }),
     },
     noindex: isMembershipHandle(product.handle),
@@ -702,19 +713,54 @@ const extraGuideRoutes = [
   { path: '/guides/how-to-measure-paint-booth-filters', h1: 'How to Measure a Paint Booth Filter', sections: measureSections(), faqs: measureFaqs(), description: 'How to measure a paint booth filter opening and compare it with the variant title. Nominal directory sizes are not a substitute for the measured opening.' },
   { path: '/guides/andreae-vs-fiberglass-vs-paint-pockets', h1: 'Andreae, Fiberglass, and Paint Pockets', sections: comparisonSections(products), faqs: comparisonFaqs(), description: 'Andreae accordion filters, fiberglass arrestors, and Paint Pockets compared using only variant titles and prices in the PFS catalog. No invented test numbers.' },
   { path: '/guides/shipping-and-freight', h1: 'Shipping and Freight for Paint Booth Filters', sections: shippingSections(products), faqs: shippingFaqs(), description: 'Shipping and freight for PFS Filters: checkout calculates the charge, roll media is typically LTL, and stocked orders process in 1–2 business days. No same-day claim.' },
+  { path: '/guides/paint-booth-filter-size', h1: 'How to Determine the Right Paint Booth Filter Size', title: 'Right Paint Booth Filter Size | PFS Filters', sections: sizeChoiceSections(), faqs: sizeChoiceFaqs(), steps: sizeChoiceSteps(), description: 'How to determine the right paint booth filter size: match the stage and the measured opening to a catalog variant. A nominal size is not a substitute.' },
+  { path: '/guides/paint-booth-filter-changeout', h1: 'Paint Booth Filter Changeout Guide', title: 'Paint Booth Filter Changeout Guide | PFS', sections: changeoutSections(), faqs: changeoutFaqs(), steps: changeoutSteps(), description: 'Paint booth filter changeout: when to change intake, ceiling, and exhaust media, using pressure readings and the installed label. No universal interval.' },
 ];
 for (const page of extraGuideRoutes) rememberGuide(page.path, page.sections, page.faqs);
 
+const GUIDE_AUTHOR = { '@type': 'Organization', name: 'Platinum Finishing Systems', url: 'https://www.pfsfilters.com/' };
+const GUIDE_UPDATED = '2026-11-19';
+
 const builtGuideRoutes = extraGuideRoutes.map((page) => ({
   path: page.path,
-  title: `${page.h1} | PFS Filters`.slice(0, 60),
+  title: page.title || `${page.h1} | PFS Filters`.slice(0, 60),
   description: page.description,
   h1: page.h1,
   priority: '0.7',
   changefreq: 'monthly',
-  schema: { '@context': 'https://schema.org', '@graph': [faqSchema(page.faqs)] },
+  schema: {
+    '@context': 'https://schema.org',
+    '@graph': [
+      faqSchema(page.faqs),
+      ...(page.steps ? [{
+        '@type': 'HowTo',
+        name: page.h1,
+        dateModified: GUIDE_UPDATED,
+        author: GUIDE_AUTHOR,
+        step: page.steps.map((step, index) => ({
+          '@type': 'HowToStep',
+          position: index + 1,
+          name: step.name,
+          text: step.text,
+        })),
+      }] : []),
+    ],
+  },
   guideKey: page.path,
 }));
+
+const supplierFaqsForRoute = supplierFaqs();
+const supplierRoute = {
+  path: '/best-paint-booth-filter-suppliers',
+  title: 'Choose a Paint Booth Filter Supplier | PFS',
+  description: 'How to choose a paint booth filter supplier in the US: catalog media, a booth-brand directory, shipping from Santa Rosa, and quotes by phone. Not a ranking.',
+  h1: 'How to Choose a Paint Booth Filter Supplier',
+  priority: '0.8',
+  changefreq: 'monthly',
+  schema: { '@context': 'https://schema.org', '@graph': [faqSchema(supplierFaqsForRoute)] },
+  guideKey: '/best-paint-booth-filter-suppliers',
+};
+rememberGuide(supplierRoute.path, supplierSections(), supplierFaqsForRoute);
 
 const industryContent = new Map();
 for (const page of industryPages(products)) industryContent.set(page.path, page);
@@ -730,7 +776,7 @@ const industryRouteList = [...industryContent.values()]
     schema: { '@context': 'https://schema.org', '@graph': [faqSchema(page.faqs)] },
   }));
 
-const routes = [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...blogRoutes, ...productRoutes, ...crossrefRoutes, ...builtGuideRoutes, ...industryRouteList];
+const routes = [...staticRoutes, ...categoryRoutes, ...brandRoutes, ...blogRoutes, ...productRoutes, ...crossrefRoutes, ...builtGuideRoutes, supplierRoute, ...industryRouteList];
 
 const gitLastmodCache = new Map();
 
@@ -864,11 +910,14 @@ for (const route of routes) {
     if (offer?.hasMerchantReturnPolicy?.returnMethod !== 'https://schema.org/ReturnByMail' || !allowedReturnFees.includes(returnFees)) {
       seoErrors.push(`${route.path} Product offer has an invalid returnMethod or returnFees value`);
     }
+    if (!offer?.description) seoErrors.push(`${route.path} Product offer is missing a description`);
+    const productRecord = products.find((product) => product.handle === route.path.slice('/product/'.length));
     const rate = offer?.shippingDetails?.shippingRate;
-    if (offer?.shippingDetails?.shippingDestination?.addressCountry !== 'US' || rate?.currency !== 'USD' || rate?.value == null || rate.value === '') {
+    if (isFreightProduct(productRecord)) {
+      if (offer?.shippingDetails) seoErrors.push(`${route.path} Freight product must not invent a parcel shipping rate`);
+    } else if (offer?.shippingDetails?.shippingDestination?.addressCountry !== 'US' || rate?.currency !== 'USD' || rate?.value == null || rate.value === '') {
       seoErrors.push(`${route.path} Product offer is missing US shippingDetails`);
-    }
-    if (!offer?.shippingDetails?.deliveryTime?.handlingTime || !offer?.shippingDetails?.deliveryTime?.transitTime) {
+    } else if (!offer?.shippingDetails?.deliveryTime?.handlingTime || !offer?.shippingDetails?.deliveryTime?.transitTime) {
       seoErrors.push(`${route.path} Product offer shippingDetails is missing handling or transit time`);
     }
     if (!route.schema?.sku) seoErrors.push(`${route.path} Product is missing sku`);
@@ -1000,7 +1049,14 @@ function listedProductNode(product) {
     url,
     image,
     brand: { '@type': 'Brand', name: product.vendor || 'PFS Filters' },
-    offers: productOffer({ price: normalizedPrice, currency, availability, url }),
+    offers: productOffer({
+      price: normalizedPrice,
+      currency,
+      availability,
+      url,
+      description,
+      includeShipping: !isFreightProduct(product),
+    }),
   };
   if (sku) node.sku = sku;
   if (extras.mpn) node.mpn = extras.mpn;
@@ -1253,7 +1309,7 @@ function sectionsHtml(sections, faqs = []) {
 function directoryGuideFallback(route) {
   const content = guideContent.get(route.guideKey);
   const heading = escapeHtml(routeHeading(route));
-  return `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1>${content ? sectionsHtml(content.sections, content.faqs) : ''}<p><a href="/shop-by-booth" style="color:#60a5fa">Booth brand directory</a> · <a href="/guides/filter-size-chart" style="color:#60a5fa">Filter size chart</a> · <a href="/filter-part-numbers" style="color:#60a5fa">Part numbers</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
+  return `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1>${content ? sectionsHtml(content.sections, content.faqs) : ''}<p><a href="/paint-booth-filters" style="color:#60a5fa">Paint booth filters</a> · <a href="/industries/automotive-paint-booth-filters" style="color:#60a5fa">Automotive paint booth filters</a> · <a href="/shop-by-booth" style="color:#60a5fa">Booth brand directory</a> · <a href="/guides/filter-size-chart" style="color:#60a5fa">Filter size chart</a> · <a href="/filter-part-numbers" style="color:#60a5fa">Part numbers</a> · <a href="/contact" style="color:#60a5fa">Contact PFS</a></p></div></main>`;
 }
 
 function prosePageFallback(route) {
@@ -1415,6 +1471,9 @@ const INDUSTRY_CRAWL_LINKS = [
   ['/industries/marine-paint-booth-filters', 'marine paint booth filters'],
   ['/bulk-paint-booth-filters', 'bulk paint booth filter orders'],
   ['/filter-rotation-program', 'filter rotation program'],
+  ['/best-paint-booth-filter-suppliers', 'how to choose a paint booth filter supplier'],
+  ['/guides/paint-booth-filter-size', 'how to determine the right paint booth filter size'],
+  ['/paint-booth-filters', 'paint booth filters'],
 ];
 
 function industryCrawlLinks() {
@@ -1454,6 +1513,9 @@ function strongPageLinks() {
     ['/industries/marine-paint-booth-filters', 'marine paint booth filters'],
     ['/bulk-paint-booth-filters', 'bulk paint booth filter orders'],
     ['/filter-rotation-program', 'filter rotation program'],
+    ['/best-paint-booth-filter-suppliers', 'how to choose a paint booth filter supplier'],
+    ['/guides/paint-booth-filter-size', 'how to determine the right paint booth filter size'],
+    ['/guides/paint-booth-filter-changeout', 'paint booth filter changeout'],
   ];
   return `<p>${links.map(([href, label]) => `<a href="${href}" style="color:#60a5fa">${escapeHtml(label)}</a>`).join(' · ')}</p>${discoveredCrawlLinks()}`;
 }
@@ -1508,6 +1570,10 @@ function paintBoothFiltersFallback(route) {
       <p style="color:#c4c8d0;line-height:1.7">The paint booth filter wall is the exhaust frame. Pads, rolls, Paint Pockets, and accordion arrestors are different products. A 20x20 holding grid is sold separately.</p>
       <h2 style="font-size:1.6rem;margin-top:32px">Paint booth filter roll</h2>
       <p style="color:#c4c8d0;line-height:1.7">Paint booth filter rolls are the roll-media variants. A roll and a pad of the same gram weight are different catalog items. Roll product text says shipping is typically LTL because of size.</p>
+      <h2 style="font-size:1.6rem;margin-top:32px">How to choose paint booth filters</h2>
+      <p style="color:#c4c8d0;line-height:1.7">Choose paint booth filters by the stage that is due, then by the measured opening. Intake filters, ceiling filters, exhaust paint arrestor pads, rolls, and bag filters are different products. The <a href="/intake-filters" style="color:#60a5fa">paint booth intake filters</a> page lists tacky panels, pleats, and the six-pocket bag. <a href="/category/fiberglass-arrestors" style="color:#60a5fa">Paint arrestor pads</a> are the fiberglass exhaust pads. <a href="/category/aerospace-neshap-filters" style="color:#60a5fa">NESHAP filters</a> are a separate catalog group. <a href="/category/activated-carbon-media" style="color:#60a5fa">Paint booth carbon filters</a> are not stocked. <a href="/guides/paint-booth-filter-size" style="color:#60a5fa">How to determine the right filter size</a> and <a href="/guides/paint-booth-filter-changeout" style="color:#60a5fa">filter changeout</a> are the next guides. <a href="/best-paint-booth-filter-suppliers" style="color:#60a5fa">How to choose a paint booth filter supplier</a> states what this catalog offers in the United States.</p>
+      <h2 style="font-size:1.6rem;margin-top:32px">Filter changeout</h2>
+      <p style="color:#c4c8d0;line-height:1.7">There is no universal change interval. Use the booth instructions, pressure readings, and the filter face. The <a href="/filter-rotation-program" style="color:#60a5fa">filter rotation program</a> can schedule more than one booth. Volume pricing is by phone at 855-496-7969.</p>
       <h2 style="font-size:1.6rem;margin-top:32px">Catalog prices</h2>
       ${priceParagraphs(products).map((paragraph) => `<p style="color:#c4c8d0;line-height:1.7">${escapeHtml(paragraph)}</p>`).join('')}
       ${strongPageLinks()}
@@ -2786,8 +2852,11 @@ function validateDistPages() {
         const price = node.offers?.price;
         if (!price || !node.offers?.priceCurrency) throw new Error(`${route.path} Product JSON-LD is missing an offer price`);
         if (!node.description) throw new Error(`${route.path} Product JSON-LD is missing a description`);
-        if (!node.offers.validFrom || !node.offers.hasMerchantReturnPolicy?.returnMethod || !node.offers.shippingDetails?.shippingRate) {
-          throw new Error(`${route.path} Product offer is missing validFrom, returnMethod, or shippingDetails`);
+        if (!node.offers.validFrom || !node.offers.hasMerchantReturnPolicy?.returnMethod || !node.offers.description) {
+          throw new Error(`${route.path} Product offer is missing validFrom, returnMethod, or description`);
+        }
+        if (node.offers.shippingDetails && !node.offers.shippingDetails.shippingRate) {
+          throw new Error(`${route.path} Product offer shippingDetails is missing a rate`);
         }
       }
       if (node['@type'] === 'MerchantReturnPolicy' && !allowedReturnFees.has(node.returnFees)) {
