@@ -93,7 +93,6 @@ const PAGE_SOURCE = {
   '/privacy-policy': ['client/src/pages/PrivacyPolicy.tsx'],
   '/terms-of-service': ['client/src/pages/TermsOfService.tsx'],
   '/memberships': ['client/src/pages/Memberships.tsx'],
-  '/filter-finder': ['client/src/pages/FilterFinder.tsx'],
   '/filter-scanner': ['client/src/pages/FilterScanner.tsx'],
   '/filter-part-numbers': ['client/src/pages/FilterPartNumbers.tsx'],
   '/shop-by-size': ['client/src/pages/ShopBySize.tsx'],
@@ -502,10 +501,10 @@ export function pageCopyHtml(pathname) {
 export function renderLlmsTxt() {
   return `# PFS Filters
 
-> PFS Filters (pfsfilters.com) sells paint booth filters online: intake and ceiling diffusion media, tacky intake panels, fiberglass and accordion (Andreae-style) exhaust arrestors, paint pockets, roll media, pocket/bag filters, MERV and HEPA final filters, and aerospace exhaust filter media. It is the filter division of PFS Spray Booths (pfsspraybooths.com), a paint booth builder in Santa Rosa, California, and ships within the United States.
+> PFS Filters (pfsfilters.com) is the online filter store of Platinum Finishing Systems. It ships paint booth filters throughout the United States from Santa Rosa, California: intake and ceiling diffusion media, tacky intake panels, fiberglass and accordion exhaust arrestors, paint pockets, roll media, pocket and bag filters, and aerospace exhaust filter media. Booth sales and service are through PFS Spray Booths (pfsspraybooths.com).
 
 ## Business facts
-- Business: PFS Filters, a division of PFS Spray Booths
+- Business: PFS Filters, the online filter store of Platinum Finishing Systems, a division of PFS Spray Booths
 - Address: 1400 Airport Blvd, Santa Rosa, CA 95403, United States
 - Phone: 855-496-7969
 - Service area: United States (online orders); booth sales and service via PFS Spray Booths
@@ -522,6 +521,9 @@ export function renderLlmsTxt() {
 - [Intake filters: tacky panels and pleats](${origin}/intake-filters)
 - [Ceiling filters for downdraft booths](${origin}/ceiling-filters)
 - [Prefilters](${origin}/prefilters)
+- [Downdraft and side-downdraft paint booth filters](${origin}/downdraft-booth-filters)
+- [Crossdraft paint booth filters](${origin}/crossdraft-booth-filters)
+- [Mobile and portable paint booth filters](${origin}/portable-paint-booth-filters)
 - [Filter finder by booth type, brand, and size](${origin}/filter-finder)
 - [Filter part number cross reference](${origin}/filter-part-numbers)
 - [Paint booth filter FAQ](${origin}/faq)

@@ -7,6 +7,7 @@ import {
   lowestPriceVariant,
   merchantReturnPolicy,
   normalizeOfferPrice,
+  isFreightProduct,
   offerShippingDetails,
   productOffer,
   resolveRouteSeo,
@@ -188,7 +189,7 @@ describe('document SEO limits', () => {
         availability: 'https://schema.org/InStock',
         url: `https://www.pfsfilters.com/product/${node.handle}`,
         description: node.title,
-        includeShipping: !/ltl|less than truckload/i.test(node.title),
+        includeShipping: !isFreightProduct(node),
       });
       expect(price, node.handle).toMatch(/^\d+\.\d{2}$/);
       expect(Number(price), node.handle).toBeGreaterThan(0);
@@ -198,7 +199,7 @@ describe('document SEO limits', () => {
       expect(offer).not.toHaveProperty('review');
       expect(offer).not.toHaveProperty('aggregateRating');
       expect(offer.description, node.handle).toBeTruthy();
-      if (/ltl|less than truckload/i.test(`${node.title}`)) {
+      if (isFreightProduct(node)) {
         expect(offer.shippingDetails, node.handle).toBeUndefined();
       } else {
         expect(offer.shippingDetails?.shippingRate?.value, node.handle).toBe('40.76');
@@ -226,7 +227,19 @@ describe('document SEO limits', () => {
     expect(redirects.get('/product/platinum/?')).toBe('/memberships');
     expect(redirects.get('/\\$/?$')).toBe('/');
     expect(redirects.get('^/category/pre-filters/?$')).toBe('/prefilters');
-    expect(redirects.get('^/(?:spraybooth-filters|spray-booth-filter)/?$')).toBe('/spray-booth-filters');
+    expect(redirects.get('^/guides/how-to-choose-booth-filters/?$')).toBe('/blog/how-to-choose-booth-filters');
+  });
+
+  it('omits the parcel rate when product text says freight, we will contact you', () => {
+    const product = { title: 'Cut pad', description: "Shipping is freight, we'll contact you about the truck." };
+    expect(isFreightProduct(product)).toBe(true);
+    const offer = productOffer({
+      price: '12.00',
+      description: product.title,
+      includeShipping: !isFreightProduct(product),
+    });
+    expect(offer.shippingDetails).toBeUndefined();
+    expect(JSON.stringify(offer)).not.toContain('40.76');
   });
 
   it('does not build indexable shop filter query URLs', () => {
@@ -264,6 +277,9 @@ describe('document SEO limits', () => {
       '/product/20x25-neshap-319-final-stage-panel-filter-20-cs',
       '/product/53x112-volz-sfr-ceiling-filter-blanket-4-bag',
       '/product/koch-spraystop-stk10-61x90-roll',
+      '/downdraft-booth-filters',
+      '/crossdraft-booth-filters',
+      '/portable-paint-booth-filters',
     ]) {
       expect(sitemap).toContain(`https://www.pfsfilters.com${path}`);
     }

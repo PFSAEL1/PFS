@@ -165,7 +165,7 @@ export const ROUTE_SEO = {
     description: 'Andreae accordion paint booth filters in the catalog: AF213, AF223, AF413, AF423 pads and AF813, AF923, AF113, AF123 rolls. Confirm the frame size.',
   },
   '/exhaust-filters': {
-    title: 'Paint Booth Exhaust Filters | PFS Filters',
+    title: 'Paint Booth Exhaust Filters: Pads & Rolls',
     description: 'Exhaust filters for paint booths: 15- and 22-gram fiberglass pads and rolls, Paint Pockets, and Andreae accordion sizes. Confirm the frame before ordering.',
   },
   '/intake-filters': {
@@ -173,8 +173,8 @@ export const ROUTE_SEO = {
     description: 'Paint booth intake filters for supply air: 300 Series tacky panels, 5KR1 panels, MERV 10 pleats, and a six-pocket bag. Confirm the inlet size first.',
   },
   '/ceiling-filters': {
-    title: 'Paint Booth Ceiling Filters | PFS Filters',
-    description: 'Ceiling filters for downdraft paint booths: L560 diffusion media and Swiss Flow 600G blankets in the sizes listed on each product page. Measure the grid.',
+    title: 'Ceiling Diffusion Media for Booths | PFS',
+    description: 'Ceiling diffusion media for downdraft paint booths: L560 and Swiss Flow 600G blankets in the sizes on each product page. Measure the ceiling grid.',
   },
   '/prefilters': {
     title: 'Paint Booth Prefilters Guide | PFS Filters',
@@ -302,6 +302,18 @@ export const ROUTE_SEO = {
     title: 'Paint Booth Filter Memberships | PFS Filters',
     description: 'Paint booth filter memberships from PFS Filters. Plan price, discount, and included tools are shown on this page. Confirm the current offer before you subscribe.',
   },
+  '/downdraft-booth-filters': {
+    title: 'Downdraft & Side Downdraft Filters | PFS',
+    description: 'Downdraft and side-downdraft paint booth filters: ceiling diffusion media, then floor, pit, or side-wall exhaust. Match the stage and the measured opening.',
+  },
+  '/crossdraft-booth-filters': {
+    title: 'Crossdraft Paint Booth Filters | PFS',
+    description: 'Crossdraft paint booth filters: intake filters at the doors or front wall, then exhaust pads or rolls on the rear filter wall. Confirm each measured opening.',
+  },
+  '/portable-paint-booth-filters': {
+    title: 'Mobile & Portable Paint Booth Filters | PFS',
+    description: 'Mobile and portable paint booth filters: stocked 20x20 and 20x25 pads, tacky panels, and rolls. No portable booth kit. Call 855-496-7969 if unsure.',
+  },
   '/best-paint-booth-filter-suppliers': {
     title: 'Choose a Paint Booth Filter Supplier | PFS',
     description: 'How to choose a paint booth filter supplier in the US: catalog media, a booth-brand directory, shipping from Santa Rosa, and quotes by phone. Not a ranking.',
@@ -416,12 +428,12 @@ const CATEGORY_SEO = {
     description: 'Tacky panel intake filters in the catalog include 300 Series and 5KR1 panels. Confirm the inlet opening and link or single-frame style before you order.',
   },
   'ceiling-blankets': {
-    title: 'Ceiling Diffusion Media Filters | PFS Filters',
-    description: 'Ceiling diffusion media filters for downdraft booths, including L560 and Swiss Flow 600G sizes listed on the product pages. Measure the ceiling grid first.',
+    title: 'Ceiling Diffusion Media Filters | PFS',
+    description: 'Ceiling diffusion media for downdraft booths, including L560 and Swiss Flow 600G sizes listed on the product pages. Measure the ceiling grid first.',
   },
   'roll-media': {
-    title: 'Paint Booth Filter Rolls | PFS Filters',
-    description: 'Paint booth filter rolls for exhaust banks and overspray, including fiberglass and Paint Pockets widths. Confirm the stage and the roll length first.',
+    title: 'Paint Booth Filter Rolls | Exhaust | PFS',
+    description: 'Exhaust filter rolls and paint booth filter rolls: fiberglass and Paint Pockets widths in the catalog. Confirm the stage and the roll length first.',
   },
   'merv-filters': {
     title: 'MERV Rated Paint Booth Filters | PFS Filters',
@@ -702,7 +714,7 @@ export function lowestPriceVariant(product) {
 export const CATALOG_PRICE_VALID_FROM = '2026-11-10';
 
 export function isFreightProduct(product) {
-  return /ltl|less than truckload/i.test(`${product?.title || ''} ${product?.description || ''}`);
+  return /ltl|less than truckload|freight,\s*we.?ll contact you/i.test(`${product?.title || ''} ${product?.description || ''}`);
 }
 
 export function productOffer({ price, currency = 'USD', availability, url, priceValidUntil: until, validFrom, description, includeShipping = true } = {}) {

@@ -42,6 +42,9 @@ const REQUIRED_URLS = [
   '/best-paint-booth-filter-suppliers',
   '/guides/paint-booth-filter-size',
   '/guides/paint-booth-filter-changeout',
+  '/downdraft-booth-filters',
+  '/crossdraft-booth-filters',
+  '/portable-paint-booth-filters',
 ];
 
 function sitemapUrls() {

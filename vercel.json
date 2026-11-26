@@ -118,6 +118,7 @@
     { "src": "^/collections/?$", "status": 301, "headers": { "Location": "/shop" } },
     { "src": "^/blogs(?:/.*)?$", "status": 301, "headers": { "Location": "/blog" } },
     { "src": "^/pages/about-us/?$", "status": 301, "headers": { "Location": "/why-choose-us" } },
+    { "src": "^/guides/how-to-choose-booth-filters/?$", "status": 301, "headers": { "Location": "/blog/how-to-choose-booth-filters" } },
     {
       "handle": "filesystem"
     },

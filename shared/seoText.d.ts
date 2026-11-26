@@ -55,6 +55,8 @@ declare module '@shared/seoText.mjs' {
     variants?: { edges?: Array<{ node?: { id?: string; sku?: string | null; price?: { amount?: string } } }> };
   } | null | undefined): { id?: string; sku?: string | null; price?: { amount?: string } } | null;
 
+  export function isFreightProduct(product: { title?: string; description?: string } | null | undefined): boolean;
+
   export function productOffer(input: {
     price?: unknown;
     currency?: string;
