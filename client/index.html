@@ -117,7 +117,7 @@
             "publisher": { "@id": "https://www.pfsfilters.com/#organization" }
           },
           {
-            "@type": ["Store", "LocalBusiness"],
+            "@type": ["OnlineStore", "Store"],
         "@id": "https://www.pfsfilters.com/#store",
         "name": "PFS Filters",
         "url": "https://www.pfsfilters.com/",
@@ -126,10 +126,12 @@
         "description": "Paint booth filters and industrial filtration products backed by the PFS Spray Booths team.",
         "telephone": "+1-855-496-7969",
         "priceRange": "$$",
-        "areaServed": [
-          { "@type": "Country", "name": "United States" },
-          { "@type": "State", "name": "California" }
-        ],
+        "areaServed": { "@type": "Country", "name": "United States" },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Paint booth filters",
+          "url": "https://www.pfsfilters.com/shop"
+        },
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "1400 Airport Blvd",

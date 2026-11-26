@@ -60,6 +60,7 @@ const AutomotivePaintBoothFilters = lazyRoute(() => import('./pages/AutomotivePa
 const IndustryLanding = lazyRoute(() => import('./pages/IndustryLanding'));
 const BulkPaintBoothFilters = lazyRoute(() => import('./pages/BulkPaintBoothFilters'));
 const BestPaintBoothFilterSuppliers = lazyRoute(() => import('./pages/BestPaintBoothFilterSuppliers'));
+const BoothAirflow = lazyRoute(() => import('./pages/BoothAirflow'));
 const ShopByBooth = lazyRoute(() => import('./pages/ShopByBooth'));
 const BrandDetail = lazyRoute(() => import('./pages/BrandDetail'));
 const ShopByBoothType = lazyRoute(() => import('./pages/ShopByBoothType'));
@@ -852,6 +853,9 @@ function Router() {
       <Route path="/filter-rotation-program" component={FilterRotationProgram} />
       <Route path="/bulk-paint-booth-filters" component={BulkPaintBoothFilters} />
       <Route path="/best-paint-booth-filter-suppliers" component={BestPaintBoothFilterSuppliers} />
+      <Route path="/downdraft-booth-filters" component={BoothAirflow} />
+      <Route path="/crossdraft-booth-filters" component={BoothAirflow} />
+      <Route path="/portable-paint-booth-filters" component={BoothAirflow} />
       <Route path="/memberships" component={Memberships} />
       <Route path="/returns" component={Returns} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
