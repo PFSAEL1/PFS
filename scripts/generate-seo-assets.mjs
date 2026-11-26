@@ -2812,7 +2812,7 @@ function replaceMeta(html, route) {
     ? fiberglassVsTackyBlogFallback()
     : route.path.startsWith('/product/')
     ? genericProductFallback(route)
-    : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}${strongPageLinks()}</div></main>`, route);
+    : `<main data-seo-fallback style="min-height:100vh;background:#040404;color:#fff;font-family:Arial,sans-serif;padding:48px 24px"><div style="max-width:880px;margin:0 auto"><p style="color:#60a5fa;font-weight:700">PFS FILTERS</p><h1 style="font-size:clamp(2rem,6vw,4rem);line-height:1.05">${heading}</h1><p style="max-width:760px;color:#c4c8d0;font-size:1.1rem;line-height:1.7">${description}</p>${detail}${imageMarkup}${pageCopyHtml(route.path)}${strongPageLinks()}</div></main>`, route);
   const nationalFallback = withNationalLine(fallback);
   const pageBody = route.noindex
     ? nationalFallback
@@ -2878,6 +2878,9 @@ function validateDistPages() {
     const html = fs.readFileSync(file, 'utf8');
     const words = mainFallbackWordCount(html);
     if (words < 250) thin.push({ path: route.path, words });
+    if (route.path === '/ceiling-filters' && words < 1283) {
+      throw new Error(`/ceiling-filters prerender dropped to ${words} words`);
+    }
     const scripts = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)].map((match) => JSON.parse(match[1]));
     const flat = scripts.flatMap((script) => script['@graph'] || [script]);
     if (isGuidePath(route.path) && !flat.some((node) => node.dateModified === route.lastmod)) {
